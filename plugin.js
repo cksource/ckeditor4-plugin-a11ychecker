@@ -13,6 +13,8 @@
 	'use strict';
 
 	var pluginName = 'a11ychecker',
+		// Path to QUAIL directory, relative to plugin.js tailed with "/".
+		quailDirectory = 'bower_components/quail/',
 		// Should A11ychecker toolbar be hidden on run.
 		cfgStartHidden = true;
 
@@ -30,7 +32,7 @@
 		init: function( editor ) {
 			// Create protected namespace.
 			editor._.a11ychecker = {
-				basePath: CKEDITOR.getUrl( this.path + 'quail/' ),
+				basePath: CKEDITOR.getUrl( this.path + quailDirectory ),
 				disableFilterStrip: true,
 				issues: new CKEDITOR.plugins.a11ychecker.Issues( editor )
 			};
@@ -229,7 +231,7 @@
 
 		// Loads external JavaScript libs.
 		loadJs: function() {
-			var quailPath = CKEDITOR.getUrl( this.path + 'bower_components/quail/' ),
+			var quailPath = CKEDITOR.getUrl( this.path + quailDirectory ),
 				jQueryPath = quailPath + 'lib/jquery/jquery.js',
 				quailPath = quailPath + 'dist/quail.jquery.js';
 
