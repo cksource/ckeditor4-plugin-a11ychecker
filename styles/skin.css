@@ -1,0 +1,50 @@
+
+/* skins / dialog.css */
+
+.typeTitle {
+	font-weight: bolder;
+	font-size: 1.3em;
+	margin-bottom: 12px;
+}
+
+.typeTitle, .typeDesc {
+	white-space: pre;
+	word-break: break-word;
+}
+
+.typeQuickfixes {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.quickfix_icon {
+	padding: 2px;
+	border: 1px solid #3d3d3d;
+	border-radius: 4px;
+	display: inline-block;
+	margin-right: 12px;
+}
+
+.quickfix_icon:hover {
+	background-color: rgba( 0,0,0, 0.1 );
+}
+
+.quickfix_icon:hover, .quickfix_icon:hover img{
+	cursor: pointer !important;
+}
+
+/* skins / toolbar.css */
+
+.cke_a11ychecker_toolbox{
+	display:block;
+	background: rgba(255,255,255,0.3);
+	clear: left;
+	overflow: auto;
+}
+
+.cke_a11ychecker_toolbox select {
+	min-width: 50px;
+	background: #f9f9f9;
+	float: left;
+	margin: 5px 10px;
+}

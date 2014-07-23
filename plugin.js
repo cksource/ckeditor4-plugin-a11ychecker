@@ -23,7 +23,8 @@
 		hidpi: true, // %REMOVE_LINE_CORE%
 
 		onLoad: function() {
-			this.loadDependencies();
+			this.loadJs();
+			this.loadCss();
 		},
 
 		init: function( editor ) {
@@ -174,6 +175,9 @@
 				};
 			} );
 
+			// Insert contents CSS.
+			editor.addContentsCss( this.path + 'styles/contents.css' );
+
 			this._createToolbox( editor );
 		},
 
@@ -223,11 +227,11 @@
 			} );
 		},
 
-		// Loads external libs.
-		loadDependencies: function() {
-			var basePath = CKEDITOR.getUrl( this.path + 'bower_components/quail/' ),
-				jQueryPath = basePath + 'lib/jquery/jquery.js',
-				quailPath = basePath + 'dist/quail.jquery.js';
+		// Loads external JavaScript libs.
+		loadJs: function() {
+			var quailPath = CKEDITOR.getUrl( this.path + 'bower_components/quail/' ),
+				jQueryPath = quailPath + 'lib/jquery/jquery.js',
+				quailPath = quailPath + 'dist/quail.jquery.js';
 
 			CKEDITOR.scriptLoader.load(  jQueryPath, function() {
 				console.log( 'jqueryu loaded' );
@@ -251,6 +255,19 @@
 			for (var i=0; i < syncDependencies.length; i++) {
 				CKEDITOR.scriptLoader.load( this.path + syncDependencies[ i ], dependenciesCallbacks[ syncDependencies[ i ] ] );
 			}
+		},
+
+		// Loads global CSS, mainly needed for skin.
+		loadCss: function() {
+			var doc = CKEDITOR.document,
+				node = doc.createElement( 'link', {
+					attributes: {
+						rel: 'stylesheet',
+						href: this.path + 'styles/skin.css'
+					}
+				} );
+
+			doc.getHead().append( node );
 		}
 	} );
 
