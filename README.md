@@ -19,6 +19,22 @@ npm install
 grunt build
 ```
 
+### Tests installation
+
+Create a symbolic link
+
+Linux:
+
+```bash
+ln -s $CKEDITOR_DEV_PATH/plugins/a11ychecker/tests/plugins/a11ychecker $CKEDITOR_DEV_PATH/tests/plugins/a11ychecker
+```
+
+Windows (run cli as administrator):
+
+```bat
+mklink /D "%CKEDITOR_DEV_PATH%/tests/plugins/a11ychecker" "%CKEDITOR_DEV_PATH%/plugins/a11ychecker/tests/plugins/a11ychecker"
+```
+
 ### License
 
 @todo
