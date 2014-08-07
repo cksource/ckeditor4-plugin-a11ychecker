@@ -1,3 +1,4 @@
 node_modules
 .bender/*
 bender-*.log
+bower_components
