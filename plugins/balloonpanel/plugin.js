@@ -89,6 +89,8 @@
 		this.ui.panel.append( this.ui.triangle );
 		this.ui.panel.append( this.ui.content );
 
+		this.ui.panel.unselectable();
+
 		this.rect = {};
 		this.move( DEFAULT_LEFT, DEFAULT_TOP );
 		this.resize( DEFAULT_WIDTH, DEFAULT_HEIGHT );
@@ -158,6 +160,8 @@
 
 			elementRect.top = frameRect.top + elementRect.top + winGlobalScroll.y;
 			elementRect.left = frameRect.left + elementRect.left + winGlobalScroll.x;
+			elementRect.right = elementRect.left + elementRect.width;
+			elementRect.bottom = elementRect.top + elementRect.height;
 		}
 
 		return elementRect;
