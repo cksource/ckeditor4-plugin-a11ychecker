@@ -45,6 +45,10 @@
 				};
 			} )( editor );
 
+			editor._.a11ychecker.balloon = new CKEDITOR.ui.balloonPanel( editor, {
+				title: 'Accessibility checker demo'
+			} );
+
 			this.guiRegister( editor );
 			this.commandRegister( editor );
 			// We may combine two functions below.
@@ -81,6 +85,9 @@
 						console.log( 'show quickfixes for ', target );
 
 						var offset = editor._.a11ychecker.issues.getIssueIndexByElement( target );
+
+						editor._.a11ychecker.balloon.show();
+						editor._.a11ychecker.balloon.attach( target );
 
 						if ( offset !== null ) {
 							console.log( 'identified offset: ' + offset );
