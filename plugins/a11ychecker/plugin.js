@@ -82,7 +82,7 @@
 				editor.document.on( 'click', function( evt ) {
 					var target = evt.data.getTarget();
 					if ( target.hasClass( 'cke_a11ychecker_error' ) ) {
-						console.log( 'show quickfixes for ', target );
+						//console.log( 'show quickfixes for ', target );
 
 						var offset = editor._.a11ychecker.issues.getIssueIndexByElement( target );
 
@@ -90,7 +90,7 @@
 						editor._.a11ychecker.balloon.attach( target );
 
 						if ( offset !== null ) {
-							console.log( 'identified offset: ' + offset );
+							//console.log( 'identified offset: ' + offset );
 							editor._.a11ychecker.issues.moveTo( offset );
 						}
 					}
@@ -117,7 +117,7 @@
 						} );
 
 						if ( closestErrorParent ) {
-							console.log( 'parent found', closestErrorParent );
+							//console.log( 'parent found', closestErrorParent );
 							evt.stop();
 							evt.cancel();
 							CKEDITOR.plugins.a11ychecker.displayTooltip( editor, closestErrorParent );
@@ -243,10 +243,10 @@
 				quailPath = quailPath + 'dist/quail.jquery.js';
 
 			CKEDITOR.scriptLoader.load(  jQueryPath, function() {
-				console.log( 'jqueryu loaded' );
+				//console.log( 'jqueryu loaded' );
 				// Quail requires jQuery first.
 				CKEDITOR.scriptLoader.load( quailPath, function() {
-					console.log( 'quail loaded' );
+					//console.log( 'quail loaded' );
 					// Marks that external scripts has been loaded.
 					// quailLoaded = true;
 				} );
@@ -256,7 +256,7 @@
 			var syncDependencies = [ 'UiComponent.js', 'Ui.js', 'Issues.js', 'Controller.js', 'Quickfix.js' ],
 				dependenciesCallbacks = {
 					'Issues.js': function() {
-						console.log( 'issues loaded' );
+						//console.log( 'issues loaded' );
 					}
 				},
 				customCallback;
@@ -293,7 +293,7 @@
 			curFocusedElement;
 
 		if ( issues.issuesCount == 0 ) {
-			console.log( 'no issues :(' );
+			//console.log( 'no issues :(' );
 			return;
 		}
 
@@ -317,7 +317,7 @@
 			curFocusedElement;
 
 		if ( issues.issuesCount == 0 ) {
-			console.log( 'no issues :(' );
+			//console.log( 'no issues :(' );
 			return;
 		}
 
@@ -372,7 +372,7 @@
 			return;
 		}
 
-		console.log( 'fixing issue...' );
+		//console.log( 'fixing issue...' );
 		CKEDITOR.plugins.a11ychecker.displayTooltip( editor, focusedIssue );
 	};
 
@@ -380,7 +380,7 @@
 	 * Displays a tooltip for given node.
 	 */
 	CKEDITOR.plugins.a11ychecker.displayTooltip = function( editor, element ) {
-		console.log('tooltip for ', element);
+		//console.log('tooltip for ', element);
 
 		var namespace = editor._.a11ychecker,
 			type = namespace.issues.getIssueTypeByElement( element );
@@ -532,14 +532,14 @@
 					} );
 				} );
 
-				console.log( 'Issued problems:', errors );
+				//console.log( 'Issued problems:', errors );
 				//console.log( 'Problem issued (filtered:)', errors.map( function( el, index ) {
 				//	return [ el.element.$, el.type ];
 				//} ) );
 			}
 		};
 
-		console.log( 'performing quail test' );
+		//console.log( 'performing quail test' );
 		$( elem.$ ).quail( quailConfig );
 	};
 
