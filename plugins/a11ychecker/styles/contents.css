@@ -1,0 +1,12 @@
+
+.cke_contents_ltr .cke_a11ychecker_error {
+	outline: 3px solid rgb(255, 160, 160) !important;
+	padding: 2px;
+	font-style: italic;
+	background-color: rgba( 255,0,0, 0.1 ) !important;
+}
+
+.cke_contents_ltr .cke_a11ychecker_error.cke_a11y_focused {
+	outline: 3px solid rgb(228, 123, 9) !important;
+	background-color: rgba(224, 136, 41, 0.3) !important;
+}
