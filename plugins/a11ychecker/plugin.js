@@ -86,7 +86,6 @@
 
 						var offset = editor._.a11ychecker.issues.getIssueIndexByElement( target );
 
-						editor._.a11ychecker.balloon.show();
 						editor._.a11ychecker.balloon.attach( target );
 
 						if ( offset !== null ) {

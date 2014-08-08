@@ -19,6 +19,7 @@
 				' lang="{langCode}"' +
 				' role="dialog"' +
 				' style="{style}"' +
+				' tabindex="-1"' +
 				' aria-labelledby="cke_{name}_arialbl"' +
 			'></div>',
 
@@ -75,21 +76,26 @@
 			} ) ),
 
 			content: CKEDITOR.dom.element.createFromHtml( templates.content.output( {
-				content: 'foo'
+				content: 'foo<input>'
 			} ) ),
 
 			triangle: CKEDITOR.dom.element.createFromHtml( templates.triangle.output() )
 		};
 
 		this.ui.close.on( 'click', this.hide, this );
-		editor.focusManager.add( this.ui.panel );
 
 		this.ui.panel.append( this.ui.title, 1 );
 		this.ui.panel.append( this.ui.close, 1 );
 		this.ui.panel.append( this.ui.triangle );
 		this.ui.panel.append( this.ui.content );
 
-		this.ui.panel.unselectable();
+		editor.focusManager.add( this.ui.panel );
+		this.ui.panel.forEach( function( element ) {
+			editor.focusManager.add( element );
+		} );
+
+		this.ui.title.unselectable();
+		this.ui.close.unselectable();
 
 		this.rect = {};
 		this.move( DEFAULT_LEFT, DEFAULT_TOP );
@@ -111,6 +117,7 @@
 				return;
 
 			this.ui.panel.hide();
+			this.env.editor.focus();
 			this.rect.visible = false;
 		},
 		move: function( left, top ) {
@@ -123,12 +130,15 @@
 			} );
 		},
 		attach: function( element ) {
+			this.show();
+
 			var elementRect = getAbsoluteRect( element, this.env );
 
 			var left = elementRect.left + elementRect.width / 2 - this.getWidth() / 2,
 				top = elementRect.top - this.getHeight();
 
 			this.move( left, top - TRIANGLE_HEIGHT );
+			this.ui.panel.focus();
 		},
 		resize: function( width, height ) {
 			this.rect.width = width;
