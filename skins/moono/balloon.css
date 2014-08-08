@@ -19,6 +19,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	-moz-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
 	-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .15);
 	box-shadow: 0 0 3px rgba(0, 0, 0, .15);
+
+	outline: none;
 }
 
 .cke_balloon_title
@@ -113,19 +115,96 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 .cke_balloon_triangle_inner
 {
-	border-width: 19px 19px 0;
-	border-color: #fff transparent;
 	z-index: 0;
-	top: -20px;
-	left: -19px;
 }
 
 .cke_balloon_triangle_outer
 {
-	border-width: 20px 20px 0;
-	border-color: #6B6B6B transparent;
 	z-index: 0;
-	bottom: -20px;
+}
+
+/* Bottom & top */
+.cke_balloon_triangle_bottom.cke_balloon_triangle_outer,
+.cke_balloon_triangle_top.cke_balloon_triangle_outer
+{
+	border-color: #6B6B6B transparent;
 	left: 50%;
 	margin-left: -20px;
+}
+
+.cke_balloon_triangle_bottom.cke_balloon_triangle_inner,
+.cke_balloon_triangle_top.cke_balloon_triangle_inner
+{
+	left: -20px;
+}
+
+/* Left & right */
+.cke_balloon_triangle_left.cke_balloon_triangle_outer,
+.cke_balloon_triangle_right.cke_balloon_triangle_outer
+{
+	border-color: transparent #6B6B6B;
+	top: 50%;
+	margin-top: -7px;
+}
+
+.cke_balloon_triangle_left.cke_balloon_triangle_inner,
+.cke_balloon_triangle_right.cke_balloon_triangle_inner
+{
+	border-color: transparent #fff;
+	top: -20px;
+}
+
+/* Bottom */
+.cke_balloon_triangle_bottom.cke_balloon_triangle_outer
+{
+	border-width: 20px 20px 0;
+	bottom: -20px;
+}
+
+.cke_balloon_triangle_bottom.cke_balloon_triangle_inner
+{
+	border-color: #fff transparent;
+	border-width: 20px 20px 0;
+	top: -21px;
+}
+
+/* Top */
+.cke_balloon_triangle_top.cke_balloon_triangle_outer
+{
+	border-width: 0 20px 20px;
+	top: -20px;
+}
+
+.cke_balloon_triangle_top.cke_balloon_triangle_inner
+{
+	border-color: #f5f5f5 transparent;
+	border-width: 0 20px 20px;
+	top: 1px;
+}
+
+/* Left */
+.cke_balloon_triangle_left.cke_balloon_triangle_outer
+{
+	border-width: 20px 20px 20px 0;
+	left: -20px;
+}
+
+.cke_balloon_triangle_left.cke_balloon_triangle_inner
+{
+	border-color: transparent #fff;
+	border-width: 20px 20px 20px 0;
+	left: 1px;
+}
+
+/* Right */
+.cke_balloon_triangle_right.cke_balloon_triangle_outer
+{
+	border-width: 20px 0 20px 20px;
+	right: -20px;
+}
+
+.cke_balloon_triangle_right.cke_balloon_triangle_inner
+{
+	border-width: 20px 0 20px 20px;
+	right: 1px;
 }

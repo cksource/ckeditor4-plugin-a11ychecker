@@ -35,19 +35,28 @@
 				'<span class="cke_label">X</span>' +
 			'</a>',
 
-		triangle:
-			'<span class="cke_balloon_triangle cke_balloon_triangle_outer"><span class="cke_balloon_triangle cke_balloon_triangle_inner">&#8203;</span></span>'
+		triangle: {
+			outer: '<span class="cke_balloon_triangle cke_balloon_triangle_outer"></span>',
+			inner: '<span class="cke_balloon_triangle cke_balloon_triangle_inner">&#8203;</span>'
+		}
 	};
 
-	// Make each of template strings an instance of CKEDITOR.template.
-	for ( var t in templates )
-		templates[ t ] = new CKEDITOR.template( templates[ t ] );
+	( function generateTemplates( templates ) {
+		// Make each of template strings an instance of CKEDITOR.template.
+		for ( var t in templates ) {
+			if ( typeof templates[ t ] == 'string' )
+				templates[ t ] = new CKEDITOR.template( templates[ t ] );
+			else
+				generateTemplates( templates[ t ] );
+		}
+	} )( templates );
 
-	var DEFAULT_WIDTH = 360,
-		DEFAULT_HEIGHT = null,
-		DEFAULT_LEFT = 0,
-		DEFAULT_TOP = 0,
-		TRIANGLE_HEIGHT = 20;
+	var DEFAULT_RECT_WIDTH = 360,
+		DEFAULT_RECT_HEIGHT = null,
+		DEFAULT_RECT_LEFT = 0,
+		DEFAULT_RECT_TOP = 0,
+		DEFAULT_TRIANGLE_HEIGHT = 20,
+		DEFAULT_TRIANGLE_SIDE = 'bottom';
 
 	/**
 	 * A class which represents a floating, balloon-shaped panel capable of holding defined
@@ -96,17 +105,28 @@
 			} ) ),
 
 			content: CKEDITOR.dom.element.createFromHtml( templates.content.output( {
-				content: 'foo<input>'
+				content:
+					'<p>foo</p>' +
+					'<input>' +
+					'<p>bar</p>' +
+					'<p>ping-pong</p>' +
+					'<p>ping-pong</p>' +
+					'<p>ping-pong</p>' +
+					'<p>ping-pong</p>'
 			} ) ),
 
-			triangle: CKEDITOR.dom.element.createFromHtml( templates.triangle.output() )
+			triangle: {
+				outer: CKEDITOR.dom.element.createFromHtml( templates.triangle.outer.output() ),
+				inner: CKEDITOR.dom.element.createFromHtml( templates.triangle.inner.output() ),
+			}
 		};
 
 		// Append UI elements to create a panel.
 		this.ui.panel.append( this.ui.title, 1 );
 		this.ui.panel.append( this.ui.close, 1 );
-		this.ui.panel.append( this.ui.triangle );
+		this.ui.panel.append( this.ui.triangle.outer );
 		this.ui.panel.append( this.ui.content );
+		this.ui.triangle.outer.append( this.ui.triangle.inner );
 
 		// Register panel children to focusManager (prevent from blurring the editor).
 		editor.focusManager.add( this.ui.panel );
@@ -188,8 +208,9 @@
 		this.rect = {};
 
 		// Move the panel and resize to default values.
-		this.move( DEFAULT_LEFT, DEFAULT_TOP );
-		this.resize( DEFAULT_WIDTH, DEFAULT_HEIGHT );
+		this.move( DEFAULT_RECT_LEFT, DEFAULT_RECT_TOP );
+		this.resize( DEFAULT_RECT_WIDTH, DEFAULT_RECT_HEIGHT );
+		this.triangle( DEFAULT_TRIANGLE_SIDE );
 
 		// Append the panel to the global document.
 		CKEDITOR.document.getBody().append( this.ui.panel );
@@ -259,7 +280,7 @@
 				left = elementRect.left + elementRect.width / 2 - this.getWidth() / 2,
 				top = elementRect.top - this.getHeight();
 
-			this.move( left, top - TRIANGLE_HEIGHT );
+			this.move( left, top - DEFAULT_TRIANGLE_HEIGHT );
 			this.ui.panel.focus();
 			this.ui.panel.focus();
 		},
@@ -300,6 +321,18 @@
 		 */
 		getHeight: function() {
 			return this.rect.height === null ? this.ui.panel.getClientRect().height : this.rect.height;
+		},
+
+		triangle: function( side ) {
+			if ( this.triangleSide ) {
+				this.ui.triangle.outer.removeClass( 'cke_balloon_triangle_' + this.triangleSide );
+				this.ui.triangle.inner.removeClass( 'cke_balloon_triangle_' + this.triangleSide );
+			}
+
+			this.triangleSide = side;
+
+			this.ui.triangle.outer.addClass( 'cke_balloon_triangle_' + side );
+			this.ui.triangle.inner.addClass( 'cke_balloon_triangle_' + side );
 		}
 	};
 

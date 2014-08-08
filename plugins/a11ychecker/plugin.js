@@ -46,7 +46,7 @@
 			} )( editor );
 
 			editor._.a11ychecker.balloon = new CKEDITOR.ui.balloonPanel( editor, {
-				title: 'Accessibility checker demo'
+				title: 'Accessibility checker'
 			} );
 
 			this.guiRegister( editor );
