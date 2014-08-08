@@ -115,20 +115,65 @@
 		} );
 
 		// Hide the panel once the closing X is clicked.
-		this.ui.close.on( 'click', this.hide, this );
+		this.ui.close.on( 'click', function( evt ) {
+			this.blur();
+			this.detach();
+			this.hide();
+			evt.data.preventDefault();
+		}, this );
 
 		// Hide the panel on editor blur.
-		editor.on( 'blur', this.hide, this );
+		editor.on( 'blur', function() {
+			this.detach();
+			this.hide();
+		}, this );
+
+		// Hide the panel on editor resize.
+		editor.on( 'resize', function() {
+			this.blur();
+			this.detach();
+			this.hide();
+		}, this );
 
 		// Hide the panel once blurred.
-		this.ui.panel.on( 'blur', this.hide, this );
+		this.ui.panel.on( 'blur', function( evt ) {
+			var target = new CKEDITOR.dom.element( evt.data.$.relatedTarget || evt.data.$.toElement );
+
+			// Make sure the focus has moved out of the panel.
+			if ( !this.ui.panel.contains( target ) && !this.ui.panel.equals( target ) ) {
+				this.detach();
+				this.hide();
+			}
+		}, this );
 
 		this.ui.panel.on( 'keydown', function( evt ) {
 			var keystroke = evt.data.getKeystroke();
 
 			// Hide the panel on ESC key press.
-			if ( keystroke == 27 )
+			if ( keystroke == 27 ) {
+				this.blur();
+				this.detach();
 				this.hide();
+				evt.data.preventDefault();
+			}
+		}, this );
+
+		// Follow attached element on window scroll.
+		editor.on( 'contentDom', function() {
+			this.env.winEditor.on( 'scroll', function() {
+				if ( !this.attached || this.env.inline ) {
+					return;
+				}
+
+				var attachedRect = this.attached.getClientRect();
+
+				// Show the panel as long as the top edge of en element is visible.
+				if ( attachedRect.top <= 0 ) {
+					this.blur();
+					this.detach();
+					this.hide();
+				}
+			}, this );
 		}, this );
 
 		// Panel title and close button are not to be selected.
@@ -155,23 +200,28 @@
 		 * Shows the panel.
 		 */
 		show: function() {
-			if ( this.rect.visible )
+			if ( this.rect.visible ) {
 				return;
+			}
 
-			this.ui.panel.show();
 			this.rect.visible = true;
+			this.ui.panel.show();
 		},
 
 		/**
 		 * Hides the panel and moves the focus back to editable.
 		 */
-		hide: function() {
-			if ( !this.rect.visible )
+		hide: function( dontBlur, dontDetach ) {
+			if ( !this.rect.visible ) {
 				return;
+			}
 
-			this.ui.panel.hide();
-			this.env.editor.focus();
 			this.rect.visible = false;
+			this.ui.panel.hide();
+		},
+
+		blur: function() {
+			this.env.editor.focus();
 		},
 
 		/**
@@ -197,15 +247,25 @@
 		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
 		 */
 		attach: function( element ) {
+			if ( !element.getParent() ) {
+				this.detach();
+				return;
+			}
+
+			this.attached = element;
 			this.show();
 
-			var elementRect = getAbsoluteRect( element, this.env );
-
-			var left = elementRect.left + elementRect.width / 2 - this.getWidth() / 2,
+			var elementRect = getAbsoluteRect( element, this.env ),
+				left = elementRect.left + elementRect.width / 2 - this.getWidth() / 2,
 				top = elementRect.top - this.getHeight();
 
 			this.move( left, top - TRIANGLE_HEIGHT );
 			this.ui.panel.focus();
+			this.ui.panel.focus();
+		},
+
+		detach: function() {
+			this.attached = null;
 		},
 
 		/**
