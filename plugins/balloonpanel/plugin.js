@@ -108,14 +108,28 @@
 		this.ui.panel.append( this.ui.triangle );
 		this.ui.panel.append( this.ui.content );
 
-		// Hide the panel once the closing X is clicked.
-		this.ui.close.on( 'click', this.hide, this );
-
 		// Register panel children to focusManager (prevent from blurring the editor).
 		editor.focusManager.add( this.ui.panel );
 		this.ui.panel.forEach( function( element ) {
 			editor.focusManager.add( element );
 		} );
+
+		// Hide the panel once the closing X is clicked.
+		this.ui.close.on( 'click', this.hide, this );
+
+		// Hide the panel on editor blur.
+		editor.on( 'blur', this.hide, this );
+
+		// Hide the panel once blurred.
+		this.ui.panel.on( 'blur', this.hide, this );
+
+		this.ui.panel.on( 'keydown', function( evt ) {
+			var keystroke = evt.data.getKeystroke();
+
+			// Hide the panel on ESC key press.
+			if ( keystroke == 27 )
+				this.hide();
+		}, this );
 
 		// Panel title and close button are not to be selected.
 		this.ui.title.unselectable();
