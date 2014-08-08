@@ -141,7 +141,7 @@ CKEDITOR.plugins.a11ychecker.AnchorSiblingMerge = CKEDITOR.tools.createClass( {
 				extraInnerHtml = '';
 
 			while ( nextSibling && nextSibling.getName && nextSibling.getName() == 'a' && nextSibling.getAttribute( 'href' ) == initialHref ) {
-				console.log( 'found similar' );
+				// console.log( 'found similar' );
 				// This html will be added later on to first anchor.
 				extraInnerHtml += nextSibling.getHtml();
 
@@ -209,5 +209,5 @@ CKEDITOR.plugins.a11ychecker.ElementRemovefix = CKEDITOR.tools.createClass( {
 		}
 	}
 
-	console.log( 'fix mapping', fixMapping );
+	// console.log( 'fix mapping', fixMapping );
 }());
