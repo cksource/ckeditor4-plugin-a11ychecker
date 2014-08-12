@@ -56,6 +56,7 @@
 		DEFAULT_RECT_LEFT = 0,
 		DEFAULT_RECT_TOP = 0,
 		DEFAULT_TRIANGLE_HEIGHT = 20,
+		DEFAULT_TRIANGLE_WIDTH = 20,
 		DEFAULT_TRIANGLE_SIDE = 'bottom';
 
 	/**
@@ -181,18 +182,9 @@
 		// Follow attached element on window scroll.
 		editor.on( 'contentDom', function() {
 			this.env.winEditor.on( 'scroll', function() {
-				if ( !this.attached || this.env.inline ) {
-					return;
-				}
-
-				var attachedRect = this.attached.getClientRect();
-
-				// Show the panel as long as the top edge of en element is visible.
-				if ( attachedRect.top <= 0 ) {
-					this.blur();
-					this.detach();
-					this.hide();
-				}
+				this.blur();
+				this.detach();
+				this.hide();
 			}, this );
 		}, this );
 
@@ -273,15 +265,112 @@
 				return;
 			}
 
+			var attachTo = {
+				top: function() {
+					var left = elementRect.left + elementRect.width / 2 - panelWidth / 2,
+						top = elementRect.top - panelHeight;
+
+					this.triangle( 'bottom' );
+					this.move( left, top - DEFAULT_TRIANGLE_HEIGHT );
+				},
+
+				bottom: function() {
+					var left = elementRect.left + elementRect.width / 2 - panelWidth / 2,
+						top = elementRect.bottom;
+
+					this.triangle( 'top' );
+					this.move( left, top + DEFAULT_TRIANGLE_HEIGHT );
+				},
+
+				left: function() {
+					var left = elementRect.left - panelWidth,
+						top = elementRect.top + elementRect.height / 2 - panelHeight / 2;
+
+					this.triangle( 'right' );
+					this.move( left - DEFAULT_TRIANGLE_WIDTH, top );
+				},
+
+				right: function() {
+					var left = elementRect.right,
+						top = elementRect.top + elementRect.height / 2 - panelHeight / 2;
+
+					this.triangle( 'left' );
+					this.move( left + DEFAULT_TRIANGLE_WIDTH, top );
+				}
+			};
+
 			this.attached = element;
 			this.show();
 
-			var elementRect = getAbsoluteRect( element, this.env ),
-				left = elementRect.left + elementRect.width / 2 - this.getWidth() / 2,
-				top = elementRect.top - this.getHeight();
+			var panelWidth = this.getWidth(),
+				panelHeight = this.getHeight(),
 
-			this.move( left, top - DEFAULT_TRIANGLE_HEIGHT );
-			this.ui.panel.focus();
+				viewPaneSize = this.env.winGlobal.getViewPaneSize(),
+				elementRect = getAbsoluteRect( element, this.env ),
+				side;
+
+			if ( !this.env.inline ) {
+				var frameRect = getAbsoluteRect( this.env.frame, this.env );
+
+				// If neither left nor right.
+				if ( elementRect.right + ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) > frameRect.right &&
+					elementRect.left - ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) < frameRect.left ) {
+					if ( ( panelHeight + DEFAULT_TRIANGLE_HEIGHT ) > elementRect.top - frameRect.top ) {
+						//console.log( 'a' );
+						side = 'bottom';
+					} else {
+						//console.log( 'b' );
+						side = 'top';
+					}
+				}
+				// If left or right.
+				else {
+					if ( elementRect.right + ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) > frameRect.right ) {
+						//console.log( 'c' );
+						side = 'left';
+					} else {
+						//console.log( 'd' );
+						side = 'right';
+					}
+
+					// Top edge of an element above the top edge of the frame viewport.
+					if ( ( elementRect.top + elementRect.height / 2 ) - frameRect.top < panelHeight / 2 ) {
+						//console.log( 'e' );
+						side = 'bottom';
+					}
+
+					// Bottom edge of an element below the bottom edge of the frame viewport.
+					if ( frameRect.bottom - ( elementRect.top + elementRect.height / 2 ) < panelHeight / 2 ) {
+						//console.log( 'f' );
+						side = 'top';
+					}
+				}
+			} else {
+				// If neither left nor right
+				if ( elementRect.right + ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) > viewPaneSize.width &&
+					elementRect.left - ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) < 0 ) {
+					if ( elementRect.top - ( panelHeight + DEFAULT_TRIANGLE_HEIGHT ) < 0 ) {
+						//console.log( 'g' );
+						side = 'bottom';
+					} else {
+						//console.log( 'h' );
+						side = 'top';
+					}
+				}
+				// If left or right.
+				else {
+					if ( elementRect.right + ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) > viewPaneSize.width ) {
+						//console.log( 'i' );
+						side = 'left';
+					} else {
+						//console.log( 'j' );
+						side = 'right';
+					}
+				}
+			}
+
+			attachTo[ side ].call( this );
+
 			this.ui.panel.focus();
 		},
 
@@ -343,9 +432,11 @@
 		var elementRect = element.getClientRect(),
 			winGlobalScroll = env.winGlobal.getScrollPosition();
 
-		if ( env.inline ) {
+		if ( env.inline || element.equals( env.frame ) ) {
 			elementRect.top = elementRect.top + winGlobalScroll.y;
 			elementRect.left = elementRect.left + winGlobalScroll.x;
+			elementRect.right = elementRect.left + elementRect.width;
+			elementRect.bottom = elementRect.top + elementRect.height;
 		} else {
 			var winEditorScroll = env.winEditor.getScrollPosition(),
 				frameRect = env.frame.getClientRect();
