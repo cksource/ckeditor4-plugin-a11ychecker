@@ -19,7 +19,7 @@
 		cfgStartHidden = true;
 
 	CKEDITOR.plugins.add( pluginName, {
-		requires: 'dialog',
+		requires: 'dialog,balloonpanel',
 		lang: 'en', // %REMOVE_LINE_CORE%
 		icons: pluginName, // %REMOVE_LINE_CORE%
 		hidpi: true, // %REMOVE_LINE_CORE%
@@ -45,7 +45,7 @@
 				};
 			} )( editor );
 
-			editor._.a11ychecker.balloon = new CKEDITOR.ui.balloonPanel( editor, {
+			editor._.a11ychecker.viewer = new CKEDITOR.plugins.a11ychecker.viewer( editor, {
 				title: 'Accessibility checker'
 			} );
 
@@ -86,7 +86,7 @@
 
 						var offset = editor._.a11ychecker.issues.getIssueIndexByElement( target );
 
-						editor._.a11ychecker.balloon.attach( target );
+						editor._.a11ychecker.viewer.showError( target );
 
 						if ( offset !== null ) {
 							//console.log( 'identified offset: ' + offset );
@@ -281,6 +281,92 @@
 
 	CKEDITOR.plugins.a11ychecker = {};
 
+	/**
+	 * A class which is responsible for creating the end-user interface – a panel
+	 * which allows to browse and fix errors in the contents. The panel is built
+	 * upon the {@link CKEDITOR.ui.balloonPanel}.
+	 *
+	 * @class
+	 * @since 4.5
+	 * @param {CKEDITOR.editor} editor The editor instance for which the panel is created.
+	 * @param {Object} def An object containing panel definition.
+	 */
+	CKEDITOR.plugins.a11ychecker.viewer = function( editor, def ) {
+		this._ = {
+			panel: new CKEDITOR.ui.balloonPanel( editor, def )
+		};
+
+		this.templates = {
+			bar: new CKEDITOR.template( '<div class="cke_a11yc_bar"></div>' ),
+			previous: new CKEDITOR.template( '<a href="javascript:void(0)" title="Previous" hidefocus="true" class="cke_a11yc_button cke_a11yc_previous" role="button">' +
+				'<span class="cke_a11yc_button">Previous</span>' +
+			'</a>' ),
+			next: new CKEDITOR.template( '<a href="javascript:void(0)" title="Next" hidefocus="true" class="cke_a11yc_button cke_a11yc_next" role="button">' +
+				'<span class="cke_a11yc_button">Next</span>' +
+			'</a>' ),
+		};
+
+		this.ui = {
+			navigation: {
+				/**
+				 * The navigation bar.
+				 *
+				 * @readonly
+				 * @member CKEDITOR.plugins.a11ychecker.viewer.ui.navigation
+				 * @property {CKEDITOR.dom.element} bar
+				 */
+				bar: CKEDITOR.dom.element.createFromHtml( this.templates.bar.output() ),
+
+				/**
+				 * The "previous" button.
+				 *
+				 * @readonly
+				 * @member CKEDITOR.plugins.a11ychecker.viewer.ui.navigation
+				 * @property {CKEDITOR.dom.element} previous
+				 */
+				previous: CKEDITOR.dom.element.createFromHtml( this.templates.previous.output() ),
+
+				/**
+				 * The "next" button.
+				 *
+				 * @readonly
+				 * @member CKEDITOR.plugins.a11ychecker.viewer.ui.navigation
+				 * @property {CKEDITOR.dom.element} next
+				 */
+				next: CKEDITOR.dom.element.createFromHtml( this.templates.next.output() ),
+			}
+		};
+
+		this.ui.navigation.previous.on( 'click', function() {
+			CKEDITOR.plugins.a11ychecker.prev( editor );
+		} );
+
+		this.ui.navigation.next.on( 'click', function() {
+			CKEDITOR.plugins.a11ychecker.next( editor );
+		} );
+
+		this.ui.navigation.bar.append( this.ui.navigation.previous );
+		this.ui.navigation.bar.append( this.ui.navigation.next );
+
+		this._.panel.ui.content.append( this.ui.navigation.bar, 1 );
+	};
+
+	CKEDITOR.plugins.a11ychecker.viewer.prototype = {
+		/**
+		 * Shows the panel next to the error in the contents.
+		 *
+		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
+		 */
+		showError: function( element ) {
+			element.scrollIntoView();
+
+			// Wait for the scroll to stabilize.
+			CKEDITOR.tools.setTimeout( function() {
+				this._.panel.attach( element );
+			}, 50, this );
+		}
+	};
+
 	// Stores objects defining title/description for given issue type.
 	CKEDITOR.plugins.a11ychecker.types = {};
 
@@ -307,6 +393,8 @@
 		// Mark it in fancy fashion.
 		//if ( curFocusedElement )
 		//	ui.markFocus( curFocusedElement );
+
+		editor._.a11ychecker.viewer.showError( curFocusedElement );
 	};
 
 
@@ -331,6 +419,8 @@
 
 		// Mark it in fancy fashion.
 		//curFocusedElement.addClass( 'cke_a11y_focused' );
+
+		editor._.a11ychecker.viewer.showError( curFocusedElement );
 	};
 
 	CKEDITOR.plugins.a11ychecker.clearResults = function( editor ) {
