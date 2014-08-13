@@ -72,6 +72,8 @@
 	 * @param {Object} def An object containing panel definition.
 	 */
 	CKEDITOR.ui.balloonPanel = function( editor, def ) {
+		this.def = def;
+
 		// Environmental references.
 		this.env = {
 			editor: editor,
@@ -251,6 +253,9 @@
 
 			this.rect.visible = true;
 			this.ui.panel.show();
+
+			if ( this.def.onShow )
+				this.def.onShow.call( this );
 		},
 
 		/**
@@ -266,6 +271,9 @@
 
 			this.rect.visible = false;
 			this.ui.panel.hide();
+
+			if ( this.def.onHide )
+				this.def.onHide.call( this );
 		},
 
 		/**
@@ -429,7 +437,7 @@
 		 *
 		 * @method triangle
 		 * @member CKEDITOR.ui.balloonPanel
-		 * @returns {Number}
+		 * @param {String} side One of 'left', 'right', 'top', 'bottom'.
 		 */
 		triangle: function( side ) {
 			if ( this.triangleSide ) {
