@@ -57,7 +57,9 @@
 		DEFAULT_RECT_TOP = 0,
 		DEFAULT_TRIANGLE_HEIGHT = 20,
 		DEFAULT_TRIANGLE_WIDTH = 20,
-		DEFAULT_TRIANGLE_SIDE = 'bottom';
+		DEFAULT_TRIANGLE_SIDE = 'bottom',
+
+		TRIANGLE_RELATIVE = { right: 'left', top: 'bottom', bottom: 'top', left: 'right' };
 
 	/**
 	 * A class which represents a floating, balloon-shaped panel capable of holding defined
@@ -81,6 +83,7 @@
 			this.env.winEditor = editor.window;
 			this.env.frame = this.env.winEditor.getFrame();
 			this.env.inline = editor.editable().isInline();
+			this.env.editable = editor.editable();
 		}, this );
 
 		/**
@@ -200,7 +203,7 @@
 		this.rect = {};
 
 		// Move the panel and resize to default values.
-		this.move( DEFAULT_RECT_LEFT, DEFAULT_RECT_TOP );
+		this.move( DEFAULT_RECT_TOP, DEFAULT_RECT_LEFT );
 		this.resize( DEFAULT_RECT_WIDTH, DEFAULT_RECT_HEIGHT );
 		this.triangle( DEFAULT_TRIANGLE_SIDE );
 
@@ -243,7 +246,7 @@
 		 * @param {Number} left
 		 * @param {Number} top
 		 */
-		move: function( left, top ) {
+		move: function( top, left ) {
 			this.rect.left = left;
 			this.rect.top = top;
 
@@ -259,120 +262,91 @@
 		 *
 		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
 		 */
-		attach: function( element ) {
-			if ( !element.getParent() ) {
-				this.detach();
-				return;
+		attach: ( function() {
+			function rectInZone( rect, allowedZone ) {
+				if ( rect.top < allowedZone.top || rect.left < allowedZone.left || rect.right > allowedZone.right || rect.bottom > allowedZone.bottom )
+					return false;
+
+				return rect;
 			}
 
-			var attachTo = {
-				top: function() {
-					var left = elementRect.left + elementRect.width / 2 - panelWidth / 2,
-						top = elementRect.top - panelHeight;
+			function newPanelRect( top, left, panelWidth, panelHeight ) {
+				var newPanelRect = {
+					top: top,
+					left: left
+				};
 
-					this.triangle( 'bottom' );
-					this.move( left, top - DEFAULT_TRIANGLE_HEIGHT );
-				},
+				newPanelRect.right = newPanelRect.left + panelWidth;
+				newPanelRect.bottom = newPanelRect.top + panelHeight;
 
-				bottom: function() {
-					var left = elementRect.left + elementRect.width / 2 - panelWidth / 2,
-						top = elementRect.bottom;
+				return newPanelRect;
+			}
 
-					this.triangle( 'top' );
-					this.move( left, top + DEFAULT_TRIANGLE_HEIGHT );
-				},
-
-				left: function() {
-					var left = elementRect.left - panelWidth,
-						top = elementRect.top + elementRect.height / 2 - panelHeight / 2;
-
-					this.triangle( 'right' );
-					this.move( left - DEFAULT_TRIANGLE_WIDTH, top );
-				},
-
-				right: function() {
-					var left = elementRect.right,
-						top = elementRect.top + elementRect.height / 2 - panelHeight / 2;
-
-					this.triangle( 'left' );
-					this.move( left + DEFAULT_TRIANGLE_WIDTH, top );
+			return function( element ) {
+				if ( !element.getParent() ) {
+					this.detach();
+					return;
 				}
+
+				this.attached = element;
+				this.show();
+
+				var panelWidth = this.getWidth(),
+					panelHeight = this.getHeight(),
+
+					viewPaneSize = this.env.winGlobal.getViewPaneSize(),
+					elementRect = getAbsoluteRect( element, this.env ),
+					winGlobalScroll = this.env.winGlobal.getScrollPosition(),
+					editorRect = getAbsoluteRect( this.env.inline ? this.env.editable : this.env.frame, this.env );
+
+				var allowedZone = {
+					top: Math.max( editorRect.top, winGlobalScroll.y ),
+					left: Math.max( editorRect.left, winGlobalScroll.x ),
+					right: Math.min( editorRect.right, viewPaneSize.width + winGlobalScroll.x ),
+					bottom: Math.min( editorRect.bottom, viewPaneSize.height + winGlobalScroll.y )
+				};
+
+				var alignments = {
+					right: {
+						top: elementRect.top + elementRect.height / 2 - panelHeight / 2,
+						left: elementRect.right + DEFAULT_TRIANGLE_WIDTH
+					},
+					top: {
+						top: elementRect.top - panelHeight - DEFAULT_TRIANGLE_HEIGHT,
+						left: elementRect.left + elementRect.width / 2 - panelWidth / 2
+					},
+					bottom: {
+						top: elementRect.bottom + DEFAULT_TRIANGLE_HEIGHT,
+						left: elementRect.left + elementRect.width / 2 - panelWidth / 2
+					},
+					left: {
+						top: elementRect.top + elementRect.height / 2 - panelHeight / 2,
+						left: elementRect.left - panelWidth - DEFAULT_TRIANGLE_WIDTH
+					}
+				};
+
+				var moved, rect;
+				for ( var a in alignments ) {
+					rect = newPanelRect( alignments[ a ].top, alignments[ a ].left, panelWidth, panelHeight );
+
+					if ( rectInZone( rect, allowedZone ) ) {
+						this.move( rect.top, rect.left );
+						this.triangle( TRIANGLE_RELATIVE[ a ] );
+						moved = 1;
+						break;
+					}
+				}
+
+				// Default fall back.
+				// To-do: It got to be much smarter.
+				if ( !moved ) {
+					this.move( alignments.right.top, alignments.right.left );
+					this.triangle( TRIANGLE_RELATIVE.right );
+				}
+
+				this.ui.panel.focus();
 			};
-
-			this.attached = element;
-			this.show();
-
-			var panelWidth = this.getWidth(),
-				panelHeight = this.getHeight(),
-
-				viewPaneSize = this.env.winGlobal.getViewPaneSize(),
-				elementRect = getAbsoluteRect( element, this.env ),
-				side;
-
-			if ( !this.env.inline ) {
-				var frameRect = getAbsoluteRect( this.env.frame, this.env );
-
-				// If neither left nor right.
-				if ( elementRect.right + ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) > frameRect.right &&
-					elementRect.left - ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) < frameRect.left ) {
-					if ( ( panelHeight + DEFAULT_TRIANGLE_HEIGHT ) > elementRect.top - frameRect.top ) {
-						//console.log( 'a' );
-						side = 'bottom';
-					} else {
-						//console.log( 'b' );
-						side = 'top';
-					}
-				}
-				// If left or right.
-				else {
-					if ( elementRect.right + ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) > frameRect.right ) {
-						//console.log( 'c' );
-						side = 'left';
-					} else {
-						//console.log( 'd' );
-						side = 'right';
-					}
-
-					// Top edge of an element above the top edge of the frame viewport.
-					if ( ( elementRect.top + elementRect.height / 2 ) - frameRect.top < panelHeight / 2 ) {
-						//console.log( 'e' );
-						side = 'bottom';
-					}
-
-					// Bottom edge of an element below the bottom edge of the frame viewport.
-					if ( frameRect.bottom - ( elementRect.top + elementRect.height / 2 ) < panelHeight / 2 ) {
-						//console.log( 'f' );
-						side = 'top';
-					}
-				}
-			} else {
-				// If neither left nor right
-				if ( elementRect.right + ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) > viewPaneSize.width &&
-					elementRect.left - ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) < 0 ) {
-					if ( elementRect.top - ( panelHeight + DEFAULT_TRIANGLE_HEIGHT ) < 0 ) {
-						//console.log( 'g' );
-						side = 'bottom';
-					} else {
-						//console.log( 'h' );
-						side = 'top';
-					}
-				}
-				// If left or right.
-				else {
-					if ( elementRect.right + ( panelWidth + DEFAULT_TRIANGLE_WIDTH ) > viewPaneSize.width ) {
-						//console.log( 'i' );
-						side = 'left';
-					} else {
-						//console.log( 'j' );
-						side = 'right';
-					}
-				}
-			}
-
-			attachTo[ side ].call( this );
-
-			this.ui.panel.focus();
-		},
+		} )(),
 
 		detach: function() {
 			this.attached = null;
