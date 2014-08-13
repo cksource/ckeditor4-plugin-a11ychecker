@@ -141,21 +141,18 @@
 		// Hide the panel once the closing X is clicked.
 		this.ui.close.on( 'click', function( evt ) {
 			this.blur();
-			this.detach();
 			this.hide();
 			evt.data.preventDefault();
 		}, this );
 
 		// Hide the panel on editor blur.
 		editor.on( 'blur', function() {
-			this.detach();
 			this.hide();
 		}, this );
 
 		// Hide the panel on editor resize.
 		editor.on( 'resize', function() {
 			this.blur();
-			this.detach();
 			this.hide();
 		}, this );
 
@@ -165,7 +162,6 @@
 
 			// Make sure the focus has moved out of the panel.
 			if ( !this.ui.panel.contains( target ) && !this.ui.panel.equals( target ) ) {
-				this.detach();
 				this.hide();
 			}
 		}, this );
@@ -176,7 +172,6 @@
 			// Hide the panel on ESC key press.
 			if ( keystroke == 27 ) {
 				this.blur();
-				this.detach();
 				this.hide();
 				evt.data.preventDefault();
 			}
@@ -186,7 +181,6 @@
 		editor.on( 'contentDom', function() {
 			this.env.winEditor.on( 'scroll', function() {
 				this.blur();
-				this.detach();
 				this.hide();
 			}, this );
 		}, this );
@@ -227,7 +221,7 @@
 		/**
 		 * Hides the panel and moves the focus back to editable.
 		 */
-		hide: function( dontBlur, dontDetach ) {
+		hide: function() {
 			if ( !this.rect.visible ) {
 				return;
 			}
@@ -236,6 +230,9 @@
 			this.ui.panel.hide();
 		},
 
+		/**
+		 * Moves the focus back to editor's editable.
+		 */
 		blur: function() {
 			this.env.editor.focus();
 		},
@@ -258,7 +255,7 @@
 
 		/**
 		 * Places the panel next to a specified element so the tip of balloon's triangle
-		 * touches that element. Once the panel is moved it gains focus.
+		 * touches that element. Once the panel is attached it gains focus.
 		 *
 		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
 		 */
@@ -283,12 +280,6 @@
 			}
 
 			return function( element ) {
-				if ( !element.getParent() ) {
-					this.detach();
-					return;
-				}
-
-				this.attached = element;
 				this.show();
 
 				var panelWidth = this.getWidth(),
@@ -348,12 +339,8 @@
 			};
 		} )(),
 
-		detach: function() {
-			this.attached = null;
-		},
-
 		/**
-		 * Resizes panel container according to given dimensions.
+		 * Resizes panel container to given dimensions.
 		 *
 		 * @param {Number} width
 		 * @param {Number} height
