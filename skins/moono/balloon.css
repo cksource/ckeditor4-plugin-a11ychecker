@@ -281,6 +281,7 @@ a.cke_a11yc_button:active
 {
 	height: 26px;
 	overflow: hidden;
+	margin-bottom: 10px;
 }
 
 .cke_a11yc_previous

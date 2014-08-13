@@ -45,8 +45,42 @@
 				};
 			} )( editor );
 
+			function keyListener( keystroke, callback ) {
+				return function( evt ) {
+					var pressed = evt.data.getKeystroke();
+
+					if ( pressed == keystroke ) {
+						callback.call( this );
+						evt.data.preventDefault();
+					}
+				}
+			}
+
 			editor._.a11ychecker.viewer = new CKEDITOR.plugins.a11ychecker.viewer( editor, {
-				title: 'Accessibility checker'
+				title: 'Accessibility checker',
+				onShow: function() {
+					this.keyListeners = [
+						// CTRL+SHIFT+[
+						this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
+							CKEDITOR.plugins.a11ychecker.prev( editor );
+						} ), this ),
+						// CTRL+SHIFT+]
+						this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 221, function() {
+							CKEDITOR.plugins.a11ychecker.next( editor );
+						} ), this )
+					];
+				},
+				onHide: function() {
+					var listener;
+					while ( ( listener = this.keyListeners.pop() ) )
+						listener.removeListener();
+				},
+				content:
+					'<ul>' +
+						'<li><span style="font-weight:bold">CTRL+SHIFT+[</span> for previous.</li>' +
+						'<li><span style="font-weight:bold">CTRL+SHIFT+]</span> for next.</li>' +
+						'<li><span style="font-weight:bold">ESC</span> to close.</li>' +
+					'</ul>'
 			} );
 
 			this.guiRegister( editor );
