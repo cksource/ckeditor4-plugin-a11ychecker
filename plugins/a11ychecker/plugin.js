@@ -382,6 +382,9 @@
 		this.ui.navigation.bar.append( this.ui.navigation.previous );
 		this.ui.navigation.bar.append( this.ui.navigation.next );
 
+		this.ui.navigation.previous.unselectable();
+		this.ui.navigation.next.unselectable();
+
 		this._.panel.ui.content.append( this.ui.navigation.bar, 1 );
 	};
 
