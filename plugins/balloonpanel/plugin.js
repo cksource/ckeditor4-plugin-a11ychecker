@@ -449,6 +449,18 @@
 
 			this.ui.triangle.outer.addClass( 'cke_balloon_triangle_' + side );
 			this.ui.triangle.inner.addClass( 'cke_balloon_triangle_' + side );
+		},
+
+		/**
+		 * Registers a new focusable element in editor's focusManager so the instance
+		 * does not blur once child of the panel gains focus.
+		 *
+		 * @method focusable
+		 * @member CKEDITOR.ui.balloonPanel
+		 * @param {CKEDITOR.dom.element} element An element to be registered.
+		 */
+		focusable: function( element ) {
+			this.env.editor.focusManager.add( element );
 		}
 	};
 
