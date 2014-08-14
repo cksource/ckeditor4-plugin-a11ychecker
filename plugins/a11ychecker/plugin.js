@@ -69,6 +69,8 @@
 							CKEDITOR.plugins.a11ychecker.next( editor );
 						} ), this )
 					];
+
+					editor._.a11ychecker.viewer.updateList();
 				},
 				onHide: function() {
 					var listener;
@@ -120,7 +122,7 @@
 
 						var offset = editor._.a11ychecker.issues.getIssueIndexByElement( target );
 
-						editor._.a11ychecker.viewer.showError( target );
+						editor._.a11ychecker.viewer.showIssue( target );
 
 						if ( offset !== null ) {
 							//console.log( 'identified offset: ' + offset );
@@ -317,7 +319,7 @@
 
 	/**
 	 * A class which is responsible for creating the end-user interface – a panel
-	 * which allows to browse and fix errors in the contents. The panel is built
+	 * which allows to browse and fix issues in the contents. The panel is built
 	 * upon the {@link CKEDITOR.ui.balloonPanel}.
 	 *
 	 * @class
@@ -326,9 +328,13 @@
 	 * @param {Object} def An object containing panel definition.
 	 */
 	CKEDITOR.plugins.a11ychecker.viewer = function( editor, def ) {
-		this._ = {
-			panel: new CKEDITOR.ui.balloonPanel( editor, def )
+		this.env = {
+			editor: editor
 		};
+
+		this.currentElement = null;
+		this.a11ychecker = editor._.a11ychecker;
+		this.balloonPanel = new CKEDITOR.ui.balloonPanel( editor, def );
 
 		this.templates = {
 			navigation: {
@@ -345,7 +351,9 @@
 				listWrapper:
 					'<div class="cke_a11yc_select_wrapper"></div>',
 				listOption:
-					'<option value="{value}">{text}</option>'
+					'<option value="{value}" {selected}>{text}</option>',
+				listGroup:
+					'<optgroup label="{label}"></optgroup>'
 			}
 		};
 
@@ -415,6 +423,7 @@
 			CKEDITOR.plugins.a11ychecker.next( editor );
 		} );
 
+		// Set up navigation bar with its children.
 		var previousButtonWrapper = CKEDITOR.dom.element.createFromHtml( this.templates.navigation.buttonWrapper.output() ),
 			nextButtonWrapper = previousButtonWrapper.clone(),
 			listWrapper = CKEDITOR.dom.element.createFromHtml( this.templates.navigation.listWrapper.output() );
@@ -429,28 +438,86 @@
 
 		this.ui.navigation.previous.unselectable();
 		this.ui.navigation.next.unselectable();
+		this.balloonPanel.ui.content.append( this.ui.navigation.bar, 1 );
 
-		this._.panel.ui.content.append( this.ui.navigation.bar, 1 );
+		// Register focusables.
+		this.balloonPanel.focusable( this.ui.navigation.previous );
+		this.balloonPanel.focusable( this.ui.navigation.list );
+		this.balloonPanel.focusable( this.ui.navigation.next );
+
+		// Handle issue selection from list
+		this.ui.navigation.list.on( 'change', function( evt ) {
+			this.showIssue( this.ui.navigation.list.getValue() );
+		}, this );
 	};
 
 	CKEDITOR.plugins.a11ychecker.viewer.prototype = {
 		/**
-		 * Shows the panel next to the error in the contents.
+		 * Shows the panel next to the issue in the contents.
 		 *
 		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
 		 */
-		showError: function( element ) {
-			element.scrollIntoView();
+		showIssue: function( indexOrElement ) {
+			if ( !( indexOrElement instanceof CKEDITOR.dom.element ) )
+				indexOrElement = this.a11ychecker.issues.getIssueByIndex( indexOrElement );
+
+			this.currentElement = indexOrElement;
+			indexOrElement.scrollIntoView();
 
 			// Wait for the scroll to stabilize.
 			CKEDITOR.tools.setTimeout( function() {
-				this._.panel.attach( element );
+				this.balloonPanel.attach( indexOrElement );
 			}, 50, this );
 		},
-		updateList: function( errors ) {
 
-		}
-	};
+		/**
+		 * Updates the list of issues.
+		 */
+		updateList: ( function() {
+			function getElementInfo( element ) {
+				var collected = [],
+					attributes = Array.prototype.slice.call( element.$.attributes );
+
+				for ( var a in attributes ) {
+					collected.push( attributes[ a ].name + '="' + attributes[ a ].value + '"' );
+				}
+
+				return element.getName() + '[' + collected.join( ', ' ) + ']';
+			}
+
+			return function( issues ) {
+				var issues = this.a11ychecker.issues,
+					i, j, group, issueIndex, element;
+
+				// Clean-up the list.
+				this.ui.navigation.list.setHtml( '' );
+
+				// For each group of issues.
+				for ( i in issues.issues ) {
+					group = CKEDITOR.dom.element.createFromHtml( this.templates.navigation.listGroup.output( {
+						label: i
+					} ) );
+
+					// Append <optgroup>.
+					this.ui.navigation.list.append( group );
+
+					// For each issue in the group.
+					for ( j = 0; j < issues.issues[ i ].length; ++j ) {
+						element = issues.issues[ i ][ j ];
+
+						// Append <option> to <optgroup>.
+						issueIndex = issues.getIssueIndexByElement( element );
+
+						group.append( CKEDITOR.dom.element.createFromHtml( this.templates.navigation.listOption.output( {
+							value: issueIndex,
+							text: getElementInfo( element ),
+							selected: element.equals( this.currentElement ) ? 'selected="selected"' : ''
+						} ) ) );
+					}
+				}
+			}
+		} )()
+	}
 
 	// Stores objects defining title/description for given issue type.
 	CKEDITOR.plugins.a11ychecker.types = {};
@@ -479,7 +546,7 @@
 		//if ( curFocusedElement )
 		//	ui.markFocus( curFocusedElement );
 
-		editor._.a11ychecker.viewer.showError( curFocusedElement );
+		editor._.a11ychecker.viewer.showIssue( curFocusedElement );
 	};
 
 
@@ -505,7 +572,7 @@
 		// Mark it in fancy fashion.
 		//curFocusedElement.addClass( 'cke_a11y_focused' );
 
-		editor._.a11ychecker.viewer.showError( curFocusedElement );
+		editor._.a11ychecker.viewer.showIssue( curFocusedElement );
 	};
 
 	CKEDITOR.plugins.a11ychecker.clearResults = function( editor ) {
