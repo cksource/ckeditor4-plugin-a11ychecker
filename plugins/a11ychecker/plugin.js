@@ -331,14 +331,33 @@
 		};
 
 		this.templates = {
-			bar: new CKEDITOR.template( '<div class="cke_a11yc_bar"></div>' ),
-			previous: new CKEDITOR.template( '<a href="javascript:void(0)" title="Previous" hidefocus="true" class="cke_a11yc_button cke_a11yc_previous" role="button">' +
-				'<span class="cke_a11yc_button">Previous</span>' +
-			'</a>' ),
-			next: new CKEDITOR.template( '<a href="javascript:void(0)" title="Next" hidefocus="true" class="cke_a11yc_button cke_a11yc_next" role="button">' +
-				'<span class="cke_a11yc_button">Next</span>' +
-			'</a>' ),
+			navigation: {
+				bar:
+					'<div class="cke_a11yc_bar"></div>',
+				buttonWrapper:
+					'<div class="cke_a11yc_button_wrapper"></div>',
+				button:
+					'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_button cke_a11yc_{class}" role="button">' +
+						'<span class="cke_a11yc_button">{text}</span>' +
+					'</a>',
+				list:
+					'<select class="cke_a11yc_input_select"></select>',
+				listWrapper:
+					'<div class="cke_a11yc_select_wrapper"></div>',
+				listOption:
+					'<option value="{value}">{text}</option>'
+			}
 		};
+
+		( function generateTemplates( templates ) {
+			// Make each of template strings an instance of CKEDITOR.template.
+			for ( var t in templates ) {
+				if ( typeof templates[ t ] == 'string' )
+					templates[ t ] = new CKEDITOR.template( templates[ t ] );
+				else
+					generateTemplates( templates[ t ] );
+			}
+		} )( this.templates );
 
 		this.ui = {
 			navigation: {
@@ -349,7 +368,7 @@
 				 * @member CKEDITOR.plugins.a11ychecker.viewer.ui.navigation
 				 * @property {CKEDITOR.dom.element} bar
 				 */
-				bar: CKEDITOR.dom.element.createFromHtml( this.templates.bar.output() ),
+				bar: CKEDITOR.dom.element.createFromHtml( this.templates.navigation.bar.output() ),
 
 				/**
 				 * The "previous" button.
@@ -358,7 +377,11 @@
 				 * @member CKEDITOR.plugins.a11ychecker.viewer.ui.navigation
 				 * @property {CKEDITOR.dom.element} previous
 				 */
-				previous: CKEDITOR.dom.element.createFromHtml( this.templates.previous.output() ),
+				previous: CKEDITOR.dom.element.createFromHtml( this.templates.navigation.button.output( {
+					title: 'Previous',
+					'class': 'previous',
+					text: 'Previous'
+				} ) ),
 
 				/**
 				 * The "next" button.
@@ -367,7 +390,20 @@
 				 * @member CKEDITOR.plugins.a11ychecker.viewer.ui.navigation
 				 * @property {CKEDITOR.dom.element} next
 				 */
-				next: CKEDITOR.dom.element.createFromHtml( this.templates.next.output() ),
+				next: CKEDITOR.dom.element.createFromHtml( this.templates.navigation.button.output( {
+					title: 'Next',
+					'class': 'next',
+					text: 'Next'
+				} ) ),
+
+				/**
+				 * The list of issues.
+				 *
+				 * @readonly
+				 * @member CKEDITOR.plugins.a11ychecker.viewer.ui.navigation
+				 * @property {CKEDITOR.dom.element} list
+				 */
+				list: CKEDITOR.dom.element.createFromHtml( this.templates.navigation.list.output() ),
 			}
 		};
 
@@ -379,8 +415,17 @@
 			CKEDITOR.plugins.a11ychecker.next( editor );
 		} );
 
-		this.ui.navigation.bar.append( this.ui.navigation.previous );
-		this.ui.navigation.bar.append( this.ui.navigation.next );
+		var previousButtonWrapper = CKEDITOR.dom.element.createFromHtml( this.templates.navigation.buttonWrapper.output() ),
+			nextButtonWrapper = previousButtonWrapper.clone(),
+			listWrapper = CKEDITOR.dom.element.createFromHtml( this.templates.navigation.listWrapper.output() );
+
+		previousButtonWrapper.append( this.ui.navigation.previous );
+		listWrapper.append( this.ui.navigation.list );
+		nextButtonWrapper.append( this.ui.navigation.next );
+
+		this.ui.navigation.bar.append( previousButtonWrapper );
+		this.ui.navigation.bar.append( listWrapper );
+		this.ui.navigation.bar.append( nextButtonWrapper );
 
 		this.ui.navigation.previous.unselectable();
 		this.ui.navigation.next.unselectable();
@@ -401,6 +446,9 @@
 			CKEDITOR.tools.setTimeout( function() {
 				this._.panel.attach( element );
 			}, 50, this );
+		},
+		updateList: function( errors ) {
+
 		}
 	};
 

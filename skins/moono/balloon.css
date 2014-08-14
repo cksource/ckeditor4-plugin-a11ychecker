@@ -276,20 +276,63 @@ a.cke_a11yc_button:active
 	box-shadow: 0 0 6px rgba(0,0,0,.4) inset;
 }
 
+/* Select */
+select.cke_a11yc_input_select
+{
+	height: 25px;
+	line-height: 25px;
+
+	background-color: #fff;
+	border: 1px solid #c9cccf;
+	border-top-color: #aeb3b9;
+	padding: 3px 3px 3px 6px;
+
+	outline: none;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15) inset;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15) inset;
+	box-shadow: 0 1px 2px rgba(0,0,0,.15) inset;
+}
+
 /* Navigation bar */
 .cke_a11yc_bar
 {
-	height: 26px;
+	display: table;
 	overflow: hidden;
+	width: 100%;
+	height: 26px;
 	margin-bottom: 10px;
 }
 
-.cke_a11yc_previous
+.cke_a11yc_bar .cke_a11yc_button_wrapper,
+.cke_a11yc_bar .cke_a11yc_select_wrapper
 {
+	display: table-cell;
+}
 
+.cke_a11yc_bar .cke_a11yc_button_wrapper
+{
+	width: 10%;
+}
+
+.cke_a11yc_bar .cke_a11yc_select_wrapper
+{
+	padding: 0 10px;
+}
+
+.cke_a11yc_bar .cke_a11yc_select_wrapper select
+{
+	width: 100%;
+}
+
+.cke_a11yc_previous:after
+{
 }
 
 .cke_a11yc_next
 {
-	float: right;
 }
