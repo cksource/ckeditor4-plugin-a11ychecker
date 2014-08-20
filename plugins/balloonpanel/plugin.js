@@ -69,10 +69,10 @@
 	 * @class
 	 * @since 4.5
 	 * @param {CKEDITOR.editor} editor The editor instance for which the panel is created.
-	 * @param {Object} def An object containing panel definition.
+	 * @param {Object} definition An object containing panel definition.
 	 */
-	CKEDITOR.ui.balloonPanel = function( editor, def ) {
-		this.def = def;
+	CKEDITOR.ui.balloonPanel = function( editor, definition ) {
+		this.definition = definition;
 
 		// Environmental references.
 		this.env = {
@@ -98,7 +98,7 @@
 			 * @property {CKEDITOR.dom.element} title
 			 */
 			title: CKEDITOR.dom.element.createFromHtml( templates.title.output( {
-				title: def.title
+				title: definition.title
 			} ) ),
 
 			/**
@@ -135,7 +135,7 @@
 			 * @property {CKEDITOR.dom.element} content
 			 */
 			content: CKEDITOR.dom.element.createFromHtml( templates.content.output( {
-				content: def.content || ''
+				content: definition.content || ''
 			} ) ),
 
 			triangle: {
@@ -237,7 +237,60 @@
 
 		// Append the panel to the global document.
 		CKEDITOR.document.getBody().append( this.ui.panel );
+
+		/**
+		 * Event fired when panel is shown.
+		 *
+		 * @member CKEDITOR.ui.balloonPanel
+		 * @event show
+		 */
+
+		/**
+		 * Event fired when panel is hidden.
+		 *
+		 * @member CKEDITOR.ui.balloonPanel
+		 * @event hide
+		 */
+
+		/**
+		 * Event fired when panel is attached to an element.
+		 *
+		 * @member CKEDITOR.ui.balloonPanel
+		 * @event attach
+		 */
 	};
+
+	/**
+	 * The definition of a balloon panel.
+	 *
+	 * This virtual class illustrates the properties that developers can use to define and create
+	 * balloon panels.
+	 *
+	 *		CKEDITOR.ui.balloonPanel( editor, {
+	 *			title: 'My panel',
+	 *			onShow: function() {
+	 *				...
+	 *			}
+	 *		} );
+	 *
+	 * @class CKEDITOR.ui.balloonPanel.definition
+	 */
+
+	/**
+	 * Title of the panel.
+	 *
+	 * @readonly
+	 * @member CKEDITOR.ui.balloonPanel.definition
+	 * @property {String} title
+	 */
+
+	/**
+	 * Static content of the panel.
+	 *
+	 * @readonly
+	 * @member CKEDITOR.ui.balloonPanel.definition
+	 * @property {String} content
+	 */
 
 	CKEDITOR.ui.balloonPanel.prototype = {
 		/**
@@ -254,8 +307,7 @@
 			this.rect.visible = true;
 			this.ui.panel.show();
 
-			if ( this.def.onShow )
-				this.def.onShow.call( this );
+			this.fire( 'show' );
 		},
 
 		/**
@@ -272,8 +324,7 @@
 			this.rect.visible = false;
 			this.ui.panel.hide();
 
-			if ( this.def.onHide )
-				this.def.onHide.call( this );
+			this.fire( 'hide' );
 		},
 
 		/**
@@ -389,6 +440,8 @@
 				}
 
 				this.ui.panel.focus();
+
+				this.fire( 'attach' );
 			};
 		} )(),
 
@@ -463,6 +516,8 @@
 			this.env.editor.focusManager.add( element );
 		}
 	};
+
+	CKEDITOR.event.implementOn( CKEDITOR.ui.balloonPanel.prototype );
 
 	// Returns element rect absolute to the top-most document, e.g. it considers
 	// outer window scroll position, inner window scroll position (framed editor) and
