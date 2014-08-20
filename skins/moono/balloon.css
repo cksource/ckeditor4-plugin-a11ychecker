@@ -361,6 +361,8 @@ select.cke_a11yc_input_select:focus
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
 	border-radius: 2px;
+
+	color: inherit;
 }
 
 .cke_a11yc_desc_title
