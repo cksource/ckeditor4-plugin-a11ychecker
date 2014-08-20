@@ -48,11 +48,10 @@
 			editor._.a11ychecker.viewer = new CKEDITOR.plugins.a11ychecker.viewer( editor, {
 				title: 'Accessibility checker',
 				content:
-					'<ul>' +
-						'<li><span style="font-weight:bold">CTRL+SHIFT+[</span> for previous.</li>' +
-						'<li><span style="font-weight:bold">CTRL+SHIFT+]</span> for next.</li>' +
-						'<li><span style="font-weight:bold">ESC</span> to close.</li>' +
-					'</ul>'
+					'<p>' +
+						'<span style="font-weight:bold">CTRL+SHIFT+[</span>/<span style="font-weight:bold">]</span> (previous/next), ' +
+						'<span style="font-weight:bold">ESC</span> (close)' +
+					'</p>'
 			} );
 
 			this.guiRegister( editor );
@@ -338,6 +337,7 @@
 
 		this.balloonPanel.on( 'attach', function() {
 			editor._.a11ychecker.viewer.updateList();
+			editor._.a11ychecker.viewer.updateDescription();
 		} );
 
 		this.templates = {
@@ -358,6 +358,12 @@
 					'<option value="{value}" {selected}>{text}</option>',
 				listGroup:
 					'<optgroup label="{label}"></optgroup>'
+			},
+			description: {
+				title:
+					'<strong class="cke_a11yc_desc_title"></strong>',
+				info:
+					'<p class="cke_a11yc_desc_info"></p>'
 			}
 		};
 
@@ -416,6 +422,26 @@
 				 * @property {CKEDITOR.dom.element} list
 				 */
 				list: CKEDITOR.dom.element.createFromHtml( this.templates.navigation.list.output() ),
+			},
+			description: {
+				/**
+				 * Title of the current issue.
+				 *
+				 * @readonly
+				 * @member CKEDITOR.plugins.a11ychecker.viewer.ui.description
+				 * @property {CKEDITOR.dom.element} title
+				 */
+				title: CKEDITOR.dom.element.createFromHtml( this.templates.description.title.output() ),
+
+				/**
+				 * Information about the issue.
+				 *
+				 * @readonly
+				 * @member CKEDITOR.plugins.a11ychecker.viewer.ui.description
+				 * @property {CKEDITOR.dom.element} info
+				 */
+				info: CKEDITOR.dom.element.createFromHtml( this.templates.description.info.output() ),
+
 			}
 		};
 
@@ -443,6 +469,10 @@
 		this.ui.navigation.previous.unselectable();
 		this.ui.navigation.next.unselectable();
 		this.balloonPanel.ui.content.append( this.ui.navigation.bar, 1 );
+
+		// Set up description area.
+		this.ui.description.info.insertAfter( this.ui.navigation.bar );
+		this.ui.description.title.insertAfter( this.ui.navigation.bar );
 
 		// Register focusables.
 		this.balloonPanel.focusable( this.ui.navigation.previous );
@@ -523,7 +553,20 @@
 					}
 				}
 			}
-		} )()
+		} )(),
+
+		/**
+		 * Updates description of the current issue.
+		 *
+		 * @method
+		 */
+		updateDescription: function() {
+			var issues = this.a11ychecker.issues,
+				type = issues.getIssueTypeByElement( this.currentElement );
+
+			this.ui.description.title.setHtml( CKEDITOR.plugins.a11ychecker.types[ type ].title );
+			this.ui.description.info.setHtml( CKEDITOR.plugins.a11ychecker.types[ type ].desc );
+		}
 	}
 
 	// Stores objects defining title/description for given issue type.
