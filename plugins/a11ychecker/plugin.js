@@ -45,38 +45,8 @@
 				};
 			} )( editor );
 
-			function keyListener( keystroke, callback ) {
-				return function( evt ) {
-					var pressed = evt.data.getKeystroke();
-
-					if ( pressed == keystroke ) {
-						callback.call( this );
-						evt.data.preventDefault();
-					}
-				}
-			}
-
 			editor._.a11ychecker.viewer = new CKEDITOR.plugins.a11ychecker.viewer( editor, {
 				title: 'Accessibility checker',
-				onShow: function() {
-					this.keyListeners = [
-						// CTRL+SHIFT+[
-						this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
-							CKEDITOR.plugins.a11ychecker.prev( editor );
-						} ), this ),
-						// CTRL+SHIFT+]
-						this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 221, function() {
-							CKEDITOR.plugins.a11ychecker.next( editor );
-						} ), this )
-					];
-
-					editor._.a11ychecker.viewer.updateList();
-				},
-				onHide: function() {
-					var listener;
-					while ( ( listener = this.keyListeners.pop() ) )
-						listener.removeListener();
-				},
 				content:
 					'<ul>' +
 						'<li><span style="font-weight:bold">CTRL+SHIFT+[</span> for previous.</li>' +
@@ -315,6 +285,17 @@
 		}
 	} );
 
+	function keyListener( keystroke, callback ) {
+		return function( evt ) {
+			var pressed = evt.data.getKeystroke();
+
+			if ( pressed == keystroke ) {
+				callback.call( this );
+				evt.data.preventDefault();
+			}
+		}
+	}
+
 	CKEDITOR.plugins.a11ychecker = {};
 
 	/**
@@ -325,16 +306,39 @@
 	 * @class
 	 * @since 4.5
 	 * @param {CKEDITOR.editor} editor The editor instance for which the panel is created.
-	 * @param {Object} def An object containing panel definition.
+	 * @param {Object} definition An object containing panel definition.
 	 */
-	CKEDITOR.plugins.a11ychecker.viewer = function( editor, def ) {
+	CKEDITOR.plugins.a11ychecker.viewer = function( editor, definition ) {
 		this.env = {
 			editor: editor
 		};
 
 		this.currentElement = null;
 		this.a11ychecker = editor._.a11ychecker;
-		this.balloonPanel = new CKEDITOR.ui.balloonPanel( editor, def );
+		this.balloonPanel = new CKEDITOR.ui.balloonPanel( editor, definition );
+
+		this.balloonPanel.on( 'show', function() {
+			this.keyListeners = [
+				// CTRL+SHIFT+[
+				this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
+					CKEDITOR.plugins.a11ychecker.prev( editor );
+				} ), this ),
+				// CTRL+SHIFT+]
+				this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 221, function() {
+					CKEDITOR.plugins.a11ychecker.next( editor );
+				} ), this )
+			];
+		} );
+
+		this.balloonPanel.on( 'hide', function() {
+			var listener;
+			while ( ( listener = this.keyListeners.pop() ) )
+				listener.removeListener();
+		} );
+
+		this.balloonPanel.on( 'attach', function() {
+			editor._.a11ychecker.viewer.updateList();
+		} );
 
 		this.templates = {
 			navigation: {
@@ -455,6 +459,7 @@
 		/**
 		 * Shows the panel next to the issue in the contents.
 		 *
+		 * @method
 		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
 		 */
 		showIssue: function( indexOrElement ) {
@@ -472,6 +477,8 @@
 
 		/**
 		 * Updates the list of issues.
+		 *
+		 * @method
 		 */
 		updateList: ( function() {
 			function getElementInfo( element ) {
