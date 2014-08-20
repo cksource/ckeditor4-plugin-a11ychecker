@@ -386,6 +386,8 @@
 			return function( element ) {
 				this.show();
 
+				this.fire( 'attach' );
+
 				var panelWidth = this.getWidth(),
 					panelHeight = this.getHeight(),
 
@@ -440,8 +442,6 @@
 				}
 
 				this.ui.panel.focus();
-
-				this.fire( 'attach' );
 			};
 		} )(),
 
