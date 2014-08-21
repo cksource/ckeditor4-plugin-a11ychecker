@@ -54,7 +54,6 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 }
 
 /* The close button at the top of the panel. */
-
 .cke_balloon_close_button
 {
 	background-image: url(images/close.png);
@@ -211,7 +210,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 /* To-do: These should actually be injected dynamically by a11yc plugin. */
 /* Buttons */
-a.cke_a11yc_button
+a.cke_a11yc_ui_button
 {
 	display: inline-block;
 	*display: inline;
@@ -232,6 +231,10 @@ a.cke_a11yc_button
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
 
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
 	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
 	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
 	box-shadow: 0 1px 0 rgba(255,255,255,.5), 0 0 2px rgba(255,255,255,.15) inset, 0 1px 0 rgba(255,255,255,.15) inset;
@@ -247,12 +250,7 @@ a.cke_a11yc_button
 
 }
 
-span.cke_a11yc_button
-{
-	padding: 0 10px;
-}
-
-a.cke_a11yc_button:hover
+a.cke_a11yc_ui_button:hover
 {
 	border-color: #9e9e9e;
 
@@ -266,8 +264,8 @@ a.cke_a11yc_button:hover
 	filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f2f2f2', endColorstr='#cccccc');
 }
 
-a.cke_a11yc_button:focus,
-a.cke_a11yc_button:active
+a.cke_a11yc_ui_button:focus,
+a.cke_a11yc_ui_button:active
 {
 	border-color: #969696;
 	outline: none;
@@ -276,8 +274,52 @@ a.cke_a11yc_button:active
 	box-shadow: 0 0 6px rgba(0,0,0,.4) inset;
 }
 
+a.cke_a11yc_ui_button_ok
+{
+	color: #fff;
+	text-shadow: 0 -1px 0 #55830c;
+	border-color: #62a60a #62a60a #4d9200;
+
+	background: #69b10b;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#9ad717), to(#69b10b));
+	background-image: -webkit-linear-gradient(top, #9ad717, #69b10b);
+	background-image: -o-linear-gradient(top, #9ad717, #69b10b);
+	background-image: linear-gradient(to bottom, #9ad717, #69b10b);
+	background-image: -moz-linear-gradient(top, #9ad717, #69b10b);
+	filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#9ad717', endColorstr='#69b10b');
+}
+
+a.cke_a11yc_ui_button_ok:hover
+{
+	border-color: #5b9909 #5b9909 #478500;
+
+	background: #88be14;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#88be14), color-stop(100%,#5d9c0a));
+	background: -webkit-linear-gradient(top, #88be14 0%,#5d9c0a 100%);
+	background: -o-linear-gradient(top, #88be14 0%,#5d9c0a 100%);
+	background: linear-gradient(to bottom, #88be14 0%,#5d9c0a 100%);
+	background: -moz-linear-gradient(top, #88be14 0%, #5d9c0a 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88be14', endColorstr='#5d9c0a',GradientType=0 );
+}
+
+a.cke_a11yc_ui_button > span
+{
+	padding: 0 10px;
+}
+
+.cke_a11yc_ui_button > span
+{
+	text-shadow: 0 1px 0 #fff;
+}
+
+a.cke_a11yc_ui_button_ok > span
+{
+	color: #fff;
+	text-shadow: 0 -1px 0 #55830c;
+}
+
 /* Select */
-select.cke_a11yc_input_select
+select.cke_a11yc_ui_input_select
 {
 	height: 25px;
 	line-height: 25px;
@@ -298,7 +340,7 @@ select.cke_a11yc_input_select
 	box-shadow: 0 1px 2px rgba(0,0,0,.15) inset;
 }
 
-select.cke_a11yc_input_select:focus
+select.cke_a11yc_ui_input_select:focus
 {
 	outline: none;
 	border: 1px solid #139ff7;
@@ -306,52 +348,56 @@ select.cke_a11yc_input_select:focus
 }
 
 /* Navigation bar */
-.cke_a11yc_bar
+.cke_a11yc_ui_navigation
 {
 	display: table;
 	overflow: hidden;
 	width: 100%;
 	height: 26px;
-	margin-bottom: 10px;
 }
 
-.cke_a11yc_bar .cke_a11yc_button_wrapper,
-.cke_a11yc_bar .cke_a11yc_select_wrapper
+.cke_a11yc_ui_navigation .cke_a11yc_ui_button_wrapper,
+.cke_a11yc_ui_navigation .cke_a11yc_ui_select_wrapper
 {
 	display: table-cell;
 }
 
-.cke_a11yc_bar .cke_a11yc_button_wrapper
+.cke_a11yc_ui_navigation .cke_a11yc_ui_button_wrapper
 {
 	width: 10%;
 }
 
-.cke_a11yc_bar .cke_a11yc_select_wrapper
+.cke_a11yc_ui_navigation .cke_a11yc_ui_select_wrapper
 {
 	padding: 0 10px;
 }
 
-.cke_a11yc_bar .cke_a11yc_select_wrapper select
+.cke_a11yc_ui_navigation .cke_a11yc_ui_select_wrapper select
 {
 	width: 100%;
 }
 
-.cke_a11yc_previous:after
+.cke_a11yc_ui_previous:after
 {
 }
 
-.cke_a11yc_next
+.cke_a11yc_ui_next
 {
 }
 
 /* Description */
-.cke_a11yc_desc_title,
-.cke_a11yc_desc_info
+.cke_a11yc_ui_desc_wrapper
+{
+	margin-top: 15px;
+}
+
+.cke_a11yc_ui_desc_title,
+.cke_a11yc_ui_desc_info
 {
 	white-space: normal;
 }
 
-.cke_a11yc_desc_info code
+.cke_a11yc_ui_desc_info code
 {
 	font-family: monospace;
 	padding: 1px 2px;
@@ -365,17 +411,16 @@ select.cke_a11yc_input_select:focus
 	color: inherit;
 }
 
-.cke_a11yc_desc_title
+.cke_a11yc_ui_desc_title
 {
 	font-size: 14px;
 	font-weight: bold;
-	margin: 10px 0;
 	margin-left: 24px;
 	display: block;
 	position: relative;
 }
 
-.cke_a11yc_desc_title:before
+.cke_a11yc_ui_desc_title:before
 {
 	content: '!';
 	display: inline-block;
@@ -398,10 +443,102 @@ select.cke_a11yc_input_select:focus
 	font-size: 18px;
 }
 
-.cke_a11yc_desc_info
+.cke_a11yc_ui_desc_info
 {
 	color: #6E6E6E;
 	font-style: italic;
-	margin: 10px 0;
+	margin-top: 10px;
 	line-height: 1.4em;
 }
+
+.cke_a11yc_ui_desc_info a
+{
+	color: #00B2CE;
+	text-decoration: underline;
+}
+
+/* Quick fix form */
+.cke_a11yc_ui_form
+{
+	overflow: hidden;
+}
+
+.cke_a11yc_ui_form_fieldset
+{
+	width: 100%;
+	display: table;
+	border-collapse: separate;
+	border-spacing: 0 15px;
+}
+
+.cke_a11yc_ui_input_label
+{
+	font-weight: bold;
+	padding-right: 10px;
+	width: 10%;
+}
+
+.cke_a11yc_ui_input_label:after
+{
+	content: ':';
+}
+
+.cke_a11yc_ui_input_wrapper
+{
+	display: table-row;
+	/*padding: 10px 0;*/
+	width: 100%;
+}
+
+.cke_a11yc_ui_input_wrapper .cke_a11yc_ui_input,
+.cke_a11yc_ui_input_wrapper .cke_a11yc_ui_input_label
+{
+	display: table-cell;
+}
+
+.cke_a11yc_ui_input_wrapper .cke_a11yc_ui_input
+{
+	width: 100%;
+}
+
+input.cke_a11yc_ui_input_text
+{
+	background-color: #fff;
+	border: 1px solid #c9cccf;
+	border-top-color: #aeb3b9;
+	padding: 4px 6px;
+	outline: none;
+
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15) inset;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15) inset;
+	box-shadow: 0 1px 2px rgba(0,0,0,.15) inset;
+}
+
+input.cke_a11yc_ui_input_text:hover
+{
+	border: 1px solid #aeb3b9;
+	border-top-color: #a0a6ad;
+}
+
+input.cke_a11yc_ui_input_text:focus
+{
+	outline: none;
+	border: 1px solid #139ff7;
+	border-top-color: #1392e9;
+}
+
+.cke_a11yc_ui_form .cke_a11yc_ui_button
+{
+	font-size: 14px;
+	width: 100%;
+}
+
+/* Shared styles */
