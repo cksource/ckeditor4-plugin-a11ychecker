@@ -296,7 +296,7 @@
 	 * A class which represents the end-user interface of a11ychecker. Viewer is a panel
 	 * which allows to browse and fix issues in the contents.
 	 *
-	 * *Note*: The panel is built upon the {@link CKEDITOR.ui.balloonPanel}.
+	 * *Note*: The panel is built upon the {@link CKEDITOR.ui.panel}.
 	 *
 	 * @since 4.5
 	 * @class CKEDITOR.plugins.a11ychecker.viewer
@@ -311,9 +311,9 @@
 
 		this.currentElement = null;
 		this.a11ychecker = editor._.a11ychecker;
-		this.balloonPanel = new CKEDITOR.ui.balloonPanel( editor, definition );
+		this.panel = new CKEDITOR.ui.balloonPanel( editor, definition );
 
-		this.balloonPanel.on( 'show', function() {
+		this.panel.on( 'show', function() {
 			this.keyListeners = [
 				// CTRL+SHIFT+[
 				this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
@@ -326,13 +326,13 @@
 			];
 		} );
 
-		this.balloonPanel.on( 'hide', function() {
+		this.panel.on( 'hide', function() {
 			var listener;
 			while ( ( listener = this.keyListeners.pop() ) )
 				listener.removeListener();
 		} );
 
-		this.balloonPanel.on( 'attach', function() {
+		this.panel.on( 'attach', function() {
 			editor._.a11ychecker.viewer.updateList();
 			editor._.a11ychecker.viewer.updateDescription();
 			editor._.a11ychecker.viewer.updateForm();
@@ -355,9 +355,9 @@
 				this.navigation = new ViewerNavigation();
 
 				// Register focusables.
-				this.balloonPanel.registerFocusable( this.navigation.ui.previous );
-				this.balloonPanel.registerFocusable( this.navigation.ui.list );
-				this.balloonPanel.registerFocusable( this.navigation.ui.next );
+				this.panel.registerFocusable( this.navigation.ui.previous );
+				this.panel.registerFocusable( this.navigation.ui.list );
+				this.panel.registerFocusable( this.navigation.ui.next );
 
 				// Handle change in the list of issues.
 				this.navigation.on( 'change', function( evt ) {
@@ -374,7 +374,7 @@
 					CKEDITOR.plugins.a11ychecker.next( this.env.editor );
 				}, this );
 
-				this.balloonPanel.ui.content.append( this.navigation.ui.wrapper );
+				this.panel.ui.content.append( this.navigation.ui.wrapper );
 			},
 
 			/**
@@ -386,7 +386,7 @@
 			description: function() {
 				this.description = new ViewerDescription();
 
-				this.balloonPanel.ui.content.append( this.description.ui.wrapper );
+				this.panel.ui.content.append( this.description.ui.wrapper );
 			},
 
 			/**
@@ -396,17 +396,17 @@
 			 * @member CKEDITOR.plugins.a11ychecker.viewer.setup
 			 */
 			form: function() {
-				this.quickFixForm = new ViewerForm();
+				this.form = new ViewerForm();
 
-				this.quickFixForm.on( 'addInput', function( evt ) {
-					this.balloonPanel.registerFocusable( evt.data.input );
+				this.form.on( 'addInput', function( evt ) {
+					this.panel.registerFocusable( evt.data.input );
 				}, this );
 
-				this.quickFixForm.on( 'removeInput', function( evt ) {
-					this.balloonPanel.deregisterFocusable( evt.data.input );
+				this.form.on( 'removeInput', function( evt ) {
+					this.panel.deregisterFocusable( evt.data.input );
 				}, this );
 
-				this.balloonPanel.ui.content.append( this.quickFixForm.ui.wrapper );
+				this.panel.ui.content.append( this.form.ui.wrapper );
 			}
 		},
 
@@ -425,7 +425,7 @@
 
 			// Wait for the scroll to stabilize.
 			CKEDITOR.tools.setTimeout( function() {
-				this.balloonPanel.attach( indexOrElement );
+				this.panel.attach( indexOrElement );
 			}, 50, this );
 		},
 
@@ -459,7 +459,7 @@
 		 * @method
 		 */
 		updateForm: function() {
-			this.quickFixForm.setInputs( {
+			this.form.setInputs( {
 				foo: {
 					type: 'text',
 					label: 'Alternative text'
