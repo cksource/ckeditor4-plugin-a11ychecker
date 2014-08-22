@@ -467,12 +467,16 @@
 				},
 				bar: {
 					type: 'checkbox',
-					label: 'Bar'
+					label: 'Something easy'
 				},
-				bang: {
-					type: 'text',
-					label: 'Ping pong'
-				},
+				boom: {
+					type: 'select',
+					label: 'Selectable',
+					options: {
+						11: 'Option #1',
+						22: 'Option #2'
+					}
+				}
 			} );
 		}
 	}
@@ -1057,6 +1061,35 @@
 
 			this.input.appendTo( this.wrapper );
 		},
+
+		/**
+		 * The select input of {@link CKEDITOR.plugins.a11ychecker.viewer.form}.
+		 *
+		 * @since 4.5
+		 * @class CKEDITOR.plugins.a11ychecker.viewer.inputs.select
+		 * @extends CKEDITOR.plugins.a11ychecker.viewer.input
+		 * @constructor Creates a select input instance.
+		 */
+		Select: function( name, definition ) {
+			ViewerInput.apply( this, arguments );
+
+			this.options = {};
+
+			this.input = CKEDITOR.dom.element.createFromHtml( this.inputTemplate.output( {
+				id: this.id
+			} ) );
+
+			for ( var o in definition.options ) {
+				this.options[ o ] = CKEDITOR.dom.element.createFromHtml( this.optionTemplate.output( {
+					value: o,
+					text: definition.options[ o ]
+				} ) );
+
+				this.options[ o ].appendTo( this.input );
+			}
+
+			this.input.appendTo( this.wrapper );
+		}
 	};
 
 	ViewerInputs.Text.prototype = CKEDITOR.tools.extend( new ViewerInput, {
@@ -1067,7 +1100,7 @@
 		 */
 		inputTemplate: new CKEDITOR.template(
 			'<input class="cke_a11yc_ui_input cke_a11yc_ui_input_text" type="text" id={id} aria-labelledby="id" aria-required="true">' )
-	}, true );
+	} );
 
 	ViewerInputs.Checkbox.prototype = CKEDITOR.tools.extend( new ViewerInput, {
 		/**
@@ -1082,6 +1115,22 @@
 			return this.input.$.checked;
 		}
 	}, true );
+
+	ViewerInputs.Select.prototype = CKEDITOR.tools.extend( new ViewerInput, {
+		/**
+		 * Template of the input.
+		 *
+		 * @property {CKEDITOR.template} inputTemplate
+		 */
+		inputTemplate: new CKEDITOR.template( '<select class="cke_a11yc_ui_input_select" id={id} aria-labelledby="id" aria-required="true"></select>' ),
+
+		/**
+		 * Template of the option.
+		 *
+		 * @property {CKEDITOR.template} inputTemplate
+		 */
+		optionTemplate: new CKEDITOR.template( '<option value="{value}">{text}</select>' )
+	} );
 
 	// Stores objects defining title/description for given issue type.
 	CKEDITOR.plugins.a11ychecker.types = {};

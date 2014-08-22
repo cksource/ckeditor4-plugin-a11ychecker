@@ -521,7 +521,8 @@ select.cke_a11yc_ui_input_select:focus
 	display: table-cell;
 }
 
-.cke_a11yc_ui_input_wrapper .cke_a11yc_ui_input
+.cke_a11yc_ui_input_wrapper .cke_a11yc_ui_input_text,
+.cke_a11yc_ui_input_wrapper .cke_a11yc_ui_input_select
 {
 	width: 100%;
 }
