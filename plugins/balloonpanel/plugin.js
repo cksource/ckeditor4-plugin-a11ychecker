@@ -72,22 +72,39 @@
 	 * @param {Object} definition An object containing panel definition.
 	 */
 	CKEDITOR.ui.balloonPanel = function( editor, definition ) {
+		/**
+		 * Panel definition.
+		 *
+		 * @member CKEDITOR.ui.balloonPanel
+		 * @property {Object} definition
+		 */
 		this.definition = definition;
+
+		/**
+		 * Focusables in this panel.
+		 * See {@link #registerFocusable},
+		 * {@link #deregisterFocusable}.
+		 *
+		 * @member CKEDITOR.ui.balloonPanel
+		 * @property {Object} focusables
+		 */
+		this.focusables = {};
+
+		/**
+		 * Event listeners associated with this panel.
+		 * See {@link #addListener},
+		 * {@link #removeListeners}.
+		 *
+		 * @member CKEDITOR.ui.balloonPanel
+		 * @property {Array} listeners
+		 */
+		this.listeners = [];
 
 		// Environmental references.
 		this.env = {
 			editor: editor,
 			winGlobal: CKEDITOR.document.getWindow()
 		};
-
-		// Environmental references that need to be updated with every contentDom
-		// as i.e. the reference to a window or frame may change.
-		editor.on( 'contentDom', function() {
-			this.env.winEditor = editor.window;
-			this.env.frame = this.env.winEditor.getFrame();
-			this.env.inline = editor.editable().isInline();
-			this.env.editable = editor.editable();
-		}, this );
 
 		this.ui = {
 			/**
@@ -169,51 +186,74 @@
 		// Register panel children to focusManager (prevent from blurring the editor).
 		this.registerFocusable( this.ui.panel );
 
-		// Hide the panel once the closing X is clicked.
-		this.ui.close.on( 'click', function( evt ) {
-			this.blur();
-			this.hide();
-			evt.data.preventDefault();
+		// Environmental references that need to be updated with every contentDom
+		// as i.e. the reference to a window or frame may change.
+		// Note: This listener is not registered in #listeners as it's not supposed
+		// to be attached and removed with every panel show or hide.
+		editor.on( 'contentDom', function() {
+			this.env.winEditor = editor.window;
+			this.env.frame = this.env.winEditor.getFrame();
+			this.env.inline = editor.editable().isInline();
+			this.env.editable = editor.editable();
 		}, this );
 
-		// Hide the panel on editor blur.
-		editor.on( 'blur', function() {
-			this.hide();
-		}, this );
-
-		// Hide the panel on editor resize.
-		editor.on( 'resize', function() {
-			this.blur();
-			this.hide();
-		}, this );
-
-		// Hide the panel once blurred.
-		this.ui.panel.on( 'blur', function( evt ) {
-			var target = new CKEDITOR.dom.element( evt.data.$.relatedTarget || evt.data.$.toElement );
-
-			// Make sure the focus has moved out of the panel.
-			if ( !this.ui.panel.contains( target ) && !this.ui.panel.equals( target ) ) {
-				this.hide();
-			}
-		}, this );
-
-		this.ui.panel.on( 'keydown', function( evt ) {
-			var keystroke = evt.data.getKeystroke();
-
-			// Hide the panel on ESC key press.
-			if ( keystroke == 27 ) {
+		// Add listeners associated with the panel on show.
+		// All listeners will be removed on panel hide.
+		this.on( 'show', function() {
+			// Hide the panel once the closing X is clicked.
+			this.addListener( this.ui.close.on( 'click', function( evt ) {
 				this.blur();
 				this.hide();
 				evt.data.preventDefault();
-			}
-		}, this );
+			}, this ) );
 
-		// Follow attached element on window scroll.
-		editor.on( 'contentDom', function() {
-			this.env.winEditor.on( 'scroll', function() {
+			// Hide the panel on editor blur.
+			this.addListener( editor.on( 'blur', function() {
+				this.hide();
+			}, this ) );
+
+			// Hide the panel on editor resize.
+			this.addListener( editor.on( 'resize', function() {
 				this.blur();
 				this.hide();
-			}, this );
+			}, this ) );
+
+			// Hide the panel once blurred.
+			this.addListener( this.ui.panel.on( 'blur', function( evt ) {
+				var target = new CKEDITOR.dom.element( evt.data.$.relatedTarget || evt.data.$.toElement );
+
+				// Make sure the focus has moved out of the panel.
+				if ( !this.ui.panel.contains( target ) && !this.ui.panel.equals( target ) ) {
+					this.hide();
+				}
+			}, this ) );
+
+			this.addListener( this.ui.panel.on( 'keydown', function( evt ) {
+				var keystroke = evt.data.getKeystroke();
+
+				// Hide the panel on ESC key press.
+				if ( keystroke == 27 ) {
+					this.blur();
+					this.hide();
+					evt.data.preventDefault();
+				}
+			}, this ) );
+
+			// Hide on window scroll.
+			this.addListener( this.env.winEditor.on( 'scroll', function() {
+				this.blur();
+				this.hide();
+			}, this ) );
+		} );
+
+		// Remove all listeners associated with the panel.
+		this.on( 'hide', function() {
+			this.removeListeners();
+		} );
+
+		// Handle panel destruction.
+		editor.on( 'destroy', function() {
+			this.removeListeners();
 		}, this );
 
 		// Panel title and close button are not to be selected.
@@ -504,6 +544,7 @@
 		/**
 		 * Registers a new focusable element in editor's focusManager so the instance
 		 * does not blur once child of the panel gains focus.
+		 * See {@link #focusables}.
 		 *
 		 * @method registerFocusable
 		 * @member CKEDITOR.ui.balloonPanel
@@ -511,10 +552,13 @@
 		 */
 		registerFocusable: function( element ) {
 			this.env.editor.focusManager.add( element );
+
+			this.focusables[ element.getUniqueId() ] = element;
 		},
 
 		/**
 		 * Deregisters element from editor's focusManager.
+		 * See {@link #focusables}.
 		 *
 		 * @method deregisterFocusable
 		 * @member CKEDITOR.ui.balloonPanel
@@ -522,6 +566,34 @@
 		 */
 		deregisterFocusable: function( element ) {
 			this.env.editor.focusManager.remove( element );
+
+			delete this.focusables[ element.getUniqueId() ];
+		},
+
+		/**
+		 * Adds event listener associated with this panel.
+		 * See {@link #listeners}.
+		 *
+		 * @method addListener
+		 * @member CKEDITOR.ui.balloonPanel
+		 * @param {Object} listener An object containing the `removeListener`.
+		 */
+		addListener: function( listener ) {
+			this.listeners.push( listener );
+		},
+
+		/**
+		 * Removes all event listeners associated with this panel.
+		 * See {@link #listeners}.
+		 *
+		 * @method removeListeners
+		 * @member CKEDITOR.ui.balloonPanel
+		 */
+		removeListeners: function() {
+			var l;
+			while ( ( l = this.listeners.pop() ) ) {
+				l.removeListener();
+			}
 		}
 	};
 
