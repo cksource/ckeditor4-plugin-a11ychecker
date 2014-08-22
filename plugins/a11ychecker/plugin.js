@@ -406,6 +406,7 @@
 					this.panel.deregisterFocusable( evt.data.input );
 				}, this );
 
+				this.panel.registerFocusable( this.form.ui.button );
 				this.panel.ui.content.append( this.form.ui.wrapper );
 			}
 		},
@@ -449,7 +450,7 @@
 				descHtml = CKEDITOR.plugins.a11ychecker.types[ type ].desc;
 
 			this.description.setTitle( CKEDITOR.plugins.a11ychecker.types[ type ].title );
-			this.description.setInfo( descHtml + ' <a href="#">Read more...</a>' );
+			this.description.setInfo( descHtml + ' <a href="#" tabindex="-1">Read more...</a>' );
 		},
 
 		/**

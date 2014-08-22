@@ -31,7 +31,7 @@
 			'<div class="cke_balloon_title" role="presentation">{title}</div>',
 
 		close:
-			'<a class="cke_balloon_close_button" href="javascript:void(0)" title="Close" role="button">' +
+			'<a class="cke_balloon_close_button" href="javascript:void(0)" title="Close" role="button" tabindex="-1">' +
 				'<span class="cke_label">X</span>' +
 			'</a>',
 
@@ -195,6 +195,7 @@
 
 		// Register panel children to focusManager (prevent from blurring the editor).
 		this.registerFocusable( this.ui.panel );
+		this.registerFocusable( this.ui.close );
 
 		// Environmental references that need to be updated with every contentDom
 		// as i.e. the reference to a window or frame may change.
