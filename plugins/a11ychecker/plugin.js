@@ -355,9 +355,9 @@
 				this.navigation = new ViewerNavigation();
 
 				// Register focusables.
-				this.balloonPanel.focusable( this.navigation.ui.previous );
-				this.balloonPanel.focusable( this.navigation.ui.list );
-				this.balloonPanel.focusable( this.navigation.ui.next );
+				this.balloonPanel.registerFocusable( this.navigation.ui.previous );
+				this.balloonPanel.registerFocusable( this.navigation.ui.list );
+				this.balloonPanel.registerFocusable( this.navigation.ui.next );
 
 				// Handle change in the list of issues.
 				this.navigation.on( 'change', function( evt ) {
@@ -397,6 +397,14 @@
 			 */
 			form: function() {
 				this.quickFixForm = new ViewerForm();
+
+				this.quickFixForm.on( 'addInput', function( evt ) {
+					this.balloonPanel.registerFocusable( evt.data.input );
+				}, this );
+
+				this.quickFixForm.on( 'removeInput', function( evt ) {
+					this.balloonPanel.deregisterFocusable( evt.data.input );
+				}, this );
 
 				this.balloonPanel.ui.content.append( this.quickFixForm.ui.wrapper );
 			}
@@ -804,6 +812,7 @@
 	 *
 	 * @since 4.5
 	 * @class CKEDITOR.plugins.a11ychecker.viewer.form
+	 * @mixins CKEDITOR.event
 	 * @constructor Creates a "quick fix" form instance.
 	 */
 	function ViewerForm() {
@@ -890,6 +899,8 @@
 		addInput: function( name, definition ) {
 			this.inputs[ name ] = new ViewerInputs[ CKEDITOR.tools.capitalize( definition.type ) ]( name, definition );
 			this.inputs[ name ].wrapper.appendTo( this.ui.fieldset );
+
+			this.fire( 'addInput', this.inputs[ name ] );
 		},
 
 		/**
@@ -899,6 +910,9 @@
 		 */
 		removeInput: function( name ) {
 			this.inputs[ name ].remove();
+
+			this.fire( 'removeInput', this.inputs[ name ] );
+
 			this.inputs[ name ] = null;
 		},
 
@@ -941,6 +955,8 @@
 			return data;
 		}
 	};
+
+	CKEDITOR.event.implementOn( ViewerForm.prototype );
 
 	/**
 	 * The generic class of {@link CKEDITOR.plugins.a11ychecker.viewer.form} input.

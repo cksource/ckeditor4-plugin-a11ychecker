@@ -167,10 +167,7 @@
 		this.ui.triangle.outer.append( this.ui.triangle.inner );
 
 		// Register panel children to focusManager (prevent from blurring the editor).
-		editor.focusManager.add( this.ui.panel );
-		this.ui.panel.forEach( function( element ) {
-			editor.focusManager.add( element );
-		} );
+		this.registerFocusable( this.ui.panel );
 
 		// Hide the panel once the closing X is clicked.
 		this.ui.close.on( 'click', function( evt ) {
@@ -508,12 +505,23 @@
 		 * Registers a new focusable element in editor's focusManager so the instance
 		 * does not blur once child of the panel gains focus.
 		 *
-		 * @method focusable
+		 * @method registerFocusable
 		 * @member CKEDITOR.ui.balloonPanel
 		 * @param {CKEDITOR.dom.element} element An element to be registered.
 		 */
-		focusable: function( element ) {
+		registerFocusable: function( element ) {
 			this.env.editor.focusManager.add( element );
+		},
+
+		/**
+		 * Deregisters element from editor's focusManager.
+		 *
+		 * @method deregisterFocusable
+		 * @member CKEDITOR.ui.balloonPanel
+		 * @param {CKEDITOR.dom.element} element An element to be registered.
+		 */
+		deregisterFocusable: function( element ) {
+			this.env.editor.focusManager.remove( element );
 		}
 	};
 
