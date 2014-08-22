@@ -58,8 +58,18 @@
 		DEFAULT_TRIANGLE_HEIGHT = 20,
 		DEFAULT_TRIANGLE_WIDTH = 20,
 		DEFAULT_TRIANGLE_SIDE = 'bottom',
+		DEFAULT_TRIANGLE_GAP = DEFAULT_TRIANGLE_WIDTH / 2 + 30;
 
-		TRIANGLE_RELATIVE = { right: 'left', top: 'bottom', bottom: 'top', left: 'right' };
+		TRIANGLE_RELATIVE = {
+			right: 'left',
+			top: 'bottom',
+			topLeft: 'bottomLeft',
+			topRight: 'bottomRight',
+			bottom: 'top',
+			bottomLeft: 'topLeft',
+			bottomRight: 'topRight',
+			left: 'right'
+		};
 
 	/**
 	 * A class which represents a floating, balloon-shaped panel capable of holding defined
@@ -456,7 +466,7 @@
 				};
 
 				// These are all possible alignments of the panel, relative to an element,
-				// i.e panel aligned to the top:
+				// i.e panel aligned to the 'top center':
 				//
 				//	[Editor]
 				//	+-------------------------------------+
@@ -469,19 +479,35 @@
 				//	|  |                               |  |
 				//	+--+-------------------------------+--+
 				var alignments = {
-					right: {
+					'right vcenter': {
 						top: elementRect.top + elementRect.height / 2 - panelHeight / 2,
 						left: elementRect.right + DEFAULT_TRIANGLE_WIDTH
 					},
-					top: {
+					'top hcenter': {
 						top: elementRect.top - panelHeight - DEFAULT_TRIANGLE_HEIGHT,
 						left: elementRect.left + elementRect.width / 2 - panelWidth / 2
 					},
-					bottom: {
+					'top left': {
+						top: elementRect.top - panelHeight - DEFAULT_TRIANGLE_HEIGHT,
+						left: elementRect.left + elementRect.width / 2 - DEFAULT_TRIANGLE_GAP
+					},
+					'top right': {
+						top: elementRect.top - panelHeight - DEFAULT_TRIANGLE_HEIGHT,
+						left: elementRect.right - elementRect.width / 2 - panelWidth + DEFAULT_TRIANGLE_GAP
+					},
+					'bottom hcenter': {
 						top: elementRect.bottom + DEFAULT_TRIANGLE_HEIGHT,
 						left: elementRect.left + elementRect.width / 2 - panelWidth / 2
 					},
-					left: {
+					'bottom left': {
+						top: elementRect.bottom + DEFAULT_TRIANGLE_HEIGHT,
+						left: elementRect.left + elementRect.width / 2 - DEFAULT_TRIANGLE_GAP
+					},
+					'bottom right': {
+						top: elementRect.bottom + DEFAULT_TRIANGLE_HEIGHT,
+						left: elementRect.right - elementRect.width / 2 - panelWidth + DEFAULT_TRIANGLE_GAP
+					},
+					'left vcenter': {
 						top: elementRect.top + elementRect.height / 2 - panelHeight / 2,
 						left: elementRect.left - panelWidth - DEFAULT_TRIANGLE_WIDTH
 					}
@@ -503,11 +529,7 @@
 
 					// If the difference is 0, it means that the panel is fully within allowed rect. That's great!
 					if ( areaDifference == 0 ) {
-						this.move( alignmentRect.top, alignmentRect.left );
-						this.triangle( TRIANGLE_RELATIVE[ a ] );
-
-						// Reset the alignment of a minimal area difference to prevent from the fallback.
-						minDifferenceAlignment = null;
+						minDifferenceAlignment = a;
 						break;
 					}
 
@@ -521,12 +543,10 @@
 						minDifferenceAlignment = a;
 				}
 
-				// If there was no such alignment that provided a perfect fit of the panel
-				// use the one that was the best (of the least area out of allowed rect).
-				if ( minDifferenceAlignment ) {
-					this.move( alignments[ minDifferenceAlignment ].top, alignments[ minDifferenceAlignment ].left );
-					this.triangle( TRIANGLE_RELATIVE[ minDifferenceAlignment ] );
-				}
+				this.move( alignments[ minDifferenceAlignment ].top, alignments[ minDifferenceAlignment ].left );
+
+				minDifferenceAlignment = minDifferenceAlignment.split( ' ' );
+				this.triangle( TRIANGLE_RELATIVE[ minDifferenceAlignment[ 0 ] ], minDifferenceAlignment[ 1 ] );
 
 				this.ui.panel.focus();
 			};
@@ -579,15 +599,18 @@
 		 * @member CKEDITOR.ui.balloonPanel
 		 * @param {String} side One of 'left', 'right', 'top', 'bottom'.
 		 */
-		triangle: function( side ) {
+		triangle: function( side, align ) {
 			if ( this.triangleSide ) {
 				this.ui.triangle.outer.removeClass( 'cke_balloon_triangle_' + this.triangleSide );
+				this.ui.triangle.outer.removeClass( 'cke_balloon_triangle_align_' + this.triangleAlign );
 				this.ui.triangle.inner.removeClass( 'cke_balloon_triangle_' + this.triangleSide );
 			}
 
 			this.triangleSide = side;
+			this.triangleAlign = align;
 
 			this.ui.triangle.outer.addClass( 'cke_balloon_triangle_' + side );
+			this.ui.triangle.outer.addClass( 'cke_balloon_triangle_align_' + align );
 			this.ui.triangle.inner.addClass( 'cke_balloon_triangle_' + side );
 		},
 
