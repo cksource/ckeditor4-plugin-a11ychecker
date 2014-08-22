@@ -402,11 +402,11 @@
 		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
 		 */
 		attach: ( function() {
-			function rectInZone( rect, allowedZone ) {
-				if ( rect.top < allowedZone.top || rect.left < allowedZone.left || rect.right > allowedZone.right || rect.bottom > allowedZone.bottom )
-					return false;
+			function rectIntersectArea( rect1, rect2 ) {
+				var hOverlap = Math.max( 0, Math.min( rect1.right, rect2.right ) - Math.max( rect1.left, rect2.left ) ),
+					vOverlap = Math.max( 0, Math.min( rect1.bottom, rect2.bottom ) - Math.max( rect1.top, rect2.top ) );
 
-				return rect;
+				return hOverlap * vOverlap;
 			}
 
 			function newPanelRect( top, left, panelWidth, panelHeight ) {
@@ -434,13 +434,40 @@
 					winGlobalScroll = this.env.winGlobal.getScrollPosition(),
 					editorRect = getAbsoluteRect( this.env.inline ? this.env.editable : this.env.frame, this.env );
 
-				var allowedZone = {
+				// This is the rect into which the panel should fit to remain
+				// both within the visible area of the editor and the viewport, i.e.
+				// the rect area covered by "#":
+				//
+				// 	[Viewport]
+				// 	+-------------------------------------+
+				// 	|                        [Editor]     |
+				// 	|                        +--------------------+
+				// 	|                        |############|       |
+				// 	|                        |############|       |
+				// 	|                        |############|       |
+				// 	|                        +--------------------+
+				// 	|                                     |
+				// 	+-------------------------------------+
+				var allowedRect = {
 					top: Math.max( editorRect.top, winGlobalScroll.y ),
 					left: Math.max( editorRect.left, winGlobalScroll.x ),
 					right: Math.min( editorRect.right, viewPaneSize.width + winGlobalScroll.x ),
 					bottom: Math.min( editorRect.bottom, viewPaneSize.height + winGlobalScroll.y )
 				};
 
+				// These are all possible alignments of the panel, relative to an element,
+				// i.e panel aligned to the top:
+				//
+				//	[Editor]
+				//	+-------------------------------------+
+				//	|         [Panel]                     |
+				//	|         +-----------------+         |
+				//	|         |                 |         |
+				//	|  [El.]  +--------v--------+         |
+				//	|  +-------------------------------+  |
+				//	|  |                               |  |
+				//	|  |                               |  |
+				//	+--+-------------------------------+--+
 				var alignments = {
 					right: {
 						top: elementRect.top + elementRect.height / 2 - panelHeight / 2,
@@ -460,23 +487,45 @@
 					}
 				};
 
-				var moved, rect;
-				for ( var a in alignments ) {
-					rect = newPanelRect( alignments[ a ].top, alignments[ a ].left, panelWidth, panelHeight );
+				// The area of the panel.
+				var panelArea = panelWidth * panelHeight,
 
-					if ( rectInZone( rect, allowedZone ) ) {
-						this.move( rect.top, rect.left );
+					minDifferenceAlignment, alignmentRect, areaDifference;
+
+				// Iterate over all possible alignments to find the optimal one.
+				for ( var a in alignments ) {
+					// Create a rect which would represent the panel in such alignment.
+					alignmentRect = newPanelRect( alignments[ a ].top, alignments[ a ].left, panelWidth, panelHeight );
+
+					// Calculate the difference between the area of the panel and intersection of allowed rect and alignment rect.
+					// It is the area of the panel, which would be OUT of allowed rect if such alignment was used. Less is better.
+					areaDifference = alignments[ a ].areaDifference = panelArea - rectIntersectArea( alignmentRect, allowedRect );
+
+					// If the difference is 0, it means that the panel is fully within allowed rect. That's great!
+					if ( areaDifference == 0 ) {
+						this.move( alignmentRect.top, alignmentRect.left );
 						this.triangle( TRIANGLE_RELATIVE[ a ] );
-						moved = 1;
+
+						// Reset the alignment of a minimal area difference to prevent from the fallback.
+						minDifferenceAlignment = null;
 						break;
 					}
+
+					// If there's no alignment of a minimal area difference, use the first available.
+					if ( !minDifferenceAlignment )
+						minDifferenceAlignment = a;
+
+					// Determine the alignment of a minimal area difference. It will be used as a fallback
+					// if no aligment provides a perfect fit into allowed rect.
+					if ( areaDifference < alignments[ minDifferenceAlignment ].areaDifference )
+						minDifferenceAlignment = a;
 				}
 
-				// Default fall back.
-				// To-do: It got to be much smarter.
-				if ( !moved ) {
-					this.move( alignments.right.top, alignments.right.left );
-					this.triangle( TRIANGLE_RELATIVE.right );
+				// If there was no such alignment that provided a perfect fit of the panel
+				// use the one that was the best (of the least area out of allowed rect).
+				if ( minDifferenceAlignment ) {
+					this.move( alignments[ minDifferenceAlignment ].top, alignments[ minDifferenceAlignment ].left );
+					this.triangle( TRIANGLE_RELATIVE[ minDifferenceAlignment ] );
 				}
 
 				this.ui.panel.focus();
