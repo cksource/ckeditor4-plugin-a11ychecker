@@ -254,6 +254,7 @@
 		// Handle panel destruction.
 		editor.on( 'destroy', function() {
 			this.removeListeners();
+			this.ui.panel.remove();
 		}, this );
 
 		// Panel title and close button are not to be selected.
