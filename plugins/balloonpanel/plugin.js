@@ -4,6 +4,8 @@
  */
 
 ( function() {
+	'use strict';
+
 	CKEDITOR.plugins.add( 'balloonpanel', {
 		init: function( editor ) {
 
@@ -25,7 +27,7 @@
 			'></div>',
 
 		content:
-				'<div class="cke_balloon_content">{content}</div>',
+			'<div class="cke_balloon_content">{content}</div>',
 
 		title:
 			'<div class="cke_balloon_title" role="presentation">{title}</div>',
@@ -58,7 +60,7 @@
 		DEFAULT_TRIANGLE_HEIGHT = 20,
 		DEFAULT_TRIANGLE_WIDTH = 20,
 		DEFAULT_TRIANGLE_SIDE = 'bottom',
-		DEFAULT_TRIANGLE_GAP = DEFAULT_TRIANGLE_WIDTH / 2 + 30;
+		DEFAULT_TRIANGLE_GAP = DEFAULT_TRIANGLE_WIDTH / 2 + 30,
 
 		TRIANGLE_RELATIVE = {
 			right: 'left',
