@@ -510,7 +510,7 @@
 			previous: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
 				title: 'Previous',
 				'class': 'previous',
-				text: 'Previous'
+				text: ''
 			} ) ),
 
 			/**
