@@ -658,15 +658,40 @@
 		 * @param {CKEDITOR.dom.element} currentElement
 		 */
 		updateList: ( function() {
-			function getElementInfo( element ) {
-				var collected = [],
-					attributes = Array.prototype.slice.call( element.$.attributes );
+			function trimText( text, length ) {
+				if ( text.length > length ) {
+					return CKEDITOR.tools.trim( text ).slice( 0, length - 3 ) + '[...]';
+				} else {
+					return text;
+				}
+			}
 
-				for ( var a in attributes ) {
-					collected.push( attributes[ a ].name + '="' + attributes[ a ].value + '"' );
+			var relevantNames = [ 'title', 'alt', 'src', 'href', 'id', 'name' ],
+				infoTemplate = new CKEDITOR.template( ' ({name}="{value}")' );
+
+			function getElementInfo( element ) {
+				var rawAttributes = Array.prototype.slice.call( element.$.attributes ),
+					namedAttributes = {},
+					elementInfo;
+
+				for ( var a in rawAttributes ) {
+					namedAttributes[ rawAttributes[ a ].name ] = rawAttributes[ a ].value;
 				}
 
-				return element.getName() + '[' + collected.join( ', ' ) + ']';
+				for ( var i = 0; i < relevantNames.length; ++i ) {
+					if ( namedAttributes[ relevantNames[ i ] ] !== undefined ) {
+						elementInfo = infoTemplate.output( {
+							name: relevantNames[ i ],
+							value: trimText( namedAttributes[ relevantNames[ i ] ], 50 )
+						} );
+						break;
+					}
+				}
+
+				if ( !elementInfo )
+					elementInfo = ' ("' + trimText( element.getText(), 50 ) + '")';
+
+				return element.getName() + elementInfo;
 			}
 
 			return function( issues, currentElement ) {
