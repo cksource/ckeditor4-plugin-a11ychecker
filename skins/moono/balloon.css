@@ -73,7 +73,6 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 .cke_balloon_content
 {
 	overflow: hidden;
-	padding: 10px;
 }
 
 .cke_balloon_close_button:hover
@@ -379,6 +378,10 @@ select.cke_a11yc_ui_input_select:focus
 	overflow: hidden;
 	width: 100%;
 	height: 26px;
+	background: #eee;
+	outline: 1px solid #ddd;
+	border-collapse: separate;
+	border-spacing: 10px;
 }
 
 .cke_a11yc_ui_navigation .cke_a11yc_ui_button_wrapper,
@@ -394,7 +397,7 @@ select.cke_a11yc_ui_input_select:focus
 
 .cke_a11yc_ui_navigation .cke_a11yc_ui_select_wrapper
 {
-	padding: 0 10px;
+
 }
 
 .cke_a11yc_ui_navigation .cke_a11yc_ui_select_wrapper select
@@ -413,7 +416,8 @@ select.cke_a11yc_ui_input_select:focus
 /* Description */
 .cke_a11yc_ui_desc_wrapper
 {
-	margin-top: 15px;
+	padding: 0 10px;
+	margin: 15px 0 10px;
 }
 
 .cke_a11yc_ui_desc_title,
@@ -440,32 +444,6 @@ select.cke_a11yc_ui_input_select:focus
 {
 	font-size: 14px;
 	font-weight: bold;
-	margin-left: 24px;
-	display: block;
-	position: relative;
-}
-
-.cke_a11yc_ui_desc_title:before
-{
-	content: '!';
-	display: inline-block;
-	position: absolute;
-	left: -24px;
-	height: 18px;
-	width: 18px;
-	/*border: 3px solid rgb( 255, 160, 160 );*/
-	background: #FF4158;
-
-	-moz-border-radius: 20px;
-	-webkit-border-radius: 20px;
-	border-radius: 20px;
-
-	font-weight: normal;
-	margin-right: 8px;
-	vertical-align: middle;
-	color: #fff;
-	text-align: center;
-	font-size: 18px;
 }
 
 .cke_a11yc_ui_desc_info
@@ -485,21 +463,19 @@ select.cke_a11yc_ui_input_select:focus
 /* Quick fix form */
 .cke_a11yc_ui_form
 {
-	overflow: hidden;
+	padding: 0 10px;
+	margin: 15px 0 10px;
 }
 
 .cke_a11yc_ui_form_fieldset
 {
 	width: 100%;
 	display: table;
-	border-collapse: separate;
-	border-spacing: 0 15px;
 }
 
 .cke_a11yc_ui_input_label
 {
-	font-weight: bold;
-	padding-right: 10px;
+	padding-right: 20px;
 	width: 10%;
 }
 
@@ -511,8 +487,11 @@ select.cke_a11yc_ui_input_select:focus
 .cke_a11yc_ui_input_wrapper
 {
 	display: table-row;
-	/*padding: 10px 0;*/
-	width: 100%;
+}
+
+.cke_a11yc_ui_input_wrapper + .cke_a11yc_ui_input_wrapper
+{
+	border-top: 10px solid transparent;
 }
 
 .cke_a11yc_ui_input_wrapper .cke_a11yc_ui_input,
@@ -565,6 +544,8 @@ input.cke_a11yc_ui_input_text:focus
 {
 	font-size: 14px;
 	width: 100%;
+	margin-top: 15px;
+	padding: 5px 0;
 }
 
 /* Shared styles */
