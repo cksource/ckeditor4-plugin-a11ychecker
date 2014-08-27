@@ -12,47 +12,6 @@
 		}
 	} );
 
-	// Templates used by the plugin.
-	var templates = {
-		panel:
-			'<div' +
-				' class="cke {id} cke_reset_all cke_chrome cke_balloon cke_editor_{name} cke_{langDir} ' + CKEDITOR.env.cssClass + '"' +
-				' dir="{langDir}"' +
-				' title="' + ( CKEDITOR.env.gecko ? ' ' : '' ) + '"' +
-				' lang="{langCode}"' +
-				' role="dialog"' +
-				' style="{style}"' +
-				' tabindex="-1"' +	// Needed to make the panel focusable.
-				' aria-labelledby="cke_{name}_arialbl"' +
-			'></div>',
-
-		content:
-			'<div class="cke_balloon_content">{content}</div>',
-
-		title:
-			'<div class="cke_balloon_title" role="presentation">{title}</div>',
-
-		close:
-			'<a class="cke_balloon_close_button" href="javascript:void(0)" title="Close" role="button" tabindex="-1">' +
-				'<span class="cke_label">X</span>' +
-			'</a>',
-
-		triangle: {
-			outer: '<span class="cke_balloon_triangle cke_balloon_triangle_outer"></span>',
-			inner: '<span class="cke_balloon_triangle cke_balloon_triangle_inner">&#8203;</span>'
-		}
-	};
-
-	( function generateTemplates( templates ) {
-		// Make each of template strings an instance of CKEDITOR.template.
-		for ( var t in templates ) {
-			if ( typeof templates[ t ] == 'string' )
-				templates[ t ] = new CKEDITOR.template( templates[ t ] );
-			else
-				generateTemplates( templates[ t ] );
-		}
-	} )( templates );
-
 	var DEFAULT_RECT_WIDTH = 360,
 		DEFAULT_RECT_HEIGHT = null,
 		DEFAULT_RECT_LEFT = 0,
@@ -88,6 +47,16 @@
 		if ( definition )
 			CKEDITOR.tools.extend( this, definition );
 
+		( function generateTemplates( templates ) {
+			// Make each of template strings an instance of CKEDITOR.template.
+			for ( var t in templates ) {
+				if ( typeof templates[ t ] == 'string' )
+					templates[ t ] = new CKEDITOR.template( templates[ t ] );
+				else
+					generateTemplates( templates[ t ] );
+			}
+		} )( this.templates );
+
 		/**
 		 * Focusables in this panel.
 		 * See {@link #registerFocusable},
@@ -122,7 +91,7 @@
 			 * @member CKEDITOR.ui.balloonPanel.ui
 			 * @property {CKEDITOR.dom.element} title
 			 */
-			title: CKEDITOR.dom.element.createFromHtml( templates.title.output( {
+			title: CKEDITOR.dom.element.createFromHtml( this.templates.title.output( {
 				title: this.title
 			} ) ),
 
@@ -133,7 +102,7 @@
 			 * @member CKEDITOR.ui.balloonPanel.ui
 			 * @property {CKEDITOR.dom.element} close
 			 */
-			close: CKEDITOR.dom.element.createFromHtml( templates.close.output() ),
+			close: CKEDITOR.dom.element.createFromHtml( this.templates.close.output() ),
 
 			/**
 			 * The undermost element, which holds all other elements.
@@ -143,7 +112,7 @@
 			 * @member CKEDITOR.ui.balloonPanel.ui
 			 * @property {CKEDITOR.dom.element} panel
 			 */
-			panel: CKEDITOR.dom.element.createFromHtml( templates.panel.output( {
+			panel: CKEDITOR.dom.element.createFromHtml( this.templates.panel.output( {
 				id: editor.id,
 				langDir: editor.lang.dir,
 				langCode: editor.langCode,
@@ -159,7 +128,7 @@
 			 * @member CKEDITOR.ui.balloonPanel.ui
 			 * @property {CKEDITOR.dom.element} content
 			 */
-			content: CKEDITOR.dom.element.createFromHtml( templates.content.output( {
+			content: CKEDITOR.dom.element.createFromHtml( this.templates.content.output( {
 				content: this.content || ''
 			} ) ),
 
@@ -171,7 +140,7 @@
 				 * @member CKEDITOR.ui.balloonPanel.ui.triangle
 				 * @property {CKEDITOR.dom.element} outer
 				 */
-				outer: CKEDITOR.dom.element.createFromHtml( templates.triangle.outer.output() ),
+				outer: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.outer.output() ),
 
 				/**
 				 * The inner element of the triangle.
@@ -180,7 +149,7 @@
 				 * @member CKEDITOR.ui.balloonPanel.ui.triangle
 				 * @property {CKEDITOR.dom.element} inner
 				 */
-				inner: CKEDITOR.dom.element.createFromHtml( templates.triangle.inner.output() ),
+				inner: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.inner.output() ),
 			}
 		};
 
@@ -340,6 +309,71 @@
 	 */
 
 	CKEDITOR.ui.balloonPanel.prototype = {
+		templates: {
+			/**
+			 * Template of the panel's outmost container.
+			 *
+			 * @member CKEDITOR.ui.balloonPanel.templates
+			 * @property {CKEDITOR.template} panel
+			 */
+			panel:
+				'<div' +
+					' class="cke {id} cke_reset_all cke_chrome cke_balloon cke_editor_{name} cke_{langDir} ' + CKEDITOR.env.cssClass + '"' +
+					' dir="{langDir}"' +
+					' title="' + ( CKEDITOR.env.gecko ? ' ' : '' ) + '"' +
+					' lang="{langCode}"' +
+					' role="dialog"' +
+					' style="{style}"' +
+					' tabindex="-1"' +	// Needed to make the panel focusable.
+					' aria-labelledby="cke_{name}_arialbl"' +
+				'></div>',
+
+			/**
+			 * Template of the panel's content container.
+			 *
+			 * @member CKEDITOR.ui.balloonPanel.templates
+			 * @property {CKEDITOR.template} content
+			 */
+			content: '<div class="cke_balloon_content">{content}</div>',
+
+			/**
+			 * Template of the panel's title bar.
+			 *
+			 * @member CKEDITOR.ui.balloonPanel.templates
+			 * @property {CKEDITOR.template} title
+			 */
+			title: '<div class="cke_balloon_title" role="presentation">{title}</div>',
+
+			/**
+			 * Template of the panel's close button.
+			 *
+			 * @member CKEDITOR.ui.balloonPanel.templates
+			 * @property {CKEDITOR.template} close
+			 */
+			close:
+				'<a class="cke_balloon_close_button" href="javascript:void(0)" title="Close" role="button" tabindex="-1">' +
+					'<span class="cke_label">X</span>' +
+				'</a>',
+
+			triangle: {
+				/**
+				 * Template of the panel's outer triangle.
+				 *
+				 * @member CKEDITOR.ui.balloonPanel.templates.triangle
+				 * @property {CKEDITOR.template} outer
+				 */
+				outer: '<span class="cke_balloon_triangle cke_balloon_triangle_outer"></span>',
+
+				/**
+				 * Template of the panel's inner triangle.
+				 *
+				 * @member CKEDITOR.ui.balloonPanel.templates.triangle
+				 * @property {CKEDITOR.template} inner
+				 */
+				inner: '<span class="cke_balloon_triangle cke_balloon_triangle_inner">&#8203;</span>'
+			}
+		},
+
 		/**
 		 * Shows the panel.
 		 *
