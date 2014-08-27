@@ -40,6 +40,11 @@
 	 * @param {Object} definition An object containing panel definition.
 	 */
 	CKEDITOR.ui.balloonPanel = function( editor, definition ) {
+		/**
+		 * The editor of this panel.
+		 */
+		this.editor = editor;
+
 		// Copy all definition properties to this object.
 		if ( definition )
 			CKEDITOR.tools.extend( this, definition );
@@ -56,23 +61,18 @@
 
 		/**
 		 * Focusables in this panel.
-		 * See {@link #registerFocusable},
-		 * {@link #deregisterFocusable}.
-		 *
-		 * @property {Object} focusables
+		 * See {@link #registerFocusable}, {@link #deregisterFocusable}.
 		 */
 		this.focusables = {};
 
 		/**
 		 * Event listeners associated with this panel.
 		 * See {@link #addListener}, {@link #removeListeners}.
-		 *
-		 * @property {Array} listeners
 		 */
 		this.listeners = [];
 
 		/**
-		 * @property {Object} rect Contains panel properties as {@link #move}, {@link #resize},
+		 * @property rect Contains panel properties as {@link #move}, {@link #resize},
 		 * {@link #show} and {@link #hide} are called. It holds values and avoid unnecessary
 		 * and expensive checks in the future.
 		 *
@@ -227,7 +227,7 @@
 		 * Builds the UI of the panel.
 		 */
 		build: function() {
-			var editor = this.env.editor;
+			var editor = this.editor;
 
 			/**
 			 * @property ui UI elements of the panel.
@@ -323,7 +323,7 @@
 		 * @member CKEDITOR.ui.balloonPanel
 		 */
 		blur: function() {
-			this.env.editor.focus();
+			this.editor.focus();
 		},
 
 		/**
@@ -555,7 +555,7 @@
 		 * @param {CKEDITOR.dom.element} element An element to be registered.
 		 */
 		registerFocusable: function( element ) {
-			this.env.editor.focusManager.add( element );
+			this.editor.focusManager.add( element );
 
 			this.focusables[ element.getUniqueId() ] = element;
 		},
@@ -567,7 +567,7 @@
 		 * @param {CKEDITOR.dom.element} element An element to be registered.
 		 */
 		deregisterFocusable: function( element ) {
-			this.env.editor.focusManager.remove( element );
+			this.editor.focusManager.remove( element );
 
 			delete this.focusables[ element.getUniqueId() ];
 		},
