@@ -84,13 +84,9 @@
 	 * @param {Object} definition An object containing panel definition.
 	 */
 	CKEDITOR.ui.balloonPanel = function( editor, definition ) {
-		/**
-		 * Panel definition.
-		 *
-		 * @member CKEDITOR.ui.balloonPanel
-		 * @property {Object} definition
-		 */
-		this.definition = definition;
+		// Copy all definition properties to this object.
+		if ( definition )
+			CKEDITOR.tools.extend( this, definition );
 
 		/**
 		 * Focusables in this panel.
@@ -127,7 +123,7 @@
 			 * @property {CKEDITOR.dom.element} title
 			 */
 			title: CKEDITOR.dom.element.createFromHtml( templates.title.output( {
-				title: definition.title
+				title: this.title
 			} ) ),
 
 			/**
@@ -164,7 +160,7 @@
 			 * @property {CKEDITOR.dom.element} content
 			 */
 			content: CKEDITOR.dom.element.createFromHtml( templates.content.output( {
-				content: definition.content || ''
+				content: this.content || ''
 			} ) ),
 
 			triangle: {
