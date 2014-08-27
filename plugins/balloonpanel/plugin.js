@@ -80,53 +80,8 @@
 			winGlobal: CKEDITOR.document.getWindow()
 		};
 
-		/**
-		 * @property ui UI elements of the panel.
-		 * @property {CKEDITOR.dom.element} ui.title Title bar of the panel.
-		 * @property {CKEDITOR.dom.element} ui.close Close button.
-		 * @property {CKEDITOR.dom.element} ui.content The element, which holds the contents of the panel.
-		 * @property {CKEDITOR.dom.element} ui.panel The undermost element, which holds all other elements. The panel is positioned absolutely.
-		 * @property {CKEDITOR.dom.element} ui.triangle Panel's triangle.
-		 * @property {CKEDITOR.dom.element} ui.triangle.outer The outer element of the triangle.
-		 * @property {CKEDITOR.dom.element} ui.triangle.inner The inner element of the triangle.
-		 */
-		this.ui = {
-			title: CKEDITOR.dom.element.createFromHtml( this.templates.title.output( {
-				title: this.title
-			} ) ),
-
-			close: CKEDITOR.dom.element.createFromHtml( this.templates.close.output() ),
-
-			panel: CKEDITOR.dom.element.createFromHtml( this.templates.panel.output( {
-				id: editor.id,
-				langDir: editor.lang.dir,
-				langCode: editor.langCode,
-				name: editor.name,
-				style: 'display:none;',
-				voiceLabel: editor.lang.editorPanel + ', ' + editor.name,
-			} ) ),
-
-			content: CKEDITOR.dom.element.createFromHtml( this.templates.content.output( {
-				content: this.content || ''
-			} ) ),
-
-			triangle: {
-				outer: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.outer.output() ),
-
-				inner: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.inner.output() ),
-			}
-		};
-
-		// Append UI elements to create a panel.
-		this.ui.panel.append( this.ui.title, 1 );
-		this.ui.panel.append( this.ui.close, 1 );
-		this.ui.panel.append( this.ui.triangle.outer );
-		this.ui.panel.append( this.ui.content );
-		this.ui.triangle.outer.append( this.ui.triangle.inner );
-
-		// Register panel children to focusManager (prevent from blurring the editor).
-		this.registerFocusable( this.ui.panel );
-		this.registerFocusable( this.ui.close );
+		// Build the UI of the panel.
+		this.build();
 
 		// Environmental references that need to be updated with every contentDom
 		// as i.e. the reference to a window or frame may change.
@@ -199,10 +154,6 @@
 			this.ui.panel.remove();
 		}, this );
 
-		// Panel title and close button are not to be selected.
-		this.ui.title.unselectable();
-		this.ui.close.unselectable();
-
 		// Rect contains the following properties:
 		// 		{ visible, width, height, top, left }
 		// updated as balloonPanel.move|resize() are called.
@@ -214,10 +165,6 @@
 		this.move( DEFAULT_RECT_TOP, DEFAULT_RECT_LEFT );
 		this.resize( DEFAULT_RECT_WIDTH, DEFAULT_RECT_HEIGHT );
 		this.triangle( DEFAULT_TRIANGLE_SIDE );
-
-		// Append the panel to the global document.
-		CKEDITOR.document.getBody().append( this.ui.panel );
-
 		/**
 		 * Event fired when panel is shown.
 		 *
@@ -275,6 +222,68 @@
 
 				inner: '<span class="cke_balloon_triangle cke_balloon_triangle_inner">&#8203;</span>'
 			}
+		},
+
+		/**
+		 * Builds the UI of the panel.
+		 */
+		build: function() {
+			var editor = this.env.editor;
+
+			/**
+			 * @property ui UI elements of the panel.
+			 * @property {CKEDITOR.dom.element} ui.title Title bar of the panel.
+			 * @property {CKEDITOR.dom.element} ui.close Close button.
+			 * @property {CKEDITOR.dom.element} ui.content The element, which holds the contents of the panel.
+			 * @property {CKEDITOR.dom.element} ui.panel The undermost element, which holds all other elements. The panel is positioned absolutely.
+			 * @property {CKEDITOR.dom.element} ui.triangle Panel's triangle.
+			 * @property {CKEDITOR.dom.element} ui.triangle.outer The outer element of the triangle.
+			 * @property {CKEDITOR.dom.element} ui.triangle.inner The inner element of the triangle.
+			 */
+			this.ui = {
+				title: CKEDITOR.dom.element.createFromHtml( this.templates.title.output( {
+					title: this.title
+				} ) ),
+
+				close: CKEDITOR.dom.element.createFromHtml( this.templates.close.output() ),
+
+				panel: CKEDITOR.dom.element.createFromHtml( this.templates.panel.output( {
+					id: editor.id,
+					langDir: editor.lang.dir,
+					langCode: editor.langCode,
+					name: editor.name,
+					style: 'display:none;',
+					voiceLabel: editor.lang.editorPanel + ', ' + editor.name,
+				} ) ),
+
+				content: CKEDITOR.dom.element.createFromHtml( this.templates.content.output( {
+					content: this.content || ''
+				} ) ),
+
+				triangle: {
+					outer: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.outer.output() ),
+
+					inner: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.inner.output() ),
+				}
+			};
+
+			// Append UI elements to create a panel.
+			this.ui.panel.append( this.ui.title, 1 );
+			this.ui.panel.append( this.ui.close, 1 );
+			this.ui.panel.append( this.ui.triangle.outer );
+			this.ui.panel.append( this.ui.content );
+			this.ui.triangle.outer.append( this.ui.triangle.inner );
+
+			// Register panel children to focusManager (prevent from blurring the editor).
+			this.registerFocusable( this.ui.panel );
+			this.registerFocusable( this.ui.close );
+
+			// Panel title and close button are not to be selected.
+			this.ui.title.unselectable();
+			this.ui.close.unselectable();
+
+			// Append the panel to the global document.
+			CKEDITOR.document.getBody().append( this.ui.panel );
 		},
 
 		/**
