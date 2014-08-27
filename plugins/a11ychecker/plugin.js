@@ -314,22 +314,29 @@
 		this.panel = new CKEDITOR.ui.balloonPanel( editor, definition );
 
 		this.panel.on( 'show', function() {
-			this.keyListeners = [
-				// CTRL+SHIFT+[
-				this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
-					CKEDITOR.plugins.a11ychecker.prev( editor );
-				} ), this ),
-				// CTRL+SHIFT+]
-				this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 221, function() {
-					CKEDITOR.plugins.a11ychecker.next( editor );
-				} ), this )
-			];
-		} );
+			// CTRL+SHIFT+[
+			this.addListener( this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
+				CKEDITOR.plugins.a11ychecker.prev( editor );
+			} ) ) );
 
-		this.panel.on( 'hide', function() {
-			var listener;
-			while ( ( listener = this.keyListeners.pop() ) )
-				listener.removeListener();
+			// CTRL+SHIFT+]
+			this.addListener( this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 221, function() {
+				CKEDITOR.plugins.a11ychecker.next( editor );
+			} ) ) );
+
+			// Hide on iframe window's scroll.
+			if ( !this.editor.editable().isInline() ) {
+				this.addListener( this.editor.window.on( 'scroll', function() {
+					this.blur();
+					this.hide();
+				}, this ) );
+			}
+
+			// Hide the panel on editor resize.
+			this.addListener( editor.on( 'resize', function() {
+				this.blur();
+				this.hide();
+			}, this ) );
 		} );
 
 		this.panel.on( 'attach', function() {

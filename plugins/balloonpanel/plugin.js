@@ -104,12 +104,6 @@
 				this.hide();
 			}, this ) );
 
-			// Hide the panel on editor resize.
-			this.addListener( editor.on( 'resize', function() {
-				this.blur();
-				this.hide();
-			}, this ) );
-
 			// Hide the panel once blurred.
 			this.addListener( this.ui.panel.on( 'blur', function( evt ) {
 				var target = new CKEDITOR.dom.element( evt.data.$.relatedTarget || evt.data.$.toElement );
@@ -130,24 +124,13 @@
 					evt.data.preventDefault();
 				}
 			}, this ) );
-
-			// Hide on window scroll.
-			this.addListener( this.editor.window.on( 'scroll', function() {
-				this.blur();
-				this.hide();
-			}, this ) );
 		} );
 
 		// Remove all listeners associated with the panel.
-		this.on( 'hide', function() {
-			this.removeListeners();
-		} );
+		this.on( 'hide', this.removeListeners, this );
 
 		// Handle panel destruction.
-		editor.on( 'destroy', function() {
-			this.removeListeners();
-			this.ui.panel.remove();
-		}, this );
+		editor.on( 'destroy', this.destroy, this );
 
 		/**
 		 * Event fired when panel is shown.
@@ -612,6 +595,15 @@
 			while ( ( l = this.listeners.pop() ) ) {
 				l.removeListener();
 			}
+		},
+
+		/**
+		 * Destroys the panel by removing it from DOM and purging
+		 * all associated listeners.
+		 */
+		destroy: function() {
+			this.removeListeners();
+			this.ui.panel.remove();
 		}
 	};
 
