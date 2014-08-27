@@ -46,16 +46,18 @@
 		this.editor = editor;
 
 		// Copy all definition properties to this object.
-		if ( definition )
+		if ( definition ) {
 			CKEDITOR.tools.extend( this, definition );
+		}
 
 		( function generateTemplates( templates ) {
 			// Make each of template strings an instance of CKEDITOR.template.
 			for ( var t in templates ) {
-				if ( typeof templates[ t ] == 'string' )
+				if ( typeof templates[ t ] == 'string' ) {
 					templates[ t ] = new CKEDITOR.template( templates[ t ] );
-				else
+				} else {
 					generateTemplates( templates[ t ] );
+				}
 			}
 		} )( this.templates );
 
@@ -235,7 +237,7 @@
 					langCode: editor.langCode,
 					name: editor.name,
 					style: 'display:none;',
-					voiceLabel: editor.lang.editorPanel + ', ' + editor.name,
+					voiceLabel: editor.lang.editorPanel + ', ' + editor.name
 				} ) ),
 
 				content: CKEDITOR.dom.element.createFromHtml( this.templates.content.output( {
@@ -245,7 +247,7 @@
 				triangle: {
 					outer: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.outer.output() ),
 
-					inner: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.inner.output() ),
+					inner: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.inner.output() )
 				}
 			};
 
@@ -483,19 +485,21 @@
 					areaDifference = alignments[ a ].areaDifference = panelArea - rectIntersectArea( alignmentRect, allowedRect );
 
 					// If the difference is 0, it means that the panel is fully within allowed rect. That's great!
-					if ( areaDifference == 0 ) {
+					if ( areaDifference === 0 ) {
 						minDifferenceAlignment = a;
 						break;
 					}
 
 					// If there's no alignment of a minimal area difference, use the first available.
-					if ( !minDifferenceAlignment )
+					if ( !minDifferenceAlignment ) {
 						minDifferenceAlignment = a;
+					}
 
 					// Determine the alignment of a minimal area difference. It will be used as a fallback
 					// if no aligment provides a perfect fit into allowed rect.
-					if ( areaDifference < alignments[ minDifferenceAlignment ].areaDifference )
+					if ( areaDifference < alignments[ minDifferenceAlignment ].areaDifference ) {
 						minDifferenceAlignment = a;
+					}
 				}
 
 				this.move( alignments[ minDifferenceAlignment ].top, alignments[ minDifferenceAlignment ].left );
