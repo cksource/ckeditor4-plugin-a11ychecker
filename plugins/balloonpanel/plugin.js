@@ -84,25 +84,8 @@
 		 */
 		this.rect = {};
 
-		// Environmental references.
-		this.env = {
-			editor: editor,
-			winGlobal: CKEDITOR.document.getWindow()
-		};
-
 		// Build the UI of the panel.
 		this.build();
-
-		// Environmental references that need to be updated with every contentDom
-		// as i.e. the reference to a window or frame may change.
-		// Note: This listener is not registered in #listeners as it's not supposed
-		// to be attached and removed with every panel show or hide.
-		editor.on( 'contentDom', function() {
-			this.env.winEditor = editor.window;
-			this.env.frame = this.env.winEditor.getFrame();
-			this.env.inline = editor.editable().isInline();
-			this.env.editable = editor.editable();
-		}, this );
 
 		// Add listeners associated with the panel on show.
 		// All listeners will be removed on panel hide.
@@ -147,7 +130,7 @@
 			}, this ) );
 
 			// Hide on window scroll.
-			this.addListener( this.env.winEditor.on( 'scroll', function() {
+			this.addListener( this.editor.window.on( 'scroll', function() {
 				this.blur();
 				this.hide();
 			}, this ) );
@@ -350,6 +333,8 @@
 		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
 		 */
 		attach: ( function() {
+			var winGlobal, frame, editable, isInline, winEditor;
+
 			function rectIntersectArea( rect1, rect2 ) {
 				var hOverlap = Math.max( 0, Math.min( rect1.right, rect2.right ) - Math.max( rect1.left, rect2.left ) ),
 					vOverlap = Math.max( 0, Math.min( rect1.bottom, rect2.bottom ) - Math.max( rect1.top, rect2.top ) );
@@ -369,18 +354,50 @@
 				return newPanelRect;
 			}
 
+			// Returns element rect absolute to the top-most document, e.g. it considers
+			// outer window scroll position, inner window scroll position (framed editor) and
+			// frame position (framed editor) in the top-most document.
+			function getAbsoluteRect( element ) {
+				var elementRect = element.getClientRect(),
+					winGlobalScroll = winGlobal.getScrollPosition();
+
+				if ( isInline || element.equals( frame ) ) {
+					elementRect.top = elementRect.top + winGlobalScroll.y;
+					elementRect.left = elementRect.left + winGlobalScroll.x;
+					elementRect.right = elementRect.left + elementRect.width;
+					elementRect.bottom = elementRect.top + elementRect.height;
+				} else {
+					var winEditorScroll = winEditor.getScrollPosition(),
+						frameRect = frame.getClientRect();
+
+					elementRect.top = frameRect.top + elementRect.top + winGlobalScroll.y;
+					elementRect.left = frameRect.left + elementRect.left + winGlobalScroll.x;
+					elementRect.right = elementRect.left + elementRect.width;
+					elementRect.bottom = elementRect.top + elementRect.height;
+				}
+
+				return elementRect;
+			}
+
 			return function( element ) {
 				this.show();
 
 				this.fire( 'attach' );
 
+				winGlobal = CKEDITOR.document.getWindow();
+				winEditor = this.editor.window;
+				frame = winEditor.getFrame();
+				editable = this.editor.editable();
+				isInline = editable.isInline();
+
 				var panelWidth = this.getWidth(),
 					panelHeight = this.getHeight(),
 
-					viewPaneSize = this.env.winGlobal.getViewPaneSize(),
-					elementRect = getAbsoluteRect( element, this.env ),
-					winGlobalScroll = this.env.winGlobal.getScrollPosition(),
-					editorRect = getAbsoluteRect( this.env.inline ? this.env.editable : this.env.frame, this.env );
+					elementRect = getAbsoluteRect( element ),
+					editorRect = getAbsoluteRect( isInline ? editable : frame ),
+
+					viewPaneSize = winGlobal.getViewPaneSize(),
+					winGlobalScroll = winGlobal.getScrollPosition();
 
 				// This is the rect into which the panel should fit to remain
 				// both within the visible area of the editor and the viewport, i.e.
@@ -625,29 +642,4 @@
 	 * @member CKEDITOR.ui.balloonPanel.definition
 	 * @property {String} content
 	 */
-
-	// Returns element rect absolute to the top-most document, e.g. it considers
-	// outer window scroll position, inner window scroll position (framed editor) and
-	// frame position (framed editor) in the top-most document.
-	function getAbsoluteRect( element, env ) {
-		var elementRect = element.getClientRect(),
-			winGlobalScroll = env.winGlobal.getScrollPosition();
-
-		if ( env.inline || element.equals( env.frame ) ) {
-			elementRect.top = elementRect.top + winGlobalScroll.y;
-			elementRect.left = elementRect.left + winGlobalScroll.x;
-			elementRect.right = elementRect.left + elementRect.width;
-			elementRect.bottom = elementRect.top + elementRect.height;
-		} else {
-			var winEditorScroll = env.winEditor.getScrollPosition(),
-				frameRect = env.frame.getClientRect();
-
-			elementRect.top = frameRect.top + elementRect.top + winGlobalScroll.y;
-			elementRect.left = frameRect.left + elementRect.left + winGlobalScroll.x;
-			elementRect.right = elementRect.left + elementRect.width;
-			elementRect.bottom = elementRect.top + elementRect.height;
-		}
-
-		return elementRect;
-	}
 } )();
