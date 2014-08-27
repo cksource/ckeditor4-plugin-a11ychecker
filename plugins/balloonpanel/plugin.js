@@ -484,7 +484,7 @@
 				this.move( alignments[ minDifferenceAlignment ].top, alignments[ minDifferenceAlignment ].left );
 
 				minDifferenceAlignment = minDifferenceAlignment.split( ' ' );
-				this.triangle( TRIANGLE_RELATIVE[ minDifferenceAlignment[ 0 ] ], minDifferenceAlignment[ 1 ] );
+				this.setTriangle( TRIANGLE_RELATIVE[ minDifferenceAlignment[ 0 ] ], minDifferenceAlignment[ 1 ] );
 
 				this.ui.panel.focus();
 			};
@@ -529,7 +529,7 @@
 		 *
 		 * @param {String} side One of 'left', 'right', 'top', 'bottom'.
 		 */
-		triangle: function( side, align ) {
+		setTriangle: function( side, align ) {
 			if ( this.triangleSide ) {
 				this.ui.triangle.outer.removeClass( 'cke_balloon_triangle_' + this.triangleSide );
 				this.ui.triangle.outer.removeClass( 'cke_balloon_triangle_align_' + this.triangleAlign );
