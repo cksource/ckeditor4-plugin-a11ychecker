@@ -530,18 +530,21 @@
 		 * @param {String} side One of 'left', 'right', 'top', 'bottom'.
 		 */
 		setTriangle: function( side, align ) {
+			var outer = this.ui.triangle.outer,
+				inner = this.ui.triangle.inner;
+
 			if ( this.triangleSide ) {
-				this.ui.triangle.outer.removeClass( 'cke_balloon_triangle_' + this.triangleSide );
-				this.ui.triangle.outer.removeClass( 'cke_balloon_triangle_align_' + this.triangleAlign );
-				this.ui.triangle.inner.removeClass( 'cke_balloon_triangle_' + this.triangleSide );
+				outer.removeClass( 'cke_balloon_triangle_' + this.triangleSide );
+				outer.removeClass( 'cke_balloon_triangle_align_' + this.triangleAlign );
+				inner.removeClass( 'cke_balloon_triangle_' + this.triangleSide );
 			}
 
 			this.triangleSide = side;
 			this.triangleAlign = align;
 
-			this.ui.triangle.outer.addClass( 'cke_balloon_triangle_' + side );
-			this.ui.triangle.outer.addClass( 'cke_balloon_triangle_align_' + align );
-			this.ui.triangle.inner.addClass( 'cke_balloon_triangle_' + side );
+			outer.addClass( 'cke_balloon_triangle_' + side );
+			outer.addClass( 'cke_balloon_triangle_align_' + align );
+			inner.addClass( 'cke_balloon_triangle_' + side );
 		},
 
 		/**
