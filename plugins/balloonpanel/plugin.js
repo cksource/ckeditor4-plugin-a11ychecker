@@ -14,11 +14,8 @@
 
 	var DEFAULT_RECT_WIDTH = 360,
 		DEFAULT_RECT_HEIGHT = null,
-		DEFAULT_RECT_LEFT = 0,
-		DEFAULT_RECT_TOP = 0,
 		DEFAULT_TRIANGLE_HEIGHT = 20,
 		DEFAULT_TRIANGLE_WIDTH = 20,
-		DEFAULT_TRIANGLE_SIDE = 'bottom',
 		DEFAULT_TRIANGLE_GAP = DEFAULT_TRIANGLE_WIDTH / 2 + 30,
 
 		TRIANGLE_RELATIVE = {
@@ -73,6 +70,19 @@
 		 * @property {Array} listeners
 		 */
 		this.listeners = [];
+
+		/**
+		 * @property {Object} rect Contains panel properties as {@link #move}, {@link #resize},
+		 * {@link #show} and {@link #hide} are called. It holds values and avoid unnecessary
+		 * and expensive checks in the future.
+		 *
+		 * @property {Number} rect.width
+		 * @property {Number} rect.height
+		 * @property {Number} rect.top
+		 * @property {Number} rect.left
+		 * @property {Boolean} rect.visible
+		 */
+		this.rect = {};
 
 		// Environmental references.
 		this.env = {
@@ -154,17 +164,6 @@
 			this.ui.panel.remove();
 		}, this );
 
-		// Rect contains the following properties:
-		// 		{ visible, width, height, top, left }
-		// updated as balloonPanel.move|resize() are called.
-		// It is used to cache values and avoid unnecessary
-		// and expensive checks in the future.
-		this.rect = {};
-
-		// Move the panel and resize to default values.
-		this.move( DEFAULT_RECT_TOP, DEFAULT_RECT_LEFT );
-		this.resize( DEFAULT_RECT_WIDTH, DEFAULT_RECT_HEIGHT );
-		this.triangle( DEFAULT_TRIANGLE_SIDE );
 		/**
 		 * Event fired when panel is shown.
 		 *
@@ -284,6 +283,9 @@
 
 			// Append the panel to the global document.
 			CKEDITOR.document.getBody().append( this.ui.panel );
+
+			// Set default dimensions of the panel.
+			this.resize( DEFAULT_RECT_WIDTH, DEFAULT_RECT_HEIGHT );
 		},
 
 		/**
