@@ -62,17 +62,14 @@
 		 * See {@link #registerFocusable},
 		 * {@link #deregisterFocusable}.
 		 *
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @property {Object} focusables
 		 */
 		this.focusables = {};
 
 		/**
 		 * Event listeners associated with this panel.
-		 * See {@link #addListener},
-		 * {@link #removeListeners}.
+		 * See {@link #addListener}, {@link #removeListeners}.
 		 *
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @property {Array} listeners
 		 */
 		this.listeners = [];
@@ -83,35 +80,23 @@
 			winGlobal: CKEDITOR.document.getWindow()
 		};
 
+		/**
+		 * @property ui UI elements of the panel.
+		 * @property {CKEDITOR.dom.element} ui.title Title bar of the panel.
+		 * @property {CKEDITOR.dom.element} ui.close Close button.
+		 * @property {CKEDITOR.dom.element} ui.content The element, which holds the contents of the panel.
+		 * @property {CKEDITOR.dom.element} ui.panel The undermost element, which holds all other elements. The panel is positioned absolutely.
+		 * @property {CKEDITOR.dom.element} ui.triangle Panel's triangle.
+		 * @property {CKEDITOR.dom.element} ui.triangle.outer The outer element of the triangle.
+		 * @property {CKEDITOR.dom.element} ui.triangle.inner The inner element of the triangle.
+		 */
 		this.ui = {
-			/**
-			 * Title bar of the panel.
-			 *
-			 * @readonly
-			 * @member CKEDITOR.ui.balloonPanel.ui
-			 * @property {CKEDITOR.dom.element} title
-			 */
 			title: CKEDITOR.dom.element.createFromHtml( this.templates.title.output( {
 				title: this.title
 			} ) ),
 
-			/**
-			 * Close button.
-			 *
-			 * @readonly
-			 * @member CKEDITOR.ui.balloonPanel.ui
-			 * @property {CKEDITOR.dom.element} close
-			 */
 			close: CKEDITOR.dom.element.createFromHtml( this.templates.close.output() ),
 
-			/**
-			 * The undermost element, which holds all other elements.
-			 * The panel is positioned absolutely.
-			 *
-			 * @readonly
-			 * @member CKEDITOR.ui.balloonPanel.ui
-			 * @property {CKEDITOR.dom.element} panel
-			 */
 			panel: CKEDITOR.dom.element.createFromHtml( this.templates.panel.output( {
 				id: editor.id,
 				langDir: editor.lang.dir,
@@ -121,34 +106,13 @@
 				voiceLabel: editor.lang.editorPanel + ', ' + editor.name,
 			} ) ),
 
-			/**
-			 * The element, which holds the contents of the panel.
-			 *
-			 * @readonly
-			 * @member CKEDITOR.ui.balloonPanel.ui
-			 * @property {CKEDITOR.dom.element} content
-			 */
 			content: CKEDITOR.dom.element.createFromHtml( this.templates.content.output( {
 				content: this.content || ''
 			} ) ),
 
 			triangle: {
-				/**
-				 * The outer element of the triangle.
-				 *
-				 * @readonly
-				 * @member CKEDITOR.ui.balloonPanel.ui.triangle
-				 * @property {CKEDITOR.dom.element} outer
-				 */
 				outer: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.outer.output() ),
 
-				/**
-				 * The inner element of the triangle.
-				 *
-				 * @readonly
-				 * @member CKEDITOR.ui.balloonPanel.ui.triangle
-				 * @property {CKEDITOR.dom.element} inner
-				 */
 				inner: CKEDITOR.dom.element.createFromHtml( this.templates.triangle.inner.output() ),
 			}
 		};
@@ -257,65 +221,34 @@
 		/**
 		 * Event fired when panel is shown.
 		 *
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @event show
 		 */
 
 		/**
 		 * Event fired when panel is hidden.
 		 *
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @event hide
 		 */
 
 		/**
 		 * Event fired when panel is attached to an element.
 		 *
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @event attach
 		 */
 	};
 
-	/**
-	 * The definition of a balloon panel.
-	 *
-	 * This virtual class illustrates the properties that developers can use to define and create
-	 * balloon panels.
-	 *
-	 *		CKEDITOR.ui.balloonPanel( editor, {
-	 *			title: 'My panel',
-	 *			onShow: function() {
-	 *				...
-	 *			}
-	 *		} );
-	 *
-	 * @class CKEDITOR.ui.balloonPanel.definition
-	 */
-
-	/**
-	 * Title of the panel.
-	 *
-	 * @readonly
-	 * @member CKEDITOR.ui.balloonPanel.definition
-	 * @property {String} title
-	 */
-
-	/**
-	 * Static content of the panel.
-	 *
-	 * @readonly
-	 * @member CKEDITOR.ui.balloonPanel.definition
-	 * @property {String} content
-	 */
-
 	CKEDITOR.ui.balloonPanel.prototype = {
+		/**
+		 * @property templates Templates of the panel. Automatically converted into {@link CKEDITOR.template} in panel's constructor.
+		 * @property {String} templates.panel Template of the panel's outmost container.
+		 * @property {String} templates.content Template of the panel's content container.
+		 * @property {String} templates.title Template of the panel's title bar.
+		 * @property {String} templates.close Template of the panel's close button.
+		 * @property {String} templates.triangle Templates of the panel's triangle.
+		 * @property {String} templates.triangle.outer Template of the panel's outer triangle.
+		 * @property {String} templates.triangle.inner Template of the panel's inner triangle.
+		 */
 		templates: {
-			/**
-			 * Template of the panel's outmost container.
-			 *
-			 * @member CKEDITOR.ui.balloonPanel.templates
-			 * @property {CKEDITOR.template} panel
-			 */
 			panel:
 				'<div' +
 					' class="cke {id} cke_reset_all cke_chrome cke_balloon cke_editor_{name} cke_{langDir} ' + CKEDITOR.env.cssClass + '"' +
@@ -328,57 +261,24 @@
 					' aria-labelledby="cke_{name}_arialbl"' +
 				'></div>',
 
-			/**
-			 * Template of the panel's content container.
-			 *
-			 * @member CKEDITOR.ui.balloonPanel.templates
-			 * @property {CKEDITOR.template} content
-			 */
 			content: '<div class="cke_balloon_content">{content}</div>',
 
-			/**
-			 * Template of the panel's title bar.
-			 *
-			 * @member CKEDITOR.ui.balloonPanel.templates
-			 * @property {CKEDITOR.template} title
-			 */
 			title: '<div class="cke_balloon_title" role="presentation">{title}</div>',
 
-			/**
-			 * Template of the panel's close button.
-			 *
-			 * @member CKEDITOR.ui.balloonPanel.templates
-			 * @property {CKEDITOR.template} close
-			 */
 			close:
 				'<a class="cke_balloon_close_button" href="javascript:void(0)" title="Close" role="button" tabindex="-1">' +
 					'<span class="cke_label">X</span>' +
 				'</a>',
 
 			triangle: {
-				/**
-				 * Template of the panel's outer triangle.
-				 *
-				 * @member CKEDITOR.ui.balloonPanel.templates.triangle
-				 * @property {CKEDITOR.template} outer
-				 */
 				outer: '<span class="cke_balloon_triangle cke_balloon_triangle_outer"></span>',
 
-				/**
-				 * Template of the panel's inner triangle.
-				 *
-				 * @member CKEDITOR.ui.balloonPanel.templates.triangle
-				 * @property {CKEDITOR.template} inner
-				 */
 				inner: '<span class="cke_balloon_triangle cke_balloon_triangle_inner">&#8203;</span>'
 			}
 		},
 
 		/**
 		 * Shows the panel.
-		 *
-		 * @method show
-		 * @member CKEDITOR.ui.balloonPanel
 		 */
 		show: function() {
 			if ( this.rect.visible ) {
@@ -393,9 +293,6 @@
 
 		/**
 		 * Hides the panel and moves the focus back to editable.
-		 *
-		 * @method hide
-		 * @member CKEDITOR.ui.balloonPanel
 		 */
 		hide: function() {
 			if ( !this.rect.visible ) {
@@ -421,8 +318,6 @@
 		/**
 		 * Moves the **upper-left** panel corner to the specified absolute position.
 		 *
-		 * @method move
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @param {Number} left
 		 * @param {Number} top
 		 */
@@ -441,7 +336,6 @@
 		 * touches that element. Once the panel is attached it gains focus.
 		 *
 		 * @method attach
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
 		 */
 		attach: ( function() {
@@ -588,8 +482,6 @@
 		/**
 		 * Resizes panel container to given dimensions.
 		 *
-		 * @method resize
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @param {Number} width
 		 * @param {Number} height
 		 */
@@ -606,8 +498,6 @@
 		/**
 		 * Returns panel width.
 		 *
-		 * @method getWidth
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @returns {Number}
 		 */
 		getWidth: function() {
@@ -617,8 +507,6 @@
 		/**
 		 * Returns panel height.
 		 *
-		 * @method getHeight
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @returns {Number}
 		 */
 		getHeight: function() {
@@ -628,8 +516,6 @@
 		/**
 		 * Changes the position of baloon's "triangle".
 		 *
-		 * @method triangle
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @param {String} side One of 'left', 'right', 'top', 'bottom'.
 		 */
 		triangle: function( side, align ) {
@@ -652,8 +538,6 @@
 		 * does not blur once child of the panel gains focus.
 		 * See {@link #focusables}.
 		 *
-		 * @method registerFocusable
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @param {CKEDITOR.dom.element} element An element to be registered.
 		 */
 		registerFocusable: function( element ) {
@@ -666,8 +550,6 @@
 		 * Deregisters element from editor's focusManager.
 		 * See {@link #focusables}.
 		 *
-		 * @method deregisterFocusable
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @param {CKEDITOR.dom.element} element An element to be registered.
 		 */
 		deregisterFocusable: function( element ) {
@@ -680,8 +562,6 @@
 		 * Adds event listener associated with this panel.
 		 * See {@link #listeners}.
 		 *
-		 * @method addListener
-		 * @member CKEDITOR.ui.balloonPanel
 		 * @param {Object} listener An object containing the `removeListener`.
 		 */
 		addListener: function( listener ) {
@@ -691,9 +571,6 @@
 		/**
 		 * Removes all event listeners associated with this panel.
 		 * See {@link #listeners}.
-		 *
-		 * @method removeListeners
-		 * @member CKEDITOR.ui.balloonPanel
 		 */
 		removeListeners: function() {
 			var l;
@@ -704,6 +581,36 @@
 	};
 
 	CKEDITOR.event.implementOn( CKEDITOR.ui.balloonPanel.prototype );
+
+	/**
+	 * The definition of a balloon panel.
+	 *
+	 * This virtual class illustrates the properties that developers can use to define and create
+	 * balloon panels.
+	 *
+	 *		CKEDITOR.ui.balloonPanel( editor, {
+	 *			title: 'My panel',
+	 *			onShow: function() {
+	 *				...
+	 *			}
+	 *		} );
+	 *
+	 * @class CKEDITOR.ui.balloonPanel.definition
+	 */
+
+	/**
+	 * Title of the panel.
+	 *
+	 * @member CKEDITOR.ui.balloonPanel.definition
+	 * @property {String} title
+	 */
+
+	/**
+	 * Static content of the panel.
+	 *
+	 * @member CKEDITOR.ui.balloonPanel.definition
+	 * @property {String} content
+	 */
 
 	// Returns element rect absolute to the top-most document, e.g. it considers
 	// outer window scroll position, inner window scroll position (framed editor) and
