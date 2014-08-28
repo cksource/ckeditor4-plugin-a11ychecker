@@ -1,4 +1,3 @@
-
 /**
  * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
@@ -45,7 +44,7 @@
 				};
 			} )( editor );
 
-			editor._.a11ychecker.viewer = new Viewer( editor, {
+			editor._.a11ychecker.viewerController = new ViewerController( editor, {
 				title: 'Accessibility checker'
 			} );
 
@@ -86,7 +85,7 @@
 
 						var offset = editor._.a11ychecker.issues.getIssueIndexByElement( target );
 
-						editor._.a11ychecker.viewer.showIssue( target );
+						editor._.a11ychecker.viewerController.showIssue( target );
 
 						if ( offset !== null ) {
 							//console.log( 'identified offset: ' + offset );
@@ -295,277 +294,61 @@
 	CKEDITOR.plugins.a11ychecker = {};
 
 	/**
-	 * A class which represents the end-user interface of a11ychecker. Viewer is a panel
-	 * which allows to browse and fix issues in the contents.
-	 *
-	 * *Note*: The panel is built upon the {@link CKEDITOR.ui.panel}.
+	 * A bridge between the logic and model of a11yc and panel-based issue Viewer.
 	 *
 	 * @since 4.5
-	 * @class CKEDITOR.plugins.a11ychecker.viewer
-	 * @constructor Creates a viewer instance.
+	 * @class CKEDITOR.plugins.a11ychecker.viewerController
+	 * @constructor Creates a viewerController instance.
 	 * @param {CKEDITOR.editor} editor The editor instance for which the panel is created.
 	 * @param {Object} definition An object containing panel definition.
 	 */
-	function Viewer( editor, definition ) {
+	function ViewerController( editor, definition ) {
 		/**
-		 * The editor of this viewer.
+		 * The editor of this controller.
 		 */
 		this.editor = editor;
 
-		this.currentElement = null;
-		this.a11ychecker = editor._.a11ychecker;
+		/**
+		 * The {@link CKEDITOR.plugins.a11ychecker.viewer} of this controller.
+		 */
+		this.viewer = new Viewer( editor, definition );
 
 		/**
-		 * The {@link CKEDITOR.ui.panel} of this viewer.
+		 * Reference to editor's a11ychecker.
 		 */
-		this.panel = new CKEDITOR.ui.balloonPanel( editor, definition );
+		this.a11ychecker = editor._.a11ychecker;
 
-		this.panel.on( 'show', function() {
-			// CTRL+SHIFT+[
-			this.addListener( this.parts.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
-				CKEDITOR.plugins.a11ychecker.prev( editor );
-			} ) ) );
-
-			// CTRL+SHIFT+]
-			this.addListener( this.parts.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 221, function() {
-				CKEDITOR.plugins.a11ychecker.next( editor );
-			} ) ) );
-
-			// Hide on iframe window's scroll.
-			if ( !this.editor.editable().isInline() ) {
-				this.addListener( this.editor.window.on( 'scroll', function() {
-					this.blur();
-					this.hide();
-				}, this ) );
-			}
-
-			// Hide the panel on editor resize.
-			this.addListener( editor.on( 'resize', function() {
-				this.blur();
-				this.hide();
-			}, this ) );
-		} );
-
-		this.panel.on( 'attach', function() {
+		// Setup the refresh of panel UI once attached to an element.
+		this.viewer.panel.on( 'attach', function() {
 			this.updateList();
 			this.updateDescription();
 			this.updateForm();
 		}, this );
 
-		this.setupNavigation.call( this );
-		this.setupDescription.call( this );
-		this.setupForm.call( this );
-	};
+		// Handle change in the list of issues.
+		this.viewer.navigation.on( 'change', function( evt ) {
+			this.showIssue( evt.data );
+		}, this );
 
-	Viewer.prototype = {
-		/**
-		 * Setups the navigation bar.
-		 */
-		setupNavigation: function() {
-			this.navigation = new ViewerNavigation();
+		// Handle "previous" button click in the panel.
+		this.viewer.navigation.on( 'previous', function( evt ) {
+			CKEDITOR.plugins.a11ychecker.prev( editor );
+		} );
 
-			// Register focusables.
-			this.panel.registerFocusable( this.navigation.parts.previous );
-			this.panel.registerFocusable( this.navigation.parts.list );
-			this.panel.registerFocusable( this.navigation.parts.next );
+		// Handle "next" button click in the panel.
+		this.viewer.navigation.on( 'next', function( evt ) {
+			CKEDITOR.plugins.a11ychecker.next( editor );
+		} );
 
-			// Handle change in the list of issues.
-			this.navigation.on( 'change', function( evt ) {
-				this.showIssue( evt.data );
-			}, this );
-
-			// Handle "previous" button click.
-			this.navigation.on( 'previous', function( evt ) {
-				CKEDITOR.plugins.a11ychecker.prev( this.editor );
-			}, this );
-
-			// Handle "next" button click.
-			this.navigation.on( 'next', function( evt ) {
-				CKEDITOR.plugins.a11ychecker.next( this.editor );
-			}, this );
-
-			this.panel.parts.content.append( this.navigation.parts.wrapper );
-		},
-
-		/**
-		 * Setups the description area.
-		 */
-		setupDescription: function() {
-			this.description = new ViewerDescription();
-
-			this.panel.parts.content.append( this.description.parts.wrapper );
-		},
-
-		/**
-		 * Setups the "quick fix" form.
-		 */
-		setupForm: function() {
-			this.form = new ViewerForm();
-
-			this.form.on( 'addInput', function( evt ) {
-				this.panel.registerFocusable( evt.data.input );
-			}, this );
-
-			this.form.on( 'removeInput', function( evt ) {
-				this.panel.deregisterFocusable( evt.data.input );
-			}, this );
-
-			this.panel.registerFocusable( this.form.parts.button );
-			this.panel.parts.content.append( this.form.parts.wrapper );
-		},
-
-		/**
-		 * Shows the panel next to the issue in the contents.
-		 *
-		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
-		 */
-		showIssue: function( indexOrElement ) {
-			if ( !( indexOrElement instanceof CKEDITOR.dom.element ) )
-				indexOrElement = this.a11ychecker.issues.getIssueByIndex( indexOrElement );
-
-			this.currentElement = indexOrElement;
-			indexOrElement.scrollIntoView();
-
-			// Wait for the scroll to stabilize.
-			CKEDITOR.tools.setTimeout( function() {
-				this.panel.attach( indexOrElement );
-			}, 50, this );
-		},
-
-		/**
-		 * Updates the list of issues.
-		 */
-		updateList: function() {
-			this.navigation.updateList( this.a11ychecker.issues, this.currentElement );
-		},
-
-		/**
-		 * Updates description according to the type of the current issue.
-		 */
-		updateDescription: function() {
-			var issues = this.a11ychecker.issues,
-				type = issues.getIssueTypeByElement( this.currentElement ),
-				descHtml = CKEDITOR.plugins.a11ychecker.types[ type ].desc;
-
-			this.description.setTitle( CKEDITOR.plugins.a11ychecker.types[ type ].title );
-			this.description.setInfo( descHtml + ' <a href="#" tabindex="-1">Read more...</a>' );
-		},
-
-		/**
-		 * Updates "quick fix" section with proper fields according to
-		 * the type of the current issue.
-		 */
-		updateForm: function() {
-			this.form.setInputs( {
-				foo: {
-					type: 'text',
-					label: 'Alternative text'
-				},
-				bar: {
-					type: 'checkbox',
-					label: 'Something easy'
-				},
-				boom: {
-					type: 'select',
-					label: 'Selectable',
-					options: {
-						11: 'Option #1',
-						22: 'Option #2'
-					}
-				}
-			} );
-		}
+		this.viewer.form.on( 'submit', function( evt ) {
+			console.log( this.serialize() );
+		} );
 	}
 
-	/**
-	 * The navigation area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
-	 *
-	 * @since 4.5
-	 * @class CKEDITOR.plugins.a11ychecker.viewer.navigation
-	 * @mixins CKEDITOR.event
-	 * @constructor Creates a viewer's navigation instance.
-	 */
-	function ViewerNavigation() {
+	ViewerController.prototype = {
 		/**
-		 * Templates of UI elements in this navigation.
-		 * See {@link #templateDefinitions}, {@link #parts}.
-		 */
-		this.templates = {};
-
-		for ( var t in this.templateDefinitions ) {
-			this.templates[ t ] = new CKEDITOR.template( this.templateDefinitions[ t ] );
-		}
-
-		/**
-		 * @property parts UI elements of the navigation.
-		 * @property {CKEDITOR.dom.element} parts.wrapper Wrapper of the navigation.
-		 * @property {CKEDITOR.dom.element} parts.previous "Previous" button.
-		 * @property {CKEDITOR.dom.element} parts.next "Next" button.
-		 * @property {CKEDITOR.dom.element} parts.list List of issues.
-		 */
-		this.parts = {};
-
-		// Build the navigation.
-		this.build();
-
-		/**
-		 * Event fired when the value of issues list is changed.
-		 *
-		 * @member CKEDITOR.plugins.a11ychecker.viewer.navigation
-		 * @event change
-		 */
-
-		/**
-		 * Event fired when the "previous issue" button is clicked.
-		 *
-		 * @member CKEDITOR.plugins.a11ychecker.viewer.navigation
-		 * @event previous
-		 */
-
-		/**
-		 * Event fired when the "next issue" button is clicked.
-		 *
-		 * @member CKEDITOR.plugins.a11ychecker.viewer.navigation
-		 * @event next
-		 */
-	}
-
-	ViewerNavigation.prototype = {
-		/**
-		 * @property templateDefinitions Templates of the navigation. Automatically converted into {@link CKEDITOR.template} in the constructor.
-		 * @property {String} templateDefinitions.wrapper
-		 * @property {String} templateDefinitions.buttonWrapper
-		 * @property {String} templateDefinitions.button
-		 * @property {String} templateDefinitions.list
-		 * @property {String} templateDefinitions.listWrapper
-		 * @property {String} templateDefinitions.listOption
-		 * @property {String} templateDefinitions.listGroup
-		 */
-		templateDefinitions: {
-			wrapper: '<div class="cke_a11yc_ui_navigation"></div>',
-
-			buttonWrapper: '<div class="cke_a11yc_ui_button_wrapper"></div>',
-
-			button:
-				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_{class}" role="button">' +
-					'<span class="cke_a11yc_ui_button">{text}</span>' +
-				'</a>',
-
-			list: '<select class="cke_a11yc_ui_input_select"></select>',
-
-			listWrapper: '<div class="cke_a11yc_ui_select_wrapper"></div>',
-
-			listOption: '<option value="{value}" {selected}>{text}</option>',
-
-			listGroup: '<optgroup label="{label}"></optgroup>'
-		},
-
-		/**
+		 * @method
 		 * Updates the list of issues.
-		 *
-		 * @method updateList
-		 * @param {Object} issues
-		 * @param {CKEDITOR.dom.element} currentElement
 		 */
 		updateList: ( function() {
 			function trimText( text, length ) {
@@ -604,37 +387,285 @@
 				return element.getName() + elementInfo;
 			}
 
-			return function( issues, currentElement ) {
-				var i, j, group, issueIndex, element;
+			return function() {
+				var issues = this.a11ychecker.issues,
+					entries = {};
 
-				// Clean-up the list first.
-				this.cleanList();
+				for ( var i in issues.issues ) {
+					entries[ i ] = {};
 
-				// For each group of issues.
-				for ( i in issues.issues ) {
-					group = CKEDITOR.dom.element.createFromHtml( this.templates.listGroup.output( {
-						label: i
-					} ) );
+					for ( var j = 0; j < issues.issues[ i ].length; ++j ) {
+						var element = issues.issues[ i ][ j ];
 
-					// Append <optgroup>.
-					this.parts.list.append( group );
-
-					// For each issue in the group.
-					for ( j = 0; j < issues.issues[ i ].length; ++j ) {
-						element = issues.issues[ i ][ j ];
-
-						// Append <option> to <optgroup>.
-						issueIndex = issues.getIssueIndexByElement( element );
-
-						group.append( CKEDITOR.dom.element.createFromHtml( this.templates.listOption.output( {
-							value: issueIndex,
+						entries[ i ][ j ] = {
+							value: issues.getIssueIndexByElement( element ),
 							text: getElementInfo( element ),
-							selected: element.equals( currentElement ) ? 'selected="selected"' : ''
-						} ) ) );
+							selected: element.equals( issues.getFocused() ) ? 'selected="selected"' : ''
+						}
 					}
 				}
+
+				this.viewer.navigation.updateList( entries );
 			}
 		} )(),
+
+		/**
+		 * Updates description according to the type of the current issue.
+		 */
+		updateDescription: function( title, info ) {
+			var issues = this.a11ychecker.issues,
+				type = issues.getIssueTypeByElement( issues.getFocused() ),
+				descHtml = CKEDITOR.plugins.a11ychecker.types[ type ].desc;
+
+			this.viewer.description.setTitle( CKEDITOR.plugins.a11ychecker.types[ type ].title );
+			this.viewer.description.setInfo( descHtml + ' <a href="#" tabindex="-1">Read more...</a>' );
+		},
+
+		/**
+		 * Updates "quick fix" section with proper fields according to
+		 * the type of the current issue.
+		 */
+		updateForm: function() {
+			this.viewer.form.setInputs( {
+				foo: {
+					type: 'text',
+					label: 'Alternative text'
+				},
+				bar: {
+					type: 'checkbox',
+					label: 'Something easy'
+				},
+				boom: {
+					type: 'select',
+					label: 'Selectable',
+					options: {
+						11: 'Option #1',
+						22: 'Option #2'
+					}
+				}
+			} );
+		},
+
+		/**
+		 * Shows the panel next to the issue in the contents.
+		 *
+		 * @param {CKEDITOR.dom.element} element An element to which the panel is attached.
+		 */
+		showIssue: function( indexOrElement ) {
+			if ( !( indexOrElement instanceof CKEDITOR.dom.element ) )
+				indexOrElement = this.a11ychecker.issues.getIssueByIndex( indexOrElement );
+
+			indexOrElement.scrollIntoView();
+
+			// Wait for the scroll to stabilize.
+			CKEDITOR.tools.setTimeout( function() {
+				this.viewer.panel.attach( indexOrElement );
+			}, 50, this );
+		}
+	};
+
+	/**
+	 * A class which represents the end-user interface of a11ychecker. Viewer is a panel
+	 * which allows to browse and fix issues in the contents.
+	 *
+	 * *Note*: The panel is built upon the {@link CKEDITOR.ui.panel}.
+	 *
+	 * @since 4.5
+	 * @class CKEDITOR.plugins.a11ychecker.viewer
+	 * @constructor Creates a viewer instance.
+	 * @param {CKEDITOR.editor} editor The editor instance for which the panel is created.
+	 * @param {Object} definition An object containing panel definition.
+	 */
+	function Viewer( editor, definition ) {
+		/**
+		 * The editor of this viewer.
+		 */
+		this.editor = editor;
+
+		/**
+		 * The {@link CKEDITOR.ui.panel} of this viewer.
+		 */
+		this.panel = new CKEDITOR.ui.balloonPanel( editor, definition );
+
+		this.panel.on( 'show', function() {
+			// Hide on iframe window's scroll.
+			if ( !this.editor.editable().isInline() ) {
+				this.addListener( this.editor.window.on( 'scroll', function() {
+					this.blur();
+					this.hide();
+				}, this ) );
+			}
+
+			// Hide the panel on editor resize.
+			this.addListener( editor.on( 'resize', function() {
+				this.blur();
+				this.hide();
+			}, this ) );
+		} );
+
+		this.setupNavigation.call( this );
+		this.setupDescription.call( this );
+		this.setupForm.call( this );
+	};
+
+	Viewer.prototype = {
+		/**
+		 * Setups the navigation bar.
+		 */
+		setupNavigation: function() {
+			this.navigation = new ViewerNavigation( this );
+
+			// Register focusables.
+			this.panel.registerFocusable( this.navigation.parts.previous );
+			this.panel.registerFocusable( this.navigation.parts.list );
+			this.panel.registerFocusable( this.navigation.parts.next );
+
+			this.panel.parts.content.append( this.navigation.parts.wrapper );
+		},
+
+		/**
+		 * Setups the description area.
+		 */
+		setupDescription: function() {
+			this.description = new ViewerDescription();
+
+			this.panel.parts.content.append( this.description.parts.wrapper );
+		},
+
+		/**
+		 * Setups the "quick fix" form.
+		 */
+		setupForm: function() {
+			this.form = new ViewerForm( this );
+
+			this.form.on( 'addInput', function( evt ) {
+				this.panel.registerFocusable( evt.data.input );
+			}, this );
+
+			this.form.on( 'removeInput', function( evt ) {
+				this.panel.deregisterFocusable( evt.data.input );
+			}, this );
+
+			this.panel.registerFocusable( this.form.parts.button );
+			this.panel.parts.content.append( this.form.parts.wrapper );
+		}
+	}
+
+	/**
+	 * The navigation area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
+	 *
+	 * @since 4.5
+	 * @class CKEDITOR.plugins.a11ychecker.viewerNavigation
+	 * @mixins CKEDITOR.event
+	 * @constructor Creates a viewer's navigation instance.
+	 */
+	function ViewerNavigation( viewer ) {
+		/**
+		 * Parent {@link CKEDITOR.plugins.a11ychecker.viewer}.
+		 */
+		this.viewer = viewer;
+
+		/**
+		 * Templates of UI elements in this navigation.
+		 * See {@link #templateDefinitions}, {@link #parts}.
+		 */
+		this.templates = {};
+
+		for ( var t in this.templateDefinitions ) {
+			this.templates[ t ] = new CKEDITOR.template( this.templateDefinitions[ t ] );
+		}
+
+		/**
+		 * @property parts UI elements of the navigation.
+		 * @property {CKEDITOR.dom.element} parts.wrapper Wrapper of the navigation.
+		 * @property {CKEDITOR.dom.element} parts.previous "Previous" button.
+		 * @property {CKEDITOR.dom.element} parts.next "Next" button.
+		 * @property {CKEDITOR.dom.element} parts.list List of issues.
+		 */
+		this.parts = {};
+
+		// Build the navigation.
+		this.build();
+
+		/**
+		 * Event fired when the value of issues list is changed.
+		 *
+		 * @event change
+		 */
+
+		/**
+		 * Event fired when the "previous issue" button is clicked.
+		 *
+		 * @event previous
+		 */
+
+		/**
+		 * Event fired when the "next issue" button is clicked.
+		 *
+		 * @event next
+		 */
+	}
+
+	ViewerNavigation.prototype = {
+		/**
+		 * @property templateDefinitions Templates of the navigation. Automatically converted into {@link CKEDITOR.template} in the constructor.
+		 * @property {String} templateDefinitions.wrapper
+		 * @property {String} templateDefinitions.buttonWrapper
+		 * @property {String} templateDefinitions.button
+		 * @property {String} templateDefinitions.list
+		 * @property {String} templateDefinitions.listWrapper
+		 * @property {String} templateDefinitions.listOption
+		 * @property {String} templateDefinitions.listGroup
+		 */
+		templateDefinitions: {
+			wrapper: '<div class="cke_a11yc_ui_navigation"></div>',
+
+			buttonWrapper: '<div class="cke_a11yc_ui_button_wrapper"></div>',
+
+			button:
+				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_{class}" role="button">' +
+					'<span class="cke_a11yc_ui_button">{text}</span>' +
+				'</a>',
+
+			list: '<select class="cke_a11yc_ui_input_select"></select>',
+
+			listWrapper: '<div class="cke_a11yc_ui_select_wrapper"></div>',
+
+			listOption: '<option value="{value}" {selected}>{text}</option>',
+
+			listGroup: '<optgroup label="{label}"></optgroup>'
+		},
+
+		/**
+		 * Updates the list of issues.
+		 *
+		 * @param {Object} entries
+		 */
+		updateList: function( entries ) {
+			// Clean-up the list first.
+			this.cleanList();
+
+			// For each group of entries.
+			for ( var groupName in entries ) {
+				var group = CKEDITOR.dom.element.createFromHtml( this.templates.listGroup.output( {
+					label: groupName
+				} ) );
+
+				// Append <optgroup>.
+				this.parts.list.append( group );
+
+				// For each entry in the group.
+				for ( var entryIndex in entries[ groupName ] ) {
+					var entry = entries[ groupName ][ entryIndex ];
+
+					group.append( CKEDITOR.dom.element.createFromHtml( this.templates.listOption.output( {
+						value: entry.value,
+						text: entry.text,
+						selected: entry.selected
+					} ) ) );
+				}
+			}
+		},
 
 		/**
 		 * Cleans up the list of issues.
@@ -706,6 +737,19 @@
 			this.parts.list.on( 'change', function( evt ) {
 				this.fire( 'change', this.getListValue() )
 			}, this );
+
+			// Setup listeners for keyboard previous and next.
+			this.viewer.panel.on( 'show', function() {
+				// CTRL+SHIFT+[
+				this.viewer.panel.addListener( CKEDITOR.document.getBody().on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
+					this.fire( 'previous' );
+				} ), this ) );
+
+				// CTRL+SHIFT+]
+				this.viewer.panel.addListener( CKEDITOR.document.getBody().on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 221, function() {
+					this.fire( 'next' );
+				} ), this ) );
+			}, this );
 		}
 	};
 
@@ -715,7 +759,7 @@
 	 * The description area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *
 	 * @since 4.5
-	 * @class CKEDITOR.plugins.a11ychecker.viewer.description
+	 * @class CKEDITOR.plugins.a11ychecker.viewerDescription
 	 * @constructor Creates a viewer's description instance.
 	 */
 	function ViewerDescription() {
@@ -779,31 +823,10 @@
 		 */
 		build: function() {
 			this.parts = {
-				/**
-				 * Wrapper of the description.
-				 *
-				 * @readonly
-				 * @member CKEDITOR.plugins.a11ychecker.viewer.description.ui
-				 * @property {CKEDITOR.dom.element} wrapper
-				 */
 				wrapper: CKEDITOR.dom.element.createFromHtml( this.templates.wrapper.output() ),
 
-				/**
-				 * Title of the current issue.
-				 *
-				 * @readonly
-				 * @member CKEDITOR.plugins.a11ychecker.viewer.description.ui
-				 * @property {CKEDITOR.dom.element} title
-				 */
 				title: CKEDITOR.dom.element.createFromHtml( this.templates.title.output() ),
 
-				/**
-				 * Information about the issue.
-				 *
-				 * @readonly
-				 * @member CKEDITOR.plugins.a11ychecker.viewer.description.ui
-				 * @property {CKEDITOR.dom.element} info
-				 */
 				info: CKEDITOR.dom.element.createFromHtml( this.templates.info.output() ),
 			};
 
@@ -816,11 +839,16 @@
 	 * The "quick fix" area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *
 	 * @since 4.5
-	 * @class CKEDITOR.plugins.a11ychecker.viewer.form
+	 * @class CKEDITOR.plugins.a11ychecker.viewerForm
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a "quick fix" form instance.
 	 */
-	function ViewerForm() {
+	function ViewerForm( viewer ) {
+		/**
+		 * Parent {@link CKEDITOR.plugins.a11ychecker.viewer}.
+		 */
+		this.viewer = viewer;
+
 		/**
 		 * Templates of UI elements in this form.
 		 * See {@link #templateDefinitions}, {@link #parts}.
@@ -832,7 +860,7 @@
 		}
 
 		/**
-		 * Inputs of this form. See {@link ViewerInput}.
+		 * Inputs of this form. See {@link CKEDITOR.plugins.a11ychecker.viewer.input}.
 		 */
 		this.inputs = {};
 
@@ -846,6 +874,12 @@
 
 		// Build the form.
 		this.build();
+
+		/**
+		 * Event fired when the form is submitted.
+		 *
+		 * @event submit
+		 */
 	};
 
 	ViewerForm.prototype = {
@@ -949,9 +983,9 @@
 
 			this.parts.fieldset.appendTo( this.parts.wrapper );
 			this.parts.button.appendTo( this.parts.wrapper );
-			this.parts.button.on( 'click', function( evt ) {
-				console.log( this.serialize() );
 
+			this.parts.button.on( 'click', function( evt ) {
+				this.fire( 'submit' );
 				evt.data.preventDefault();
 			}, this );
 		}
@@ -960,22 +994,22 @@
 	CKEDITOR.event.implementOn( ViewerForm.prototype );
 
 	/**
-	 * The generic class of {@link CKEDITOR.plugins.a11ychecker.viewer.form} input.
+	 * The generic class of {@link CKEDITOR.plugins.a11ychecker.viewerForm} input.
 	 *
 	 * @since 4.5
-	 * @class CKEDITOR.plugins.a11ychecker.viewer.input
+	 * @class CKEDITOR.plugins.a11ychecker.viewerInput
 	 * @constructor Creates an input instance.
+	 * @param {String} name Input name.
+	 * @param {Object} definition Input definition.
 	 */
 	function ViewerInput( name, definition ) {
 		if ( definition ) {
-			this._ = {
-				definition: definition
-			};
+			CKEDITOR.tools.extend( this, definition, true );
 
 			this.name = name;
 			this.id = 'cke_' + CKEDITOR.tools.getNextId() + '_input';
 			this.wrapper = CKEDITOR.dom.element.createFromHtml( this.wrapperTemplate.output( {
-				label: definition.label,
+				label: this.label,
 				id: this.id
 			} ) );
 		}
@@ -1023,11 +1057,11 @@
 
 	var ViewerInputs = {
 		/**
-		 * The text input of {@link CKEDITOR.plugins.a11ychecker.viewer.form}.
+		 * The text input of {@link CKEDITOR.plugins.a11ychecker.viewerForm}.
 		 *
 		 * @since 4.5
-		 * @class CKEDITOR.plugins.a11ychecker.viewer.inputs.text
-		 * @extends CKEDITOR.plugins.a11ychecker.viewer.input
+		 * @class CKEDITOR.plugins.a11ychecker.viewerInputs.text
+		 * @extends CKEDITOR.plugins.a11ychecker.viewerInput
 		 * @constructor Creates a text input instance.
 		 */
 		Text: function( name, definition ) {
@@ -1041,11 +1075,11 @@
 		},
 
 		/**
-		 * The checkbox input of {@link CKEDITOR.plugins.a11ychecker.viewer.form}.
+		 * The checkbox input of {@link CKEDITOR.plugins.a11ychecker.viewerForm}.
 		 *
 		 * @since 4.5
-		 * @class CKEDITOR.plugins.a11ychecker.viewer.inputs.checkbox
-		 * @extends CKEDITOR.plugins.a11ychecker.viewer.input
+		 * @class CKEDITOR.plugins.a11ychecker.viewerInputs.checkbox
+		 * @extends CKEDITOR.plugins.a11ychecker.viewerInput
 		 * @constructor Creates a checkbox input instance.
 		 */
 		Checkbox: function( name, definition ) {
@@ -1059,11 +1093,11 @@
 		},
 
 		/**
-		 * The select input of {@link CKEDITOR.plugins.a11ychecker.viewer.form}.
+		 * The select input of {@link CKEDITOR.plugins.a11ychecker.viewerForm}.
 		 *
 		 * @since 4.5
-		 * @class CKEDITOR.plugins.a11ychecker.viewer.inputs.select
-		 * @extends CKEDITOR.plugins.a11ychecker.viewer.input
+		 * @class CKEDITOR.plugins.a11ychecker.viewerInputs.select
+		 * @extends CKEDITOR.plugins.a11ychecker.viewerInput
 		 * @constructor Creates a select input instance.
 		 */
 		Select: function( name, definition ) {
@@ -1090,9 +1124,8 @@
 
 	ViewerInputs.Text.prototype = CKEDITOR.tools.extend( new ViewerInput, {
 		/**
+		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.text
 		 * Template of the input.
-		 *
-		 * @property {CKEDITOR.template} inputTemplate
 		 */
 		inputTemplate: new CKEDITOR.template(
 			'<input class="cke_a11yc_ui_input cke_a11yc_ui_input_text" type="text" id={id} aria-labelledby="id" aria-required="true">' )
@@ -1100,9 +1133,8 @@
 
 	ViewerInputs.Checkbox.prototype = CKEDITOR.tools.extend( new ViewerInput, {
 		/**
+		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.checkbox
 		 * Template of the input.
-		 *
-		 * @property {CKEDITOR.template} inputTemplate
 		 */
 		inputTemplate: new CKEDITOR.template(
 			'<input class="cke_a11yc_ui_input cke_a11yc_ui_input_checkbox" type="checkbox" id={id} aria-labelledby="id" aria-required="true">' ),
@@ -1114,16 +1146,14 @@
 
 	ViewerInputs.Select.prototype = CKEDITOR.tools.extend( new ViewerInput, {
 		/**
+		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.select
 		 * Template of the input.
-		 *
-		 * @property {CKEDITOR.template} inputTemplate
 		 */
 		inputTemplate: new CKEDITOR.template( '<select class="cke_a11yc_ui_input_select" id={id} aria-labelledby="id" aria-required="true"></select>' ),
 
 		/**
+		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.select
 		 * Template of the option.
-		 *
-		 * @property {CKEDITOR.template} inputTemplate
 		 */
 		optionTemplate: new CKEDITOR.template( '<option value="{value}">{text}</select>' )
 	} );
@@ -1155,7 +1185,7 @@
 		//if ( curFocusedElement )
 		//	ui.markFocus( curFocusedElement );
 
-		editor._.a11ychecker.viewer.showIssue( curFocusedElement );
+		editor._.a11ychecker.viewerController.showIssue( curFocusedElement );
 	};
 
 
@@ -1181,7 +1211,7 @@
 		// Mark it in fancy fashion.
 		//curFocusedElement.addClass( 'cke_a11y_focused' );
 
-		editor._.a11ychecker.viewer.showIssue( curFocusedElement );
+		editor._.a11ychecker.viewerController.showIssue( curFocusedElement );
 	};
 
 	CKEDITOR.plugins.a11ychecker.clearResults = function( editor ) {
