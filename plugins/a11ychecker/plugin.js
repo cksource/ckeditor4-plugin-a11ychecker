@@ -340,10 +340,10 @@
 		} );
 
 		this.panel.on( 'attach', function() {
-			editor._.a11ychecker.viewer.updateList();
-			editor._.a11ychecker.viewer.updateDescription();
-			editor._.a11ychecker.viewer.updateForm();
-		} );
+			this.updateList();
+			this.updateDescription();
+			this.updateForm();
+		}, this );
 
 		this.setup.navigation.call( this );
 		this.setup.description.call( this );
