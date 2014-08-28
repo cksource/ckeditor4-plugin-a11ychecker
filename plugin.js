@@ -317,12 +317,12 @@
 
 		this.panel.on( 'show', function() {
 			// CTRL+SHIFT+[
-			this.addListener( this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
+			this.addListener( this.parts.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
 				CKEDITOR.plugins.a11ychecker.prev( editor );
 			} ) ) );
 
 			// CTRL+SHIFT+]
-			this.addListener( this.ui.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 221, function() {
+			this.addListener( this.parts.panel.on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 221, function() {
 				CKEDITOR.plugins.a11ychecker.next( editor );
 			} ) ) );
 
@@ -347,77 +347,66 @@
 			this.updateForm();
 		}, this );
 
-		this.setup.navigation.call( this );
-		this.setup.description.call( this );
-		this.setup.form.call( this );
+		this.setupNavigation.call( this );
+		this.setupDescription.call( this );
+		this.setupForm.call( this );
 	};
 
 	Viewer.prototype = {
-		setup: {
-			/**
-			 * Setups the navigation bar.
-			 *
-			 * @method navigation
-			 * @member CKEDITOR.plugins.a11ychecker.viewer.setup
-			 */
-			navigation: function() {
-				this.navigation = new ViewerNavigation();
+		/**
+		 * Setups the navigation bar.
+		 */
+		setupNavigation: function() {
+			this.navigation = new ViewerNavigation();
 
-				// Register focusables.
-				this.panel.registerFocusable( this.navigation.ui.previous );
-				this.panel.registerFocusable( this.navigation.ui.list );
-				this.panel.registerFocusable( this.navigation.ui.next );
+			// Register focusables.
+			this.panel.registerFocusable( this.navigation.ui.previous );
+			this.panel.registerFocusable( this.navigation.ui.list );
+			this.panel.registerFocusable( this.navigation.ui.next );
 
-				// Handle change in the list of issues.
-				this.navigation.on( 'change', function( evt ) {
-					this.showIssue( evt.data );
-				}, this );
+			// Handle change in the list of issues.
+			this.navigation.on( 'change', function( evt ) {
+				this.showIssue( evt.data );
+			}, this );
 
-				// Handle "previous" button click.
-				this.navigation.on( 'previous', function( evt ) {
-					CKEDITOR.plugins.a11ychecker.prev( this.env.editor );
-				}, this );
+			// Handle "previous" button click.
+			this.navigation.on( 'previous', function( evt ) {
+				CKEDITOR.plugins.a11ychecker.prev( this.env.editor );
+			}, this );
 
-				// Handle "next" button click.
-				this.navigation.on( 'next', function( evt ) {
-					CKEDITOR.plugins.a11ychecker.next( this.env.editor );
-				}, this );
+			// Handle "next" button click.
+			this.navigation.on( 'next', function( evt ) {
+				CKEDITOR.plugins.a11ychecker.next( this.env.editor );
+			}, this );
 
-				this.panel.ui.content.append( this.navigation.ui.wrapper );
-			},
+			this.panel.parts.content.append( this.navigation.ui.wrapper );
+		},
 
-			/**
-			 * Setups the description area.
-			 *
-			 * @method description
-			 * @member CKEDITOR.plugins.a11ychecker.viewer.setup
-			 */
-			description: function() {
-				this.description = new ViewerDescription();
+		/**
+		 * Setups the description area.
+		 */
+		setupDescription: function() {
+			this.description = new ViewerDescription();
 
-				this.panel.ui.content.append( this.description.ui.wrapper );
-			},
+			this.panel.parts.content.append( this.description.ui.wrapper );
+		},
 
-			/**
-			 * Setups the "quick fix" form.
-			 *
-			 * @method form
-			 * @member CKEDITOR.plugins.a11ychecker.viewer.setup
-			 */
-			form: function() {
-				this.form = new ViewerForm();
+		/**
+		 * Setups the "quick fix" form.
+		 */
+		setupForm: function() {
+			this.form = new ViewerForm();
 
-				this.form.on( 'addInput', function( evt ) {
-					this.panel.registerFocusable( evt.data.input );
-				}, this );
+			this.form.on( 'addInput', function( evt ) {
+				this.panel.registerFocusable( evt.data.input );
+			}, this );
 
-				this.form.on( 'removeInput', function( evt ) {
-					this.panel.deregisterFocusable( evt.data.input );
-				}, this );
+			this.form.on( 'removeInput', function( evt ) {
+				this.panel.deregisterFocusable( evt.data.input );
+			}, this );
 
-				this.panel.registerFocusable( this.form.ui.button );
-				this.panel.ui.content.append( this.form.ui.wrapper );
-			}
+			this.panel.registerFocusable( this.form.ui.button );
+			this.panel.parts.content.append( this.form.ui.wrapper );
 		},
 
 		/**
