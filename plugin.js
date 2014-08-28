@@ -276,6 +276,8 @@
 				} );
 
 			doc.getHead().append( node );
+
+			CKEDITOR.document.appendStyleSheet( this.path + 'skins/moono/a11ychecker.css' );
 		}
 	} );
 
