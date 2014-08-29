@@ -989,6 +989,11 @@
 				this.fire( 'submit' );
 				evt.data.preventDefault();
 			}, this );
+
+			// Enter.
+			this.parts.wrapper.on( 'keydown', keyListener( 13, function( evt ) {
+				this.fire( 'submit' );
+			} ), this );
 		}
 	};
 
