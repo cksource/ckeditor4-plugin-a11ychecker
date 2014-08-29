@@ -347,8 +347,9 @@
 
 	ViewerController.prototype = {
 		/**
-		 * @method
 		 * Updates the list of issues.
+		 *
+		 * @method
 		 */
 		updateList: ( function() {
 			function trimText( text, length ) {
@@ -401,7 +402,7 @@
 							value: issues.getIssueIndexByElement( element ),
 							text: getElementInfo( element ),
 							selected: element.equals( issues.getFocused() ) ? 'selected="selected"' : ''
-						}
+						};
 					}
 				}
 
@@ -503,9 +504,9 @@
 			}, this ) );
 		} );
 
-		this.setupNavigation.call( this );
-		this.setupDescription.call( this );
-		this.setupForm.call( this );
+		this.setupNavigation();
+		this.setupDescription();
+		this.setupForm();
 	};
 
 	Viewer.prototype = {
@@ -549,7 +550,7 @@
 			this.panel.registerFocusable( this.form.parts.button );
 			this.panel.parts.content.append( this.form.parts.wrapper );
 		}
-	}
+	};
 
 	/**
 	 * The navigation area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
