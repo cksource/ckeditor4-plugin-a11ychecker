@@ -834,7 +834,7 @@
 			this.parts.title.appendTo( this.parts.wrapper );
 			this.parts.info.appendTo( this.parts.wrapper );
 		}
-	}
+	};
 
 	/**
 	 * The "quick fix" area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
@@ -1157,6 +1157,17 @@
 		 * Template of the option.
 		 */
 		optionTemplate: new CKEDITOR.template( '<option value="{value}">{text}</select>' )
+	} );
+
+	// Make all Viewer* classes public.
+	CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
+		viewerController: ViewerController,
+		viewer: Viewer,
+		viewerNavigation: ViewerNavigation,
+		viewerDescription: ViewerDescription,
+		viewerForm: ViewerForm,
+		viewerInput: ViewerInput,
+		viewerInputs: ViewerInputs
 	} );
 
 	// Stores objects defining title/description for given issue type.
