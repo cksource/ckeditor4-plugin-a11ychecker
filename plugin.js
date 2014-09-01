@@ -238,28 +238,22 @@
 
 		// Loads external JavaScript libs.
 		loadJs: function() {
-			var quailPath = CKEDITOR.getUrl( this.path + quailDirectory ),
-				jQueryPath = quailPath + 'lib/jquery/jquery.js',
-				quailPath = quailPath + 'dist/quail.jquery.js';
+			var basePath = CKEDITOR.getUrl( this.path + quailDirectory ),
+				jQueryPath = basePath + 'lib/jquery/jquery.js',
+				quailPath = basePath + 'dist/quail.jquery.js';
 
 			CKEDITOR.scriptLoader.load(  jQueryPath, function() {
-				console.log( 'jqueryu loaded' );
-				// Quail requires jQuery first.
-				CKEDITOR.scriptLoader.load( quailPath, function() {
-					console.log( 'quail loaded' );
-					// Marks that external scripts has been loaded.
-					// quailLoaded = true;
-				} );
+				// After loading jQuery, we might load Quail.
+				CKEDITOR.scriptLoader.load( quailPath );
 			} );
 
-			// Sync dependencies
+			// Sync dependencies.
 			var syncDependencies = [ 'UiComponent.js', 'Ui.js', 'Issues.js', 'Controller.js', 'Quickfix.js' ],
 				dependenciesCallbacks = {
 					'Issues.js': function() {
 						console.log( 'issues loaded' );
 					}
-				},
-				customCallback;
+				};
 
 			for (var i=0; i < syncDependencies.length; i++) {
 				CKEDITOR.scriptLoader.load( this.path + syncDependencies[ i ], dependenciesCallbacks[ syncDependencies[ i ] ] );
