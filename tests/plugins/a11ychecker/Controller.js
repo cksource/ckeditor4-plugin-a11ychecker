@@ -2,7 +2,7 @@
 /* bender-ckeditor-plugins: a11ychecker,toolbar */
 /* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
-(function() {
+( function() {
 	'use strict';
 
 	require( [ 'Controller' ], function( Controller ) {
@@ -50,4 +50,4 @@
 			return new Controller();
 		}
 	} );
-})();
+} )();
