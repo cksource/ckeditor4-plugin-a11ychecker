@@ -59,7 +59,18 @@ define( function() {
 		 * @member CKEDITOR.plugins.a11ychecker.Issue
 		 * @type {CKEDITOR.plugins.a11ychecker.Engine}
 		 */
-		engine: null
+		engine: null,
+
+		/**
+		 * A type of the issue. It's used to determine @link CKEDITOR.plugins.a11ychecker.IssueDetails} object.
+		 *
+		 * @todo: I think I should rename it to `type`, `typeId` or something. Id is very misleading, as it
+		 * indicates that it's an unique issue identifier.
+		 *
+		 * @member CKEDITOR.plugins.a11ychecker.Issue
+		 * @type {mixed}
+		 */
+		id: null
 	};
 
 	Issue.prototype.constructor = Issue;

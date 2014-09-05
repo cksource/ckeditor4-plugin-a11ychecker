@@ -5,7 +5,7 @@ define( function() {
 	 * A list of issues.
 	 *
 	 * @class
-	 * @member {CKEDITOR.plugins.a11ychecker}
+	 * @member CKEDITOR.plugins.a11ychecker
 	 */
 	function IssueList() {
 		this.list = [];
@@ -15,7 +15,7 @@ define( function() {
 		/**
 		 * Array containing {@link CKEDITOR.plugins.a11ychecker.Issue} instances.
 		 *
-		 * @member {CKEDITOR.plugins.a11ychecker.IssueList}
+		 * @member CKEDITOR.plugins.a11ychecker.IssueList
 		 * @type {CKEDITOR.plugins.a11ychecker.Issue[]}
 		 */
 		list: []

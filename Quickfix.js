@@ -208,6 +208,4 @@ CKEDITOR.plugins.a11ychecker.ElementRemovefix = CKEDITOR.tools.createClass( {
 			}
 		}
 	}
-
-	console.log( 'fix mapping', fixMapping );
 }());

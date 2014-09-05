@@ -14,7 +14,7 @@ define( function() {
 		/**
 		 * Editor owning this Accessibility Checker instance.
 		 *
-		 * @member {CKEDITOR.plugins.a11ychecker.Controller}
+		 * @member CKEDITOR.plugins.a11ychecker.Controller
 		 * @type {CKEDITOR.editor}
 		 */
 		this.editor = editor;
@@ -22,7 +22,7 @@ define( function() {
 		 * An accessibility checking engine object. It encapsulates all the logic related
 		 * to fetching issues.
 		 *
-		 * @member {CKEDITOR.plugins.a11ychecker.Controller}
+		 * @member CKEDITOR.plugins.a11ychecker.Controller
 		 */
 		this.engine = null;
 	}
