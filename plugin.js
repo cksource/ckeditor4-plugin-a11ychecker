@@ -17,7 +17,9 @@
 		// Should A11ychecker toolbar be hidden on run.
 		cfgStartHidden = true,
 		// Viewer controller class, will be loaded later on.
-		ViewerController;
+		ViewerController,
+		// A11y checker controller class loaded by Requirejs.
+		Controller;
 
 	CKEDITOR.plugins.add( pluginName, {
 		requires: 'dialog,balloonpanel',
@@ -37,6 +39,8 @@
 				disableFilterStrip: true,
 				issues: new CKEDITOR.plugins.a11ychecker.Issues( editor )
 			};
+
+			editor._.a11ychecker_new = new Controller( editor );
 
 			// Some extra functions which will make api usage from command line,
 			// a little bit easier.
@@ -278,6 +282,10 @@
 
 	CKEDITOR.plugins.a11ychecker = {};
 
+	require( [ 'Controller' ], function( _Controller ) {
+		Controller = _Controller;
+	} );
+
 	require( [ 'ui/ViewerInputs', 'ui/ViewerInput', 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerController', 'ui/Viewer', 'ui/ViewerForm' ], function( ViewerInputs, ViewerInput, ViewerDescription, ViewerNavigation, _ViewerController, Viewer, ViewerForm ) {
 		ViewerController = _ViewerController;
 
@@ -444,165 +452,10 @@
 	};
 
 	/**
-	 * Adds an attribute to a fake object.
-	 * @param	{CKEDITOR.dom.element}	element		Dom element of fakeobject.
-	 * @param	{String}	attrName	Attribute name.
-	 * @param	{Mixed}	attrValue	New value.
-	 */
-	function updateFakeobjectsAttribute( element, attrName, attrValue ) {
-		attrValue = String( attrValue );
-
-		// Note that we want to make sure that previous value is removed.
-		var initialValue = decodeURIComponent( element.data('cke-realelement') ).replace( /(\s+data-quail-id="\d+")/g, '' ),
-			//newVal = initialValue.replace( '<a', '<a ' + attrName + '="' +  CKEDITOR.tools.htmlEncodeAttr( attrValue ) + '"' );
-			newVal = initialValue.replace( /^(<\w+\s)/, '$1' + attrName + '="' +  CKEDITOR.tools.htmlEncodeAttr( attrValue ) + '"' );
-
-		element.data( 'cke-realelement', encodeURIComponent( newVal ) );
-	}
-
-	/**
 	 * Performs a11y checking for current editor content.
 	 */
 	CKEDITOR.plugins.a11ychecker.exec = function( editor ) {
-		var $ = window.jQuery,
-			elem;
-
-		CKEDITOR.plugins.a11ychecker.clearResults( editor );
-
-		// UI must be visible.
-		editor._.a11ychecker.ui.show();
-
-		// Updates tmp div innerhtml.
-		if ( !( elem = CKEDITOR.document.getBody().findOne( '#quailOutput' ) ) )
-			elem = CKEDITOR.document.createElement( 'div', { attributes: { 'id': 'quailOutput', 'style': 'display: none' } } );
-			//elem = CKEDITOR.document.createElement( 'div', { attributes: { 'id': 'quailOutput' } } );
-
-		// Reassinging ids to each element.
-		var lastId = 0;
-		editor.editable().forEach( function( element ) {
-			// Assign lastId incremented by one.
-			element.data( 'quail-id', ++lastId );
-
-			// Temp workaround for fakeobjects.
-			if ( element.getName( 'a' ) && CKEDITOR.plugins.link.tryRestoreFakeAnchor( editor, element ) )
-				updateFakeobjectsAttribute( element, 'data-quail-id', lastId );
-
-			return true;
-		}, CKEDITOR.NODE_ELEMENT, false );
-
-		editor._.a11ychecker.disableFilterStrip = true;
-		elem.setHtml( editor.getData() );
-		editor._.a11ychecker.disableFilterStrip = false;
-		CKEDITOR.document.getBody().append( elem );
-
-		var customTests = {
-            "imgHasAlt": {
-                "type": "selector",
-                "selector": "img:not(img[alt])",
-                "severity": "severe"
-            }
-        };
-
-		// Calls quail.
-		var quailConfig = {
-			guideline : [ 'imgHasAlt', 'aMustNotHaveJavascriptHref', 'aAdjacentWithSameResourceShouldBeCombined', 'pNotUsedAsHeader' ],
-			//guideline : 'wcag',
-			jsonPath : editor._.a11ychecker.basePath + 'dist',
-			// Causes total.results to be new in each call.
-			reset: true,
-			complete: function( total ) {
-				var results = total.results,
-					errors = [];
-
-				editor._.a11ychecker.issues.setQuailIssues( results );
-
-				execUiUpdate( editor, total, results );
-
-				// Looking for unknown issue types.
-				var knownTypes = CKEDITOR.plugins.a11ychecker,
-					curTestObject;
-
-				for ( var issueType in results ) {
-
-					if ( !knownTypes.types[ issueType ] ) {
-						curTestObject = results[ issueType ].test;
-
-						knownTypes.types[ issueType ] = {
-							title: curTestObject.title.en,
-							desc: curTestObject.description.en,
-							testability: curTestObject.testability
-						};
-					}
-				}
-
-				// Now we can iterate over all found issues, and mark them with specific class.
-				editor._.a11ychecker.issues.each( function( element, issueGroup ) {
-					element.addClass( 'cke_a11ychecker_error' );
-
-					errors.push( {
-						element: element,
-						type: issueGroup
-					} );
-				} );
-
-				console.log( 'Issued problems:', errors );
-				//console.log( 'Problem issued (filtered:)', errors.map( function( el, index ) {
-				//	return [ el.element.$, el.type ];
-				//} ) );
-			}
-		};
-
-		console.log( 'performing quail test' );
-		$( elem.$ ).quail( quailConfig );
+		return editor._.a11ychecker_new.exec();
 	};
 
-	// Returns human friendly representation of given element.
-	// @param {jQuery} el jQuery wrapped element
-	// @return {String}
-	function humanReadableElement( el ) {
-		el = new CKEDITOR.dom.element( el[0] );
-		if ( el.getName() == 'a' ) {
-			if ( el.getText() )
-				return 'a: ' + el.getText();
-			else
-				return 'a[name="' + el.getAttribute( 'name' ) + '"]';
-		}
-	}
-
-	/**
-	 * @param {Object} results Object returned by Quail as total.results
-	 * @returns {Array}
-	 */
-	function toGroupedOptions( results ) {
-		var ret = [];
-
-		for ( var i in results ) {
-			var curResult = results[ i ];
-
-			if ( !curResult.elements.length )
-				continue;
-
-			var obj = {
-				name: i,
-				options: {
-				}
-			};
-
-			for (var j=0; j < curResult.elements.length; j++) {
-				var innerText = humanReadableElement( curResult.elements[ j ] ) || 'Issue #' + (j + 1);
-				obj.options[ j ] = innerText;
-			}
-
-			ret.push( obj );
-		}
-
-		return ret;
-	}
-
-	function execUiUpdate( editor, total, results ) {
-		var ui = editor._.a11ychecker.ui;
-
-		ui.issues.setOptionsGrouped( toGroupedOptions( total.results ) );
-		ui.update();
-	}
 } )();
