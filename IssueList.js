@@ -2,10 +2,15 @@
 define( function() {
 
 	/**
-	 * A list of issues.
+	 * Represents an issue list in a single Accessibility Checker instance. It keeps
+	 * reference to all the {@link CKEDITOR.plugins.a11ychecker.Issue} instances, and
+	 * manages the focused issue as well.
 	 *
-	 * @class
-	 * @member CKEDITOR.plugins.a11ychecker
+	 * **Focused issue** is the one that we're workin on. It might be activated with a
+	 * click, keyboard hotkey, etc.
+	 *
+	 * @class CKEDITOR.plugins.a11ychecker.IssueList
+	 * @constructor
 	 */
 	function IssueList() {
 		this.list = [];
@@ -18,7 +23,18 @@ define( function() {
 		 * @member CKEDITOR.plugins.a11ychecker.IssueList
 		 * @type {CKEDITOR.plugins.a11ychecker.Issue[]}
 		 */
-		list: []
+		list: [],
+
+		/**
+		 * Keeps currently focused issue index.
+		 *
+		 * If no issue is focused `currentIndex` will evaluate to `-1`.
+		 *
+		 * @property {Number} [currentIndex=-1]
+		 * @member CKEDITOR.plugins.a11ychecker.IssueList
+		 * @readonly
+		 */
+		currentIndex: -1
 	};
 
 	IssueList.prototype.constructor = IssueList;
@@ -26,6 +42,7 @@ define( function() {
 	/**
 	 * Executes `callback` on each contained Issue.
 	 *
+	 * @member CKEDITOR.plugins.a11ychecker.IssueList
 	 * @param {Function} callback Function executed for each issue. Gets an `issue` as a first parameter.
 	 */
 	IssueList.prototype.each = function( callback ) {
@@ -42,6 +59,7 @@ define( function() {
 	};
 
 	/**
+	 * @member CKEDITOR.plugins.a11ychecker.IssueList
 	 * @returns {Number} Issues count.
 	 */
 	IssueList.prototype.count = function() {
@@ -51,6 +69,7 @@ define( function() {
 	/**
 	 * Adds an issue to the end of the list.
 	 *
+	 * @member CKEDITOR.plugins.a11ychecker.IssueList
 	 * @param {CKEDITOR.plugins.a11ychecker} issue Issue to be added.
 	 */
 	IssueList.prototype.addItem = function( issue ) {
@@ -58,6 +77,7 @@ define( function() {
 	};
 
 	/**
+	 * @member CKEDITOR.plugins.a11ychecker.IssueList
 	 * @param {Number} index 0-based index of item to be fetched.
 	 * @returns {CKEDITOR.plugins.a11ychecker.Issue/null} Issue or `null` if not found.
 	 */
@@ -68,6 +88,8 @@ define( function() {
 
 	/**
 	 * Clears the issues list.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.IssueList
 	 */
 	IssueList.prototype.clear = function() {
 		this.list.splice( 0, this.list.length );
