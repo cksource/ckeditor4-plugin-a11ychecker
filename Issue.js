@@ -36,9 +36,12 @@ define( function() {
 		/**
 		 * DOM element which caused the issue.
 		 *
-		 * @todo: This is a reference to element in wrapper returned by getTempOutput.Controller (a.k.a. scratchpad).
+		 * @todo: This is a reference to element in wrapper returned by Controller.getTempOutput (a.k.a. scratchpad).
 		 * So it's not referencing DOM element in Editor by any means, we should emphesise it at each step.
 		 * I think that we'll add Issue.editorElement, when the checking is done, and IssueList is closed.
+		 *
+		 * @todo: This property will soon be renamed to `originalElement` and the new `element` property will point to
+		 * the DOM node inside the editor (so not the one in scratchpad).
 		 *
 		 * @member CKEDITOR.plugins.a11ychecker.Issue
 		 * @type {CKEDITOR.dom.element/null}
