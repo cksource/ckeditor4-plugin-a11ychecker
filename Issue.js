@@ -34,19 +34,25 @@ define( function() {
 		 */
 		testability: 0,
 		/**
-		 * DOM element which caused the issue.
-		 *
-		 * @todo: This is a reference to element in wrapper returned by Controller.getTempOutput (a.k.a. scratchpad).
-		 * So it's not referencing DOM element in Editor by any means, we should emphesise it at each step.
-		 * I think that we'll add Issue.editorElement, when the checking is done, and IssueList is closed.
-		 *
-		 * @todo: This property will soon be renamed to `originalElement` and the new `element` property will point to
-		 * the DOM node inside the editor (so not the one in scratchpad).
+		 * {@link CKEDITOR.editable} child element, which caused the issue.
 		 *
 		 * @member CKEDITOR.plugins.a11ychecker.Issue
 		 * @type {CKEDITOR.dom.element/null}
 		 */
 		element: null,
+		/**
+		 * Element pointed by the {@link CKEDITOR.plugins.a11ychecker.Engine} as an issue element.
+		 *
+		 * This **is not** the element inside CKEditor editable area. Instead it's a element in content
+		 * duplication placed in elem returned by {CKEDITOR.plugins.a11ychecker.Controller#getTempOutput}
+		 * (a.k.a. scratchpad).
+		 *
+		 * If you want to work on editable element, you should use {@link #element} instead.
+		 *
+		 * @member CKEDITOR.plugins.a11ychecker.Issue
+		 * @type {CKEDITOR.dom.element/null}
+		 */
+		originalElement: null,
 		/**
 		 * An object containing {@link CKEDITOR.plugins.a11ychecker.IssueDetails}.
 		 *

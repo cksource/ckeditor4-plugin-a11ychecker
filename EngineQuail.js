@@ -145,7 +145,7 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, Is
 
 			if ( testAttribs.status == 'failed' ) {
 				newIssue = new Issue( {
-					element: testAttribs.element,
+					originalElement: testAttribs.element,
 					testability: testability,
 					id: testId
 				}, that );

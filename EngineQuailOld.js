@@ -95,10 +95,10 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, Is
 				for ( var j = 0; j < curResult.elements.length; j++ ) {
 					newIssue = new Issue( {
 						id: i,
-						// Assigning the temp wrapper ( a.k.a. scratchpad ) element. Note this is not an element
+						// Assigning element from the temp wrapper ( a.k.a. scratchpad ). Note this is not an element
 						// in the editor.
 						// Also casting jQuery to CKEDITOR.dom.element.
-						element: new CKEDITOR.dom.element( curResult.elements[ j ][ 0 ] ),
+						originalElement: new CKEDITOR.dom.element( curResult.elements[ j ][ 0 ] ),
 						testability: curResult.test.testability
 					}, this );
 
