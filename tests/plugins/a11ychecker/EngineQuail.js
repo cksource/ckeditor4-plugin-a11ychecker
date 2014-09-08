@@ -113,7 +113,7 @@
 				assert.areSame( test.get( 'name' ), firstItem.id, 'Item 0 has a valid issue type' );
 				assert.areSame( test[ 0 ].attributes.element, firstItem.originalElement, 'Item 0 has a valid originalElement' );
 				assert.areSame( test.attributes.testability, firstItem.testability, 'Item 0 has a valid testability' );
-				assert.areSame( null, firstItem.element, 'Item 0 has a valid element' );
+				assert.isNull( firstItem.element, 'Item 0 has a valid element' );
 
 				// Checking second item.
 				assert.isInstanceOf( Issue, secondItem, 'Item 1 has a valid type' );
@@ -121,7 +121,7 @@
 				assert.areSame( test.get( 'name' ), secondItem.id, 'Item 1 has a valid issue type' );
 				assert.areSame( test[ 1 ].attributes.element, secondItem.originalElement, 'Item 1 has a valid originalElement' );
 				assert.areSame( test.attributes.testability, secondItem.testability, 'Item 1 has a valid testability' );
-				assert.areSame( null, secondItem.element, 'Item 1 has a valid element' );
+				assert.isNull( secondItem.element, 'Item 1 has a valid element' );
 			}
 
 		} );

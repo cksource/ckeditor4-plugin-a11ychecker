@@ -30,18 +30,18 @@
 				assert.areSame( wrapper.findOne( 'a' ), list.getItem( 0 ).originalElement, 'Invalid originalElement for 0-index item' );
 				assert.areSame( 1, list.getItem( 0 ).testability, '0-index item has testability assigned' );
 				assert.areSame( engine, list.getItem( 0 ).engine, '0-index item has valid engine' );
-				assert.areSame( null, list.getItem( 0 ).element, 'Invalid element for 0-index item' );
+				assert.isNull( list.getItem( 0 ).element, 'Invalid element for 0-index item' );
 
 				// Second issue is: missing alt for first img.
 				assert.areSame( wrapper.findOne( 'img' ), list.getItem( 1 ).originalElement, 'Invalid element for 1-index item' );
 				assert.areSame( 1, list.getItem( 1 ).testability, '1-index item has testability assigned' );
-				assert.areSame( null, list.getItem( 1 ).element, 'Invalid element for 1-index item' );
+				assert.isNull( list.getItem( 1 ).element, 'Invalid element for 1-index item' );
 
 				// Third issue is: missing alt for second img.
 				// Note: getItem( 1 ) is not a bug, because it's 0 indexed, meaning second image.
 				assert.areSame( wrapper.find( 'img' ).getItem( 1 ), list.getItem( 2 ).originalElement, 'Invalid element for 2-index item' );
 				assert.areSame( 1, list.getItem( 2 ).testability, '2-index item has testability assigned' );
-				assert.areSame( null, list.getItem( 2 ).element, 'Invalid element for 2-index item' );
+				assert.isNull( list.getItem( 2 ).element, 'Invalid element for 2-index item' );
 			},
 
 			'test EngineQuailOld.getIssuesFromResults stores issue details': function() {
