@@ -92,7 +92,44 @@ define( function() {
 			if ( editorHasFakeobjectPlugin && isFakeElement( element ) ) {
 				removeFakeObjectAttribute( element, EditableDecorator.ID_ATTRIBUTE_NAME_FULL );
 			}
+
+			if ( element.hasClass( 'cke_a11ychecker_error' ) ) {
+				element.removeClass( 'cke_a11ychecker_error' );
+			}
 		}, CKEDITOR.NODE_ELEMENT, false );
+	};
+
+	/**
+	 * Takes the {@link CKEDITOR.plugins.a11ychecker.IssueList} object, finds
+	 * {@link CKEDITOR.plugins.a11ychecker.Issue#element} for each `Issue` object.
+	 *
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} list
+	 */
+	EditableDecorator.prototype.resolveEditorElements = function( list ) {
+		var editable = this.editable(),
+			curIssue,
+			a11yId,
+			i,
+			len;
+
+		for ( i = 0, len = list.count(); i < len; i++ ) {
+			curIssue = list.getItem( i );
+			// originalElement (the one in sketchpad) holds the id attribute.
+			a11yId = curIssue.originalElement.data( EditableDecorator.ID_ATTRIBUTE_NAME );
+			// Having this id we can simply fire a selector looking for matching element in editable.
+			curIssue.element = editable.findOne( '*[' + EditableDecorator.ID_ATTRIBUTE_NAME_FULL + '="' + a11yId + '"]' );
+		}
+	};
+
+	/**
+	 * Adds a HTML class to each issue element, indicating that element is causing a11y problems.
+	 *
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} list
+	 */
+	EditableDecorator.prototype.markIssues = function( list ) {
+		for ( var i = 0, len = list.count(); i < len; i++ ) {
+			list.getItem( i ).element.addClass( 'cke_a11ychecker_error' );
+		}
 	};
 
 	/**

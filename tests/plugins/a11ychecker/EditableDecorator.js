@@ -5,7 +5,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'EditableDecorator', 'mock/EditableDecoratorMockup' ], function( EditableDecorator, EditableDecoratorMockup ) {
+	require( [ 'EditableDecorator', 'mock/EditableDecoratorMockup', 'IssueList' ], function( EditableDecorator, EditableDecoratorMockup, IssueList ) {
 		bender.test( {
 
 			setUp: function() {
@@ -66,8 +66,90 @@
 					assert.isFalse( elem.hasAttribute( 'data-quail-id' ),
 						'Element stil has data-quail-id attr. Element outer: ' + elem.getOuterHtml() );
 				}, CKEDITOR.NODE_ELEMENT );
-			}
+			},
 
+			'test EditableDecorator.removeMarkup removing .cke_a11ychecker_error': function() {
+				// EditableDecorator.removeMarkup should also remove cke_a11ychecker_error class.
+				var editable = this.mockup.editable();
+
+				this.mockup.loadContentFrom( 'a11ycheckerIdMarkup' );
+				this.mockup.removeMarkup();
+
+				assert.areSame( 0, editable.find( '.cke_a11ychecker_error' ).count(),
+					'No .cke_a11ychecker_error elmeents are found' );
+			},
+
+			'test EditableDecorator.markIssues': function() {
+				// This method should apply cke_a11ychecker_error class to each
+				// issue element (in editable) within given IssueList.
+
+				// Setup the mocked IssueList.
+				var issueListMockup = new IssueList(),
+					// Only following elements should have HTML class added.
+					testedElements = [
+						this.mockup.editable().findOne( 'p' ),
+						this.mockup.editable().findOne( 'img' )
+					],
+					className = 'cke_a11ychecker_error';
+
+				issueListMockup.addItem( {
+					element: testedElements[ 0 ]
+				} );
+				issueListMockup.addItem( {
+					element: testedElements[ 1 ]
+				} );
+
+				this.mockup.markIssues( issueListMockup );
+
+				for ( var i = 0; i < testedElements.length; i++ ) {
+					assert.isTrue( testedElements[ i ].hasClass( className ),
+						'testedElements[ ' + i + ' ] has class ' + className );
+				}
+
+				assert.areSame( 2, this.mockup.editable().find( '.' + className ).count(),
+					'Elements with ' + className + ' count' );
+			},
+
+			'test EditableDecorator.removeMarkup cke_a11ychecker_error': function() {
+				var editable = this.mockup.editable();
+
+				this.mockup.loadContentFrom( 'a11ycheckerIdMarkup' );
+				this.mockup.removeMarkup();
+
+				editable.forEach( function( elem ) {
+					// Checks each element for the attribute.
+					assert.isFalse( elem.hasAttribute( 'data-quail-id' ),
+						'Element stil has data-quail-id attr. Element outer: ' + elem.getOuterHtml() );
+				}, CKEDITOR.NODE_ELEMENT );
+			},
+
+			'test EditableDecorator.resolveEditorElements': function() {
+				// Setup the mocked IssueList.
+				var issueListMockup = new IssueList();
+				issueListMockup.addItem( {
+					originalElement: CKEDITOR.dom.element.createFromHtml( '<p data-quail-id="2"></p>' )
+				} );
+				issueListMockup.addItem( {
+					originalElement: CKEDITOR.dom.element.createFromHtml( '<p data-quail-id="5"></p>' )
+				} );
+
+				// Load content with data-quail-id attributes, and call tested method.
+				this.mockup.loadContentFrom( 'a11ycheckerIdMarkup' );
+				this.mockup.resolveEditorElements( issueListMockup );
+
+				// Set expected elements (the ones with matching data-quail-id attr).
+				var expectedElements = [
+						this.mockup.editable().findOne( 'p' ),
+						this.mockup.editable().findOne( 'img' )
+					];
+
+				for ( var i = 0; i < expectedElements.length; i++ ) {
+					assert.isInstanceOf( CKEDITOR.dom.element, issueListMockup.list[ i ].element,
+						'Invalid in issueListMockup.list[ ' + i + ' ]' );
+					assert.areSame( expectedElements[ i ], issueListMockup.list[ i ].element,
+						'Invalid element at offset ' + i );
+				}
+			}
 		} );
 	} );
 } )();
