@@ -10,6 +10,7 @@
 			'test list creation': function() {
 				var list = new IssueList();
 				assert.areSame( 0, list.count(), 'List is empty' );
+				assert.areSame( -1, list.currentIndex, 'Index should not be set' );
 			},
 
 			'test IssueList.addItem': function() {
@@ -46,7 +47,7 @@
 			'test IssueList.getItem - missing item': function() {
 				// Ensure that null is returned if item is not found.
 				var list = new IssueList();
-				assert.areSame( null, list.getItem( 0 ), 'Item at 0 index' );
+				assert.isNull( list.getItem( 0 ), 'Item at 0 index' );
 			},
 
 			'test IssueList.each': function() {
@@ -75,8 +76,124 @@
 
 				assert.areSame( 0, list.count(), 'Item is removed' );
 				assert.areSame( undefined, list.list[ 0 ], 'Item is removed' );
-			}
+				assert.areSame( -1, list.currentIndex, 'currentIndex property reset' );
+			},
 
+			'test IssueList.resetFocus': function() {
+				var listMock = {
+						currentIndex: 1
+					};
+
+				IssueList.prototype.resetFocus.call( listMock );
+
+				assert.areSame( -1, listMock.currentIndex, 'Current index has been reset' );
+			},
+
+			'test IssueList.getFocused': function() {
+				var expectedRet = {},
+					listMock = {
+						currentIndex: 2,
+						getItem: function( param ) {
+							assert.areSame( 2, param, 'IssueList.getItem got correct index' );
+							return expectedRet;
+						}
+					},
+					ret;
+
+				ret = IssueList.prototype.getFocused.call( listMock );
+
+				assert.areSame( expectedRet, ret, 'Return value' );
+			},
+
+			'test IssueList.getFocused no focused issue': function() {
+				// Ensure that null is returned when no issue is focused.
+				var listMock = {
+						currentIndex: -1
+					},
+					ret;
+
+				ret = IssueList.prototype.getFocused.call( listMock );
+
+				assert.isNull( ret, 'Return value' );
+			},
+
+			'test IssueList.moveTo': function() {
+				var listMock = {
+						currentIndex: -1,
+						getItem: function() {
+							return {};
+						}
+					},
+					ret;
+
+				ret = IssueList.prototype.moveTo.call( listMock, 1 );
+
+				assert.areSame( 1, listMock.currentIndex, 'currentIndex was changed' );
+				assert.isTrue( ret, 'Return value' );
+			},
+
+			'test IssueList.moveTo invalid index': function() {
+				// This time we'll pass invalid index (not existing item), so it
+				// should return False.
+				var listMock = {
+						currentIndex: -1,
+						getItem: function() {
+							return null;
+						}
+					},
+					ret;
+
+				ret = IssueList.prototype.moveTo.call( listMock, 3 );
+
+				assert.areSame( -1, listMock.currentIndex, 'currentIndex remains the same' );
+				assert.isFalse( ret, 'Return value' );
+			},
+
+			'test IssueList.getIssueByElement': function() {
+				// We'll create an IssueList mockup, it will contain 2 issue-alike
+				// objects.
+				// W'll attempt to fetch the second issue (expectedIssue) by passing expectedElement.
+				var expectedElement = CKEDITOR.dom.element.createFromHtml( '<br>' ),
+					expectedIssue = {
+						element: expectedElement
+					},
+					list = new IssueList(),
+					ret;
+
+				list.list = [
+					{
+						element: CKEDITOR.dom.element.createFromHtml( '<br>' )
+					},
+					expectedIssue
+				];
+
+				ret = list.getIssueByElement( expectedElement );
+
+				assert.areSame( expectedIssue, ret, 'Return value' );
+			},
+
+			'test IssueList.resetFocus doc sample': function() {
+				var list = new IssueList(),
+					messages = [],
+					expectedMessages = [ '1', '-1' ];
+				list.addItem( 1 );
+				list.addItem( 1 );
+				list.currentIndex = 1;
+
+				// Each alert will push msg to messages array. We'll asert it later.
+				function alert( msg ){
+					messages.push( msg + '' );
+				}
+
+				// Assuming we have focused Issue at index 1.
+				alert( list.currentIndex );
+
+				list.resetFocus();
+
+				alert( list.currentIndex );
+
+				bender.arrayAssert.itemsAreSame( expectedMessages, messages, 'Messages are as expected' );
+			},
 		} );
 	} );
 })();
