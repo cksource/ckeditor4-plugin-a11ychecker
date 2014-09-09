@@ -12,8 +12,11 @@
 	bender.editor = true;
 
 	require( [ 'EditableDecorator', 'mock/EditableDecoratorMockup' ], function( EditableDecorator, EditableDecoratorMockup ) {
-		bender.test( {
+		// Name of attribute used to identify nodes.
+		var a11yCheckerIdAttr = EditableDecorator.ID_ATTRIBUTE_NAME,
+			a11yCheckerIdAttrFull = EditableDecorator.ID_ATTRIBUTE_NAME_FULL;
 
+		bender.test( {
 			setUp: function() {
 				this.mockup = new EditableDecoratorMockup();
 				// These tests require us to use read editor, because of restoreRealElement dependency.
@@ -23,10 +26,7 @@
 			'test EditableDecorator.applyMarkup to fakeobjects': function() {
 				// We also need to take care of encoded fakeobjects.
 				var editable = this.mockup.editable(),
-					editor = this.editor,
-					// Name of attribute used to identify nodes.
-					a11yCheckerIdAttr = EditableDecorator.ID_ATTRIBUTE_NAME,
-					a11yCheckerIdAttrFull = EditableDecorator.ID_ATTRIBUTE_NAME_FULL;
+					editor = this.editor;
 
 				this.mockup.loadContentFrom( 'fakeObjectContent' );
 				this.mockup.applyMarkup();
@@ -53,9 +53,7 @@
 			'test EditableDecorator.removeMarkup from fakeobjects': function() {
 				// We need to ensure that our node id attribute is removed in removeMarkup().
 				var editable = this.mockup.editable(),
-					editor = this.editor,
-					// Name of attribute used to identify nodes.
-					a11yCheckerIdAttrFull = EditableDecorator.ID_ATTRIBUTE_NAME_FULL;
+					editor = this.editor;
 
 				this.mockup.loadContentFrom( 'fakeObjectMarkupApplied' );
 				this.mockup.removeMarkup();
@@ -78,9 +76,7 @@
 			'test EditableDecorator.applyMarkup fakeobjects skipped without plugin': function() {
 				// There's no reason to modify fakeobject elements if there's no fakeobject plugin.
 				var editable = this.mockup.editable(),
-					editor = this.editor,
-					// Name of attribute used to identify nodes.
-					a11yCheckerIdAttrFull = EditableDecorator.ID_ATTRIBUTE_NAME_FULL;
+					editor = this.editor;
 
 				// We need to set dummy editor, which will not contain fakeobject plugin.
 				this.mockup.editor = {
@@ -102,9 +98,7 @@
 			'test EditableDecorator.removeMarkup fakeobjects skipped without plugin': function() {
 				// There's no reason to modify fakeobject elements if there's no fakeobject plugin.
 				var editable = this.mockup.editable(),
-					editor = this.editor,
-					// Name of attribute used to identify nodes.
-					a11yCheckerIdAttrFull = EditableDecorator.ID_ATTRIBUTE_NAME_FULL;
+					editor = this.editor;
 
 				// We need to set dummy editor, which will not contain fakeobject plugin.
 				this.mockup.editor = {
