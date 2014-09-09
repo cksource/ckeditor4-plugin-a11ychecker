@@ -81,7 +81,9 @@
 
 			'test IssueList.resetFocus': function() {
 				var listMock = {
-						currentIndex: 1
+						currentIndex: 1,
+						getFocused: function() {},
+						fire: function() {}
 					};
 
 				IssueList.prototype.resetFocus.call( listMock );
@@ -122,6 +124,10 @@
 						currentIndex: -1,
 						getItem: function() {
 							return {};
+						},
+						getFocused: function() {
+						},
+						fire: function() {
 						}
 					},
 					ret;
@@ -170,6 +176,68 @@
 				ret = list.getIssueByElement( expectedElement );
 
 				assert.areSame( expectedIssue, ret, 'Return value' );
+			},
+
+			'test focusChanged first event': function() {
+				var list = new IssueList(),
+					eventsCount = 0,
+					lastEventData;
+
+				list.list = [ 3, 4, 5 ];
+
+				list.on( 'focusChanged', function( evt ) {
+					eventsCount += 1;
+					lastEventData = evt.data;
+				} );
+
+				list.next();
+
+				assert.areSame( 1, eventsCount, 'focusChange events count' );
+				assert.areSame( 3, lastEventData.current, 'lastEventData.current' );
+				assert.isNull( lastEventData.previous, 'lastEventData.previous' );
+			},
+
+			'test focusChanged subsequent event': function() {
+				var list = new IssueList(),
+					eventsCount = 0,
+					lastEventData;
+
+				list.list = [ 3, 4, 5 ];
+
+				// We don't care about first call.
+				list.next();
+
+				list.on( 'focusChanged', function( evt ) {
+					eventsCount += 1;
+					lastEventData = evt.data;
+				} );
+
+				// This one interests us
+				list.next();
+
+				assert.areSame( 1, eventsCount, 'focusChange events count' );
+				assert.areSame( 4, lastEventData.current, 'lastEventData.current' );
+				assert.areSame( 3, lastEventData.previous, 'lastEventData.previous' );
+			},
+
+			'test focusChanged fired by IssueList.resetFocus': function() {
+				var list = new IssueList(),
+					eventsCount = 0,
+					lastEventData;
+
+				list.list = [ 3 ];
+				list.currentIndex = 0;
+
+				list.on( 'focusChanged', function( evt ) {
+					eventsCount += 1;
+					lastEventData = evt.data;
+				} );
+
+				list.resetFocus();
+
+				assert.areSame( 1, eventsCount, 'focusChange events count' );
+				assert.isNull( lastEventData.current, 'lastEventData.current' );
+				assert.areSame( 3, lastEventData.previous, 'lastEventData.previous' );
 			},
 
 			'test IssueList.resetFocus doc sample': function() {

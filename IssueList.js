@@ -107,7 +107,17 @@ define( function() {
 	 * @member CKEDITOR.plugins.a11ychecker.IssueList
 	 */
 	IssueList.prototype.resetFocus = function() {
-		this.currentIndex = -1;
+		if ( this.currentIndex !== -1 ) {
+			var prevFocused = this.getFocused();
+
+			this.currentIndex = -1;
+
+			// Still we need to fire event, telling that the focus changed.
+			this.fire( 'focusChanged', {
+				current: null,
+				previous: prevFocused
+			} );
+		}
 	};
 
 	/**
@@ -137,17 +147,18 @@ define( function() {
 		if ( !this.getItem( index ) ) {
 			return false;
 		}
-		//var prevFocused = this.getFocused();
 
-		//if ( prevFocused && this.editor ) {
-		//	this.editor._.a11ychecker.ui.unmarkFocus( prevFocused );
-		//}
+		// Previously focused issue, will be given in focusChanged event.
+		var prevFocused = this.getFocused();
 
+		// Change the index.
 		this.currentIndex = index;
 
-		//if ( this.editor ) {
-		//	this.editor._.a11ychecker.ui.markFocus( this.getFocused() );
-		//}
+		// And after that's done we might fire an event.
+		this.fire( 'focusChanged', {
+			current: this.getItem( index ),
+			previous: prevFocused
+		} );
 
 		return true;
 	};
@@ -224,6 +235,15 @@ define( function() {
 	};
 
 	/**
+	 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue An issue within the list.
+	 * @returns {Number} Returns 0-based index of given issue within the list. If issue
+	 * was not found `-1` will be returned.
+	 */
+	IssueList.prototype.indexOf = function( issue ) {
+		return CKEDITOR.tools.indexOf( this.list, issue );
+	};
+
+	/**
 	 * Returns element from the issue at given index.
 	 *
 	 * @todo: Drop this method.
@@ -235,6 +255,20 @@ define( function() {
 		var issue = this.getItem( index );
 		return issue.element;
 	};
+
+	/**
+	 * Fired when a new issue is focused.
+	 *
+	 * @event focusChanged
+	 * @param data
+	 * @param {CKEDITOR.plugins.a11ychecker.Issue/null} data.current New focused issue, or `null` if
+	 * focus was reset.
+	 * @param {CKEDITOR.plugins.a11ychecker.Issue/null} data.previous Previously focused issue, or
+	 * `null` if none issue was focused.
+	 */
+
+	// Implementing event interface.
+	CKEDITOR.event.implementOn( IssueList.prototype );
 
 	return IssueList;
 } );
