@@ -1,5 +1,5 @@
 
-define( function() {
+define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 	'use strict';
 
 	/**
@@ -25,6 +25,8 @@ define( function() {
 		 * @member CKEDITOR.plugins.a11ychecker.Controller
 		 */
 		this.engine = null;
+
+		this.editableDecorator = new EditableDecorator( this.editor );
 	}
 
 	Controller.prototype = {
@@ -115,6 +117,7 @@ define( function() {
 	 */
 	Controller.prototype.exec = function() {
 		var editor = this.editor,
+			that = this,
 			scratchpad;
 
 		CKEDITOR.plugins.a11ychecker.clearResults( editor );
@@ -125,31 +128,49 @@ define( function() {
 		// Get the element where we will save tmp output.
 		scratchpad = this.getTempOutput();
 
-		// Reassinging ids to each element.
-		var lastId = 0;
-		editor.editable().forEach( function( element ) {
-			// Assign lastId incremented by one.
-			element.data( 'quail-id', ++lastId );
-
-			// Temp workaround for fakeobjects.
-			if ( element.getName( 'a' ) && CKEDITOR.plugins.link.tryRestoreFakeAnchor( editor, element ) )
-				updateFakeobjectsAttribute( element, 'data-quail-id', lastId );
-
-			return true;
-		}, CKEDITOR.NODE_ELEMENT, false );
+		// Editable decorator will assign unique id to each element, so they can be
+		// identified even after serialization (output to HTML).
+		this.editableDecorator.applyMarkup();
 
 		editor._.a11ychecker.disableFilterStrip = true;
 		scratchpad.setHtml( editor.getData() );
 		editor._.a11ychecker.disableFilterStrip = false;
+
+		/**
+		 * @todo: Do we really need to append this to the document?
+		 */
 		CKEDITOR.document.getBody().append( scratchpad );
 
 		// When engine has done its job, lets assign the issue list, and refresh
 		// UI.
-		var completeCallback = function( issues ) {
+		var completeCallback = function( issueList ) {
 
+			// We need to determine Issue.element.
+			that.editableDecorator.resolveEditorElements( issueList );
+			that.editableDecorator.markIssues( issueList );
+
+			console.log( 'checking done' );
+			console.log( issueList );
+
+			that.issues = issueList;
+			editor._.a11ychecker.issues = issueList;
 		};
 
 		this.engine.process( this, scratchpad, completeCallback );
+	};
+
+	Controller.prototype.close = function() {
+		var editor = this.editor,
+			namespace = editor._.a11ychecker;
+
+		//CKEDITOR.plugins.a11ychecker.clearResults( editor );
+		this.issues.clear();
+
+		// Remove all the DOM changes applied by the EditableDecorator.
+		//editor._.a11ychecker_new.editableDecorator.removeMarkup();
+		this.editableDecorator.removeMarkup();
+
+		namespace.ui.hide();
 	};
 
 	/**
@@ -219,23 +240,6 @@ define( function() {
 
 		ui.issues.setOptionsGrouped( toGroupedOptions( total.results ) );
 		ui.update();
-	}
-
-	/**
-	 * Adds an attribute to a fake object.
-	 * @param	{CKEDITOR.dom.element}	element		Dom element of fakeobject.
-	 * @param	{String}	attrName	Attribute name.
-	 * @param	{Mixed}	attrValue	New value.
-	 */
-	function updateFakeobjectsAttribute( element, attrName, attrValue ) {
-		attrValue = String( attrValue );
-
-		// Note that we want to make sure that previous value is removed.
-		var initialValue = decodeURIComponent( element.data('cke-realelement') ).replace( /(\s+data-quail-id="\d+")/g, '' ),
-			//newVal = initialValue.replace( '<a', '<a ' + attrName + '="' +  CKEDITOR.tools.htmlEncodeAttr( attrValue ) + '"' );
-			newVal = initialValue.replace( /^(<\w+\s)/, '$1' + attrName + '="' +  CKEDITOR.tools.htmlEncodeAttr( attrValue ) + '"' );
-
-		element.data( 'cke-realelement', encodeURIComponent( newVal ) );
 	}
 
 	return Controller;
