@@ -24,16 +24,22 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 		 *
 		 * @member CKEDITOR.plugins.a11ychecker.Controller
 		 */
-		this.engine = null;
+		//this.engine = null;
 
 		this.editableDecorator = new EditableDecorator( this.editor );
 	}
 
 	Controller.prototype = {
-		next: function( editor ) {
-		},
-		prev: function( editor ) {
-		}
+		/**
+		 * Contains all the issues identified by the Accessibility Checker.
+		 *
+		 * @property {CKEDITOR.plugins.a11ychecker.IssueList} issues
+		 */
+		issues: null,
+		/**
+		 * @property {CKEDITOR.plugins.a11ychecker.ViewerController} viewerController
+		 */
+		viewerController: null
 	};
 
 	Controller.prototype.constructor = Controller;
@@ -154,20 +160,70 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 
 			that.issues = issueList;
 			editor._.a11ychecker.issues = issueList;
+
+			/**
+			 * @todo: this is a temp fix:
+			 */
+			issueList.on( 'focusChanged', function( evt ) {
+				var ui = editor._.a11ychecker.ui,
+					evtData = evt.data;
+
+				if ( evtData.current ) {
+					ui.markFocus( evtData.current.element );
+				}
+				if ( evtData.previous ) {
+					ui.unmarkFocus( evtData.previous.element );
+				}
+			} );
 		};
 
 		this.engine.process( this, scratchpad, completeCallback );
 	};
 
-	Controller.prototype.close = function() {
-		var editor = this.editor,
-			namespace = editor._.a11ychecker;
+	/**
+	 * Moves the focus to the next issue, and shows the balloon.
+	 */
+	Controller.prototype.next = function() {
+		var issues = this.issues,
+			curFocusedIssue;
 
-		//CKEDITOR.plugins.a11ychecker.clearResults( editor );
+		if ( issues.count() === 0 ) {
+			console.log( 'no issues :(' );
+			return;
+		}
+
+		curFocusedIssue = this.issues.next();
+
+		this.viewerController.showIssue( curFocusedIssue );
+	};
+
+	/**
+	 * Moves the focus to the previous issue, and shows the balloon.
+	 */
+	Controller.prototype.prev = function() {
+		var issues = this.issues,
+			curFocusedIssue;
+
+		if ( issues.count() === 0 ) {
+			console.log( 'no issues :(' );
+			return;
+		}
+
+		curFocusedIssue = this.issues.prev();
+
+		this.viewerController.showIssue( curFocusedIssue );
+	};
+
+	/**
+	 * Closes the Accessibility Checker, hiding all the UI, reseting internal
+	 * data.
+	 */
+	Controller.prototype.close = function() {
+		var namespace = this.editor._.a11ychecker;
+
 		this.issues.clear();
 
 		// Remove all the DOM changes applied by the EditableDecorator.
-		//editor._.a11ychecker_new.editableDecorator.removeMarkup();
 		this.editableDecorator.removeMarkup();
 
 		namespace.ui.hide();
