@@ -43,11 +43,130 @@
 				this.mockup.setEngine( newEngine );
 
 				assert.areSame( newEngine, this.mockup.engine, 'Engine property was changed' );
+			},
+
+			'test Controller.close': function() {
+				var issueClearCalls = 0,
+					removeMarkupCalls = 0,
+					uiHideCalls = 0,
+					issuesMock = {
+						clear: function() { issueClearCalls += 1; }
+					},
+					controllerMockup = {
+						issues: issuesMock,
+						editableDecorator: {
+							removeMarkup: function() { removeMarkupCalls += 1; }
+						},
+						editor: {
+							_: {
+								a11ychecker: {
+									ui: {
+										hide: function() { uiHideCalls += 1; }
+									}
+								}
+							}
+						},
+						close: Controller.prototype.close
+					};
+
+				controllerMockup.close();
+
+				assert.areSame( 1, issueClearCalls, 'Controller.issue.clear calls count' );
+				assert.areSame( 1, removeMarkupCalls, 'Controller.editableDecorator.removeMarkupCalls calls count' );
+				assert.areSame( 1, uiHideCalls, 'ui.removeMarkupCalls calls count' );
+			},
+
+			'test Controller.next': function() {
+				var mock = getControllerMockup(),
+					nextCalled = 0,
+					showIssueCalled = 0,
+					nextIssueMock = {},
+					issueListMock = {
+						next: function() {
+							nextCalled += 1;
+
+							return nextIssueMock;
+						},
+						count: function() {
+							return 3;
+						}
+					};
+
+				mock.issues = issueListMock;
+				mock.viewerController = getViewerControllerMockup();
+
+				mock.viewerController.showIssue = function( issue ) {
+					showIssueCalled += 1;
+					assert.areSame( nextIssueMock, issue, 'Issue is given to viewerController.showIssueCalled' );
+				};
+
+				mock.next();
+
+				assert.areSame( 1, nextCalled, 'Controller.issues.next calls count' );
+				assert.areSame( 1, showIssueCalled, 'Controller.viewerController.showIssue calls count' );
+			},
+
+			'test Controller.next no issues': function() {
+				// This time Controller.issue should have no issues, so even
+				// Controller.issue.next should not be called
+				var mock = getControllerMockup(),
+					nextCalled = 0,
+					issueListMock = {
+						next: function() {
+							nextCalled += 1;
+						},
+						count: function() {
+							return 0;
+						}
+					};
+
+				mock.issues = issueListMock;
+
+				mock.next();
+
+				assert.areSame( 0, nextCalled, 'Controller.issues.next calls count' );
+			},
+
+			'test Controller.prev': function() {
+				var mock = getControllerMockup(),
+					prevCalled = 0,
+					showIssueCalled = 0,
+					prevIssueMock = {},
+					issueListMock = {
+						prev: function() {
+							prevCalled += 1;
+
+							return prevIssueMock;
+						},
+						count: function() {
+							return 3;
+						}
+					};
+
+				mock.issues = issueListMock;
+				mock.viewerController = getViewerControllerMockup();
+
+				mock.viewerController.showIssue = function( issue ) {
+					showIssueCalled += 1;
+					assert.areSame( prevIssueMock, issue, 'Issue is given to viewerController.showIssueCalled' );
+				};
+
+				mock.prev();
+
+				assert.areSame( 1, prevCalled, 'Controller.issues.prev calls count' );
+				assert.areSame( 1, showIssueCalled, 'Controller.viewerController.showIssue calls count' );
 			}
+
 		} );
 
 		function getControllerMockup() {
 			return new Controller();
+		}
+
+		function getViewerControllerMockup() {
+			return {
+				showIssue: function() {}
+			};
 		}
 	} );
 } )();
