@@ -15,6 +15,10 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, Is
 	EngineQuailOld.prototype = new Engine();
 	EngineQuailOld.prototype.constructor = EngineQuailOld;
 
+	EngineQuailOld.prototype.fixesMapping = {
+		'imgHasAlt': [ 'ImgAlt'/*, 'ElementRemove'*/ ]
+	};
+
 	/**
 	 * Object storing {@link CKEDITOR.plugins.a11ychecker.IssueDetails} instances. It uses
 	 * Quail ID as keys.
