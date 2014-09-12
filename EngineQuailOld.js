@@ -1,6 +1,5 @@
 
-define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, IssueList, Issue, IssueDetails ) {
-
+define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail2.2.1' ], function( Engine, IssueList, Issue, IssueDetails, jQuery, Quail ) {
 	/**
 	 * Engine driver class for old Quail (http://quailjs.org/) 2.2.1 implementation.
 	 *
@@ -44,7 +43,7 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, Is
 	 * @param {Function} callback
 	 */
 	EngineQuailOld.prototype.process = function( a11ychecker, contentElement, callback ) {
-		var $ = window.jQuery,
+		var $ = jQuery,
 			that = this;
 
 		// Calls quail.

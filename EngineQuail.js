@@ -1,5 +1,5 @@
 
-define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, IssueList, Issue, IssueDetails ) {
+define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail' ], function( Engine, IssueList, Issue, IssueDetails, jQuery, Quail ) {
 
 	/**
 	 * Engine driver class for updated Quail (http://quailjs.org/) 2.2.8 implementation.
@@ -14,6 +14,11 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, Is
 
 	EngineQuail.prototype = new Engine();
 	EngineQuail.prototype.constructor = EngineQuail;
+
+	EngineQuail.prototype.fixesMapping = {
+		'imgHasAlt': [ 'ImgAlt' ],
+		'imgImportantNoSpacerAlt': [ 'ImgAlt' ]
+	};
 
 	/**
 	 * Object storing {@link CKEDITOR.plugins.a11ychecker.IssueDetails} instances. It uses
@@ -40,12 +45,12 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, Is
 	 * @param {Function} callback
 	 */
 	EngineQuail.prototype.process = function( a11ychecker, contentElement, callback ) {
-		var $ = window.jQuery,
+		var $ = jQuery,
 			that = this;
 
 		// Calls quail.
 		var quailConfig = {
-			guideline : [ 'imgHasAlt', 'aMustNotHaveJavascriptHref', 'aAdjacentWithSameResourceShouldBeCombined', 'pNotUsedAsHeader' ],
+			guideline : [ 'imgHasAlt', 'aMustNotHaveJavascriptHref', 'aAdjacentWithSameResourceShouldBeCombined', 'pNotUsedAsHeader', 'imgNonDecorativeHasAlt', 'imgImportantNoSpacerAlt' ],
 			//guideline : 'wcag',
 			jsonPath : this.jsonPath,
 			/**
