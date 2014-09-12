@@ -11,27 +11,23 @@
 		};
 
 		bender.test( {
-			'test integration': function() {
-				// A real Quail request.
-				// Quail seems to work synchronously, so we don't need to use
-				// wait() resume()
-				var engine = new EngineQuail( options ),
-					a11ycheckerMockup = {},
-					contentElement = CKEDITOR.document.getById( 'quailMarkupSource' ),
-					callbackCalled = 0,
-					callback = function( list ) {
-						callbackCalled += 1;
 
-						resume( function() {
-							assert.areSame( 1, callbackCalled, 'Callback calls count' );
-							assert.isInstanceOf( IssueList, list, 'List object has a valid type' );
-							assert.areNotEqual( 0, list.count(), 'Results are not empty' );
-						} );
-					};
+			setUp: function() {
+				// We need to replace CKEDITOR.dom.element method, sicne it's used in
+				// EngineQuail.addIssuesFromTest to create a originalElement property.
 
-				engine.process( a11ycheckerMockup, contentElement, callback );
+				// Since the fixture in 228_collection.js contains string fixtures like
+				// "[object HTMLImageElement]" we need to replace CKEDITOR.dom.element.
+				// Otherwise it throw exceptions.
+				this.originalDomElement = CKEDITOR.dom.element;
+				CKEDITOR.dom.element = function( param ) {
+					this.param = param;
+				};
+			},
 
-				wait( 2000 );
+			tearDown: function() {
+				// Restore original CKEDITOR.dom.element implementation.
+				CKEDITOR.dom.element = this.originalDomElement;
 			},
 
 			'test EngineQuail.getIssuesFromCollection': function() {
@@ -111,7 +107,9 @@
 				assert.isInstanceOf( Issue, firstItem, 'Item 0 has a valid type' );
 				assert.areSame( engineMockup, firstItem.engine, 'Issue should have engine object assinged' );
 				assert.areSame( test.get( 'name' ), firstItem.id, 'Item 0 has a valid issue type' );
-				assert.areSame( test[ 0 ].attributes.element, firstItem.originalElement, 'Item 0 has a valid originalElement' );
+				assert.isInstanceOf( CKEDITOR.dom.element, firstItem.originalElement, 'originalElement type' );
+				assert.areSame( test[ 0 ].attributes.element, firstItem.originalElement.param,
+					'Item 0 has a valid originalElement' );
 				assert.areSame( test.attributes.testability, firstItem.testability, 'Item 0 has a valid testability' );
 				assert.isNull( firstItem.element, 'Item 0 has a valid element' );
 
@@ -119,11 +117,44 @@
 				assert.isInstanceOf( Issue, secondItem, 'Item 1 has a valid type' );
 				assert.areSame( engineMockup, secondItem.engine, 'Issue should have engine object assinged' );
 				assert.areSame( test.get( 'name' ), secondItem.id, 'Item 1 has a valid issue type' );
-				assert.areSame( test[ 1 ].attributes.element, secondItem.originalElement, 'Item 1 has a valid originalElement' );
+				assert.areSame( test[ 1 ].attributes.element, secondItem.originalElement.param,
+					'Item 1 has a valid originalElement' );
 				assert.areSame( test.attributes.testability, secondItem.testability, 'Item 1 has a valid testability' );
 				assert.isNull( secondItem.element, 'Item 1 has a valid element' );
-			}
+			},
 
+			'test integration': function() {
+				// A real Quail request.
+				// Here Quail seems to work asynchronously, so we need to use wait, resume.
+
+				// For this particular test we need to restore original CKEDITOR.dom.element
+				// implementation.
+				CKEDITOR.dom.element = this.originalDomElement;
+
+				var engine = new EngineQuail( options ),
+					a11ycheckerMockup = {},
+					contentElement = CKEDITOR.document.getById( 'quailMarkupSource' ),
+					callbackCalled = 0,
+					callback = function( list ) {
+						console.log('kallbek');
+						callbackCalled += 1;
+
+						resume( function() {
+							assert.areSame( 1, callbackCalled, 'Callback calls count' );
+							assert.isInstanceOf( IssueList, list, 'List object has a valid type' );
+							assert.areNotEqual( 0, list.count(), 'Results are not empty' );
+						} );
+					};
+
+				window.data = {
+					engine: engine,
+					container: CKEDITOR.document.getById( 'quailMarkupSource' )
+				};
+
+				engine.process( a11ycheckerMockup, contentElement, callback );
+
+				wait();
+			}
 		} );
 
 		/**

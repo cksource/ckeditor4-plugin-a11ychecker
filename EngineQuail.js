@@ -150,7 +150,7 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail' ], f
 
 			if ( testAttribs.status == 'failed' ) {
 				newIssue = new Issue( {
-					originalElement: testAttribs.element,
+					originalElement: new CKEDITOR.dom.element( testAttribs.element ),
 					testability: testability,
 					id: testId
 				}, that );
