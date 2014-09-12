@@ -1,5 +1,8 @@
 
 define( [ 'quickfix/Manual' ], function( Manual ) {
+
+	var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
+
 	/**
 	 * Fixes the image with missing alt attribute.
 	 *
@@ -35,10 +38,15 @@ define( [ 'quickfix/Manual' ], function( Manual ) {
 	};
 
 	ImgAlt.prototype.validate = function( formAttributes ) {
-		var ret = [];
+		var ret = [],
+			proposedAlt = formAttributes.alt + '';
 
-		if ( !formAttributes.alt ) {
+		if ( !proposedAlt ) {
 			ret.push( 'Alternative text can not be empty' );
+		}
+
+		if ( proposedAlt.match( emptyWhitespaceRegExp ) ) {
+			ret.push( 'Alternative text can only contain whitespace characters' );
 		}
 
 		return ret;
