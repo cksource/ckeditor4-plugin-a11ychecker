@@ -135,15 +135,41 @@
 		 * Adds hotkey mappings.
 		 */
 		addHotkeys: function( editor ) {
-			editor.setKeystroke( CKEDITOR.CTRL + CKEDITOR.ALT + 69 /*E*/, pluginName );
-			editor.setKeystroke( CKEDITOR.CTRL + 69 /*E*/, pluginName + '.next' );
-			editor.setKeystroke( CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 /*E*/, pluginName + '.prev' );
+			var config = editor.config,
+				hotkeysConfig = config.a11ychecker_hotkeys || {},
+				defaultMapping = {
+					'open': CKEDITOR.CTRL + CKEDITOR.ALT + 69 /*E*/,
+					'next': CKEDITOR.CTRL + 69 /*E*/,
+					'prev': CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 /*E*/
+				},
+				commandSuffix,
+				i;
 
-			editor.setKeystroke( CKEDITOR.CTRL + CKEDITOR.ALT + 32 /*SPACE*/, pluginName + '.fixIssue' );
+			for ( i in defaultMapping ) {
+				// We assign default value only in case of undefined.
+				if ( hotkeysConfig[ i ] === undefined ) {
+					hotkeysConfig[ i ] = defaultMapping[ i ];
+				}
+
+				// The part which will be added to a11checker.
+				// In case of "open" we don't want to add any suffixes.
+				commandSuffix = ( i == 'open' ? '' : '.' + i );
+
+				editor.setKeystroke( hotkeysConfig[ i ], pluginName + commandSuffix );
+			}
+
 			/**
 			 * @todo: Remove this hotkey, it's for testing ease only.
+			 * Also fixIssue is a legacy part, might be removed soon.
 			 */
 			editor.setKeystroke( CKEDITOR.ALT + 13 /*ENTER*/, 'maximize' );
+			editor.setKeystroke( CKEDITOR.CTRL + CKEDITOR.ALT + 32 /*SPACE*/, pluginName + '.fixIssue' );
+
+
+			if ( !config.a11ychecker_hotkeys ) {
+				// We need to change config, so viewer might reuse values.
+				config.a11ychecker_hotkeys = hotkeysConfig;
+			}
 		},
 
 		// Register buttons, dialogs etc.
@@ -458,4 +484,12 @@
 		return editor._.a11ychecker_new.exec();
 	};
 
+	/**
+	 * For every Accessibility Checker hotkey you may use `0` in order to disable it.
+	 *
+	 * @cfg {Object} a11ychecker_hotkeys
+	 * @cfg {Number} [a11ychecker_hotkeys.open = CKEDITOR.CTRL + CKEDITOR.ALT + 69 // E] Starts Accessibility checker.
+	 * @cfg {Number} [a11ychecker_hotkeys.next = CKEDITOR.CTRL + 69 // E] Go to next accessibility issue.
+	 * @cfg {Number} [a11ychecker_hotkeys.next = CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 // E] Go to previous accessibility issue.
+	 */
 } )();

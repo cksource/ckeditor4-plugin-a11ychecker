@@ -193,15 +193,23 @@ define( function() {
 
 			// Setup listeners for keyboard previous and next.
 			this.viewer.panel.on( 'show', function() {
-				// CTRL+SHIFT+[
-				this.viewer.panel.addListener( CKEDITOR.document.getBody().on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 219, function() {
-					this.fire( 'previous' );
-				} ), this ) );
+				var hotkeysConfig = this.viewer.editor.config.a11ychecker_hotkeys;
 
-				// CTRL+SHIFT+]
-				this.viewer.panel.addListener( CKEDITOR.document.getBody().on( 'keydown', keyListener( CKEDITOR.CTRL + CKEDITOR.SHIFT + 221, function() {
-					this.fire( 'next' );
-				} ), this ) );
+				if ( hotkeysConfig.prev ) {
+					this.viewer.panel.addListener(
+						CKEDITOR.document.getBody().on( 'keydown', keyListener( hotkeysConfig.prev, function() {
+							this.fire( 'previous' );
+						} ), this )
+					);
+				}
+
+				if ( hotkeysConfig.next ) {
+					this.viewer.panel.addListener(
+						CKEDITOR.document.getBody().on( 'keydown', keyListener( hotkeysConfig.next, function() {
+							this.fire( 'next' );
+						} ), this )
+					);
+				}
 			}, this );
 		}
 	};
