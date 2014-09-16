@@ -5,7 +5,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'Controller' ], function( Controller ) {
+	require( [ 'Controller', 'helpers/sinon/sinon_amd.min' ], function( Controller, sinon ) {
 		bender.test( {
 			setUp: function() {
 				this.mockup = getControllerMockup();
@@ -155,8 +155,77 @@
 
 				assert.areSame( 1, prevCalled, 'Controller.issues.prev calls count' );
 				assert.areSame( 1, showIssueCalled, 'Controller.viewerController.showIssue calls count' );
-			}
+			},
 
+			'test Controller.showIssue': function() {
+				var moveToMock = sinon.spy( function() {
+						return true;
+					} ),
+					controllerMock = {
+						issues: {
+							moveTo: moveToMock
+						},
+						showIssue: Controller.prototype.showIssue
+					},
+					ret;
+
+				ret = controllerMock.showIssue( 2 );
+
+				assert.isTrue( ret, 'Return value' );
+				assert.areSame( 1, moveToMock.callCount, 'issues.showIssue calls count' );
+				assert.isTrue( moveToMock.alwaysCalledWithExactly( 2 ), 'issues.moveTo params' );
+			},
+
+			'test Controller.showIssue with object': function() {
+				// When calling showIssue with an object, it should call
+				// indexOf with the issue to get its index.
+				var issue = {},
+					moveToMock = sinon.spy( function() {
+						return true;
+					} ),
+					indexOfMock = sinon.spy( function() {
+						return 3;
+					} ),
+					controllerMock = {
+						issues: {
+							moveTo: moveToMock,
+							indexOf: indexOfMock
+						},
+						showIssue: Controller.prototype.showIssue
+					},
+					ret;
+
+				ret = controllerMock.showIssue( issue );
+
+				assert.areSame( 1, indexOfMock.callCount, 'issues.indexOf calls count' );
+				assert.isTrue( indexOfMock.alwaysCalledWithExactly( issue ), 'isseus.indexOf params' );
+
+
+				assert.isTrue( ret, 'Return value' );
+				assert.areSame( 1, moveToMock.callCount, 'issues.showIssue calls count' );
+				assert.isTrue( moveToMock.alwaysCalledWithExactly( 3 ), 'issues.moveTo params' );
+			},
+
+			'test Controller.showIssue non-existing issue': function() {
+				// In case of invalid index, moveToMock will detect it and
+				// return false. showIssue should return false too.
+				var moveToMock = sinon.spy( function() {
+						return false;
+					} ),
+					controllerMock = {
+						issues: {
+							moveTo: moveToMock
+						},
+						showIssue: Controller.prototype.showIssue
+					},
+					ret;
+
+				ret = controllerMock.showIssue( -1 );
+
+				assert.isFalse( ret, 'Return value' );
+				assert.areSame( 1, moveToMock.callCount, 'issues.showIssue calls count' );
+				assert.isTrue( moveToMock.alwaysCalledWithExactly( -1 ), 'issues.moveTo params' );
+			}
 		} );
 
 		function getControllerMockup() {

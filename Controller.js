@@ -215,6 +215,30 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 	};
 
 	/**
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {CKEDITOR.plugins.a11ychecker.Issue/Number} Issue object or 0-based index in
+	 * the {@link CKEDITOR.plugins.a11ychecker.IssueList}.
+	 * @returns {Boolean} returns `false` if given issue was not found, `true` otherwise.1
+	 */
+	Controller.prototype.showIssue = function( issue ) {
+		var issues = this.issues,
+			ret;
+
+		if ( typeof issue != 'number' ) {
+			issue = issues.indexOf( issue );
+		}
+
+		ret = issues.moveTo( issue );
+
+		if ( ret && this.viewerController ) {
+			this.viewerController.showIssue( issues.getItem( issue ) );
+		}
+
+		return ret;
+	};
+
+
+	/**
 	 * Closes the Accessibility Checker, hiding all the UI, reseting internal
 	 * data.
 	 */
@@ -241,6 +265,7 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 		var protectedSpace = this._;
 		if ( !protectedSpace.scratchpad ) {
 			protectedSpace.scratchpad = CKEDITOR.document.createElement( 'div' );
+			protectedSpace.scratchpad.setStyle( 'display', 'none' );
 		}
 
 		return protectedSpace.scratchpad;
