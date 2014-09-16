@@ -17,7 +17,8 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail' ], f
 
 	EngineQuail.prototype.fixesMapping = {
 		'imgHasAlt': [ 'ImgAlt' ],
-		'imgImportantNoSpacerAlt': [ 'ImgAlt' ]
+		'imgImportantNoSpacerAlt': [ 'ImgAlt' ],
+		'KINGUseLongDateFormat': [ 'DateUnfold' ]
 	};
 
 	/**
@@ -50,7 +51,7 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail' ], f
 
 		// Calls quail.
 		var quailConfig = {
-			guideline : [ 'imgHasAlt', 'aMustNotHaveJavascriptHref', 'aAdjacentWithSameResourceShouldBeCombined', 'pNotUsedAsHeader', 'imgNonDecorativeHasAlt', 'imgImportantNoSpacerAlt' ],
+			guideline : [ 'imgHasAlt', 'aMustNotHaveJavascriptHref', 'aAdjacentWithSameResourceShouldBeCombined', 'pNotUsedAsHeader', 'imgNonDecorativeHasAlt', 'imgImportantNoSpacerAlt', 'KINGUseLongDateFormat' ],
 			//guideline : 'wcag',
 			jsonPath : this.jsonPath,
 			/**
