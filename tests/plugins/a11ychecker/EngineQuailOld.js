@@ -1,6 +1,5 @@
 /* bender-tags: editor,unit */
-/* bender-ckeditor-plugins: a11ychecker,toolbar */
-/* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js, %TEST_DIR%_helpers/quail/211_response.js, /apps/ckeditor/plugins/a11ychecker/bower_components/quail/lib/jquery/jquery.js, /apps/ckeditor/plugins/a11ychecker/bower_components/quail/dist/quail.jquery.js */
+/* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js, %TEST_DIR%_helpers/quail/211_response.js */
 
 ( function() {
 	'use strict';
@@ -136,7 +135,7 @@
 			'test EngineQuailOld.process': function() {
 				// We'll replace jQuery object here, just to avoid extra overhead,
 				// and calling real Quail.
-				var originJquery = window.jQuery,
+				var originJquery = EngineQuailOld.__getJQuery(),
 					engine = new EngineQuailOld( options ),
 					a11ycheckerMockup = {},
 					// Element which content should be tested.
@@ -158,16 +157,14 @@
 
 					// Mockup jQuery to have only mocked Quail method, which will use
 					// failure response mock.
-					window.jQuery = function( param ) {
+					EngineQuailOld.__setJQuery( function( param ) {
 						return {
 							quail: function( options ) {
-
 								// "dispatch" complete callback.
 								options.complete( quailFailedResp );
-
 							}
 						};
-					};
+					} );
 
 					engine.process( a11ycheckerMockup, contentElement, callback );
 
@@ -178,7 +175,7 @@
 					throw e;
 				} finally {
 					// Restore jQuery.
-					window.jQuery = originJquery;
+					EngineQuailOld.__setJQuery( originJquery );
 				}
 			},
 

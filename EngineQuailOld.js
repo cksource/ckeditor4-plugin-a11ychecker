@@ -154,5 +154,25 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail2.2.1'
 		return new IssueDetails( test.title, test.description, path );
 	};
 
+	/**
+	 * This mehtod is used solely in tests to replace jQuery with a lightweight object.
+	 *
+	 * @private
+	 * @member CKEDITOR.plugins.a11ychecker.EngineQuailOld
+	 */
+	EngineQuailOld.__setJQuery = function( newVal ) {
+		jQuery = newVal;
+	};
+
+	/**
+	 * This mehtod is used solely in tests to get jQuery object.
+	 *
+	 * @private
+	 * @member CKEDITOR.plugins.a11ychecker.EngineQuailOld
+	 */
+	EngineQuailOld.__getJQuery = function( newVal ) {
+		return jQuery;
+	};
+
 	return EngineQuailOld;
 } );
