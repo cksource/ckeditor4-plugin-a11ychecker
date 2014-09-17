@@ -112,28 +112,28 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			}
 
 			return function( issue ) {
-				// @todo: this method needs to be adjusted to the new interface.
-				return;
-
 				var issues = this.a11ychecker.issues,
-					entries = {};
+					focusedIssue = issues.getFocused(),
+					entries = {},
+					iteratedIssue;
 
-				for ( var i in issues.issues ) {
+				for ( var i = 0; i < issues.count(); i++ ) {
 					entries[ i ] = {};
+					iteratedIssue = issues.getItem( i );
 
-					for ( var j = 0; j < issues.issues[ i ].length; ++j ) {
-						var element = issues.issues[ i ][ j ];
-
-						entries[ i ][ j ] = {
-							value: issues.getIssueIndexByElement( element ),
-							text: getElementInfo( element ),
-							selected: element.equals( issues.getFocused() ) ? 'selected="selected"' : ''
-						};
-					}
+					entries[ i ] = {
+						value: i,
+						text: getElementInfo( iteratedIssue.element ),
+						selected: focusedIssue === iteratedIssue ? 'selected="selected"' : ''
+					};
 				}
 
+				entries = {
+					'Issues:': entries
+				};
+
 				this.viewer.navigation.updateList( entries );
-			}
+			};
 		} )(),
 
 		/**
