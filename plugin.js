@@ -34,21 +34,30 @@
 		},
 
 		init: function( editor ) {
-			// Create controller object in protected namespace.
-			editor._.a11ychecker = new Controller( editor );
-			editor._.a11ychecker.engine = new EngineQuailOld( {
-				//jsonPath: this.path + quailDirectory + 'dist'
-				jsonPath: this.path + '/libs/quail/2.2.8/'
+			var engineClass = editor.config.a11ychecker_engine || 'EngineQuail',
+				engineParams = editor.config.a11ychecker_engineParams || {},
+				that = this,
+				// We might create ui object even before Controller creation.
+				ui = this.guiRegister( editor );
+
+			// Loads Controller and the Engine classes.
+			require( [ 'Controller', engineClass ], function( _Controller, EngineClass ) {
+				Controller = _Controller;
+				EngineQuailOld = EngineClass;
+
+				// Create controller object in protected namespace.
+				editor._.a11ychecker = new Controller( editor );
+				editor._.a11ychecker.engine = new EngineClass( engineParams, that );
+				editor._.a11ychecker.ui = ui;
+
+				editor._.a11ychecker.viewerController = new ViewerController( editor, {
+					title: 'Accessibility checker'
+				} );
+
+				// @todo: Check if this flag is needed.
+				editor._.a11ychecker.disableFilterStrip = true;
 			} );
 
-			editor._.a11ychecker.viewerController = new ViewerController( editor, {
-				title: 'Accessibility checker'
-			} );
-
-			// @todo: Check if this flag is needed.
-			editor._.a11ychecker.disableFilterStrip = true;
-
-			this.guiRegister( editor );
 			this.commandRegister( editor );
 			// We may combine two functions below.
 			this.addDataTransformationListeners( editor );
@@ -142,10 +151,10 @@
 		},
 
 		// Register buttons, dialogs etc.
+		// @returns {CKEDITOR.plugins.a11ychecker.ui} UI object.
 		guiRegister: function( editor ) {
-			var lang = editor.lang.a11ychecker;
-
-			editor._.a11ychecker.ui = new CKEDITOR.plugins.a11ychecker.ui( editor );
+			var lang = editor.lang.a11ychecker,
+				ret = new CKEDITOR.plugins.a11ychecker.ui( editor );
 
 			editor.ui.addButton && editor.ui.addButton( 'A11ychecker', {
 				label: lang.toolbar,
@@ -158,13 +167,13 @@
 			// Insert contents CSS.
 			editor.addContentsCss( this.path + 'styles/contents.css' );
 
-			this._createToolbox( editor );
+			this._createToolbox( editor, ret );
+
+			return ret;
 		},
 
-		_createToolbox: function( editor ) {
+		_createToolbox: function( editor, ui ) {
 			editor.on( 'uiReady', function( evt ) {
-				var ui = editor._.a11ychecker.ui;
-
 				if ( cfgStartHidden ) {
 					ui.hide();
 				}
@@ -222,12 +231,6 @@
 	} );
 
 	CKEDITOR.plugins.a11ychecker = {};
-
-	//require( [ 'Controller', 'EngineQuailOld' ], function( _Controller, _EngineQuailOld ) {
-	require( [ 'Controller', 'EngineQuail' ], function( _Controller, _EngineQuailOld ) {
-		Controller = _Controller;
-		EngineQuailOld = _EngineQuailOld;
-	} );
 
 	require( [ 'ui/ViewerInputs', 'ui/ViewerInput', 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerController', 'ui/Viewer', 'ui/ViewerForm' ], function( ViewerInputs, ViewerInput, ViewerDescription, ViewerNavigation, _ViewerController, Viewer, ViewerForm ) {
 		ViewerController = _ViewerController;

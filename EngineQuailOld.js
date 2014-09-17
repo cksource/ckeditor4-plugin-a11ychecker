@@ -5,10 +5,19 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail2.2.1'
 	 *
 	 * @constructor
 	 */
-	function EngineQuailOld( options ) {
+	function EngineQuailOld( options, plugin ) {
 		options = options || {};
 
-		this.jsonPath = options.jsonPath || 'dist';
+		var pluginBasePath = plugin ? plugin.path : '';
+
+		if ( options.jsonPath ) {
+			this.jsonPath = pluginBasePath + options.jsonPath;
+		} else {
+			/**
+			 * @todo: change default value 'bower_components/quail/dist/' to something more generic.
+			 */
+			this.jsonPath = pluginBasePath + 'bower_components/quail/dist/';
+		}
 	}
 
 	EngineQuailOld.prototype = new Engine();

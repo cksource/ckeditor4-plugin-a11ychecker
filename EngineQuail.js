@@ -6,10 +6,18 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail' ], f
 	 *
 	 * @constructor
 	 */
-	function EngineQuail( options ) {
+	function EngineQuail( options, plugin ) {
 		options = options || {};
+		var pluginBasePath = plugin ? plugin.path : '';
 
-		this.jsonPath = options.jsonPath || 'dist';
+		if ( options.jsonPath ) {
+			this.jsonPath = pluginBasePath + options.jsonPath;
+		} else {
+			/**
+			 * @todo: change default value 'libs/quail/2.2.8/' to something more generic.
+			 */
+			this.jsonPath = pluginBasePath + 'libs/quail/2.2.8/';
+		}
 	}
 
 	EngineQuail.prototype = new Engine();
