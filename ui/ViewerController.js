@@ -65,6 +65,10 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		this.viewer.form.on( 'submit', function( evt ) {
 			console.log( this.serialize() );
 		} );
+
+		// This listener has lower priority, because it performs validation. So it
+		// can cancel event, before default listeners will be triggered.
+		this.viewer.form.on( 'submit', this.quickFixAccepted, null, null, 8 );
 	}
 
 	ViewerController.prototype = {
@@ -159,8 +163,67 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		 * balloon.
 		 */
 		updateForm: function( issue ) {
-			var form = this.viewer.form;
+			var that = this,
+				form = that.viewer.form;
+
 			form.setInputs( {} );
+
+			// Set the contnet required by the QuickFix.
+			issue.engine.getFixes( issue, function( fixes ) {
+				if ( fixes.length ) {
+					// Active Quick Fix, currently we'll limit GUI only to one.
+					that.quickFixSelected = fixes[ 0 ];
+				}
+
+				for ( var i = 0; i < fixes.length; i++ ) {
+					fixes[ i ].display( form );
+				}
+			} );
+		},
+
+		/**
+		 * Called when quickfix form submit button was pressed.
+		 *
+		 * @param {Object} evt An event comming from {@link CKEDITOR.plugins.a11ychecker.ViewerForm#submit}
+		 * event.
+		 */
+		quickFixAccepted: function( evt ) {
+			// Note that `this` points to a ViewerForm instance.
+			var editor = this.viewer.editor,
+				a11ychecker = editor._.a11ychecker,
+				controller = a11ychecker.viewerController,
+				values = this.serialize(),
+				currentFix = controller.quickFixSelected,
+				errors;
+
+			if ( !currentFix ) {
+				console.erorr( 'No quickfix available!' ); // %REMOVE_LINE_CORE%
+				evt.cancel();
+			} else {
+				errors = currentFix.validate( values );
+
+				if ( errors.length ) {
+					// If any errors were found, display them.
+					alert( errors.join( ',' ) );
+
+					// Put the focus on a first input.
+					var inputKeys = CKEDITOR.tools.objectKeys( this.inputs );
+
+					if ( inputKeys.length ) {
+						this.inputs[ inputKeys[ 0 ] ].input.focus();
+					}
+
+					evt.cancel();
+				} else {
+					// Fix validation went fine, so apply it.
+					currentFix.fix( values, function() {
+						controller.viewer.panel.hide();
+						a11ychecker.close();
+						editor.execCommand( 'a11ychecker' );
+						//a11ychecker.next();
+					} );
+				}
+			}
 		},
 
 		/**
