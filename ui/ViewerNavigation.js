@@ -166,6 +166,7 @@ define( function() {
 				nextButtonWrapper = previousButtonWrapper.clone(),
 				listWrapper = CKEDITOR.dom.element.createFromHtml( this.templates.listWrapper.output() );
 
+			// Setting the DOM structure.
 			previousButtonWrapper.append( this.parts.previous );
 			listWrapper.append( this.parts.list );
 			nextButtonWrapper.append( this.parts.next );
@@ -176,6 +177,15 @@ define( function() {
 
 			this.parts.previous.unselectable();
 			this.parts.next.unselectable();
+
+			// Adding listeners.
+			var spaceListener = keyListener( 32, function ( evt ) {
+				this.fire( 'click' );
+			} );
+
+			this.parts.previous.on( 'keydown', spaceListener );
+
+			this.parts.next.on( 'keydown', spaceListener );
 
 			// Setup click listeners for previous and next.
 			this.parts.previous.on( 'click', function() {
@@ -188,7 +198,7 @@ define( function() {
 
 			// Handle issue selection from list.
 			this.parts.list.on( 'change', function( evt ) {
-				this.fire( 'change', this.getListValue() )
+				this.fire( 'change', this.getListValue() );
 			}, this );
 
 			// Setup listeners for keyboard previous and next.
@@ -224,7 +234,7 @@ define( function() {
 				callback.call( this );
 				evt.data.preventDefault();
 			}
-		}
+		};
 	}
 
 	return ViewerNavigation;
