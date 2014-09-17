@@ -295,4 +295,19 @@
 	 * @cfg {Number} [a11ychecker_hotkeys.next = CKEDITOR.CTRL + 69 // E] Go to next accessibility issue.
 	 * @cfg {Number} [a11ychecker_hotkeys.next = CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 // E] Go to previous accessibility issue.
 	 */
+
+	/**
+	 * Accessibility Checker engine name.
+	 *
+	 * It comes down to setting the name of a engine class which will take a care
+	 * of finding accessibility issues.
+	 *
+	 * @cfg {String} [a11ychecker_engine='EngineQuail']
+	 */
+
+	/**
+	 * Extra parameters passed to engine constructor.
+	 *
+	 * @cfg {Object} [a11ychecker_engineParams={}]
+	 */
 } )();
