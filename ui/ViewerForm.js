@@ -158,8 +158,8 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 				evt.data.preventDefault();
 			}, this );
 
-			// Enter.
-			this.parts.wrapper.on( 'keydown', keyListener( 13, function( evt ) {
+			// Enter, space.
+			this.parts.wrapper.on( 'keydown', keyListener( [ 13, 32 ], function( evt ) {
 				this.fire( 'submit' );
 			} ), this );
 		}
@@ -167,10 +167,14 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 
 	function keyListener( keystroke, callback ) {
 		return function( evt ) {
-			var pressed = evt.data.getKeystroke();
+			var pressed = evt.data.getKeystroke(),
+				ckTools = CKEDITOR.tools,
+				keyMatched = ckTools.isArray( keystroke ) ?
+					ckTools.indexOf( keystroke, pressed ) !== -1 :
+					pressed == keystroke;
 
-			if ( pressed == keystroke ) {
-				callback.call( this );
+			if ( keyMatched ) {
+				callback.call( this, evt );
 				evt.data.preventDefault();
 			}
 		}
