@@ -85,15 +85,13 @@
 				editor.document.on( 'click', function( evt ) {
 					var target = evt.data.getTarget();
 					if ( target.hasClass( 'cke_a11ychecker_error' ) ) {
-						console.log( 'show quickfixes for ', target );
-
 						var issueList = editor._.a11ychecker.issues,
 							issue = issueList.getIssueByElement( target ),
 							offset = issueList.indexOf( issue );
 
 						if ( issue ) {
-							editor._.a11ychecker.viewerController.showIssue( issue );
 							editor._.a11ychecker.issues.moveTo( offset );
+							editor._.a11ychecker.viewerController.showIssue( issue );
 						} else {
 							console.warn( 'unidentified issue for element' + offset ); // %REMOVE_LINE_CORE%
 						}
