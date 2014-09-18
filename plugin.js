@@ -12,15 +12,8 @@
 	'use strict';
 
 	var pluginName = 'a11ychecker',
-		// Path to QUAIL directory, relative to plugin.js tailed with "/".
-		quailDirectory = 'bower_components/quail/',
 		// Should A11ychecker toolbar be hidden on run.
-		cfgStartHidden = true,
-		// Viewer controller class, will be loaded later on.
-		ViewerController,
-		// A11y checker controller class loaded by Requirejs.
-		Controller,
-		EngineQuailOld;
+		cfgStartHidden = true;
 
 	CKEDITOR.plugins.add( pluginName, {
 		requires: 'dialog,balloonpanel',
@@ -40,16 +33,16 @@
 				// We might create ui object even before Controller creation.
 				ui = this.guiRegister( editor );
 
-			// Loads Controller and the Engine classes.
-			require( [ 'Controller', engineClass ], function( _Controller, EngineClass ) {
-				Controller = _Controller;
-				EngineQuailOld = EngineClass;
+			// Loads Engine, Controller and ViewerController classes.
+			require( [ 'Controller', engineClass, 'ui/ViewerController' ], function( Controller, EngineClass, ViewerController ) {
+				CKEDITOR.plugins.a11ychecker.viewerController = ViewerController;
 
 				// Create controller object in protected namespace.
 				editor._.a11ychecker = new Controller( editor );
 				editor._.a11ychecker.engine = new EngineClass( engineParams, that );
 				editor._.a11ychecker.ui = ui;
 
+				// @todo: viewer controller should be actually created within controller construct.
 				editor._.a11ychecker.viewerController = new ViewerController( editor, {
 					title: 'Accessibility checker'
 				} );
@@ -74,7 +67,6 @@
 			editor.dataProcessor.htmlFilter.addRules( {
 				elements: {
 					$: function( element ) {
-
 						if ( !editor._.a11ychecker.disableFilterStrip )
 							delete element.attributes[ 'data-quail-id' ];
 						//'data-quail-id'
@@ -232,12 +224,10 @@
 
 	CKEDITOR.plugins.a11ychecker = {};
 
-	require( [ 'ui/ViewerInputs', 'ui/ViewerInput', 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerController', 'ui/Viewer', 'ui/ViewerForm' ], function( ViewerInputs, ViewerInput, ViewerDescription, ViewerNavigation, _ViewerController, Viewer, ViewerForm ) {
-		ViewerController = _ViewerController;
+	require( [ 'ui/ViewerInputs', 'ui/ViewerInput', 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/Viewer', 'ui/ViewerForm' ], function( ViewerInputs, ViewerInput, ViewerDescription, ViewerNavigation, Viewer, ViewerForm ) {
 
 		// Make all Viewer* classes public.
 		CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
-			viewerController: ViewerController,
 			viewer: Viewer,
 			viewerNavigation: ViewerNavigation,
 			viewerDescription: ViewerDescription,
