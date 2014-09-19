@@ -331,3 +331,7 @@ input.cke_a11yc_ui_input_text:focus
 	margin-top: 15px;
 	padding: 5px 0;
 }
+
+.cke_a11yc_ui_form.hidden {
+	display: none;
+}

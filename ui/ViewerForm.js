@@ -162,6 +162,20 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 			this.parts.wrapper.on( 'keydown', keyListener( [ 13, 32 ], function( evt ) {
 				this.fire( 'submit' );
 			} ), this );
+		},
+
+		/**
+		 * Ensures that form is visible.
+		 */
+		show: function() {
+			this.parts.wrapper.removeClass( 'hidden' );
+		},
+
+		/**
+		 * Hides the form.
+		 */
+		hide: function() {
+			this.parts.wrapper.addClass( 'hidden' );
 		}
 	};
 

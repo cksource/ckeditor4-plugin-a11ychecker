@@ -179,15 +179,24 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 
 			form.setInputs( {} );
 
+			// By default form is not visible.
+			form.hide();
+
 			// Set the contnet required by the QuickFix.
 			issue.engine.getFixes( issue, function( fixes ) {
-				if ( fixes.length ) {
+				var fixesCount = fixes.length;
+
+				if ( fixesCount ) {
 					// Active Quick Fix, currently we'll limit GUI only to one.
 					that.quickFixSelected = fixes[ 0 ];
 				}
 
-				for ( var i = 0; i < fixes.length; i++ ) {
+				for ( var i = 0; i < fixesCount; i++ ) {
 					fixes[ i ].display( form );
+				}
+
+				if ( fixesCount ) {
+					form.show();
 				}
 			} );
 		},
