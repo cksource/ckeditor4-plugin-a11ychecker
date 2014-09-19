@@ -182,8 +182,10 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 
 	/**
 	 * Moves the focus to the next issue, and shows the balloon.
+	 *
+	 * @param {Function} callback Function to be called when next issue is focused.
 	 */
-	Controller.prototype.next = function() {
+	Controller.prototype.next = function( callback ) {
 		var issues = this.issues,
 			curFocusedIssue;
 
@@ -194,13 +196,18 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 
 		curFocusedIssue = this.issues.next();
 
-		this.viewerController.showIssue( curFocusedIssue );
+		this.viewerController.showIssue( curFocusedIssue, {
+			event: 'next',
+			callback: callback
+		} );
 	};
 
 	/**
 	 * Moves the focus to the previous issue, and shows the balloon.
+	 *
+	 * @param {Function} callback Function to be called when previous issue is focused.
 	 */
-	Controller.prototype.prev = function() {
+	Controller.prototype.prev = function( callback ) {
 		var issues = this.issues,
 			curFocusedIssue;
 
@@ -211,16 +218,20 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 
 		curFocusedIssue = this.issues.prev();
 
-		this.viewerController.showIssue( curFocusedIssue );
+		this.viewerController.showIssue( curFocusedIssue, {
+			event: 'prev',
+			callback: callback
+		} );
 	};
 
 	/**
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue/Number} Issue object or 0-based index in
 	 * the {@link CKEDITOR.plugins.a11ychecker.IssueList}.
+	 * @param {Function} callback Function to be called when issue is focused.
 	 * @returns {Boolean} returns `false` if given issue was not found, `true` otherwise.1
 	 */
-	Controller.prototype.showIssue = function( issue ) {
+	Controller.prototype.showIssue = function( issue, callback ) {
 		var issues = this.issues,
 			ret;
 
@@ -231,7 +242,9 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 		ret = issues.moveTo( issue );
 
 		if ( ret && this.viewerController ) {
-			this.viewerController.showIssue( issues.getItem( issue ) );
+			this.viewerController.showIssue( issues.getItem( issue ), {
+				callback: callback
+			} );
 		}
 
 		return ret;

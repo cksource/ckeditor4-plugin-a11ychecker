@@ -9,6 +9,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 	 *
 	 * @since 4.5
 	 * @class CKEDITOR.plugins.a11ychecker.viewerController
+	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewerController instance.
 	 * @param {CKEDITOR.editor} editor The editor instance for which the panel is created.
 	 * @param {Object} definition An object containing panel definition.
@@ -22,7 +23,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		/**
 		 * The {@link CKEDITOR.plugins.a11ychecker.viewer} of this controller.
 		 */
-		this.viewer = new Viewer( editor, definition );
+		var viewer = this.viewer = new Viewer( editor, definition );
 
 		/**
 		 * Reference to editor's a11ychecker.
@@ -47,11 +48,6 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			this.updateForm( issue );
 		}, this );
 
-		// Handle change in the list of issues.
-		this.viewer.navigation.on( 'change', function( evt ) {
-			a11ychecker.showIssue( Number( evt.data ) );
-		}, this );
-
 		// Handle "previous" button click in the panel.
 		this.viewer.navigation.on( 'previous', function( evt ) {
 			a11ychecker.prev();
@@ -62,13 +58,28 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			a11ychecker.next();
 		} );
 
-		this.viewer.form.on( 'submit', function( evt ) {
-			console.log( this.serialize() );
-		} );
-
 		// This listener has lower priority, because it performs validation. So it
 		// can cancel event, before default listeners will be triggered.
 		this.viewer.form.on( 'submit', this.quickFixAccepted, null, null, 8 );
+
+		// Handle change in the list of issues.
+		this.viewer.navigation.on( 'change', function( evt ) {
+			a11ychecker.showIssue( Number( evt.data ), function() {
+				// When issue is shwon, make sure that issues list (in navigation)
+				// is focused.
+				viewer.navigation.parts.list.focus();
+			} );
+		}, this );
+
+		this.on( 'next', function( evt ) {
+			// Focusing the next button.
+			this.viewer.navigation.parts.next.focus();
+		}, null, null, 20 );
+
+		this.on( 'prev', function( evt ) {
+			// Focusing the previous button.
+			this.viewer.navigation.parts.previous.focus();
+		}, null, null, 20 );
 	}
 
 	ViewerController.prototype = {
@@ -230,16 +241,43 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		 * Shows the panel next to the issue in the contents.
 		 *
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue An issue that panel is created for.
+		 * @param {Object} params
+		 * @param {Function} params.callback Function to be called when issue is focused.
+		 * @param {String} params.event Name of event to be fired when issue is focused.
 		 */
-		showIssue: function( issue ) {
+		showIssue: function( issue, params ) {
 			issue.element.scrollIntoView();
 
 			// Wait for the scroll to stabilize.
 			CKEDITOR.tools.setTimeout( function() {
 				this.viewer.panel.attach( issue.element );
+
+				if ( params ) {
+					if ( params.event ) {
+						this.fire( params.event );
+					}
+
+					if ( params.callback ) {
+						params.callback.call( this );
+					}
+				}
 			}, 50, this );
 		}
 	};
 
+	CKEDITOR.event.implementOn( ViewerController.prototype );
+
 	return ViewerController;
+
+	/**
+	 * Fires upon iteration to next issue.
+	 *
+	 * @event next
+	 */
+
+	/**
+	 * Fires upon iteration to previous issue.
+	 *
+	 * @event prev
+	 */
 } );
