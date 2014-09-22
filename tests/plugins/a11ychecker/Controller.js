@@ -57,14 +57,8 @@
 						editableDecorator: {
 							removeMarkup: function() { removeMarkupCalls += 1; }
 						},
-						editor: {
-							_: {
-								a11ychecker: {
-									ui: {
-										hide: function() { uiHideCalls += 1; }
-									}
-								}
-							}
+						ui: {
+							hide: sinon.spy()
 						},
 						close: Controller.prototype.close
 					};
@@ -73,7 +67,8 @@
 
 				assert.areSame( 1, issueClearCalls, 'Controller.issue.clear calls count' );
 				assert.areSame( 1, removeMarkupCalls, 'Controller.editableDecorator.removeMarkupCalls calls count' );
-				assert.areSame( 1, uiHideCalls, 'ui.removeMarkupCalls calls count' );
+				assert.areSame( 1, controllerMockup.ui.hide.callCount, 'ui.hide call count' );
+
 			},
 
 			'test Controller.next': function() {
