@@ -129,7 +129,7 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 		CKEDITOR.plugins.a11ychecker.clearResults( editor );
 
 		// UI must be visible.
-		editor._.a11ychecker.ui.show();
+		this.ui.show();
 
 		// Get the element where we will save tmp output.
 		scratchpad = this.getTempOutput();
@@ -256,14 +256,12 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 	 * data.
 	 */
 	Controller.prototype.close = function() {
-		var namespace = this.editor._.a11ychecker;
-
 		this.issues.clear();
 
 		// Remove all the DOM changes applied by the EditableDecorator.
 		this.editableDecorator.removeMarkup();
 
-		namespace.ui.hide();
+		this.ui.hide();
 	};
 
 	/**

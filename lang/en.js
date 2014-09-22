@@ -8,6 +8,5 @@ CKEDITOR.plugins.setLang( 'a11ychecker', 'en', {
 	nextBtn: 'Next',
 	prevBtn: 'Prev',
 	refreshBtn: 'Refresh',
-	closeBtn: 'Close',
-	fixBtn: 'Fix issue'
+	closeBtn: 'Close'
 } );

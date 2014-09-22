@@ -21,7 +21,6 @@ CKEDITOR.plugins.a11ychecker.ui = CKEDITOR.tools.createClass( {
 		this.prevBtn = new CKEDITOR.ui.Button(),
 		this.nextBtn = new CKEDITOR.ui.Button();
 		this.refreshBtn = new CKEDITOR.ui.Button();
-		this.fixBtn = new CKEDITOR.ui.Button();
 		this.closeBtn = new CKEDITOR.ui.Button();
 
 		this.issuesCount = new CKEDITOR.dom.element( 'span' );
@@ -33,7 +32,6 @@ CKEDITOR.plugins.a11ychecker.ui = CKEDITOR.tools.createClass( {
 		this.prevBtn.setText( lang.prevBtn );
 		this.nextBtn.setText( lang.nextBtn );
 		this.refreshBtn.setText( lang.refreshBtn );
-		this.fixBtn.setText( lang.fixBtn );
 		this.closeBtn.setText( lang.closeBtn );
 
 		this._bindListeners( editor );
@@ -41,7 +39,6 @@ CKEDITOR.plugins.a11ychecker.ui = CKEDITOR.tools.createClass( {
 		this.buttonsGr.addChild( this.prevBtn );
 		this.buttonsGr.addChild( this.nextBtn );
 		this.buttonsGr.addChild( this.refreshBtn );
-		this.buttonsGr.addChild( this.fixBtn );
 		this.buttonsGr.addChild( this.closeBtn );
 
 		this.bar.addChild( this.issues );
@@ -69,10 +66,8 @@ CKEDITOR.plugins.a11ychecker.ui = CKEDITOR.tools.createClass( {
 		 * Applies listeners to contined buttons, etc.
 		 */
 		_bindListeners: function( editor ) {
-			var that = this;
-
 			this.closeBtn.element.on( 'click', function( evt ) {
-				CKEDITOR.plugins.a11ychecker.close( editor );
+				editor._.a11ychecker.close();
 			} );
 
 			this.refreshBtn.element.on( 'click', function( evt ) {
@@ -80,15 +75,11 @@ CKEDITOR.plugins.a11ychecker.ui = CKEDITOR.tools.createClass( {
 			} );
 
 			this.nextBtn.element.on( 'click', function( evt ) {
-				CKEDITOR.plugins.a11ychecker.next( editor );
+				editor._.a11ychecker.next();
 			} );
 
 			this.prevBtn.element.on( 'click', function( evt ) {
-				CKEDITOR.plugins.a11ychecker.prev( editor );
-			} );
-
-			this.fixBtn.element.on( 'click', function( evt ) {
-				CKEDITOR.plugins.a11ychecker.fixIssue( editor );
+				editor._.a11ychecker.prev();
 			} );
 		},
 
