@@ -44,15 +44,6 @@ CKEDITOR.plugins.a11ychecker.ui = CKEDITOR.tools.createClass( {
 		this.bar.addChild( this.issues );
 		this.bar.element.append( this.issuesCount );
 		this.bar.addChild( this.buttonsGr );
-
-		// -------------------------------------------------- my temporary hotkey reminder --------------------------------------------------
-		var hotkeyReminder = new CKEDITOR.dom.element( 'span' );
-		hotkeyReminder.setStyles( {
-			clear: 'left',
-			display: 'block'
-		} );
-		hotkeyReminder.setHtml( 'Reminder: to inspect issue use <strong style="font-weight: bolder;">alt + double click</strong>.' );
-		this.bar.element.append( hotkeyReminder );
 	},
 
 	proto: {

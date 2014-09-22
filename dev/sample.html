@@ -85,6 +85,31 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 
 	</script>
+	<h2 style="clear: both;">Default navigation hotkeys</h2>
+	<p>
+		The default navigation hotkeys are:
+	</p>
+	<ul>
+		<li><kbd>CTRL+E</kbd> - Next issue</li>
+		<li><kbd>CTRL+SHIFT+E</kbd> - Previous issue</li>
+		<li><kbd>CTRL+ALT+E</kbd> - Enable Accessibility Checker</li>
+	</ul>
+	<h2 style="clear: both;">Different Engine</h2>
+	<p>
+		To change Accessibility Checker engine use config. Sample config snippet with different combinations:
+	</p>
+	<pre>
+// Old Quail:
+//config.a11ychecker_engine = 'EngineQuailOld';
+//config.a11ychecker_engineParams = { jsonPath: 'bower_components/quail/dist/' };
+
+// New Quail:
+config.a11ychecker_engine = 'EngineQuail';
+config.a11ychecker_engineParams = { jsonPath: 'libs/quail/2.2.8/' };
+
+// Mock:
+//config.a11ychecker_engine = 'EngineMock';
+	</pre>
 	<div id="footer">
 		<hr>
 		<p>
