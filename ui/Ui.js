@@ -3,7 +3,7 @@ define( function() {
 	/**
 	 * @class CKEDITOR.plugins.a11ychecker.Ui
 	 * @constructor
-	 * @param {CKEDITOR.plugins.a11ychecker.Controller} controller Controller which object is created for.
+	 * @param {CKEDITOR.plugins.a11ychecker.Controller} controller Controller for which the object is created.
 	 */
 	function Ui( controller ) {
 		this.controller = controller;
