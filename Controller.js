@@ -237,6 +237,10 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		this.editableDecorator.removeMarkup();
 
 		this.ui.hide();
+
+		if ( this.viewerController ) {
+			this.viewerController.hide();
+		}
 	};
 
 	/**

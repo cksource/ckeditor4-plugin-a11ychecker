@@ -288,6 +288,10 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 					}
 				}
 			}, 50, this );
+		},
+
+		hide: function() {
+			this.viewer.panel.hide();
 		}
 	};
 
