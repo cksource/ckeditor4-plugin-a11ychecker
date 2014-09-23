@@ -11,10 +11,14 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 	 * @class CKEDITOR.plugins.a11ychecker.viewerController
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewerController instance.
-	 * @param {CKEDITOR.editor} editor The editor instance for which the panel is created.
+	 * @param {CKEDITOR.plugins.a11ychecker.Controller} a11ychecker The Accessiblity Checker controller instance
+	 * for which the panel is created.
 	 * @param {Object} definition An object containing panel definition.
 	 */
-	function ViewerController( editor, definition ) {
+	function ViewerController( a11ychecker, definition ) {
+
+		var editor = a11ychecker.editor;
+
 		/**
 		 * The editor of this controller.
 		 */
@@ -27,9 +31,10 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 
 		/**
 		 * Reference to editor's a11ychecker.
+		 *
 		 * @property {CKEDITOR.plugins.a11ychecker.Controller} a11ychecker
 		 */
-		var a11ychecker = this.a11ychecker = editor._.a11ychecker;
+		this.a11ychecker = a11ychecker;
 
 		/**
 		 * Ui lang code.

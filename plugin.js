@@ -34,19 +34,20 @@
 
 			// Loads Engine, Controller and ViewerController classes.
 			require( [ 'Controller', engineClass, 'ui/ViewerController' ], function( Controller, EngineClass, ViewerController ) {
-				CKEDITOR.plugins.a11ychecker.viewerController = ViewerController;
+				var a11ychecker = new Controller( editor );
 
-				// Create controller object in protected namespace.
-				editor._.a11ychecker = new Controller( editor );
-				editor._.a11ychecker.engine = new EngineClass( engineParams, that );
-
+				a11ychecker.engine = new EngineClass( engineParams, that );
 				// @todo: viewer controller should be actually created within controller construct.
-				editor._.a11ychecker.viewerController = new ViewerController( editor, {
+				a11ychecker.viewerController = new ViewerController( a11ychecker, {
 					title: 'Accessibility checker'
 				} );
-
 				// @todo: Check if this flag is needed.
-				editor._.a11ychecker.disableFilterStrip = true;
+				a11ychecker.disableFilterStrip = true;
+
+				// Assign controller object to the editor protected namespace.
+				editor._.a11ychecker = a11ychecker;
+				// Expose ViewerController class.
+				CKEDITOR.plugins.a11ychecker.viewerController = ViewerController;
 			} );
 
 			this.commandRegister( editor );
@@ -67,8 +68,7 @@
 					$: function( element ) {
 						if ( !editor._.a11ychecker.disableFilterStrip )
 							delete element.attributes[ 'data-quail-id' ];
-						//'data-quail-id'
-						//element.attributes['foo'] = 'bar';
+
 						return element;
 					}
 				}
@@ -81,15 +81,17 @@
 				// Detects a single clicks to propse some quickfixes, and bring
 				// the focus.
 				editor.document.on( 'click', function( evt ) {
-					var target = evt.data.getTarget();
+					var target = evt.data.getTarget(),
+						a11ychecker = editor._.a11ychecker;
+
 					if ( target.hasClass( 'cke_a11ychecker_error' ) ) {
-						var issueList = editor._.a11ychecker.issues,
+						var issueList = a11ychecker.issues,
 							issue = issueList.getIssueByElement( target ),
 							offset = issueList.indexOf( issue );
 
 						if ( issue ) {
-							editor._.a11ychecker.issues.moveTo( offset );
-							editor._.a11ychecker.viewerController.showIssue( issue );
+							a11ychecker.issues.moveTo( offset );
+							a11ychecker.viewerController.showIssue( issue );
 						} else {
 							console.warn( 'unidentified issue for element' + offset ); // %REMOVE_LINE_CORE%
 						}
@@ -198,14 +200,6 @@
 
 	// Stores objects defining title/description for given issue type.
 	CKEDITOR.plugins.a11ychecker.types = {};
-
-	CKEDITOR.plugins.a11ychecker.clearResults = function( editor ) {
-		var issues = editor._.a11ychecker.issues;
-
-		if ( issues ) {
-			issues.clear();
-		}
-	};
 
 	/**
 	 * Performs a11y checking for current editor content.

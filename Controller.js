@@ -77,7 +77,9 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 			that = this,
 			scratchpad;
 
-		CKEDITOR.plugins.a11ychecker.clearResults( editor );
+		if ( this.issues ) {
+			this.issues.clear();
+		}
 
 		// UI must be visible.
 		this.ui.show();
@@ -89,9 +91,9 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		// identified even after serialization (output to HTML).
 		this.editableDecorator.applyMarkup();
 
-		editor._.a11ychecker.disableFilterStrip = true;
+		this.disableFilterStrip = true;
 		scratchpad.setHtml( editor.getData() );
-		editor._.a11ychecker.disableFilterStrip = false;
+		this.disableFilterStrip = false;
 
 		/**
 		 * @todo: Do we really need to append this to the document?
