@@ -25,7 +25,7 @@
 				// Actual exec call.
 				this.mockup.exec();
 
-				assert.isTrue( this.mockup.enabled, 'enabled flag has been changed' );
+				assert.areSame( 1, this.mockup.enable.callCount, 'Controller.enable calls count' );
 			},
 
 			'test Controller.exec on enabled Controller': function() {
@@ -42,6 +42,59 @@
 
 				assert.areSame( 0, this.mockup.ui.show.callCount, 'ui.show method was not called' );
 				assert.areSame( 1, this.mockup.close.callCount, 'Controller.close calls count' );
+			},
+
+			'test Controller.disable': function() {
+				var mockup = this.mockup;
+
+				mockup.fire = sinon.spy();
+				// Force mockup to be seen as enabled.
+				mockup.enabled = true;
+
+				mockup.disable();
+
+				assert.isFalse( mockup.enabled, 'Controller.enabled property value' );
+				assert.areSame( 1, mockup.fire.callCount, 'Controller.fire calls count' );
+				assert.areSame( 'disabled', mockup.fire.args[ 0 ][ 0 ], 'Controller.fire event name' );
+			},
+
+			'test Controller.disable event skipping': function() {
+				// Event `disabled` should not be fired, when Controller is already disabled.
+				var mockup = this.mockup;
+
+				mockup.fire = sinon.spy();
+
+				mockup.disable();
+
+				assert.isFalse( mockup.enabled, 'Controller.enabled property value' );
+				assert.areSame( 0, mockup.fire.callCount, 'Controller.fire calls count' );
+			},
+
+			'test Controller.enable': function() {
+				var mockup = this.mockup;
+
+				mockup.fire = sinon.spy();
+
+				mockup.enable();
+
+				assert.isTrue( mockup.enabled, 'Controller.enabled property value' );
+				assert.areSame( 1, mockup.fire.callCount, 'Controller.fire calls count' );
+				assert.areSame( 'enabled', mockup.fire.args[ 0 ][ 0 ], 'Controller.fire event name' );
+			},
+
+			'test Controller.enable event skipping': function() {
+				// Event `enabled` should not be fired, when Controller is already enabled.
+				var mockup = this.mockup;
+
+				mockup.fire = sinon.spy();
+
+				// Force mockup to be seen as enabled.
+				mockup.enabled = true;
+
+				mockup.enable();
+
+				assert.isTrue( mockup.enabled, 'Controller.enabled property value' );
+				assert.areSame( 0, mockup.fire.callCount, 'Controller.fire calls count' );
 			},
 
 			'test Controller.getTempOutput first call': function() {
@@ -94,7 +147,7 @@
 							hide: sinon.spy()
 						},
 						close: Controller.prototype.close,
-						enabled: true
+						disable: sinon.spy()
 					};
 
 				controllerMockup.close();
@@ -102,7 +155,7 @@
 				assert.areSame( 1, issueClearCalls, 'Controller.issue.clear calls count' );
 				assert.areSame( 1, removeMarkupCalls, 'Controller.editableDecorator.removeMarkupCalls calls count' );
 				assert.areSame( 1, controllerMockup.ui.hide.callCount, 'ui.hide call count' );
-				assert.isFalse( controllerMockup.enabled, 'Controller.enabled flag was changed' );
+				assert.areSame( 1, controllerMockup.disable.callCount, 'Controller.disable calls count' );
 
 			},
 
@@ -280,9 +333,13 @@
 			controllerMockup.engine = {
 				process: sinon.spy()
 			};
+
 			controllerMockup.editor = {
 				getData: sinon.spy()
 			};
+
+			controllerMockup.enable = sinon.spy();
+			controllerMockup.disable = sinon.spy();
 		}
 	} );
 } )();

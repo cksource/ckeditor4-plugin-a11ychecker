@@ -5,6 +5,7 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 	/**
 	 * Exposes Accessibility Checker interface.
 	 *
+	 * @mixins CKEDITOR.event
 	 * @class CKEDITOR.plugins.a11ychecker.Controller
 	 * @constructor
 	 * @param {CKEDITOR.editor} editor
@@ -94,7 +95,7 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 			this.issues.clear();
 		}
 
-		this.enabled = true;
+		this.enable();
 
 		// UI must be visible.
 		this.ui.show();
@@ -131,6 +132,20 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		};
 
 		this.engine.process( this, scratchpad, completeCallback );
+	};
+
+	Controller.prototype.disable = function() {
+		if ( this.enabled ) {
+			this.enabled = false;
+			this.fire( 'disabled' );
+		}
+	};
+
+	Controller.prototype.enable = function() {
+		if ( !this.enabled ) {
+			this.enabled = true;
+			this.fire( 'enabled' );
+		}
 	};
 
 	/**
@@ -210,7 +225,7 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 	 */
 	Controller.prototype.close = function() {
 
-		this.enabled = false;
+		this.disable();
 
 		this.issues.clear();
 
@@ -237,6 +252,25 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 
 		return protectedSpace.scratchpad;
 	};
+
+	CKEDITOR.event.implementOn( Controller.prototype );
+
+	/**
+	 * Fired when Accessibility Checker was disabled.
+	 *
+	 * @event disabled
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 */
+
+	/**
+	 * Fired when Accessibility Checker was enabled.
+	 *
+	 * Note that at this point {@link #issues} list still is not updated, or not
+	 * even initialized.
+	 *
+	 * @event enabled
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 */
 
 	return Controller;
 } );
