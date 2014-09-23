@@ -244,8 +244,20 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 					currentFix.fix( values, function() {
 						controller.viewer.panel.hide();
 						a11ychecker.close();
+
+						/**
+						 * A temporary solution for focusing next issue after QuickFix acceptance.
+						 */
+						a11ychecker.once( 'checked', function( evt ) {
+							if ( evt.data.issues.count() ) {
+								this.next();
+							} else {
+								alert( 'Congratz, we\'re out of issues!' );
+								this.close();
+							}
+						} );
+
 						editor.execCommand( 'a11ychecker' );
-						//a11ychecker.next();
 					} );
 				}
 			}
