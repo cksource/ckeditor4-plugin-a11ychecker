@@ -95,6 +95,8 @@ define( function() {
 
 			if ( element.hasClass( 'cke_a11ychecker_error' ) ) {
 				element.removeClass( 'cke_a11ychecker_error' );
+				// Remove also cke_a11y_focused class.
+				element.removeClass( 'cke_a11y_focused' );
 			}
 		}, CKEDITOR.NODE_ELEMENT, false );
 	};
