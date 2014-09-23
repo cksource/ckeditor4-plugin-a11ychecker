@@ -18,16 +18,30 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		 * @type {CKEDITOR.editor}
 		 */
 		this.editor = editor;
+
 		/**
 		 * An accessibility checking engine object. It encapsulates all the logic related
 		 * to fetching issues.
 		 *
 		 * @member CKEDITOR.plugins.a11ychecker.Controller
+		 * @property {CKEDITOR.plugins.a11ychecker.Engine} engine
 		 */
-		//this.engine = null;
 
+		/**
+		 * Object dedicated for all the editable modification, see
+		 * {@link CKEDITOR.plugins.a11ychecker.EditableDecorator}.
+		 *
+		 * @member CKEDITOR.plugins.a11ychecker.Controller
+		 * @property {CKEDITOR.plugins.a11ychecker.EditableDecorator} editableDecorator
+		 */
 		this.editableDecorator = new EditableDecorator( this.editor );
 
+		/**
+		 * Object managing the user interface.
+		 *
+		 * @member CKEDITOR.plugins.a11ychecker.Controller
+		 * @property {CKEDITOR.plugins.a11ychecker.ui.Ui} ui
+		 */
 		this.ui = new Ui( this );
 	}
 
@@ -45,72 +59,6 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 	};
 
 	Controller.prototype.constructor = Controller;
-
-	Controller.prototype.engine = {
-		/**
-		 * Performs accessibility checking for the current editor content.
-		 *
-		 * @member CKEDITOR.plugins.a11ychecker.Engine
-		 * @param {CKEDITOR.plugins.a11ychecker.Controller} a11ychecker
-		 * @param {CKEDITOR.dom.element} contentElement DOM object of container which contents will be checked.
-		 * @param {Function} callback
-		 *
-		 * @todo: Still contains Quail implementation, in next steps we need to make it
-		 * engine independent.
-		 * @todo: Should be moved to separate class like Engine
-		 */
-		process: function( a11ychecker, contentElement, callback ) {
-
-			var $ = window.jQuery,
-				editor = a11ychecker.editor;
-
-			// Calls quail.
-			var quailConfig = {
-				guideline : [ 'imgHasAlt', 'aMustNotHaveJavascriptHref', 'aAdjacentWithSameResourceShouldBeCombined', 'pNotUsedAsHeader' ],
-				//guideline : 'wcag',
-				jsonPath : editor._.a11ychecker.basePath + 'dist',
-				// Causes total.results to be new in each call.
-				reset: true,
-				complete: function( total ) {
-					var results = total.results,
-						errors = [];
-
-					editor._.a11ychecker.issues.setQuailIssues( results );
-
-					execUiUpdate( editor, total, results );
-
-					// Looking for unknown issue types.
-					var knownTypes = CKEDITOR.plugins.a11ychecker,
-						curTestObject;
-
-					for ( var issueType in results ) {
-
-						if ( !knownTypes.types[ issueType ] ) {
-							curTestObject = results[ issueType ].test;
-
-							knownTypes.types[ issueType ] = {
-								title: curTestObject.title.en,
-								desc: curTestObject.description.en,
-								testability: curTestObject.testability
-							};
-						}
-					}
-
-					// Now we can iterate over all found issues, and mark them with specific class.
-					editor._.a11ychecker.issues.each( function( element, issueGroup ) {
-						element.addClass( 'cke_a11ychecker_error' );
-
-						errors.push( {
-							element: element,
-							type: issueGroup
-						} );
-					} );
-				}
-			};
-
-			$( contentElement.$ ).quail( quailConfig );
-		}
-	};
 
 	/**
 	 * Sets the accessibility checking egnine.
@@ -285,58 +233,6 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 
 		return protectedSpace.scratchpad;
 	};
-
-	/**
-	 * Returns human friendly representation of given element.
-	 * @param {jQuery} el jQuery wrapped element
-	 * @return {String}
-	 */
-	function humanReadableElement( el ) {
-		el = new CKEDITOR.dom.element( el[0] );
-		if ( el.getName() == 'a' ) {
-			if ( el.getText() )
-				return 'a: ' + el.getText();
-			else
-				return 'a[name="' + el.getAttribute( 'name' ) + '"]';
-		}
-	}
-
-	/**
-	 * @param {Object} results Object returned by Quail as total.results
-	 * @returns {Array}
-	 */
-	function toGroupedOptions( results ) {
-		var ret = [];
-
-		for ( var i in results ) {
-			var curResult = results[ i ];
-
-			if ( !curResult.elements.length )
-				continue;
-
-			var obj = {
-				name: i,
-				options: {
-				}
-			};
-
-			for (var j=0; j < curResult.elements.length; j++) {
-				var innerText = humanReadableElement( curResult.elements[ j ] ) || 'Issue #' + (j + 1);
-				obj.options[ j ] = innerText;
-			}
-
-			ret.push( obj );
-		}
-
-		return ret;
-	}
-
-	function execUiUpdate( editor, total, results ) {
-		var ui = editor._.a11ychecker.ui;
-
-		ui.issues.setOptionsGrouped( toGroupedOptions( total.results ) );
-		ui.update();
-	}
 
 	return Controller;
 } );
