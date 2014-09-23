@@ -129,6 +129,10 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 			that.issues = issueList;
 			// Notify the UI about update.
 			that.ui.update();
+
+			that.fire( 'checked', {
+				issues: issueList
+			} );
 		};
 
 		this.engine.process( this, scratchpad, completeCallback );
@@ -270,6 +274,17 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 	 *
 	 * @event enabled
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 */
+
+	/**
+	 * Fired when content checking is done. At this point Accessibility Checker
+	 * contains full list of issues.
+	 *
+	 * @event checked
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {Object} data
+	 * @param {Object} data.issues Issues found in the document. This is exactly the same
+	 * object as in {@link #issues} property.
 	 */
 
 	return Controller;

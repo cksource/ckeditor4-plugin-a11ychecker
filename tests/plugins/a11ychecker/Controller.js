@@ -22,10 +22,23 @@
 			'test Controller.exec': function() {
 				patchMockupForExecMethod( this.mockup );
 
+				var issueList = {};
+
+				// Actually in this case we'll have to make sure that engine.process will
+				// call the callback.
+				this.mockup.engine.process = function( controller, scratchpad, callback ) {
+					callback( issueList );
+				};
+
 				// Actual exec call.
 				this.mockup.exec();
 
 				assert.areSame( 1, this.mockup.enable.callCount, 'Controller.enable calls count' );
+				assert.areSame( 1, this.mockup.fire.callCount, 'Controller.fire calls count' );
+				assert.areSame( 'checked', this.mockup.fire.args[ 0 ][ 0 ], 'Controller.fire event name' );
+				var eventData = this.mockup.fire.args[ 0 ][ 1 ];
+				assert.isObject( eventData, 'Controller.fire event data type' );
+				assert.areSame( issueList, eventData.issues, 'eventData.issues value' );
 			},
 
 			'test Controller.exec on enabled Controller': function() {
@@ -340,6 +353,10 @@
 
 			controllerMockup.enable = sinon.spy();
 			controllerMockup.disable = sinon.spy();
+			controllerMockup.editableDecorator.resolveEditorElements = sinon.spy();
+			controllerMockup.editableDecorator.markIssues = sinon.spy();
+			controllerMockup.ui.update = sinon.spy();
+			controllerMockup.fire = sinon.spy();
 		}
 	} );
 } )();
