@@ -62,7 +62,8 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 
 	/**
 	 * Sets the accessibility checking egnine.
-	 * @param {Object} engine
+	 *
+	 * @param {CKEDITOR.plugins.a11ychecker.Engine} engine
 	 */
 	Controller.prototype.setEngine = function( engine ) {
 		this.engine = engine;
@@ -97,11 +98,10 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		 */
 		CKEDITOR.document.getBody().append( scratchpad );
 
-		// When engine has done its job, lets assign the issue list, and refresh
+		// When the engine has done its job, lets assign the issue list, and refresh
 		// UI.
 		var completeCallback = function( issueList ) {
-
-			// We need to determine Issue.element.
+			// We need to determine Issue.element properties in each Issue.
 			that.editableDecorator.resolveEditorElements( issueList );
 			that.editableDecorator.markIssues( issueList );
 
@@ -109,23 +109,7 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 			console.log( issueList );
 
 			that.issues = issueList;
-			editor._.a11ychecker.issues = issueList;
-
-			/**
-			 * @todo: this is a temp fix:
-			 */
-			issueList.on( 'focusChanged', function( evt ) {
-				var ui = that.ui,
-					evtData = evt.data;
-
-				if ( evtData.current ) {
-					ui.markFocus( evtData.current.element );
-				}
-				if ( evtData.previous ) {
-					ui.unmarkFocus( evtData.previous.element );
-				}
-			} );
-
+			// Notify the UI about update.
 			that.ui.update();
 		};
 

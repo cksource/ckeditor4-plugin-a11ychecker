@@ -22,6 +22,22 @@ define( function() {
 
 		// Updates basic controls of the ui, like issues count etc.
 		update: function() {
+			var that = this,
+				issues = this.controller.issues;
+
+			// Listens to the focusChanged in issues list, so new focused issue
+			// will be marked in UI.
+			issues.on( 'focusChanged', function( evt ) {
+				var evtData = evt.data;
+
+				if ( evtData.current ) {
+					that.markFocus( evtData.current.element );
+				}
+
+				if ( evtData.previous ) {
+					that.unmarkFocus( evtData.previous.element );
+				}
+			} );
 		},
 
 		unmarkFocus: function( issueElement ) {
