@@ -55,7 +55,14 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		/**
 		 * @property {CKEDITOR.plugins.a11ychecker.ViewerController} viewerController
 		 */
-		viewerController: null
+		viewerController: null,
+		/**
+		 * An property indicating whether or not Accessibility Checker is enabled.
+		 *
+		 * @property {Boolean} enabled
+		 * @readonly
+		 */
+		enabled: false
 	};
 
 	Controller.prototype.constructor = Controller;
@@ -73,6 +80,12 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 	 * Performs an accessibility test against current editor content.
 	 */
 	Controller.prototype.exec = function() {
+
+		if ( this.enabled ) {
+			this.close();
+			return;
+		}
+
 		var editor = this.editor,
 			that = this,
 			scratchpad;
@@ -80,6 +93,8 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		if ( this.issues ) {
 			this.issues.clear();
 		}
+
+		this.enabled = true;
 
 		// UI must be visible.
 		this.ui.show();
@@ -194,6 +209,9 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 	 * data.
 	 */
 	Controller.prototype.close = function() {
+
+		this.enabled = false;
+
 		this.issues.clear();
 
 		// Remove all the DOM changes applied by the EditableDecorator.

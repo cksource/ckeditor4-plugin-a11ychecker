@@ -11,6 +11,39 @@
 				this.mockup = getControllerMockup();
 			},
 
+			'test Controller constructor': function() {
+				var editor = {},
+					controller = new Controller( editor );
+
+				assert.areSame( editor, controller.editor, 'editor property is stored' );
+				assert.isFalse( controller.enabled, 'By default controller is disabled' );
+			},
+
+			'test Controller.exec': function() {
+				patchMockupForExecMethod( this.mockup );
+
+				// Actual exec call.
+				this.mockup.exec();
+
+				assert.isTrue( this.mockup.enabled, 'enabled flag has been changed' );
+			},
+
+			'test Controller.exec on enabled Controller': function() {
+				// Every call to Controller.exec with enabled property set to true should
+				// close the Accessibility Checker.
+				patchMockupForExecMethod( this.mockup );
+
+				this.mockup.enabled = true;
+
+				this.mockup.close = sinon.spy();
+
+				// Actual exec call.
+				this.mockup.exec();
+
+				assert.areSame( 0, this.mockup.ui.show.callCount, 'ui.show method was not called' );
+				assert.areSame( 1, this.mockup.close.callCount, 'Controller.close calls count' );
+			},
+
 			'test Controller.getTempOutput first call': function() {
 				// Ensures that getTempOutput creates a new element if called for the first time.
 				var ret = this.mockup.getTempOutput();
@@ -60,7 +93,8 @@
 						ui: {
 							hide: sinon.spy()
 						},
-						close: Controller.prototype.close
+						close: Controller.prototype.close,
+						enabled: true
 					};
 
 				controllerMockup.close();
@@ -68,6 +102,7 @@
 				assert.areSame( 1, issueClearCalls, 'Controller.issue.clear calls count' );
 				assert.areSame( 1, removeMarkupCalls, 'Controller.editableDecorator.removeMarkupCalls calls count' );
 				assert.areSame( 1, controllerMockup.ui.hide.callCount, 'ui.hide call count' );
+				assert.isFalse( controllerMockup.enabled, 'Controller.enabled flag was changed' );
 
 			},
 
@@ -230,6 +265,23 @@
 		function getViewerControllerMockup() {
 			return {
 				showIssue: function() {}
+			};
+		}
+
+		// This method will patch all the properties required to run Controller.exec
+		// method.
+		// @param {Object} controllerMock Mockup to be pathed.
+		function patchMockupForExecMethod( controllerMockup ) {
+			controllerMockup.ui = {
+				show: sinon.spy()
+			};
+
+			controllerMockup.editableDecorator.applyMarkup = sinon.spy();
+			controllerMockup.engine = {
+				process: sinon.spy()
+			};
+			controllerMockup.editor = {
+				getData: sinon.spy()
 			};
 		}
 	} );

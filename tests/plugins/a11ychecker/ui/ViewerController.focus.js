@@ -18,6 +18,11 @@
 	require( [ 'ui/ViewerController', 'EngineMock', 'Controller', 'ui/ViewerController' ], function( ViewerController ) {
 
 		bender.test( {
+			tearDown: function() {
+				// For each test a11ychecker needs to be closed.
+				this.editor._.a11ychecker.close();
+			},
+
 			'test initial focus': function() {
 				var a11ychecker = this.editor._.a11ychecker;
 				a11ychecker.exec();
