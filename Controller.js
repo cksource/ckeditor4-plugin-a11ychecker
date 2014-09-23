@@ -1,5 +1,5 @@
 
-define( [ 'EditableDecorator' ], function( EditableDecorator ) {
+define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 	'use strict';
 
 	/**
@@ -27,6 +27,8 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 		//this.engine = null;
 
 		this.editableDecorator = new EditableDecorator( this.editor );
+
+		this.ui = new Ui( this );
 	}
 
 	Controller.prototype = {
@@ -165,7 +167,7 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 			 * @todo: this is a temp fix:
 			 */
 			issueList.on( 'focusChanged', function( evt ) {
-				var ui = editor._.a11ychecker.ui,
+				var ui = that.ui,
 					evtData = evt.data;
 
 				if ( evtData.current ) {
@@ -175,6 +177,8 @@ define( [ 'EditableDecorator' ], function( EditableDecorator ) {
 					ui.unmarkFocus( evtData.previous.element );
 				}
 			} );
+
+			that.ui.update();
 		};
 
 		this.engine.process( this, scratchpad, completeCallback );

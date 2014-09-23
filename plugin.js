@@ -22,16 +22,15 @@
 		hidpi: true, // %REMOVE_LINE_CORE%
 
 		onLoad: function() {
-			this.loadJs();
 			this.loadCss();
 		},
 
 		init: function( editor ) {
 			var engineClass = editor.config.a11ychecker_engine || 'EngineQuail',
 				engineParams = editor.config.a11ychecker_engineParams || {},
-				that = this,
-				// We might create ui object even before Controller creation.
-				ui = this.guiRegister( editor );
+				that = this;
+
+			this.guiRegister( editor );
 
 			// Loads Engine, Controller and ViewerController classes.
 			require( [ 'Controller', engineClass, 'ui/ViewerController' ], function( Controller, EngineClass, ViewerController ) {
@@ -40,7 +39,6 @@
 				// Create controller object in protected namespace.
 				editor._.a11ychecker = new Controller( editor );
 				editor._.a11ychecker.engine = new EngineClass( engineParams, that );
-				editor._.a11ychecker.ui = ui;
 
 				// @todo: viewer controller should be actually created within controller construct.
 				editor._.a11ychecker.viewerController = new ViewerController( editor, {
@@ -141,35 +139,21 @@
 		},
 
 		// Register buttons, dialogs etc.
-		// @returns {CKEDITOR.plugins.a11ychecker.ui} UI object.
 		guiRegister: function( editor ) {
-			var lang = editor.lang.a11ychecker,
-				ret = new CKEDITOR.plugins.a11ychecker.ui( editor );
+			var lang = editor.lang.a11ychecker;
 
-			editor.ui.addButton && editor.ui.addButton( 'A11ychecker', {
-				label: lang.toolbar,
-				command: pluginName,
-				toolbar: 'document,10'
-			} );
+			if ( editor.ui.addButton ) {
+				editor.ui.addButton( 'A11ychecker', {
+					label: lang.toolbar,
+					command: pluginName,
+					toolbar: 'document,10'
+				} );
+			}
 
 			CKEDITOR.dialog.add( pluginName, this.path + 'dialogs/a11ychecker.js' );
 
 			// Insert contents CSS.
 			editor.addContentsCss( this.path + 'styles/contents.css' );
-
-			this._createToolbox( editor, ret );
-
-			return ret;
-		},
-
-		_createToolbox: function( editor, ui ) {
-			editor.on( 'uiReady', function( evt ) {
-				if ( cfgStartHidden ) {
-					ui.hide();
-				}
-
-				editor.ui.space( 'top' ).append( ui.bar.element );
-			} );
 		},
 
 		/**
@@ -192,16 +176,6 @@
 			editor.addCommand( pluginName + '.prev', {
 				exec: cmdPrev
 			} );
-		},
-
-		// Loads external JavaScript libs.
-		loadJs: function() {
-			// Sync dependencies.
-			var syncDependencies = [ 'UiComponent.js', 'Ui.js' ];
-
-			for (var i=0; i < syncDependencies.length; i++) {
-				CKEDITOR.scriptLoader.load( this.path + syncDependencies[ i ] );
-			}
 		},
 
 		// Loads global CSS, mainly needed for skin.
