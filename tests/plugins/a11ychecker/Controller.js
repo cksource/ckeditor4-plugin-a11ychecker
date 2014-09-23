@@ -22,7 +22,9 @@
 			'test Controller.exec': function() {
 				patchMockupForExecMethod( this.mockup );
 
-				var issueList = {};
+				var issueList = {
+					sort: sinon.spy()
+				};
 
 				// Actually in this case we'll have to make sure that engine.process will
 				// call the callback.

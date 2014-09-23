@@ -257,6 +257,26 @@ define( function() {
 	};
 
 	/**
+	 * Sorts the issues {@link #list} according to the DOM position of its elements.
+	 */
+	IssueList.prototype.sort = function() {
+		this.list.sort( sortIssuesByDomOrder );
+	};
+
+	function sortIssuesByDomOrder( a, b ) {
+		var ret = 0;
+
+		// If a element is following b element in DOM tree, then we mark b as earlier.
+		if ( a.element.getPosition( b.element ) & CKEDITOR.POSITION_FOLLOWING ) {
+			ret = 1;
+		} else {
+			ret = -1;
+		}
+
+		return ret;
+	}
+
+	/**
 	 * Fired when a new issue is focused.
 	 *
 	 * @event focusChanged

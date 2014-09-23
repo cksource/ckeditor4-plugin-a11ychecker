@@ -262,6 +262,79 @@
 
 				bender.arrayAssert.itemsAreSame( expectedMessages, messages, 'Messages are as expected' );
 			},
+
+			'test IssueList.sort': function() {
+				var wrapper = CKEDITOR.document.getBody().append( new CKEDITOR.dom.element( 'div' ) ),
+					mockup = {
+						sort: IssueList.prototype.sort
+					};
+
+				wrapper.setHtml( '<p id="p1"></p><p id="p2"></p><p id="p3"></p>' );
+
+				var children = wrapper.getChildren();
+
+				// Lets mess up the order a little bit.
+				// Basically we want to put Issue imitations in diffrent order than
+				// its DOM elements.
+				mockup.list = [ {
+					element: children.getItem( 0 )
+				}, {
+					element: children.getItem( 2 )
+				} , {
+					element: children.getItem( 1 )
+				} ];
+
+				try {
+					mockup.sort();
+
+					for ( var i = 0; i <= 2; i++ ) {
+						assert.areSame( children.getItem( i ), mockup.list[ i ].element,
+							'Member list[ ' + i + ' ] has correct element' );
+					}
+				} catch( e ) {
+					// Propagate the exception.
+					throw e;
+				} finally {
+					// In any case remove the wrapper.
+					wrapper.remove();
+				}
+			},
+
+			'test IssueList.sort proper order': function() {
+				// Similar to 'test IssueList.sort', but we want
+				// to ensure that function won't mess up properly ordered issues.
+				var wrapper = CKEDITOR.document.getBody().append( new CKEDITOR.dom.element( 'div' ) ),
+					mockup = {
+						sort: IssueList.prototype.sort
+					};
+
+				wrapper.setHtml( '<p id="p1"></p><p id="p2"></p><p id="p3"></p>' );
+
+				var children = wrapper.getChildren();
+
+				mockup.list = [ {
+					element: children.getItem( 0 )
+				}, {
+					element: children.getItem( 1 )
+				} , {
+					element: children.getItem( 2 )
+				} ];
+
+				try {
+					mockup.sort();
+
+					for ( var i = 0; i <= 2; i++ ) {
+						assert.areSame( children.getItem( i ), mockup.list[ i ].element,
+							'Member list[ ' + i + ' ] has correct element' );
+					}
+				} catch( e ) {
+					// Propagate the exception.
+					throw e;
+				} finally {
+					// In any case remove the wrapper.
+					wrapper.remove();
+				}
+			}
 		} );
 	} );
 })();

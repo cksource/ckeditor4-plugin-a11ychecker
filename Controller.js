@@ -123,6 +123,9 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 			that.editableDecorator.resolveEditorElements( issueList );
 			that.editableDecorator.markIssues( issueList );
 
+			// Sort the issues so they will keep their DOM order.
+			issueList.sort();
+
 			console.log( 'checking done' );
 			console.log( issueList );
 
