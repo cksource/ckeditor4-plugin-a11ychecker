@@ -45,6 +45,10 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	<h1 class="samples">
 		<a href="index.html">CKEditor Samples</a> &raquo; a11ychecker
 	</h1>
+	<h2>Informations</h2>
+	<p>
+		For more informations about default hotkeys, configs scroll over to <a href="#info">info</a> section below.
+	</p>
 	<h2>Framed editor</h2>
 	<textarea cols="80" id="editor1" name="editor1" rows="10">
 		<p><strong>this is sample line</strong></p>
@@ -85,6 +89,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 
 	</script>
+	<a name="info"></a>
 	<h2 style="clear: both;">Default navigation hotkeys</h2>
 	<p>
 		The default navigation hotkeys are:
@@ -92,9 +97,9 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	<ul>
 		<li><kbd>CTRL+E</kbd> - Next issue</li>
 		<li><kbd>CTRL+SHIFT+E</kbd> - Previous issue</li>
-		<li><kbd>CTRL+ALT+E</kbd> - Enable Accessibility Checker</li>
+		<li><kbd>CTRL+ALT+E</kbd> - Toggles the Accessibility Checker plugin</li>
 	</ul>
-	<h2 style="clear: both;">Different Engine</h2>
+	<h2>Different Engine</h2>
 	<p>
 		To change Accessibility Checker engine use config. Sample config snippet with different combinations:
 	</p>
@@ -109,6 +114,21 @@ config.a11ychecker_engineParams = { jsonPath: 'libs/quail/2.2.8/' };
 
 // Mock:
 //config.a11ychecker_engine = 'EngineMock';
+	</pre>
+	<h2>Change hotkeys</h2>
+	<p>
+		Hotkeys can be customized using config, like following:
+	</p>
+	<pre>
+// Override default Accessibility Checker hotkeys.
+config.a11ychecker_hotkeys = {
+	// CTRL+SHIFT+O
+	open: CKEDITOR.CTRL + CKEDITOR.SHIFT + 79,
+	// CTRL+SHIFT+[
+	prev: CKEDITOR.CTRL + CKEDITOR.SHIFT + 219,
+	// CTRL+SHIFT+]
+	next: CKEDITOR.CTRL + CKEDITOR.SHIFT + 221
+};
 	</pre>
 	<div id="footer">
 		<hr>
