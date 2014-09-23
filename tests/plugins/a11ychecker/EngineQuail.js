@@ -136,7 +136,6 @@
 					contentElement = CKEDITOR.document.getById( 'quailMarkupSource' ),
 					callbackCalled = 0,
 					callback = function( list ) {
-						console.log('kallbek');
 						callbackCalled += 1;
 
 						resume( function() {
