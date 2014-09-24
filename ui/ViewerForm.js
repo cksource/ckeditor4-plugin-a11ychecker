@@ -158,8 +158,13 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 				evt.data.preventDefault();
 			}, this );
 
-			// Enter, space.
-			this.parts.wrapper.on( 'keydown', keyListener( [ 13, 32 ], function( evt ) {
+			// Enter.
+			this.parts.wrapper.on( 'keydown', keyListener( 13, function( evt ) {
+				this.fire( 'submit' );
+			} ), this );
+
+			// Space
+			this.parts.button.on( 'keydown', keyListener( 32, function( evt ) {
 				this.fire( 'submit' );
 			} ), this );
 		},
