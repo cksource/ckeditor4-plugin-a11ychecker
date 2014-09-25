@@ -13,7 +13,9 @@ define( function() {
 	function EditableDecorator( editor ) {
 		this.editor = editor;
 
-		this.addListeners();
+		if ( editor ) {
+			this.addListeners();
+		}
 	}
 
 	EditableDecorator.prototype = {};

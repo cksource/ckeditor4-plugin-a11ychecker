@@ -12,7 +12,8 @@
 			},
 
 			'test Controller constructor': function() {
-				var editor = {},
+				// Lets use 0 as editor, so EditableDecorator.attachListeners won't be called.
+				var editor = 0,
 					controller = new Controller( editor );
 
 				assert.areSame( editor, controller.editor, 'editor property is stored' );
