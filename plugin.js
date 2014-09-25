@@ -51,53 +51,7 @@
 			} );
 
 			this.commandRegister( editor );
-			// We may combine two functions below.
-			this.addDataTransformationListeners( editor );
-			this.addEditorListeners( editor );
 			this.addHotkeys( editor );
-		},
-
-		/**
-		 * @todo: this responsibility should be moved to EditableDecorator.
-		 */
-		// Transformation listener will make sure that data-quail-id attributes
-		// are stripped for output.
-		addDataTransformationListeners: function( editor ) {
-			editor.dataProcessor.htmlFilter.addRules( {
-				elements: {
-					$: function( element ) {
-						if ( !editor._.a11ychecker.disableFilterStrip )
-							delete element.attributes[ 'data-quail-id' ];
-
-						return element;
-					}
-				}
-			} );
-		},
-
-		addEditorListeners: function( editor ) {
-
-			editor.on( 'contentDom', function() {
-				// Detects a single clicks to propse some quickfixes, and bring
-				// the focus.
-				editor.document.on( 'click', function( evt ) {
-					var target = evt.data.getTarget(),
-						a11ychecker = editor._.a11ychecker;
-
-					if ( target.hasClass( 'cke_a11ychecker_error' ) ) {
-						var issueList = a11ychecker.issues,
-							issue = issueList.getIssueByElement( target ),
-							offset = issueList.indexOf( issue );
-
-						if ( issue ) {
-							a11ychecker.issues.moveTo( offset );
-							a11ychecker.viewerController.showIssue( issue );
-						} else {
-							console.warn( 'unidentified issue for element' + offset ); // %REMOVE_LINE_CORE%
-						}
-					}
-				} );
-			} );
 		},
 
 		/**

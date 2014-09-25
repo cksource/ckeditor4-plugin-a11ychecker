@@ -12,6 +12,8 @@ define( function() {
 	 */
 	function EditableDecorator( editor ) {
 		this.editor = editor;
+
+		this.addListeners();
 	}
 
 	EditableDecorator.prototype = {};
@@ -40,6 +42,63 @@ define( function() {
 	 */
 	EditableDecorator.prototype.editable = function() {
 		return this.editor.editable();
+	};
+
+	/**
+	 * Adds a HTML class to each issue element, indicating that element is causing a11y problems.
+	 *
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} list
+	 */
+	EditableDecorator.prototype.markIssues = function( list ) {
+		for ( var i = 0, len = list.count(); i < len; i++ ) {
+			list.getItem( i ).element.addClass( 'cke_a11ychecker_error' );
+		}
+	};
+
+	/**
+	 * Adds listeners to {@link CKEDITOR.editor}
+	 */
+	EditableDecorator.prototype.addListeners = function() {
+		var editor = this.editor;
+
+		// We presume that editable is already up and running. If it would not, we'd
+		// need to use editor#contentDom event.
+		if ( !editor.editable() ) {
+			throw new Error( 'Editable not available' );
+		}
+
+		// Detects a single clicks to on elements marked as accessibility errors. Moves
+		// focus to issue associated with given element.
+		editor.document.on( 'click', function( evt ) {
+			var target = evt.data.getTarget(),
+				a11ychecker = editor._.a11ychecker;
+
+			if ( target.hasClass( 'cke_a11ychecker_error' ) ) {
+				var issueList = a11ychecker.issues,
+					issue = issueList.getIssueByElement( target ),
+					offset = issueList.indexOf( issue );
+
+				if ( issue ) {
+					a11ychecker.issues.moveTo( offset );
+					a11ychecker.viewerController.showIssue( issue );
+				} else {
+					console.warn( 'unidentified issue for element' + offset ); // %REMOVE_LINE_CORE%
+				}
+			}
+		} );
+
+		// Add transformation rule, that will make sure that no data-quail-id attributes
+		// are given to output.
+		editor.dataProcessor.htmlFilter.addRules( {
+			elements: {
+				$: function( element ) {
+					if ( !editor._.a11ychecker.disableFilterStrip )
+						delete element.attributes[ EditableDecorator.ID_ATTRIBUTE_NAME_FULL ];
+
+					return element;
+				}
+			}
+		} );
 	};
 
 	/**
@@ -120,17 +179,6 @@ define( function() {
 			a11yId = curIssue.originalElement.data( EditableDecorator.ID_ATTRIBUTE_NAME );
 			// Having this id we can simply fire a selector looking for matching element in editable.
 			curIssue.element = editable.findOne( '*[' + EditableDecorator.ID_ATTRIBUTE_NAME_FULL + '="' + a11yId + '"]' );
-		}
-	};
-
-	/**
-	 * Adds a HTML class to each issue element, indicating that element is causing a11y problems.
-	 *
-	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} list
-	 */
-	EditableDecorator.prototype.markIssues = function( list ) {
-		for ( var i = 0, len = list.count(); i < len; i++ ) {
-			list.getItem( i ).element.addClass( 'cke_a11ychecker_error' );
 		}
 	};
 
