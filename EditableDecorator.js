@@ -56,7 +56,7 @@ define( function() {
 	};
 
 	/**
-	 * Adds listeners to {@link CKEDITOR.editor}
+	 * Adds listeners to the {@link CKEDITOR.editor} instance.
 	 */
 	EditableDecorator.prototype.addListeners = function() {
 		var editor = this.editor;
@@ -69,23 +69,7 @@ define( function() {
 
 		// Detects a single clicks to on elements marked as accessibility errors. Moves
 		// focus to issue associated with given element.
-		editor.document.on( 'click', function( evt ) {
-			var target = evt.data.getTarget(),
-				a11ychecker = editor._.a11ychecker;
-
-			if ( target.hasClass( 'cke_a11ychecker_error' ) ) {
-				var issueList = a11ychecker.issues,
-					issue = issueList.getIssueByElement( target ),
-					offset = issueList.indexOf( issue );
-
-				if ( issue ) {
-					a11ychecker.issues.moveTo( offset );
-					a11ychecker.viewerController.showIssue( issue );
-				} else {
-					console.warn( 'unidentified issue for element' + offset ); // %REMOVE_LINE_CORE%
-				}
-			}
-		} );
+		editor.document.on( 'click', CKEDITOR.tools.bind( this.clickListener, this ) );
 
 		// Add transformation rule, that will make sure that no data-quail-id attributes
 		// are given to output.
@@ -158,6 +142,29 @@ define( function() {
 				element.removeClass( 'cke_a11y_focused' );
 			}
 		}, CKEDITOR.NODE_ELEMENT, false );
+	};
+
+	/**
+	 * A listener attached to the {@link CKEDITOR.editable}.
+	 *
+	 * @param {CKEDITOR.dom.event} evt
+	 */
+	EditableDecorator.prototype.clickListener = function( evt ) {
+		var target = evt.data.getTarget(),
+			a11ychecker = this.editor._.a11ychecker;
+
+		if ( target.hasClass( 'cke_a11ychecker_error' ) ) {
+			var issueList = a11ychecker.issues,
+				issue = issueList.getIssueByElement( target ),
+				offset = issueList.indexOf( issue );
+
+			if ( issue ) {
+				a11ychecker.issues.moveTo( offset );
+				a11ychecker.viewerController.showIssue( issue );
+			} else {
+				console.warn( 'unidentified issue for element' + offset ); // %REMOVE_LINE_CORE%
+			}
+		}
 	};
 
 	/**
