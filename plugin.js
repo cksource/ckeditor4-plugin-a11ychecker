@@ -152,8 +152,6 @@
 				} );
 			}
 
-			CKEDITOR.dialog.add( pluginName, this.path + 'dialogs/a11ychecker.js' );
-
 			// Insert contents CSS.
 			editor.addContentsCss( this.path + 'styles/contents.css' );
 		},
