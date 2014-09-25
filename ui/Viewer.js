@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm' ], function( ViewerDescription, ViewerNavigation, ViewerForm ) {
+define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/ViewerFocusManager' ], function( ViewerDescription, ViewerNavigation, ViewerForm, ViewerFocusManager ) {
 	/**
 	 * A class which represents the end-user interface of a11ychecker. Viewer is a panel
 	 * which allows to browse and fix issues in the contents.
@@ -42,6 +42,16 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm' ], func
 				this.hide();
 			}, this ) );
 		} );
+
+		this.focusManager = new ViewerFocusManager();
+
+		/**
+		 * @todo: HACK DETECTED! For the time being we weill simply inject ViewerFocusManager
+		 * function to panel. Later on this manager will have to be used in balloon.
+		 */
+		var that = this;
+		this.panel.registerFocusable = function( elem ) { that.focusManager.addItem( elem ); };
+		this.panel.deregisterFocusable = function( elem ) { that.focusManager.removeItem( elem ); };
 
 		this.setupNavigation();
 		this.setupDescription();

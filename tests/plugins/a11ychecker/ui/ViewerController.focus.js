@@ -84,7 +84,72 @@
 				}, 300 );
 
 				wait();
+			},
+
+			'test focus trap': function() {
+				// Dialog should have focus trap applied.
+				// That means that shift-tab at first focusable element should take you to the last one,
+				// and vice versa.
+				var a11ychecker = this.editor._.a11ychecker,
+					viewer = a11ychecker.viewerController.viewer,
+					expectedFocusElem = viewer.navigation.parts.previous;
+				a11ychecker.exec();
+				// Will focus next button.
+				a11ychecker.next();
+
+				window.setTimeout( function() {
+					resume( function() {
+						viewer.navigation.parts.next.fire( 'keydown', getKeyEvent( 9 ) );
+
+						var activeElement = CKEDITOR.document.getActive();
+						assert.areSame( expectedFocusElem, activeElement, 'Invalid element focused' );
+					} );
+				}, 300 );
+
+				wait();
+			},
+
+			'test focus trap reversed': function() {
+				// Dialog should have focus trap applied.
+				// That means that shift-tab at first focusable element should take you to the last one,
+				// and vice versa.
+				var a11ychecker = this.editor._.a11ychecker,
+					viewer = a11ychecker.viewerController.viewer,
+					expectedFocusElem = viewer.navigation.parts.next;
+				a11ychecker.exec();
+				// Will focus prev button.
+				a11ychecker.prev();
+
+				window.setTimeout( function() {
+					resume( function() {
+						viewer.navigation.parts.previous.fire( 'keydown', getKeyEvent( CKEDITOR.SHIFT + 9 ) );
+
+						var activeElement = CKEDITOR.document.getActive();
+						assert.areSame( expectedFocusElem, activeElement, 'Invalid element focused' );
+					} );
+				}, 300 );
+
+				wait();
 			}
 		} );
+
+		// Returns a key event mockup.
+		// @param {Number} keystroke Keystroke with modifiers. eg. CKEDITOR.SHIFT + 9 // shift + tab
+		function getKeyEvent( keystroke ) {
+			// This fancy construction will remove modifier bits.
+			var key = keystroke & ~( CKEDITOR.CTRL | CKEDITOR.ALT | CKEDITOR.SHIFT );
+			return {
+				getKey: function() {
+					return key;
+				},
+				getKeystroke: function() {
+					return keystroke;
+				},
+				stopPropagation: function() {
+				},
+				preventDefault: function() {
+				}
+			};
+		}
 	} );
 } )();
