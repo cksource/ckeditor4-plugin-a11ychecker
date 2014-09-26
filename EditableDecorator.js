@@ -155,8 +155,26 @@ define( function() {
 		var target = evt.data.getTarget(),
 			a11ychecker = this.editor._.a11ychecker;
 
-		if ( target.hasClass( 'cke_a11ychecker_error' ) ) {
+		if ( !target.hasClass( 'cke_a11ychecker_error' ) ) {
+			// If the clicked node itself isn't marked as a11y error, we'll look for closest
+			// parent.
+			var parents = target.getParents( true ),
+				i;
+
+			target = null;
+
+			for ( i = 0; i < parents.length; i++ ) {
+				if ( parents[ i ].hasClass( 'cke_a11ychecker_error' ) ) {
+					target = parents[ i ];
+					break;
+				}
+			}
+		}
+
+		if ( target ) {
 			a11ychecker.showIssueByElement( target );
+		} else {
+			// User clicked area without issue.
 		}
 	};
 

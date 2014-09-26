@@ -152,47 +152,66 @@
 			},
 
 			'test clickListener': function() {
-				var showIssueByElementMock = sinon.spy(),
+				patchMockupForClick( this.mockup );
+
+				var showIssueByElementMock = this.mockup.editor._.a11ychecker.showIssueByElement,
 					element = CKEDITOR.document.getById( 'nestedIssue' ).$,
 					evtMock = new CKEDITOR.dom.event( {
 						target: element
 					} );
 
-				this.mockup.editor = {
-					_: {
-						a11ychecker: {
-							showIssueByElement: showIssueByElementMock
-						}
-					}
-				};
+				this.mockup.clickListener( { data: evtMock } );
+
+				assert.areSame( 1, showIssueByElementMock.callCount, 'Controller.showIssueByElement calls count' );
+				assert.areSame( element, showIssueByElementMock.args[ 0 ][ 0 ].$ );
+			},
+
+			'test clickListener nested': function() {
+				// This time function will be called on element nested within
+				// element marked as a11y issue.
+				patchMockupForClick( this.mockup );
+
+				var showIssueByElementMock = this.mockup.editor._.a11ychecker.showIssueByElement,
+					// A parent, which is marked with cke_a11ychecker_error class.
+					issueElement = CKEDITOR.document.findOne( '#fakeErrors .cke_a11ychecker_error' ),
+					// A nested element, which doesnt have a error class, but will receive click event.
+					element = issueElement.findOne( 'p' ).$,
+					evtMock = new CKEDITOR.dom.event( {
+						target: element
+					} );
 
 				this.mockup.clickListener( { data: evtMock } );
 
 				assert.areSame( 1, showIssueByElementMock.callCount, 'Controller.showIssueByElement calls count' );
-				assert.isInstanceOf( CKEDITOR.dom.element, showIssueByElementMock.args[ 0 ][ 0 ] );
+				assert.areSame( issueElement, showIssueByElementMock.args[ 0 ][ 0 ] );
 			},
 
 			'test clickListener invalid': function() {
 				// Lets call standard element, which is not marked as an a11y issue, nor
 				// it has parents marked as issued.
-				var showIssueByElementMock = sinon.spy(),
+				patchMockupForClick( this.mockup );
+
+				var showIssueByElementMock = this.mockup.editor._.a11ychecker.showIssueByElement,
 					element = CKEDITOR.dom.element.createFromHtml( '<div></div>' ).$,
 					evtMock = new CKEDITOR.dom.event( {
 						target: element
 					} );
-
-				this.mockup.editor = {
-					_: {
-						a11ychecker: {
-							showIssueByElement: showIssueByElementMock
-						}
-					}
-				};
 
 				this.mockup.clickListener( { data: evtMock } );
 
 				assert.areSame( 0, showIssueByElementMock.callCount, 'Controller.showIssueByElement calls count' );
 			}
 		} );
+
+		// Patches mockup so it can work with clickListener function.
+		function patchMockupForClick( editableDecoratorMockup ) {
+			editableDecoratorMockup.editor = {
+				_: {
+					a11ychecker: {
+						showIssueByElement: sinon.spy()
+					}
+				}
+			};
+		}
 	} );
 } )();
