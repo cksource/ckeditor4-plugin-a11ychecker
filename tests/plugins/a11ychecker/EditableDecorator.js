@@ -5,7 +5,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'EditableDecorator', 'mock/EditableDecoratorMockup', 'IssueList' ], function( EditableDecorator, EditableDecoratorMockup, IssueList ) {
+	require( [ 'EditableDecorator', 'mock/EditableDecoratorMockup', 'mock/IssueListMockup', 'IssueList', 'helpers/sinon/sinon_amd.min' ], function( EditableDecorator, EditableDecoratorMockup, IssueListMockup, IssueList, sinon ) {
 		bender.test( {
 
 			setUp: function() {
@@ -139,9 +139,9 @@
 
 				// Set expected elements (the ones with matching data-quail-id attr).
 				var expectedElements = [
-						this.mockup.editable().findOne( 'p' ),
-						this.mockup.editable().findOne( 'img' )
-					];
+					this.mockup.editable().findOne( 'p' ),
+					this.mockup.editable().findOne( 'img' )
+				];
 
 				for ( var i = 0; i < expectedElements.length; i++ ) {
 					assert.isInstanceOf( CKEDITOR.dom.element, issueListMockup.list[ i ].element,
@@ -149,6 +149,49 @@
 					assert.areSame( expectedElements[ i ], issueListMockup.list[ i ].element,
 						'Invalid element at offset ' + i );
 				}
+			},
+
+			'test clickListener': function() {
+				var showIssueByElementMock = sinon.spy(),
+					element = CKEDITOR.document.getById( 'nestedIssue' ).$,
+					evtMock = new CKEDITOR.dom.event( {
+						target: element
+					} );
+
+				this.mockup.editor = {
+					_: {
+						a11ychecker: {
+							showIssueByElement: showIssueByElementMock
+						}
+					}
+				};
+
+				this.mockup.clickListener( { data: evtMock } );
+
+				assert.areSame( 1, showIssueByElementMock.callCount, 'Controller.showIssueByElement calls count' );
+				assert.isInstanceOf( CKEDITOR.dom.element, showIssueByElementMock.args[ 0 ][ 0 ] );
+			},
+
+			'test clickListener invalid': function() {
+				// Lets call standard element, which is not marked as an a11y issue, nor
+				// it has parents marked as issued.
+				var showIssueByElementMock = sinon.spy(),
+					element = CKEDITOR.dom.element.createFromHtml( '<div></div>' ).$,
+					evtMock = new CKEDITOR.dom.event( {
+						target: element
+					} );
+
+				this.mockup.editor = {
+					_: {
+						a11ychecker: {
+							showIssueByElement: showIssueByElementMock
+						}
+					}
+				};
+
+				this.mockup.clickListener( { data: evtMock } );
+
+				assert.areSame( 0, showIssueByElementMock.callCount, 'Controller.showIssueByElement calls count' );
 			}
 		} );
 	} );

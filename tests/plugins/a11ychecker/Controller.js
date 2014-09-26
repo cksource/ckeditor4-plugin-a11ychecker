@@ -305,6 +305,59 @@
 				assert.isTrue( moveToMock.alwaysCalledWithExactly( 3 ), 'issues.moveTo params' );
 			},
 
+			'test Controller.showIssueByElement': function() {
+				var element = {},
+					issue = {},
+					getIssueByElementMock = sinon.spy( function() {
+						return issue;
+					} ),
+					controllerMock = {
+						issues: {
+							getIssueByElement: getIssueByElementMock
+						},
+						showIssue: sinon.spy( function() {
+							return true;
+						} ),
+						showIssueByElement: Controller.prototype.showIssueByElement
+					},
+					ret;
+
+				ret = controllerMock.showIssueByElement( element );
+
+				assert.areSame( 1, getIssueByElementMock.callCount, 'IssueList.getIssueByElement calls count' );
+				assert.areSame( element, getIssueByElementMock.args[ 0 ][ 0 ], 'IssueList.getIssueByElement first argument' );
+
+				// Ensure that controller.showIssue was called.
+				assert.areSame( 1, controllerMock.showIssue.callCount, 'Controller.showIssue calls count' );
+				assert.areSame( issue, controllerMock.showIssue.args[ 0 ][ 0 ], 'Controller.showIssue first argument' );
+
+				assert.isTrue( ret, 'Return value' );
+			},
+
+			'test Controller.showIssueByElement invalid': function() {
+				// We'll use DOM element which is not associated with any issue.
+				var element = {},
+					getIssueByElementMock = sinon.spy( function() {
+						return null;
+					} ),
+					controllerMock = {
+						issues: {
+							getIssueByElement: getIssueByElementMock
+						},
+						showIssue: sinon.spy( function() {
+						} ),
+						showIssueByElement: Controller.prototype.showIssueByElement
+					},
+					ret;
+
+				ret = controllerMock.showIssueByElement( element );
+
+				// Ensure that controller.showIssue was called.
+				assert.areSame( 0, controllerMock.showIssue.callCount, 'Controller.showIssue calls count' );
+
+				assert.isFalse( ret, 'Return value' );
+			},
+
 			'test Controller.showIssue non-existing issue': function() {
 				// In case of invalid index, moveToMock will detect it and
 				// return false. showIssue should return false too.

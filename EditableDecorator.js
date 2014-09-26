@@ -149,23 +149,14 @@ define( function() {
 	/**
 	 * A listener attached to the {@link CKEDITOR.editable}.
 	 *
-	 * @param {CKEDITOR.dom.event} evt
+	 * @param {Object} evt Click event object.
 	 */
 	EditableDecorator.prototype.clickListener = function( evt ) {
 		var target = evt.data.getTarget(),
 			a11ychecker = this.editor._.a11ychecker;
 
 		if ( target.hasClass( 'cke_a11ychecker_error' ) ) {
-			var issueList = a11ychecker.issues,
-				issue = issueList.getIssueByElement( target ),
-				offset = issueList.indexOf( issue );
-
-			if ( issue ) {
-				a11ychecker.issues.moveTo( offset );
-				a11ychecker.viewerController.showIssue( issue );
-			} else {
-				console.warn( 'unidentified issue for element' + offset ); // %REMOVE_LINE_CORE%
-			}
+			a11ychecker.showIssueByElement( target );
 		}
 	};
 

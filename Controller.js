@@ -204,7 +204,7 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue/Number} Issue object or 0-based index in
 	 * the {@link CKEDITOR.plugins.a11ychecker.IssueList}.
 	 * @param {Function} callback Function to be called when issue is focused.
-	 * @returns {Boolean} returns `false` if given issue was not found, `true` otherwise.1
+	 * @returns {Boolean} returns `false` if given issue was not found, `true` otherwise.
 	 */
 	Controller.prototype.showIssue = function( issue, callback ) {
 		var issues = this.issues,
@@ -225,6 +225,24 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		return ret;
 	};
 
+	/**
+	 * Shows the issue given its element (in editable).
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {CKEDITOR.dom.element} element Element causing the issue. Stored in
+	 * {@Link CKEDITOR.plugins.a11ychecker.Issue#element}.
+	 * @param {Function} callback Function to be called when issue is focused.
+	 * @returns {Boolean} returns `false` if given issue was not found, `true` otherwise.
+	 */
+	Controller.prototype.showIssueByElement = function( element, callback ) {
+		var issue = this.issues.getIssueByElement( element );
+
+		if ( issue ) {
+			return this.showIssue( issue, callback );
+		} else {
+			return false;
+		}
+	};
 
 	/**
 	 * Closes the Accessibility Checker, hiding all the UI, reseting internal
