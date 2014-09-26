@@ -1,5 +1,5 @@
 
-define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
+define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'EditableDecorator', 'ui/Ui' ], function( CheckingMode, ListeningMode, EditableDecorator, Ui ) {
 	'use strict';
 
 	/**
@@ -45,6 +45,18 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		 */
 		this.ui = new Ui( this );
 	}
+
+	/**
+	 * Enumerates controller modes, used in {@link #setMode}.
+	 *
+	 * @class CKEDITOR.plugins.a11ychecker.Controller
+	 * @static
+	 * @readonly
+	 */
+	Controller.modes = {
+		CHECKING: 1,
+		LISTENING: 2
+	};
 
 	Controller.prototype = {
 		/**
@@ -293,6 +305,35 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 			this.viewerController.hide();
 		}
 	};
+
+	/**
+	 * Sets controller mode.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {Number} mode Mode constant, based on {@link CKEDITOR.plugins.a11ychecker.Controller#modes}.
+	 */
+	Controller.prototype.setMode = function( mode ) {
+		var modeConstructors = {},
+			targetConstructor;
+
+		modeConstructors[ Controller.modes.CHECKING ] = CheckingMode;
+		modeConstructors[ Controller.modes.LISTENING ] = ListeningMode;
+
+		targetConstructor = modeConstructors[ mode ];
+
+		if ( !targetConstructor ) {
+			throw new Error( 'Invalid mode value, use Controller.modes members' );
+		}
+
+		if ( this.mode ) {
+			// Old mode should be closed before new one will be inited.
+			this.mode.close();
+		}
+
+		this.mode = new targetConstructor( this );
+		this.mode.init();
+	};
+
 
 	/**
 	 * Method to be called when no issues are deteted during the checking. It's supposed

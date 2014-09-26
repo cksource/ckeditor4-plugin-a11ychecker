@@ -5,7 +5,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'Controller', 'mock/ControllerMockup', 'helpers/sinon/sinon_amd.min' ], function( Controller, ControllerMockup, sinon ) {
+	require( [ 'Controller', 'mock/ControllerMockup', 'Controller/CheckingMode', 'helpers/sinon/sinon_amd.min' ], function( Controller, ControllerMockup, CheckingMode, sinon ) {
 		bender.test( {
 			setUp: function() {
 				this.mockup = getControllerMockup();
@@ -114,6 +114,53 @@
 
 				assert.isTrue( mockup.enabled, 'Controller.enabled property value' );
 				assert.areSame( 0, mockup.fire.callCount, 'Controller.fire calls count' );
+			},
+
+			'test Controller.setMode': function() {
+				// We'll replace CheckingMode.init method, to see if it was called.
+				var modeInitMock = sinon.spy(),
+					revert = bender.tools.replaceMethod( CheckingMode.prototype, 'init', modeInitMock );
+
+				try {
+					this.mockup.setMode( Controller.modes.CHECKING );
+
+					assert.isInstanceOf( CheckingMode, this.mockup.mode, 'mode property has a valid type' );
+					assert.areSame( 1, modeInitMock.callCount, 'Created mode object attach calls count' );
+				} catch( e ) {
+					// Propagate exception.
+					throw e;
+				} finally {
+					revert();
+				}
+			},
+
+			'test Controller.setMode with existing mode': function() {
+				// In case of existing mode, the old one should be closed.
+				var oldMode = {
+					close: sinon.spy()
+				};
+
+				this.mockup.mode = oldMode;
+
+				this.mockup.setMode( Controller.modes.CHECKING );
+
+				assert.areSame( 1, oldMode.close.callCount, 'Old mode close() calls count' );
+				assert.areNotSame( this.mockup.mode, oldMode, 'mode property changed' );
+			},
+
+			'test Controller.setMode invalid value': function() {
+				// In case of invalid value it should thorw an exception.
+				var exceptionMessage = null;
+
+				try {
+					this.mockup.setMode( 5000 );
+				} catch ( e ) {
+					exceptionMessage = String( e );
+				} finally {
+					assert.isNotNull( exceptionMessage, 'Exception was thrown' );
+					assert.areSame( 'Error: Invalid mode value, use Controller.modes members',
+						exceptionMessage, 'Exception message' );
+				}
 			},
 
 			'test Controller.getTempOutput first call': function() {
