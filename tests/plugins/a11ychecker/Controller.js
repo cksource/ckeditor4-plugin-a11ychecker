@@ -5,7 +5,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'Controller', 'helpers/sinon/sinon_amd.min' ], function( Controller, sinon ) {
+	require( [ 'Controller', 'mock/ControllerMockup', 'helpers/sinon/sinon_amd.min' ], function( Controller, ControllerMockup, sinon ) {
 		bender.test( {
 			setUp: function() {
 				this.mockup = getControllerMockup();
@@ -257,42 +257,44 @@
 			},
 
 			'test Controller.showIssue': function() {
-				var moveToMock = sinon.spy( function() {
-						return true;
-					} ),
-					controllerMock = {
-						issues: {
-							moveTo: moveToMock
-						},
-						showIssue: Controller.prototype.showIssue
-					},
+				var controllerMock = new ControllerMockup(),
 					ret;
+				// We're using real showIssue().
+				controllerMock.showIssue = Controller.prototype.showIssue;
+				// List must be set.
+				controllerMock.issues.list = [ 3, 5, 7 ];
+				// Function moveTo must return true.
+				var moveToMock = controllerMock.issues.moveTo = sinon.spy( function() {
+					return true;
+				} );
 
 				ret = controllerMock.showIssue( 2 );
 
 				assert.isTrue( ret, 'Return value' );
-				assert.areSame( 1, moveToMock.callCount, 'issues.showIssue calls count' );
+				assert.areSame( 1, moveToMock.callCount, 'issues.moveTo calls count' );
 				assert.isTrue( moveToMock.alwaysCalledWithExactly( 2 ), 'issues.moveTo params' );
 			},
+
 
 			'test Controller.showIssue with object': function() {
 				// When calling showIssue with an object, it should call
 				// indexOf with the issue to get its index.
 				var issue = {},
+					issueIndex = 2,
 					moveToMock = sinon.spy( function() {
 						return true;
 					} ),
 					indexOfMock = sinon.spy( function() {
-						return 3;
+						return issueIndex;
 					} ),
-					controllerMock = {
-						issues: {
-							moveTo: moveToMock,
-							indexOf: indexOfMock
-						},
-						showIssue: Controller.prototype.showIssue
-					},
+					controllerMock = new ControllerMockup(),
 					ret;
+
+				controllerMock.issues.indexOf = indexOfMock;
+				controllerMock.issues.moveTo = moveToMock;
+				controllerMock.issues.list = [ 3, 5, issue ];
+
+				controllerMock.showIssue = Controller.prototype.showIssue;
 
 				ret = controllerMock.showIssue( issue );
 
@@ -301,8 +303,31 @@
 
 
 				assert.isTrue( ret, 'Return value' );
-				assert.areSame( 1, moveToMock.callCount, 'issues.showIssue calls count' );
-				assert.isTrue( moveToMock.alwaysCalledWithExactly( 3 ), 'issues.moveTo params' );
+				assert.areSame( 1, moveToMock.callCount, 'issues.moveTo calls count' );
+				assert.isTrue( moveToMock.alwaysCalledWithExactly( issueIndex ), 'issues.moveTo params' );
+			},
+
+			'test Controller.showIssue to focused elem': function() {
+				// If showIssue will be called with currently focused item,
+				// method should not call once again all the internals.
+				// Note that issues.getItem and issues.getFocused needs to return
+				// same thing.
+				var moveToMock = sinon.spy( function() {} ),
+					controllerMock = {
+						issues: {
+							moveTo: moveToMock,
+							getFocused: sinon.spy( function() {
+								return 3;
+							} ),
+							getItem: sinon.spy( function() {
+								return 3;
+							} )
+						},
+						showIssue: Controller.prototype.showIssue
+					};
+
+				assert.isTrue( controllerMock.showIssue( 1 ), 'Return value' );
+				assert.areSame( 0, moveToMock.callCount, 'issues.moveTo calls count' );
 			},
 
 			'test Controller.showIssueByElement': function() {
@@ -364,19 +389,15 @@
 				var moveToMock = sinon.spy( function() {
 						return false;
 					} ),
-					controllerMock = {
-						issues: {
-							moveTo: moveToMock
-						},
-						showIssue: Controller.prototype.showIssue
-					},
+					controllerMock = new ControllerMockup(),
 					ret;
+
+				controllerMock.showIssue = Controller.prototype.showIssue;
 
 				ret = controllerMock.showIssue( -1 );
 
 				assert.isFalse( ret, 'Return value' );
-				assert.areSame( 1, moveToMock.callCount, 'issues.showIssue calls count' );
-				assert.isTrue( moveToMock.alwaysCalledWithExactly( -1 ), 'issues.moveTo params' );
+				assert.areSame( 0, moveToMock.callCount, 'issues.moveTo calls count' );
 			}
 		} );
 

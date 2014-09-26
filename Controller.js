@@ -208,16 +208,31 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 	 */
 	Controller.prototype.showIssue = function( issue, callback ) {
 		var issues = this.issues,
+			// Issue index in the issue list.
+			issueIndex = issue,
+			// Issue object instacne, assigned once index is knwon.
+			issueObject,
 			ret;
 
-		if ( typeof issue != 'number' ) {
-			issue = issues.indexOf( issue );
+		if ( typeof issueIndex != 'number' ) {
+			issueIndex = issues.indexOf( issueIndex );
 		}
 
-		ret = issues.moveTo( issue );
+		issueObject = issues.getItem( issueIndex );
+
+		if ( issueObject && issueObject == issues.getFocused() ) {
+			if ( callback ) {
+				// Normally callback would be called with ViewerController context,
+				// so we need to keep it consistent.
+				callback.call( this.viewerController );
+			}
+			return true;
+		}
+
+		ret = issues.moveTo( issueIndex );
 
 		if ( ret && this.viewerController ) {
-			this.viewerController.showIssue( issues.getItem( issue ), {
+			this.viewerController.showIssue( issues.getItem( issueIndex ), {
 				callback: callback
 			} );
 		}
