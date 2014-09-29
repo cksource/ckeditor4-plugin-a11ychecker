@@ -10,3 +10,18 @@
 	outline: 3px solid rgb(228, 123, 9) !important;
 	background-color: rgba(224, 136, 41, 0.3) !important;
 }
+
+.cke_editable.cke_loading,
+.cke_editable.cke_loading a,
+.cke_editable.cke_loading img,
+.cke_editable.cke_editable_inline.cke_focus.cke_loading {
+	cursor: wait;
+}
+
+.cke_a11ychecker_error:hover {
+	cursor: pointer;
+}
+
+.cke_a11ychecker_error.cke_a11y_focused:hover {
+	cursor: auto;
+}
