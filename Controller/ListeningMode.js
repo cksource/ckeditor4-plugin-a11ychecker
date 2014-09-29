@@ -66,7 +66,7 @@ define( function() {
 	};
 
 	Notification.prototype.hide = function() {
-		this.element.remove( true );
+		this.element.remove();
 	};
 
 	/**
