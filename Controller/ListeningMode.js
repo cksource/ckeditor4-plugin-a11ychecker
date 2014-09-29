@@ -40,6 +40,7 @@ define( function() {
 		this.notification.element.on( 'click', function() {
 			// User intend to check the content once again.
 			that.controller.check();
+			that.controller.editor.focus();
 		} );
 	};
 
