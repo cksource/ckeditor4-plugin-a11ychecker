@@ -165,13 +165,16 @@
 	 * Defined here, so only one function instance is in memory, and they're shared across
 	 * editors.
 	 */
-
 	function cmdNext( editor ) {
-		return editor._.a11ychecker.next();
+		if ( a11ycheckerInCheckingMode( editor ) ) {
+			return editor._.a11ychecker.next();
+		}
 	}
 
 	function cmdPrev( editor ) {
-		return editor._.a11ychecker.prev();
+		if ( a11ycheckerInCheckingMode( editor ) ) {
+			return editor._.a11ychecker.prev();
+		}
 	}
 
 	function cmdExec( editor ) {
@@ -180,6 +183,14 @@
 
 	function cmdClose( editor ) {
 		return editor._.a11ychecker.close();
+	}
+
+	// Tmp helper method, returns true if given editor Accessibility Checker is in
+	// CHECKING mode.
+	function a11ycheckerInCheckingMode( editor ) {
+		var a11ychecker = editor._.a11ychecker;
+
+		return ( a11ychecker && a11ychecker.modeType === a11ychecker.constructor.modes.CHECKING );
 	}
 
 	// Expose UI classes.
