@@ -11,13 +11,19 @@ This repository contains the development version of Accessibility checker plugin
 # Assuming that $CKEDITOR_DEV_PATH is your CKEditor path
 cd $CKEDITOR_DEV_PATH/plugins
 git clone git@github.com:cksource/ckeditor-a11ychecker.git a11ychecker
-cd a11ychecker
-bower install
-# quail needs some manual attention
-cd bower_components/quail
-npm install
-grunt build
 ```
+
+#### Checkout balloon plugin
+
+```bash
+git clone -b classRefact git@github.com:cksource/ckeditor-plugin-balloonpanel.git balloonpanel
+```
+
+### Where do I start?
+
+You should use `plugins/a11ychecker/dev/sample.html` sample to test the Accessibility Checker (eg. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/dev/sample.html)).
+
+Other samples will not work because of RequireJS dependency, which is not a part of standard CKEditor distribution.
 
 ### Tests installation
 
