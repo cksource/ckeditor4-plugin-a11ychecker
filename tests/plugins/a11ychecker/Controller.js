@@ -214,13 +214,16 @@
 							hide: sinon.spy()
 						},
 						close: Controller.prototype.close,
-						disable: sinon.spy()
+						disable: sinon.spy(),
+						mode: {
+							close: sinon.spy()
+						}
 					};
 
 				controllerMockup.close();
 
 				assert.areSame( 1, issueClearCalls, 'Controller.issue.clear calls count' );
-				assert.areSame( 1, removeMarkupCalls, 'Controller.editableDecorator.removeMarkupCalls calls count' );
+				//assert.areSame( 1, removeMarkupCalls, 'Controller.editableDecorator.removeMarkupCalls calls count' );
 				assert.areSame( 1, controllerMockup.ui.hide.callCount, 'ui.hide call count' );
 				assert.areSame( 1, controllerMockup.disable.callCount, 'Controller.disable calls count' );
 
@@ -558,6 +561,7 @@
 			controllerMockup.next = sinon.spy();
 			controllerMockup.enable = sinon.spy();
 			controllerMockup.disable = sinon.spy();
+			controllerMockup.setMode = sinon.spy();
 			controllerMockup.editableDecorator.resolveEditorElements = sinon.spy();
 			controllerMockup.editableDecorator.markIssues = sinon.spy();
 			controllerMockup.ui.update = sinon.spy();

@@ -173,12 +173,18 @@ define( function() {
 
 		if ( target ) {
 			if ( target.hasClass( 'cke_a11y_focused' ) ) {
-				a11ychecker.viewerController.showIssue( a11ychecker.issues.getIssueByElement( target ) );
+				// If clicked issue is already focused, then it means that user wants
+				// to edit it.
+				a11ychecker.setMode( 2 );
 			} else {
+				// Otherwise user clicked standard Accessibility issue.
 				a11ychecker.showIssueByElement( target );
+				a11ychecker.setMode( 1 ); // REMOVE ME! :((((
 			}
-		} else {
+		} else if ( a11ychecker.enabled ) {
 			// User clicked area without issue.
+			// Listening mode...
+			a11ychecker.setMode( 2 );
 		}
 	};
 

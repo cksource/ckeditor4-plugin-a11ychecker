@@ -1,5 +1,5 @@
 
-define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'EditableDecorator', 'ui/Ui' ], function( CheckingMode, ListeningMode, EditableDecorator, Ui ) {
+define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/BusyMode', 'EditableDecorator', 'ui/Ui' ], function( CheckingMode, ListeningMode, BusyMode, EditableDecorator, Ui ) {
 	'use strict';
 
 	/**
@@ -55,7 +55,8 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'EditableDecora
 	 */
 	Controller.modes = {
 		CHECKING: 1,
-		LISTENING: 2
+		LISTENING: 2,
+		BUSY: 3
 	};
 
 	Controller.prototype = {
@@ -109,6 +110,22 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'EditableDecora
 
 		this.enable();
 
+		// Do content checking.
+		this.check();
+	};
+
+	/**
+	 * Dispatches accessiblity check function. Noe that results might be asynchronous.
+	 *
+	 * Automatically sets the Controller mode to `BUSY` / `CHECKING`.
+	 */
+	Controller.prototype.check = function() {
+		var that = this,
+			editor = that.editor,
+			scratchpad;
+
+		this.setMode( Controller.modes.BUSY );
+
 		// UI must be visible.
 		this.ui.show();
 
@@ -135,15 +152,17 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'EditableDecora
 
 			// We need to determine Issue.element properties in each Issue.
 			that.editableDecorator.resolveEditorElements( issueList );
-			that.editableDecorator.markIssues( issueList );
+			//that.editableDecorator.markIssues( issueList );
 
 			// Sort the issues so they will keep their DOM order.
 			issueList.sort();
 
-			console.log( 'checking done' );
-			console.log( issueList );
+			console.log( 'checking done', issueList );
 
 			that.issues = issueList;
+
+			that.setMode( Controller.modes.CHECKING );
+
 			// Notify the UI about update.
 			that.ui.update();
 
@@ -164,6 +183,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'EditableDecora
 		this.engine.process( this, scratchpad, completeCallback );
 	};
 
+
 	Controller.prototype.disable = function() {
 		if ( this.enabled ) {
 			this.enabled = false;
@@ -175,6 +195,8 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'EditableDecora
 		if ( !this.enabled ) {
 			this.enabled = true;
 			this.fire( 'enabled' );
+
+			this.setMode( Controller.modes.CHECKING );
 		}
 	};
 
@@ -296,14 +318,9 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'EditableDecora
 
 		this.issues.clear();
 
-		// Remove all the DOM changes applied by the EditableDecorator.
-		this.editableDecorator.removeMarkup();
-
 		this.ui.hide();
 
-		if ( this.viewerController ) {
-			this.viewerController.hide();
-		}
+		this.mode.close();
 	};
 
 	/**
@@ -318,11 +335,17 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'EditableDecora
 
 		modeConstructors[ Controller.modes.CHECKING ] = CheckingMode;
 		modeConstructors[ Controller.modes.LISTENING ] = ListeningMode;
+		modeConstructors[ Controller.modes.BUSY ] = BusyMode;
 
 		targetConstructor = modeConstructors[ mode ];
 
 		if ( !targetConstructor ) {
 			throw new Error( 'Invalid mode value, use Controller.modes members' );
+		}
+
+		if ( mode === this.modeType ) {
+			// Same mode, no need to process anything.
+			return;
 		}
 
 		if ( this.mode ) {
@@ -332,6 +355,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'EditableDecora
 
 		this.mode = new targetConstructor( this );
 		this.mode.init();
+		this.modeType = mode;
 	};
 
 

@@ -335,3 +335,16 @@ input.cke_a11yc_ui_input_text:focus
 .cke_a11yc_ui_form.hidden {
 	display: none;
 }
+
+.cke_a11yc_ui_listening_tooltip {
+	position: absolute;
+	z-index: 10000;
+	background: yellow;
+	color: black;
+	border: 2px solid #666;
+	padding: 4px;
+}
+
+.cke_a11yc_ui_listening_tooltip:hover {
+	cursor: pointer;
+}

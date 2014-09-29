@@ -24,6 +24,9 @@ define( function() {
 	 * @member CKEDITOR.plugins.a11ychecker.CheckingMode
 	 */
 	CheckingMode.prototype.init = function() {
+		if ( this.controller.issues ) {
+			this.controller.editableDecorator.markIssues( this.controller.issues );
+		}
 	};
 
 	/**
@@ -32,6 +35,17 @@ define( function() {
 	 * @member CKEDITOR.plugins.a11ychecker.CheckingMode
 	 */
 	CheckingMode.prototype.close = function() {
+		var controller = this.controller;
+		// Remove all the DOM changes applied by the EditableDecorator.
+		controller.editableDecorator.removeMarkup();
+
+		if ( controller.viewerController ) {
+			controller.viewerController.hide();
+		}
+
+		if ( controller.issues ) {
+			controller.issues.resetFocus();
+		}
 	};
 
 	return CheckingMode;

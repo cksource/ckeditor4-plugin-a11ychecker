@@ -5,7 +5,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'EditableDecorator', 'mock/EditableDecoratorMockup', 'mock/IssueListMockup', 'IssueList', 'helpers/sinon/sinon_amd.min' ], function( EditableDecorator, EditableDecoratorMockup, IssueListMockup, IssueList, sinon ) {
+	require( [ 'EditableDecorator', 'Controller', 'mock/EditableDecoratorMockup', 'mock/IssueListMockup', 'IssueList', 'helpers/sinon/sinon_amd.min' ], function( EditableDecorator, Controller, EditableDecoratorMockup, IssueListMockup, IssueList, sinon ) {
 		bender.test( {
 
 			setUp: function() {
@@ -200,6 +200,28 @@
 				this.mockup.clickListener( { data: evtMock } );
 
 				assert.areSame( 0, showIssueByElementMock.callCount, 'Controller.showIssueByElement calls count' );
+			},
+
+			'test clickListener focused': function() {
+				// Lets click already focused issue. This should switch Controller into listening mode.
+				patchMockupForClick( this.mockup );
+
+				var setModeMock = this.mockup.editor._.a11ychecker.setMode,
+					showIssueByElementMock = this.mockup.editor._.a11ychecker.showIssueByElement,
+					element = CKEDITOR.document.findOne( '#fakeErrors .cke_a11y_focused' ).$,
+					evtMock = new CKEDITOR.dom.event( {
+						target: element
+					} );
+
+				this.mockup.clickListener( { data: evtMock } );
+
+				assert.areSame( 1, setModeMock.callCount,
+					'Controller.setMode calls count' );
+				assert.areEqual( Controller.modes.LISTENING, setModeMock.args[ 0 ][ 0 ],
+					'Controller.setMode first argument' );
+				assert.areEqual( 0, showIssueByElementMock.callCount,
+					'Controlelr.showIssueByElement call count' );
+
 			}
 		} );
 
@@ -208,7 +230,8 @@
 			editableDecoratorMockup.editor = {
 				_: {
 					a11ychecker: {
-						showIssueByElement: sinon.spy()
+						showIssueByElement: sinon.spy(),
+						setMode: sinon.spy()
 					}
 				}
 			};
