@@ -172,7 +172,11 @@ define( function() {
 		}
 
 		if ( target ) {
-			a11ychecker.showIssueByElement( target );
+			if ( target.hasClass( 'cke_a11y_focused' ) ) {
+				a11ychecker.viewerController.showIssue( a11ychecker.issues.getIssueByElement( target ) );
+			} else {
+				a11ychecker.showIssueByElement( target );
+			}
 		} else {
 			// User clicked area without issue.
 		}
