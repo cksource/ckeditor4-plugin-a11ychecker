@@ -167,7 +167,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			// Request for issue details.
 			issue.getDetails( function( details ) {
 				descriptionPart.setTitle( details.title[ lang ] );
-				descriptionPart.setInfo( details.descr[ lang ] + ' <a href="#" tabindex="-1">Read more...</a>' );
+				descriptionPart.setInfo( details.descr[ lang ] );
 			} );
 		},
 
