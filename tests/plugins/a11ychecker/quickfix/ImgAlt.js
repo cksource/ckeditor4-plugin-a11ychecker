@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'quickfix/ImgAlt', 'helpers/sinon/sinon_amd.min' ], function( ImgAlt, sinon ) {
+	require( [ 'QuickFix/ImgAlt', 'helpers/sinon/sinon_amd.min' ], function( ImgAlt, sinon ) {
 		bender.test( {
 			'test ImgAlt.display': function() {
 				var formMock = {

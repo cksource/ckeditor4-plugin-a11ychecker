@@ -1,5 +1,5 @@
 
-define( [ 'quickfix/Base' ], function( Base ) {
+define( [ 'QuickFix/Base' ], function( Base ) {
 	/**
 	 * Base class for the manual fixes.
 	 *

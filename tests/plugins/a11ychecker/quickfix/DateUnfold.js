@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'quickfix/DateUnfold', 'helpers/sinon/sinon_amd.min' ], function( DateUnfold, sinon ) {
+	require( [ 'QuickFix/DateUnfold', 'helpers/sinon/sinon_amd.min' ], function( DateUnfold, sinon ) {
 		bender.test( {
 			'test DateUnfold.fix': function() {
 				var issueElement = CKEDITOR.dom.element.createFromHtml( '<p>Short date: 2.2.2012</p>' ),

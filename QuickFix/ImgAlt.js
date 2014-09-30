@@ -1,5 +1,5 @@
 
-define( [ 'quickfix/Manual' ], function( Manual ) {
+define( [ 'QuickFix/Manual' ], function( Manual ) {
 
 	var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
 

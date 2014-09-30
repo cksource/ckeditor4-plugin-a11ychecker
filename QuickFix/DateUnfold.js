@@ -1,5 +1,5 @@
 
-define( [ 'quickfix/Base' ], function( Base ) {
+define( [ 'QuickFix/Base' ], function( Base ) {
 
 	// List of month names.
 	var monthNames = {

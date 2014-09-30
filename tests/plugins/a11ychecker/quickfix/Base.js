@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'quickfix/Base' ], function( Base ) {
+	require( [ 'QuickFix/Base' ], function( Base ) {
 		bender.test( {
 			'test constructor': function() {
 				var expectedIssue = {},

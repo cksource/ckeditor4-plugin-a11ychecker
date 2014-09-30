@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'quickfix/ElementRemove', 'helpers/sinon/sinon_amd.min' ], function( ElementRemove, sinon ) {
+	require( [ 'QuickFix/ElementRemove', 'helpers/sinon/sinon_amd.min' ], function( ElementRemove, sinon ) {
 		bender.test( {
 			'test ElementRemove.fix': function() {
 				var imgElement = CKEDITOR.dom.element.createFromHtml( '<br>' ),

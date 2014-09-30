@@ -1,5 +1,5 @@
 
-define( [ 'quickfix/Base' ], function( Base ) {
+define( [ 'QuickFix/Base' ], function( Base ) {
 	/**
 	 * Awesome automatic fix which will solve all the issues! : D if you have problem with
 	 * an element then... remove it! Attaboy!
