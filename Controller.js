@@ -44,6 +44,10 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		 * @property {CKEDITOR.plugins.a11ychecker.ui.Ui} ui
 		 */
 		this.ui = new Ui( this );
+
+		if ( editor ) {
+			this.attachEditorListeners( editor );
+		}
 	}
 
 	/**
@@ -358,6 +362,19 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		this.modeType = mode;
 	};
 
+	/**
+	 * Attaches editor specific listeners.
+	 *
+	 * @param {CKEDITOR.editor} editor
+	 */
+	Controller.prototype.attachEditorListeners = function( editor ) {
+		// Before mode change we want to remove all the a11ychecker markup, hide
+		// whole ui and reset the state.
+		var that = this;
+		editor.on( 'beforeSetMode', function() {
+			that.close();
+		} );
+	};
 
 	/**
 	 * Method to be called when no issues are deteted during the checking. It's supposed
