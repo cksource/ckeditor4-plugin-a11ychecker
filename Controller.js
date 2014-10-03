@@ -265,6 +265,10 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 	 */
 	Controller.prototype.close = function() {
 
+		if ( !this.enabled ) {
+			return;
+		}
+
 		this.disable();
 
 		this.issues.clear();

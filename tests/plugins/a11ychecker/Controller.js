@@ -156,6 +156,7 @@
 					},
 					controllerMockup = {
 						issues: issuesMock,
+						enabled: true,
 						editableDecorator: {
 							removeMarkup: function() { removeMarkupCalls += 1; }
 						},
