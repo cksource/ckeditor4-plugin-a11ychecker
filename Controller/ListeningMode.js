@@ -94,7 +94,7 @@ define( function() {
 
 		ret.addClass( 'cke_a11yc_ui_listening_tooltip' );
 
-		ret.setHtml( 'Click here to retry accesibility checking' );
+		ret.setHtml( 'Click here to retry accessibility checking' );
 
 		return ret;
 	}
