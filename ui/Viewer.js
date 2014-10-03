@@ -50,8 +50,16 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 * function to panel. Later on this manager will have to be used in balloon.
 		 */
 		var that = this;
-		this.panel.registerFocusable = function( elem ) { that.focusManager.addItem( elem ); };
-		this.panel.deregisterFocusable = function( elem ) { that.focusManager.removeItem( elem ); };
+		this.panel.registerFocusable = function( elem ) {
+			that.focusManager.addItem( elem );
+			// Adding a item to editor.focusManager is required so that focusing the element outside
+			// the editable element won't blur inline editor. (#11)
+			that.editor.focusManager.add( elem );
+		};
+		this.panel.deregisterFocusable = function( elem ) {
+			that.focusManager.removeItem( elem );
+			that.editor.focusManager.remove( elem );
+		};
 
 		this.setupNavigation();
 		this.setupDescription();

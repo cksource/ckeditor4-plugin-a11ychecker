@@ -5,22 +5,46 @@
 ( function() {
 	'use strict';
 
-	bender.editor = {
-		config: {
-			a11ychecker_engine: 'EngineMock'
-		},
-		startupData: '<p>foo</p>'
-	};
-
 	// Note that we have an extra (unused) requirement for 'EngineMock' and 'Controller' classes.
 	// That way it will force them to be available for the editor, and we have sure that a11ychecker
 	// plugin will be ready synchronously.
 	require( [ 'ui/ViewerController', 'EngineMock', 'Controller', 'ui/ViewerController' ], function( ViewerController ) {
 
 		bender.test( {
+			'async:init': function() {
+				var that = this;
+
+				bender.tools.setUpEditors( {
+					classic: {
+						name: 'editor1',
+						config: {
+							a11ychecker_engine: 'EngineMock'
+						},
+						startupData: '<p>foo</p>'
+					},
+					inline: {
+						name: 'editor2',
+						creator: 'inline',
+						config: {
+							a11ychecker_engine: 'EngineMock'
+						},
+						startupData: '<p>foo</p>'
+					}
+				}, function( editors, bots ) {
+					that.editorBots = bots;
+					that.editors = editors;
+					that.editor = editors.classic;
+
+					that.callback();
+				} );
+			},
+
 			tearDown: function() {
 				// For each test a11ychecker needs to be closed.
+				// Note that we have 2 editor instances, but only 1 can be enabled at
+				// a time.
 				this.editor._.a11ychecker.close();
+				this.editors.inline._.a11ychecker.close();
 			},
 
 			'test initial focus': function() {
@@ -128,6 +152,25 @@
 						assert.areSame( expectedFocusElem, activeElement, 'Invalid element focused' );
 					} );
 				}, 300 );
+
+				wait();
+			},
+
+			'test inline editor focus with balloon': function() {
+				var editor = this.editors.inline,
+					a11ychecker = editor._.a11ychecker,
+					viewer = a11ychecker.viewerController.viewer,
+					expectedFocusElem = viewer.navigation.parts.next;
+				a11ychecker.exec();
+				// Will focus prev button.
+				a11ychecker.next( function() {
+					// Put an extra timeout.
+					window.setTimeout( function() {
+						resume( function() {
+							assert.isTrue( editor.focusManager.hasFocus, 'Editor has the focus' );
+						} );
+					}, 500 );
+				} );
 
 				wait();
 			}
