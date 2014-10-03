@@ -139,8 +139,13 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 				issues: issueList
 			} );
 
-			if ( checkedEvent !== false && issueList.count() === 0 ) {
-				that.onNoIssues();
+			if ( checkedEvent !== false ) {
+				if ( issueList.count() ) {
+					// In case when we have any issue, we should move to the next one.
+					that.next();
+				} else {
+					that.onNoIssues();
+				}
 			}
 		};
 

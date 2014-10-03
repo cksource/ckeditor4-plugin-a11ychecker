@@ -508,6 +508,7 @@
 				getData: sinon.spy()
 			};
 
+			controllerMockup.next = sinon.spy();
 			controllerMockup.enable = sinon.spy();
 			controllerMockup.disable = sinon.spy();
 			controllerMockup.editableDecorator.resolveEditorElements = sinon.spy();

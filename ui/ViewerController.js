@@ -245,15 +245,6 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 						controller.viewer.panel.hide();
 						a11ychecker.close();
 
-						/**
-						 * A temporary solution for focusing next issue after QuickFix acceptance.
-						 */
-						a11ychecker.once( 'checked', function( evt ) {
-							if ( evt.data.issues.count() ) {
-								this.next();
-							}
-						} );
-
 						editor.execCommand( 'a11ychecker' );
 					} );
 				}
