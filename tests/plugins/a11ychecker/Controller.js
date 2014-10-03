@@ -24,7 +24,10 @@
 				patchMockupForExecMethod( this.mockup );
 
 				var issueList = {
-					sort: sinon.spy()
+					sort: sinon.spy(),
+					count: function() {
+						return 5;
+					}
 				};
 
 				// Actually in this case we'll have to make sure that engine.process will
@@ -399,6 +402,82 @@
 
 				assert.isFalse( ret, 'Return value' );
 				assert.areSame( 0, moveToMock.callCount, 'issues.moveTo calls count' );
+			},
+
+			'test Controller.onNoIssues': function() {
+				var mock = {
+						close: sinon.spy(),
+						onNoIssues: Controller.prototype.onNoIssues
+					},
+					originalAlert = window.alert,
+					alertMock = sinon.spy();
+
+				try {
+					window.alert = alertMock;
+
+					mock.onNoIssues();
+
+					assert.areEqual( 1, alertMock.callCount, 'Alert call count' );
+					assert.areEqual( 1, mock.close.callCount, 'Accessibility Checker close calls' );
+				} catch( e ) {
+					// Repropagate.
+					throw e;
+				} finally {
+					window.alert = originalAlert;
+				}
+			},
+
+			'test Controller.exec calls onNoIssues': function() {
+				// Controller.onNoIssues should be called when no issues were found.
+				this._testOnNoIssues( 1, 0 );
+			},
+
+			'test Controller.exec does not call onNoIssues': function() {
+				// Controller.onNoIssues should not be called if there are issues.
+				this._testOnNoIssues( 0, 1 );
+			},
+
+			'test Controller.exec does not call onNoIssues on checked cancel': function() {
+				// We should not call Controller.onNoIssues if event was canceled.
+				this._testOnNoIssues( 0, 0, function( mock ) {
+					// Force fire to return false, as if it would if event was canceled.
+					mock.fire = sinon.spy( function() {
+						return false;
+					} );
+				} );
+			},
+
+			/**
+			 * A helper function to test Controller.onNoIssues method calls from Controller.exec.
+			 *
+			 * @param {Number} expectedCalls Expected call count to the onNoIssues method.
+			 * @param {Number} issuesNumber Nuber of issues to be returned by issue list.
+			 * @param {Number} mockAdjust Method to adjust Controller mockup, just before running exec.
+			 * The mockup will be passed as a first argument.
+			 */
+			_testOnNoIssues: function( expectedCalls, issuesNumber, mockAdjust ) {
+				// When checked event is canceled, the onNoIssues should not be called.
+				patchMockupForExecMethod( this.mockup );
+
+				var issueList = {
+					sort: sinon.spy(),
+					count: function() { return issuesNumber; }
+				};
+
+				if ( mockAdjust ) {
+					mockAdjust( this.mockup );
+				}
+
+				// Actually in this case we'll have to make sure that engine.process will
+				// call the callback.
+				this.mockup.engine.process = function( controller, scratchpad, callback ) {
+					callback( issueList );
+				};
+
+				// Actual exec call.
+				this.mockup.exec();
+
+				assert.areEqual( expectedCalls, this.mockup.onNoIssues.callCount, 'Controller.onNoIssues call count' );
 			}
 		} );
 
@@ -435,6 +514,7 @@
 			controllerMockup.editableDecorator.markIssues = sinon.spy();
 			controllerMockup.ui.update = sinon.spy();
 			controllerMockup.fire = sinon.spy();
+			controllerMockup.onNoIssues = sinon.spy();
 		}
 	} );
 } )();

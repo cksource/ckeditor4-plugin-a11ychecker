@@ -119,6 +119,8 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		// When the engine has done its job, lets assign the issue list, and refresh
 		// UI.
 		var completeCallback = function( issueList ) {
+			var checkedEvent;
+
 			// We need to determine Issue.element properties in each Issue.
 			that.editableDecorator.resolveEditorElements( issueList );
 			that.editableDecorator.markIssues( issueList );
@@ -133,9 +135,13 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 			// Notify the UI about update.
 			that.ui.update();
 
-			that.fire( 'checked', {
+			checkedEvent = that.fire( 'checked', {
 				issues: issueList
 			} );
+
+			if ( checkedEvent !== false && issueList.count() === 0 ) {
+				that.onNoIssues();
+			}
 		};
 
 		this.engine.process( this, scratchpad, completeCallback );
@@ -281,6 +287,17 @@ define( [ 'EditableDecorator', 'ui/Ui' ], function( EditableDecorator, Ui ) {
 		if ( this.viewerController ) {
 			this.viewerController.hide();
 		}
+	};
+
+	/**
+	 * Method to be called when no issues are deteted during the checking. It's supposed
+	 * to show an information that content is validated positively.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 */
+	Controller.prototype.onNoIssues = function() {
+		alert( 'Document does not contain Accessibility Issues! Good job!' );
+		this.close();
 	};
 
 	/**
