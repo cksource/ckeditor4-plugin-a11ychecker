@@ -251,9 +251,6 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 						a11ychecker.once( 'checked', function( evt ) {
 							if ( evt.data.issues.count() ) {
 								this.next();
-							} else {
-								alert( 'Congratz, we\'re out of issues!' );
-								this.close();
 							}
 						} );
 
