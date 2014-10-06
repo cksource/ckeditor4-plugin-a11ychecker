@@ -33,21 +33,16 @@
 			this.guiRegister( editor );
 
 			// Loads Engine, Controller and ViewerController classes.
-			require( [ 'Controller', engineClass, 'ui/ViewerController' ], function( Controller, EngineClass, ViewerController ) {
+			require( [ 'Controller', engineClass ], function( Controller, EngineClass ) {
 				var a11ychecker = new Controller( editor );
 
 				a11ychecker.engine = new EngineClass( engineParams, that );
-				// @todo: viewer controller should be actually created within controller construct.
-				a11ychecker.viewerController = new ViewerController( a11ychecker, {
-					title: 'Accessibility checker'
-				} );
+
 				// @todo: Check if this flag is needed.
 				a11ychecker.disableFilterStrip = true;
 
 				// Assign controller object to the editor protected namespace.
 				editor._.a11ychecker = a11ychecker;
-				// Expose ViewerController class.
-				CKEDITOR.plugins.a11ychecker.viewerController = ViewerController;
 			} );
 
 			this.commandRegister( editor );

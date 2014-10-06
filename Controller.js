@@ -1,5 +1,5 @@
 
-define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/BusyMode', 'EditableDecorator', 'ui/Ui' ], function( CheckingMode, ListeningMode, BusyMode, EditableDecorator, Ui ) {
+define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/BusyMode', 'EditableDecorator', 'ui/Ui', 'ui/ViewerController' ], function( CheckingMode, ListeningMode, BusyMode, EditableDecorator, Ui, ViewerController ) {
 	'use strict';
 
 	/**
@@ -46,6 +46,10 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		this.ui = new Ui( this );
 
 		if ( editor ) {
+			this.viewerController = new ViewerController( this, {
+				title: 'Accessibility checker'
+			} );
+
 			this.attachEditorListeners( editor );
 		}
 	}
