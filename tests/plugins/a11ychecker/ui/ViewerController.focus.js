@@ -88,6 +88,40 @@
 				wait();
 			},
 
+			'test focus on click': function() {
+				var a11ychecker = this.editor._.a11ychecker,
+					viewer = a11ychecker.viewerController.viewer,
+					expectedFocusElem = viewer.navigation.parts.next;
+
+				// Perform check, so we have a11ychecker.list
+				a11ychecker.check();
+
+				var issuedElement = a11ychecker.issues.getItem( 0 ).element,
+					evt = {
+						data: {
+							getTarget: function() {
+								return issuedElement;
+							}
+						}
+					};
+				// Ensure that element is not marked as focused.
+				issuedElement.removeClass( 'cke_a11y_focused' );
+
+				a11ychecker.editableDecorator.clickListener( evt );
+
+				// Remember that balloon shows with a delay, so we need to workaround that.
+				window.setTimeout( function() {
+					resume( function() {
+						var activeElement = CKEDITOR.document.getActive();
+
+						assert.isNotNull( activeElement, 'An element is focused' );
+						assert.areSame( expectedFocusElem, activeElement, 'The "Next" button is focused' );
+					} );
+				}, 500 );
+
+				wait();
+			},
+
 			'test navigation select change focus': function() {
 				// After changing the navigation in the select, navigation should not be lost.
 				var a11ychecker = this.editor._.a11ychecker,

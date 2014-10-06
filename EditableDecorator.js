@@ -178,7 +178,10 @@ define( function() {
 				a11ychecker.setMode( 2 );
 			} else {
 				// Otherwise user clicked standard Accessibility issue.
-				a11ychecker.showIssueByElement( target );
+				a11ychecker.showIssueByElement( target, function() {
+					// Put the focus on next button. (#10)
+					this.viewer.navigation.parts.next.focus();
+				} );
 				a11ychecker.setMode( 1 ); // REMOVE ME! :((((
 			}
 		} else if ( a11ychecker.enabled ) {
