@@ -81,13 +81,6 @@
 				editor.setKeystroke( hotkeysConfig[ i ], pluginName + commandSuffix );
 			}
 
-			/**
-			 * @todo: Remove this hotkey, it's for testing ease only.
-			 * Also fixIssue is a legacy part, might be removed soon.
-			 */
-			editor.setKeystroke( CKEDITOR.ALT + 13 /*ENTER*/, 'maximize' );
-			//editor.setKeystroke( CKEDITOR.CTRL + CKEDITOR.ALT + 32 /*SPACE*/, pluginName + '.fixIssue' );
-
 			if ( !config.a11ychecker_hotkeys ) {
 				// We need to change config, so viewer might reuse values.
 				config.a11ychecker_hotkeys = hotkeysConfig;
