@@ -46,40 +46,6 @@
 			} );
 
 			this.commandRegister( editor );
-			this.addHotkeys( editor );
-		},
-
-		/**
-		 * Adds hotkey mappings.
-		 */
-		addHotkeys: function( editor ) {
-			var config = editor.config,
-				hotkeysConfig = config.a11ychecker_hotkeys || {},
-				defaultMapping = {
-					'open': CKEDITOR.CTRL + CKEDITOR.ALT + 69 /*E*/,
-					'next': CKEDITOR.CTRL + 69 /*E*/,
-					'prev': CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 /*E*/
-				},
-				commandSuffix,
-				i;
-
-			for ( i in defaultMapping ) {
-				// We assign default value only in case of undefined.
-				if ( hotkeysConfig[ i ] === undefined ) {
-					hotkeysConfig[ i ] = defaultMapping[ i ];
-				}
-
-				// The part which will be added to a11checker.
-				// In case of "open" we don't want to add any suffixes.
-				commandSuffix = ( i == 'open' ? '' : '.' + i );
-
-				editor.setKeystroke( hotkeysConfig[ i ], pluginName + commandSuffix );
-			}
-
-			if ( !config.a11ychecker_hotkeys ) {
-				// We need to change config, so viewer might reuse values.
-				config.a11ychecker_hotkeys = hotkeysConfig;
-			}
 		},
 
 		// Register buttons, dialogs etc.

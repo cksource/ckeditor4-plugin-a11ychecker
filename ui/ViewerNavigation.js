@@ -200,27 +200,6 @@ define( function() {
 			this.parts.list.on( 'change', function( evt ) {
 				this.fire( 'change', this.getListValue() );
 			}, this );
-
-			// Setup listeners for keyboard previous and next.
-			this.viewer.panel.on( 'show', function() {
-				var hotkeysConfig = this.viewer.editor.config.a11ychecker_hotkeys;
-
-				if ( hotkeysConfig.prev ) {
-					this.viewer.panel.addListener(
-						CKEDITOR.document.getBody().on( 'keydown', keyListener( hotkeysConfig.prev, function() {
-							this.fire( 'previous' );
-						} ), this )
-					);
-				}
-
-				if ( hotkeysConfig.next ) {
-					this.viewer.panel.addListener(
-						CKEDITOR.document.getBody().on( 'keydown', keyListener( hotkeysConfig.next, function() {
-							this.fire( 'next' );
-						} ), this )
-					);
-				}
-			}, this );
 		}
 	};
 

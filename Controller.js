@@ -1,5 +1,5 @@
 
-define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/BusyMode', 'EditableDecorator', 'ui/Ui', 'ui/ViewerController' ], function( CheckingMode, ListeningMode, BusyMode, EditableDecorator, Ui, ViewerController ) {
+define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/BusyMode', 'EditableDecorator', 'ui/Ui', 'ui/ViewerController', 'HotkeyManager' ], function( CheckingMode, ListeningMode, BusyMode, EditableDecorator, Ui, ViewerController, HotkeyManager ) {
 	'use strict';
 
 	/**
@@ -51,6 +51,8 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 			} );
 
 			this.attachEditorListeners( editor );
+
+			this.hotkeyManager = new HotkeyManager( this );
 		}
 	}
 
