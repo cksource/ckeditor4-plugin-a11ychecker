@@ -241,7 +241,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 					evt.cancel();
 				} else {
 					// Fix validation went fine, so let us apply it.
-					a11ychecker.applyQuickFix( currentFix );
+					a11ychecker.applyQuickFix( currentFix, values );
 				}
 			}
 		},
