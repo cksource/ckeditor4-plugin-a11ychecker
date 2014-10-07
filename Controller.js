@@ -128,11 +128,17 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	 * Dispatches accessiblity check function. Noe that results might be asynchronous.
 	 *
 	 * Automatically sets the Controller mode to `BUSY` / `CHECKING`.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {Number} focusIssueOffset Offset of the issue to be focused after checking
+	 * is done. If element with given offset doesn't exist, the first one will be focused.
 	 */
-	Controller.prototype.check = function() {
+	Controller.prototype.check = function( focusIssueOffset ) {
 		var that = this,
 			editor = that.editor,
 			scratchpad;
+
+		focusIssueOffset = focusIssueOffset || 0;
 
 		this.setMode( Controller.modes.BUSY );
 
@@ -162,7 +168,6 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 
 			// We need to determine Issue.element properties in each Issue.
 			that.editableDecorator.resolveEditorElements( issueList );
-			//that.editableDecorator.markIssues( issueList );
 
 			// Sort the issues so they will keep their DOM order.
 			issueList.sort();
@@ -183,7 +188,12 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 			if ( checkedEvent !== false ) {
 				if ( issueList.count() ) {
 					// In case when we have any issue, we should move to the next one.
-					that.next();
+					if ( focusIssueOffset >= issueList.count() ) {
+						// Ensure that focusIssueOffset is not bigger than actual size.
+						// If it is, we'll start from the begining.
+						focusIssueOffset = 0;
+					}
+					that.showIssue( issueList.getItem( focusIssueOffset ) );
 				} else {
 					that.onNoIssues();
 				}
@@ -395,22 +405,21 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	};
 
 	/**
-	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {CKEDITOR.plugins.a11ychecker.QuickFix} quickFix
 	 * @private
 	 */
 	Controller.prototype._onQuickFix = function( quickFix ) {
-
 		var event = {
 				quickFix: quickFix,
 				issue: quickFix.issue
 			},
-			eventResult = this.fire( 'fixed', event, this.editor );
+			eventResult = this.fire( 'fixed', event, this.editor ),
+			// Offset of fixed issue.
+			issueOffset = this.issues.indexOf( quickFix.issue );
 
 		if ( eventResult !== false ) {
-			this.close();
-			this.exec();
+			this.check( issueOffset );
 		}
 	};
 

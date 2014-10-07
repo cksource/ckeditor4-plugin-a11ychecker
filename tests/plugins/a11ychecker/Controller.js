@@ -25,10 +25,13 @@
 
 				var issueList = {
 					sort: sinon.spy(),
+					getItem: sinon.spy(),
 					count: function() {
 						return 5;
 					}
 				};
+
+				this.mockup.showIssue = sinon.spy();
 
 				// Actually in this case we'll have to make sure that engine.process will
 				// call the callback.
@@ -489,7 +492,32 @@
 				// Ensure that fixed event was fired.
 				sinon.assert.calledWith( controllerMock.fire, 'fixed', expectedEvent );
 
-				assert.areEqual( 1, controllerMock.exec.callCount, 'Controller.exec call count' );
+				assert.areEqual( 1, controllerMock.check.callCount, 'Controller.exec call count' );
+			},
+
+			'test Controller._onQuickFix passes fixed issue offset': function() {
+				// In this test we want to make sure that _onQuickFix will put an
+				// extra argument (issue offset) to Controller.check.
+				// This will allow us to set the UI focus to the next element to
+				// the fixed one.
+				var quickFix = {
+						issue: {}
+					},
+					controllerMock = new ControllerMockup();
+
+				controllerMock.issues = {
+					indexOf: sinon.spy( function() {
+						return 3;
+					} )
+				};
+
+				controllerMock._onQuickFix = Controller.prototype._onQuickFix;
+
+				// Call method.
+				controllerMock._onQuickFix( quickFix );
+
+				assert.areEqual( 1, controllerMock.check.callCount, 'Controller.exec call count' );
+				sinon.assert.calledWith( controllerMock.check, 3 );
 			},
 
 			'test Controller._onQuickFix event cancel': function() {
@@ -503,7 +531,7 @@
 				controllerMock._onQuickFix( {} );
 
 				// Because event was canceled, we should not call exec method.
-				assert.areEqual( 0, controllerMock.exec.callCount, 'Controller.exec call count' );
+				assert.areEqual( 0, controllerMock.check.callCount, 'Controller.exec call count' );
 			},
 
 			'test Controller.onNoIssues': function() {
@@ -561,9 +589,12 @@
 				// When checked event is canceled, the onNoIssues should not be called.
 				patchMockupForExecMethod( this.mockup );
 
+				this.mockup.showIssue = sinon.spy();
+
 				var issueList = {
 					sort: sinon.spy(),
-					count: function() { return issuesNumber; }
+					count: function() { return issuesNumber; },
+					getItem: function() { return null; }
 				};
 
 				if ( mockAdjust ) {
