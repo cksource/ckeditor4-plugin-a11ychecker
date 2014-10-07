@@ -51,9 +51,8 @@
 		// Register buttons, dialogs etc.
 		guiRegister: function( editor ) {
 			var lang = editor.lang.a11ychecker,
-				cassPath = this.path + 'styles/contents.css',
-				addContentsCss = editor.addContentsCss ||
-					CKEDITOR.tools.bind( editorAddContentsCss, editor );
+				cssPath = this.path + 'styles/contents.css',
+				addContentsCss = editor.addContentsCss || editorAddContentsCss;
 
 			if ( editor.ui.addButton ) {
 				editor.ui.addButton( 'A11ychecker', {
@@ -64,7 +63,7 @@
 			}
 
 			// Insert contents CSS.
-			addContentsCss( cassPath );
+			addContentsCss.call( editor, cssPath );
 		},
 
 		/**
