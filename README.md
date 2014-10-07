@@ -5,6 +5,10 @@ CKEditor Accessibility checker
 
 This repository contains the development version of Accessibility checker plugin for CKEditor.
 
+### Requirements
+
+* CKEditor **4.3.0** or later
+
 ### Installation
 
 ```bash
