@@ -25,10 +25,13 @@
 
 				var issueList = {
 					sort: sinon.spy(),
+					getItem: sinon.spy(),
 					count: function() {
 						return 5;
 					}
 				};
+
+				this.mockup.showIssue = sinon.spy();
 
 				// Actually in this case we'll have to make sure that engine.process will
 				// call the callback.
@@ -454,6 +457,83 @@
 				assert.areSame( 0, moveToMock.callCount, 'issues.moveTo calls count' );
 			},
 
+			'test Controller.applyQuickFix': function() {
+				var quickFix = {
+						fix: sinon.spy()
+					},
+					formAttributes = {},
+					controllerMock = new ControllerMockup();
+
+				controllerMock._onQuickFix = sinon.spy();
+				controllerMock.applyQuickFix = Controller.prototype.applyQuickFix;
+
+				// Call method.
+				controllerMock.applyQuickFix( quickFix, formAttributes );
+
+				assert.areEqual( 1, quickFix.fix.callCount, 'quickFix.fix call count' );
+				sinon.assert.calledWith( quickFix.fix, formAttributes );
+			},
+
+			'test Controller._onQuickFix': function() {
+				var quickFix = {
+						issue: {}
+					},
+					expectedEvent = {
+						quickFix: quickFix,
+						issue: quickFix.issue
+					},
+					controllerMock = new ControllerMockup();
+
+				controllerMock._onQuickFix = Controller.prototype._onQuickFix;
+
+				// Call method.
+				controllerMock._onQuickFix( quickFix );
+
+				// Ensure that fixed event was fired.
+				sinon.assert.calledWith( controllerMock.fire, 'fixed', expectedEvent );
+
+				assert.areEqual( 1, controllerMock.check.callCount, 'Controller.exec call count' );
+			},
+
+			'test Controller._onQuickFix passes fixed issue offset': function() {
+				// In this test we want to make sure that _onQuickFix will put an
+				// extra argument (issue offset) to Controller.check.
+				// This will allow us to set the UI focus to the next element to
+				// the fixed one.
+				var quickFix = {
+						issue: {}
+					},
+					controllerMock = new ControllerMockup();
+
+				controllerMock.issues = {
+					indexOf: sinon.spy( function() {
+						return 3;
+					} )
+				};
+
+				controllerMock._onQuickFix = Controller.prototype._onQuickFix;
+
+				// Call method.
+				controllerMock._onQuickFix( quickFix );
+
+				assert.areEqual( 1, controllerMock.check.callCount, 'Controller.exec call count' );
+				sinon.assert.calledWith( controllerMock.check, 3 );
+			},
+
+			'test Controller._onQuickFix event cancel': function() {
+				var controllerMock = new ControllerMockup();
+
+				assert.areEqual( 0, controllerMock.exec.callCount, '#0' );
+				controllerMock.fire = sinon.spy( function() { return false; } );
+				controllerMock._onQuickFix = Controller.prototype._onQuickFix;
+
+				// Call method.
+				controllerMock._onQuickFix( {} );
+
+				// Because event was canceled, we should not call exec method.
+				assert.areEqual( 0, controllerMock.check.callCount, 'Controller.exec call count' );
+			},
+
 			'test Controller.onNoIssues': function() {
 				var mock = {
 						close: sinon.spy(),
@@ -509,9 +589,12 @@
 				// When checked event is canceled, the onNoIssues should not be called.
 				patchMockupForExecMethod( this.mockup );
 
+				this.mockup.showIssue = sinon.spy();
+
 				var issueList = {
 					sort: sinon.spy(),
-					count: function() { return issuesNumber; }
+					count: function() { return issuesNumber; },
+					getItem: function() { return null; }
 				};
 
 				if ( mockAdjust ) {

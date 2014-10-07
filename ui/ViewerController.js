@@ -240,13 +240,8 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 
 					evt.cancel();
 				} else {
-					// Fix validation went fine, so apply it.
-					currentFix.fix( values, function() {
-						controller.viewer.panel.hide();
-						a11ychecker.close();
-
-						editor.execCommand( 'a11ychecker' );
-					} );
+					// Fix validation went fine, so let us apply it.
+					a11ychecker.applyQuickFix( currentFix, values );
 				}
 			}
 		},
