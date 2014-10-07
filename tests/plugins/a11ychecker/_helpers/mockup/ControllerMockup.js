@@ -10,6 +10,10 @@ define( [ 'Controller', 'mock/IssueListMockup', 'helpers/sinon/sinon_amd.min' ],
 	 * @constructor
 	 */
 	function ControllerMockup() {
+		for ( var i in Controller.prototype ) {
+			ControllerMockup.prototype[ i ] = sinon.spy();
+		}
+
 		Controller.call( this );
 
 		this.issues = new IssueListMockup();
@@ -19,10 +23,6 @@ define( [ 'Controller', 'mock/IssueListMockup', 'helpers/sinon/sinon_amd.min' ],
 
 	ControllerMockup.prototype = {};
 	ControllerMockup.prototype.constructor = ControllerMockup;
-
-	for ( var i in Controller.prototype ) {
-		ControllerMockup.prototype[ i ] = sinon.spy();
-	}
 
 	return ControllerMockup;
 } );
