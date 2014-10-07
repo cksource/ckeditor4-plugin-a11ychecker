@@ -50,7 +50,10 @@
 
 		// Register buttons, dialogs etc.
 		guiRegister: function( editor ) {
-			var lang = editor.lang.a11ychecker;
+			var lang = editor.lang.a11ychecker,
+				cassPath = this.path + 'styles/contents.css',
+				addContentsCss = editor.addContentsCss ||
+					CKEDITOR.tools.bind( editorAddContentsCss, editor );
 
 			if ( editor.ui.addButton ) {
 				editor.ui.addButton( 'A11ychecker', {
@@ -61,7 +64,7 @@
 			}
 
 			// Insert contents CSS.
-			editor.addContentsCss( this.path + 'styles/contents.css' );
+			addContentsCss( cassPath );
 		},
 
 		/**
@@ -145,6 +148,19 @@
 		var a11ychecker = editor._.a11ychecker;
 
 		return ( a11ychecker && a11ychecker.modeType === a11ychecker.constructor.modes.CHECKING );
+	}
+
+	// Function is a simply copy-n-paste editor.addContentsCss added in CKE 4.4.0.
+	// Will be used if function is not available for better backward compatibility.
+	function editorAddContentsCss( cssPath ) {
+		var cfg = this.config,
+			curContentsCss = cfg.contentsCss;
+
+		// Convert current value into array.
+		if ( !CKEDITOR.tools.isArray( curContentsCss ) )
+			cfg.contentsCss = curContentsCss ? [ curContentsCss ] : [];
+
+		cfg.contentsCss.push( cssPath );
 	}
 
 	// Expose UI classes.
