@@ -383,6 +383,39 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	};
 
 	/**
+	 * Applies given quickfix, fires the {@link #fixed} event.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {CKEDITOR.plugins.a11ychecker.QuickFix} quickFix
+	 * @param {Object} formAttributes Object containing serialized form inputs. See
+	 * {@link CKEDITOR.plugins.a11ychecker.ViewerForm#serialize}.
+	 */
+	Controller.prototype.applyQuickFix = function( quickFix, formAttributes ) {
+		quickFix.fix( formAttributes, CKEDITOR.tools.bind( this._onQuickFix, this ) );
+	};
+
+	/**
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {CKEDITOR.plugins.a11ychecker.QuickFix} quickFix
+	 * @private
+	 */
+	Controller.prototype._onQuickFix = function( quickFix ) {
+
+		var event = {
+				quickFix: quickFix,
+				issue: quickFix.issue
+			},
+			eventResult = this.fire( 'fixed', event, this.editor );
+
+		if ( eventResult !== false ) {
+			this.close();
+			this.exec();
+		}
+	};
+
+
+	/**
 	 * Method to be called when no issues are deteted during the checking. It's supposed
 	 * to show an information that content is validated positively.
 	 *
@@ -439,6 +472,19 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	 * @param {Object} data
 	 * @param {Object} data.issues Issues found in the document. This is exactly the same
 	 * object as in {@link #issues} property.
+	 */
+
+	/**
+	 * Fired when a single issue was solved using a QuickFix (either automatic or manual).
+	 *
+	 * Right after this event Accessibility Checker will reload its content, and recheck
+	 * the content.
+	 *
+	 * @event fixed
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {Object} data
+	 * @param {CKEDITOR.plugins.a11ychecker.Issue} data.issue Issue object.
+	 * @param {CKEDITOR.plugins.a11ychecker.QuickFix} data.quickFix Applied QuickFix object.
 	 */
 
 	return Controller;

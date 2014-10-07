@@ -454,6 +454,58 @@
 				assert.areSame( 0, moveToMock.callCount, 'issues.moveTo calls count' );
 			},
 
+			'test Controller.applyQuickFix': function() {
+				var quickFix = {
+						fix: sinon.spy()
+					},
+					formAttributes = {},
+					controllerMock = new ControllerMockup();
+
+				controllerMock._onQuickFix = sinon.spy();
+				controllerMock.applyQuickFix = Controller.prototype.applyQuickFix;
+
+				// Call method.
+				controllerMock.applyQuickFix( quickFix, formAttributes );
+
+				assert.areEqual( 1, quickFix.fix.callCount, 'quickFix.fix call count' );
+				sinon.assert.calledWith( quickFix.fix, formAttributes );
+			},
+
+			'test Controller._onQuickFix': function() {
+				var quickFix = {
+						issue: {}
+					},
+					expectedEvent = {
+						quickFix: quickFix,
+						issue: quickFix.issue
+					},
+					controllerMock = new ControllerMockup();
+
+				controllerMock._onQuickFix = Controller.prototype._onQuickFix;
+
+				// Call method.
+				controllerMock._onQuickFix( quickFix );
+
+				// Ensure that fixed event was fired.
+				sinon.assert.calledWith( controllerMock.fire, 'fixed', expectedEvent );
+
+				assert.areEqual( 1, controllerMock.exec.callCount, 'Controller.exec call count' );
+			},
+
+			'test Controller._onQuickFix event cancel': function() {
+				var controllerMock = new ControllerMockup();
+
+				assert.areEqual( 0, controllerMock.exec.callCount, '#0' );
+				controllerMock.fire = sinon.spy( function() { return false; } );
+				controllerMock._onQuickFix = Controller.prototype._onQuickFix;
+
+				// Call method.
+				controllerMock._onQuickFix( {} );
+
+				// Because event was canceled, we should not call exec method.
+				assert.areEqual( 0, controllerMock.exec.callCount, 'Controller.exec call count' );
+			},
+
 			'test Controller.onNoIssues': function() {
 				var mock = {
 						close: sinon.spy(),
