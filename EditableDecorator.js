@@ -61,17 +61,27 @@ define( function() {
 	 * Adds listeners to the {@link CKEDITOR.editor} instance.
 	 */
 	EditableDecorator.prototype.addListeners = function() {
-		var editor = this.editor;
+		var editor = this.editor,
+			editable = editor.editable(),
+			that = this,
+			boundListener = CKEDITOR.tools.bind( that.clickListener, that );
 
 		// We presume that editable is already up and running. If it would not, we'd
 		// need to use editor#contentDom event.
-		if ( !editor.editable() ) {
+		if ( !editable ) {
 			throw new Error( 'Editable not available' );
 		}
 
 		// Detects a single clicks to on elements marked as accessibility errors. Moves
 		// focus to issue associated with given element.
-		editor.document.on( 'click', CKEDITOR.tools.bind( this.clickListener, this ) );
+		// This one might be called synhronously, since addListeners() requires editable be ready.
+		editable.attachListener( editable, 'click', boundListener );
+
+		editor.on( 'contentDom', function() {
+			// This is actually other object than the editable used in outer scope.
+			var newEditable = editor.editable();
+			newEditable.attachListener( newEditable, 'click', boundListener );
+		} );
 
 		// Add transformation rule, that will make sure that no data-quail-id attributes
 		// are given to output.
