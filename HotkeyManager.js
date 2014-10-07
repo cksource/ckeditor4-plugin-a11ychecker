@@ -2,7 +2,7 @@ define( function() {
 	'use strict';
 
 	/**
-	 * A class taking care of registering hotkeys.
+	 * A class taking care of registering hotkeys to the editor and balloon.
 	 *
 	 * @class CKEDITOR.plugins.a11ychecker.HotkeyManager
 	 * @constructor
@@ -63,6 +63,7 @@ define( function() {
 	 * This method is extracted, otherwise implementation would become messy and
 	 * tricky to test.
 	 *
+	 * @member CKEDITOR.plugins.a11ychecker.HotkeyManager
 	 * @param {CKEDITOR.editor} editor
 	 * @param {Object} hotkeyMapping
 	 * @returns {Function} Returns a keypress listener.
@@ -81,7 +82,7 @@ define( function() {
 
 
 	/**
-	 * Parses the object given in config.a11ychecker_hotkeys object and transforms it to more
+	 * Parses the object given in `config.a11ychecker_hotkeys` object and transforms it to more
 	 * programmer-friendly object where keystrokes are obj keys, and the command name is value, eg.
 	 *
 	 *		{
