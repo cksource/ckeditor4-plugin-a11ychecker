@@ -21,6 +21,7 @@
 
 .cke_editable .cke_a11ychecker_notice {
 	outline-color: #DCDCDC !important;
+	background-color: #F1F1F1 !important;
 }
 
 .cke_editable.cke_loading,
