@@ -110,6 +110,43 @@
 					'Elements with ' + className + ' count' );
 			},
 
+			'test EditableDecorator.markIssues testability': function() {
+				// We need to check if markIssues() considers issue.testability,
+				// while applying the classes.
+
+				var issueList = new IssueList(),
+					addIssueMockup = function( list, testability ) {
+						// Inserts a issue mockup to the IssueList.
+						issueList.addItem( {
+							element: {
+								addClass: sinon.spy()
+							},
+							testability: testability
+						} );
+					};
+
+				addIssueMockup( issueList, 1 );
+				addIssueMockup( issueList, 0.5 );
+				addIssueMockup( issueList, 0 );
+				addIssueMockup( issueList, undefined );
+
+				// Setup the mocked IssueList.
+				this.mockup.markIssues( issueList );
+
+				var assertAddClass = function( issueIndex, expectedCallCount, expectedClass ) {
+					var issueElement = issueList.getItem( issueIndex ).element;
+					assert.areSame( expectedCallCount, issueElement.addClass.callCount,
+						'element.addClass call count for issue ' + issueIndex );
+					assert.areSame( expectedClass, issueElement.addClass.args[ 1 ][ 0 ],
+						'element.addClass second call parameter for issue ' + issueIndex );
+				};
+
+				assertAddClass( 0, 2, 'cke_a11ychecker_wrap_error' );
+				assertAddClass( 1, 2, 'cke_a11ychecker_wrap_warning' );
+				assertAddClass( 2, 2, 'cke_a11ychecker_wrap_notice' );
+				assertAddClass( 3, 2, 'cke_a11ychecker_wrap_error' );
+			},
+
 			'test EditableDecorator.removeMarkup cke_a11ychecker_error': function() {
 				var editable = this.mockup.editable();
 

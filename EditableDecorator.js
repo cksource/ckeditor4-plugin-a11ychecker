@@ -18,6 +18,18 @@ define( function() {
 		}
 	}
 
+	/**
+	 * Mapping for classes applied to editable element depending on issue testability.
+	 *
+	 * @static
+	 * @readonly
+	 */
+	EditableDecorator.testabilityClasses = {
+		0: 'cke_a11ychecker_wrap_notice',
+		0.5: 'cke_a11ychecker_wrap_warning',
+		1: 'cke_a11ychecker_wrap_error'
+	};
+
 	EditableDecorator.prototype = {};
 	EditableDecorator.prototype.constructor = EditableDecorator;
 
@@ -53,13 +65,17 @@ define( function() {
 	 */
 	EditableDecorator.prototype.markIssues = function( list ) {
 		var len = list.count(),
+			testability,
 			issue,
 			i;
 
 		for ( i = 0; i < len; i++ ) {
 			issue = list.getItem( i );
+			testability = issue.testability;
 
 			issue.element.addClass( 'cke_a11ychecker_error' );
+
+			issue.element.addClass( EditableDecorator.testabilityClasses[ testability !== undefined ? testability : 1 ] );
 		}
 	};
 
