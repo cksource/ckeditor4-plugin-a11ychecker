@@ -52,8 +52,14 @@ define( function() {
 	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} list
 	 */
 	EditableDecorator.prototype.markIssues = function( list ) {
-		for ( var i = 0, len = list.count(); i < len; i++ ) {
-			list.getItem( i ).element.addClass( 'cke_a11ychecker_error' );
+		var len = list.count(),
+			issue,
+			i;
+
+		for ( i = 0; i < len; i++ ) {
+			issue = list.getItem( i );
+
+			issue.element.addClass( 'cke_a11ychecker_error' );
 		}
 	};
 
