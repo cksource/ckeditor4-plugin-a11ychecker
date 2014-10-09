@@ -31,7 +31,7 @@
 				assertTestability( 'a', 0 );
 				assertTestability( 'b', 0.5 );
 				assertTestability( 'c', 1 );
-				assertTestability( 'a', undefined );
+				assertTestability( 'c', undefined );
 			}
 		} );
 	} );

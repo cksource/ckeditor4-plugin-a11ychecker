@@ -84,7 +84,9 @@ define( function() {
 		 * @param {Number} testability
 		 */
 		setTestability: function( testability ) {
-			this.parts.testability.setHtml( this.lang.testability[ testability || 0 ] );
+			this.parts.testability.setHtml(
+				this.lang.testability[ testability !== undefined ? testability : 1 ]
+			);
 		},
 
 		/**
