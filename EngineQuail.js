@@ -59,7 +59,7 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail' ], f
 
 		// Calls quail.
 		var quailConfig = {
-			guideline : [ 'imgHasAlt', 'aMustNotHaveJavascriptHref', 'aAdjacentWithSameResourceShouldBeCombined', 'pNotUsedAsHeader', 'imgNonDecorativeHasAlt', 'imgImportantNoSpacerAlt', 'KINGUseLongDateFormat' ],
+			guideline : [ 'imgHasAlt', 'aMustNotHaveJavascriptHref', 'aAdjacentWithSameResourceShouldBeCombined', 'imgNonDecorativeHasAlt', 'imgImportantNoSpacerAlt', 'KINGUseLongDateFormat', 'aTitleDescribesDestination', 'blockquoteNotUsedForIndentation' ],
 			//guideline : 'wcag',
 			jsonPath : this.jsonPath,
 			/**
