@@ -85,7 +85,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 * Setups the description area.
 		 */
 		setupDescription: function() {
-			this.description = new ViewerDescription();
+			this.description = new ViewerDescription( this.editor.lang.a11ychecker );
 
 			this.panel.parts.content.append( this.description.parts.wrapper );
 		},

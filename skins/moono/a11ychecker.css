@@ -229,12 +229,19 @@ a.cke_a11yc_ui_previous span
 	font-weight: bold;
 }
 
-.cke_a11yc_ui_desc_info
+.cke_a11yc_ui_desc_info,
+.cke_a11yc_ui_desc_testability
 {
 	color: #6E6E6E;
 	font-style: italic;
 	margin-top: 10px;
 	line-height: 1.4em;
+}
+
+.cke_a11yc_ui_desc_testability
+{
+	font-weight: bolder;
+	font-style: normal;
 }
 
 .cke_a11yc_ui_desc_info a
