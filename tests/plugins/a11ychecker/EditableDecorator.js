@@ -141,10 +141,10 @@
 						'element.addClass second call parameter for issue ' + issueIndex );
 				};
 
-				assertAddClass( 0, 2, 'cke_a11ychecker_wrap_error' );
-				assertAddClass( 1, 2, 'cke_a11ychecker_wrap_warning' );
-				assertAddClass( 2, 2, 'cke_a11ychecker_wrap_notice' );
-				assertAddClass( 3, 2, 'cke_a11ychecker_wrap_error' );
+				assertAddClass( 0, 2, 'cke_a11ychecker_error' );
+				assertAddClass( 1, 2, 'cke_a11ychecker_warning' );
+				assertAddClass( 2, 2, 'cke_a11ychecker_notice' );
+				assertAddClass( 3, 2, 'cke_a11ychecker_error' );
 			},
 
 			'test EditableDecorator.removeMarkup cke_a11ychecker_issue': function() {

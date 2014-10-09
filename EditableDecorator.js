@@ -25,9 +25,9 @@ define( function() {
 	 * @readonly
 	 */
 	EditableDecorator.testabilityClasses = {
-		0: 'cke_a11ychecker_wrap_notice',
-		0.5: 'cke_a11ychecker_wrap_warning',
-		1: 'cke_a11ychecker_wrap_error'
+		0: 'cke_a11ychecker_notice',
+		0.5: 'cke_a11ychecker_warning',
+		1: 'cke_a11ychecker_error'
 	};
 
 	EditableDecorator.prototype = {};
