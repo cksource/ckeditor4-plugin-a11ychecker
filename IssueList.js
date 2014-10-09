@@ -263,6 +263,22 @@ define( function() {
 		this.list.sort( sortIssuesByDomOrder );
 	};
 
+	/**
+	 * Filters contained issues using a given callback.
+	 *
+	 * Works the same way as a normal Array.prototype.filter, but modifies {@link #list} property.
+	 *
+	 * @param {Function} callback
+	 */
+	IssueList.prototype.filter = function( callback ) {
+		/**
+		 * @todo: Filter is not available in IE8.
+		 */
+		this.list = this.list.filter( callback );
+
+		return this.list;
+	};
+
 	function sortIssuesByDomOrder( a, b ) {
 		var ret = 0;
 
