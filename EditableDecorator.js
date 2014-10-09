@@ -73,7 +73,7 @@ define( function() {
 			issue = list.getItem( i );
 			testability = issue.testability;
 
-			issue.element.addClass( 'cke_a11ychecker_error' );
+			issue.element.addClass( 'cke_a11ychecker_issue' );
 
 			issue.element.addClass( EditableDecorator.testabilityClasses[ testability !== undefined ? testability : 1 ] );
 		}
@@ -170,8 +170,8 @@ define( function() {
 				removeFakeObjectAttribute( element, EditableDecorator.ID_ATTRIBUTE_NAME_FULL );
 			}
 
-			if ( element.hasClass( 'cke_a11ychecker_error' ) ) {
-				element.removeClass( 'cke_a11ychecker_error' );
+			if ( element.hasClass( 'cke_a11ychecker_issue' ) ) {
+				element.removeClass( 'cke_a11ychecker_issue' );
 				// Remove also cke_a11y_focused class.
 				element.removeClass( 'cke_a11y_focused' );
 			}
@@ -187,7 +187,7 @@ define( function() {
 		var target = evt.data.getTarget(),
 			a11ychecker = this.editor._.a11ychecker;
 
-		if ( !target.hasClass( 'cke_a11ychecker_error' ) ) {
+		if ( !target.hasClass( 'cke_a11ychecker_issue' ) ) {
 			// If the clicked node itself isn't marked as a11y error, we'll look for closest
 			// parent.
 			var parents = target.getParents( true ),
@@ -196,7 +196,7 @@ define( function() {
 			target = null;
 
 			for ( i = 0; i < parents.length; i++ ) {
-				if ( parents[ i ].hasClass( 'cke_a11ychecker_error' ) ) {
+				if ( parents[ i ].hasClass( 'cke_a11ychecker_issue' ) ) {
 					target = parents[ i ];
 					break;
 				}

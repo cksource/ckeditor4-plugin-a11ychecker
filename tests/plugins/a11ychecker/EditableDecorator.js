@@ -68,19 +68,19 @@
 				}, CKEDITOR.NODE_ELEMENT );
 			},
 
-			'test EditableDecorator.removeMarkup removing .cke_a11ychecker_error': function() {
-				// EditableDecorator.removeMarkup should also remove cke_a11ychecker_error class.
+			'test EditableDecorator.removeMarkup removing .cke_a11ychecker_issue': function() {
+				// EditableDecorator.removeMarkup should also remove cke_a11ychecker_issue class.
 				var editable = this.mockup.editable();
 
 				this.mockup.loadContentFrom( 'a11ycheckerIdMarkup' );
 				this.mockup.removeMarkup();
 
-				assert.areSame( 0, editable.find( '.cke_a11ychecker_error' ).count(),
-					'No .cke_a11ychecker_error elmeents are found' );
+				assert.areSame( 0, editable.find( '.cke_a11ychecker_issue' ).count(),
+					'No .cke_a11ychecker_issue elmeents are found' );
 			},
 
 			'test EditableDecorator.markIssues': function() {
-				// This method should apply cke_a11ychecker_error class to each
+				// This method should apply cke_a11ychecker_issue class to each
 				// issue element (in editable) within given IssueList.
 
 				// Setup the mocked IssueList.
@@ -90,7 +90,7 @@
 						this.mockup.editable().findOne( 'p' ),
 						this.mockup.editable().findOne( 'img' )
 					],
-					className = 'cke_a11ychecker_error';
+					className = 'cke_a11ychecker_issue';
 
 				issueListMockup.addItem( {
 					element: testedElements[ 0 ]
@@ -147,7 +147,7 @@
 				assertAddClass( 3, 2, 'cke_a11ychecker_wrap_error' );
 			},
 
-			'test EditableDecorator.removeMarkup cke_a11ychecker_error': function() {
+			'test EditableDecorator.removeMarkup cke_a11ychecker_issue': function() {
 				var editable = this.mockup.editable();
 
 				this.mockup.loadContentFrom( 'a11ycheckerIdMarkup' );
@@ -209,8 +209,8 @@
 				patchMockupForClick( this.mockup );
 
 				var showIssueByElementMock = this.mockup.editor._.a11ychecker.showIssueByElement,
-					// A parent, which is marked with cke_a11ychecker_error class.
-					issueElement = CKEDITOR.document.findOne( '#fakeErrors .cke_a11ychecker_error' ),
+					// A parent, which is marked with cke_a11ychecker_issue class.
+					issueElement = CKEDITOR.document.findOne( '#fakeErrors .cke_a11ychecker_issue' ),
 					// A nested element, which doesnt have a error class, but will receive click event.
 					element = issueElement.findOne( 'p' ).$,
 					evtMock = new CKEDITOR.dom.event( {
