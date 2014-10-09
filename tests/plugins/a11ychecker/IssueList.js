@@ -263,6 +263,18 @@
 				bender.arrayAssert.itemsAreSame( expectedMessages, messages, 'Messages are as expected' );
 			},
 
+			'test Issue.filter': function() {
+				var list = new IssueList();
+
+				list.list = [ 1, 2, 3 ];
+
+				list.filter( function( x ) {
+					return x > 2;
+				} );
+
+				assert.areEqual( 1, list.list.length, 'List was filtered out' );
+			},
+
 			'test IssueList.sort': function() {
 				var wrapper = CKEDITOR.document.getBody().append( new CKEDITOR.dom.element( 'div' ) ),
 					mockup = {

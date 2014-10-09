@@ -123,6 +123,41 @@
 				assert.isNull( secondItem.element, 'Item 1 has a valid element' );
 			},
 
+			'test EngineQuail._filterIssue': function() {
+				var iteration = 0,
+					engineMock = {
+						_filterIssue: EngineQuail.prototype._filterIssue
+					},
+					assertFilterResult = function( expectedReturn, issue ) {
+						expectedReturn = !!expectedReturn;
+
+						assert.areSame( expectedReturn, engineMock._filterIssue( issue ),
+							'Invalid return value for iteration #' + iteration );
+						iteration += 1;
+					};
+
+				// For this particular test we need to restore original CKEDITOR.dom.element
+				// implementation.
+				CKEDITOR.dom.element = this.originalDomElement;
+
+				assertFilterResult( true, { originalElement: CKEDITOR.document.createElement( 'a' ) } );
+				assertFilterResult( false, { originalElement: null } );
+				assertFilterResult( false, {} );
+				// For the time being we don't want to accept documents.
+				assertFilterResult( false, { originalElement: CKEDITOR.document } );
+				// Nor text nodes.
+				assertFilterResult( false, { originalElement: CKEDITOR.document.createText( 'asd' ) } );
+				// Quail tends to give a string as a issue element in aLinkTextDoesNotBeginWithRedundantWord.
+				assertFilterResult( false, { originalElement: "foo" } );
+
+				assertFilterResult( false, { originalElement: new CKEDITOR.dom.element( undefined ) } );
+				assertFilterResult( false, { originalElement: new CKEDITOR.dom.element( null ) } );
+				assertFilterResult( false, { originalElement: new CKEDITOR.dom.element( window.document ) } );
+
+				// Elements which are not children of editable, should be filtered out.
+				assertFilterResult( false, { originalElement: CKEDITOR.document.getById( 'playground2' ) } );
+			},
+
 			'test integration': function() {
 				// A real Quail request.
 				// Here Quail seems to work asynchronously, so we need to use wait, resume.

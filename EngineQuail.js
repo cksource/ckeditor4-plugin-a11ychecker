@@ -72,6 +72,8 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail' ], f
 			testCollectionComplete: function( evtName, collection ) {
 				var issueList = that.getIssuesFromCollection( collection );
 
+				that.filterIssues( issueList, contentElement );
+
 				if ( callback ) {
 					callback( issueList );
 				}
@@ -209,6 +211,33 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'jquery', 'Quail' ], f
 
 		return new IssueDetails( test.title, test.description, path );
 	};
+
+	/**
+	 * For comments see {@link CKEDITOR.plugins.a11ychecker.EngineQuail#_filterIssue}
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.EngineQuail
+	 * @protected
+	 */
+	EngineQuail.prototype._filterIssue = function( issue, contentElement ) {
+		var originalElement = issue.originalElement,
+			originalElementPrivate;
+
+		// If originalElement is undefined or anything other, filter out.
+		if ( originalElement instanceof CKEDITOR.dom.element === false ) {
+			return false;
+		}
+
+		originalElementPrivate = originalElement.$;
+
+		// Ensure that private element has a valid type, because it's possible to create
+		// a CKEDITOR.dom.element with a string etc.
+		if ( !originalElementPrivate || !originalElementPrivate.tagName ) {
+			return false;
+		}
+
+		return true;
+	};
+
 
 	return EngineQuail;
 } );

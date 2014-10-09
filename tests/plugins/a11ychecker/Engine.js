@@ -141,6 +141,42 @@
 
 				function DummyType() {
 				}
+			},
+
+			'test Engine.filterIssues': function() {
+				var engine = new Engine(),
+					sketchpad = {},
+					issues = {
+						filter: sinon.spy( function( fn ) {
+							assert.isInstanceOf( Function, fn );
+							var ret = fn.call( this, fn );
+							assert.isFalse( ret );
+							return ret;
+						} )
+					};
+
+				engine._filterIssue = sinon.spy( function() {
+					return false;
+				} );
+
+				engine.filterIssues( issues, sketchpad );
+
+				assert.areSame( 1, engine._filterIssue.callCount, 'Engine._filterIssue call count' );
+				assert.areSame( sketchpad, engine._filterIssue.args[ 0 ][ 1 ],
+					'Sketchpad is given as a second param' );
+			},
+
+			'test Engine.filterIssues no filter': function() {
+				// By default no IssueList.filter should be called.
+				var engine = new Engine(),
+					sketchpad = {},
+					issues = {
+						filter: sinon.spy()
+					};
+
+				engine.filterIssues( issues, sketchpad );
+
+				assert.areSame( 0, issues.filter.callCount, 'IssueList.filter call count' );
 			}
 		} );
 	} );

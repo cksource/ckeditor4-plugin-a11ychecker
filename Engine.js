@@ -53,6 +53,27 @@ define( function() {
 	};
 
 	/**
+	 * This method uses {@link #_filterIssue} to filter unwelcome issute.
+	 *
+	 * Note: Engine implementer is responsible for calling `filterIssues` in {@link #process} method.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Engine
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} a11ychecker
+	 * @param {CKEDITOR.dom.element} contentElement DOM object of container which contents will be checked.
+	 */
+	Engine.prototype.filterIssues = function( issueList, contentElement ) {
+		if ( this._filterIssue ) {
+			var that = this,
+				// We need to wrap _filterIssue, so that contentElement argument will be included.
+				wrapped = function( issue ) {
+					return that._filterIssue.call( that, issue, contentElement );
+				};
+
+			issueList.filter( wrapped );
+		}
+	};
+
+	/**
 	 * Used to obtain issues {@link CKEDITOR.plugins.a11ychecker.IssueDetails} object. This operation
 	 * might be asynchronous.
 	 *
@@ -132,6 +153,22 @@ define( function() {
 		}
 
 	};
+
+	/**
+	 * A function used to filter out unwanted issues before they will be returned to the
+	 * {@link CKEDITOR.plugins.a11ychecker.Controller}. If `null` nothing will be filtered.
+	 *
+	 * Function gets following parameters:
+	 * * The {@link CKEDITOR.plugins.a11ychecker.Issue} instance.
+	 * * {@link CKEDITOR.dom.element} DOM object of container where issue was found.
+	 *
+	 * Should return `true` if issue is desired or `false` if issue should be removed.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Engine
+	 * @protected
+	 * @type {Function/null}
+	 */
+	Engine.prototype._filterIssue = null;
 
 	return Engine;
 } );
