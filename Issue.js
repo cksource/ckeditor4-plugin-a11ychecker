@@ -79,10 +79,84 @@ define( function() {
 		 * @member CKEDITOR.plugins.a11ychecker.Issue
 		 * @type {mixed}
 		 */
-		id: null
+		id: null,
+
+		/**
+		 * Internal property serving as a cache for {@link #isIgnored} method.
+		 *
+		 * @private
+		 * @member CKEDITOR.plugins.a11ychecker.Issue
+		 * @type {Boolean/null}
+		 */
+		_ignored: null
 	};
 
 	Issue.prototype.constructor = Issue;
+
+	/**
+	 * Changes the issue ignored status.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Issue
+	 * @param {Boolean} isIgnored If `true` the issue will be marked as ignored.
+	 */
+	Issue.prototype.setIgnored = function( isIgnored ) {
+		var dataVal = ( this.element.data( 'cke-a11y-ignore' ) || '' ).split( ',' ),
+			foundOffset;
+
+		if ( isIgnored ) {
+			// Setting the ignored marker.
+			if ( !dataVal[ 0 ] && dataVal.length === 1 ) {
+				// In case when dataVal was empty we can simply override first array item.
+				dataVal[ 0 ] = this.id;
+			} else {
+				dataVal.push( this.id );
+			}
+		} else {
+			// And removing ignored state.
+			while ( ( foundOffset = CKEDITOR.tools.indexOf( dataVal, this.id ) ) !== -1) {
+				dataVal.splice( foundOffset, 1 );
+			}
+		}
+
+		this.element.data( 'cke-a11y-ignore', dataVal.join( ',' ) );
+	};
+
+	/**
+	 * Checks if issue is marked as a ignored.
+	 *
+	 * Return value of this function is cached, if you need to refresh it all the time
+	 * please use {@link #checkIgnored}.
+	 *
+	 * @returns {Boolean}
+	 */
+	Issue.prototype.isIgnored = function() {
+		if ( this._ignored === null ) {
+			this._ignored = this.checkIgnored();
+		}
+
+		return this._ignored;
+	};
+
+	/**
+	 * Marks the issue as ignored.
+	 */
+	Issue.prototype.ignore = function() {
+		this.setIgnored( true );
+	};
+
+	/**
+	 * Inspects the {@link #element} to see if issue is ignored. It checks data
+	 * attribute each time it's called.
+	 *
+	 * Consider using {@link #isIgnored} as a light-weight implementation.
+	 *
+	 * @returns {Boolean}
+	 */
+	Issue.prototype.checkIgnored = function() {
+		var dataValue = this.element.data( 'cke-a11y-ignore' ) || '';
+
+		return CKEDITOR.tools.indexOf( dataValue.split( ',' ), this.id ) !== -1;
+	};
 
 	/**
 	 * Returns {@link CKEDITOR.plugins.a11ychecker.IssueDetails} object.
@@ -106,7 +180,6 @@ define( function() {
 			} );
 		}
 	};
-
 
 	return Issue;
 } );
