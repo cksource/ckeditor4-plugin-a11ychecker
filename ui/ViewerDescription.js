@@ -10,8 +10,9 @@ define( function() {
 	 * @since 4.5
 	 * @class CKEDITOR.plugins.a11ychecker.viewerDescription
 	 * @constructor Creates a viewer's description instance.
+	 * @param {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
 	 */
-	function ViewerDescription() {
+	function ViewerDescription( lang ) {
 		/**
 		 * Templates of UI elements in this description.
 		 * See {@link #templateDefinitions}, {@link #parts}.
@@ -27,11 +28,18 @@ define( function() {
 		 * @property {CKEDITOR.dom.element} parts.wrapper Wrapper of the description.
 		 * @property {CKEDITOR.dom.element} parts.title Title of the issue.
 		 * @property {CKEDITOR.dom.element} parts.info Information about the issue.
+		 * @property {CKEDITOR.dom.element} parts.testability Issue testability indicator.
 		 */
 		this.parts = {};
 
 		// Build the description.
 		this.build();
+
+		/**
+		 * @readonly
+		 * @property {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
+		 */
+		this.lang = lang;
 	}
 
 	ViewerDescription.prototype = {
@@ -40,13 +48,16 @@ define( function() {
 		 * @property {String} templateDefinitions.wrapper
 		 * @property {String} templateDefinitions.title
 		 * @property {String} templateDefinitions.info
+		 * @property {String} templateDefinitions.testability
 		 */
 		templateDefinitions: {
 			wrapper: '<div class="cke_a11yc_ui_desc_wrapper"></div>',
 
 			title: '<strong class="cke_a11yc_ui_desc_title"></strong>',
 
-			info: '<p class="cke_a11yc_ui_desc_info"></p>'
+			info: '<p class="cke_a11yc_ui_desc_info"></p>',
+
+			testability: '<p class="cke_a11yc_ui_desc_testability"></p>'
 		},
 
 		/**
@@ -68,6 +79,17 @@ define( function() {
 		},
 
 		/**
+		 * Sets the testability of the issue.
+		 *
+		 * @param {Number} testability
+		 */
+		setTestability: function( testability ) {
+			this.parts.testability.setHtml(
+				this.lang.testability[ testability !== undefined ? testability : 1 ]
+			);
+		},
+
+		/**
 		 * Builds the UI of the description.
 		 */
 		build: function() {
@@ -77,10 +99,13 @@ define( function() {
 				title: CKEDITOR.dom.element.createFromHtml( this.templates.title.output() ),
 
 				info: CKEDITOR.dom.element.createFromHtml( this.templates.info.output() ),
+
+				testability: CKEDITOR.dom.element.createFromHtml( this.templates.testability.output() )
 			};
 
 			this.parts.title.appendTo( this.parts.wrapper );
 			this.parts.info.appendTo( this.parts.wrapper );
+			this.parts.testability.appendTo( this.parts.wrapper );
 		}
 	};
 

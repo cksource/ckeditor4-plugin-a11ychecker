@@ -52,8 +52,18 @@ define( function() {
 	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} list
 	 */
 	EditableDecorator.prototype.markIssues = function( list ) {
-		for ( var i = 0, len = list.count(); i < len; i++ ) {
-			list.getItem( i ).element.addClass( 'cke_a11ychecker_error' );
+		var len = list.count(),
+			testability,
+			issue,
+			i;
+
+		for ( i = 0; i < len; i++ ) {
+			issue = list.getItem( i );
+			testability = issue.testability;
+
+			issue.element.addClass( 'cke_a11ychecker_issue' );
+			// Store the testability.
+			issue.element.data( 'cke-testability', testability !== undefined ? testability : 1 );
 		}
 	};
 
@@ -148,10 +158,11 @@ define( function() {
 				removeFakeObjectAttribute( element, EditableDecorator.ID_ATTRIBUTE_NAME_FULL );
 			}
 
-			if ( element.hasClass( 'cke_a11ychecker_error' ) ) {
-				element.removeClass( 'cke_a11ychecker_error' );
+			if ( element.hasClass( 'cke_a11ychecker_issue' ) ) {
+				element.removeClass( 'cke_a11ychecker_issue' );
 				// Remove also cke_a11y_focused class.
 				element.removeClass( 'cke_a11y_focused' );
+				element.data( 'cke-testability', false );
 			}
 		}, CKEDITOR.NODE_ELEMENT, false );
 	};
@@ -165,7 +176,7 @@ define( function() {
 		var target = evt.data.getTarget(),
 			a11ychecker = this.editor._.a11ychecker;
 
-		if ( !target.hasClass( 'cke_a11ychecker_error' ) ) {
+		if ( !target.hasClass( 'cke_a11ychecker_issue' ) ) {
 			// If the clicked node itself isn't marked as a11y error, we'll look for closest
 			// parent.
 			var parents = target.getParents( true ),
@@ -174,7 +185,7 @@ define( function() {
 			target = null;
 
 			for ( i = 0; i < parents.length; i++ ) {
-				if ( parents[ i ].hasClass( 'cke_a11ychecker_error' ) ) {
+				if ( parents[ i ].hasClass( 'cke_a11ychecker_issue' ) ) {
 					target = parents[ i ];
 					break;
 				}
