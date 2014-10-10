@@ -325,6 +325,26 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	};
 
 	/**
+	 * Ignores current issue.
+	 *
+	 * @todo: I think we're more interested in toggling issue ignore state, rather
+	 * than constantly setting it to ignored. Therefore we should rename it to
+	 * something like `toggleIgnore` or sth.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 */
+	Controller.prototype.ignoreIssue = function() {
+		var issue  = this.issues.getFocused();
+
+		if ( !issue ) {
+			return;
+		}
+
+		issue.setIgnored( true );
+	};
+
+
+	/**
 	 * Closes the Accessibility Checker, hiding all the UI, reseting internal
 	 * data.
 	 */

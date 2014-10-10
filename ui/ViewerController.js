@@ -67,6 +67,8 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		// can cancel event, before default listeners will be triggered.
 		this.viewer.form.on( 'submit', this.quickFixAccepted, null, null, 8 );
 
+		this.viewer.description.on( 'ignore', a11ychecker.ignoreIssue, a11ychecker );
+
 		// Handle change in the list of issues.
 		this.viewer.navigation.on( 'change', function( evt ) {
 			a11ychecker.showIssue( Number( evt.data ), function() {
