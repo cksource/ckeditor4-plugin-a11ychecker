@@ -18,18 +18,6 @@ define( function() {
 		}
 	}
 
-	/**
-	 * Mapping for classes applied to editable element depending on issue testability.
-	 *
-	 * @static
-	 * @readonly
-	 */
-	EditableDecorator.testabilityClasses = {
-		0: 'cke_a11ychecker_notice',
-		0.5: 'cke_a11ychecker_warning',
-		1: 'cke_a11ychecker_error'
-	};
-
 	EditableDecorator.prototype = {};
 	EditableDecorator.prototype.constructor = EditableDecorator;
 
@@ -74,8 +62,8 @@ define( function() {
 			testability = issue.testability;
 
 			issue.element.addClass( 'cke_a11ychecker_issue' );
-
-			issue.element.addClass( EditableDecorator.testabilityClasses[ testability !== undefined ? testability : 1 ] );
+			// Store the testability.
+			issue.element.data( 'cke-testability', testability !== undefined ? testability : 1 );
 		}
 	};
 
@@ -174,6 +162,7 @@ define( function() {
 				element.removeClass( 'cke_a11ychecker_issue' );
 				// Remove also cke_a11y_focused class.
 				element.removeClass( 'cke_a11y_focused' );
+				element.data( 'cke-testability', false );
 			}
 		}, CKEDITOR.NODE_ELEMENT, false );
 	};

@@ -112,39 +112,30 @@
 
 			'test EditableDecorator.markIssues testability': function() {
 				// We need to check if markIssues() considers issue.testability,
-				// while applying the classes.
-
-				var issueList = new IssueList(),
-					addIssueMockup = function( list, testability ) {
-						// Inserts a issue mockup to the IssueList.
-						issueList.addItem( {
-							element: {
-								addClass: sinon.spy()
-							},
-							testability: testability
-						} );
+				// and adds proper data-cke-* attribute.
+				var elementMockup = {
+						addClass: sinon.spy(),
+						data: sinon.spy()
+					},
+					list = {
+						getItem: function() {
+							return {
+								element: elementMockup,
+								// lets use a dummy value, just to make sure that it's passed
+								// "as it is".
+								testability: 7
+							};
+						},
+						count: function() {
+							return 1;
+						}
 					};
 
-				addIssueMockup( issueList, 1 );
-				addIssueMockup( issueList, 0.5 );
-				addIssueMockup( issueList, 0 );
-				addIssueMockup( issueList, undefined );
-
 				// Setup the mocked IssueList.
-				this.mockup.markIssues( issueList );
+				this.mockup.markIssues( list );
 
-				var assertAddClass = function( issueIndex, expectedCallCount, expectedClass ) {
-					var issueElement = issueList.getItem( issueIndex ).element;
-					assert.areSame( expectedCallCount, issueElement.addClass.callCount,
-						'element.addClass call count for issue ' + issueIndex );
-					assert.areSame( expectedClass, issueElement.addClass.args[ 1 ][ 0 ],
-						'element.addClass second call parameter for issue ' + issueIndex );
-				};
-
-				assertAddClass( 0, 2, 'cke_a11ychecker_error' );
-				assertAddClass( 1, 2, 'cke_a11ychecker_warning' );
-				assertAddClass( 2, 2, 'cke_a11ychecker_notice' );
-				assertAddClass( 3, 2, 'cke_a11ychecker_error' );
+				assert.areEqual( 1, elementMockup.data.callCount, 'element.data call count' );
+				sinon.assert.alwaysCalledWith( elementMockup.data, 'cke-testability', 7 );
 			},
 
 			'test EditableDecorator.removeMarkup cke_a11ychecker_issue': function() {

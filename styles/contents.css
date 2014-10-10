@@ -1,25 +1,22 @@
 
 .cke_editable .cke_a11ychecker_issue {
 	outline: 3px solid rgb(255, 160, 160) !important;
+	background-color: rgba( 255,0,0, 0.1 ) !important;
 	padding: 2px;
 	font-style: italic;
 }
 
-.cke_editable .cke_a11ychecker_issue.cke_a11y_focused {
+.cke_editable *[data-cke-testability].cke_a11ychecker_issue.cke_a11y_focused {
 	outline: 3px solid rgb(228, 123, 9) !important;
 	background-color: rgba(224, 136, 41, 0.3) !important;
 }
 
-.cke_editable .cke_a11ychecker_error {
-	background-color: rgba( 255,0,0, 0.1 ) !important;
-}
-
-.cke_editable .cke_a11ychecker_warning {
+.cke_editable *[data-cke-testability="0.5"].cke_a11ychecker_issue {
 	background-color: #FFFACD !important;
 	outline-color: #FFE4B5 !important;
 }
 
-.cke_editable .cke_a11ychecker_notice {
+.cke_editable *[data-cke-testability="0"].cke_a11ychecker_issue {
 	outline-color: #DCDCDC !important;
 	background-color: #F1F1F1 !important;
 }
