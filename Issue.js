@@ -100,7 +100,7 @@ define( function() {
 	 * @param {Boolean} isIgnored If `true` the issue will be marked as ignored.
 	 */
 	Issue.prototype.setIgnored = function( isIgnored ) {
-		var dataVal = ( this.element.data( 'cke-a11y-ignore' ) || '' ).split( ',' ),
+		var dataVal = ( this.element.data( 'a11y-ignore' ) || '' ).split( ',' ),
 			foundOffset;
 
 		// Calling setIgnored should automatically invalidate cached _ignored value.
@@ -121,7 +121,7 @@ define( function() {
 			}
 		}
 
-		this.element.data( 'cke-a11y-ignore', dataVal.join( ',' ) );
+		this.element.data( 'a11y-ignore', dataVal.join( ',' ) );
 	};
 
 	/**
@@ -156,7 +156,7 @@ define( function() {
 	 * @returns {Boolean}
 	 */
 	Issue.prototype.checkIgnored = function() {
-		var dataValue = this.element.data( 'cke-a11y-ignore' ) || '';
+		var dataValue = this.element.data( 'a11y-ignore' ) || '';
 
 		return CKEDITOR.tools.indexOf( dataValue.split( ',' ), this.id ) !== -1;
 	};

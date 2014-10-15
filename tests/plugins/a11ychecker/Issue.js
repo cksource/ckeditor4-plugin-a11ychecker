@@ -101,7 +101,7 @@
 				ret = issue.checkIgnored();
 
 				assert.areSame( 1, element.data.callCount, 'element.data call count' );
-				mocking.assert.alwaysCalledWith( element.data, 'cke-a11y-ignore' );
+				mocking.assert.alwaysCalledWith( element.data, 'a11y-ignore' );
 				assert.isTrue( ret, 'Return value' );
 			},
 
@@ -168,8 +168,8 @@
 
 				// element.data() will be called twice, once as a getter and once as a setter.
 				assert.areSame( 2, element.data.callCount, 'element.data call count' );
-				mocking.assert.calledWith( element.data, 'cke-a11y-ignore' );
-				mocking.assert.calledWith( element.data, 'cke-a11y-ignore', 'id' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore', 'id' );
 			},
 
 			'test Issue.setIgnored false': function() {
@@ -187,8 +187,8 @@
 
 				// element.data() will be called twice, once as a getter and once as a setter.
 				assert.areSame( 2, element.data.callCount, 'element.data call count' );
-				mocking.assert.calledWith( element.data, 'cke-a11y-ignore' );
-				mocking.assert.calledWith( element.data, 'cke-a11y-ignore', 'foo,bar,ide' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore', 'foo,bar,ide' );
 			},
 
 			'test Issue.setIgnored multiple issues': function() {
@@ -213,9 +213,9 @@
 				issue2.setIgnored( true );
 
 				assert.areSame( 4, element.data.callCount, 'element.data call count' );
-				mocking.assert.calledWith( element.data, 'cke-a11y-ignore' );
-				mocking.assert.calledWith( element.data, 'cke-a11y-ignore', 'id1' );
-				mocking.assert.calledWith( element.data, 'cke-a11y-ignore', 'id1,id2' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore', 'id1' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore', 'id1,id2' );
 			},
 
 			'test Issue.isIgnored and setIgnored integration': function() {
