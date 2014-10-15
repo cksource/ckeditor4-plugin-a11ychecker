@@ -5,7 +5,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'Controller', 'mock/ControllerMockup', 'Controller/CheckingMode', 'helpers/sinon/sinon_amd.min' ], function( Controller, ControllerMockup, CheckingMode, sinon ) {
+	require( [ 'Controller', 'mock/ControllerMockup', 'Controller/CheckingMode', 'helpers/sinon/sinon_amd.min', 'mocking' ], function( Controller, ControllerMockup, CheckingMode, sinon, mocking ) {
 		bender.test( {
 			setUp: function() {
 				this.mockup = getControllerMockup();
@@ -575,6 +575,67 @@
 						return false;
 					} );
 				} );
+			},
+
+			'test Controller.ignoreIssue': function() {
+				var mock = {
+						ignoreIssue: Controller.prototype.ignoreIssue
+					},
+					issueMock = {
+						isIgnored: mocking.spy( function() {
+							return true;
+						} ),
+						setIgnored: mocking.spy()
+					};
+
+
+				mocking.mockProperty( 'issues.getFocused', mock, function() {
+					return issueMock;
+				} );
+
+				mocking.mockProperty( 'editableDecorator.markIgnoredIssue', mock );
+
+				mock.ignoreIssue();
+
+				assert.areSame( 1, issueMock.isIgnored.callCount, 'issueMock.isIgnored call count');
+				assert.areSame( 1, issueMock.setIgnored.callCount, 'issueMock.setIgnored call count');
+				mocking.assert.alwaysCalledWith( issueMock.setIgnored, false );
+
+				// Ensure that editableDecorator.markIgnoredIssue is called.
+				assert.areSame( 1, mock.editableDecorator.markIgnoredIssue.callCount,
+					'editableDecorator.markIgnoredIssue call count' );
+				mocking.assert.alwaysCalledWith( mock.editableDecorator.markIgnoredIssue, issueMock );
+			},
+
+			'test Controller.ignoreIssue toggle': function() {
+				// Check if the issues is set as ignored when it was not ignored initially.
+				var mock = {
+						ignoreIssue: Controller.prototype.ignoreIssue
+					},
+					issueMock = {
+						isIgnored: mocking.spy( function() {
+							return false;
+						} ),
+						setIgnored: mocking.spy()
+					};
+
+
+				mocking.mockProperty( 'issues.getFocused', mock, function() {
+					return issueMock;
+				} );
+
+				mocking.mockProperty( 'editableDecorator.markIgnoredIssue', mock );
+
+				mock.ignoreIssue();
+
+				assert.areSame( 1, issueMock.isIgnored.callCount, 'issueMock.isIgnored call count');
+				assert.areSame( 1, issueMock.setIgnored.callCount, 'issueMock.setIgnored call count');
+				mocking.assert.alwaysCalledWith( issueMock.setIgnored, true );
+
+				// Ensure that editableDecorator.markIgnoredIssue is called.
+				assert.areSame( 1, mock.editableDecorator.markIgnoredIssue.callCount,
+					'editableDecorator.markIgnoredIssue call count' );
+				mocking.assert.alwaysCalledWith( mock.editableDecorator.markIgnoredIssue, issueMock );
 			},
 
 			/**

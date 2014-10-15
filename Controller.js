@@ -325,11 +325,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	};
 
 	/**
-	 * Ignores current issue.
-	 *
-	 * @todo: I think we're more interested in toggling issue ignore state, rather
-	 * than constantly setting it to ignored. Therefore we should rename it to
-	 * something like `toggleIgnore` or sth.
+	 * Toggles focused issue ignore state.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 */
@@ -340,7 +336,9 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 			return;
 		}
 
-		issue.setIgnored( true );
+		issue.setIgnored( !issue.isIgnored() );
+		// Call editableDecorator, so it can modify issue presentation
+		this.editableDecorator.markIgnoredIssue( issue );
 	};
 
 

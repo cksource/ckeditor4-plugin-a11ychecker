@@ -64,6 +64,10 @@ define( function() {
 			issue.element.addClass( 'cke_a11ychecker_issue' );
 			// Store the testability.
 			issue.element.data( 'cke-testability', testability !== undefined ? testability : 1 );
+
+			if ( issue.isIgnored() ) {
+				this.markIgnoredIssue( issue );
+			}
 		}
 	};
 
@@ -231,6 +235,23 @@ define( function() {
 			a11yId = curIssue.originalElement.data( EditableDecorator.ID_ATTRIBUTE_NAME );
 			// Having this id we can simply fire a selector looking for matching element in editable.
 			curIssue.element = editable.findOne( '*[' + EditableDecorator.ID_ATTRIBUTE_NAME_FULL + '="' + a11yId + '"]' );
+		}
+	};
+
+	/**
+	 * Refresh given issue ignored state.
+	 *
+	 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue which element has to be refreshed.
+	 */
+	EditableDecorator.prototype.markIgnoredIssue = function( issue ) {
+		// Depending on issue.isIgnored() return value, either addClass or removeClass
+		// will be assigned to this variable.
+		var issueElement = issue.element;
+
+		if ( issue.isIgnored() ) {
+			issueElement.addClass( 'cke_a11ychecker_ignored' );
+		} else {
+			issueElement.removeClass( 'cke_a11ychecker_ignored' );
 		}
 	};
 

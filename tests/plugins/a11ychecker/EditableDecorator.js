@@ -93,10 +93,12 @@
 					className = 'cke_a11ychecker_issue';
 
 				issueListMockup.addItem( {
-					element: testedElements[ 0 ]
+					element: testedElements[ 0 ],
+					isIgnored: sinon.spy()
 				} );
 				issueListMockup.addItem( {
-					element: testedElements[ 1 ]
+					element: testedElements[ 1 ],
+					isIgnored: sinon.spy()
 				} );
 
 				this.mockup.markIssues( issueListMockup );
@@ -123,7 +125,8 @@
 								element: elementMockup,
 								// lets use a dummy value, just to make sure that it's passed
 								// "as it is".
-								testability: 7
+								testability: 7,
+								isIgnored: sinon.spy()
 							};
 						},
 						count: function() {
@@ -136,6 +139,39 @@
 
 				assert.areEqual( 1, elementMockup.data.callCount, 'element.data call count' );
 				sinon.assert.alwaysCalledWith( elementMockup.data, 'cke-testability', 7 );
+			},
+
+			'test EditableDecorator.markIssues applies ignore class': function() {
+				// We need to check if markIssues() considers issue.isIgnored(), that should
+				// result with editableDecorator.markIgnoredIssue being called.
+				var issueMockup = {
+						element: {
+							addClass: sinon.spy(),
+							data: sinon.spy()
+						},
+						// lets use a dummy value, just to make sure that it's passed
+						// "as it is".
+						testability: 1,
+						isIgnored: sinon.spy( function() {
+							return true;
+						} )
+					},
+					list = {
+						getItem: function() {
+							return issueMockup;
+						},
+						count: function() {
+							return 1;
+						}
+					};
+
+				this.mockup.markIgnoredIssue = sinon.spy();
+
+				// Setup the mocked IssueList.
+				this.mockup.markIssues( list );
+
+				assert.areSame( 1, this.mockup.markIgnoredIssue.callCount,
+					'editableDecorator.markIgnoredIssue call count' );
 			},
 
 			'test EditableDecorator.removeMarkup cke_a11ychecker_issue': function() {
@@ -249,7 +285,40 @@
 					'Controller.setMode first argument' );
 				assert.areEqual( 0, showIssueByElementMock.callCount,
 					'Controlelr.showIssueByElement call count' );
+			},
 
+			'test markIgnoredIssue': function() {
+				var issue = {
+					isIgnored: function() {
+						return true;
+					},
+					element: {
+						addClass: sinon.spy()
+					}
+				};
+
+				this.mockup.markIgnoredIssue( issue );
+
+				assert.areSame( 1, issue.element.addClass.callCount, 'element.addClass call count' );
+				sinon.assert.alwaysCalledWith( issue.element.addClass, 'cke_a11ychecker_ignored' );
+			},
+
+			'test markIgnoredIssue not ignored element': function() {
+				// Ensure that element class cke_a11ychecker_ignored is removed when issue is not
+				// ignored.
+				var issue = {
+					isIgnored: function() {
+						return false;
+					},
+					element: {
+						removeClass: sinon.spy()
+					}
+				};
+
+				this.mockup.markIgnoredIssue( issue );
+
+				assert.areSame( 1, issue.element.removeClass.callCount, 'element.removeClass call count' );
+				sinon.assert.alwaysCalledWith( issue.element.removeClass, 'cke_a11ychecker_ignored' );
 			}
 		} );
 
