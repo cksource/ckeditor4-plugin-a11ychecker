@@ -216,6 +216,24 @@
 				mocking.assert.calledWith( element.data, 'cke-a11y-ignore' );
 				mocking.assert.calledWith( element.data, 'cke-a11y-ignore', 'id1' );
 				mocking.assert.calledWith( element.data, 'cke-a11y-ignore', 'id1,id2' );
+			},
+
+			'test Issue.isIgnored and setIgnored integration': function() {
+				/**
+				 * We need to ensure that toggling ignored state with setIgnored()
+				 * will invalidate cache.
+				 */
+				var issue = getIssueMockup(),
+					element = CKEDITOR.document.createElement( 'span' );
+
+				issue.id = 'id';
+				issue.element = element;
+
+				issue.setIgnored( false );
+				assert.isFalse( issue.isIgnored() );
+
+				issue.setIgnored( true );
+				assert.isTrue( issue.isIgnored() );
 			}
 		} );
 

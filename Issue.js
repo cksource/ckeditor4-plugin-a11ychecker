@@ -103,6 +103,9 @@ define( function() {
 		var dataVal = ( this.element.data( 'cke-a11y-ignore' ) || '' ).split( ',' ),
 			foundOffset;
 
+		// Calling setIgnored should automatically invalidate cached _ignored value.
+		this._ignored = null;
+
 		if ( isIgnored ) {
 			// Setting the ignored marker.
 			if ( !dataVal[ 0 ] && dataVal.length === 1 ) {
