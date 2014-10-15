@@ -191,6 +191,28 @@
 				mocking.assert.calledWith( element.data, 'a11y-ignore', 'foo,bar,ide' );
 			},
 
+			'test Issue.setIgnored empty': function() {
+				// This time we will remove the last ignored issue type. That would cause
+				// data-a11y-ignore to be empty, but we don't want to leave junk. In that
+				// case we want to remove the attribute completely.
+				var issue = getIssueMockup(),
+					element = {
+						data: mocking.spy( function() {
+							return 'id';
+						} )
+					};
+
+				issue.id = 'id';
+				issue.element = element;
+
+				issue.setIgnored( false );
+
+				// element.data() will be called twice, once as a getter and once as a setter.
+				assert.areSame( 2, element.data.callCount, 'element.data call count' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore', false );
+			},
+
 			'test Issue.setIgnored multiple issues': function() {
 				// Checks the case when multiple issues share *the same* element.
 				var issue1 = getIssueMockup(),

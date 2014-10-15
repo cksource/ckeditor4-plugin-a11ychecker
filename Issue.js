@@ -121,7 +121,9 @@ define( function() {
 			}
 		}
 
-		this.element.data( 'a11y-ignore', dataVal.join( ',' ) );
+		// The "|| false" is not a bug, it's supposed to provide a false if dataVal is empty, so
+		// that data attribute is removed, rather than leaving junk.
+		this.element.data( 'a11y-ignore', dataVal.join( ',' ) || false );
 	};
 
 	/**
