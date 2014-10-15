@@ -105,6 +105,11 @@ define( function() {
 					if ( !editor._.a11ychecker.disableFilterStrip )
 						delete element.attributes[ EditableDecorator.ID_ATTRIBUTE_NAME_FULL ];
 
+					if ( editor.config.a11ychecker_noIgnoreData ) {
+						// If data-a11y-ignore attr is not desired, remove it.
+						delete element.attributes[ 'data-a11y-ignore' ];
+					}
+
 					return element;
 				}
 			}
