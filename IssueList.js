@@ -217,6 +217,8 @@ define( function() {
 	/**
 	 * Returns {@link CKEDITOR.plugins.a11ychecker.Issue} object by element.
 	 *
+	 * @todo Remove this function, and use getIssuesByElement().
+	 * @deprecated Use {@link #getIssuesByElement} instead.
 	 * @param {CKEDITOR.dom.element} element Element in the {@link CKEDITOR.editable},
 	 * associated with Accessibility issue.
 	 * @returns {CKEDITOR.plugins.a11ychecker.Issue/null} Matched object, or `null`
@@ -230,6 +232,35 @@ define( function() {
 				ret = curIssue;
 			}
 		} );
+
+		return ret;
+	};
+
+	/**
+	 * Returns all the {@link CKEDITOR.plugins.a11ychecker.Issue} instances related to the
+	 * given editable element.
+	 *
+	 * @param {CKEDITOR.dom.element} element
+	 * @param {Boolean} skipIgnored If `true` returned ignored issues won't be included in return value.
+	 * @returns {CKEDITOR.plugins.a11ychecker.Issue[]} An array of matched issues. If no issues found,
+	 * empty array is returned.
+	 */
+	IssueList.prototype.getIssuesByElement = function( element, skipIgnored ) {
+		var ret = [],
+			list = this.list,
+			curItem,
+			allowed;
+
+		for ( var i = 0, len = list.length; i < len; i++ ) {
+			curItem = list[ i ];
+			// We allow all elements when skipIgnored is false, otherwise
+			// we need to check if elemtns .isIgnored() is ture.
+			allowed = !skipIgnored || !curItem.isIgnored();
+
+			if ( curItem.element.equals( element ) && allowed ) {
+				ret.push( curItem );
+			}
+		}
 
 		return ret;
 	};
