@@ -22,6 +22,21 @@ define( function() {
 	EditableDecorator.prototype.constructor = EditableDecorator;
 
 	/**
+	 * An enumeration for css classes being applied to the issue
+	 * {CKEDITOR.plugins.a11ychecker.Issue#element}.
+	 *
+	 * Keys should be values used as {CKEDITOR.plugins.a11ychecker.Issue#testability}.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.EditableDecorator
+	 * @enum
+	 */
+	EditableDecorator.prototype.testabilityClasses = {
+		0: 'cke_a11ychecker_notice',
+		0.5: 'cke_a11ychecker_warning',
+		1: 'cke_a11ychecker_error'
+	};
+
+	/**
 	 * Attribute name used to mark elements, so A11y Checker can keep track of them, even after
 	 * to HTML serialization.
 	 *
@@ -53,21 +68,13 @@ define( function() {
 	 */
 	EditableDecorator.prototype.markIssues = function( list ) {
 		var len = list.count(),
-			testability,
 			issue,
 			i;
 
 		for ( i = 0; i < len; i++ ) {
 			issue = list.getItem( i );
-			testability = issue.testability;
 
-			issue.element.addClass( 'cke_a11ychecker_issue' );
-			// Store the testability.
-			issue.element.data( 'cke-testability', testability !== undefined ? testability : 1 );
-
-			if ( issue.isIgnored() ) {
-				this.markIgnoredIssue( issue );
-			}
+			this.markIssueElement( issue, list );
 		}
 	};
 
@@ -151,7 +158,8 @@ define( function() {
 	 */
 	EditableDecorator.prototype.removeMarkup = function() {
 		var editable = this.editable(),
-			editorHasFakeobjectPlugin = !!this.editor.plugins.fakeobjects;
+			editorHasFakeobjectPlugin = !!this.editor.plugins.fakeobjects,
+			unmarkIssueElement = this.unmarkIssueElement;
 
 		// Removes all Accessibility Checker attributes from the editable element.
 		editable.forEach( function( element ) {
@@ -168,10 +176,7 @@ define( function() {
 			}
 
 			if ( element.hasClass( 'cke_a11ychecker_issue' ) ) {
-				element.removeClass( 'cke_a11ychecker_issue' );
-				// Remove also cke_a11y_focused class.
-				element.removeClass( 'cke_a11y_focused' );
-				element.data( 'cke-testability', false );
+				unmarkIssueElement( element );
 			}
 		}, CKEDITOR.NODE_ELEMENT, false );
 	};
@@ -251,13 +256,64 @@ define( function() {
 	EditableDecorator.prototype.markIgnoredIssue = function( issue ) {
 		// Depending on issue.isIgnored() return value, either addClass or removeClass
 		// will be assigned to this variable.
-		var issueElement = issue.element;
+		issue.element.addClass( 'cke_a11ychecker_ignored' );
+	};
 
-		if ( issue.isIgnored() ) {
-			issueElement.addClass( 'cke_a11ychecker_ignored' );
+	/**
+	 * Applies formatting markup to the issue element.
+	 *
+	 * It automatically determines if issue element should be marked as ignored
+	 * or not.
+	 *
+	 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} list
+	 */
+	EditableDecorator.prototype.markIssueElement = function( issue, list ) {
+		var issueElement = issue.element,
+			testability = issue.testability,
+			// To be ignored, issue isIgnored() must return true AND there
+			// can be no other non-ignored issue for this element.
+			shouldBeIgnored = issue.isIgnored() &&
+				!list.getIssuesByElement( issueElement, true ).length;
+
+		if ( testability === undefined ) {
+			testability = 1;
+		}
+
+		// All issues have a cke_a11ychecker_issue class, no matter if it's ignored.
+		issueElement.addClass( 'cke_a11ychecker_issue' );
+
+		if ( shouldBeIgnored ) {
+			this.markIgnoredIssue( issue );
 		} else {
+			// When issue is not marked as an ignored issue we're going to add
+			// testability mapping class.
+			issueElement.addClass( this.testabilityClasses[ testability ] );
 			issueElement.removeClass( 'cke_a11ychecker_ignored' );
 		}
+	};
+
+	/**
+	 * Removes element formatting markup for the given issue.
+	 *
+	 * @param {CKEDITOR.plugins.a11ychecker.Issue/CKEDITOR.dom.element} issue Issue object or dom
+	 * element associated with an issue.
+	 * @param {Boolean} skipCommonClass If `true` class `cke_a11ychecker_issue` won't be removed.
+	 * All other classes like `cke_a11ychecker_error` and `cke_a11ychecker_ignored` are
+	 * going to be removed.
+	 */
+	EditableDecorator.prototype.unmarkIssueElement = function( issue, skipCommonClass ) {
+		var issueElement = issue.removeClass ? issue : issue.element;
+
+		if ( !skipCommonClass ) {
+			issueElement.removeClass( 'cke_a11ychecker_issue' );
+		}
+
+		issueElement.removeClass( 'cke_a11ychecker_error' )
+			.removeClass( 'cke_a11ychecker_warning' )
+			.removeClass( 'cke_a11ychecker_notice' )
+			.removeClass( 'cke_a11ychecker_ignored' )
+			.removeClass( 'cke_a11y_focused' );
 	};
 
 	/**

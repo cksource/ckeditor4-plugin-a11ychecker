@@ -337,8 +337,8 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		}
 
 		issue.setIgnored( !issue.isIgnored() );
-		// Call editableDecorator, so it can modify issue presentation
-		this.editableDecorator.markIgnoredIssue( issue );
+		// Refresh issue element classes.
+		this.editableDecorator.markIssueElement( issue, this.issues );
 	};
 
 

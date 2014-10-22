@@ -5,7 +5,13 @@
 ( function() {
 	'use strict';
 
-	require( [ 'EditableDecorator', 'Controller', 'mock/EditableDecoratorMockup', 'mock/IssueListMockup', 'IssueList', 'helpers/sinon/sinon_amd.min' ], function( EditableDecorator, Controller, EditableDecoratorMockup, IssueListMockup, IssueList, sinon ) {
+	require( [ 'EditableDecorator', 'Controller', 'mock/EditableDecoratorMockup', 'mock/IssueListMockup', 'IssueList', 'helpers/sinon/sinon_amd.min', 'mocking' ], function( EditableDecorator, Controller, EditableDecoratorMockup, IssueListMockup, IssueList, sinon, mocking ) {
+		var QUAIL_TESTABILITY = {
+			ERROR: 1,
+			WARNING: 0.5,
+			NOTICE: 0
+		};
+
 		bender.test( {
 
 			setUp: function() {
@@ -58,7 +64,13 @@
 			'test EditableDecorator.removeMarkup': function() {
 				var editable = this.mockup.editable();
 
+				this.mockup.unmarkIssueElement = mocking.spy();
 				this.mockup.loadContentFrom( 'a11ycheckerIdMarkup' );
+
+				// Elements expected to be given to the unmarkIssueElement method.
+				var expectedElements = editable.find( '.cke_a11ychecker_issue' ),
+					unmarkIssueElement = this.mockup.unmarkIssueElement;
+
 				this.mockup.removeMarkup();
 
 				editable.forEach( function( elem ) {
@@ -66,6 +78,12 @@
 					assert.isFalse( elem.hasAttribute( 'data-quail-id' ),
 						'Element stil has data-quail-id attr. Element outer: ' + elem.getOuterHtml() );
 				}, CKEDITOR.NODE_ELEMENT );
+
+				// unmarkIssueElement should be called only for elements in expectedElements.
+				assert.areSame( expectedElements.count(), unmarkIssueElement.callCount,
+					'EditableDecorator.unmarkIssueElement call count' );
+				mocking.assert.calledWith( this.mockup.unmarkIssueElement, expectedElements.getItem( 0 ) );
+				mocking.assert.calledWith( this.mockup.unmarkIssueElement, expectedElements.getItem( 1 ) );
 			},
 
 			'test EditableDecorator.removeMarkup removing .cke_a11ychecker_issue': function() {
@@ -112,58 +130,26 @@
 					'Elements with ' + className + ' count' );
 			},
 
-			'test EditableDecorator.markIssues testability': function() {
-				// We need to check if markIssues() considers issue.testability,
-				// and adds proper data-cke-* attribute.
-				var elementMockup = {
-						addClass: sinon.spy(),
-						data: sinon.spy()
-					},
-					list = {
-						getItem: function() {
-							return {
-								element: elementMockup,
-								// lets use a dummy value, just to make sure that it's passed
-								// "as it is".
-								testability: 7,
-								isIgnored: sinon.spy()
-							};
-						},
-						count: function() {
-							return 1;
-						}
-					};
-
-				// Setup the mocked IssueList.
-				this.mockup.markIssues( list );
-
-				assert.areEqual( 1, elementMockup.data.callCount, 'element.data call count' );
-				sinon.assert.alwaysCalledWith( elementMockup.data, 'cke-testability', 7 );
-			},
-
 			'test EditableDecorator.markIssues applies ignore class': function() {
 				// We need to check if markIssues() considers issue.isIgnored(), that should
 				// result with editableDecorator.markIgnoredIssue being called.
-				var issueMockup = {
-						element: {
-							addClass: sinon.spy(),
-							data: sinon.spy()
-						},
-						// lets use a dummy value, just to make sure that it's passed
-						// "as it is".
-						testability: 1,
-						isIgnored: sinon.spy( function() {
-							return true;
-						} )
-					},
+				var issueMockup = this._getIssueMock(),
 					list = {
 						getItem: function() {
 							return issueMockup;
 						},
 						count: function() {
 							return 1;
+						},
+						getIssuesByElement: function() {
+							return [];
 						}
 					};
+
+				issueMockup.testability = 1;
+				issueMockup.isIgnored = sinon.spy( function() {
+					return true;
+				} );
 
 				this.mockup.markIgnoredIssue = sinon.spy();
 
@@ -287,6 +273,92 @@
 					'Controlelr.showIssueByElement call count' );
 			},
 
+			'test markIssueElement adding classes - error': function() {
+				this._assertMarkIssueElementClass( 'cke_a11ychecker_error', QUAIL_TESTABILITY.ERROR );
+			},
+
+			'test markIssueElement adding classes - warning': function() {
+				this._assertMarkIssueElementClass( 'cke_a11ychecker_warning', QUAIL_TESTABILITY.WARNING );
+			},
+
+			'test markIssueElement adding classes - notice': function() {
+				this._assertMarkIssueElementClass( 'cke_a11ychecker_notice', QUAIL_TESTABILITY.NOTICE );
+			},
+
+			'test markIssueElement calls markIgnoredIssue': function() {
+				this.mockup.markIgnoredIssue = mocking.spy();
+
+				var issue = this._getIssueMock(),
+					list = this._getIssuesListMock();
+
+				issue.isIgnored = function() {
+					return true;
+				};
+
+				this.mockup.markIssueElement( issue, list );
+
+				assert.areSame( 1, this.mockup.markIgnoredIssue.callCount, 'markIgnoredIssue call count' );
+				mocking.assert.calledWith( this.mockup.markIgnoredIssue, issue );
+			},
+
+			'test markIssueElement doesnt call markIgnoredIssue': function() {
+				// We should not mark issue element as ignored when list.getIssuesByElement()
+				// returns 1 or more non-ignored issues for that element.
+				this.mockup.markIgnoredIssue = mocking.spy();
+
+				var issue = this._getIssueMock(),
+					list = this._getIssuesListMock();
+
+				list.getIssuesByElement = mocking.spy( function() {
+					return [ 1 ];
+				} );
+
+				issue.isIgnored = function() {
+					return true;
+				};
+
+				this.mockup.markIssueElement( issue, list );
+
+				assert.areSame( 0, this.mockup.markIgnoredIssue.callCount, 'markIgnoredIssue wasnt called' );
+			},
+
+			'test unmarkIssueElement': function() {
+				var issue = {},
+					removeClass = mocking.mockProperty( 'element.removeClass', issue, mocking.spy( function() {
+						// Make sure that function is chainable.
+						return issue.element;
+					} ) ),
+					// Classes expected to be removed.
+					expectedClasses = [
+						'cke_a11ychecker_issue',
+						'cke_a11ychecker_error',
+						'cke_a11ychecker_warning',
+						'cke_a11ychecker_notice',
+						'cke_a11ychecker_ignored',
+						'cke_a11y_focused'
+					];
+
+				this.mockup.unmarkIssueElement( issue );
+
+				assert.areNotEqual( 0, removeClass.callCount, 'There were some element.removeClass calls' );
+
+				for ( var i = 0; i < expectedClasses.length; i++ ) {
+					mocking.assert.calledWith( removeClass, expectedClasses[ i ] );
+				}
+			},
+
+			'test unmarkIssueElement skipCommonClass': function() {
+				var issue = {},
+					removeClass = mocking.mockProperty( 'element.removeClass', issue, mocking.spy( function() {
+						// Make sure that function is chainable.
+						return issue.element;
+					} ) );
+
+				this.mockup.unmarkIssueElement( issue, true );
+
+				assert.isFalse( removeClass.calledWith( 'cke_a11ychecker_issue' ) );
+			},
+
 			'test markIgnoredIssue': function() {
 				var issue = {
 					isIgnored: function() {
@@ -299,26 +371,52 @@
 
 				this.mockup.markIgnoredIssue( issue );
 
-				assert.areSame( 1, issue.element.addClass.callCount, 'element.addClass call count' );
-				sinon.assert.alwaysCalledWith( issue.element.addClass, 'cke_a11ychecker_ignored' );
+				assert.isTrue( issue.element.addClass.calledWith( 'cke_a11ychecker_ignored' ),
+					'class cke_a11ychecker_ignored added' );
 			},
 
-			'test markIgnoredIssue not ignored element': function() {
-				// Ensure that element class cke_a11ychecker_ignored is removed when issue is not
-				// ignored.
+			// Helper function to test markIssueElement method.
+			// Given `issueTestability` should cause it to call addClass with `expectedClass`.
+			_assertMarkIssueElementClass: function( expectedClass, issueTestability ) {
+				var issue = this._getIssueMock(),
+					addClass = issue.element.addClass;
+
+				issue.testability = issueTestability;
+				issue.isIgnored = function() {
+					return false;
+				};
+
+				this.mockup.markIssueElement( issue );
+
+				assert.areSame( 2, addClass.callCount, 'element.addClass call count' );
+				mocking.assert.calledWith( addClass, expectedClass );
+			},
+
+			// Returns an issue mockup, used mainly for .markIssueElement methods.
+			_getIssueMock: function() {
 				var issue = {
+					testability: 0,
 					isIgnored: function() {
 						return false;
 					},
 					element: {
+						addClass: sinon.spy(),
 						removeClass: sinon.spy()
 					}
 				};
 
-				this.mockup.markIgnoredIssue( issue );
+				mocking.mockProperty( 'element.addClass', issue );
 
-				assert.areSame( 1, issue.element.removeClass.callCount, 'element.removeClass call count' );
-				sinon.assert.alwaysCalledWith( issue.element.removeClass, 'cke_a11ychecker_ignored' );
+				return issue;
+			},
+
+			// Returns an issue lsit mockup, used mainly for .markIssueElement methods.
+			_getIssuesListMock: function() {
+				return {
+					getIssuesByElement: function() {
+						return [];
+					}
+				};
 			}
 		} );
 

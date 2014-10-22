@@ -13,5 +13,8 @@ CKEDITOR.plugins.setLang( 'a11ychecker', 'en', {
 		'0': 'notice',
 		'0.5': 'warning',
 		'1': 'error'
-	}
+	},
+	ignoreBtnTitle: 'Ignore the issue',
+	ignoreBtn: 'Ignore',
+	stopIgnoreBtn: 'Stop ignoring'
 } );

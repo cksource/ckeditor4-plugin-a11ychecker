@@ -593,7 +593,7 @@
 					return issueMock;
 				} );
 
-				mocking.mockProperty( 'editableDecorator.markIgnoredIssue', mock );
+				mocking.mockProperty( 'editableDecorator.markIssueElement', mock );
 
 				mock.ignoreIssue();
 
@@ -601,41 +601,10 @@
 				assert.areSame( 1, issueMock.setIgnored.callCount, 'issueMock.setIgnored call count');
 				mocking.assert.alwaysCalledWith( issueMock.setIgnored, false );
 
-				// Ensure that editableDecorator.markIgnoredIssue is called.
-				assert.areSame( 1, mock.editableDecorator.markIgnoredIssue.callCount,
-					'editableDecorator.markIgnoredIssue call count' );
-				mocking.assert.alwaysCalledWith( mock.editableDecorator.markIgnoredIssue, issueMock );
-			},
-
-			'test Controller.ignoreIssue toggle': function() {
-				// Check if the issues is set as ignored when it was not ignored initially.
-				var mock = {
-						ignoreIssue: Controller.prototype.ignoreIssue
-					},
-					issueMock = {
-						isIgnored: mocking.spy( function() {
-							return false;
-						} ),
-						setIgnored: mocking.spy()
-					};
-
-
-				mocking.mockProperty( 'issues.getFocused', mock, function() {
-					return issueMock;
-				} );
-
-				mocking.mockProperty( 'editableDecorator.markIgnoredIssue', mock );
-
-				mock.ignoreIssue();
-
-				assert.areSame( 1, issueMock.isIgnored.callCount, 'issueMock.isIgnored call count');
-				assert.areSame( 1, issueMock.setIgnored.callCount, 'issueMock.setIgnored call count');
-				mocking.assert.alwaysCalledWith( issueMock.setIgnored, true );
-
-				// Ensure that editableDecorator.markIgnoredIssue is called.
-				assert.areSame( 1, mock.editableDecorator.markIgnoredIssue.callCount,
-					'editableDecorator.markIgnoredIssue call count' );
-				mocking.assert.alwaysCalledWith( mock.editableDecorator.markIgnoredIssue, issueMock );
+				// Ensure that editableDecorator.markIssueElement is called.
+				assert.areSame( 1, mock.editableDecorator.markIssueElement.callCount,
+					'editableDecorator.markIssueElement call count' );
+				mocking.assert.alwaysCalledWith( mock.editableDecorator.markIssueElement, issueMock, mock.issues );
 			},
 
 			/**

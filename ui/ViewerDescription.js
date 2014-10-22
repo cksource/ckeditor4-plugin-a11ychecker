@@ -33,14 +33,14 @@ define( function() {
 		 */
 		this.parts = {};
 
-		// Build the description.
-		this.build();
-
 		/**
 		 * @readonly
 		 * @property {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
 		 */
 		this.lang = lang;
+
+		// Build the description.
+		this.build();
 	}
 
 	ViewerDescription.prototype = {
@@ -95,6 +95,23 @@ define( function() {
 		},
 
 		/**
+		 * @param {Boolean} isIgnored Bool telling whether issue is ignored or not.
+		 */
+		setIgnored: function( isIgnored ) {
+			var button = this.parts.ignoreButton;
+
+			button.setHtml( isIgnored ? this.lang.stopIgnoreBtn : this.lang.ignoreBtn );
+
+			if ( isIgnored ) {
+				button.addClass( 'cke_a11yc_ui_button_pushed' );
+				button.setAttribute( 'aria-pressed', 'true' );
+			} else {
+				button.removeClass( 'cke_a11yc_ui_button_pushed' );
+				button.setAttribute( 'aria-pressed', 'false' );
+			}
+		},
+
+		/**
 		 * Builds the UI of the description.
 		 */
 		build: function() {
@@ -108,10 +125,19 @@ define( function() {
 				testability: CKEDITOR.dom.element.createFromHtml( this.templates.testability.output() ),
 
 				ignoreButton: CKEDITOR.dom.element.createFromHtml( this.templates.ignoreButton.output( {
-					title: 'Ignore the issue',
-					text: 'Ignore'
+					title: this.lang.ignoreBtnTitle,
+					text: this.lang.ignoreBtn
 				} ) )
 			};
+
+			// Space key should trigger ignore event too.
+			// There is no need to support enter, as browsers will trigger click event.
+			this.parts.ignoreButton.on( 'keydown', function( evt ) {
+				if ( evt.data.getKeystroke() == 32 ) {
+					evt.data.preventDefault();
+					this.fire( 'ignore' );
+				}
+			}, this );
 
 			this.parts.ignoreButton.on( 'click', function( evt ) {
 				this.fire( 'ignore' );
