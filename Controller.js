@@ -325,6 +325,24 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	};
 
 	/**
+	 * Toggles focused issue ignore state.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 */
+	Controller.prototype.ignoreIssue = function() {
+		var issue  = this.issues.getFocused();
+
+		if ( !issue ) {
+			return;
+		}
+
+		issue.setIgnored( !issue.isIgnored() );
+		// Refresh issue element classes.
+		this.editableDecorator.markIssueElement( issue, this.issues );
+	};
+
+
+	/**
 	 * Closes the Accessibility Checker, hiding all the UI, reseting internal
 	 * data.
 	 */

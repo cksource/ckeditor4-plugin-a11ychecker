@@ -17,6 +17,7 @@
 				// Set the editor with a lang property.
 				mocking.mockProperty( 'editor.lang.a11ychecker', mock, a11ycheckerLang );
 				mocking.mockProperty( 'panel.parts.content.append', mock, appendMock );
+				mocking.mockProperty( 'panel.registerFocusable', mock );
 
 				mock.setupDescription();
 

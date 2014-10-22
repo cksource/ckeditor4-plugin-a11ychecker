@@ -30,6 +30,12 @@
 				engineParams = editor.config.a11ychecker_engineParams || {},
 				that = this;
 
+			if ( !editor.config.a11ychecker_noIgnoreData ) {
+				// Register a rule so ACF won't remove data-a11y-ignore attributes, only if there
+				// is no config setting denying it.
+				editor.filter.allow( '*[data-a11y-ignore]', 'a11ychecker' );
+			}
+
 			this.guiRegister( editor );
 
 			// Loads Engine, Controller and ViewerController classes.
@@ -198,5 +204,12 @@
 	 * Extra parameters passed to engine constructor.
 	 *
 	 * @cfg {Object} [a11ychecker_engineParams={}]
+	 */
+
+	/**
+	 * Prevents Accessibility Checker from storing `data-a11y-ignore` attributes in output
+	 * content.
+	 *
+	 * @cfg {Boolean} [a11ychecker_noIgnoreData=false]
 	 */
 } )();

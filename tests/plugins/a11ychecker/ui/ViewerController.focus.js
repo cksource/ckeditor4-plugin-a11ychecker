@@ -8,7 +8,7 @@
 	// Note that we have an extra (unused) requirement for 'EngineMock' and 'Controller' classes.
 	// That way it will force them to be available for the editor, and we have sure that a11ychecker
 	// plugin will be ready synchronously.
-	require( [ 'ui/ViewerController', 'EngineMock', 'Controller', 'ui/ViewerController' ], function( ViewerController ) {
+	require( [ 'ui/ViewerController', 'ui/ViewerDescription', 'EngineMock', 'Controller', 'ui/ViewerController' ], function( ViewerController, ViewerDescription ) {
 
 		bender.test( {
 			'async:init': function() {
@@ -146,18 +146,19 @@
 
 			'test focus trap': function() {
 				// Dialog should have focus trap applied.
-				// That means that shift-tab at first focusable element should take you to the last one,
-				// and vice versa.
+				// That means that tab press at the last focusable element should take you to the
+				// first one and vice versa.
 				var a11ychecker = this.editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
+					initialFocusElem = this._getLastFocusable( viewer ),
 					expectedFocusElem = viewer.navigation.parts.previous;
 				a11ychecker.exec();
-				// Will focus next button.
-				a11ychecker.next();
+				// Will focus the last button.
+				initialFocusElem.focus();
 
 				window.setTimeout( function() {
 					resume( function() {
-						viewer.navigation.parts.next.fire( 'keydown', getKeyEvent( 9 ) );
+						initialFocusElem.fire( 'keydown', getKeyEvent( 9 ) );
 
 						var activeElement = CKEDITOR.document.getActive();
 						assert.areSame( expectedFocusElem, activeElement, 'Invalid element focused' );
@@ -173,7 +174,7 @@
 				// and vice versa.
 				var a11ychecker = this.editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
-					expectedFocusElem = viewer.navigation.parts.next;
+					expectedFocusElem = this._getLastFocusable( viewer );
 				a11ychecker.exec();
 				// Will focus prev button.
 				a11ychecker.prev();
@@ -191,12 +192,13 @@
 			},
 
 			'test inline editor focus with balloon': function() {
+				// This test will ensure that after showing the balloon (.next() method) editor
+				// stays marked as focused, therefore it won't be blured.
 				var editor = this.editors.inline,
-					a11ychecker = editor._.a11ychecker,
-					viewer = a11ychecker.viewerController.viewer,
-					expectedFocusElem = viewer.navigation.parts.next;
+					a11ychecker = editor._.a11ychecker;
+
 				a11ychecker.exec();
-				// Will focus prev button.
+
 				a11ychecker.next( function() {
 					// Put an extra timeout.
 					window.setTimeout( function() {
@@ -207,6 +209,11 @@
 				} );
 
 				wait();
+			},
+
+			// Returns the last focusable element in viewer.
+			_getLastFocusable: function ( viewer ) {
+				return viewer.description.parts.ignoreButton;
 			}
 		} );
 

@@ -46,11 +46,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 
 		// Setup the refresh of panel UI once attached to an element.
 		this.viewer.panel.on( 'attach', function() {
-			var issue = a11ychecker.issues.getFocused();
-
-			this.updateList( issue );
-			this.updateDescription( issue );
-			this.updateForm( issue );
+			this.update( a11ychecker.issues.getFocused() );
 		}, this );
 
 		// Handle "previous" button click in the panel.
@@ -66,6 +62,13 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		// This listener has lower priority, because it performs validation. So it
 		// can cancel event, before default listeners will be triggered.
 		this.viewer.form.on( 'submit', this.quickFixAccepted, null, null, 8 );
+
+		this.viewer.description.on( 'ignore', a11ychecker.ignoreIssue, a11ychecker );
+
+		// We'll need also to refresh the balloon contents.
+		this.viewer.description.on( 'ignore', function() {
+			this.update( a11ychecker.issues.getFocused() );
+		}, this	);
 
 		// Handle change in the list of issues.
 		this.viewer.navigation.on( 'change', function( evt ) {
@@ -157,12 +160,25 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		} )(),
 
 		/**
+		 * Updates the balloon according to the given issue.
+		 *
+		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue
+		 */
+		update: function( issue ) {
+			this.updateList( issue );
+			this.updateDescription( issue );
+			this.updateForm( issue );
+		},
+
+		/**
 		 * Updates description according to the type of the current issue.
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Focused issue to be displayed in.
 		 */
 		updateDescription: function( issue ) {
 			var descriptionPart = this.viewer.description,
 				lang = this.lang;
+
+			descriptionPart.setIgnored( issue.isIgnored() );
 
 			// Request for issue details.
 			issue.getDetails( function( details ) {

@@ -178,6 +178,87 @@
 				assert.areSame( expectedIssue, ret, 'Return value' );
 			},
 
+			'test IssueList.getIssuesByElement': function() {
+				var expectedElement = CKEDITOR.dom.element.createFromHtml( '<br>' ),
+					otherElement = CKEDITOR.dom.element.createFromHtml( '<br>' ),
+					list = new IssueList(),
+					ret;
+
+				list.list = [
+					{ // Should be returned.
+						element: expectedElement,
+						isIgnored: function() { return false; }
+					},
+					{ // Should be skipped.
+						element: otherElement,
+						isIgnored: function() { return false; }
+					},
+					{ // Should be returned.
+						element: expectedElement,
+						isIgnored: function() { return false; }
+					}
+				];
+
+				ret = list.getIssuesByElement( expectedElement );
+
+				assert.isInstanceOf( Array, ret, 'Return type' );
+				assert.areSame( 2, ret.length, 'Return length' );
+				assert.areSame( list.list[ 0 ], ret[ 0 ], 'First element' );
+				assert.areSame( list.list[ 2 ], ret[ 1 ], 'Second element' );
+			},
+
+			'test IssueList.getIssuesByElement ignored': function() {
+				var expectedElement = CKEDITOR.dom.element.createFromHtml( '<br>' ),
+					otherElement = CKEDITOR.dom.element.createFromHtml( '<br>' ),
+					list = new IssueList(),
+					ret;
+
+				list.list = [
+					{ // Should be skipped.
+						element: expectedElement,
+						isIgnored: function() { return true; }
+					},
+					{ // Should be skipped.
+						element: otherElement,
+						isIgnored: function() { return true; }
+					},
+					{ // Should be returned.
+						element: expectedElement,
+						isIgnored: function() { return false; }
+					}
+				];
+
+				ret = list.getIssuesByElement( expectedElement, true );
+
+				assert.isInstanceOf( Array, ret, 'Return type' );
+				assert.areSame( 1, ret.length, 'Return length' );
+				assert.areSame( list.list[ 2 ], ret[ 0 ], 'First element' );
+			},
+
+			'test IssueList.getIssuesByElement different CKEDITOR.dom.element': function() {
+				// This one tests different CKEDITOR.dom.element instances, *but pointing
+				// to the same* DOM element (domElement).
+				var domElement = document.createElement( 'br' ),
+					list = new IssueList(),
+					ret;
+
+				list.list = [
+					{ // Should be returned.
+						element: new CKEDITOR.dom.element( domElement ),
+						isIgnored: function() { return false; }
+					},
+					{ // Should be returned.
+						element: new CKEDITOR.dom.element( domElement ),
+						isIgnored: function() { return false; }
+					}
+				];
+
+				ret = list.getIssuesByElement( list.list[ 0 ].element );
+
+				assert.isInstanceOf( Array, ret, 'Return type' );
+				assert.areSame( 2, ret.length, 'Return length' );
+			},
+
 			'test focusChanged first event': function() {
 				var list = new IssueList(),
 					eventsCount = 0,

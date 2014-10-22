@@ -9,6 +9,7 @@ define( function() {
 	 *
 	 * @since 4.5
 	 * @class CKEDITOR.plugins.a11ychecker.viewerDescription
+	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewer's description instance.
 	 * @param {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
 	 */
@@ -32,14 +33,14 @@ define( function() {
 		 */
 		this.parts = {};
 
-		// Build the description.
-		this.build();
-
 		/**
 		 * @readonly
 		 * @property {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
 		 */
 		this.lang = lang;
+
+		// Build the description.
+		this.build();
 	}
 
 	ViewerDescription.prototype = {
@@ -57,7 +58,11 @@ define( function() {
 
 			info: '<p class="cke_a11yc_ui_desc_info"></p>',
 
-			testability: '<p class="cke_a11yc_ui_desc_testability"></p>'
+			testability: '<p class="cke_a11yc_ui_desc_testability"></p>',
+
+			ignoreButton: '<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_button_ignore" role="button">' +
+					'<span class="cke_a11yc_ui_button">{text}</span>' +
+				'</a>'
 		},
 
 		/**
@@ -90,6 +95,23 @@ define( function() {
 		},
 
 		/**
+		 * @param {Boolean} isIgnored Bool telling whether issue is ignored or not.
+		 */
+		setIgnored: function( isIgnored ) {
+			var button = this.parts.ignoreButton;
+
+			button.setHtml( isIgnored ? this.lang.stopIgnoreBtn : this.lang.ignoreBtn );
+
+			if ( isIgnored ) {
+				button.addClass( 'cke_a11yc_ui_button_pushed' );
+				button.setAttribute( 'aria-pressed', 'true' );
+			} else {
+				button.removeClass( 'cke_a11yc_ui_button_pushed' );
+				button.setAttribute( 'aria-pressed', 'false' );
+			}
+		},
+
+		/**
 		 * Builds the UI of the description.
 		 */
 		build: function() {
@@ -100,14 +122,36 @@ define( function() {
 
 				info: CKEDITOR.dom.element.createFromHtml( this.templates.info.output() ),
 
-				testability: CKEDITOR.dom.element.createFromHtml( this.templates.testability.output() )
+				testability: CKEDITOR.dom.element.createFromHtml( this.templates.testability.output() ),
+
+				ignoreButton: CKEDITOR.dom.element.createFromHtml( this.templates.ignoreButton.output( {
+					title: this.lang.ignoreBtnTitle,
+					text: this.lang.ignoreBtn
+				} ) )
 			};
+
+			// Space key should trigger ignore event too.
+			// There is no need to support enter, as browsers will trigger click event.
+			this.parts.ignoreButton.on( 'keydown', function( evt ) {
+				if ( evt.data.getKeystroke() == 32 ) {
+					evt.data.preventDefault();
+					this.fire( 'ignore' );
+				}
+			}, this );
+
+			this.parts.ignoreButton.on( 'click', function( evt ) {
+				this.fire( 'ignore' );
+				evt.data.preventDefault();
+			}, this );
 
 			this.parts.title.appendTo( this.parts.wrapper );
 			this.parts.info.appendTo( this.parts.wrapper );
 			this.parts.testability.appendTo( this.parts.wrapper );
+			this.parts.ignoreButton.appendTo( this.parts.wrapper );
 		}
 	};
+
+	CKEDITOR.event.implementOn( ViewerDescription.prototype );
 
 	return ViewerDescription;
 } );

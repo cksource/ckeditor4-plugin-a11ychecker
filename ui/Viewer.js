@@ -88,6 +88,8 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 			this.description = new ViewerDescription( this.editor.lang.a11ychecker );
 
 			this.panel.parts.content.append( this.description.parts.wrapper );
+
+			this.panel.registerFocusable( this.description.parts.ignoreButton );
 		},
 
 		/**

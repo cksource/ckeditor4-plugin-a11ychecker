@@ -1,11 +1,10 @@
 /* bender-tags: editor,unit */
-/* bender-ckeditor-plugins: a11ychecker,toolbar */
 /* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'Issue' ], function( Issue ) {
+	require( [ 'Issue', 'mocking' ], function( Issue, mocking ) {
 		bender.test( {
 			'test constructor definition handling': function() {
 				// Ensure that properties given in definition object, are assigned to the Issue.
@@ -85,6 +84,178 @@
 				} );
 
 				assert.areSame( 1, callbackCalls, 'Callback is called once' );
+			},
+
+			'test Issue.checkIgnored': function() {
+				var issue = getIssueMockup(),
+					element = {
+						data: mocking.spy( function() {
+							return 'foo';
+						} )
+					},
+					ret;
+
+				issue.id = 'foo';
+				issue.element = element;
+
+				ret = issue.checkIgnored();
+
+				assert.areSame( 1, element.data.callCount, 'element.data call count' );
+				mocking.assert.alwaysCalledWith( element.data, 'a11y-ignore' );
+				assert.isTrue( ret, 'Return value' );
+			},
+
+			'test Issue.checkIgnored false': function() {
+				var issue = getIssueMockup(),
+					element = {
+						data: mocking.spy( function() {
+							return 'baz';
+						} )
+					},
+					ret;
+
+				issue.id = 'foo';
+				issue.element = element;
+
+				ret = issue.checkIgnored();
+
+				assert.areSame( 1, element.data.callCount, 'element.data call count' );
+				assert.isFalse( ret, 'Return value' );
+			},
+
+			'test Issue.isIgnored': function() {
+				var issue = {
+						isIgnored: Issue.prototype.isIgnored,
+						_ignored: null
+					},
+					checkIgnored = mocking.mockProperty( 'checkIgnored', issue, mocking.spy( function() {
+						return true;
+					} ) ),
+					ret;
+
+				ret = issue.isIgnored();
+
+				assert.areSame( 1, checkIgnored.callCount, 'checkIgnored call count' );
+				assert.isTrue( ret, 'Return value' );
+			},
+
+			'test Issue.isIgnored multiple calls': function() {
+				// Multiple calls of isIgnored method should result with only one checkIgnored call.
+				var issue = {
+						isIgnored: Issue.prototype.isIgnored,
+						_ignored: null
+					},
+					checkIgnored = mocking.mockProperty( 'checkIgnored', issue );
+
+				issue.isIgnored();
+				issue.isIgnored();
+				issue.isIgnored();
+				issue.isIgnored();
+
+				assert.areSame( 1, checkIgnored.callCount, 'checkIgnored call count' );
+			},
+
+			'test Issue.setIgnored': function() {
+				var issue = getIssueMockup(),
+					element = {
+						data: mocking.spy()
+					};
+
+				issue.id = 'id';
+				issue.element = element;
+
+				issue.setIgnored( true );
+
+				// element.data() will be called twice, once as a getter and once as a setter.
+				assert.areSame( 2, element.data.callCount, 'element.data call count' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore', 'id' );
+			},
+
+			'test Issue.setIgnored false': function() {
+				var issue = getIssueMockup(),
+					element = {
+						data: mocking.spy( function() {
+							return 'foo,id,bar,ide,id';
+						} )
+					};
+
+				issue.id = 'id';
+				issue.element = element;
+
+				issue.setIgnored( false );
+
+				// element.data() will be called twice, once as a getter and once as a setter.
+				assert.areSame( 2, element.data.callCount, 'element.data call count' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore', 'foo,bar,ide' );
+			},
+
+			'test Issue.setIgnored empty': function() {
+				// This time we will remove the last ignored issue type. That would cause
+				// data-a11y-ignore to be empty, but we don't want to leave junk. In that
+				// case we want to remove the attribute completely.
+				var issue = getIssueMockup(),
+					element = {
+						data: mocking.spy( function() {
+							return 'id';
+						} )
+					};
+
+				issue.id = 'id';
+				issue.element = element;
+
+				issue.setIgnored( false );
+
+				// element.data() will be called twice, once as a getter and once as a setter.
+				assert.areSame( 2, element.data.callCount, 'element.data call count' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore', false );
+			},
+
+			'test Issue.setIgnored multiple issues': function() {
+				// Checks the case when multiple issues share *the same* element.
+				var issue1 = getIssueMockup(),
+					issue2 = getIssueMockup(),
+					elementData = null,
+					element = {
+						data: mocking.spy( function() {
+							return elementData;
+						} )
+					};
+
+				issue1.id = 'id1';
+				issue1.element = element;
+
+				issue2.id = 'id2';
+				issue2.element = element;
+
+				issue1.setIgnored( true );
+				elementData = 'id1';
+				issue2.setIgnored( true );
+
+				assert.areSame( 4, element.data.callCount, 'element.data call count' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore', 'id1' );
+				mocking.assert.calledWith( element.data, 'a11y-ignore', 'id1,id2' );
+			},
+
+			'test Issue.isIgnored and setIgnored integration': function() {
+				/**
+				 * We need to ensure that toggling ignored state with setIgnored()
+				 * will invalidate cache.
+				 */
+				var issue = getIssueMockup(),
+					element = CKEDITOR.document.createElement( 'span' );
+
+				issue.id = 'id';
+				issue.element = element;
+
+				issue.setIgnored( false );
+				assert.isFalse( issue.isIgnored() );
+
+				issue.setIgnored( true );
+				assert.isTrue( issue.isIgnored() );
 			}
 		} );
 
