@@ -275,6 +275,15 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		var issues = this.issues,
 			// Issue index in the issue list.
 			issueIndex = issue,
+			// We need to use wrapped callback to make sure that proper focus will be set
+			// for balloon (#26).
+			wrappedCallback = function() {
+				this.viewer.navigation.parts.next.focus();
+
+				if ( callback ) {
+					callback.call( this );
+				}
+			},
 			// Issue object instacne, assigned once index is knwon.
 			issueObject,
 			ret;
@@ -285,12 +294,11 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 
 		issueObject = issues.getItem( issueIndex );
 
+		// In case when desired issue is already focused.
 		if ( issueObject && issueObject == issues.getFocused() ) {
-			if ( callback ) {
-				// Normally callback would be called with ViewerController context,
-				// so we need to keep it consistent.
-				callback.call( this.viewerController );
-			}
+			// Normally callback would be called with ViewerController context,
+			// so we need to keep it consistent.
+			wrappedCallback.call( this.viewerController );
 			return true;
 		}
 
@@ -298,7 +306,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 
 		if ( ret && this.viewerController ) {
 			this.viewerController.showIssue( issues.getItem( issueIndex ), {
-				callback: callback
+				callback: wrappedCallback
 			} );
 		}
 

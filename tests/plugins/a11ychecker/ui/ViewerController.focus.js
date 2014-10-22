@@ -211,6 +211,23 @@
 				wait();
 			},
 
+			'test a11ychecker.exec focus': function() {
+				// For exec function the focus should go to the next button.
+				var a11ychecker = this.editor._.a11ychecker,
+					viewer = a11ychecker.viewerController.viewer,
+					expectedFocusElem = viewer.navigation.parts.next;
+				a11ychecker.exec();
+
+				window.setTimeout( function() {
+					resume( function() {
+						var activeElement = CKEDITOR.document.getActive();
+						assert.areSame( expectedFocusElem, activeElement, 'Invalid element focused' );
+					} );
+				}, 300 );
+
+				wait();
+			},
+
 			// Returns the last focusable element in viewer.
 			_getLastFocusable: function ( viewer ) {
 				return viewer.description.parts.ignoreButton;

@@ -380,8 +380,11 @@
 								return 3;
 							} )
 						},
-						showIssue: Controller.prototype.showIssue
+						showIssue: Controller.prototype.showIssue,
+						viewerController: {}
 					};
+
+				mocking.mockProperty( 'viewer.navigation.parts.next.focus', controllerMock.viewerController );
 
 				assert.isTrue( controllerMock.showIssue( 1 ), 'Return value' );
 				assert.areSame( 0, moveToMock.callCount, 'issues.moveTo calls count' );
