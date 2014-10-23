@@ -22,22 +22,27 @@ define( function() {
 
 		// Updates basic controls of the ui, like issues count etc.
 		update: function() {
-			var that = this,
-				issues = this.controller.issues;
-
 			// Listens to the focusChanged in issues list, so new focused issue
 			// will be marked in UI.
-			issues.on( 'focusChanged', function( evt ) {
-				var evtData = evt.data;
+			this.controller.issues.on( 'focusChanged', this.focusChanged, this );
+		},
 
-				if ( evtData.current ) {
-					that.markFocus( evtData.current.element );
-				}
+		/**
+		 * Listener to the {@link CKEDITOR.plugins.a11ychecker.IssueList#focusChanged} event, it will
+		 * call unmark and mark focus methods appropriately.
+		 *
+		 * @param evt Event {@link CKEDITOR.plugins.a11ychecker.IssueList#focusChanged} event instance.
+		 */
+		focusChanged: function( evt ) {
+			var evtData = evt.data;
 
-				if ( evtData.previous ) {
-					that.unmarkFocus( evtData.previous.element );
-				}
-			} );
+			if ( evtData.previous ) {
+				this.unmarkFocus( evtData.previous.element );
+			}
+
+			if ( evtData.current ) {
+				this.markFocus( evtData.current.element );
+			}
 		},
 
 		unmarkFocus: function( issueElement ) {

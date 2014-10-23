@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'ui/Ui', 'helpers/sinon/sinon_amd.min' ], function( Ui, sinon ) {
+	require( [ 'ui/Ui', 'mocking' ], function( Ui, mocking ) {
 		bender.test( {
 			'test Ui constuctor': function() {
 				var controller = {},
@@ -46,6 +46,78 @@
 				assert.isTrue( editor.getCommand.alwaysCalledWith( 'a11ychecker' ), 'editor.getCommand argument' );
 
 				assert.areSame( editor.commands.a11ychecker, ret, 'Return value' );
+			},
+
+			'test Ui.focusChanged': function() {
+				var uiMock = getUiMockup(),
+					evt = {
+						data: {
+							current: {
+								element: 3
+							},
+							previous: {
+								element: 5
+							}
+						}
+					};
+
+				uiMock.markFocus = mocking.spy();
+				uiMock.unmarkFocus = mocking.spy();
+
+				uiMock.focusChanged( evt );
+
+				assert.areSame( 1, uiMock.markFocus.callCount, 'uiMock.markFocus call count' );
+				mocking.assert.alwaysCalledWith( uiMock.markFocus, 3 );
+				mocking.assert.alwaysCalledWith( uiMock.unmarkFocus, 5 );
+			},
+
+			'test Ui.focusChanged no previous': function() {
+				// Event does not contain previous entry, so unmark should not be called.
+				var uiMock = getUiMockup(),
+					evt = {
+						data: {
+							current: {
+								element: 3
+							}
+						}
+					};
+
+				uiMock.markFocus = mocking.spy();
+				uiMock.unmarkFocus = mocking.spy();
+
+				uiMock.focusChanged( evt );
+
+				assert.areSame( 0, uiMock.unmarkFocus.callCount, 'uiMock.unmarkFocus call count' );
+			},
+
+			'test focus change within the same element': function() {
+				// In this TC focus was changed to next issue, but this issue is coming
+				// still from the same element (#28).
+				var uiMock = getUiMockup(),
+					commonElement = {
+						equals: function() {
+							return true;
+						}
+					},
+					evt = {
+						data: {
+							current: {
+								element: commonElement
+							},
+							previous: {
+								element: commonElement
+							}
+						}
+					};
+
+				uiMock.markFocus = mocking.spy();
+				uiMock.unmarkFocus = mocking.spy();
+
+				uiMock.focusChanged( evt );
+
+				// markFocus needs to be called after unmark. Otherwise the class added in markFocus would be
+				// removed in unmark focus.
+				assert.isTrue( uiMock.markFocus.calledAfter( uiMock.unmarkFocus ), 'markFocus call order' );
 			}
 		} );
 
@@ -53,10 +125,10 @@
 			return {
 				commands: {
 					a11ychecker: {
-						setState: sinon.spy()
+						setState: mocking.spy()
 					}
 				},
-				getCommand: sinon.spy( function() {
+				getCommand: mocking.spy( function() {
 					return this.commands.a11ychecker;
 				} )
 			};
@@ -69,6 +141,7 @@
 				},
 				show: Ui.prototype.show,
 				hide: Ui.prototype.hide,
+				focusChanged: Ui.prototype.focusChanged,
 				getEditorCommand: Ui.prototype.getEditorCommand
 			};
 		}
