@@ -125,7 +125,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	};
 
 	/**
-	 * Dispatches accessiblity check function. Noe that results might be asynchronous.
+	 * Dispatches accessiblity check function. Note that results might be asynchronous.
 	 *
 	 * Automatically sets the Controller mode to `BUSY` / `CHECKING`.
 	 *
