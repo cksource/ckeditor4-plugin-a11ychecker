@@ -56,6 +56,12 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			this.a11ychecker.close();
 		}, this );
 
+		// Before hiding a panel we need to force focus on the editor.
+		// This will prevent from editor#blur to be risen (#41).
+		this.viewer.panel.on( 'hide', function() {
+			this.editor.focus();
+		}, this, null, 5 );
+
 		// Handle "previous" button click in the panel.
 		this.viewer.navigation.on( 'previous', function( evt ) {
 			a11ychecker.prev();
