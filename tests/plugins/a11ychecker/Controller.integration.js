@@ -45,11 +45,34 @@
 			'test change to sourcemode': function() {
 				var a11ychecker = this.editor._.a11ychecker;
 
-				a11ychecker.close = sinon.spy( a11ychecker.close );
+				try {
+					sinon.spy( a11ychecker, 'close' );
 
-				this.editor.execCommand( 'source' );
+					this.editor.execCommand( 'source' );
 
-				assert.areEqual( 1, a11ychecker.close.callCount, 'a11ychecker.close call count' );
+					assert.areEqual( 1, a11ychecker.close.callCount, 'a11ychecker.close call count' );
+				} catch( e ) {
+					throw e;
+				} finally {
+					a11ychecker.close.restore();
+				}
+			},
+
+			'test editor blur': function() {
+				// Bluring the editor should call Controller.close().
+				var a11ychecker = this.editor._.a11ychecker;
+
+				try {
+					a11ychecker.close = sinon.spy( a11ychecker, 'close' );
+
+					this.editor.fire( 'blur' );
+
+					assert.areEqual( 1, a11ychecker.close.callCount, 'a11ychecker.close call count' );
+				} catch( e ) {
+					throw e;
+				} finally {
+					a11ychecker.close.restore();
+				}
 			}
 		} );
 	} );

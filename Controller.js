@@ -416,6 +416,10 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		editor.on( 'beforeSetMode', function() {
 			that.close();
 		} );
+		// We want to close the Accessibility Checker when the editor blurs.
+		editor.on( 'blur', function() {
+			that.close();
+		} );
 	};
 
 	/**
