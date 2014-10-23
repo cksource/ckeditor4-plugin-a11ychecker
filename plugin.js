@@ -92,6 +92,10 @@
 			editor.addCommand( pluginName + '.prev', {
 				exec: cmdPrev
 			} );
+
+			editor.addCommand( pluginName + '.close', {
+				exec: cmdClose
+			} );
 		},
 
 		// Loads global CSS, mainly needed for skin.

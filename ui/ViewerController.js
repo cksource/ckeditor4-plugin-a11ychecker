@@ -49,6 +49,13 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			this.update( a11ychecker.issues.getFocused() );
 		}, this );
 
+		// When balloon is closed, a11ychecker should be forced to close with it.
+		// We can't listen to balloon hide event, because it's raised when the dialog
+		// is closed during issue switch.
+		this.viewer.panel.parts.close.on( 'click', function( evt ) {
+			this.a11ychecker.close();
+		}, this );
+
 		// Handle "previous" button click in the panel.
 		this.viewer.navigation.on( 'previous', function( evt ) {
 			a11ychecker.prev();

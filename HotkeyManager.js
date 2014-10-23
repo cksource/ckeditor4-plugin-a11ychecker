@@ -105,7 +105,8 @@ define( function() {
 			defaultMapping = {
 				'open': CKEDITOR.CTRL + CKEDITOR.ALT + 69 /*E*/,
 				'next': CKEDITOR.CTRL + 69 /*E*/,
-				'prev': CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 /*E*/
+				'prev': CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 /*E*/,
+				'close': 27 /*Esc*/
 			},
 			commandSuffix,
 			i;
