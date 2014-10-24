@@ -204,7 +204,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 * Setups the navigation bar.
 		 */
 		setupNavigation: function() {
-			this.navigation = new ViewerNavigation( this );
+			this.navigation = new ViewerNavigation( this, this.editor.lang.a11ychecker );
 
 			// Register focusables.
 			this.panel.registerFocusable( this.navigation.parts.previous );

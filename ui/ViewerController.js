@@ -183,7 +183,10 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue
 		 */
 		update: function( issue ) {
+			var issueList = this.a11ychecker.issues;
+
 			this.updateList( issue );
+			this.viewer.navigation.update( issueList.indexOf( issue ), issueList.count()  );
 			this.updateDescription( issue );
 			this.updateForm( issue );
 		},

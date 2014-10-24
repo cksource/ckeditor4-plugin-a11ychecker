@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-define( function() {
+define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 	/**
 	 * The navigation area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *
@@ -11,8 +11,10 @@ define( function() {
 	 * @class CKEDITOR.plugins.a11ychecker.viewerNavigation
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewer's navigation instance.
+	 * @param {CKEDITOR.plugins.a11ychecker.viewer} viewer
+	 * @param {Object} lang An language object for Accessibility Checker
 	 */
-	function ViewerNavigation( viewer ) {
+	function ViewerNavigation( viewer, lang ) {
 		/**
 		 * Parent {@link CKEDITOR.plugins.a11ychecker.viewer}.
 		 */
@@ -36,6 +38,12 @@ define( function() {
 		 * @property {CKEDITOR.dom.element} parts.list List of issues.
 		 */
 		this.parts = {};
+
+		/**
+		 * A counter object which helps to keep track of focused issue in whole
+		 * issue list.
+		 */
+		this.counter = new ViewerCounter( lang.navigationCounter );
 
 		// Build the navigation.
 		this.build();
@@ -87,6 +95,16 @@ define( function() {
 			listOption: '<option value="{value}" {selected}>{text}</option>',
 
 			listGroup: '<optgroup label="{label}"></optgroup>'
+		},
+
+		/**
+		 * Update the navigation component.
+		 *
+		 * @param {Number} cur 0-based current issue offset in issue list.
+		 * @param {Number} cur 1-based issue list length.
+		 */
+		update: function( cur, total ) {
+			this.counter.update( cur, total );
 		},
 
 		/**
@@ -172,7 +190,8 @@ define( function() {
 			nextButtonWrapper.append( this.parts.next );
 
 			this.parts.wrapper.append( previousButtonWrapper );
-			this.parts.wrapper.append( listWrapper );
+			//this.parts.wrapper.append( listWrapper );
+			this.parts.wrapper.append( this.counter.wrapper );
 			this.parts.wrapper.append( nextButtonWrapper );
 
 			this.parts.previous.unselectable();

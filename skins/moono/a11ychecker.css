@@ -182,20 +182,21 @@ select.cke_a11yc_ui_input_select:focus
 }
 
 .cke_a11yc_ui_navigation .cke_a11yc_ui_button_wrapper,
-.cke_a11yc_ui_navigation .cke_a11yc_ui_select_wrapper
+.cke_a11yc_ui_navigation .cke_a11yc_ui_counter
 {
 	display: table-cell;
+}
+
+.cke_a11yc_ui_navigation .cke_a11yc_ui_counter
+{
+	width: 100%;
+	text-align: center;
 }
 
 .cke_a11yc_ui_navigation .cke_a11yc_ui_button_wrapper
 {
 	/* Let the <select> span as wide as possible */
 	width: 0;
-}
-
-.cke_a11yc_ui_navigation .cke_a11yc_ui_select_wrapper select
-{
-	width: 100%;
 }
 
 a.cke_a11yc_ui_previous span,

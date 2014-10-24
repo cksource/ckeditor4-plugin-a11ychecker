@@ -18,5 +18,6 @@ CKEDITOR.plugins.setLang( 'a11ychecker', 'en', {
 	ignoreBtn: 'Ignore',
 	stopIgnoreBtn: 'Stop ignoring',
 	listeningInfo: 'Waiting for manual changes of the content. When done, click <strong>Check again</strong> below.',
-	listeningCheckAgain: 'Check again'
+	listeningCheckAgain: 'Check again',
+	navigationCounter: 'Issue {current} of {total}'
 } );
