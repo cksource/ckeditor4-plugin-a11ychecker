@@ -308,22 +308,19 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			}, 50, this );
 		},
 
-		hide: function() {
-			this.viewer.panel.hide();
-		},
-
 		/**
 		 * Activates the listening mode of the panel. See {@link #stopListening}.
 		 */
 		startListening: function() {
-			this.viewer.panel.show();
 			this.viewer.setMode( 'listening' );
+			this.viewer.panel.show();
 		},
 
 		/**
 		 * Deactivates the listening mode of the panel. See {@link #startListening}.
 		 */
 		stopListening: function() {
+			this.viewer.panel.hide();
 			this.viewer.setMode( 'checking' );
 		}
 	};

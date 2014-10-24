@@ -117,14 +117,6 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 			},
 
 			checking: {
-				enter: function( viewer ) {
-					viewer.panel.show();
-				},
-
-				leave: function( viewer ) {
-
-				},
-
 				panelShowListeners: function( viewer ) {
 					return [
 						// Hide the panel on iframe window's scroll.

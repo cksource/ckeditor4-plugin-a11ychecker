@@ -40,7 +40,7 @@ define( function() {
 		 * Activates the mode.
 		 */
 		enterMode: function() {
-			this.enter( this.viewer );
+			this.enter && this.enter( this.viewer );
 			this.addPanelShowListeners();
 		},
 
@@ -48,7 +48,7 @@ define( function() {
 		 * Leaves the mode.
 		 */
 		leaveMode: function() {
-			this.leave( this.viewer );
+			this.leave && this.leave( this.viewer );
 			this.removePanelShowListeners();
 		},
 
