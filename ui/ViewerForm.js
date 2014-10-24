@@ -173,14 +173,14 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		 * Ensures that form is visible.
 		 */
 		show: function() {
-			this.parts.wrapper.removeClass( 'hidden' );
+			this.parts.wrapper.show();
 		},
 
 		/**
 		 * Hides the form.
 		 */
 		hide: function() {
-			this.parts.wrapper.addClass( 'hidden' );
+			this.parts.wrapper.hide();
 		}
 	};
 
