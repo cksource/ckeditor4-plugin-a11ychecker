@@ -52,10 +52,8 @@ define( function() {
 			panelElement = panel.parts.panel;
 
 		// Listener will be applied each time panel is shown.
-		panel.on( 'show', function() {
-			var listener = panelElement.on( 'keydown', that.getBalloonKeydown( editor, hotkeyMapping ) );
-
-			panel.addListener( listener );
+		panel.addShowListener( function() {
+			return panelElement.on( 'keydown', that.getBalloonKeydown( editor, hotkeyMapping ) );
 		} );
 	};
 
