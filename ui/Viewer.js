@@ -87,18 +87,30 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 				},
 
 				enter: function( viewer ) {
-					// viewer.panel.setTitle( 'Accessibility checker: waiting' );
 					viewer.panel.parts.panel.addClass( 'cke_a11yc_mode_listening' );
+					viewer.panel.parts.panel.addClass( 'cke_a11yc_animated' );
+
+					// Save current panel width. Will be restored while leaving this mode.
 					this.panelWidth = viewer.panel.getWidth();
+
+					// Reset panel dimensions to auto.
 					viewer.panel.resize( null, null );
+
+					// Remove "cke_a11yc_animated" class once the initial position is set.
+					// This will prevent animations if the position of the panel needs to be
+					// updated in the future, i.e. when window geometry changes or editor is resized.
+					viewer.panel.parts.panel.once( CKEDITOR.env.safari ? 'webkitTransitionEnd' : 'transitionend', function() {
+						viewer.panel.parts.panel.removeClass( 'cke_a11yc_animated' );
+					} );
+
 					CKEDITOR.tools.setTimeout( function() {
 						this.updatePanelPosition( viewer );
-					}, 100, this );
+					}, 10, this );
 				},
 
 				leave: function( viewer ) {
-					// viewer.panel.setTitle( 'Accessibility checker' );
 					viewer.panel.parts.panel.removeClass( 'cke_a11yc_mode_listening' );
+					viewer.panel.parts.panel.removeClass( 'cke_a11yc_animated' );
 					viewer.panel.resize( this.panelWidth, null );
 				},
 
@@ -106,11 +118,18 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 					var that = this;
 
 					return [
+						// Update indicator position on main window's scroll.
 						function() {
 							return CKEDITOR.document.getWindow().on( 'resize', function() {
-								console.log( 'listener: outer window resize' );
 								that.updatePanelPosition( viewer );
 							} );
+						},
+
+						// Update indicator position on editor's resize.
+						function() {
+							return this.editor.on( 'resize', function() {
+								that.updatePanelPosition( viewer );
+							}, this );
 						},
 					];
 				}
@@ -122,7 +141,6 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 						// Hide the panel on iframe window's scroll.
 						function() {
 							return this.editor.window.on( 'scroll', function() {
-								console.log( 'listener: inner window scroll' );
 								if ( !this.editor.editable().isInline() ) {
 									this.blur();
 									this.hide();
@@ -133,7 +151,6 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 						// Hide the panel on editor resize.
 						function() {
 							return this.editor.on( 'resize', function() {
-								console.log( 'listener: resize' );
 								this.blur();
 								this.hide();
 							}, this );
