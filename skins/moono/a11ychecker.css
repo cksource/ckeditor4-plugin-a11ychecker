@@ -403,10 +403,10 @@ input.cke_a11yc_ui_input_text:focus
 	background: none;
 	border: 0;
 
-	/*-webkit-transition: .3s ease-in-out;
+	-webkit-transition: .3s ease-in-out;
 	-moz-transition: .3s ease-in-out;
 	-o-transition: .3s ease-in-out;
-	transition: .3s ease-in-out;*/
+	transition: .3s ease-in-out;
 
 	-moz-border-radius: 3px 0 0 0;
 	-webkit-border-radius: 3px 0 0 0;
