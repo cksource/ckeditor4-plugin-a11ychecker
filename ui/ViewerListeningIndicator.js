@@ -55,7 +55,7 @@ define( function() {
 		 * @property {String} templateDefinitions.button
 		 */
 		templateDefinitions: {
-			wrapper: '<div class="cke_a11yc_ui_listening"></div>',
+			wrapper: '<div class="cke_a11yc_ui_listening"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>',
 
 			button:
 				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button" role="button">' +

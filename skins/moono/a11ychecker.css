@@ -375,6 +375,7 @@ input.cke_a11yc_ui_input_text:focus
 {
 	display: none;
 	overflow: hidden;
+	padding: 10px;
 }
 
 .cke_a11yc_ui_listening .cke_a11yc_ui_button
@@ -387,29 +388,16 @@ input.cke_a11yc_ui_input_text:focus
 	display: block;
 	overflow: hidden;
 	padding-left: 15px;
+	margin-top: 10px;
+	position: relative;
 }
 
 .cke_a11yc_ui_listening a.cke_a11yc_ui_button:before
 {
 	content: url( images/reload.png );
 	position: absolute;
-	top: 6px;
+	top: 5px;
 	left: 5px;
-}
-
-/* Listening style of the balloon */
-.cke_balloon.cke_a11yc_mode_listening
-{
-	background: none;
-	border: 0;
-
-	-moz-border-radius: 3px 0 0 0;
-	-webkit-border-radius: 3px 0 0 0;
-	border-radius: 3px 0 0 0;
-
-	-moz-box-shadow: none;
-	-webkit-box-shadow: none;
-	box-shadow: none;
 }
 
 .cke_balloon.cke_a11yc_mode_listening.cke_balloon.cke_a11yc_animated
@@ -420,11 +408,9 @@ input.cke_a11yc_ui_input_text:focus
 	transition: .3s ease-in-out;
 }
 
-.cke_balloon.cke_a11yc_mode_listening .cke_balloon_title,
 .cke_balloon.cke_a11yc_mode_listening .cke_a11yc_ui_navigation,
 .cke_balloon.cke_a11yc_mode_listening .cke_a11yc_ui_desc_wrapper,
 .cke_balloon.cke_a11yc_mode_listening .cke_a11yc_ui_form,
-.cke_balloon.cke_a11yc_mode_listening .cke_balloon_close_button,
 .cke_balloon.cke_a11yc_mode_listening .cke_balloon_triangle_outer
 {
 	display: none;
