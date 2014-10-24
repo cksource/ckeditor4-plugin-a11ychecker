@@ -378,6 +378,16 @@ input.cke_a11yc_ui_input_text:focus
 	padding: 10px;
 }
 
+.cke_a11yc_ui_listening p
+{
+	white-space: normal;
+}
+
+.cke_a11yc_ui_listening strong
+{
+	font-weight: bold;
+}
+
 .cke_a11yc_ui_listening .cke_a11yc_ui_button
 {
 	cursor: pointer;

@@ -55,7 +55,9 @@ define( function() {
 		 * @property {String} templateDefinitions.button
 		 */
 		templateDefinitions: {
-			wrapper: '<div class="cke_a11yc_ui_listening"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p></div>',
+			wrapper: '<div class="cke_a11yc_ui_listening"></div>',
+
+			info: '<p>Waiting for manual changes of the content. When done, click <strong>Check again</strong> below.</p>',
 
 			button:
 				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button" role="button">' +
@@ -70,12 +72,15 @@ define( function() {
 			this.parts = {
 				wrapper: CKEDITOR.dom.element.createFromHtml( this.templates.wrapper.output() ),
 
+				info: CKEDITOR.dom.element.createFromHtml( this.templates.info.output() ),
+
 				button: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
 					title: 'Check again',
 					text: 'Check again'
 				} ) )
 			};
 
+			this.parts.wrapper.append( this.parts.info );
 			this.parts.wrapper.append( this.parts.button );
 
 			this.parts.button.on( 'click', function() {

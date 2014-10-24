@@ -94,7 +94,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 					this.panelWidth = viewer.panel.getWidth();
 
 					// Reset panel dimensions to auto.
-					viewer.panel.resize( null, null );
+					viewer.panel.resize( 250, null );
 
 					// Remove "cke_a11yc_animated" class once the initial position is set.
 					// This will prevent animations if the position of the panel needs to be
