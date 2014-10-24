@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/ViewerFocusManager' ], function( ViewerDescription, ViewerNavigation, ViewerForm, ViewerFocusManager ) {
+define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/ViewerListeningIndicator', 'ui/ViewerFocusManager', 'ui/ViewerMode' ], function( ViewerDescription, ViewerNavigation, ViewerForm, ViewerListeningIndicator, ViewerFocusManager, ViewerMode ) {
 	/**
 	 * A class which represents the end-user interface of a11ychecker. Viewer is a panel
 	 * which allows to browse and fix issues in the contents.
@@ -27,23 +27,15 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 */
 		this.panel = new CKEDITOR.ui.balloonPanel( editor, definition );
 
-		this.panel.on( 'show', function() {
-			// Hide on iframe window's scroll.
-			if ( !this.editor.editable().isInline() ) {
-				this.addListener( this.editor.window.on( 'scroll', function() {
-					this.blur();
-					this.hide();
-				}, this ) );
-			}
-
-			// Hide the panel on editor resize.
-			this.addListener( editor.on( 'resize', function() {
-				this.blur();
-				this.hide();
-			}, this ) );
-		} );
-
+		/**
+		 * The {@link CKEDITOR.plugins.a11ychecker.ui.ViewerFocusManager} of this viewer.
+		 */
 		this.focusManager = new ViewerFocusManager();
+
+		/**
+		 * Current mode of the Viewer. See {@link CKEDITOR.plugins.a11ychecker.ui.ViewerMode}, {@link #modes}.
+		 */
+		this.mode = null;
 
 		/**
 		 * @todo: HACK DETECTED! For the time being we weill simply inject ViewerFocusManager
@@ -64,9 +56,96 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		this.setupNavigation();
 		this.setupDescription();
 		this.setupForm();
+		this.setupListeningIndicator();
+
+		this.setupModes();
+		this.setMode( 'checking' );
 	};
 
 	Viewer.prototype = {
+		/**
+		 * Definitions of {@link CKEDITOR.plugins.a11ychecker.viewerMode}.
+		 */
+		modes: {
+			listening: {
+				updatePanelPosition: function( viewer ) {
+					var contentsSpace = viewer.editor.ui.space( 'contents' ),
+						contentsSpaceRect = contentsSpace.getClientRect(),
+						winGlobal = CKEDITOR.document.getWindow(),
+						winGlobalScroll = winGlobal.getScrollPosition(),
+						documentElementRect = viewer.editor.document.getDocumentElement().getClientRect();
+
+					viewer.panel.move(
+						contentsSpaceRect.bottom - viewer.panel.getHeight() + winGlobalScroll.y + 1 - 10,
+						contentsSpaceRect.right - viewer.panel.getWidth() + winGlobalScroll.x - ( contentsSpaceRect.width - documentElementRect.width ) - 1 - 10
+					);
+				},
+
+				enter: function( viewer ) {
+					// viewer.panel.setTitle( 'Accessibility checker: waiting' );
+					viewer.panel.parts.panel.addClass( 'cke_a11yc_mode_listening' );
+					this.panelWidth = viewer.panel.getWidth();
+					viewer.panel.resize( null, null );
+					CKEDITOR.tools.setTimeout( function() {
+						this.updatePanelPosition( viewer );
+					}, 100, this );
+				},
+
+				leave: function( viewer ) {
+					// viewer.panel.setTitle( 'Accessibility checker' );
+					viewer.panel.parts.panel.removeClass( 'cke_a11yc_mode_listening' );
+					viewer.panel.resize( this.panelWidth, null );
+				},
+
+				panelShowListeners: function( viewer ) {
+					var that = this;
+
+					return [
+						function() {
+							return CKEDITOR.document.getWindow().on( 'resize', function() {
+								console.log( 'listener: outer window resize' );
+								that.updatePanelPosition( viewer );
+							} );
+						},
+					];
+				}
+			},
+
+			checking: {
+				enter: function( viewer ) {
+					viewer.panel.show();
+				},
+
+				leave: function( viewer ) {
+
+				},
+
+				panelShowListeners: function( viewer ) {
+					return [
+						// Hide the panel on iframe window's scroll.
+						function() {
+							return this.editor.window.on( 'scroll', function() {
+								console.log( 'listener: inner window scroll' );
+								if ( !this.editor.editable().isInline() ) {
+									this.blur();
+									this.hide();
+								}
+							}, this );
+						},
+
+						// Hide the panel on editor resize.
+						function() {
+							return this.editor.on( 'resize', function() {
+								console.log( 'listener: resize' );
+								this.blur();
+								this.hide();
+							}, this );
+						}
+					]
+				}
+			}
+		},
+
 		/**
 		 * Setups the navigation bar.
 		 */
@@ -108,6 +187,42 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 
 			this.panel.registerFocusable( this.form.parts.button );
 			this.panel.parts.content.append( this.form.parts.wrapper );
+		},
+
+		/**
+		 * Setups listening indicator.
+		 * See {@link CKEDITOR.plugins.a11ychecker.viewerListeningIndicator}.
+		 */
+		setupListeningIndicator: function() {
+			this.listeningIndicator = new ViewerListeningIndicator( this );
+
+			this.panel.registerFocusable( this.listeningIndicator.parts.button );
+			this.panel.parts.content.append( this.listeningIndicator.parts.wrapper );
+		},
+
+		/**
+		 * Setups viewer modes.
+		 * See {@link #modes}, {@link #setMode}, {@link CKEDITOR.plugins.a11ychecker.viewerMode}.
+		 */
+		setupModes: function() {
+			for ( var m in this.modes ) {
+				this.modes[ m ] = new ViewerMode( this, this.modes[ m ] );
+			}
+		},
+
+		/**
+		 * Activates viewer mode.
+		 * See {@link #modes}, {@link #setupModes}, {@link CKEDITOR.plugins.a11ychecker.viewerMode}.
+		 *
+		 * @param {String} mode Mode name, one of {@link #modes}
+		 */
+		setMode: function( mode ) {
+			if ( this.mode ) {
+				this.modes[ this.mode ].leaveMode();
+			}
+
+			this.modes[ mode ].enterMode();
+			this.mode = mode;
 		}
 	};
 
