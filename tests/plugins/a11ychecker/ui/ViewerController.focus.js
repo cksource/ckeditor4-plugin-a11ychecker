@@ -122,28 +122,6 @@
 				wait();
 			},
 
-			'test navigation select change focus': function() {
-				// After changing the navigation in the select, navigation should not be lost.
-				var a11ychecker = this.editor._.a11ychecker,
-					viewer = a11ychecker.viewerController.viewer,
-					expectedFocusElem = viewer.navigation.parts.list;
-				a11ychecker.exec();
-				a11ychecker.showIssue( 0 );
-
-				// Fake the value change.
-				viewer.navigation.fire( 'change', 1 );
-
-				window.setTimeout( function() {
-					resume( function() {
-						var activeElement = CKEDITOR.document.getActive();
-						assert.isNotNull( activeElement, 'An element is focused' );
-						assert.areSame( expectedFocusElem, activeElement, 'The issue list is focused' );
-					} );
-				}, 300 );
-
-				wait();
-			},
-
 			'test focus trap': function() {
 				// Dialog should have focus trap applied.
 				// That means that tab press at the last focusable element should take you to the

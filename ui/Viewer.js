@@ -208,7 +208,6 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 
 			// Register focusables.
 			this.panel.registerFocusable( this.navigation.parts.previous );
-			this.panel.registerFocusable( this.navigation.parts.list );
 			this.panel.registerFocusable( this.navigation.parts.next );
 
 			this.panel.parts.content.append( this.navigation.parts.wrapper );

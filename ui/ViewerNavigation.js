@@ -35,24 +35,19 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 		 * @property {CKEDITOR.dom.element} parts.wrapper Wrapper of the navigation.
 		 * @property {CKEDITOR.dom.element} parts.previous "Previous" button.
 		 * @property {CKEDITOR.dom.element} parts.next "Next" button.
-		 * @property {CKEDITOR.dom.element} parts.list List of issues.
 		 */
 		this.parts = {};
 
 		/**
 		 * A counter object which helps to keep track of focused issue in whole
 		 * issue list.
+		 *
+		 * @type {CKEDITOR.plugins.a11ychecker.ViewerCounter}
 		 */
 		this.counter = new ViewerCounter( lang.navigationCounter );
 
 		// Build the navigation.
 		this.build();
-
-		/**
-		 * Event fired when the value of issues list is changed.
-		 *
-		 * @event change
-		 */
 
 		/**
 		 * Event fired when the "previous issue" button is clicked.
@@ -73,10 +68,6 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 		 * @property {String} templateDefinitions.wrapper
 		 * @property {String} templateDefinitions.buttonWrapper
 		 * @property {String} templateDefinitions.button
-		 * @property {String} templateDefinitions.list
-		 * @property {String} templateDefinitions.listWrapper
-		 * @property {String} templateDefinitions.listOption
-		 * @property {String} templateDefinitions.listGroup
 		 */
 		templateDefinitions: {
 			wrapper: '<div class="cke_a11yc_ui_navigation"></div>',
@@ -86,15 +77,7 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 			button:
 				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_{class}" role="button">' +
 					'<span class="cke_a11yc_ui_button">{text}</span>' +
-				'</a>',
-
-			list: '<select class="cke_a11yc_ui_input_select"></select>',
-
-			listWrapper: '<div class="cke_a11yc_ui_select_wrapper"></div>',
-
-			listOption: '<option value="{value}" {selected}>{text}</option>',
-
-			listGroup: '<optgroup label="{label}"></optgroup>'
+				'</a>'
 		},
 
 		/**
@@ -105,56 +88,6 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 		 */
 		update: function( cur, total ) {
 			this.counter.update( cur, total );
-		},
-
-		/**
-		 * Updates the list of issues.
-		 *
-		 * @param {Object} entries
-		 */
-		updateList: function( entries ) {
-			// Clean-up the list first.
-			this.cleanList();
-
-			// For each group of entries.
-			for ( var groupName in entries ) {
-				var group = CKEDITOR.dom.element.createFromHtml( this.templates.listGroup.output( {
-					label: groupName
-				} ) );
-
-				// Append <optgroup>.
-				this.parts.list.append( group );
-
-				// For each entry in the group.
-				for ( var entryIndex in entries[ groupName ] ) {
-					var entry = entries[ groupName ][ entryIndex ];
-
-					group.append( CKEDITOR.dom.element.createFromHtml( this.templates.listOption.output( {
-						value: entry.value,
-						text: entry.text,
-						selected: entry.selected
-					} ) ) );
-				}
-			}
-		},
-
-		/**
-		 * Cleans up the list of issues.
-		 *
-		 * @method cleanList
-		 */
-		cleanList: function() {
-			this.parts.list.setHtml( '' );
-		},
-
-		/**
-		 * Returns the index of currently selected issue.
-		 *
-		 * @method getListValue
-		 * @returns {String}
-		 */
-		getListValue: function() {
-			return this.parts.list.getValue();
 		},
 
 		/**
@@ -174,23 +107,18 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 					title: 'Next',
 					'class': 'next',
 					text: 'Next'
-				} ) ),
-
-				list: CKEDITOR.dom.element.createFromHtml( this.templates.list.output() ),
+				} ) )
 			};
 
 			// Set up navigation bar with its children.
 			var previousButtonWrapper = CKEDITOR.dom.element.createFromHtml( this.templates.buttonWrapper.output() ),
-				nextButtonWrapper = previousButtonWrapper.clone(),
-				listWrapper = CKEDITOR.dom.element.createFromHtml( this.templates.listWrapper.output() );
+				nextButtonWrapper = previousButtonWrapper.clone();
 
 			// Setting the DOM structure.
 			previousButtonWrapper.append( this.parts.previous );
-			listWrapper.append( this.parts.list );
 			nextButtonWrapper.append( this.parts.next );
 
 			this.parts.wrapper.append( previousButtonWrapper );
-			//this.parts.wrapper.append( listWrapper );
 			this.parts.wrapper.append( this.counter.wrapper );
 			this.parts.wrapper.append( nextButtonWrapper );
 
@@ -213,11 +141,6 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 
 			this.parts.next.on( 'click', function() {
 				this.fire( 'next' );
-			}, this );
-
-			// Handle issue selection from list.
-			this.parts.list.on( 'change', function( evt ) {
-				this.fire( 'change', this.getListValue() );
 			}, this );
 		}
 	};
