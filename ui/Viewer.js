@@ -131,6 +131,14 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 								that.updatePanelPosition( viewer );
 							}, this );
 						},
+
+						// Cancel BalloonPanel's default blur callback. The panel in ListeningMode
+						// should not respond to focus or blur.
+						function() {
+							return this.parts.panel.on( 'blur', function( evt ) {
+								evt.cancel();
+							}, null, null, 0 );
+						}
 					];
 				}
 			},
