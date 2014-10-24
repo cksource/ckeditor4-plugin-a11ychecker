@@ -33,7 +33,12 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		this.focusManager = new ViewerFocusManager();
 
 		/**
-		 * Current mode of the Viewer. See {@link CKEDITOR.plugins.a11ychecker.ui.ViewerMode}, {@link #modes}.
+		 * Mode of the Viewer. See {@link CKEDITOR.plugins.a11ychecker.ui.ViewerMode}, {@link #modes}, {@link #setMode}.
+		 */
+		this.modes = {};
+
+		/**
+		 * Current mode of the Viewer. See {@link CKEDITOR.plugins.a11ychecker.ui.ViewerMode}, {@link #modes}, {@link #setMode}.
 		 */
 		this.mode = null;
 
@@ -66,7 +71,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		/**
 		 * Definitions of {@link CKEDITOR.plugins.a11ychecker.viewerMode}.
 		 */
-		modes: {
+		modesDefinition: {
 			listening: {
 				updatePanelPosition: function( viewer ) {
 					var contentsSpace = viewer.editor.ui.space( 'contents' ),
@@ -205,8 +210,8 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 * See {@link #modes}, {@link #setMode}, {@link CKEDITOR.plugins.a11ychecker.viewerMode}.
 		 */
 		setupModes: function() {
-			for ( var m in this.modes ) {
-				this.modes[ m ] = new ViewerMode( this, this.modes[ m ] );
+			for ( var m in this.modesDefinition ) {
+				this.modes[ m ] = new ViewerMode( this, this.modesDefinition[ m ] );
 			}
 		},
 
