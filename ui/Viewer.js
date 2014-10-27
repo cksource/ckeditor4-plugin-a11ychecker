@@ -73,22 +73,8 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 */
 		modesDefinition: {
 			listening: {
-				updatePanelPosition: function( viewer ) {
-					var contentsSpace = viewer.editor.ui.space( 'contents' ),
-						contentsSpaceRect = contentsSpace.getClientRect(),
-						winGlobal = CKEDITOR.document.getWindow(),
-						winGlobalScroll = winGlobal.getScrollPosition(),
-						documentElementRect = viewer.editor.document.getDocumentElement().getClientRect();
-
-					viewer.panel.move(
-						contentsSpaceRect.bottom - viewer.panel.getHeight() + winGlobalScroll.y + 1 - 10,
-						contentsSpaceRect.right - viewer.panel.getWidth() + winGlobalScroll.x - ( contentsSpaceRect.width - documentElementRect.width ) - 1 - 10
-					);
-				},
-
 				enter: function( viewer ) {
 					viewer.panel.parts.panel.addClass( 'cke_a11yc_mode_listening' );
-					viewer.panel.parts.panel.addClass( 'cke_a11yc_animated' );
 
 					// Save current panel width. Will be restored while leaving this mode.
 					this.panelWidth = viewer.panel.getWidth();
@@ -96,42 +82,51 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 					// Reset panel dimensions to auto.
 					viewer.panel.resize( 250, null );
 
-					// Remove "cke_a11yc_animated" class once the initial position is set.
-					// This will prevent animations if the position of the panel needs to be
-					// updated in the future, i.e. when window geometry changes or editor is resized.
-					viewer.panel.parts.panel.once( CKEDITOR.env.safari ? 'webkitTransitionEnd' : 'transitionend', function() {
-						viewer.panel.parts.panel.removeClass( 'cke_a11yc_animated' );
-					} );
-
+					// Give it some time for the new dimensions to be applied.
 					CKEDITOR.tools.setTimeout( function() {
-						this.updatePanelPosition( viewer );
-					}, 10, this );
+						var panelRect = viewer.panel.parts.panel.getClientRect(),
+							winGlobal = CKEDITOR.document.getWindow(),
+							paneSize = winGlobal.getViewPaneSize();
+
+						// Since the panel is to be attached in the bottom-right corner of the viewport,
+						// it must get [ position: fixed, bottom, right ]. However, by default, the panel
+						// has [ position: absolute, top, left ] and it means that such transition would not animate.
+						// That's why converting *current* panel position from [ position: absolute, top, left ] to
+						// [ position: fixed, bottom, right ].
+						viewer.panel.parts.panel.setStyles( {
+							position: 'fixed',
+							top: null,
+							left: null,
+							right: paneSize.width - panelRect.right + 'px',
+							bottom: paneSize.height - panelRect.bottom + 'px'
+						} );
+
+						// That's mostly for Firefox, which needs some additional time to update styles.
+						CKEDITOR.tools.setTimeout( function() {
+							// Now, since the panel is controlled by [ position: fixed, bottom, right ],
+							// the target position can be set and the transition will animate.
+							viewer.panel.parts.panel.setStyles( {
+								right: '10px',
+								bottom: '10px'
+							} );
+						}, 0 );
+					}, 0, this );
 				},
 
 				leave: function( viewer ) {
 					viewer.panel.parts.panel.removeClass( 'cke_a11yc_mode_listening' );
-					viewer.panel.parts.panel.removeClass( 'cke_a11yc_animated' );
 					viewer.panel.resize( this.panelWidth, null );
+					viewer.panel.parts.panel.setStyles( {
+						position: 'absolute',
+						right: null,
+						bottom: null
+					} );
 				},
 
 				panelShowListeners: function( viewer ) {
 					var that = this;
 
 					return [
-						// Update indicator position on main window's scroll.
-						function() {
-							return CKEDITOR.document.getWindow().on( 'resize', function() {
-								that.updatePanelPosition( viewer );
-							} );
-						},
-
-						// Update indicator position on editor's resize.
-						function() {
-							return this.editor.on( 'resize', function() {
-								that.updatePanelPosition( viewer );
-							}, this );
-						},
-
 						// Cancel BalloonPanel's default blur callback. The panel in ListeningMode
 						// should not respond to focus or blur.
 						function() {

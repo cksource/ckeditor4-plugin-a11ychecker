@@ -410,7 +410,7 @@ input.cke_a11yc_ui_input_text:focus
 	left: 5px;
 }
 
-.cke_balloon.cke_a11yc_mode_listening.cke_balloon.cke_a11yc_animated
+.cke_balloon.cke_a11yc_mode_listening
 {
 	-webkit-transition: .3s ease-in-out;
 	-moz-transition: .3s ease-in-out;
