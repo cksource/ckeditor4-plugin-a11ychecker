@@ -73,7 +73,35 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 */
 		modesDefinition: {
 			listening: {
+				// Attaches the panel to the lower-right corner of the viewport.
+				attachToViewport: function( viewer ) {
+					viewer.panel.parts.panel.setStyles( {
+						right: '10px',
+						bottom: '10px'
+					} );
+				},
+
+				// Attaches the panel to the lower-right corner of the editor when maximized.
+				// In considers vertical scrollbar width and bottom space height to place the panel
+				// precisely in the corner of editable.
+				attachToEditable: function( viewer ) {
+					var contentsSpace = viewer.editor.ui.space( 'contents' ),
+						contentsSpaceRect = contentsSpace.getClientRect(),
+						documentElementRect = viewer.editor.document.getDocumentElement().getClientRect(),
+						winGlobal = CKEDITOR.document.getWindow(),
+						paneSize = winGlobal.getViewPaneSize();
+
+					viewer.panel.parts.panel.setStyles( {
+						right: ( contentsSpaceRect.width - documentElementRect.width ) + 10 + 'px',
+						bottom: ( paneSize.height - contentsSpaceRect.bottom ) + 10 + 'px'
+					} );
+				},
+
 				enter: function( viewer ) {
+					var that = this;
+
+					// Apply panel class, which is specific for listening mode, e.g. it hides unnecessary
+					// panel elements, enables CSS animations etc.
 					viewer.panel.parts.panel.addClass( 'cke_a11yc_mode_listening' );
 
 					// Save current panel width. Will be restored while leaving this mode.
@@ -90,9 +118,9 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 
 						// Since the panel is to be attached in the bottom-right corner of the viewport,
 						// it must get [ position: fixed, bottom, right ]. However, by default, the panel
-						// has [ position: absolute, top, left ] and it means that such transition would not animate.
-						// That's why converting *current* panel position from [ position: absolute, top, left ] to
-						// [ position: fixed, bottom, right ].
+						// has [ position: absolute, top, left ] (see BalloonPanel#move) and it means that such
+						// transition would not animate. That's why converting *current* panel position
+						// from [ position: absolute, top, left ] to [ position: fixed, bottom, right ].
 						viewer.panel.parts.panel.setStyles( {
 							position: 'fixed',
 							top: null,
@@ -103,12 +131,11 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 
 						// That's mostly for Firefox, which needs some additional time to update styles.
 						CKEDITOR.tools.setTimeout( function() {
-							// Now, since the panel is controlled by [ position: fixed, bottom, right ],
+							var maximizeCommand = viewer.editor.getCommand( 'maximize' );
+
+							// Now that the panel position is determined by [ position: fixed, bottom, right ],
 							// the target position can be set and the transition will animate.
-							viewer.panel.parts.panel.setStyles( {
-								right: '10px',
-								bottom: '10px'
-							} );
+							that[ maximizeCommand && maximizeCommand.state === 1 ? 'attachToEditable' : 'attachToViewport' ]( viewer );
 						}, 0 );
 					}, 0, this );
 				},
@@ -133,6 +160,13 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 							return this.parts.panel.on( 'blur', function( evt ) {
 								evt.cancel();
 							}, null, null, 0 );
+						},
+
+						// Update panel position when editor gets maximized.
+						function() {
+							return this.editor.on( 'maximize', function( evt ) {
+								that[ evt.data === 1 ? 'attachToEditable' : 'attachToViewport' ]( viewer );
+							} );
 						}
 					];
 				}
