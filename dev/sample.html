@@ -11,27 +11,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	<script>
 	(function() {
 		require.config( {
-			baseUrl: '../../../plugins/a11ychecker/',
-			paths: {
-				jquery: 'libs/jquery.min',
-				'Quail': 'libs/quail/2.2.8/quail.jquery',
-				// Alias for Quail2.2.1.
-				'Quail2.2.1': 'bower_components/quail/dist/quail.jquery'
-			},
-			shim: {
-				'Quail2.2.1': {
-					deps: [ 'jquery' ],
-					init: function( that ) {
-						return that.fn.quail;
-					}
-				},
-				'Quail': {
-					deps: [ 'jquery' ],
-					init: function( that ) {
-						return that.fn.quail;
-					}
-				}
-			}
+			baseUrl: '../../../plugins/a11ychecker/'
 		} );
 	}());
 	</script>
@@ -73,7 +53,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				instanceReady: function() {
 					var that = this;
 					setTimeout( function() {
-						that._.a11ychecker.exec();
+						//that._.a11ychecker.exec();
 					}, 700 );
 					this.focus();
 				}
