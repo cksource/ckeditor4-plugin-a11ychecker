@@ -23,9 +23,21 @@
 
 		onLoad: function() {
 			this.loadCss();
+
+			// Namespace register.
+			require( [ 'Controller', 'Engine', 'Issue', 'IssueList', 'IssueDetails', 'QuickFix/Base' ], function( Controller, Engine, Issue, IssueList, IssueDetails, QuickFix ) {
+				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
+					Controller: Controller,
+					Engine: Engine,
+					Issue: Issue,
+					IssueList: IssueList,
+					IssueDetails: IssueDetails,
+					QuickFix: QuickFix
+				} );
+			} );
 		},
 
-		init: function( editor ) {
+		beforeInit: function( editor ) {
 			var engineClass = editor.config.a11ychecker_engine || 'EngineQuail',
 				engineParams = editor.config.a11ychecker_engineParams || {},
 				that = this;
@@ -38,20 +50,23 @@
 
 			this.guiRegister( editor );
 
-			// Loads Engine, Controller and ViewerController classes.
-			require( [ 'Controller', engineClass ], function( Controller, EngineClass ) {
-				var a11ychecker = new Controller( editor );
+			editor.once( 'instanceReady', function() {
+				// Loads Engine, Controller and ViewerController classes.
+				require( [ 'Controller', 'EngineDefault' ], function( Controller, EngineClass ) {
+					var a11ychecker = new Controller( editor );
 
-				a11ychecker.engine = new EngineClass( engineParams, that );
+					a11ychecker.engine = new EngineClass( engineParams, that );
 
-				// @todo: Check if this flag is needed.
-				a11ychecker.disableFilterStrip = true;
+					// @todo: Check if this flag is needed.
+					a11ychecker.disableFilterStrip = true;
 
-				// Assign controller object to the editor protected namespace.
-				editor._.a11ychecker = a11ychecker;
+					// Assign controller object to the editor protected namespace.
+					editor._.a11ychecker = a11ychecker;
+				} );
+
+				that.commandRegister.call( that, editor );
 			} );
 
-			this.commandRegister( editor );
 		},
 
 		// Register buttons, dialogs etc.
