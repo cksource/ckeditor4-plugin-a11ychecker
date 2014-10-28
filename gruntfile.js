@@ -54,11 +54,10 @@ function build() {
 	// using AMD during development and avoid having to use a AMD library (RequireJS)
 	// on build. The real build will be much more complex than this, ofc.
 	//
-	// 1. Merge the CKEditor src code, which is based on RequireJS, using r.js.
-	// 2. Merge the above code with ./ckeditor.js, the boostrap code of the API.
-	// 3. Removes define/require from the code, making it pure js (AMDClean).
-	// 4. Minify the code with uglify.
-	// 5. Append the copyright notices and save to build/ckeditor.js.
+	// 1. Merge the plugin src code, which is based on RequireJS, using r.js.
+	// 2. Removes define/require from the code, making it pure js (AMDClean).
+	// 3. Minify the code with uglify.
+	// 4. Append the copyright notices and save to build/plugin.js.
 
 	var requirejs = require( 'requirejs' ),
 		fs = require('fs' ),
@@ -77,19 +76,15 @@ function build() {
 		function( buildResponse ) {
 			try {
 				var code =
-					// CKEditor bootstrap code.
-					//preProcess( fs.readFileSync( 'ckeditor.js', 'utf8' ) ) + '\n' +
-
-					// CKEditor code.
-					//fs.readFileSync( config.out, 'utf8' ) + '\n';
-					preProcess( fs.readFileSync( config.out, 'utf8' ) );
+					// The plugin code with stipped lines.
+					fs.readFileSync( config.out, 'utf8' );
 
 				// AMDClean, to remove define/require from the code.
 				var amdclean = require('amdclean');
 				code = amdclean.clean( code );
 
 				// Finally, minify the whole code.
-				//code = minify( code );
+				code = minify( code );
 
 				// Add copyright notices.
 				code =
@@ -112,11 +107,6 @@ function build() {
 			done( false );
 		}
 	);
-
-	function preProcess( code ) {
-		code = code.replace( /[^\n]*\%REMOVE_LINE%[^\n]*\n?/g, '' );
-		return code;
-	}
 
 	function minify( code ) {
 		var uglifyJS = require( 'uglify-js' );
