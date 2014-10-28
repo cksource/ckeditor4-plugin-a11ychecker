@@ -248,7 +248,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 * See {@link CKEDITOR.plugins.a11ychecker.viewerListeningIndicator}.
 		 */
 		setupListeningIndicator: function() {
-			this.listeningIndicator = new ViewerListeningIndicator( this );
+			this.listeningIndicator = new ViewerListeningIndicator( this.editor.lang.a11ychecker );
 
 			this.panel.registerFocusable( this.listeningIndicator.parts.button );
 			this.panel.parts.content.append( this.listeningIndicator.parts.wrapper );

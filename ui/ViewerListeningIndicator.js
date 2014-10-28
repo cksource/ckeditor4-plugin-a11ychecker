@@ -31,14 +31,14 @@ define( function() {
 		 */
 		this.parts = {};
 
-		// Build the indicator.
-		this.build();
-
 		/**
 		 * @readonly
 		 * @property {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
 		 */
 		this.lang = lang;
+
+		// Build the indicator.
+		this.build();
 
 		/**
 		 * Event fired when the "check" button is pressed.
@@ -57,7 +57,7 @@ define( function() {
 		templateDefinitions: {
 			wrapper: '<div class="cke_a11yc_ui_listening"></div>',
 
-			info: '<p>Waiting for manual changes of the content. When done, click <strong>Check again</strong> below.</p>',
+			info: '<p>{text}</p>',
 
 			button:
 				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button" role="button">' +
@@ -72,11 +72,13 @@ define( function() {
 			this.parts = {
 				wrapper: CKEDITOR.dom.element.createFromHtml( this.templates.wrapper.output() ),
 
-				info: CKEDITOR.dom.element.createFromHtml( this.templates.info.output() ),
+				info: CKEDITOR.dom.element.createFromHtml( this.templates.info.output( {
+					text: this.lang.listeningInfo
+				} ) ),
 
 				button: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
-					title: 'Check again',
-					text: 'Check again'
+					title: this.lang.listeningCheckAgain,
+					text: this.lang.listeningCheckAgain
 				} ) )
 			};
 
