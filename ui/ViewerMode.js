@@ -13,7 +13,7 @@ define( function() {
 	 * @class CKEDITOR.plugins.a11ychecker.viewerMode
 	 * @constructor Creates a viewerMode instance.
 	 * @param {CKEDITOR.editor} editor The editor instance for which the panel is created.
-	 * @param {Object} definition An object containing mode definition.
+	 * @param {Object} definition An object containing mode definition. See {@link CKEDITOR.plugins.a11ychecker.viewerMode.definition}.
 	 */
 	function ViewerMode( viewer, definition ) {
 		/**
@@ -54,7 +54,7 @@ define( function() {
 
 		/**
 		 * Adds event listener associated with a mode.
-		 * See {@link #listeners}.
+		 * See {@link CKEDITOR.plugins.a11ychecker.viewerMode.definition#panelShowListeners}.
 		 *
 		 * @param {Object} listener An object containing the `removeListener`.
 		 */
@@ -64,7 +64,7 @@ define( function() {
 
 		/**
 		 * Adds event listener associated with a mode.
-		 * See {@link #listeners}.
+		 * See {@link CKEDITOR.plugins.a11ychecker.viewerMode.definition#panelShowListeners}.
 		 *
 		 * @param {Object} listener An object containing the `removeListener`.
 		 */
@@ -81,7 +81,7 @@ define( function() {
 
 		/**
 		 * Removes all listeners associated with this Viewer.
-		 * See {@link #listeners}.
+		 * See {@link CKEDITOR.plugins.a11ychecker.viewerMode.definition#panelShowListeners}.
 		 */
 		removePanelShowListeners: function() {
 			var l;
@@ -90,6 +90,40 @@ define( function() {
 			}
 		},
 	};
+
+	/**
+	 * The definition of a viewer mode.
+	 *
+	 * This virtual class illustrates the properties that developers can use to define and create
+	 * viewer modes.
+	 *
+	 * @class CKEDITOR.plugins.a11ychecker.viewerMode.definition
+	 */
+
+	/**
+	 * A function called when viewer enters the mode.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.viewerMode.definition
+	 * @property {Function} enter
+	 */
+
+	/**
+	 * A function called when viewer leaves the mode.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.viewerMode.definition
+	 * @property {Function} leave
+	 */
+
+	/**
+	 * A function that returns an array of listeners, which are specific
+	 * for that mode and will be attached on {@link CKEDITOR.ui.balloonPanel#event-show} and
+	 * detached on {@link CKEDITOR.ui.balloonPanel#event-hide}. Those listeners are also
+	 * deactivated and detached if the mode of the viewer changes.
+	 * See {@link CKEDITOR.ui.balloonPanel#addShowListener}.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.viewerMode.definition
+	 * @property {Function} panelShowListeners
+	 */
 
 	return ViewerMode;
 } );

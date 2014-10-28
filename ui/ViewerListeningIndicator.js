@@ -14,7 +14,7 @@ define( function() {
 	 */
 	function ViewerListeningIndicator( lang ) {
 		/**
-		 * Templates of UI elements in this description.
+		 * Templates of UI elements in this indicator.
 		 * See {@link #templateDefinitions}, {@link #parts}.
 		 */
 		this.templates = {};
@@ -24,15 +24,14 @@ define( function() {
 		}
 
 		/**
-		 * @property parts UI elements of the description.
-		 * @property {CKEDITOR.dom.element} parts.wrapper Wrapper of the description.
-		 * @property {CKEDITOR.dom.element} parts.title Title of the issue.
-		 * @property {CKEDITOR.dom.element} parts.info Information about the issue.
-		 * @property {CKEDITOR.dom.element} parts.testability Issue testability indicator.
+		 * @property parts UI elements of the indicator.
+		 * @property {CKEDITOR.dom.element} parts.wrapper Wrapper of the indicator.
+		 * @property {CKEDITOR.dom.element} parts.info Information about the listening mode.
+		 * @property {CKEDITOR.dom.element} parts.button Button to leave the listening mode.
 		 */
 		this.parts = {};
 
-		// Build the description.
+		// Build the indicator.
 		this.build();
 
 		/**
@@ -52,6 +51,7 @@ define( function() {
 		/**
 		 * @property templateDefinitions Templates of the listening indicator. Automatically converted into {@link CKEDITOR.template} in the constructor.
 		 * @property {String} templateDefinitions.wrapper
+		 * @property {String} templateDefinitions.info
 		 * @property {String} templateDefinitions.button
 		 */
 		templateDefinitions: {

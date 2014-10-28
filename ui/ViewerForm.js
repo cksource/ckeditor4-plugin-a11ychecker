@@ -29,7 +29,7 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		}
 
 		/**
-		 * Inputs of this form. See {@link CKEDITOR.plugins.a11ychecker.viewer.input}.
+		 * Inputs of this form. See {@link CKEDITOR.plugins.a11ychecker.viewerInput}.
 		 */
 		this.inputs = {};
 

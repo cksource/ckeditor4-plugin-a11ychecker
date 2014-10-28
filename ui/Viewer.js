@@ -33,12 +33,12 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		this.focusManager = new ViewerFocusManager();
 
 		/**
-		 * Mode of the Viewer. See {@link CKEDITOR.plugins.a11ychecker.ui.ViewerMode}, {@link #modes}, {@link #setMode}.
+		 * Mode of the Viewer. See {@link CKEDITOR.plugins.a11ychecker.viewerMode}, {@link #modes}, {@link #setMode}.
 		 */
 		this.modes = {};
 
 		/**
-		 * Current mode of the Viewer. See {@link CKEDITOR.plugins.a11ychecker.ui.ViewerMode}, {@link #modes}, {@link #setMode}.
+		 * Current mode of the Viewer. See {@link CKEDITOR.plugins.a11ychecker.viewerMode}, {@link #modes}, {@link #setMode}.
 		 */
 		this.mode = null;
 
@@ -69,7 +69,10 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 
 	Viewer.prototype = {
 		/**
-		 * Definitions of {@link CKEDITOR.plugins.a11ychecker.viewerMode}.
+		 * @property modesDefinition Mode definitions of the viewer.
+		 * Converted into {@link CKEDITOR.plugins.a11ychecker.viewerMode} in {@link #setupModes}.
+		 * @property {String} modesDefinition.listening Definition of the viewer in listening mode.
+		 * @property {String} modesDefinition.checking Definition of the viewer in checking mode.
 		 */
 		modesDefinition: {
 			listening: {

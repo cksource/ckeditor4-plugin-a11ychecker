@@ -244,7 +244,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		/**
 		 * Called when quickfix form submit button was pressed.
 		 *
-		 * @param {Object} evt An event comming from {@link CKEDITOR.plugins.a11ychecker.ViewerForm#submit}
+		 * @param {Object} evt An event comming from {@link CKEDITOR.plugins.a11ychecker.viewerForm#event-submit}
 		 * event.
 		 */
 		quickFixAccepted: function( evt ) {
