@@ -16,7 +16,6 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 	 * @param {Object} definition An object containing panel definition.
 	 */
 	function ViewerController( a11ychecker, definition ) {
-
 		var editor = a11ychecker.editor;
 
 		/**
@@ -45,46 +44,46 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		this.lang = 'en';
 
 		// Setup the refresh of panel UI once attached to an element.
-		this.viewer.panel.on( 'attach', function() {
+		viewer.panel.on( 'attach', function() {
 			this.update( a11ychecker.issues.getFocused() );
 		}, this );
 
 		// When balloon is closed, a11ychecker should be forced to close with it.
 		// We can't listen to balloon hide event, because it's raised when the dialog
 		// is closed during issue switch.
-		this.viewer.panel.parts.close.on( 'click', function( evt ) {
+		viewer.panel.parts.close.on( 'click', function( evt ) {
 			this.a11ychecker.close();
 		}, this );
 
 		// Before hiding a panel we need to force focus on the editor.
 		// This will prevent from editor#blur to be risen (#41).
-		this.viewer.panel.on( 'hide', function() {
+		viewer.panel.on( 'hide', function() {
 			this.editor.focus();
 		}, this, null, 5 );
 
 		// Handle "previous" button click in the panel.
-		this.viewer.navigation.on( 'previous', function( evt ) {
+		viewer.navigation.on( 'previous', function( evt ) {
 			a11ychecker.prev();
 		} );
 
 		// Handle "next" button click in the panel.
-		this.viewer.navigation.on( 'next', function( evt ) {
+		viewer.navigation.on( 'next', function( evt ) {
 			a11ychecker.next();
 		} );
 
 		// This listener has lower priority, because it performs validation. So it
 		// can cancel event, before default listeners will be triggered.
-		this.viewer.form.on( 'submit', this.quickFixAccepted, null, null, 8 );
+		viewer.form.on( 'submit', this.quickFixAccepted, null, null, 8 );
 
-		this.viewer.description.on( 'ignore', a11ychecker.ignoreIssue, a11ychecker );
+		viewer.description.on( 'ignore', a11ychecker.ignoreIssue, a11ychecker );
 
 		// We'll need also to refresh the balloon contents.
-		this.viewer.description.on( 'ignore', function() {
+		viewer.description.on( 'ignore', function() {
 			this.update( a11ychecker.issues.getFocused() );
 		}, this	);
 
 		// Handle change in the list of issues.
-		this.viewer.navigation.on( 'change', function( evt ) {
+		viewer.navigation.on( 'change', function( evt ) {
 			a11ychecker.showIssue( Number( evt.data ), function() {
 				// When issue is shwon, make sure that issues list (in navigation)
 				// is focused.
@@ -94,13 +93,19 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 
 		this.on( 'next', function( evt ) {
 			// Focusing the next button.
-			this.viewer.navigation.parts.next.focus();
+			viewer.navigation.parts.next.focus();
 		}, null, null, 20 );
 
 		this.on( 'prev', function( evt ) {
 			// Focusing the previous button.
-			this.viewer.navigation.parts.previous.focus();
+			viewer.navigation.parts.previous.focus();
 		}, null, null, 20 );
+
+		// Leave listening mode if the button of the indicator was pressed.
+		viewer.listeningIndicator.on( 'check', function() {
+			a11ychecker.check();
+			a11ychecker.editor.focus();
+		}, this );
 	}
 
 	ViewerController.prototype = {
@@ -239,7 +244,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		/**
 		 * Called when quickfix form submit button was pressed.
 		 *
-		 * @param {Object} evt An event comming from {@link CKEDITOR.plugins.a11ychecker.ViewerForm#submit}
+		 * @param {Object} evt An event comming from {@link CKEDITOR.plugins.a11ychecker.viewerForm#event-submit}
 		 * event.
 		 */
 		quickFixAccepted: function( evt ) {
@@ -303,8 +308,20 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			}, 50, this );
 		},
 
-		hide: function() {
+		/**
+		 * Activates the listening mode of the panel. See {@link #stopListening}.
+		 */
+		startListening: function() {
+			this.viewer.setMode( 'listening' );
+			this.viewer.panel.show();
+		},
+
+		/**
+		 * Deactivates the listening mode of the panel. See {@link #startListening}.
+		 */
+		stopListening: function() {
 			this.viewer.panel.hide();
+			this.viewer.setMode( 'checking' );
 		}
 	};
 

@@ -40,7 +40,7 @@ define( function() {
 		controller.editableDecorator.removeMarkup();
 
 		if ( controller.viewerController ) {
-			controller.viewerController.hide();
+			controller.viewerController.viewer.panel.hide();
 		}
 
 		if ( controller.issues ) {

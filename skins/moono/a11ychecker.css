@@ -370,19 +370,63 @@ input.cke_a11yc_ui_input_text:focus
 	padding: 5px 0;
 }
 
-.cke_a11yc_ui_form.hidden {
+/* Listening info area */
+.cke_a11yc_ui_listening
+{
+	display: none;
+	overflow: hidden;
+	padding: 10px;
+}
+
+.cke_a11yc_ui_listening p
+{
+	white-space: normal;
+}
+
+.cke_a11yc_ui_listening strong
+{
+	font-weight: bold;
+}
+
+.cke_a11yc_ui_listening .cke_a11yc_ui_button
+{
+	cursor: pointer;
+}
+
+.cke_a11yc_ui_listening a.cke_a11yc_ui_button
+{
+	display: block;
+	overflow: hidden;
+	padding-left: 15px;
+	margin-top: 10px;
+	position: relative;
+}
+
+.cke_a11yc_ui_listening a.cke_a11yc_ui_button:before
+{
+	content: url( images/reload.png );
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+
+.cke_balloon.cke_a11yc_mode_listening
+{
+	-webkit-transition: .3s ease-in-out;
+	-moz-transition: .3s ease-in-out;
+	-o-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+
+.cke_balloon.cke_a11yc_mode_listening .cke_a11yc_ui_navigation,
+.cke_balloon.cke_a11yc_mode_listening .cke_a11yc_ui_desc_wrapper,
+.cke_balloon.cke_a11yc_mode_listening .cke_a11yc_ui_form,
+.cke_balloon.cke_a11yc_mode_listening .cke_balloon_triangle_outer
+{
 	display: none;
 }
 
-.cke_a11yc_ui_listening_tooltip {
-	position: absolute;
-	z-index: 10000;
-	background: yellow;
-	color: black;
-	border: 2px solid #666;
-	padding: 4px;
-}
-
-.cke_a11yc_ui_listening_tooltip:hover {
-	cursor: pointer;
+.cke_balloon.cke_a11yc_mode_listening .cke_a11yc_ui_listening
+{
+	display: block;
 }
