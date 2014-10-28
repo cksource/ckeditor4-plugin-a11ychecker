@@ -23,18 +23,6 @@
 
 		onLoad: function() {
 			this.loadCss();
-
-			// Namespace register.
-			require( [ 'Controller', 'Engine', 'Issue', 'IssueList', 'IssueDetails', 'QuickFix/Base' ], function( Controller, Engine, Issue, IssueList, IssueDetails, QuickFix ) {
-				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
-					Controller: Controller,
-					Engine: Engine,
-					Issue: Issue,
-					IssueList: IssueList,
-					IssueDetails: IssueDetails,
-					QuickFix: QuickFix
-				} );
-			} );
 		},
 
 		beforeInit: function( editor ) {
@@ -186,6 +174,18 @@
 
 		cfg.contentsCss.push( cssPath );
 	}
+
+	// Namespace register.
+	require( [ 'Controller', 'Engine', 'Issue', 'IssueList', 'IssueDetails', 'QuickFix/Base' ], function( Controller, Engine, Issue, IssueList, IssueDetails, QuickFix ) {
+		CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
+			Controller: Controller,
+			Engine: Engine,
+			Issue: Issue,
+			IssueList: IssueList,
+			IssueDetails: IssueDetails,
+			QuickFix: QuickFix
+		} );
+	} );
 
 	// Expose UI classes.
 	require( [ 'ui/ViewerInputs', 'ui/ViewerInput', 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/Viewer', 'ui/ViewerForm' ], function( ViewerInputs, ViewerInput, ViewerDescription, ViewerNavigation, Viewer, ViewerForm ) {
