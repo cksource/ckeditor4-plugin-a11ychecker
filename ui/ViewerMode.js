@@ -40,7 +40,7 @@ define( function() {
 		 * Activates the mode.
 		 */
 		enterMode: function() {
-			this.enter && this.enter( this.viewer );
+			this.init && this.init( this.viewer );
 			this.addPanelShowListeners();
 		},
 
@@ -48,7 +48,7 @@ define( function() {
 		 * Leaves the mode.
 		 */
 		leaveMode: function() {
-			this.leave && this.leave( this.viewer );
+			this.close && this.close( this.viewer );
 			this.removePanelShowListeners();
 		},
 
@@ -104,14 +104,14 @@ define( function() {
 	 * A function called when viewer enters the mode.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.viewerMode.definition
-	 * @property {Function} enter
+	 * @property {Function} init
 	 */
 
 	/**
 	 * A function called when viewer leaves the mode.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.viewerMode.definition
-	 * @property {Function} leave
+	 * @property {Function} close
 	 */
 
 	/**

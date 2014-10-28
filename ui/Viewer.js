@@ -100,7 +100,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 					} );
 				},
 
-				enter: function( viewer ) {
+				init: function( viewer ) {
 					var that = this;
 
 					// Apply panel class, which is specific for listening mode, e.g. it hides unnecessary
@@ -143,7 +143,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 					}, 0, this );
 				},
 
-				leave: function( viewer ) {
+				close: function( viewer ) {
 					viewer.panel.parts.panel.removeClass( 'cke_a11yc_mode_listening' );
 					viewer.panel.resize( this.panelWidth, null );
 					viewer.panel.parts.panel.setStyles( {
