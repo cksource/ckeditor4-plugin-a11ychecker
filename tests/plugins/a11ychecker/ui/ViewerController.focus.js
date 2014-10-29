@@ -38,7 +38,7 @@
 							that.editors[ i ]._.a11ychecker.engine = new EngineMock();
 						}
 						that.callback();
-					}, 0 );
+					}, 300 );
 				} );
 			},
 
