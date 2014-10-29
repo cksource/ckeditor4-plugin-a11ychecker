@@ -11,12 +11,14 @@ define( function() {
 	 * @class CKEDITOR.plugins.a11ychecker.viewerNavigation
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewer's navigation instance.
-	 * @param {CKEDITOR.plugins.a11ychecker.viewer} viewer
-	 * @param {Object} lang An language object for Accessibility Checker
+	 * @param {CKEDITOR.plugins.a11ychecker.viewer} viewer The viewer instance that the object
+	 * will be attached to.
 	 */
-	function ViewerNavigation( viewer, lang ) {
+	function ViewerNavigation( viewer ) {
 		/**
 		 * Parent {@link CKEDITOR.plugins.a11ychecker.viewer}.
+		 *
+		 * @type {CKEDITOR.plugins.a11ychecker.viewer}
 		 */
 		this.viewer = viewer;
 
@@ -31,7 +33,7 @@ define( function() {
 		}
 
 		// A template of the counter text uses editor lang files.
-		this.templates.counterText = new CKEDITOR.template( lang.navigationCounter );
+		this.templates.counterText = new CKEDITOR.template( this.viewer.editor.lang.a11ychecker.navigationCounter );
 
 		/**
 		 * @property parts UI elements of the navigation.
@@ -96,21 +98,23 @@ define( function() {
 		 * Builds the UI of the navigation.
 		 */
 		build: function() {
+			var lang = this.viewer.editor.lang.a11ychecker;
+
 			this.parts = {
 				wrapper: CKEDITOR.dom.element.createFromHtml( this.templates.wrapper.output() ),
 
 				counter: CKEDITOR.dom.element.createFromHtml( this.templates.counter.output() ),
 
 				previous: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
-					title: 'Previous',
+					title: lang.navigationPrevTitle,
 					'class': 'previous',
-					text: 'Previous'
+					text: lang.navigationPrev
 				} ) ),
 
 				next: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
-					title: 'Next',
+					title: lang.navigationNextTitle,
 					'class': 'next',
-					text: 'Next'
+					text: lang.navigationNext
 				} ) )
 			};
 

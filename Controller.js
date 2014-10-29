@@ -47,7 +47,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 
 		if ( editor ) {
 			this.viewerController = new ViewerController( this, {
-				title: 'Accessibility checker'
+				title: editor.lang.a11ychecker.balloonLabel
 			} );
 
 			this.attachEditorListeners( editor );

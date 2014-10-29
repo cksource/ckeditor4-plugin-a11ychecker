@@ -11,10 +11,14 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 	 * @class CKEDITOR.plugins.a11ychecker.viewerForm
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a "quick fix" form instance.
+	 * @param {CKEDITOR.plugins.a11ychecker.viewer} viewer The viewer instance that the object
+	 * will be attached to.
 	 */
-	function ViewerForm( viewer, lang ) {
+	function ViewerForm( viewer ) {
 		/**
 		 * Parent {@link CKEDITOR.plugins.a11ychecker.viewer}.
+		 *
+		 * @type {CKEDITOR.plugins.a11ychecker.viewer}
 		 */
 		this.viewer = viewer;
 
@@ -43,12 +47,6 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		 */
 		this.parts = {};
 
-		/**
-		 * @readonly
-		 * @property {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
-		 */
-		this.lang = lang;
-
 		// Build the form.
 		this.build();
 
@@ -58,11 +56,11 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		 * @event submit
 		 */
 
-		 /**
-		  * Event fired when the issue is ignored.
-		  *
-		  * @event ignore
-		  */
+		/**
+		 * Event fired when the issue is ignored.
+		 *
+		 * @event ignore
+		 */
 	};
 
 	ViewerForm.prototype = {
@@ -164,6 +162,8 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		 * Builds the UI of the form.
 		 */
 		build: function() {
+			var lang = this.viewer.editor.lang.a11ychecker;
+
 			this.parts = {
 				wrapper: CKEDITOR.dom.element.createFromHtml( this.templates.wrapper.output() ),
 
@@ -172,13 +172,13 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 				actionset: CKEDITOR.dom.element.createFromHtml( this.templates.actionset.output() ),
 
 				quickfixButton: CKEDITOR.dom.element.createFromHtml( this.templates.quickfixButton.output( {
-					title: 'Quick fix',
-					text: 'Quick fix'
+					title: lang.quickFixButtonTitle,
+					text: lang.quickFixButton
 				} ) ),
 
 				ignoreButton: CKEDITOR.dom.element.createFromHtml( this.templates.ignoreButton.output( {
-					title: this.lang.ignoreBtnTitle,
-					text: this.lang.ignoreBtn
+					title: lang.ignoreBtnTitle,
+					text: lang.ignoreBtn
 				} ) )
 			};
 
@@ -255,7 +255,7 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		setIgnored: function( isIgnored ) {
 			var button = this.parts.ignoreButton;
 
-			button.setHtml( this.lang[ isIgnored ? 'stopIgnoreBtn' : 'ignoreBtn' ] );
+			button.setHtml( this.viewer.editor.lang.a11ychecker[ isIgnored ? 'stopIgnoreBtn' : 'ignoreBtn' ] );
 			button.setAttribute( 'aria-pressed', isIgnored );
 		}
 	};
