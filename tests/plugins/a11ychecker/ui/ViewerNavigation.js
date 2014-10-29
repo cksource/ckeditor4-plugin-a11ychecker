@@ -4,30 +4,22 @@
 ( function() {
 	'use strict';
 
-	require( [ 'ui/ViewerCounter', 'mocking' ], function( ViewerCounter, mocking ) {
+	require( [ 'ui/ViewerNavigation', 'mocking' ], function( ViewerNavigation, mocking ) {
 		bender.test( {
-			'test ViewerCounter constructor': function() {
-				var template = 'foo',
-					mock = new ViewerCounter( template );
-
-				assert.isInstanceOf( CKEDITOR.template, mock.template, 'Template object created' );
-				assert.isInstanceOf( CKEDITOR.dom.element, mock.wrapper, 'Wrapper created' );
-			},
-
-			'test ViewerCounter.update': function() {
+			'test ViewerNavigation.update': function() {
+				// Checks if ViewerNavigation.update calls setText on counter elemnt.
+				// First we need to mock a counter template.
 				var template = {
 						output: mocking.spy( function() {
 							return 'foobarbaz';
 						} )
 					},
-					wrapper = {
-						setText: mocking.spy()
-					},
 					mock = {
-						wrapper: wrapper,
-						template: template,
-						update: ViewerCounter.prototype.update
-					};
+						update: ViewerNavigation.prototype.update
+					},
+					counterSetText = mocking.mockProperty( 'parts.counter.setText', mock );
+
+				mocking.mockProperty( 'templates.counterText', mock, template );
 
 				mock.update( 2, 10 );
 				// Note that 2 should be increased to 3, since it's assumed to be 0-based.
@@ -38,7 +30,7 @@
 				} );
 
 				// Ensure that wrapper.setText was called.
-				mocking.assert.calledWith( wrapper.setText, 'foobarbaz' );
+				mocking.assert.calledWith( counterSetText, 'foobarbaz' );
 			}
 		} );
 	} );
