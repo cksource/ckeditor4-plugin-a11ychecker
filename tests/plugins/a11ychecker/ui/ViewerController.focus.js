@@ -8,7 +8,7 @@
 	// Note that we have an extra (unused) requirement for 'EngineMock' and 'Controller' classes.
 	// That way it will force them to be available for the editor, and we have sure that a11ychecker
 	// plugin will be ready synchronously.
-	require( [ 'ui/ViewerController', 'ui/ViewerDescription', 'EngineMock', 'Controller', 'ui/ViewerController' ], function( ViewerController, ViewerDescription ) {
+	require( [ 'ui/ViewerController', 'ui/ViewerDescription', 'EngineMock', 'Controller', 'ui/ViewerController' ], function( ViewerController, ViewerDescription, EngineMock ) {
 
 		bender.test( {
 			'async:init': function() {
@@ -31,7 +31,14 @@
 					that.editors = editors;
 					that.editor = editors.classic;
 
-					that.callback();
+					// We should get rid of that timeout, but without it inline editor
+					// will not have _.a11ychecker property inited.
+					window.setTimeout( function() {
+						for ( var i in that.editors ) {
+							that.editors[ i ]._.a11ychecker.engine = new EngineMock();
+						}
+						that.callback();
+					}, 0 );
 				} );
 			},
 
@@ -204,7 +211,7 @@
 
 			// Returns the last focusable element in viewer.
 			_getLastFocusable: function ( viewer ) {
-				return viewer.description.parts.ignoreButton;
+				return viewer.form.parts.ignoreButton;
 			}
 		} );
 
