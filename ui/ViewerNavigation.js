@@ -100,7 +100,7 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 				previous: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
 					title: 'Previous',
 					'class': 'previous',
-					text: ''
+					text: 'Previous'
 				} ) ),
 
 				next: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
@@ -118,8 +118,8 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 			previousButtonWrapper.append( this.parts.previous );
 			nextButtonWrapper.append( this.parts.next );
 
-			this.parts.wrapper.append( previousButtonWrapper );
 			this.parts.wrapper.append( this.counter.wrapper );
+			this.parts.wrapper.append( previousButtonWrapper );
 			this.parts.wrapper.append( nextButtonWrapper );
 
 			this.parts.previous.unselectable();
