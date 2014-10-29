@@ -82,15 +82,6 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			this.update( a11ychecker.issues.getFocused() );
 		}, this	);
 
-		// Handle change in the list of issues.
-		viewer.navigation.on( 'change', function( evt ) {
-			a11ychecker.showIssue( Number( evt.data ), function() {
-				// When issue is shwon, make sure that issues list (in navigation)
-				// is focused.
-				viewer.navigation.parts.list.focus();
-			} );
-		}, this );
-
 		this.on( 'next', function( evt ) {
 			// Focusing the next button.
 			viewer.navigation.parts.next.focus();
@@ -110,80 +101,14 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 
 	ViewerController.prototype = {
 		/**
-		 * Updates the list of issues.
-		 *
-		 * @method
-		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Focused issue to be displayed in.
-		 */
-		updateList: ( function() {
-			function trimText( text, length ) {
-				if ( text.length > length ) {
-					return CKEDITOR.tools.trim( text ).slice( 0, length - 3 ) + '[...]';
-				} else {
-					return text;
-				}
-			}
-
-			var relevantNames = [ 'title', 'alt', 'src', 'href', 'id', 'name' ],
-				infoTemplate = new CKEDITOR.template( ' ({name}="{value}")' );
-
-			function getElementInfo( element ) {
-				var rawAttributes = Array.prototype.slice.call( element.$.attributes ),
-					namedAttributes = {},
-					elementInfo;
-
-				for ( var a in rawAttributes ) {
-					namedAttributes[ rawAttributes[ a ].name ] = rawAttributes[ a ].value;
-				}
-
-				for ( var i = 0; i < relevantNames.length; ++i ) {
-					if ( namedAttributes[ relevantNames[ i ] ] !== undefined ) {
-						elementInfo = infoTemplate.output( {
-							name: relevantNames[ i ],
-							value: trimText( namedAttributes[ relevantNames[ i ] ], 50 )
-						} );
-						break;
-					}
-				}
-
-				if ( !elementInfo )
-					elementInfo = ' ("' + trimText( element.getText(), 50 ) + '")';
-
-				return element.getName() + elementInfo;
-			}
-
-			return function( issue ) {
-				var issues = this.a11ychecker.issues,
-					focusedIssue = issues.getFocused(),
-					entries = {},
-					iteratedIssue;
-
-				for ( var i = 0; i < issues.count(); i++ ) {
-					entries[ i ] = {};
-					iteratedIssue = issues.getItem( i );
-
-					entries[ i ] = {
-						value: i,
-						text: getElementInfo( iteratedIssue.element ),
-						selected: focusedIssue === iteratedIssue ? 'selected="selected"' : ''
-					};
-				}
-
-				entries = {
-					'Issues:': entries
-				};
-
-				this.viewer.navigation.updateList( entries );
-			};
-		} )(),
-
-		/**
 		 * Updates the balloon according to the given issue.
 		 *
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue
 		 */
 		update: function( issue ) {
-			this.updateList( issue );
+			var issueList = this.a11ychecker.issues;
+
+			this.viewer.navigation.update( issueList.indexOf( issue ), issueList.count()  );
 			this.updateDescription( issue );
 			this.updateForm( issue );
 		},
