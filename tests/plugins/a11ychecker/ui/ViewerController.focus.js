@@ -17,17 +17,13 @@
 				bender.tools.setUpEditors( {
 					classic: {
 						name: 'editor1',
-						config: {
-							a11ychecker_engine: 'EngineMock'
-						},
+						config: {},
 						startupData: '<p>foo</p>'
 					},
 					inline: {
 						name: 'editor2',
 						creator: 'inline',
-						config: {
-							a11ychecker_engine: 'EngineMock'
-						},
+						config: {},
 						startupData: '<p>foo</p>'
 					}
 				}, function( editors, bots ) {

@@ -10,9 +10,6 @@
 	'use strict';
 
 	bender.editor = {
-		config: {
-			a11ychecker_engine: 'EngineMock'
-		},
 		startupData: '<p>foo</p>'
 	};
 

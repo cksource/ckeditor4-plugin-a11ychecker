@@ -26,9 +26,7 @@
 		},
 
 		beforeInit: function( editor ) {
-			var engineClass = editor.config.a11ychecker_engine || 'EngineQuail',
-				engineParams = editor.config.a11ychecker_engineParams || {},
-				that = this;
+			var that = this;
 
 			if ( !editor.config.a11ychecker_noIgnoreData ) {
 				// Register a rule so ACF won't remove data-a11y-ignore attributes, only if there
@@ -43,7 +41,7 @@
 				require( [ 'Controller', 'EngineDefault' ], function( Controller, EngineClass ) {
 					var a11ychecker = new Controller( editor );
 
-					a11ychecker.engine = new EngineClass( engineParams, that );
+					a11ychecker.engine = new EngineClass( {}, that );
 
 					// @todo: Check if this flag is needed.
 					a11ychecker.disableFilterStrip = true;
@@ -217,21 +215,6 @@
 	 * @cfg {Number} [a11ychecker_hotkeys.open = CKEDITOR.CTRL + CKEDITOR.ALT + 69 // E] Starts Accessibility checker.
 	 * @cfg {Number} [a11ychecker_hotkeys.next = CKEDITOR.CTRL + 69 // E] Go to next accessibility issue.
 	 * @cfg {Number} [a11ychecker_hotkeys.next = CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 // E] Go to previous accessibility issue.
-	 */
-
-	/**
-	 * Accessibility Checker engine name.
-	 *
-	 * It comes down to setting the name of a engine class which will take a care
-	 * of finding accessibility issues.
-	 *
-	 * @cfg {String} [a11ychecker_engine='EngineQuail']
-	 */
-
-	/**
-	 * Extra parameters passed to engine constructor.
-	 *
-	 * @cfg {Object} [a11ychecker_engineParams={}]
 	 */
 
 	/**
