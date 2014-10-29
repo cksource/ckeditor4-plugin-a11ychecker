@@ -25,10 +25,8 @@
 			this.loadCss();
 		},
 
-		init: function( editor ) {
-			var engineClass = editor.config.a11ychecker_engine || 'EngineQuail',
-				engineParams = editor.config.a11ychecker_engineParams || {},
-				that = this;
+		beforeInit: function( editor ) {
+			var that = this;
 
 			if ( !editor.config.a11ychecker_noIgnoreData ) {
 				// Register a rule so ACF won't remove data-a11y-ignore attributes, only if there
@@ -38,20 +36,23 @@
 
 			this.guiRegister( editor );
 
-			// Loads Engine, Controller and ViewerController classes.
-			require( [ 'Controller', engineClass ], function( Controller, EngineClass ) {
-				var a11ychecker = new Controller( editor );
+			editor.once( 'instanceReady', function() {
+				// Loads Engine, Controller and ViewerController classes.
+				require( [ 'Controller', 'EngineDefault' ], function( Controller, EngineClass ) {
+					var a11ychecker = new Controller( editor );
 
-				a11ychecker.engine = new EngineClass( engineParams, that );
+					a11ychecker.engine = new EngineClass( {}, that );
 
-				// @todo: Check if this flag is needed.
-				a11ychecker.disableFilterStrip = true;
+					// @todo: Check if this flag is needed.
+					a11ychecker.disableFilterStrip = true;
 
-				// Assign controller object to the editor protected namespace.
-				editor._.a11ychecker = a11ychecker;
+					// Assign controller object to the editor protected namespace.
+					editor._.a11ychecker = a11ychecker;
+				} );
+
+				that.commandRegister.call( that, editor );
 			} );
 
-			this.commandRegister( editor );
 		},
 
 		// Register buttons, dialogs etc.
@@ -72,7 +73,7 @@
 			addContentsCss.call( editor, cssPath );
 		},
 
-		/**
+		/*
 		 * Registers commands like:
 		 * a11ychecker
 		 * a11ychecker.next
@@ -114,7 +115,16 @@
 		}
 	} );
 
-	CKEDITOR.plugins.a11ychecker = {};
+	CKEDITOR.plugins.a11ychecker = {
+		/**
+		 * @member CKEDITOR.plugins.a11ychecker
+		 * @type {Boolean/Undefined}
+		 *
+		 * Tells whether plugin is in development version or not. For plugin builded version
+		 * this property will be `undefined`.
+		 */
+		dev: true // %REMOVE_LINE%
+	};
 
 	// Stores objects defining title/description for given issue type.
 	CKEDITOR.plugins.a11ychecker.types = {};
@@ -126,7 +136,7 @@
 		return editor._.a11ychecker.exec();
 	};
 
-	/**
+	/*
 	 * Editor command functions.
 	 * Defined here, so only one function instance is in memory, and they're shared across
 	 * editors.
@@ -172,6 +182,18 @@
 		cfg.contentsCss.push( cssPath );
 	}
 
+	// Namespace register.
+	require( [ 'Controller', 'Engine', 'Issue', 'IssueList', 'IssueDetails', 'QuickFix/Base' ], function( Controller, Engine, Issue, IssueList, IssueDetails, QuickFix ) {
+		CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
+			Controller: Controller,
+			Engine: Engine,
+			Issue: Issue,
+			IssueList: IssueList,
+			IssueDetails: IssueDetails,
+			QuickFix: QuickFix
+		} );
+	} );
+
 	// Expose UI classes.
 	require( [ 'ui/ViewerInputs', 'ui/ViewerInput', 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/Viewer', 'ui/ViewerForm' ], function( ViewerInputs, ViewerInput, ViewerDescription, ViewerNavigation, Viewer, ViewerForm ) {
 
@@ -193,21 +215,6 @@
 	 * @cfg {Number} [a11ychecker_hotkeys.open = CKEDITOR.CTRL + CKEDITOR.ALT + 69 // E] Starts Accessibility checker.
 	 * @cfg {Number} [a11ychecker_hotkeys.next = CKEDITOR.CTRL + 69 // E] Go to next accessibility issue.
 	 * @cfg {Number} [a11ychecker_hotkeys.next = CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 // E] Go to previous accessibility issue.
-	 */
-
-	/**
-	 * Accessibility Checker engine name.
-	 *
-	 * It comes down to setting the name of a engine class which will take a care
-	 * of finding accessibility issues.
-	 *
-	 * @cfg {String} [a11ychecker_engine='EngineQuail']
-	 */
-
-	/**
-	 * Extra parameters passed to engine constructor.
-	 *
-	 * @cfg {Object} [a11ychecker_engineParams={}]
 	 */
 
 	/**

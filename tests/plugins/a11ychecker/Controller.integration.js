@@ -10,13 +10,10 @@
 	'use strict';
 
 	bender.editor = {
-		config: {
-			a11ychecker_engine: 'EngineMock'
-		},
 		startupData: '<p>foo</p>'
 	};
 
-	require( [ 'helpers/sinon/sinon_amd.min', 'Controller', 'ui/ViewerController', 'EngineMock' ], function( sinon, Controller ) {
+	require( [ 'helpers/sinon/sinon_amd.min', 'Controller', 'ui/ViewerController', 'EngineMock', 'EngineDefault' ], function( sinon, Controller ) {
 		bender.test( {
 			'test non inited plugin .close()': function() {
 				// When plugin is not inited its .close() call shouldn't throw any
