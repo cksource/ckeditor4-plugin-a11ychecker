@@ -75,10 +75,11 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		// can cancel event, before default listeners will be triggered.
 		viewer.form.on( 'submit', this.quickFixAccepted, null, null, 8 );
 
-		viewer.description.on( 'ignore', a11ychecker.ignoreIssue, a11ychecker );
+		// Handle Ignore button click.
+		viewer.form.on( 'ignore', a11ychecker.ignoreIssue, a11ychecker );
 
 		// We'll need also to refresh the balloon contents.
-		viewer.description.on( 'ignore', function() {
+		viewer.form.on( 'ignore', function() {
 			this.update( a11ychecker.issues.getFocused() );
 		}, this	);
 
@@ -121,8 +122,6 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			var descriptionPart = this.viewer.description,
 				lang = this.lang;
 
-			descriptionPart.setIgnored( issue.isIgnored() );
-
 			// Request for issue details.
 			issue.getDetails( function( details ) {
 				descriptionPart.setTitle( details.title[ lang ] );
@@ -141,6 +140,9 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		updateForm: function( issue ) {
 			var that = this,
 				form = that.viewer.form;
+
+			// Set the state of Ignore button.
+			form.setIgnored( issue.isIgnored() );
 
 			form.setInputs( {} );
 

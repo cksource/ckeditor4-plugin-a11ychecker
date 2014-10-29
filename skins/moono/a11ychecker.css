@@ -68,33 +68,6 @@ a.cke_a11yc_ui_button:active
 	box-shadow: 0 0 6px rgba(0,0,0,.4) inset;
 }
 
-a.cke_a11yc_ui_button.cke_a11yc_ui_button_pushed
-{
-	color: #f9f9f9;
-	border-color: #b47400;
-
-	background: #cd8400;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#e79500), to(#cd8400));
-	background-image: -moz-linear-gradient(top, #e79500, #cd8400);
-	background-image: -webkit-linear-gradient(top, #e79500, #cd8400);
-	background-image: -o-linear-gradient(top, #e79500, #cd8400);
-	background-image: -ms-linear-gradient(top, #e79500, #cd8400);
-	background-image: linear-gradient(top, #e79500, #cd8400);
-	filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#e79500', endColorstr='#cd8400');
-}
-
-a.cke_a11yc_ui_button.cke_a11yc_ui_button_pushed:hover
-{
-	background: #b47400;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#cd8400), to(#b47400));
-	background-image: -moz-linear-gradient(top, #cd8400, #b47400);
-	background-image: -webkit-linear-gradient(top, #cd8400, #b47400);
-	background-image: -o-linear-gradient(top, #cd8400, #b47400);
-	background-image: -ms-linear-gradient(top, #cd8400, #b47400);
-	background-image: linear-gradient(top, #cd8400, #b47400);
-	filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#cd8400', endColorstr='#b47400');
-}
-
 a.cke_a11yc_ui_button_ok
 {
 	color: #fff;
@@ -278,14 +251,34 @@ a.cke_a11yc_ui_previous span
 /* Quick fix form */
 .cke_a11yc_ui_form
 {
-	padding: 0 10px;
-	margin: 15px 0 10px;
+	margin: 10px 0 0;
+	overflow: hidden;
 }
 
 .cke_a11yc_ui_form_fieldset
 {
 	width: 100%;
 	display: table;
+	border-collapse: separate;
+	border-spacing: 10px 0;
+}
+
+.cke_a11yc_ui_form_fieldset:not(:empty)
+{
+	margin-bottom: 10px;
+}
+
+.cke_a11yc_ui_form_actionset
+{
+	width: 100%;
+	display: table;
+	border-collapse: separate;
+	border-spacing: 10px;
+}
+
+.cke_a11yc_ui_form_actionset .cke_a11yc_ui_button_wrapper
+{
+	display: table-cell;
 }
 
 .cke_a11yc_ui_input_label
@@ -355,13 +348,18 @@ input.cke_a11yc_ui_input_text:focus
 	border-top-color: #1392e9;
 }
 
-/* Quick fix button */
+/* Form buttons */
 .cke_a11yc_ui_form .cke_a11yc_ui_button
 {
 	font-size: 14px;
+	padding: 5px 10px;
+}
+
+/* Quick fix */
+.cke_a11yc_ui_form .cke_a11yc_ui_button_ok_wrapper,
+.cke_a11yc_ui_form .cke_a11yc_ui_button_ok
+{
 	width: 100%;
-	margin-top: 15px;
-	padding: 5px 0;
 }
 
 /* Listening info area */

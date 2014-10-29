@@ -12,7 +12,7 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a "quick fix" form instance.
 	 */
-	function ViewerForm( viewer ) {
+	function ViewerForm( viewer, lang ) {
 		/**
 		 * Parent {@link CKEDITOR.plugins.a11ychecker.viewer}.
 		 */
@@ -37,9 +37,17 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		 * @property parts UI elements of the form.
 		 * @property {CKEDITOR.dom.element} parts.wrapper Form wrapper.
 		 * @property {CKEDITOR.dom.element} parts.fieldset Form fieldset.
-		 * @property {CKEDITOR.dom.element} parts.button Form button.
+		 * @property {CKEDITOR.dom.element} parts.actionset Form actionset, a place to put buttons.
+		 * @property {CKEDITOR.dom.element} parts.quickfixButton Quick Fix button.
+		 * @property {CKEDITOR.dom.element} parts.ignoreButton Ignore button.
 		 */
 		this.parts = {};
+
+		/**
+		 * @readonly
+		 * @property {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
+		 */
+		this.lang = lang;
 
 		// Build the form.
 		this.build();
@@ -49,6 +57,12 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		 *
 		 * @event submit
 		 */
+
+		 /**
+		  * Event fired when the issue is ignored.
+		  *
+		  * @event ignore
+		  */
 	};
 
 	ViewerForm.prototype = {
@@ -56,15 +70,26 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		 * @property templateDefinitions Templates of the form. Automatically converted into {@link CKEDITOR.template} in the constructor.
 		 * @property {String} templateDefinitions.wrapper
 		 * @property {String} templateDefinitions.fieldset
-		 * @property {String} templateDefinitions.button
+		 * @property {String} templateDefinitions.actionset
+		 * @property {String} templateDefinitions.buttonWrapper
+		 * @property {String} templateDefinitions.quickfixButton
+		 * @property {String} templateDefinitions.ignoreButton
 		 */
 		templateDefinitions: {
 			wrapper: '<div role="presentation" class="cke_a11yc_ui_form"></div>',
 
 			fieldset: '<div role="presentation" class="cke_a11yc_ui_form_fieldset"></div>',
 
-			button:
+			actionset: '<div role="presentation" class="cke_a11yc_ui_form_actionset"></div>',
+
+			buttonWrapper: '<div class="cke_a11yc_ui_button_wrapper {class}"></div>',
+
+			quickfixButton:
 				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_button_ok" role="button">' +
+					'<span class="cke_a11yc_ui_button">{text}</span>' +
+				'</a>',
+
+			ignoreButton: '<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_button_ignore" role="button">' +
 					'<span class="cke_a11yc_ui_button">{text}</span>' +
 				'</a>'
 		},
@@ -144,43 +169,94 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 
 				fieldset: CKEDITOR.dom.element.createFromHtml( this.templates.fieldset.output() ),
 
-				button: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
+				actionset: CKEDITOR.dom.element.createFromHtml( this.templates.actionset.output() ),
+
+				quickfixButton: CKEDITOR.dom.element.createFromHtml( this.templates.quickfixButton.output( {
 					title: 'Quick fix',
 					text: 'Quick fix'
 				} ) ),
+
+				ignoreButton: CKEDITOR.dom.element.createFromHtml( this.templates.ignoreButton.output( {
+					title: this.lang.ignoreBtnTitle,
+					text: this.lang.ignoreBtn
+				} ) )
 			};
 
 			this.parts.fieldset.appendTo( this.parts.wrapper );
-			this.parts.button.appendTo( this.parts.wrapper );
+			this.parts.actionset.appendTo( this.parts.wrapper );
 
-			this.parts.button.on( 'click', function( evt ) {
+			var quickfixButtonWrapper = CKEDITOR.dom.element.createFromHtml( this.templates.buttonWrapper.output( {
+					'class': 'cke_a11yc_ui_button_ok_wrapper'
+				} ) ),
+				ignoreButtonWrapper = CKEDITOR.dom.element.createFromHtml( this.templates.buttonWrapper.output( {
+					'class': 'cke_a11yc_ui_button_ignore_wrapper'
+				} ) );
+
+			this.parts.quickfixButton.appendTo( quickfixButtonWrapper );
+			this.parts.ignoreButton.appendTo( ignoreButtonWrapper );
+
+			quickfixButtonWrapper.appendTo( this.parts.actionset );
+			ignoreButtonWrapper.appendTo( this.parts.actionset );
+
+			// Quick Fix: click.
+			this.parts.quickfixButton.on( 'click', function( evt ) {
 				this.fire( 'submit' );
 				evt.data.preventDefault();
 			}, this );
 
-			// Enter.
+			// Quick Fix: enter.
 			this.parts.wrapper.on( 'keydown', keyListener( 13, function( evt ) {
 				this.fire( 'submit' );
 			} ), this );
 
-			// Space
-			this.parts.button.on( 'keydown', keyListener( 32, function( evt ) {
+			// Quick Fix: space.
+			this.parts.quickfixButton.on( 'keydown', keyListener( 32, function( evt ) {
 				this.fire( 'submit' );
 			} ), this );
+
+			// Ignore: click.
+			this.parts.ignoreButton.on( 'click', function( evt ) {
+				this.fire( 'ignore' );
+				evt.data.preventDefault();
+			}, this );
+
+			// Ignore: space.
+			// Space key should trigger ignore event too.
+			// There is no need to support enter, as browsers will trigger click event.
+			this.parts.ignoreButton.on( 'keydown', function( evt ) {
+				if ( evt.data.getKeystroke() == 32 ) {
+					evt.data.preventDefault();
+					this.fire( 'ignore' );
+				}
+			}, this );
 		},
 
 		/**
 		 * Ensures that form is visible.
 		 */
 		show: function() {
-			this.parts.wrapper.show();
+			this.parts.fieldset.show();
+			this.parts.quickfixButton.show();
 		},
 
 		/**
 		 * Hides the form.
 		 */
 		hide: function() {
-			this.parts.wrapper.hide();
+			this.parts.fieldset.hide();
+			this.parts.quickfixButton.hide();
+		},
+
+		/**
+		 * Sets the state of "Ignore" button.
+		 *
+		 * @param {Boolean} isIgnored Bool telling whether issue is ignored or not.
+		 */
+		setIgnored: function( isIgnored ) {
+			var button = this.parts.ignoreButton;
+
+			button.setHtml( this.lang[ isIgnored ? 'stopIgnoreBtn' : 'ignoreBtn' ] );
+			button.setAttribute( 'aria-pressed', isIgnored );
 		}
 	};
 

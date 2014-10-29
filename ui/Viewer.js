@@ -220,15 +220,13 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 			this.description = new ViewerDescription( this.editor.lang.a11ychecker );
 
 			this.panel.parts.content.append( this.description.parts.wrapper );
-
-			this.panel.registerFocusable( this.description.parts.ignoreButton );
 		},
 
 		/**
 		 * Setups the "quick fix" form.
 		 */
 		setupForm: function() {
-			this.form = new ViewerForm( this );
+			this.form = new ViewerForm( this, this.editor.lang.a11ychecker );
 
 			this.form.on( 'addInput', function( evt ) {
 				this.panel.registerFocusable( evt.data.input );
@@ -238,7 +236,8 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 				this.panel.deregisterFocusable( evt.data.input );
 			}, this );
 
-			this.panel.registerFocusable( this.form.parts.button );
+			this.panel.registerFocusable( this.form.parts.ignoreButton );
+			this.panel.registerFocusable( this.form.parts.quickfixButton );
 			this.panel.parts.content.append( this.form.parts.wrapper );
 		},
 
