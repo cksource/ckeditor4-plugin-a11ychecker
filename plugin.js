@@ -41,8 +41,6 @@
 					var a11ychecker = new Controller( editor );
 
 					a11ychecker.engine = new EngineClass( {}, that );
-					// @todo: Check if this flag is needed.
-					a11ychecker.disableFilterStrip = true;
 					// Assign controller object to the editor protected namespace.
 					editor._.a11ychecker = a11ychecker;
 				} );
@@ -54,13 +52,14 @@
 
 		// Register buttons, dialogs etc.
 		guiRegister: function( editor ) {
-			var lang = editor.lang.a11ychecker,
-				cssPath = this.path + 'styles/contents.css',
+			var cssPath = this.path + 'styles/contents.css',
+				// We need to be aware that editor.addContentsCss might not be
+				// available as it was introduced in CKE 4.4.0.
 				addContentsCss = editor.addContentsCss || editorAddContentsCss;
 
 			if ( editor.ui.addButton ) {
 				editor.ui.addButton( 'A11ychecker', {
-					label: lang.toolbar,
+					label: editor.lang.a11ychecker.toolbar,
 					command: pluginName,
 					toolbar: 'document,10'
 				} );
@@ -106,13 +105,6 @@
 		 * this property will be `undefined`.
 		 */
 		dev: true // %REMOVE_LINE%
-	};
-
-	/**
-	 * Performs a11y checking for current editor content.
-	 */
-	CKEDITOR.plugins.a11ychecker.exec = function( editor ) {
-		return editor._.a11ychecker.exec();
 	};
 
 	/*

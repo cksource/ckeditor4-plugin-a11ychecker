@@ -5,6 +5,28 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	/**
 	 * Exposes Accessibility Checker interface.
 	 *
+	 * This type stores the issue list, and implements some high-level operations like
+	 * going to next issue, focusing particular issue, closing Accessibility Checker etc.
+	 * Most of these methods are directly used by CKEditor commands.
+	 *
+	 * Controller contains a reference (and manages) all the most important components
+	 * like:
+	 *
+	 * * {@link CKEDITOR.plugins.a11ychecker.Engine}
+	 * * {@link CKEDITOR.plugins.a11ychecker.IssueList}
+	 * * {@link CKEDITOR.plugins.a11ychecker.EditableDecorator}
+	 * * {@link CKEDITOR.plugins.a11ychecker.ViewerController}
+	 * * {@link CKEDITOR.plugins.a11ychecker.HotkeyManager}
+	 *
+	 * Controller works in one of multiple modes. Currently we have following modes:
+	 *
+	 * * Checking
+	 * * Listening
+	 * * Busy
+	 *
+	 * States are changed by calling {@link #setState} method with a property listed
+	 * in {@link CKEDITOR.plugins.a11ychecker.Controller#modes} enumeration.
+	 *
 	 * @mixins CKEDITOR.event
 	 * @class CKEDITOR.plugins.a11ychecker.Controller
 	 * @constructor
@@ -59,7 +81,10 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	/**
 	 * Enumerates controller modes, used in {@link #setMode}.
 	 *
-	 * @class CKEDITOR.plugins.a11ychecker.Controller
+	 *		console.log( CKEDITOR.plugins.a11ychecker.Controller.modes.LISTENING );
+	 *		// Logs following number: 2
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @static
 	 * @readonly
 	 */
