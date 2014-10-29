@@ -11,9 +11,17 @@ define( function() {
 	 * @class CKEDITOR.plugins.a11ychecker.viewerDescription
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewer's description instance.
-	 * @param {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
+	 * @param {CKEDITOR.plugins.a11ychecker.viewer} viewer The viewer instance that the object
+	 * will be attached to.
 	 */
-	function ViewerDescription( lang ) {
+	function ViewerDescription( viewer ) {
+		/**
+		 * Parent {@link CKEDITOR.plugins.a11ychecker.viewer}.
+		 *
+		 * @type {CKEDITOR.plugins.a11ychecker.viewer}
+		 */
+		this.viewer = viewer;
+
 		/**
 		 * Templates of UI elements in this description.
 		 * See {@link #templateDefinitions}, {@link #parts}.
@@ -35,9 +43,11 @@ define( function() {
 
 		/**
 		 * @readonly
-		 * @property {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
+		 * @property {Object} lang Lang object obtained from {@link CKEDITOR.plugins.a11ychecker.viewer#lang}.
+		 *
+		 * It's mapped simply for code readability, to avoid long property access chains.
 		 */
-		this.lang = lang;
+		this.lang = viewer.editor.lang.a11ychecker;
 
 		// Build the description.
 		this.build();

@@ -43,6 +43,12 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		this.mode = null;
 
 		/**
+		 * @readonly
+		 * @property {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
+		 */
+		this.lang = editor.lang.a11ychecker;
+
+		/**
 		 * @todo: HACK DETECTED! For the time being we weill simply inject ViewerFocusManager
 		 * function to panel. Later on this manager will have to be used in balloon.
 		 */
@@ -217,7 +223,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 * Setups the description area.
 		 */
 		setupDescription: function() {
-			this.description = new ViewerDescription( this.editor.lang.a11ychecker );
+			this.description = new ViewerDescription( this );
 
 			this.panel.parts.content.append( this.description.parts.wrapper );
 		},
@@ -246,7 +252,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 * See {@link CKEDITOR.plugins.a11ychecker.viewerListeningIndicator}.
 		 */
 		setupListeningIndicator: function() {
-			this.listeningIndicator = new ViewerListeningIndicator( this.editor.lang.a11ychecker );
+			this.listeningIndicator = new ViewerListeningIndicator( this );
 
 			this.panel.registerFocusable( this.listeningIndicator.parts.button );
 			this.panel.parts.content.append( this.listeningIndicator.parts.wrapper );

@@ -12,7 +12,14 @@ define( function() {
 	 * @constructor Creates a viewer's listening indicator instance.
 	 * @param {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
 	 */
-	function ViewerListeningIndicator( lang ) {
+	function ViewerListeningIndicator( viewer ) {
+		/**
+		 * Parent {@link CKEDITOR.plugins.a11ychecker.viewer}.
+		 *
+		 * @type {CKEDITOR.plugins.a11ychecker.viewer}
+		 */
+		this.viewer = viewer;
+
 		/**
 		 * Templates of UI elements in this indicator.
 		 * See {@link #templateDefinitions}, {@link #parts}.
@@ -30,12 +37,6 @@ define( function() {
 		 * @property {CKEDITOR.dom.element} parts.button Button to leave the listening mode.
 		 */
 		this.parts = {};
-
-		/**
-		 * @readonly
-		 * @property {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.
-		 */
-		this.lang = lang;
 
 		// Build the indicator.
 		this.build();
@@ -69,16 +70,18 @@ define( function() {
 		 * Builds the UI of the listening indicator.
 		 */
 		build: function() {
+			var lang = this.viewer.editor.lang.a11ychecker;
+
 			this.parts = {
 				wrapper: CKEDITOR.dom.element.createFromHtml( this.templates.wrapper.output() ),
 
 				info: CKEDITOR.dom.element.createFromHtml( this.templates.info.output( {
-					text: this.lang.listeningInfo
+					text: lang.listeningInfo
 				} ) ),
 
 				button: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
-					title: this.lang.listeningCheckAgain,
-					text: this.lang.listeningCheckAgain
+					title: lang.listeningCheckAgain,
+					text: lang.listeningCheckAgain
 				} ) )
 			};
 

@@ -36,7 +36,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		this.a11ychecker = a11ychecker;
 
 		/**
-		 * Ui lang code.
+		 * UI lang code.
 		 *
 		 * @todo: This property should be moved to the Accessibility Checker Controller
 		 * class.

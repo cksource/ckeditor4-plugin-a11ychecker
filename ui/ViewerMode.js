@@ -12,12 +12,15 @@ define( function() {
 	 * @since 4.5
 	 * @class CKEDITOR.plugins.a11ychecker.viewerMode
 	 * @constructor Creates a viewerMode instance.
-	 * @param {CKEDITOR.editor} editor The editor instance for which the panel is created.
+	 * @param {CKEDITOR.plugins.a11ychecker.viewer} viewer The viewer instance that mode
+	 * will be attached to.
 	 * @param {Object} definition An object containing mode definition. See {@link CKEDITOR.plugins.a11ychecker.viewerMode.definition}.
 	 */
 	function ViewerMode( viewer, definition ) {
 		/**
 		 * The viewer of this mode.
+		 *
+		 * @type {CKEDITOR.plugins.a11ychecker.viewer}
 		 */
 		this.viewer = viewer;
 
