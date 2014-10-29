@@ -75,7 +75,7 @@
 			addContentsCss.call( editor, cssPath );
 		},
 
-		/**
+		/*
 		 * Registers commands like:
 		 * a11ychecker
 		 * a11ychecker.next
@@ -117,7 +117,16 @@
 		}
 	} );
 
-	CKEDITOR.plugins.a11ychecker = {};
+	CKEDITOR.plugins.a11ychecker = {
+		/**
+		 * @member CKEDITOR.plugins.a11ychecker
+		 * @type {Boolean/Undefined}
+		 *
+		 * Tells whether plugin is in development version or not. For plugin builded version
+		 * this property will be `undefined`.
+		 */
+		dev: true // %REMOVE_LINE%
+	};
 
 	// Stores objects defining title/description for given issue type.
 	CKEDITOR.plugins.a11ychecker.types = {};
@@ -129,7 +138,7 @@
 		return editor._.a11ychecker.exec();
 	};
 
-	/**
+	/*
 	 * Editor command functions.
 	 * Defined here, so only one function instance is in memory, and they're shared across
 	 * editors.
