@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
+define( function() {
 	/**
 	 * The navigation area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *
@@ -30,21 +30,17 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 			this.templates[ t ] = new CKEDITOR.template( this.templateDefinitions[ t ] );
 		}
 
+		// A template of the counter text uses editor lang files.
+		this.templates.counterText = new CKEDITOR.template( lang.navigationCounter );
+
 		/**
 		 * @property parts UI elements of the navigation.
 		 * @property {CKEDITOR.dom.element} parts.wrapper Wrapper of the navigation.
+		 * @property {CKEDITOR.dom.element} parts.counter Issue counter.
 		 * @property {CKEDITOR.dom.element} parts.previous "Previous" button.
 		 * @property {CKEDITOR.dom.element} parts.next "Next" button.
 		 */
 		this.parts = {};
-
-		/**
-		 * A counter object which helps to keep track of focused issue in whole
-		 * issue list.
-		 *
-		 * @type {CKEDITOR.plugins.a11ychecker.ViewerCounter}
-		 */
-		this.counter = new ViewerCounter( lang.navigationCounter );
 
 		// Build the navigation.
 		this.build();
@@ -66,11 +62,14 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 		/**
 		 * @property templateDefinitions Templates of the navigation. Automatically converted into {@link CKEDITOR.template} in the constructor.
 		 * @property {String} templateDefinitions.wrapper
+		 * @property {String} templateDefinitions.counter
 		 * @property {String} templateDefinitions.buttonWrapper
 		 * @property {String} templateDefinitions.button
 		 */
 		templateDefinitions: {
 			wrapper: '<div class="cke_a11yc_ui_navigation"></div>',
+
+			counter: '<div class="cke_a11yc_ui_navigation_counter"></div>',
 
 			buttonWrapper: '<div class="cke_a11yc_ui_button_wrapper"></div>',
 
@@ -86,8 +85,11 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 		 * @param {Number} cur 0-based current issue offset in issue list.
 		 * @param {Number} cur 1-based issue list length.
 		 */
-		update: function( cur, total ) {
-			this.counter.update( cur, total );
+		update: function( current, total ) {
+			this.parts.counter.setText( this.templates.counterText.output( {
+				current: current + 1,
+				total: total
+			} ) );
 		},
 
 		/**
@@ -96,6 +98,8 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 		build: function() {
 			this.parts = {
 				wrapper: CKEDITOR.dom.element.createFromHtml( this.templates.wrapper.output() ),
+
+				counter: CKEDITOR.dom.element.createFromHtml( this.templates.counter.output() ),
 
 				previous: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
 					title: 'Previous',
@@ -118,7 +122,7 @@ define( [ 'ui/ViewerCounter' ], function( ViewerCounter ) {
 			previousButtonWrapper.append( this.parts.previous );
 			nextButtonWrapper.append( this.parts.next );
 
-			this.parts.wrapper.append( this.counter.wrapper );
+			this.parts.wrapper.append( this.parts.counter );
 			this.parts.wrapper.append( previousButtonWrapper );
 			this.parts.wrapper.append( nextButtonWrapper );
 

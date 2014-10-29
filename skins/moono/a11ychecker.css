@@ -181,12 +181,12 @@ select.cke_a11yc_ui_input_select:focus
 }
 
 .cke_a11yc_ui_navigation .cke_a11yc_ui_button_wrapper,
-.cke_a11yc_ui_navigation .cke_a11yc_ui_counter
+.cke_a11yc_ui_navigation .cke_a11yc_ui_navigation_counter
 {
 	display: table-cell;
 }
 
-.cke_a11yc_ui_navigation .cke_a11yc_ui_counter
+.cke_a11yc_ui_navigation .cke_a11yc_ui_navigation_counter
 {
 	width: 100%;
 	text-align: center;
