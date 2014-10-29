@@ -4,43 +4,30 @@
 ( function() {
 	'use strict';
 
-	require( [ 'ui/ViewerForm', 'helpers/sinon/sinon_amd.min' ], function( ViewerForm, sinon ) {
+	require( [ 'ui/ViewerForm', 'mocking' ], function( ViewerForm, mocking ) {
 		bender.test( {
 			'test ViewerForm.hide': function() {
-				var formMockup = getViewerFormMockup(),
-					addClass = sinon.spy();
+				var formMockup = {};
 
-				formMockup.parts.wrapper.addClass = addClass;
+				mocking.mockProperty( 'parts.wrapper.hide', formMockup );
+
 				formMockup.hide = ViewerForm.prototype.hide;
 
 				formMockup.hide();
 
-				assert.areSame( 1, addClass.callCount, 'wrapper.addClass count' );
-				assert.areSame( 'hidden', addClass.args[ 0 ][ 0 ], 'wrapper.addClass first argument' );
+				assert.areSame( 1, formMockup.parts.wrapper.hide.callCount, 'wrapper.hide call count' );
 			},
 
 			'test ViewerForm.show': function() {
-				var formMockup = getViewerFormMockup(),
-					removeClass = sinon.spy();
+				var formMockup = {};
 
-				formMockup.parts.wrapper.removeClass = removeClass;
+				mocking.mockProperty( 'parts.wrapper.show', formMockup );
 				formMockup.show = ViewerForm.prototype.show;
 
 				formMockup.show();
 
-				assert.areSame( 1, removeClass.callCount, 'wrapper.removeClass count' );
-				assert.areSame( 'hidden', removeClass.args[ 0 ][ 0 ], 'wrapper.removeClass first argument' );
+				assert.areSame( 1, formMockup.parts.wrapper.show.callCount, 'wrapper.show count count' );
 			}
 		} );
-
-		function getViewerFormMockup() {
-			return {
-				parts: {
-					wrapper: {
-
-					}
-				}
-			};
-		}
 	} );
 } )();

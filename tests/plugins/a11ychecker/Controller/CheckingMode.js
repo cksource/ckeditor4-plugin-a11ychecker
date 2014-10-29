@@ -5,21 +5,18 @@
 ( function() {
 	'use strict';
 
-	require( [ 'Controller', 'Controller/CheckingMode', 'helpers/sinon/sinon_amd.min' ], function( Controller, CheckingMode, sinon ) {
+	require( [ 'Controller', 'Controller/CheckingMode', 'mocking' ], function( Controller, CheckingMode, mocking ) {
 		bender.test( {
 			setUp: function() {
 				this.controller = {
 					editableDecorator: {
-						markIssues: sinon.spy(),
-						removeMarkup: sinon.spy()
-					},
-					viewerController: {
-						hide: sinon.spy()
-					},
-					issues: {
-						resetFocus: sinon.spy()
+						markIssues: mocking.spy(),
+						removeMarkup: mocking.spy()
 					}
 				};
+
+				mocking.mockProperty( 'issues.resetFocus', this.controller );
+				mocking.mockProperty( 'viewerController.viewer.panel.hide', this.controller );
 
 				this.mock = new CheckingMode( this.controller );
 			},
@@ -40,7 +37,7 @@
 
 				assert.areEqual( 1, editableDecorator.removeMarkup.callCount,
 					'editableDecorator.removeMarkup call count' );
-				assert.areEqual( 1, this.controller.viewerController.hide.callCount,
+				assert.areEqual( 1, this.controller.viewerController.viewer.panel.hide.callCount,
 					'viewerController.hide() call count' );
 				assert.areEqual( 1, this.controller.issues.resetFocus.callCount,
 					'issues.resetFocus() call count' );

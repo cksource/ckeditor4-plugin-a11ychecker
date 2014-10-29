@@ -18,8 +18,8 @@
 
 				assert.isInstanceOf( Object, ret, 'Return value has a valid type' );
 				var keys = CKEDITOR.tools.objectKeys( ret ),
-					expectedKeys = [ '1114181', '3342405', '5570629' ],
-					expectedValues = [ 'a11ychecker.next', 'a11ychecker.prev', 'a11ychecker' ],
+					expectedKeys = [ '27', '1114181', '3342405', '5570629' ],
+					expectedValues = [ 'a11ychecker.close', 'a11ychecker.next', 'a11ychecker.prev', 'a11ychecker' ],
 					i;
 
 				arrayAssert.itemsAreSame( expectedKeys, keys, 'Object has valid keys' );
@@ -52,26 +52,36 @@
 			'test HotkeyManager.setBalloonHotkeys': function() {
 				var viewerController = {},
 					hotkeyMgrMock = {
-						setBalloonHotkeys: HotkeyManager.prototype.setBalloonHotkeys
+						setBalloonHotkeys: HotkeyManager.prototype.setBalloonHotkeys,
+						getBalloonKeydown: sinon.spy( function() {
+							return 'bar';
+						} )
 					},
 					hotkeyMapping = {
 						1114181: 'a11ychecker.next',
 						3342405: 'a11ychecker.prev',
 						5570629: 'a11ychecker'
 					},
-					onMockup = mockProperty( 'viewer.panel.on', viewerController );
+					panelShowListener = mockProperty( 'viewer.panel.addShowListener', viewerController ),
+					panelPartsListener = mockProperty( 'viewer.panel.parts.panel.on', viewerController );
 
 				// Mocking panel.parts.panel.
-				mockProperty( 'viewer.panel.parts.panel.on', viewerController );
 
-				mockProperty( 'controller.editor.execCommand', hotkeyMgrMock );
-
+				mockProperty( 'controller.editor', hotkeyMgrMock );
 				hotkeyMgrMock.setBalloonHotkeys( viewerController, hotkeyMapping );
 
-				// Check panel.on( 'keypress', fn ) calls.
-				assert.areEqual( 1, onMockup.callCount, 'Panel listeners count' );
-				var firstListenerArgs = onMockup.args[ 0 ];
-				assert.areEqual( 'show', firstListenerArgs[ 0 ], 'Panel.show event subscribed' );
+				// First of all, a show listener to the balloon should be added.
+				assert.areSame( 1, panelShowListener.callCount, 'panel.addShowListener was called' );
+				var showListener = panelShowListener.args[ 0 ][ 0 ];
+				assert.isInstanceOf( Function, showListener, 'panel.addShowListener argument type' );
+
+				// Now we need to call the listener manually, because we want ensure that it calls
+				// panelElement.on() and returns object.
+				showListener();
+
+				// Ensure that panel.parts.panel.on( 'keypress', fn ) was called.
+				assert.areEqual( 1, panelPartsListener.callCount, 'panel.parts.panel listeners count' );
+				sinon.assert.calledWith( panelPartsListener, 'keydown', 'bar' );
 			},
 
 			'test HotkeyManager.getBalloonKeydown': function() {
