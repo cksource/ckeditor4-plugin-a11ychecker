@@ -556,11 +556,16 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	 * Fired when content checking is done. At this point Accessibility Checker
 	 * contains full list of issues.
 	 *
+	 * This event can be canceled, in this case default Accessibility Checker action won't be
+	 * performed, that is:
+	 * * Highlighting accessibility issue in case there is any.
+	 * * Calling {@link #onNoIssues} method when no issues are found.
+	 *
 	 * @event checked
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {Object} data
-	 * @param {Object} data.issues Issues found in the document. This is exactly the same
-	 * object as in {@link #issues} property.
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} data.issues Issues found in the document.
+	 * This is exactly the same object as in {@link #issues} property.
 	 */
 
 	/**
@@ -568,6 +573,9 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	 *
 	 * Right after this event Accessibility Checker will reload its content, and recheck
 	 * the content.
+	 *
+	 * This event might be canceled, in this case Accessibility Checker will not perform
+	 * content recheck.
 	 *
 	 * @event fixed
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
