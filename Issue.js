@@ -1,7 +1,7 @@
 
 define( function() {
 	'use strict';
-	
+
 	/**
 	 * Represents a single accessibility issue within content.
 	 *

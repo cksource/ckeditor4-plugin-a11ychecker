@@ -1,7 +1,7 @@
 
 define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, IssueList, Issue, IssueDetails ) {
 	'use strict';
-	
+
 	/**
 	 * A default engine driver which has to be overriden. This engine won't find
 	 * any issues.

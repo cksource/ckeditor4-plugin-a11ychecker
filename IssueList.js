@@ -175,7 +175,7 @@ define( function() {
 		}
 
 		// If we have no more item to iterate with.
-		if ( this.currentIndex + 1 > this.count() -1 ) {
+		if ( this.currentIndex + 1 > this.count() - 1 ) {
 			// We're moving to first item if we're at the end of the list,
 			// and list contains some issues.
 			if ( this.currentIndex !== 0 ) {
@@ -204,7 +204,7 @@ define( function() {
 		// If we have first focused, or no item focused at all.
 		if ( this.currentIndex === 0 || this.currentIndex == -1 ) {
 			// Ensure that currently focused item is not the last one.
-			if ( this.currentIndex != maxIndex ){
+			if ( this.currentIndex != maxIndex ) {
 				this.moveTo( maxIndex );
 			}
 		} else {
