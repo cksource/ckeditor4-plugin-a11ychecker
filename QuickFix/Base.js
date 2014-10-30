@@ -1,5 +1,7 @@
 
 define( function() {
+	'use strict';
+	
 	/**
 	 * Base type for the QuickFix objects.
 	 *

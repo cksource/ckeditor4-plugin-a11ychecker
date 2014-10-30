@@ -1,5 +1,6 @@
 
 define( function() {
+	'use strict';
 
 	/**
 	 * A mode indicating that Accessibility Checker is busy. Used mainly to indicate

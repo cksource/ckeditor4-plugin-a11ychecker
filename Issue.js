@@ -1,5 +1,7 @@
 
 define( function() {
+	'use strict';
+	
 	/**
 	 * @class CKEDITOR.plugins.a11ychecker.Issue
 	 * @constructor

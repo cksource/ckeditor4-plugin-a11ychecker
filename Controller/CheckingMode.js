@@ -1,5 +1,6 @@
 
 define( function() {
+	'use strict';
 
 	/**
 	 * A controller mode for checking Accessibility issues. Presents all found issues

@@ -1,5 +1,7 @@
 
 define( [ 'QuickFix/Base' ], function( Base ) {
+	'use strict';
+	
 	/**
 	 * Base class for the manual fixes.
 	 *

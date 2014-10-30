@@ -1,5 +1,6 @@
 
 define( [ 'QuickFix/Manual' ], function( Manual ) {
+	'use strict';
 
 	var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
 
