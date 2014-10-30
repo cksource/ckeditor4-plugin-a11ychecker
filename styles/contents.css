@@ -1,8 +1,8 @@
 
 .cke_editable .cke_a11ychecker_issue
 {
-	outline: 3px solid rgb(255, 160, 160);
-	background-color: rgba( 255,0,0, 0.1 );
+	outline: 3px solid #FF9F9F;
+	background-color: #FFE4E4;
 	font-style: italic;
 }
 
@@ -10,8 +10,8 @@
 .cke_editable .cke_a11ychecker_issue.cke_a11ychecker_warning.cke_a11y_focused,
 .cke_editable .cke_a11ychecker_issue.cke_a11ychecker_notice.cke_a11y_focused
 {
-	outline-color: rgb(228, 123, 9);
-	background-color: rgba(224, 136, 41, 0.3);
+	outline-color: #E87B23;
+	background-color: #F6D9BE;
 }
 
 .cke_editable .cke_a11ychecker_issue.cke_a11ychecker_notice {
@@ -25,18 +25,17 @@
 }
 
 .cke_editable .cke_a11ychecker_issue.cke_a11ychecker_error {
-	outline-color: rgb(255, 160, 160);
-	background-color: rgba( 255,0,0, 0.1 );
+	outline-color: #FF9F9F;
+	background-color: #FFE4E4;
 }
 
 .cke_editable .cke_a11ychecker_issue.cke_a11ychecker_ignored {
-	background-color: transparent;
-	outline-style: dashed;
-	outline-color: gray;
+	outline: none;
+	background: url( data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKPHz/+zwjjgziysrKMYAEYB8RmROaABAAKXg+twPLtKAAAAABJRU5ErkJggg== );
 }
 
 .cke_editable .cke_a11ychecker_issue.cke_a11ychecker_ignored.cke_a11y_focused {
-	background-color: rgba(32, 32, 32, 0.1);
+	background-color: transparent;
 	outline-style: solid;
 	outline-color: gray;
 }

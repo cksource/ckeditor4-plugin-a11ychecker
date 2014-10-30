@@ -14,13 +14,21 @@ define( function() {
 	 * @param {CKEDITOR.plugins.a11ychecker.viewer} viewer The viewer instance that the object
 	 * will be attached to.
 	 */
-	function ViewerNavigation( viewer ) {
+	function ViewerNavigation( viewer, lang ) {
 		/**
 		 * Parent {@link CKEDITOR.plugins.a11ychecker.viewer}.
 		 *
 		 * @type {CKEDITOR.plugins.a11ychecker.viewer}
 		 */
 		this.viewer = viewer;
+
+		/**
+		 * @readonly
+		 * @property {Object} lang Lang object obtained from {@link CKEDITOR.plugins.a11ychecker.viewer#lang}.
+		 *
+		 * It's mapped simply for code readability, to avoid long property access chains.
+		 */
+		this.lang = lang;
 
 		/**
 		 * Templates of UI elements in this navigation.
@@ -33,7 +41,7 @@ define( function() {
 		}
 
 		// A template of the counter text uses editor lang files.
-		this.templates.counterText = new CKEDITOR.template( this.viewer.editor.lang.a11ychecker.navigationCounter );
+		this.templates.counterText = new CKEDITOR.template( this.lang.navigationCounter );
 
 		/**
 		 * @property parts UI elements of the navigation.
@@ -84,37 +92,46 @@ define( function() {
 		/**
 		 * Update the navigation component.
 		 *
-		 * @param {Number} cur 0-based current issue offset in issue list.
-		 * @param {Number} cur 1-based issue list length.
+		 * @param {Number} current 0-based current issue offset in issue list.
+		 * @param {Number} total 1-based issue list length.
+		 * @param {Number} testability Testability of the issue expressed numerically.
 		 */
-		update: function( current, total ) {
+		update: function( current, total, testability ) {
+			var testabilityLang = this.lang.testability,
+				testabilityLabel = testabilityLang[ testability !== undefined ? testability : 1 ];
+
 			this.parts.counter.setText( this.templates.counterText.output( {
 				current: current + 1,
-				total: total
+				total: total,
+				testability: testabilityLabel
 			} ) );
+
+			for ( var t in testabilityLang ) {
+				this.parts.wrapper.removeClass( 'cke_a11yc_testability_' + testabilityLang[ t ] );
+			}
+
+			this.parts.wrapper.addClass( 'cke_a11yc_testability_' + testabilityLabel );
 		},
 
 		/**
 		 * Builds the UI of the navigation.
 		 */
 		build: function() {
-			var lang = this.viewer.editor.lang.a11ychecker;
-
 			this.parts = {
 				wrapper: CKEDITOR.dom.element.createFromHtml( this.templates.wrapper.output() ),
 
 				counter: CKEDITOR.dom.element.createFromHtml( this.templates.counter.output() ),
 
 				previous: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
-					title: lang.navigationPrevTitle,
+					title: this.lang.navigationPrevTitle,
 					'class': 'previous',
-					text: lang.navigationPrev
+					text: this.lang.navigationPrev
 				} ) ),
 
 				next: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
-					title: lang.navigationNextTitle,
+					title: this.lang.navigationNextTitle,
 					'class': 'next',
-					text: lang.navigationNext
+					text: this.lang.navigationNext
 				} ) )
 			};
 

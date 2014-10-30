@@ -37,7 +37,6 @@ define( function() {
 		 * @property {CKEDITOR.dom.element} parts.wrapper Wrapper of the description.
 		 * @property {CKEDITOR.dom.element} parts.title Title of the issue.
 		 * @property {CKEDITOR.dom.element} parts.info Information about the issue.
-		 * @property {CKEDITOR.dom.element} parts.testability Issue testability indicator.
 		 */
 		this.parts = {};
 
@@ -59,16 +58,13 @@ define( function() {
 		 * @property {String} templateDefinitions.wrapper
 		 * @property {String} templateDefinitions.title
 		 * @property {String} templateDefinitions.info
-		 * @property {String} templateDefinitions.testability
 		 */
 		templateDefinitions: {
 			wrapper: '<div class="cke_a11yc_ui_desc_wrapper"></div>',
 
 			title: '<strong class="cke_a11yc_ui_desc_title"></strong>',
 
-			info: '<p class="cke_a11yc_ui_desc_info"></p>',
-
-			testability: '<p class="cke_a11yc_ui_desc_testability"></p>'
+			info: '<p class="cke_a11yc_ui_desc_info"></p>'
 		},
 
 		/**
@@ -90,17 +86,6 @@ define( function() {
 		},
 
 		/**
-		 * Sets the testability of the issue.
-		 *
-		 * @param {Number} testability
-		 */
-		setTestability: function( testability ) {
-			this.parts.testability.setHtml(
-				this.lang.testability[ testability !== undefined ? testability : 1 ]
-			);
-		},
-
-		/**
 		 * Builds the UI of the description.
 		 */
 		build: function() {
@@ -109,14 +94,11 @@ define( function() {
 
 				title: CKEDITOR.dom.element.createFromHtml( this.templates.title.output() ),
 
-				info: CKEDITOR.dom.element.createFromHtml( this.templates.info.output() ),
-
-				testability: CKEDITOR.dom.element.createFromHtml( this.templates.testability.output() )
+				info: CKEDITOR.dom.element.createFromHtml( this.templates.info.output() )
 			};
 
 			this.parts.title.appendTo( this.parts.wrapper );
 			this.parts.info.appendTo( this.parts.wrapper );
-			this.parts.testability.appendTo( this.parts.wrapper );
 		}
 	};
 
