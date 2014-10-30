@@ -3,6 +3,22 @@ define( function() {
 	'use strict';
 	
 	/**
+	 * Represents a single accessibility issue within content.
+	 *
+	 * This object contains only essential informations about the issue, such as:
+	 *
+	 * * {@link #element}
+	 * * {@link #id}
+	 * * {@link #testability}
+	 *
+	 * By default it does not provide informations like title, or description. These
+	 * informations are available using {@link CKEDITOR.plugins.a11ychecker.IssueDetails}
+	 * object returned by {@link #getDetails}.
+	 *
+	 * This allows Issue object to be more lightweight object.
+	 *
+	 * Note that one DOM element might cause multiple accessibility issues.
+	 *
 	 * @class CKEDITOR.plugins.a11ychecker.Issue
 	 * @constructor
 	 * @member CKEDITOR.plugins.a11ychecker
