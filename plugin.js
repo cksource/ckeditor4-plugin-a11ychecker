@@ -33,8 +33,6 @@
 				editor.filter.allow( '*[data-a11y-ignore]', 'a11ychecker' );
 			}
 
-			this.guiRegister( editor );
-
 			editor.once( 'instanceReady', function() {
 				// Loads Engine, Controller and ViewerController classes.
 				require( [ 'Controller', 'EngineDefault' ], function( Controller, EngineClass ) {
@@ -44,10 +42,10 @@
 					// Assign controller object to the editor protected namespace.
 					editor._.a11ychecker = a11ychecker;
 				} );
-
-				that.commandRegister.call( that, editor );
 			} );
 
+			that.commandRegister.call( that, editor );
+			that.guiRegister( editor );
 		},
 
 		// Register buttons, dialogs etc.
