@@ -1,5 +1,6 @@
 
 define( function() {
+	'use strict';
 
 	/**
 	 * IssueDetails instance contains more detailed informations about the Issue,

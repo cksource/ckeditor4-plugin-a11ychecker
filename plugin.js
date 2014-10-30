@@ -11,25 +11,24 @@
 ( function() {
 	'use strict';
 
-	var pluginName = 'a11ychecker',
-		// Should A11ychecker toolbar be hidden on run.
-		cfgStartHidden = true;
+	var pluginName = 'a11ychecker';
 
 	CKEDITOR.plugins.add( pluginName, {
-		requires: 'dialog,balloonpanel',
+		requires: 'balloonpanel',
 		lang: 'en', // %REMOVE_LINE_CORE%
 		icons: pluginName, // %REMOVE_LINE_CORE%
 		hidpi: true, // %REMOVE_LINE_CORE%
 
 		onLoad: function() {
-			this.loadCss();
+			// Load skin CSS.
+			CKEDITOR.document.appendStyleSheet( this.path + 'skins/moono/a11ychecker.css' );
 		},
 
 		beforeInit: function( editor ) {
 			var that = this;
 
 			if ( !editor.config.a11ychecker_noIgnoreData ) {
-				// Register a rule so ACF won't remove data-a11y-ignore attributes, only if there
+				// Register an ACF rule so it won't remove data-a11y-ignore attributes, only if there
 				// is no config setting denying it.
 				editor.filter.allow( '*[data-a11y-ignore]', 'a11ychecker' );
 			}
@@ -41,11 +40,7 @@
 				require( [ 'Controller', 'EngineDefault' ], function( Controller, EngineClass ) {
 					var a11ychecker = new Controller( editor );
 
-					a11ychecker.engine = new EngineClass( {}, that );
-
-					// @todo: Check if this flag is needed.
-					a11ychecker.disableFilterStrip = true;
-
+					a11ychecker.setEngine( new EngineClass( {}, that ) );
 					// Assign controller object to the editor protected namespace.
 					editor._.a11ychecker = a11ychecker;
 				} );
@@ -57,13 +52,14 @@
 
 		// Register buttons, dialogs etc.
 		guiRegister: function( editor ) {
-			var lang = editor.lang.a11ychecker,
-				cssPath = this.path + 'styles/contents.css',
+			var cssPath = this.path + 'styles/contents.css',
+				// We need to be aware that editor.addContentsCss might not be
+				// available as it was introduced in CKE 4.4.0.
 				addContentsCss = editor.addContentsCss || editorAddContentsCss;
 
 			if ( editor.ui.addButton ) {
 				editor.ui.addButton( 'A11ychecker', {
-					label: lang.toolbar,
+					label: editor.lang.a11ychecker.toolbar,
 					command: pluginName,
 					toolbar: 'document,10'
 				} );
@@ -97,21 +93,6 @@
 			editor.addCommand( pluginName + '.close', {
 				exec: cmdClose
 			} );
-		},
-
-		// Loads global CSS, mainly needed for skin.
-		loadCss: function() {
-			var doc = CKEDITOR.document,
-				node = doc.createElement( 'link', {
-					attributes: {
-						rel: 'stylesheet',
-						href: this.path + 'styles/skin.css'
-					}
-				} );
-
-			doc.getHead().append( node );
-
-			CKEDITOR.document.appendStyleSheet( this.path + 'skins/moono/a11ychecker.css' );
 		}
 	} );
 
@@ -124,16 +105,6 @@
 		 * this property will be `undefined`.
 		 */
 		dev: true // %REMOVE_LINE%
-	};
-
-	// Stores objects defining title/description for given issue type.
-	CKEDITOR.plugins.a11ychecker.types = {};
-
-	/**
-	 * Performs a11y checking for current editor content.
-	 */
-	CKEDITOR.plugins.a11ychecker.exec = function( editor ) {
-		return editor._.a11ychecker.exec();
 	};
 
 	/*

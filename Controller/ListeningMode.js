@@ -1,5 +1,6 @@
 
 define( function() {
+	'use strict';
 
 	/**
 	 * A controller mode which should detach all the Accessibility Checker functionality and

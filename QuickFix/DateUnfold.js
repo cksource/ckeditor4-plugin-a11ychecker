@@ -1,5 +1,6 @@
 
 define( [ 'QuickFix/Base' ], function( Base ) {
+	'use strict';
 
 	// List of month names.
 	var monthNames = {

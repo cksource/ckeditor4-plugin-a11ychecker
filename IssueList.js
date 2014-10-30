@@ -1,5 +1,6 @@
 
 define( function() {
+	'use strict';
 
 	/**
 	 * Represents an issue list in a single Accessibility Checker instance. It keeps

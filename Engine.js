@@ -1,5 +1,6 @@
 
 define( function() {
+	'use strict';
 
 	/**
 	 * A base interface for Accessibility checking engines.
@@ -10,6 +11,7 @@ define( function() {
 	 * Custom classes might also override {@linnk #getFix} and {@link #getFixType}
 	 * methods, if the default behaviour is not suitable.
 	 *
+	 * @since 4.5
 	 * @class CKEDITOR.plugins.a11ychecker.Engine
 	 * @constructor
 	 */
