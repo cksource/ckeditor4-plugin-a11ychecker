@@ -4,6 +4,8 @@
  */
 
 define( function() {
+	'use strict';
+
 	/**
 	 * A class which represents the mode of {@link CKEDITOR.plugins.a11ychecker.viewerForm}.
 	 *

@@ -4,6 +4,8 @@
  */
 
 define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/ViewerListeningIndicator', 'ui/ViewerFocusManager', 'ui/ViewerMode' ], function( ViewerDescription, ViewerNavigation, ViewerForm, ViewerListeningIndicator, ViewerFocusManager, ViewerMode ) {
+	'use strict';
+
 	/**
 	 * A class which represents the end-user interface of a11ychecker. Viewer is a panel
 	 * which allows to browse and fix issues in the contents.

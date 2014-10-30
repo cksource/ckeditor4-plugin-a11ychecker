@@ -4,6 +4,8 @@
  */
 
 define( function() {
+	'use strict';
+
 	/**
 	 * The generic class of {@link CKEDITOR.plugins.a11ychecker.viewerForm} input.
 	 *

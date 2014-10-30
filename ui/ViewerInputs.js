@@ -4,6 +4,8 @@
  */
 
 define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
+	'use strict';
+
 	var ViewerInputs = {
 		/**
 		 * The text input of {@link CKEDITOR.plugins.a11ychecker.viewerForm}.
