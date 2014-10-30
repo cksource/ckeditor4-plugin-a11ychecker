@@ -1,5 +1,21 @@
 
-define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/BusyMode', 'EditableDecorator', 'ui/Ui', 'ui/ViewerController', 'HotkeyManager' ], function( CheckingMode, ListeningMode, BusyMode, EditableDecorator, Ui, ViewerController, HotkeyManager ) {
+define( [
+	'Controller/CheckingMode',
+	'Controller/ListeningMode',
+	'Controller/BusyMode',
+	'EditableDecorator',
+	'ui/Ui',
+	'ui/ViewerController',
+	'HotkeyManager'
+], function(
+	CheckingMode,
+	ListeningMode,
+	BusyMode,
+	EditableDecorator,
+	Ui,
+	ViewerController,
+	HotkeyManager
+) {
 	'use strict';
 
 	/**

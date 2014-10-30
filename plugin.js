@@ -145,14 +145,29 @@
 			curContentsCss = cfg.contentsCss;
 
 		// Convert current value into array.
-		if ( !CKEDITOR.tools.isArray( curContentsCss ) )
+		if ( !CKEDITOR.tools.isArray( curContentsCss ) ) {
 			cfg.contentsCss = curContentsCss ? [ curContentsCss ] : [];
+		}
 
 		cfg.contentsCss.push( cssPath );
 	}
 
 	// Namespace register.
-	require( [ 'Controller', 'Engine', 'Issue', 'IssueList', 'IssueDetails', 'QuickFix/Base' ], function( Controller, Engine, Issue, IssueList, IssueDetails, QuickFix ) {
+	require( [
+		'Controller',
+		'Engine',
+		'Issue',
+		'IssueList',
+		'IssueDetails',
+		'QuickFix/Base'
+	], function(
+		Controller,
+		Engine,
+		Issue,
+		IssueList,
+		IssueDetails,
+		QuickFix
+	) {
 		CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
 			Controller: Controller,
 			Engine: Engine,
@@ -164,8 +179,21 @@
 	} );
 
 	// Expose UI classes.
-	require( [ 'ui/ViewerInputs', 'ui/ViewerInput', 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/Viewer', 'ui/ViewerForm' ], function( ViewerInputs, ViewerInput, ViewerDescription, ViewerNavigation, Viewer, ViewerForm ) {
-
+	require( [
+		'ui/ViewerInputs',
+		'ui/ViewerInput',
+		'ui/ViewerDescription',
+		'ui/ViewerNavigation',
+		'ui/Viewer',
+		'ui/ViewerForm'
+	], function(
+		ViewerInputs,
+		ViewerInput,
+		ViewerDescription,
+		ViewerNavigation,
+		Viewer,
+		ViewerForm
+	) {
 		// Make all Viewer* classes public.
 		CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
 			viewer: Viewer,
