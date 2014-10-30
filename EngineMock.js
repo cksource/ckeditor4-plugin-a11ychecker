@@ -1,7 +1,7 @@
 
 define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, IssueList, Issue, IssueDetails ) {
 	'use strict';
-	
+
 	/**
 	 * Engine driver working with fixtures only. Created for fast tests.
 	 *

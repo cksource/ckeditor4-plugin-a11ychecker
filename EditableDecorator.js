@@ -109,8 +109,9 @@ define( function() {
 		editor.dataProcessor.htmlFilter.addRules( {
 			elements: {
 				$: function( element ) {
-					if ( !editor._.a11ychecker.disableFilterStrip )
+					if ( !editor._.a11ychecker.disableFilterStrip ) {
 						delete element.attributes[ EditableDecorator.ID_ATTRIBUTE_NAME_FULL ];
+					}
 
 					if ( editor.config.a11ychecker_noIgnoreData ) {
 						// If data-a11y-ignore attr is not desired, remove it.
@@ -341,7 +342,8 @@ define( function() {
 		// Note that we want to make sure that previous value is removed.
 		var replRegexp = new RegExp( '(\\s+' + attrName + '="\\d+")' ,'g' ),
 			initialValue = decodeURIComponent( element.data('cke-realelement') ).replace( replRegexp, '' ),
-			newVal = initialValue.replace( /^(<\w+\s)/, '$1' + attrName + '="' +  CKEDITOR.tools.htmlEncodeAttr( attrValue ) + '" ' );
+			newVal = initialValue.replace( /^(<\w+\s)/, '$1' + attrName +
+				'="' +  CKEDITOR.tools.htmlEncodeAttr( attrValue ) + '" ' );
 
 		element.data( 'cke-realelement', encodeURIComponent( newVal ) );
 	}

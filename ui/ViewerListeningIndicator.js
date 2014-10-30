@@ -4,6 +4,8 @@
  */
 
 define( function() {
+	'use strict';
+
 	/**
 	 * The deflated {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *

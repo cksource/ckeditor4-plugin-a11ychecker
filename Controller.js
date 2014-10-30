@@ -399,13 +399,11 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		this.editableDecorator.markIssueElement( issue, this.issues );
 	};
 
-
 	/**
 	 * Closes the Accessibility Checker, hiding all the UI, reseting internal
 	 * data.
 	 */
 	Controller.prototype.close = function() {
-
 		if ( !this.enabled ) {
 			return;
 		}

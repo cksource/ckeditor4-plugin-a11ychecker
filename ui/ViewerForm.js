@@ -4,6 +4,8 @@
  */
 
 define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
+	'use strict';
+
 	/**
 	 * The "quick fix" area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *

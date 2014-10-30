@@ -4,6 +4,8 @@
  */
 
 define( function() {
+	'use strict';
+
 	/**
 	 * The navigation area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *

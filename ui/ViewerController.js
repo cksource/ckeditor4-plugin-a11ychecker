@@ -4,6 +4,8 @@
  */
 
 define( [ 'ui/Viewer' ], function( Viewer ) {
+	'use strict';
+
 	/**
 	 * A bridge between the logic and model of a11yc and panel-based issue Viewer.
 	 *
