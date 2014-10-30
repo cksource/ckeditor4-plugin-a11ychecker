@@ -1,5 +1,5 @@
 /* bender-tags: editor,unit */
-/* bender-ckeditor-plugins: a11ychecker,sourcearea */
+/* bender-ckeditor-plugins: a11ychecker,sourcearea,toolbar */
 /* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
 /**
@@ -13,7 +13,7 @@
 		startupData: '<p>foo</p>'
 	};
 
-	require( [ 'helpers/sinon/sinon_amd.min', 'Controller', 'ui/ViewerController', 'EngineMock', 'EngineDefault' ], function( sinon, Controller ) {
+	require( [ 'helpers/sinon/sinon_amd.min', 'Controller', 'EngineMock', 'ui/ViewerController', 'EngineDefault' ], function( sinon, Controller, EngineMock ) {
 		bender.test( {
 			'test non inited plugin .close()': function() {
 				// When plugin is not inited its .close() call shouldn't throw any
