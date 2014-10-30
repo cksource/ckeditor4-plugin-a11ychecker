@@ -22,5 +22,5 @@ CKEDITOR.plugins.setLang( 'a11ychecker', 'en', {
 	navigationPrevTitle: 'Previous issue',
 	quickFixButton: 'Quick fix',
 	quickFixButtonTitle: 'Quick fix this issue',
-	navigationCounter: 'Issue {current} of {total}'
+	navigationCounter: 'Issue {current} of {total} ({testability})'
 } );

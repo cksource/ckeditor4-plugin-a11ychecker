@@ -109,7 +109,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		update: function( issue ) {
 			var issueList = this.a11ychecker.issues;
 
-			this.viewer.navigation.update( issueList.indexOf( issue ), issueList.count()  );
+			this.viewer.navigation.update( issueList.indexOf( issue ), issueList.count(), issue.testability );
 			this.updateDescription( issue );
 			this.updateForm( issue );
 		},

@@ -153,6 +153,21 @@ select.cke_a11yc_ui_input_select:focus
 	border-spacing: 10px;
 }
 
+.cke_a11yc_ui_navigation.cke_a11yc_testability_notice
+{
+	background-color: #F1F1F1;
+}
+
+.cke_a11yc_ui_navigation.cke_a11yc_testability_warning
+{
+	background-color: #FFFACD;
+}
+
+.cke_a11yc_ui_navigation.cke_a11yc_testability_error
+{
+	background-color: rgba( 255,0,0, 0.1 );
+}
+
 .cke_a11yc_ui_navigation .cke_a11yc_ui_button_wrapper,
 .cke_a11yc_ui_navigation .cke_a11yc_ui_navigation_counter
 {
