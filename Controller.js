@@ -509,7 +509,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 */
 	Controller.prototype.onNoIssues = function() {
-		alert( 'Document does not contain Accessibility Issues! Good job!' );
+		alert( this.editor.lang.a11ychecker.noIssuesMessage );
 		this.close();
 	};
 
