@@ -22,7 +22,7 @@ CKEDITOR.plugins.setLang( 'a11ychecker', 'en', {
 	balloonLabel: 'Accessibility checker',
 	navigationNext: 'Next',
 	navigationNextTitle: 'Next',
-	navigationPrev: '',
+	navigationPrev: 'Previous',
 	navigationPrevTitle: 'Previous',
 	quickFixButton: 'Quick fix',
 	quickFixButtonTitle: 'Quick fix',
