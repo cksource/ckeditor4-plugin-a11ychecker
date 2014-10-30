@@ -40,7 +40,7 @@
 				require( [ 'Controller', 'EngineDefault' ], function( Controller, EngineClass ) {
 					var a11ychecker = new Controller( editor );
 
-					a11ychecker.engine = new EngineClass( {}, that );
+					a11ychecker.setEngine( new EngineClass( {}, that ) );
 					// Assign controller object to the editor protected namespace.
 					editor._.a11ychecker = a11ychecker;
 				} );

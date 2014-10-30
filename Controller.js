@@ -27,6 +27,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	 * States are changed by calling {@link #setState} method with a property listed
 	 * in {@link CKEDITOR.plugins.a11ychecker.Controller#modes} enumeration.
 	 *
+	 * @since 4.5
 	 * @mixins CKEDITOR.event
 	 * @class CKEDITOR.plugins.a11ychecker.Controller
 	 * @constructor
@@ -102,6 +103,8 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		 */
 		issues: null,
 		/**
+		 * Object encapsulating the balloon operations.
+		 *
 		 * @property {CKEDITOR.plugins.a11ychecker.ViewerController} viewerController
 		 */
 		viewerController: null,
@@ -111,7 +114,15 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		 * @property {Boolean} enabled
 		 * @readonly
 		 */
-		enabled: false
+		enabled: false,
+		/**
+		 * If set to true it prevent editor from stripping out
+		 * {@link CKEDITOR.plugins.a11ychecker.EditableDecorator.ID_ATTRIBUTE_NAME_FULL}
+		 * attributes from element.
+		 *
+		 * This is desired when generating an output for scratchpad.
+		 */
+		disableFilterStrip: false
 	};
 
 	Controller.prototype.constructor = Controller;
@@ -127,17 +138,18 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 
 	/**
 	 * Performs an accessibility test against current editor content.
+	 *
+	 * A main method executed on Accessibility Checker (toolbar) icon click.
+	 *
+	 * It toggles the state of Accessibility Checker, if it's disabled then Accessibility
+	 * Checker will be enabled, and perform content checking. In case of Accessibility
+	 * Checker being already enabled, it will close it.
 	 */
 	Controller.prototype.exec = function() {
-
 		if ( this.enabled ) {
 			this.close();
 			return;
 		}
-
-		var editor = this.editor,
-			that = this,
-			scratchpad;
 
 		if ( this.issues ) {
 			this.issues.clear();
@@ -150,9 +162,12 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	};
 
 	/**
-	 * Dispatches accessiblity check function. Note that results might be asynchronous.
+	 * This method will force content checking. It's considered to be an internal method
+	 * if you want to simply trigger Accessibility Checker consider using {@link #exec}.
 	 *
 	 * Automatically sets the Controller mode to `BUSY` / `CHECKING`.
+	 *
+	 * Note: depending on used engine results might be asynchronous.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {Number} focusIssueOffset Offset of the issue to be focused after checking
@@ -165,6 +180,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 
 		focusIssueOffset = focusIssueOffset || 0;
 
+		// Set busy state, so end-user will have "loading" feedback.
 		this.setMode( Controller.modes.BUSY );
 
 		// UI must be visible.
@@ -181,23 +197,19 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		scratchpad.setHtml( editor.getData() );
 		this.disableFilterStrip = false;
 
-		/**
-		 * @todo: Do we really need to append this to the document?
-		 */
+		// Scratchpad needs to be appended to the document, in fact, the ideal situation would
+		// be positioning it as close to the editable, as possible - so it gets its styling (#8).
 		CKEDITOR.document.getBody().append( scratchpad );
 
-		// When the engine has done its job, lets assign the issue list, and refresh
-		// UI.
+		// Specify a callback when engine has doon its job. When it's done lets assign the issue list,
+		// and refresh the UI.
 		var completeCallback = function( issueList ) {
 			var checkedEvent;
-
 			// We need to determine Issue.element properties in each Issue.
 			that.editableDecorator.resolveEditorElements( issueList );
 
 			// Sort the issues so they will keep their DOM order.
 			issueList.sort();
-
-			console.log( 'checking done', issueList );
 
 			that.issues = issueList;
 
@@ -206,6 +218,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 			// Notify the UI about update.
 			that.ui.update();
 
+			// Trigger the checked event. If it's canceled then we should not focus first issue by ourself.
 			checkedEvent = that.fire( 'checked', {
 				issues: issueList
 			} );
@@ -220,6 +233,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 					}
 					that.showIssue( issueList.getItem( focusIssueOffset ) );
 				} else {
+					// In case when there's no issue lets inform that content is OK.
 					that.onNoIssues();
 				}
 			}
@@ -228,7 +242,9 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		this.engine.process( this, scratchpad, completeCallback );
 	};
 
-
+	/**
+	 * Disables the Accessibility Checker.
+	 */
 	Controller.prototype.disable = function() {
 		if ( this.enabled ) {
 			this.enabled = false;
@@ -236,6 +252,9 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 		}
 	};
 
+	/**
+	 * Enables the Accessibility Checker.
+	 */
 	Controller.prototype.enable = function() {
 		if ( !this.enabled ) {
 			this.enabled = true;
@@ -255,12 +274,13 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 			curFocusedIssue;
 
 		if ( issues.count() === 0 ) {
-			console.log( 'no issues :(' );
+			// No issues are available.
 			return;
 		}
 
 		curFocusedIssue = this.issues.next();
 
+		// Issue list is updated, now we can trigger viewerController to the UI element.
 		this.viewerController.showIssue( curFocusedIssue, {
 			event: 'next',
 			callback: callback
@@ -277,7 +297,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 			curFocusedIssue;
 
 		if ( issues.count() === 0 ) {
-			console.log( 'no issues :(' );
+			// No issues are available.
 			return;
 		}
 
@@ -290,6 +310,8 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	};
 
 	/**
+	 * Focuses Accessibility Checker on given issue.
+	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue/Number} Issue object or 0-based index in
 	 * the {@link CKEDITOR.plugins.a11ychecker.IssueList}.
@@ -341,6 +363,9 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	/**
 	 * Shows the issue given its element (in editable).
 	 *
+	 * This function basically uses {@link #showIssue} but accepts DOM element as a
+	 * parameter.
+	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {CKEDITOR.dom.element} element Element causing the issue. Stored in
 	 * {@Link CKEDITOR.plugins.a11ychecker.Issue#element}.
@@ -358,7 +383,7 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	};
 
 	/**
-	 * Toggles focused issue ignore state.
+	 * Toggles focused issue ignore state for currently focused issue.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 */
@@ -491,9 +516,9 @@ define( [ 'Controller/CheckingMode', 'Controller/ListeningMode', 'Controller/Bus
 	};
 
 	/**
-	 * Returns a detached element, containing the content.
+	 * Returns a detached element, for the editor content.
 	 *
-	 * It acts as a scratchpad to temporarily output editor contents, and run validation
+	 * It acts as a scratchpad to temporarily copy editor contents, and run validation
 	 * against that copy.
 	 *
 	 * @returns {CKEDITOR.dom.element}
