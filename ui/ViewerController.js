@@ -126,7 +126,6 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			issue.getDetails( function( details ) {
 				descriptionPart.setTitle( details.title[ lang ] );
 				descriptionPart.setInfo( details.descr[ lang ] );
-				descriptionPart.setTestability( issue.testability );
 			} );
 		},
 
