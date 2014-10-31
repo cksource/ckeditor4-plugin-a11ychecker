@@ -5,13 +5,13 @@
 ( function() {
 	'use strict';
 
-	require( [ 'Engine', 'helpers/sinon/sinon_amd.min' ], function( Engine, sinon ) {
+	require( [ 'Engine', 'mocking' ], function( Engine, mocking ) {
 
 		bender.test( {
 			'test Engine.getFixType': function() {
 				var originRequire = require;
 
-				require = sinon.spy();
+				require = mocking.spy();
 
 				Engine.getFixType( 'Foo' );
 
@@ -26,9 +26,9 @@
 			'test Engine.getFixType callback': function() {
 				var quickFixMock = {},
 					originRequire = require,
-					fixCallback = sinon.spy();
+					fixCallback = mocking.spy();
 
-				require = sinon.spy( function( name, requireCallback ) {
+				require = mocking.spy( function( name, requireCallback ) {
 					requireCallback( quickFixMock );
 				} );
 
@@ -51,7 +51,7 @@
 				var quickFixMock = {},
 					originRequire = require;
 
-				require = sinon.spy( function( name, requireCallback ) {
+				require = mocking.spy( function( name, requireCallback ) {
 					requireCallback( quickFixMock );
 				} );
 
@@ -73,7 +73,7 @@
 				var quickFixMock = {},
 					originRequire = require;
 
-				require = sinon.spy();
+				require = mocking.spy();
 
 				try {
 					Engine.fixes.Baz = 1;
@@ -91,7 +91,7 @@
 
 			'test Engine.getFixes no matching quickfixes': function() {
 				var engine = new Engine(),
-					callback = sinon.spy();
+					callback = mocking.spy();
 
 				engine.getFixes( {
 						// This property should not exist in engine.fixesMapping.
@@ -104,7 +104,7 @@
 
 			'test Engine.getFixes': function() {
 				var engine = new Engine(),
-					callback = sinon.spy( function( quickFixes ) {
+					callback = mocking.spy( function( quickFixes ) {
 						resume( function() {
 							assert.areSame( 1, callback.callCount, 'callback calls count' );
 							assert.isInstanceOf( Array, quickFixes, 'Invalid parameter type given to callback' );
@@ -115,7 +115,7 @@
 					originRequire = require,
 					// A sequence of results returned by require() method.
 					requireSequence = [ DummyType, DummyType, DummyType, DummyType ],
-					requireReplacement = sinon.spy( function( requrestedType, requireCallback ) {
+					requireReplacement = mocking.spy( function( requrestedType, requireCallback ) {
 						setTimeout( function() {
 							requireCallback( requireSequence.pop() );
 						}, 40 );
@@ -147,7 +147,7 @@
 				var engine = new Engine(),
 					sketchpad = {},
 					issues = {
-						filter: sinon.spy( function( fn ) {
+						filter: mocking.spy( function( fn ) {
 							assert.isInstanceOf( Function, fn );
 							var ret = fn.call( this, fn );
 							assert.isFalse( ret );
@@ -155,7 +155,7 @@
 						} )
 					};
 
-				engine._filterIssue = sinon.spy( function() {
+				engine._filterIssue = mocking.spy( function() {
 					return false;
 				} );
 
@@ -171,7 +171,7 @@
 				var engine = new Engine(),
 					sketchpad = {},
 					issues = {
-						filter: sinon.spy()
+						filter: mocking.spy()
 					};
 
 				engine.filterIssues( issues, sketchpad );
