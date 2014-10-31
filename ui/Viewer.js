@@ -139,11 +139,8 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 					// panel elements, enables CSS animations etc.
 					viewer.panel.parts.panel.addClass( 'cke_a11yc_mode_listening' );
 
-					// Save current panel width. Will be restored while leaving this mode.
-					this.panelWidth = viewer.panel.getWidth();
-
 					// Reset panel dimensions to auto.
-					viewer.panel.resize( 250, null );
+					viewer.panel.resize( 250, 'auto' );
 
 					// Give it some time for the new dimensions to be applied.
 					CKEDITOR.tools.setTimeout( function() {
@@ -177,7 +174,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 
 				close: function( viewer ) {
 					viewer.panel.parts.panel.removeClass( 'cke_a11yc_mode_listening' );
-					viewer.panel.resize( this.panelWidth, null );
+					viewer.panel.resize( viewer.panel.width, viewer.panel.height );
 					viewer.panel.parts.panel.setStyles( {
 						position: 'absolute',
 						right: null,
