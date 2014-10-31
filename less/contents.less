@@ -1,0 +1,75 @@
+/*!
+Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+*/
+
+@import "global.less";
+
+.cke_editable
+{
+	&.cke_loading
+	{
+		a, img, &.cke_editable_inline.cke_focus
+		{
+			cursor: wait;
+		}
+	}
+
+	.@{A11YC}_issue
+	{
+		outline: 3px solid @OUTLINE_COLOR_ERROR;
+		background-color: @BACKGROUND_COLOR_ERROR;
+		font-style: italic;
+
+		&:hover
+		{
+			cursor: pointer;
+		}
+
+		&.@{A11YC}_notice
+		{
+			outline-color: @OUTLINE_COLOR_NOTICE;
+			background-color: @BACKGROUND_COLOR_NOTICE;
+		}
+
+		&.@{A11YC}_warning
+		{
+			outline-color: @OUTLINE_COLOR_WARNING;
+			background-color: @BACKGROUND_COLOR_WARNING;
+		}
+
+		&.@{A11YC}_error
+		{
+			outline-color: @OUTLINE_COLOR_ERROR;
+			background-color: @BACKGROUND_COLOR_ERROR;
+		}
+
+		&.@{A11YC}_ignored
+		{
+			outline-color: @OUTLINE_COLOR_IGNORED;
+			background-color: @BACKGROUND_COLOR_IGNORED;
+		}
+
+		&.@{A11YC}_focused
+		{
+			&:hover
+			{
+				cursor: auto;
+			}
+
+			&.@{A11YC}_error,
+			&.@{A11YC}_warning,
+			&.@{A11YC}_notice
+			{
+				outline-color: @OUTLINE_COLOR_FOCUSED;
+				background-color: @BACKGROUND_COLOR_FOCUSED;
+			}
+
+			&.@{A11YC}_ignored
+			{
+				background-color: @BACKGROUND_COLOR_IGNORED;
+			}
+		}
+	}
+}
+
