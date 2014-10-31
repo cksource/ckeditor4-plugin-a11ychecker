@@ -68,7 +68,7 @@
 				this.mockup.loadContentFrom( 'a11ycheckerIdMarkup' );
 
 				// Elements expected to be given to the unmarkIssueElement method.
-				var expectedElements = editable.find( '.cke_a11ychecker_issue' ),
+				var expectedElements = editable.find( '.cke_a11yc_issue' ),
 					unmarkIssueElement = this.mockup.unmarkIssueElement;
 
 				this.mockup.removeMarkup();
@@ -86,19 +86,19 @@
 				mocking.assert.calledWith( this.mockup.unmarkIssueElement, expectedElements.getItem( 1 ) );
 			},
 
-			'test EditableDecorator.removeMarkup removing .cke_a11ychecker_issue': function() {
-				// EditableDecorator.removeMarkup should also remove cke_a11ychecker_issue class.
+			'test EditableDecorator.removeMarkup removing .cke_a11yc_issue': function() {
+				// EditableDecorator.removeMarkup should also remove cke_a11yc_issue class.
 				var editable = this.mockup.editable();
 
 				this.mockup.loadContentFrom( 'a11ycheckerIdMarkup' );
 				this.mockup.removeMarkup();
 
-				assert.areSame( 0, editable.find( '.cke_a11ychecker_issue' ).count(),
-					'No .cke_a11ychecker_issue elmeents are found' );
+				assert.areSame( 0, editable.find( '.cke_a11yc_issue' ).count(),
+					'No .cke_a11yc_issue elmeents are found' );
 			},
 
 			'test EditableDecorator.markIssues': function() {
-				// This method should apply cke_a11ychecker_issue class to each
+				// This method should apply cke_a11yc_issue class to each
 				// issue element (in editable) within given IssueList.
 
 				// Setup the mocked IssueList.
@@ -108,7 +108,7 @@
 						this.mockup.editable().findOne( 'p' ),
 						this.mockup.editable().findOne( 'img' )
 					],
-					className = 'cke_a11ychecker_issue';
+					className = 'cke_a11yc_issue';
 
 				issueListMockup.addItem( {
 					element: testedElements[ 0 ],
@@ -160,7 +160,7 @@
 					'editableDecorator.markIgnoredIssue call count' );
 			},
 
-			'test EditableDecorator.removeMarkup cke_a11ychecker_issue': function() {
+			'test EditableDecorator.removeMarkup cke_a11yc_issue': function() {
 				var editable = this.mockup.editable();
 
 				this.mockup.loadContentFrom( 'a11ycheckerIdMarkup' );
@@ -222,8 +222,8 @@
 				patchMockupForClick( this.mockup );
 
 				var showIssueByElementMock = this.mockup.editor._.a11ychecker.showIssueByElement,
-					// A parent, which is marked with cke_a11ychecker_issue class.
-					issueElement = CKEDITOR.document.findOne( '#fakeErrors .cke_a11ychecker_issue' ),
+					// A parent, which is marked with cke_a11yc_issue class.
+					issueElement = CKEDITOR.document.findOne( '#fakeErrors .cke_a11yc_issue' ),
 					// A nested element, which doesnt have a error class, but will receive click event.
 					element = issueElement.findOne( 'p' ).$,
 					evtMock = new CKEDITOR.dom.event( {
@@ -258,7 +258,7 @@
 
 				var setModeMock = this.mockup.editor._.a11ychecker.setMode,
 					showIssueByElementMock = this.mockup.editor._.a11ychecker.showIssueByElement,
-					element = CKEDITOR.document.findOne( '#fakeErrors .cke_a11y_focused' ).$,
+					element = CKEDITOR.document.findOne( '#fakeErrors .cke_a11yc_focused' ).$,
 					evtMock = new CKEDITOR.dom.event( {
 						target: element
 					} );
@@ -274,15 +274,15 @@
 			},
 
 			'test markIssueElement adding classes - error': function() {
-				this._assertMarkIssueElementClass( 'cke_a11ychecker_error', QUAIL_TESTABILITY.ERROR );
+				this._assertMarkIssueElementClass( 'cke_a11yc_error', QUAIL_TESTABILITY.ERROR );
 			},
 
 			'test markIssueElement adding classes - warning': function() {
-				this._assertMarkIssueElementClass( 'cke_a11ychecker_warning', QUAIL_TESTABILITY.WARNING );
+				this._assertMarkIssueElementClass( 'cke_a11yc_warning', QUAIL_TESTABILITY.WARNING );
 			},
 
 			'test markIssueElement adding classes - notice': function() {
-				this._assertMarkIssueElementClass( 'cke_a11ychecker_notice', QUAIL_TESTABILITY.NOTICE );
+				this._assertMarkIssueElementClass( 'cke_a11yc_notice', QUAIL_TESTABILITY.NOTICE );
 			},
 
 			'test markIssueElement calls markIgnoredIssue': function() {
@@ -330,12 +330,12 @@
 					} ) ),
 					// Classes expected to be removed.
 					expectedClasses = [
-						'cke_a11ychecker_issue',
-						'cke_a11ychecker_error',
-						'cke_a11ychecker_warning',
-						'cke_a11ychecker_notice',
-						'cke_a11ychecker_ignored',
-						'cke_a11y_focused'
+						'cke_a11yc_issue',
+						'cke_a11yc_error',
+						'cke_a11yc_warning',
+						'cke_a11yc_notice',
+						'cke_a11yc_ignored',
+						'cke_a11yc_focused'
 					];
 
 				this.mockup.unmarkIssueElement( issue );
@@ -356,7 +356,7 @@
 
 				this.mockup.unmarkIssueElement( issue, true );
 
-				assert.isFalse( removeClass.calledWith( 'cke_a11ychecker_issue' ) );
+				assert.isFalse( removeClass.calledWith( 'cke_a11yc_issue' ) );
 			},
 
 			'test markIgnoredIssue': function() {
@@ -371,8 +371,8 @@
 
 				this.mockup.markIgnoredIssue( issue );
 
-				assert.isTrue( issue.element.addClass.calledWith( 'cke_a11ychecker_ignored' ),
-					'class cke_a11ychecker_ignored added' );
+				assert.isTrue( issue.element.addClass.calledWith( 'cke_a11yc_ignored' ),
+					'class cke_a11yc_ignored added' );
 			},
 
 			// Helper function to test markIssueElement method.

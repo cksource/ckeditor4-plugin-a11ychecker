@@ -48,11 +48,11 @@ define( function() {
 		},
 
 		unmarkFocus: function( issueElement ) {
-			issueElement.removeClass( 'cke_a11y_focused' );
+			issueElement.removeClass( 'cke_a11yc_focused' );
 		},
 
 		markFocus: function( issueElement ) {
-			issueElement.addClass( 'cke_a11y_focused' );
+			issueElement.addClass( 'cke_a11yc_focused' );
 		},
 
 		/**

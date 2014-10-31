@@ -108,7 +108,7 @@
 						}
 					};
 				// Ensure that element is not marked as focused.
-				issuedElement.removeClass( 'cke_a11y_focused' );
+				issuedElement.removeClass( 'cke_a11yc_focused' );
 
 				a11ychecker.editableDecorator.clickListener( evt );
 
