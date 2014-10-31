@@ -89,7 +89,8 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 					'<span class="cke_a11yc_ui_button">{text}</span>' +
 				'</a>',
 
-			ignoreButton: '<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_button_ignore" role="button">' +
+			ignoreButton:
+				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_button_ignore" role="button">' +
 					'<span class="cke_a11yc_ui_button">{text}</span>' +
 				'</a>'
 		},
@@ -257,7 +258,7 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		setIgnored: function( isIgnored ) {
 			var button = this.parts.ignoreButton;
 
-			button.setHtml( this.viewer.editor.lang.a11ychecker[ isIgnored ? 'stopIgnoreBtn' : 'ignoreBtn' ] );
+			button.getFirst().setHtml( this.viewer.editor.lang.a11ychecker[ isIgnored ? 'stopIgnoreBtn' : 'ignoreBtn' ] );
 			button.setAttribute( 'aria-pressed', isIgnored );
 		}
 	};
