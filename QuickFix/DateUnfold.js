@@ -120,6 +120,6 @@
 			return [ Number( dateObj.day ), monthName, year ].join( ' ' );
 		};
 
-		CKEDITOR.plugins.a11ychecker.quickFixes.register( 'DateUnfold', DateUnfold );
+		CKEDITOR.plugins.a11ychecker.quickFixes.add( 'DateUnfold', DateUnfold );
 	} );
 }() );

@@ -123,17 +123,17 @@
 				}
 			},
 
-			'test Repository.register': function() {
+			'test Repository.add': function() {
 				var mock = new Repository(),
 					type = mocking.spy(),
 					loadedTypes = mock.getLoadedTypes();
 
-				mock.register( 'fooType', type );
+				mock.add( 'fooType', type );
 
 				assert.areSame( type, loadedTypes.fooType, 'Type was mapped correctly' );
 			},
 
-			'test Repository.register callbacks calling': function() {
+			'test Repository.add callbacks calling': function() {
 				var mock = new Repository(),
 					type = mocking.spy(),
 					waitingCallbacks = mock.getWaitingCallbacks(),
@@ -152,7 +152,7 @@
 					callbacks[ i ] = waitingCallbacks.barType[ i ];
 				}
 
-				mock.register( 'barType', type );
+				mock.add( 'barType', type );
 
 				for ( i = 0; i < callbacksCount; i++ ) {
 					assert.areSame( 1, callbacks[ i ].callCount,
@@ -161,7 +161,7 @@
 				}
 			},
 
-			'test Repository.register clears waitingCallbacks': function() {
+			'test Repository.add clears waitingCallbacks': function() {
 				var mock = new Repository(),
 					type = mocking.spy(),
 					waitingCallbacks = mock.getWaitingCallbacks(),
@@ -175,7 +175,7 @@
 					waitingCallbacks.cusType.push( mocking.spy() );
 				}
 
-				mock.register( 'cusType', type );
+				mock.add( 'cusType', type );
 
 				assert.areSame( undefined, waitingCallbacks.cusType,
 					'waitingCallbacks.cusType' );

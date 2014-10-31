@@ -110,7 +110,7 @@ define( function() {
 	 * @param {String} name QuickFix name.
 	 * @param {Function} cls QuickFix type.
 	 */
-	Repository.prototype.register = function( name, cls ) {
+	Repository.prototype.add = function( name, cls ) {
 		var callbackQueue = waitingCallbacks[ name ] || [],
 			callbacksCount = callbackQueue.length,
 			i;

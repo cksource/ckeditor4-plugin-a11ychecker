@@ -86,5 +86,5 @@
 		return [];
 	};
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.register( 'Base', Base );
+	CKEDITOR.plugins.a11ychecker.quickFixes.add( 'Base', Base );
 }());

@@ -34,6 +34,6 @@
 			}
 		};
 
-		CKEDITOR.plugins.a11ychecker.quickFixes.register( 'ElementRemove', ElementRemove );
+		CKEDITOR.plugins.a11ychecker.quickFixes.add( 'ElementRemove', ElementRemove );
 	} );
 }() );

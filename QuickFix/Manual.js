@@ -16,6 +16,6 @@
 		Manual.prototype = new Base();
 		Manual.prototype.constructor = Manual;
 
-		CKEDITOR.plugins.a11ychecker.quickFixes.register( 'Manual', Manual );
+		CKEDITOR.plugins.a11ychecker.quickFixes.add( 'Manual', Manual );
 	} );
 }() );

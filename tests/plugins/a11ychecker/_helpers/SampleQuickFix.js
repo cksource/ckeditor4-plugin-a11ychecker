@@ -11,5 +11,5 @@
 		return 'bar';
 	};
 
-	CKEDITOR.plugins.a11ychecker.quickFixRepo.register( 'SampleQuickFix', SampleQuickFix );
+	CKEDITOR.plugins.a11ychecker.quickFixRepo.add( 'SampleQuickFix', SampleQuickFix );
 }());

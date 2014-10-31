@@ -55,6 +55,6 @@
 			return ret;
 		};
 
-		CKEDITOR.plugins.a11ychecker.quickFixes.register( 'ImgAlt', ImgAlt );
+		CKEDITOR.plugins.a11ychecker.quickFixes.add( 'ImgAlt', ImgAlt );
 	} );
 }() );
