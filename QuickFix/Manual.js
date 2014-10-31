@@ -1,19 +1,21 @@
 
-define( [ 'QuickFix/Base' ], function( Base ) {
+( function() {
 	'use strict';
-	
-	/**
-	 * Base class for the manual fixes.
-	 *
-	 * @constructor
-	 */
-	function Manual( issue ) {
-		Base.call( this, issue );
-		this.auto = false;
-	}
 
-	Manual.prototype = new Base();
-	Manual.prototype.constructor = Manual;
+	CKEDITOR.plugins.a11ychecker.quickFixRepository.get( 'Base', function( Base ) {
+		/**
+		 * Base class for the manual fixes.
+		 *
+		 * @constructor
+		 */
+		function Manual( issue ) {
+			Base.call( this, issue );
+			this.auto = false;
+		}
 
-	return Manual;
-} );
+		Manual.prototype = new Base();
+		Manual.prototype.constructor = Manual;
+
+		CKEDITOR.plugins.a11ychecker.quickFixRepository.register( 'Manual', Manual );
+	} );
+}() );
