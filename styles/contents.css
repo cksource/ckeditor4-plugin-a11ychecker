@@ -30,8 +30,8 @@
 }
 
 .cke_editable .cke_a11ychecker_issue.cke_a11ychecker_ignored {
-	outline: none;
-	background: url( data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKPHz/+zwjjgziysrKMYAEYB8RmROaABAAKXg+twPLtKAAAAABJRU5ErkJggg== );
+	outline-color: #DCDCDC;
+	background-color: transparent;
 }
 
 .cke_editable .cke_a11ychecker_issue.cke_a11ychecker_ignored.cke_a11y_focused {
