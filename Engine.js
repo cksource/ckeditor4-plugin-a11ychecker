@@ -143,11 +143,10 @@ define( function() {
 				i;
 			// We need to fetch every QuickFix type.
 			for ( i = 0; i < mappingValue.length; i++ ) {
-				Engine.getFixType( mappingValue[ i ], function( type ) {
+				CKEDITOR.plugins.a11ychecker.quickFixRepository.get( mappingValue[ i ], function( type ) {
 					matchedTypes.push( new type( issue ) );
 
 					if ( matchedTypes.length === mappingValue.length ) {
-						//console.log( 'all types loaded' );
 						callback( matchedTypes );
 					}
 				} );
