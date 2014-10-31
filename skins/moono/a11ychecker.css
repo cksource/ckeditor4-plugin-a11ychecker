@@ -356,13 +356,6 @@ input.cke_a11yc_ui_input_text:focus
 	border-top-color: #1392e9;
 }
 
-/* Form buttons */
-.cke_a11yc_ui_form .cke_a11yc_ui_button
-{
-	font-size: 14px;
-	padding: 5px 10px;
-}
-
 /* Quick fix */
 .cke_a11yc_ui_form .cke_a11yc_ui_button_ok_wrapper,
 .cke_a11yc_ui_form .cke_a11yc_ui_button_ok
