@@ -28,6 +28,42 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		less: {
+			development: {
+				files: {
+					'styles/contents.css': 'less/contents.less',
+					'skins/moono/a11ychecker.css': 'less/a11ychecker.less'
+				},
+
+				options: {
+					paths: [ 'less' ]
+				},
+			},
+
+			production: {
+				files: {
+					'styles/contents.css': 'less/contents.less',
+					'skins/moono/a11ychecker.css': 'less/a11ychecker.less'
+				},
+
+				options: {
+					paths: [ 'less' ],
+					sourceMapFilename: 'a11yc.css.map',
+					compress: true,
+				}
+			}
+		},
+
+		watch: {
+			less: {
+				files: [ 'less/*.less' ],
+				tasks: [ 'less:development' ],
+				options: {
+					nospawn: true
+				}
+			}
+		},
+
 		build: {
 			options: {
 				// Enable this to make the build code "kind of" readable.
@@ -39,6 +75,8 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-jscs' );
 	grunt.loadNpmTasks( 'grunt-githooks' );
+	grunt.loadNpmTasks( 'grunt-contrib-less' );
+	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 
 	// Custom tasks.
 	grunt.registerTask( 'build', 'Generates a build.', build );
