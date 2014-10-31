@@ -61,6 +61,11 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		// This will prevent from editor#blur to be risen (#41).
 		viewer.panel.on( 'hide', function() {
 			this.editor.focus();
+
+			// (#51).
+			if ( a11ychecker.issues.getFocused() ) {
+				a11ychecker.issues.resetFocus();
+			}
 		}, this, null, 5 );
 
 		// Handle "previous" button click in the panel.
