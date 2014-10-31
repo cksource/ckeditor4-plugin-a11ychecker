@@ -55,16 +55,40 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		 * function to panel. Later on this manager will have to be used in balloon.
 		 */
 		var that = this;
+
 		this.panel.registerFocusable = function( elem ) {
 			that.focusManager.addItem( elem );
 			// Adding a item to editor.focusManager is required so that focusing the element outside
 			// the editable element won't blur inline editor. (#11)
 			that.editor.focusManager.add( elem );
 		};
+
 		this.panel.deregisterFocusable = function( elem ) {
 			that.focusManager.removeItem( elem );
 			that.editor.focusManager.remove( elem );
 		};
+
+		// Hide the panel once the closing X is clicked.
+		this.panel.addShowListener( function() {
+			return this.parts.close.on( 'click', function( evt ) {
+				this.blur();
+				this.hide();
+				evt.data.preventDefault();
+			}, this );
+		} );
+
+		this.panel.addShowListener( function() {
+			return this.parts.panel.on( 'keydown', function( evt ) {
+				var keystroke = evt.data.getKeystroke();
+
+				// Hide the panel on ESC key press.
+				if ( keystroke == 27 ) {
+					this.blur();
+					this.hide();
+					evt.data.preventDefault();
+				}
+			}, this );
+		} );
 
 		this.setupNavigation();
 		this.setupDescription();
@@ -165,14 +189,6 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 					var that = this;
 
 					return [
-						// Cancel BalloonPanel's default blur callback. The panel in ListeningMode
-						// should not respond to focus or blur.
-						function() {
-							return this.parts.panel.on( 'blur', function( evt ) {
-								evt.cancel();
-							}, null, null, 0 );
-						},
-
 						// Update panel position when editor gets maximized.
 						function() {
 							return this.editor.on( 'maximize', function( evt ) {
@@ -186,6 +202,18 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 			checking: {
 				panelShowListeners: function( viewer ) {
 					return [
+						// Hide the panel once blurred.
+						function() {
+							return this.parts.panel.on( 'blur', function( evt ) {
+								var target = new CKEDITOR.dom.element( evt.data.$.relatedTarget || evt.data.$.toElement );
+
+								// Make sure the focus has moved out of the panel.
+								if ( !this.parts.panel.contains( target ) && !this.parts.panel.equals( target ) ) {
+									this.hide();
+								}
+							}, this );
+						},
+
 						// Hide the panel on iframe window's scroll.
 						function() {
 							return this.editor.window.on( 'scroll', function() {
