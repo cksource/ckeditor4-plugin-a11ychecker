@@ -84,13 +84,8 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 
 			buttonWrapper: '<div class="cke_a11yc_ui_button_wrapper {class}"></div>',
 
-			quickfixButton:
-				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_button_ok" role="button">' +
-					'<span class="cke_a11yc_ui_button">{text}</span>' +
-				'</a>',
-
-			ignoreButton:
-				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_button_ignore" role="button">' +
+			button:
+				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button {class}" role="button">' +
 					'<span class="cke_a11yc_ui_button">{text}</span>' +
 				'</a>'
 		},
@@ -174,14 +169,16 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 
 				actionset: CKEDITOR.dom.element.createFromHtml( this.templates.actionset.output() ),
 
-				quickfixButton: CKEDITOR.dom.element.createFromHtml( this.templates.quickfixButton.output( {
+				quickfixButton: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
 					title: lang.quickFixButtonTitle,
-					text: lang.quickFixButton
+					text: lang.quickFixButton,
+					'class': 'cke_a11yc_ui_button_ok'
 				} ) ),
 
-				ignoreButton: CKEDITOR.dom.element.createFromHtml( this.templates.ignoreButton.output( {
+				ignoreButton: CKEDITOR.dom.element.createFromHtml( this.templates.button.output( {
 					title: lang.ignoreBtnTitle,
-					text: lang.ignoreBtn
+					text: lang.ignoreBtn,
+					'class': 'cke_a11yc_ui_button_ignore'
 				} ) )
 			};
 
