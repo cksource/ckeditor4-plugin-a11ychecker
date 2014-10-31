@@ -20,7 +20,7 @@ git clone -b dev git@github.com:cksource/ckeditor-a11ychecker.git a11ychecker
 #### Checkout balloon plugin
 
 ```bash
-git clone -b classRefact git@github.com:cksource/ckeditor-plugin-balloonpanel.git balloonpanel
+git clone git@github.com:cksource/ckeditor-plugin-balloonpanel.git balloonpanel
 ```
 
 ### Where do I start?
