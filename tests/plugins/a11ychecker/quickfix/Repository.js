@@ -182,7 +182,20 @@
 			},
 
 			'test integration': function() {
-				// todo: use the fixture in helpers dir
+				var mock = new Repository( '%TEST_DIR%../_helpers/' );
+
+				// Inject mock to the globally available a11ychecker object.
+				mocking.mockProperty( 'CKEDITOR.plugins.a11ychecker.quickFixRepo', window, mock );
+
+				mock.get( 'SampleQuickFix', function( SampleQuickFix ) {
+					resume( function() {
+						assert.isInstanceOf( Function, SampleQuickFix );
+						// Ensure that it's the correct type.
+						assert.areSame( 'bar', SampleQuickFix.prototype.foo() );
+					} );
+				} );
+
+				wait();
 			}
 		} );
 	} );

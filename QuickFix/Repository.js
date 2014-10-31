@@ -15,7 +15,7 @@ define( function() {
 	 * The reason that class is needed is that we want to load QuickFixes on demand,
 	 * rather than load all of them at once.
 	 *
-	 * @member CKEDITOR.plugins.a11ychecker.QuickFix.Repository
+	 * @member CKEDITOR.plugins.a11ychecker.quickfix
 	 * @constructor
 	 * @param {String} basePath A path to the directory where QuickFix classes are
 	 * stored.
