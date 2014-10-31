@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixRepository.get( 'Base', function( Base ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
 		/**
 		 * Awesome automatic fix which will solve all the issues! : D if you have problem with
 		 * an element then... remove it! Attaboy!
@@ -34,6 +34,6 @@
 			}
 		};
 
-		CKEDITOR.plugins.a11ychecker.quickFixRepository.register( 'ElementRemove', ElementRemove );
+		CKEDITOR.plugins.a11ychecker.quickFixes.register( 'ElementRemove', ElementRemove );
 	} );
 }() );

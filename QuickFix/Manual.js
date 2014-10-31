@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixRepository.get( 'Base', function( Base ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
 		/**
 		 * Base class for the manual fixes.
 		 *
@@ -16,6 +16,6 @@
 		Manual.prototype = new Base();
 		Manual.prototype.constructor = Manual;
 
-		CKEDITOR.plugins.a11ychecker.quickFixRepository.register( 'Manual', Manual );
+		CKEDITOR.plugins.a11ychecker.quickFixes.register( 'Manual', Manual );
 	} );
 }() );

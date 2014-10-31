@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixRepository.get( 'Base', function( Base ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
 		// List of month names.
 		var monthNames = {
 			en: [
@@ -120,6 +120,6 @@
 			return [ Number( dateObj.day ), monthName, year ].join( ' ' );
 		};
 
-		CKEDITOR.plugins.a11ychecker.quickFixRepository.register( 'DateUnfold', DateUnfold );
+		CKEDITOR.plugins.a11ychecker.quickFixes.register( 'DateUnfold', DateUnfold );
 	} );
 }() );

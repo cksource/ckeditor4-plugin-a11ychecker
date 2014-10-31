@@ -143,7 +143,7 @@ define( function() {
 				i;
 			// We need to fetch every QuickFix type.
 			for ( i = 0; i < mappingValue.length; i++ ) {
-				CKEDITOR.plugins.a11ychecker.quickFixRepository.get( mappingValue[ i ], function( type ) {
+				CKEDITOR.plugins.a11ychecker.quickFixes.get( mappingValue[ i ], function( type ) {
 					matchedTypes.push( new type( issue ) );
 
 					if ( matchedTypes.length === mappingValue.length ) {

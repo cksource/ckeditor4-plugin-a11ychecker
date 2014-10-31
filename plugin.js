@@ -25,7 +25,7 @@
 			CKEDITOR.document.appendStyleSheet( this.path + 'skins/moono/a11ychecker.css' );
 
 			require( [ 'QuickFix/Repository' ], function( Repository ) {
-				CKEDITOR.plugins.a11ychecker.quickFixRepository = new Repository( path );
+				CKEDITOR.plugins.a11ychecker.quickFixes = new Repository( path );
 			} );
 
 			// Namespace register.

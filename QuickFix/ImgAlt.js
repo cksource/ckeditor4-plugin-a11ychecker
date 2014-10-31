@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixRepository.get( 'Manual', function( Manual ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Manual', function( Manual ) {
 
 		var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
 
@@ -55,6 +55,6 @@
 			return ret;
 		};
 
-		CKEDITOR.plugins.a11ychecker.quickFixRepository.register( 'ImgAlt', ImgAlt );
+		CKEDITOR.plugins.a11ychecker.quickFixes.register( 'ImgAlt', ImgAlt );
 	} );
 }() );

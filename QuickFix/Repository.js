@@ -40,7 +40,7 @@ define( function() {
 	 * Returns the QuickFix class with given name. When type is loaded `callback` will
 	 * be called.
 	 *
-	 *		quickFixRepository.get( 'ImgAlt', function( ImgAlt ) {
+	 *		quickFixes.get( 'ImgAlt', function( ImgAlt ) {
 	 *			var quickFix = new ImgAlt( myIssue );
 	 *			quickFix.fix();
 	 *		} );
