@@ -59,6 +59,18 @@ define( function() {
 		},
 
 		/**
+		 * Sets the initial value of the input.
+		 * The value is provided in input's definition.
+		 *
+		 * @method setInitialValue
+		 */
+		setInitialValue: function() {
+			if ( this.value !== undefined ) {
+				this.setValue( this.value );
+			}
+		},
+
+		/**
 		 * Removes input from DOM.
 		 *
 		 * @method remove
