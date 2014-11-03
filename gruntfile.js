@@ -37,19 +37,18 @@ module.exports = function( grunt ) {
 
 				options: {
 					paths: [ 'less' ]
-				},
+				}
 			},
 
+			// Simply compress the skin file only.
 			production: {
 				files: {
-					'styles/contents.css': 'less/contents.less',
 					'skins/moono/a11ychecker.css': 'less/a11ychecker.less'
 				},
 
 				options: {
 					paths: [ 'less' ],
-					sourceMapFilename: 'a11yc.css.map',
-					compress: true,
+					compress: true
 				}
 			}
 		},
@@ -78,14 +77,15 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-less' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 
-	// Custom tasks.
-	grunt.registerTask( 'build', 'Generates a build.', build );
+	grunt.registerTask( 'build-css', 'Builds production-ready CSS using less.', [ 'less:development', 'less:production' ] );
+	grunt.registerTask( 'build-js', 'Build JS files.', buildJs );
+	grunt.registerTask( 'build', 'Generates a build.', [ 'build-css', 'build-js' ] );
 
 	// Default tasks.
 	grunt.registerTask( 'default', [ 'jshint', 'jscs' ] );
 };
 
-function build() {
+function buildJs() {
 	/* jshint validthis:true */
 
 	// The intention of this build process is showcasing the possibility of
