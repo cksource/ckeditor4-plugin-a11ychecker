@@ -41,6 +41,7 @@ module.exports = function( grunt ) {
 			},
 
 			// Simply compress the skin file only.
+			// If you want to build production CSS use `grunt build-css` rather than `grunt less:production`.
 			production: {
 				files: {
 					'skins/moono/a11ychecker.css': 'less/a11ychecker.less'
