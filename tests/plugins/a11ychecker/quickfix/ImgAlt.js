@@ -4,75 +4,82 @@
 ( function() {
 	'use strict';
 
-	require( [ 'QuickFix/ImgAlt', 'helpers/sinon/sinon_amd.min' ], function( ImgAlt, sinon ) {
-		bender.test( {
-			'test ImgAlt.display': function() {
-				var formMock = {
+	require( [ 'helpers/QuickFixTest', 'mocking' ], function( QuickFixTest, mocking ) {
+			var ImgAlt,
+				tests = {
+					setUp: function() {
+						ImgAlt = this.quickFixType;
 					},
-					ret;
 
-				formMock.setInputs = sinon.spy( function() {
-				} );
+					'test ImgAlt.display': function() {
+						var formMock = {
+							},
+							ret;
 
-				ret = ImgAlt.prototype.display.call( {}, formMock );
+						formMock.setInputs = mocking.spy( function() {
+						} );
 
-				assert.areSame( 1, formMock.setInputs.callCount, 'setInputs was called once' );
-				var setInputsParam = formMock.setInputs.getCalls()[ 0 ].args[ 0 ],
-					altInput;
+						ret = ImgAlt.prototype.display.call( {}, formMock );
 
-				assert.isObject( setInputsParam, 'form.setInputs has a valid param type' );
-				assert.isObject( setInputsParam.alt, 'form.setInputs param has alt input' );
-				altInput = setInputsParam.alt;
-				assert.areSame( 'text', altInput.type, 'altInput.type' );
-				assert.areSame( 'Alternative text', altInput.label, 'altInput.label' );
-			},
+						assert.areSame( 1, formMock.setInputs.callCount, 'setInputs was called once' );
+						var setInputsParam = formMock.setInputs.getCalls()[ 0 ].args[ 0 ],
+							altInput;
 
-			'test ImgAlt.fix': function() {
-				var attributes = {
-						alt: 'new alt'
+						assert.isObject( setInputsParam, 'form.setInputs has a valid param type' );
+						assert.isObject( setInputsParam.alt, 'form.setInputs param has alt input' );
+						altInput = setInputsParam.alt;
+						assert.areSame( 'text', altInput.type, 'altInput.type' );
+						assert.areSame( 'Alternative text', altInput.label, 'altInput.label' );
 					},
-					imgElement = CKEDITOR.dom.element.createFromHtml( '<img />' ),
-					fixMockup = {
-						issue: {
-							element: imgElement
-						},
-						fix: ImgAlt.prototype.fix
+
+					'test ImgAlt.fix': function() {
+						var attributes = {
+								alt: 'new alt'
+							},
+							imgElement = CKEDITOR.dom.element.createFromHtml( '<img />' ),
+							fixMockup = {
+								issue: {
+									element: imgElement
+								},
+								fix: ImgAlt.prototype.fix
+							},
+							fixCallback = mocking.spy();
+
+						fixMockup.fix( attributes, fixCallback );
+
+						assert.isTrue( imgElement.hasAttribute( 'alt' ), 'alt attribute added' );
+						assert.areSame( 'new alt', imgElement.getAttribute( 'alt' ), 'alt attr value' );
+						// Checking the callback.
+						assert.areSame( 1, fixCallback.callCount, 'Callback was called' );
+						assert.isTrue( fixCallback.alwaysCalledWith( fixMockup ), 'Callback has QuickFix object as a first parameter' );
 					},
-					fixCallback = sinon.spy();
 
-				fixMockup.fix( attributes, fixCallback );
+					'test ImgAlt.validate positive': function() {
+						var attributes = {
+								alt: 'foo'
+							},
+							ret;
 
-				assert.isTrue( imgElement.hasAttribute( 'alt' ), 'alt attribute added' );
-				assert.areSame( 'new alt', imgElement.getAttribute( 'alt' ), 'alt attr value' );
-				// Checking the callback.
-				assert.areSame( 1, fixCallback.callCount, 'Callback was called' );
-				assert.isTrue( fixCallback.alwaysCalledWith( fixMockup ), 'Callback has QuickFix object as a first parameter' );
-			},
+						ret = ImgAlt.prototype.validate.call( {}, attributes );
 
-			'test ImgAlt.validate positive': function() {
-				var attributes = {
-						alt: 'foo'
+						assert.isInstanceOf( Array, ret );
+						assert.areSame( 0, ret.length, 'Return array length' );
 					},
-					ret;
 
-				ret = ImgAlt.prototype.validate.call( {}, attributes );
+					'test ImgAlt.validate no alt': function() {
+						var attributes = {
+								alt: ''
+							},
+							ret;
 
-				assert.isInstanceOf( Array, ret );
-				assert.areSame( 0, ret.length, 'Return array length' );
-			},
+						ret = ImgAlt.prototype.validate.call( {}, attributes );
 
-			'test ImgAlt.validate no alt': function() {
-				var attributes = {
-						alt: ''
-					},
-					ret;
+						assert.isInstanceOf( Array, ret );
+						assert.areSame( 1, ret.length, 'Return array length' );
+						assert.areSame( 'Alternative text can not be empty', ret[ 0 ], 'Error message' );
+					}
+				};
 
-				ret = ImgAlt.prototype.validate.call( {}, attributes );
-
-				assert.isInstanceOf( Array, ret );
-				assert.areSame( 1, ret.length, 'Return array length' );
-				assert.areSame( 'Alternative text can not be empty', ret[ 0 ], 'Error message' );
-			}
-		} );
+		QuickFixTest( 'ImgAlt', tests );
 	} );
 } )();

@@ -20,8 +20,66 @@
 		hidpi: true, // %REMOVE_LINE_CORE%
 
 		onLoad: function() {
+			var path = this.path;
 			// Load skin CSS.
-			CKEDITOR.document.appendStyleSheet( this.path + 'skins/moono/a11ychecker.css' );
+			CKEDITOR.document.appendStyleSheet( path + 'skins/moono/a11ychecker.css' );
+
+			// Namespace register.
+			require( [
+				'Controller',
+				'Engine',
+				'Issue',
+				'IssueList',
+				'IssueDetails',
+				'QuickFix/Repository'
+			], function(
+				Controller,
+				Engine,
+				Issue,
+				IssueList,
+				IssueDetails,
+				Repository
+			) {
+				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
+					Controller: Controller,
+					Engine: Engine,
+					Issue: Issue,
+					IssueList: IssueList,
+					IssueDetails: IssueDetails,
+					quickfix: {
+						Repository: Repository
+					}
+				} );
+
+				CKEDITOR.plugins.a11ychecker.quickFixes = new Repository( path + 'QuickFix/' );
+			} );
+
+			// Expose UI classes.
+			require( [
+				'ui/ViewerInputs',
+				'ui/ViewerInput',
+				'ui/ViewerDescription',
+				'ui/ViewerNavigation',
+				'ui/Viewer',
+				'ui/ViewerForm'
+			], function(
+				ViewerInputs,
+				ViewerInput,
+				ViewerDescription,
+				ViewerNavigation,
+				Viewer,
+				ViewerForm
+			) {
+				// Make all Viewer* classes public.
+				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
+					viewer: Viewer,
+					viewerNavigation: ViewerNavigation,
+					viewerDescription: ViewerDescription,
+					viewerForm: ViewerForm,
+					viewerInput: ViewerInput,
+					viewerInputs: ViewerInputs
+				} );
+			} );
 		},
 
 		beforeInit: function( editor ) {
@@ -151,59 +209,6 @@
 
 		cfg.contentsCss.push( cssPath );
 	}
-
-	// Namespace register.
-	require( [
-		'Controller',
-		'Engine',
-		'Issue',
-		'IssueList',
-		'IssueDetails',
-		'QuickFix/Base'
-	], function(
-		Controller,
-		Engine,
-		Issue,
-		IssueList,
-		IssueDetails,
-		QuickFix
-	) {
-		CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
-			Controller: Controller,
-			Engine: Engine,
-			Issue: Issue,
-			IssueList: IssueList,
-			IssueDetails: IssueDetails,
-			QuickFix: QuickFix
-		} );
-	} );
-
-	// Expose UI classes.
-	require( [
-		'ui/ViewerInputs',
-		'ui/ViewerInput',
-		'ui/ViewerDescription',
-		'ui/ViewerNavigation',
-		'ui/Viewer',
-		'ui/ViewerForm'
-	], function(
-		ViewerInputs,
-		ViewerInput,
-		ViewerDescription,
-		ViewerNavigation,
-		Viewer,
-		ViewerForm
-	) {
-		// Make all Viewer* classes public.
-		CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
-			viewer: Viewer,
-			viewerNavigation: ViewerNavigation,
-			viewerDescription: ViewerDescription,
-			viewerForm: ViewerForm,
-			viewerInput: ViewerInput,
-			viewerInputs: ViewerInputs
-		} );
-	} );
 
 	/**
 	 * For every Accessibility Checker hotkey you may use `0` in order to disable it.

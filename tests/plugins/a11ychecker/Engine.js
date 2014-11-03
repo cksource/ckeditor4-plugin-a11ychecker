@@ -5,13 +5,13 @@
 ( function() {
 	'use strict';
 
-	require( [ 'Engine', 'helpers/sinon/sinon_amd.min' ], function( Engine, sinon ) {
+	require( [ 'Engine', 'mocking' ], function( Engine, mocking ) {
 
 		bender.test( {
 			'test Engine.getFixType': function() {
 				var originRequire = require;
 
-				require = sinon.spy();
+				require = mocking.spy();
 
 				Engine.getFixType( 'Foo' );
 
@@ -26,9 +26,9 @@
 			'test Engine.getFixType callback': function() {
 				var quickFixMock = {},
 					originRequire = require,
-					fixCallback = sinon.spy();
+					fixCallback = mocking.spy();
 
-				require = sinon.spy( function( name, requireCallback ) {
+				require = mocking.spy( function( name, requireCallback ) {
 					requireCallback( quickFixMock );
 				} );
 
@@ -51,7 +51,7 @@
 				var quickFixMock = {},
 					originRequire = require;
 
-				require = sinon.spy( function( name, requireCallback ) {
+				require = mocking.spy( function( name, requireCallback ) {
 					requireCallback( quickFixMock );
 				} );
 
@@ -73,7 +73,7 @@
 				var quickFixMock = {},
 					originRequire = require;
 
-				require = sinon.spy();
+				require = mocking.spy();
 
 				try {
 					Engine.fixes.Baz = 1;
@@ -91,7 +91,7 @@
 
 			'test Engine.getFixes no matching quickfixes': function() {
 				var engine = new Engine(),
-					callback = sinon.spy();
+					callback = mocking.spy();
 
 				engine.getFixes( {
 						// This property should not exist in engine.fixesMapping.
@@ -104,7 +104,7 @@
 
 			'test Engine.getFixes': function() {
 				var engine = new Engine(),
-					callback = sinon.spy( function( quickFixes ) {
+					callback = mocking.spy( function( quickFixes ) {
 						resume( function() {
 							assert.areSame( 1, callback.callCount, 'callback calls count' );
 							assert.isInstanceOf( Array, quickFixes, 'Invalid parameter type given to callback' );
@@ -115,29 +115,23 @@
 					originRequire = require,
 					// A sequence of results returned by require() method.
 					requireSequence = [ DummyType, DummyType, DummyType, DummyType ],
-					requireReplacement = sinon.spy( function( requrestedType, requireCallback ) {
+					quickFixGet = mocking.spy( function( requrestedType, receivedCallback ) {
 						setTimeout( function() {
-							requireCallback( requireSequence.pop() );
+							receivedCallback( requireSequence.pop() );
 						}, 40 );
 					} );
 
-				try {
-					require = requireReplacement;
+				mocking.mockProperty( 'CKEDITOR.plugins.a11ychecker.quickFixes.get', window, quickFixGet );
 
-					// That will force 4 require() calls.
-					engine.fixesMapping.foo = [ 1, 2, 3, 4 ];
+				// That will force 4 require() calls.
+				engine.fixesMapping.foo = [ 1, 2, 3, 4 ];
 
-					engine.getFixes( {
-							// This property should not exist in engine.fixesMapping.
-							id: 'foo'
-						}, callback );
+				engine.getFixes( {
+					// This property should not exist in engine.fixesMapping.
+					id: 'foo'
+				}, callback );
 
-					wait( 3000 );
-				} catch( e ) {
-					throw e;
-				} finally {
-					require = originRequire;
-				}
+				wait( 3000 );
 
 				function DummyType() {
 				}
@@ -147,7 +141,7 @@
 				var engine = new Engine(),
 					sketchpad = {},
 					issues = {
-						filter: sinon.spy( function( fn ) {
+						filter: mocking.spy( function( fn ) {
 							assert.isInstanceOf( Function, fn );
 							var ret = fn.call( this, fn );
 							assert.isFalse( ret );
@@ -155,7 +149,7 @@
 						} )
 					};
 
-				engine._filterIssue = sinon.spy( function() {
+				engine._filterIssue = mocking.spy( function() {
 					return false;
 				} );
 
@@ -171,7 +165,7 @@
 				var engine = new Engine(),
 					sketchpad = {},
 					issues = {
-						filter: sinon.spy()
+						filter: mocking.spy()
 					};
 
 				engine.filterIssues( issues, sketchpad );

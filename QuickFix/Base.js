@@ -1,7 +1,7 @@
 
-define( function() {
+(function() {
 	'use strict';
-	
+
 	/**
 	 * Base type for the QuickFix objects.
 	 *
@@ -86,5 +86,5 @@ define( function() {
 		return [];
 	};
 
-	return Base;
-} );
+	CKEDITOR.plugins.a11ychecker.quickFixes.add( 'Base', Base );
+}());

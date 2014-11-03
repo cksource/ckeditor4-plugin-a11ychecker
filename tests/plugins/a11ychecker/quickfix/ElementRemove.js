@@ -4,27 +4,33 @@
 ( function() {
 	'use strict';
 
-	require( [ 'QuickFix/ElementRemove', 'helpers/sinon/sinon_amd.min' ], function( ElementRemove, sinon ) {
-		bender.test( {
-			'test ElementRemove.fix': function() {
-				var imgElement = CKEDITOR.dom.element.createFromHtml( '<br>' ),
-					fixMockup = {
-						issue: {
-							element: imgElement
+	require( [ 'helpers/QuickFixTest', 'mocking' ], function( QuickFixTest, mocking ) {
+		var ElementRemove,
+			tests = {
+				setUp: function() {
+					ElementRemove = this.quickFixType;
+				},
+
+				'test ElementRemove.fix': function() {
+					var imgElement = CKEDITOR.dom.element.createFromHtml( '<br>' ),
+						fixMockup = {
+							issue: {
+								element: imgElement
+							},
+							fix: ElementRemove.prototype.fix
 						},
-						fix: ElementRemove.prototype.fix
-					},
-					callback = sinon.spy();
+						callback = mocking.spy();
 
-				CKEDITOR.document.getBody().append( imgElement, callback );
+					CKEDITOR.document.getBody().append( imgElement, callback );
 
-				fixMockup.fix( {}, callback );
+					fixMockup.fix( {}, callback );
 
-				assert.isNull( imgElement.getParent(), 'Element has no parent' );
-				// Checking the callback.
-				assert.areSame( 1, callback.callCount, 'Callback was called' );
-				assert.isTrue( callback.alwaysCalledWith( fixMockup ), 'Callback has QuickFix object as a first parameter' );
-			}
-		} );
+					assert.isNull( imgElement.getParent(), 'Element has no parent' );
+					// Checking the callback.
+					assert.areSame( 1, callback.callCount, 'Callback was called' );
+					assert.isTrue( callback.alwaysCalledWith( fixMockup ), 'Callback has QuickFix object as a first parameter' );
+				}
+			};
+		QuickFixTest( 'ElementRemove', tests );
 	} );
 } )();

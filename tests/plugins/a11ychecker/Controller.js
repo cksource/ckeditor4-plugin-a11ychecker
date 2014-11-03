@@ -545,6 +545,8 @@
 					originalAlert = window.alert,
 					alertMock = sinon.spy();
 
+				mocking.mockProperty( 'editor.lang.a11ychecker.noIssuesMessage', mock, 'Message' );
+
 				try {
 					window.alert = alertMock;
 

@@ -1,57 +1,60 @@
 
-define( [ 'QuickFix/Manual' ], function( Manual ) {
+( function() {
 	'use strict';
 
-	var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Manual', function( Manual ) {
 
-	/**
-	 * Fixes the image with missing alt attribute.
-	 *
-	 * @constructor
-	 */
-	function ImgAlt( issue ) {
-		Manual.call( this, issue );
-		this.auto = false;
-	}
+		var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
 
-	ImgAlt.prototype = new Manual();
-	ImgAlt.prototype.constructor = ImgAlt;
+		/**
+		 * Fixes the image with missing alt attribute.
+		 *
+		 * @constructor
+		 */
+		function ImgAlt( issue ) {
+			Manual.call( this, issue );
+			this.auto = false;
+		}
 
-	ImgAlt.prototype.title = 'Fix alt attribute';
+		ImgAlt.prototype = new Manual();
+		ImgAlt.prototype.constructor = ImgAlt;
 
-	ImgAlt.prototype.descr = 'Please, provide an alternative text (...)';
+		ImgAlt.prototype.title = 'Fix alt attribute';
 
-	ImgAlt.prototype.display = function( form ) {
-		form.setInputs( {
-			alt: {
-				type: 'text',
-				label: 'Alternative text'
+		ImgAlt.prototype.descr = 'Please, provide an alternative text (...)';
+
+		ImgAlt.prototype.display = function( form ) {
+			form.setInputs( {
+				alt: {
+					type: 'text',
+					label: 'Alternative text'
+				}
+			} );
+		};
+
+		ImgAlt.prototype.fix = function( formAttributes, callback ) {
+			this.issue.element.setAttribute( 'alt', formAttributes.alt );
+
+			if ( callback ) {
+				callback( this );
 			}
-		} );
-	};
+		};
 
-	ImgAlt.prototype.fix = function( formAttributes, callback ) {
-		this.issue.element.setAttribute( 'alt', formAttributes.alt );
+		ImgAlt.prototype.validate = function( formAttributes ) {
+			var ret = [],
+				proposedAlt = formAttributes.alt + '';
 
-		if ( callback ) {
-			callback( this );
-		}
-	};
+			if ( !proposedAlt ) {
+				ret.push( 'Alternative text can not be empty' );
+			}
 
-	ImgAlt.prototype.validate = function( formAttributes ) {
-		var ret = [],
-			proposedAlt = formAttributes.alt + '';
+			if ( proposedAlt.match( emptyWhitespaceRegExp ) ) {
+				ret.push( 'Alternative text can only contain whitespace characters' );
+			}
 
-		if ( !proposedAlt ) {
-			ret.push( 'Alternative text can not be empty' );
-		}
+			return ret;
+		};
 
-		if ( proposedAlt.match( emptyWhitespaceRegExp ) ) {
-			ret.push( 'Alternative text can only contain whitespace characters' );
-		}
-
-		return ret;
-	};
-
-	return ImgAlt;
-} );
+		CKEDITOR.plugins.a11ychecker.quickFixes.add( 'ImgAlt', ImgAlt );
+	} );
+}() );
