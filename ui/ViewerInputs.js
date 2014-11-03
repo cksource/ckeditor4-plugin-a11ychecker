@@ -23,6 +23,8 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 			} ) );
 
 			this.input.appendTo( this.wrapper );
+
+			this.setInitialValue();
 		},
 
 		/**
@@ -41,6 +43,8 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 			} ) );
 
 			this.input.appendTo( this.wrapper );
+
+			this.setInitialValue();
 		},
 
 		/**
@@ -70,6 +74,8 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 			}
 
 			this.input.appendTo( this.wrapper );
+
+			this.setInitialValue();
 		}
 	};
 

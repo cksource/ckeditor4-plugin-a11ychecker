@@ -41,8 +41,6 @@ define( function() {
 
 		/**
 		 * Gets the value of the input.
-		 *
-		 * @method getValue
 		 */
 		getValue: function() {
 			return this.input.getValue();
@@ -51,7 +49,6 @@ define( function() {
 		/**
 		 * Sets the value of the input.
 		 *
-		 * @method setValue
 		 * @param {String} value
 		 */
 		setValue: function( value ) {
@@ -59,9 +56,17 @@ define( function() {
 		},
 
 		/**
+		 * Sets the initial value of the input.
+		 * The value is provided in input's definition.
+		 */
+		setInitialValue: function() {
+			if ( this.value !== undefined ) {
+				this.setValue( this.value );
+			}
+		},
+
+		/**
 		 * Removes input from DOM.
-		 *
-		 * @method remove
 		 */
 		remove: function() {
 			this.wrapper.remove();
