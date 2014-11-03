@@ -115,29 +115,23 @@
 					originRequire = require,
 					// A sequence of results returned by require() method.
 					requireSequence = [ DummyType, DummyType, DummyType, DummyType ],
-					requireReplacement = mocking.spy( function( requrestedType, requireCallback ) {
+					quickFixGet = mocking.spy( function( requrestedType, receivedCallback ) {
 						setTimeout( function() {
-							requireCallback( requireSequence.pop() );
+							receivedCallback( requireSequence.pop() );
 						}, 40 );
 					} );
 
-				try {
-					require = requireReplacement;
+				mocking.mockProperty( 'CKEDITOR.plugins.a11ychecker.quickFixes.get', window, quickFixGet );
 
-					// That will force 4 require() calls.
-					engine.fixesMapping.foo = [ 1, 2, 3, 4 ];
+				// That will force 4 require() calls.
+				engine.fixesMapping.foo = [ 1, 2, 3, 4 ];
 
-					engine.getFixes( {
-							// This property should not exist in engine.fixesMapping.
-							id: 'foo'
-						}, callback );
+				engine.getFixes( {
+					// This property should not exist in engine.fixesMapping.
+					id: 'foo'
+				}, callback );
 
-					wait( 3000 );
-				} catch( e ) {
-					throw e;
-				} finally {
-					require = originRequire;
-				}
+				wait( 3000 );
 
 				function DummyType() {
 				}
