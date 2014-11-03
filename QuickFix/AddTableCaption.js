@@ -3,6 +3,9 @@
 	'use strict';
 
 	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Manual', function( Manual ) {
+
+		var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
+
 		/**
 		 * QuickFix adding a caption in the `table` element.
 		 *
@@ -36,7 +39,6 @@
 		 */
 		AddTableCaption.prototype.fix = function( formAttributes, callback ) {
 			var issueElement = this.issue.element,
-				desiredValue = formAttributes.value,
 				caption = issueElement.getDocument().createElement( 'caption' );
 
 			caption.setHtml( formAttributes.caption );
@@ -47,6 +49,19 @@
 				callback( this );
 			}
 		};
+
+		AddTableCaption.prototype.validate = function( formAttributes ) {
+			var proposedCaption = formAttributes.caption,
+				ret = [];
+
+			// Test if the caption has only whitespaces.
+			if ( !proposedCaption || proposedCaption.match( emptyWhitespaceRegExp ) ) {
+				ret.push( 'Caption text can not be empty' );
+			}
+
+			return ret;
+		};
+
 
 		CKEDITOR.plugins.a11ychecker.quickFixes.add( 'AddTableCaption', AddTableCaption );
 	} );
