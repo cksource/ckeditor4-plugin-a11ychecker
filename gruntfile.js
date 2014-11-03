@@ -69,6 +69,46 @@ module.exports = function( grunt ) {
 				// Enable this to make the build code "kind of" readable.
 				beautify: false
 			}
+		},
+
+		clean: {
+			build: [ 'build' ]
+		},
+
+		copy: {
+			build: {
+				// nonull to let us know if any of given entiries is missing.
+				nonull: true,
+				src: [ 'README.md', 'skins/**', 'styles/**', 'QuickFix/**', 'icons/**', 'lang/*' ],
+				dest: 'build/a11ychecker/'
+			},
+
+			// Copies external dependencies into a build directory.
+			external: {
+				src: [ '../balloonpanel/**', '../a11ycheckerquail/**', '!../a11ycheckerquail/tests/**', '!../balloonpanel/tests/**' ],
+				dest: 'build/balloonpanel/'
+			}
+		},
+
+		compress: {
+			build: {
+				options: {
+					archive: 'build/plugins.zip'
+				},
+				cwd: 'build/',
+				src: [ 'a11ychecker/**', 'a11ycheckerquail/**', 'balloonpanel/**' ],
+				dest: '',
+				expand: true
+			}
+		},
+
+		uglify: {
+			external: {
+				files: {
+					'build/balloonpanel/plugin.js': [ '../balloonpanel/plugin.js' ],
+					'build/a11ycheckerquail/plugin.js': [ '../a11ycheckerquail/plugin.js' ]
+				}
+			}
 		}
 	} );
 
@@ -77,10 +117,16 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-githooks' );
 	grunt.loadNpmTasks( 'grunt-contrib-less' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+	grunt.loadNpmTasks( 'grunt-contrib-compress' );
 
 	grunt.registerTask( 'build-css', 'Builds production-ready CSS using less.', [ 'less:development', 'less:production' ] );
 	grunt.registerTask( 'build-js', 'Build JS files.', buildJs );
-	grunt.registerTask( 'build', 'Generates a build.', [ 'build-css', 'build-js' ] );
+
+	grunt.registerTask( 'build', 'Generates a build.', [ 'clean:build', 'build-css', 'build-js', 'copy:build' ] );
+	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [ 'build', 'copy:external', 'uglify:external', 'compress:build' ] );
 
 	// Default tasks.
 	grunt.registerTask( 'default', [ 'jshint', 'jscs' ] );
@@ -104,7 +150,7 @@ function buildJs() {
 
 	var config = {
 		name: 'plugin',
-		out: 'build/plugin.js',
+		out: 'build/a11ychecker/plugin.js',
 		optimize: 'none'	// Do not minify because of AMDClean.
 	};
 
