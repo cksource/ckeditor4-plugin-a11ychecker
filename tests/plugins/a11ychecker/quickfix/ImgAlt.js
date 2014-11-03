@@ -12,14 +12,14 @@
 					},
 
 					'test ImgAlt.display': function() {
-						var formMock = {
-							},
+						var fixMock = {},
+							formMock = {},
 							ret;
 
-						formMock.setInputs = mocking.spy( function() {
-						} );
+						formMock.setInputs = mocking.spy();
+						mocking.mockProperty( 'issue.element.getAttribute', fixMock );
 
-						ret = ImgAlt.prototype.display.call( {}, formMock );
+						ret = ImgAlt.prototype.display.call( fixMock, formMock );
 
 						assert.areSame( 1, formMock.setInputs.callCount, 'setInputs was called once' );
 						var setInputsParam = formMock.setInputs.getCalls()[ 0 ].args[ 0 ],
@@ -66,6 +66,25 @@
 						assert.areSame( 0, ret.length, 'Return array length' );
 					},
 
+					'test ImgAlt.validate too long': function() {
+						var attributes = {},
+							alt = '',
+							expectedError = 'Alternative text is too long. It should be up' +
+								' to 100 characters while your has 120.',
+							ret;
+
+						for ( var i = 0; i < 120; i++ ) {
+							alt += 'o';
+						}
+
+						attributes.alt = alt;
+
+						ret = ImgAlt.prototype.validate.call( {}, attributes );
+
+						assert.isInstanceOf( Array, ret );
+						assert.areSame( 1, ret.length, 'Return array length' );
+						assert.areSame( expectedError, ret[ 0 ], 'Error message' );
+					},
 					'test ImgAlt.validate no alt': function() {
 						var attributes = {
 								alt: ''
@@ -77,6 +96,35 @@
 						assert.isInstanceOf( Array, ret );
 						assert.areSame( 1, ret.length, 'Return array length' );
 						assert.areSame( 'Alternative text can not be empty', ret[ 0 ], 'Error message' );
+					},
+
+					'test ImgAlt.validate no length limit': function() {
+						// Ensure that if we set ImgAlt.altLengthLimit to 0 then lenth
+						// validation won't be performed.
+						var attributes = {},
+							alt = '',
+							originalLimit = ImgAlt.altLengthLimit,
+							ret;
+
+						for ( var i = 0; i < 400; i++ ) {
+							alt += 'o';
+						}
+
+						attributes.alt = alt;
+
+						try {
+							ImgAlt.altLengthLimit = 0;
+
+							ret = ImgAlt.prototype.validate.call( {}, attributes );
+
+							assert.isInstanceOf( Array, ret );
+							assert.areSame( 0, ret.length, 'Return array length' );
+						} catch(e) {
+							throw e;
+						} finally {
+							// Restore the limit.
+							ImgAlt.altLengthLimit = originalLimit;
+						}
 					}
 				};
 

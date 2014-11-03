@@ -16,6 +16,15 @@
 			this.auto = false;
 		}
 
+		/**
+		 * Maximal count of characters in the alt. It might be changed to `0` to prevent
+		 * length validation.
+		 *
+		 * @member CKEDITOR.plugins.a11ychecker.quickfix.AttributeRename
+		 * @static
+		 */
+		ImgAlt.altLengthLimit = 100;
+
 		ImgAlt.prototype = new Manual();
 		ImgAlt.prototype.constructor = ImgAlt;
 
@@ -27,7 +36,8 @@
 			form.setInputs( {
 				alt: {
 					type: 'text',
-					label: 'Alternative text'
+					label: 'Alternative text',
+					value: this.issue.element.getAttribute( 'alt' ) || ''
 				}
 			} );
 		};
@@ -44,12 +54,20 @@
 			var ret = [],
 				proposedAlt = formAttributes.alt + '';
 
+
 			if ( !proposedAlt ) {
 				ret.push( 'Alternative text can not be empty' );
 			}
 
+			// Test if the alt has only whitespaces.
 			if ( proposedAlt.match( emptyWhitespaceRegExp ) ) {
-				ret.push( 'Alternative text can only contain whitespace characters' );
+				ret.push( 'Alternative text can not only contain whitespace characters' );
+			}
+
+			// Testing against exceeding max length.
+			if ( ImgAlt.altLengthLimit && proposedAlt.length > ImgAlt.altLengthLimit ) {
+				ret.push( 'Alternative text is too long. It should be up to ' + ImgAlt.altLengthLimit +
+					' characters while your has ' + proposedAlt.length + '.' );
 			}
 
 			return ret;
