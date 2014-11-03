@@ -20,13 +20,9 @@
 		hidpi: true, // %REMOVE_LINE_CORE%
 
 		onLoad: function() {
-			var path = this.path + 'QuickFix/';
+			var path = this.path;
 			// Load skin CSS.
-			CKEDITOR.document.appendStyleSheet( this.path + 'skins/moono/a11ychecker.css' );
-
-			require( [ 'QuickFix/Repository' ], function( Repository ) {
-				CKEDITOR.plugins.a11ychecker.quickFixes = new Repository( path );
-			} );
+			CKEDITOR.document.appendStyleSheet( path + 'skins/moono/a11ychecker.css' );
 
 			// Namespace register.
 			require( [
@@ -35,7 +31,6 @@
 				'Issue',
 				'IssueList',
 				'IssueDetails',
-				'QuickFix/Base',
 				'QuickFix/Repository'
 			], function(
 				Controller,
@@ -43,7 +38,6 @@
 				Issue,
 				IssueList,
 				IssueDetails,
-				QuickFix,
 				Repository
 			) {
 				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
@@ -53,10 +47,11 @@
 					IssueList: IssueList,
 					IssueDetails: IssueDetails,
 					quickfix: {
-						Base: QuickFix,
 						Repository: Repository
 					}
 				} );
+
+				CKEDITOR.plugins.a11ychecker.quickFixes = new Repository( path + 'QuickFix/' );
 			} );
 
 			// Expose UI classes.
