@@ -77,7 +77,7 @@ function build() {
 			try {
 				var code =
 					// The plugin code with stipped lines.
-					fs.readFileSync( config.out, 'utf8' );
+					preProcess( fs.readFileSync( config.out, 'utf8' ) );
 
 				// AMDClean, to remove define/require from the code.
 				var amdclean = require('amdclean');
@@ -107,6 +107,12 @@ function build() {
 			done( false );
 		}
 	);
+
+	function preProcess( code ) {
+		code = code.replace( /[^\n]*\%REMOVE_LINE%[^\n]*\n?/g, '' );
+		return code;
+	}
+
 
 	function minify( code ) {
 		var uglifyJS = require( 'uglify-js' );
