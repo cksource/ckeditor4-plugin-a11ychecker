@@ -12,6 +12,15 @@ module.exports = function( grunt ) {
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
 
+		env: {
+			dev: {
+				DEV: true
+			},
+			build: {
+				DEV: false
+			}
+		},
+
 		jshint: {
 			files: [ '*.js' ],
 			options: jshintConfig
@@ -109,6 +118,27 @@ module.exports = function( grunt ) {
 					'build/a11ycheckerquail/plugin.js': [ '../a11ycheckerquail/plugin.js' ]
 				}
 			}
+		},
+
+		preprocess: {
+			// Builds a sample/index.html out of dev sample.
+			build: {
+				src: '../a11ycheckerquail/dev/sample.html',
+				dest: 'build/a11ycheckerquail/samples/index.html'
+			}
+		},
+
+		'plugin-versions': {
+			build: {
+				options: {
+					plugins: [ 'a11ychecker' ]
+				}
+			},
+			external: {
+				options: {
+					plugins: [ 'a11ycheckerquail', 'balloonpanel' ]
+				}
+			}
 		}
 	} );
 
@@ -121,16 +151,57 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-compress' );
+	grunt.loadNpmTasks( 'grunt-env' );
+	grunt.loadNpmTasks( 'grunt-preprocess' );
 
 	grunt.registerTask( 'build-css', 'Builds production-ready CSS using less.', [ 'less:development', 'less:production' ] );
 	grunt.registerTask( 'build-js', 'Build JS files.', buildJs );
 
-	grunt.registerTask( 'build', 'Generates a build.', [ 'clean:build', 'build-css', 'build-js', 'copy:build' ] );
-	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [ 'build', 'copy:external', 'uglify:external', 'compress:build' ] );
+	//grunt.registerTask( 'plugin-versions', 'Replaces %REV% and %VERSION% strings in plugin.js.', markPluginVersions );
+	grunt.registerMultiTask( 'plugin-versions', 'Replaces %REV% and %VERSION% strings in plugin.js.', markPluginVersions );
+	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions' ] );
+
+	grunt.registerTask( 'build', 'Generates a build.', [ 'clean:build', 'build-css', 'build-js', 'copy:build', 'plugin-versions:build' ] );
+	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [ 'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'process', 'compress:build' ] );
 
 	// Default tasks.
 	grunt.registerTask( 'default', [ 'jshint', 'jscs' ] );
 };
+
+function markPluginVersions() {
+	// This task will inspect related plugins and obtain its git hashes. Then it looks
+	// into plugin.js (ONLY) and replaces all the %REV% occurrences.
+	// It it modifies only build/<pluginName>/plugin.js files.
+	var fs = require('fs' ),
+		// Use exec to obtain git hash.
+		exec = require( 'child_process' ).exec,
+		options = this.options(),
+		plugins = options.plugins,
+		done = this.async(),
+		doneCount = 0;
+
+	plugins.map( function( pluginName ) {
+		exec( 'git log -n 1 --pretty=format:"%H"', {
+			cwd: '../' + pluginName
+		}, function( error, stdout, stderr ) {
+			if ( error ) {
+				console.log( 'Getting a hash for %s failed, error message: %s\n', pluginName, stderr + '' );
+			} else {
+				// Any new line chars are not allowed.
+				var hash = String( stdout ).replace( /\r\n/g, '' ),
+					pluginJsPath = 'build/' + pluginName + '/plugin.js',
+					fileContent = fs.readFileSync( pluginJsPath , 'utf8' );
+
+				fs.writeFileSync( pluginJsPath, fileContent.replace( /\%REV\%/g, hash ) );
+			}
+
+			doneCount += 1;
+			if ( doneCount >= plugins.length ) {
+				done();
+			}
+		} );
+	} );
+}
 
 function buildJs() {
 	/* jshint validthis:true */
