@@ -119,10 +119,19 @@ module.exports = function( grunt ) {
 
 		uglify: {
 			external: {
-				files: {
-					'build/balloonpanel/plugin.js': [ '../balloonpanel/plugin.js' ],
-					'build/a11ycheckerquail/plugin.js': [ '../a11ycheckerquail/plugin.js' ]
-				}
+				files: [
+					{
+						'build/balloonpanel/plugin.js': [ '../balloonpanel/plugin.js' ],
+						'build/a11ycheckerquail/plugin.js': [ '../a11ycheckerquail/plugin.js' ]
+					},
+					{
+						// This entry is going to minify QuickFix types.
+						expand: true,
+						cwd: 'build/a11ychecker/QuickFix',
+						src: [ '*.js' ],
+						dest: 'build/a11ychecker/QuickFix'
+					}
+				]
 			}
 		},
 
