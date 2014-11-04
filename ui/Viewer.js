@@ -227,6 +227,15 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 								this.blur();
 								this.hide();
 							}, this );
+						},
+
+						// (#39)
+						function() {
+							return this.parts.panel.on( 'keydown', function( evt ) {
+								if ( !evt.data.getTarget().is( 'input', 'select', 'textarea' ) ) {
+									evt.data.preventDefault();
+								}
+							} );
 						}
 					]
 				}
