@@ -88,7 +88,7 @@ module.exports = function( grunt ) {
 			build: {
 				// nonull to let us know if any of given entiries is missing.
 				nonull: true,
-				src: [ 'README.md', 'skins/**', 'styles/**', 'QuickFix/**', 'icons/**', 'lang/*' ],
+				src: [ 'skins/**', 'styles/**', 'QuickFix/**', 'icons/**', 'lang/*' ],
 				dest: 'build/a11ychecker/'
 			},
 
@@ -96,6 +96,12 @@ module.exports = function( grunt ) {
 			external: {
 				src: [ '../balloonpanel/**', '../a11ycheckerquail/**', '!../a11ycheckerquail/tests/**', '!../balloonpanel/tests/**' ],
 				dest: 'build/balloonpanel/'
+			},
+
+			// Copies DISTRIBUTION.md to the README.md.
+			readme: {
+				src: [ 'DISTRIBUTION.md' ],
+				dest: 'build/a11ychecker/README.md'
 			}
 		},
 
@@ -121,10 +127,10 @@ module.exports = function( grunt ) {
 		},
 
 		preprocess: {
-			// Builds a sample/index.html out of dev sample.
+			// Builds a dev/sample.html.
 			build: {
 				src: '../a11ycheckerquail/dev/sample.html',
-				dest: 'build/a11ycheckerquail/samples/index.html'
+				dest: 'build/a11ycheckerquail/dev/sample.html'
 			}
 		},
 
@@ -161,7 +167,7 @@ module.exports = function( grunt ) {
 	grunt.registerMultiTask( 'plugin-versions', 'Replaces %REV% and %VERSION% strings in plugin.js.', markPluginVersions );
 	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions' ] );
 
-	grunt.registerTask( 'build', 'Generates a build.', [ 'clean:build', 'build-css', 'build-js', 'copy:build', 'plugin-versions:build' ] );
+	grunt.registerTask( 'build', 'Generates a build.', [ 'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:readme', 'plugin-versions:build' ] );
 	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [ 'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'process', 'compress:build' ] );
 
 	// Default tasks.
