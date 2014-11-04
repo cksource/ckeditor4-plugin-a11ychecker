@@ -160,7 +160,8 @@
 		 * Tells whether plugin is in development version or not. For plugin builded version
 		 * this property will be `undefined`.
 		 */
-		dev: true // %REMOVE_LINE%
+		dev: true, // %REMOVE_LINE%
+		rev: '%REV%'
 	};
 
 	/*

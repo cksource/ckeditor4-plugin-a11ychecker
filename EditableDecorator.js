@@ -31,9 +31,9 @@ define( function() {
 	 * @enum
 	 */
 	EditableDecorator.prototype.testabilityClasses = {
-		0: 'cke_a11ychecker_notice',
-		0.5: 'cke_a11ychecker_warning',
-		1: 'cke_a11ychecker_error'
+		0: 'cke_a11yc_notice',
+		0.5: 'cke_a11yc_warning',
+		1: 'cke_a11yc_error'
 	};
 
 	/**
@@ -176,7 +176,7 @@ define( function() {
 				removeFakeObjectAttribute( element, EditableDecorator.ID_ATTRIBUTE_NAME_FULL );
 			}
 
-			if ( element.hasClass( 'cke_a11ychecker_issue' ) ) {
+			if ( element.hasClass( 'cke_a11yc_issue' ) ) {
 				unmarkIssueElement( element );
 			}
 		}, CKEDITOR.NODE_ELEMENT, false );
@@ -191,7 +191,7 @@ define( function() {
 		var target = evt.data.getTarget(),
 			a11ychecker = this.editor._.a11ychecker;
 
-		if ( !target.hasClass( 'cke_a11ychecker_issue' ) ) {
+		if ( !target.hasClass( 'cke_a11yc_issue' ) ) {
 			// If the clicked node itself isn't marked as a11y error, we'll look for closest
 			// parent.
 			var parents = target.getParents( true ),
@@ -200,7 +200,7 @@ define( function() {
 			target = null;
 
 			for ( i = 0; i < parents.length; i++ ) {
-				if ( parents[ i ].hasClass( 'cke_a11ychecker_issue' ) ) {
+				if ( parents[ i ].hasClass( 'cke_a11yc_issue' ) ) {
 					target = parents[ i ];
 					break;
 				}
@@ -208,7 +208,7 @@ define( function() {
 		}
 
 		if ( target ) {
-			if ( target.hasClass( 'cke_a11y_focused' ) ) {
+			if ( target.hasClass( 'cke_a11yc_focused' ) ) {
 				// If clicked issue is already focused, then it means that user wants
 				// to edit it.
 				a11ychecker.setMode( 2 );
@@ -257,7 +257,7 @@ define( function() {
 	EditableDecorator.prototype.markIgnoredIssue = function( issue ) {
 		// Depending on issue.isIgnored() return value, either addClass or removeClass
 		// will be assigned to this variable.
-		issue.element.addClass( 'cke_a11ychecker_ignored' );
+		issue.element.addClass( 'cke_a11yc_ignored' );
 	};
 
 	/**
@@ -281,8 +281,8 @@ define( function() {
 			testability = 1;
 		}
 
-		// All issues have a cke_a11ychecker_issue class, no matter if it's ignored.
-		issueElement.addClass( 'cke_a11ychecker_issue' );
+		// All issues have a cke_a11yc_issue class, no matter if it's ignored.
+		issueElement.addClass( 'cke_a11yc_issue' );
 
 		if ( shouldBeIgnored ) {
 			this.markIgnoredIssue( issue );
@@ -290,7 +290,7 @@ define( function() {
 			// When issue is not marked as an ignored issue we're going to add
 			// testability mapping class.
 			issueElement.addClass( this.testabilityClasses[ testability ] );
-			issueElement.removeClass( 'cke_a11ychecker_ignored' );
+			issueElement.removeClass( 'cke_a11yc_ignored' );
 		}
 	};
 
@@ -299,22 +299,22 @@ define( function() {
 	 *
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue/CKEDITOR.dom.element} issue Issue object or dom
 	 * element associated with an issue.
-	 * @param {Boolean} skipCommonClass If `true` class `cke_a11ychecker_issue` won't be removed.
-	 * All other classes like `cke_a11ychecker_error` and `cke_a11ychecker_ignored` are
+	 * @param {Boolean} skipCommonClass If `true` class `cke_a11yc_issue` won't be removed.
+	 * All other classes like `cke_a11yc_error` and `cke_a11yc_ignored` are
 	 * going to be removed.
 	 */
 	EditableDecorator.prototype.unmarkIssueElement = function( issue, skipCommonClass ) {
 		var issueElement = issue.removeClass ? issue : issue.element;
 
 		if ( !skipCommonClass ) {
-			issueElement.removeClass( 'cke_a11ychecker_issue' );
+			issueElement.removeClass( 'cke_a11yc_issue' );
 		}
 
-		issueElement.removeClass( 'cke_a11ychecker_error' )
-			.removeClass( 'cke_a11ychecker_warning' )
-			.removeClass( 'cke_a11ychecker_notice' )
-			.removeClass( 'cke_a11ychecker_ignored' )
-			.removeClass( 'cke_a11y_focused' );
+		issueElement.removeClass( 'cke_a11yc_error' )
+			.removeClass( 'cke_a11yc_warning' )
+			.removeClass( 'cke_a11yc_notice' )
+			.removeClass( 'cke_a11yc_ignored' )
+			.removeClass( 'cke_a11yc_focused' );
 	};
 
 	/**

@@ -12,6 +12,15 @@ module.exports = function( grunt ) {
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
 
+		env: {
+			dev: {
+				DEV: true
+			},
+			build: {
+				DEV: false
+			}
+		},
+
 		jshint: {
 			files: [ '*.js' ],
 			options: jshintConfig
@@ -28,10 +37,122 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		less: {
+			development: {
+				files: {
+					'styles/contents.css': 'less/contents.less',
+					'skins/moono/a11ychecker.css': 'less/a11ychecker.less'
+				},
+
+				options: {
+					paths: [ 'less' ]
+				}
+			},
+
+			// Simply compress the skin file only.
+			// If you want to build production CSS use `grunt build-css` rather than `grunt less:production`.
+			production: {
+				files: {
+					'skins/moono/a11ychecker.css': 'less/a11ychecker.less'
+				},
+
+				options: {
+					paths: [ 'less' ],
+					compress: true
+				}
+			}
+		},
+
+		watch: {
+			less: {
+				files: [ 'less/*.less' ],
+				tasks: [ 'less:development' ],
+				options: {
+					nospawn: true
+				}
+			}
+		},
+
 		build: {
 			options: {
 				// Enable this to make the build code "kind of" readable.
 				beautify: false
+			}
+		},
+
+		clean: {
+			build: [ 'build' ]
+		},
+
+		copy: {
+			build: {
+				// nonull to let us know if any of given entiries is missing.
+				nonull: true,
+				src: [ 'skins/**', 'styles/**', 'QuickFix/**', 'icons/**', 'lang/*' ],
+				dest: 'build/a11ychecker/'
+			},
+
+			// Copies external dependencies into a build directory.
+			external: {
+				src: [ '../balloonpanel/**', '../a11ycheckerquail/**', '!../a11ycheckerquail/tests/**', '!../a11ycheckerquail/README.md', '!../balloonpanel/tests/**', '!../balloonpanel/dev/**', '!../balloonpanel/README.md' ],
+				dest: 'build/balloonpanel/'
+			},
+
+			// Copies DISTRIBUTION.md to the README.md.
+			readme: {
+				src: [ 'DISTRIBUTION.md' ],
+				dest: 'build/a11ychecker/README.md'
+			}
+		},
+
+		compress: {
+			build: {
+				options: {
+					archive: 'build/a11ychecker.zip'
+				},
+				cwd: 'build/',
+				src: [ 'a11ychecker/**', 'a11ycheckerquail/**', 'balloonpanel/**' ],
+				dest: '',
+				expand: true
+			}
+		},
+
+		uglify: {
+			external: {
+				files: [
+					{
+						'build/balloonpanel/plugin.js': [ '../balloonpanel/plugin.js' ],
+						'build/a11ycheckerquail/plugin.js': [ '../a11ycheckerquail/plugin.js' ]
+					},
+					{
+						// This entry is going to minify QuickFix types.
+						expand: true,
+						cwd: 'build/a11ychecker/QuickFix',
+						src: [ '*.js' ],
+						dest: 'build/a11ychecker/QuickFix'
+					}
+				]
+			}
+		},
+
+		preprocess: {
+			// Builds a dev/sample.html.
+			build: {
+				src: '../a11ycheckerquail/dev/sample.html',
+				dest: 'build/a11ycheckerquail/dev/sample.html'
+			}
+		},
+
+		'plugin-versions': {
+			build: {
+				options: {
+					plugins: [ 'a11ychecker' ]
+				}
+			},
+			external: {
+				options: {
+					plugins: [ 'a11ycheckerquail', 'balloonpanel' ]
+				}
 			}
 		}
 	} );
@@ -39,15 +160,65 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-jscs' );
 	grunt.loadNpmTasks( 'grunt-githooks' );
+	grunt.loadNpmTasks( 'grunt-contrib-less' );
+	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+	grunt.loadNpmTasks( 'grunt-contrib-compress' );
+	grunt.loadNpmTasks( 'grunt-env' );
+	grunt.loadNpmTasks( 'grunt-preprocess' );
 
-	// Custom tasks.
-	grunt.registerTask( 'build', 'Generates a build.', build );
+	grunt.registerTask( 'build-css', 'Builds production-ready CSS using less.', [ 'less:development', 'less:production' ] );
+	grunt.registerTask( 'build-js', 'Build JS files.', buildJs );
+
+	//grunt.registerTask( 'plugin-versions', 'Replaces %REV% and %VERSION% strings in plugin.js.', markPluginVersions );
+	grunt.registerMultiTask( 'plugin-versions', 'Replaces %REV% and %VERSION% strings in plugin.js.', markPluginVersions );
+	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions' ] );
+
+	grunt.registerTask( 'build', 'Generates a build.', [ 'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:readme', 'plugin-versions:build' ] );
+	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [ 'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'process', 'compress:build' ] );
 
 	// Default tasks.
 	grunt.registerTask( 'default', [ 'jshint', 'jscs' ] );
 };
 
-function build() {
+function markPluginVersions() {
+	// This task will inspect related plugins and obtain its git hashes. Then it looks
+	// into plugin.js (ONLY) and replaces all the %REV% occurrences.
+	// It it modifies only build/<pluginName>/plugin.js files.
+	var fs = require('fs' ),
+		// Use exec to obtain git hash.
+		exec = require( 'child_process' ).exec,
+		options = this.options(),
+		plugins = options.plugins,
+		done = this.async(),
+		doneCount = 0;
+
+	plugins.map( function( pluginName ) {
+		exec( 'git log -n 1 --pretty=format:"%H"', {
+			cwd: '../' + pluginName
+		}, function( error, stdout, stderr ) {
+			if ( error ) {
+				console.log( 'Getting a hash for %s failed, error message: %s\n', pluginName, stderr + '' );
+			} else {
+				// Any new line chars are not allowed.
+				var hash = String( stdout ).replace( /\r\n/g, '' ),
+					pluginJsPath = 'build/' + pluginName + '/plugin.js',
+					fileContent = fs.readFileSync( pluginJsPath , 'utf8' );
+
+				fs.writeFileSync( pluginJsPath, fileContent.replace( /\%REV\%/g, hash ) );
+			}
+
+			doneCount += 1;
+			if ( doneCount >= plugins.length ) {
+				done();
+			}
+		} );
+	} );
+}
+
+function buildJs() {
 	/* jshint validthis:true */
 
 	// The intention of this build process is showcasing the possibility of
@@ -65,7 +236,7 @@ function build() {
 
 	var config = {
 		name: 'plugin',
-		out: 'build/plugin.js',
+		out: 'build/a11ychecker/plugin.js',
 		optimize: 'none'	// Do not minify because of AMDClean.
 	};
 
