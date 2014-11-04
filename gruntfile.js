@@ -93,7 +93,7 @@ module.exports = function( grunt ) {
 		compress: {
 			build: {
 				options: {
-					archive: 'build/plugins.zip'
+					archive: 'build/a11ychecker.zip'
 				},
 				cwd: 'build/',
 				src: [ 'a11ychecker/**', 'a11ycheckerquail/**', 'balloonpanel/**' ],
