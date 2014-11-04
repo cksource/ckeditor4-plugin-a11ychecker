@@ -33,7 +33,7 @@ You can also add Accessibility Checker to any of your CKEditor instances by usin
 config.extraPlugins = 'a11ycheckerquail';
 ```
 
-**Keep in mind that Quail has a jQuery dependency.** It requires you to have a global variable `jQuery` defined containing jQuery 1.x. The  sample mentioned above is shipped with jQuery, but we do not load it automatically with Accessibility Checker.
+**Keep in mind that Quail has a jQuery dependency.** It requires you to have a global variable `jQuery` defined containing jQuery 1.x. The  sample mentioned above is shipped with jQuery, but jQuery is not loaded automatically with Accessibility Checker.
 
 ### Limitations
 
