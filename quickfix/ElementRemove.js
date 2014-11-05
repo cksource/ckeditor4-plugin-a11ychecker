@@ -18,10 +18,6 @@
 		ElementRemove.prototype = new Base();
 		ElementRemove.prototype.constructor = ElementRemove;
 
-		ElementRemove.prototype.title = 'Element remove fix';
-
-		ElementRemove.prototype.descr = 'Remove this element and don\'t you worry anymore.';
-
 		ElementRemove.prototype.display = function( form ) {
 			form.setInputs( {} );
 		};

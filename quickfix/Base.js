@@ -35,14 +35,7 @@
 		 * @member CKEDITOR.plugins.a11ychecker.quickFix.Base
 		 * @property {CKEDITOR.plugins.a11ychecker.Issue} issue Issue object that QuickFix was created for.
 		 */
-		issue: null,
-
-		/**
-		 * @todo: Remove these temp title / descr literals.
-		 */
-		title: 'Generic Quickfix title',
-
-		descr: 'This Quickfix will not do anything amazing, its only a base type'
+		issue: null
 	};
 
 	Base.prototype.constructor = Base;

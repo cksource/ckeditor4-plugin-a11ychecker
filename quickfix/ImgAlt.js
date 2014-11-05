@@ -27,10 +27,6 @@
 		ImgAlt.prototype = new Base();
 		ImgAlt.prototype.constructor = ImgAlt;
 
-		ImgAlt.prototype.title = 'Fix alt attribute';
-
-		ImgAlt.prototype.descr = 'Please, provide an alternative text (...)';
-
 		ImgAlt.prototype.display = function( form ) {
 			form.setInputs( {
 				alt: {
