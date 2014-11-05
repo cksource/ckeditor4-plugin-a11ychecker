@@ -94,7 +94,10 @@ module.exports = function( grunt ) {
 
 			// Copies external dependencies into a build directory.
 			external: {
-				src: [ '../balloonpanel/**', '../a11ycheckerquail/**', '!../a11ycheckerquail/tests/**', '!../a11ycheckerquail/README.md', '!../balloonpanel/tests/**', '!../balloonpanel/dev/**', '!../balloonpanel/README.md' ],
+				src: [ '../balloonpanel/**', '../a11ycheckerquail/**', '!../a11ycheckerquail/tests/**',
+					'!../a11ycheckerquail/README.md', '!../balloonpanel/tests/**', '!../balloonpanel/dev/**',
+					'!../balloonpanel/README.md'
+				],
 				dest: 'build/balloonpanel/'
 			},
 
@@ -169,21 +172,26 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-env' );
 	grunt.loadNpmTasks( 'grunt-preprocess' );
 
-	grunt.registerTask( 'build-css', 'Builds production-ready CSS using less.', [ 'less:development', 'less:production' ] );
+	grunt.registerTask( 'build-css', 'Builds production-ready CSS using less.',
+		[ 'less:development', 'less:production' ] );
 	grunt.registerTask( 'build-js', 'Build JS files.', buildJs );
 
 	//grunt.registerTask( 'plugin-versions', 'Replaces %REV% and %VERSION% strings in plugin.js.', markPluginVersions );
 	grunt.registerMultiTask( 'plugin-versions', 'Replaces %REV% and %VERSION% strings in plugin.js.', markPluginVersions );
-	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions' ] );
+	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, ' +
+		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions' ] );
 
-	grunt.registerTask( 'build', 'Generates a build.', [ 'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:readme', 'plugin-versions:build' ] );
-	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [ 'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'process', 'compress:build' ] );
+	grunt.registerTask( 'build', 'Generates a build.',
+		[ 'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:readme', 'plugin-versions:build' ] );
+	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.',
+		[ 'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'process', 'compress:build' ] );
 
 	// Default tasks.
 	grunt.registerTask( 'default', [ 'jshint', 'jscs' ] );
 };
 
 function markPluginVersions() {
+	/*jshint validthis: true */
 	// This task will inspect related plugins and obtain its git hashes. Then it looks
 	// into plugin.js (ONLY) and replaces all the %REV% occurrences.
 	// It it modifies only build/<pluginName>/plugin.js files.

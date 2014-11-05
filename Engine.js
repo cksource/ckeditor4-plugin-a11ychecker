@@ -140,16 +140,20 @@ define( function() {
 			callback( [] );
 		} else {
 			var matchedTypes = [],
-				i;
-			// We need to fetch every QuickFix type.
-			for ( i = 0; i < mappingValue.length; i++ ) {
-				CKEDITOR.plugins.a11ychecker.quickFixes.get( mappingValue[ i ], function( type ) {
-					matchedTypes.push( new type( issue ) );
+				onTypeLoaded = function( QuickFix ) {
+					// Note that in this case QuickFix doesn't have to really be a
+					// quickFix.QuickFix class, but it also might contain any other,
+					// QuickFix type like ImgAlt etc.
+					matchedTypes.push( new QuickFix( issue ) );
 
 					if ( matchedTypes.length === mappingValue.length ) {
 						callback( matchedTypes );
 					}
-				} );
+				},
+				i;
+			// We need to fetch every QuickFix type.
+			for ( i = 0; i < mappingValue.length; i++ ) {
+				CKEDITOR.plugins.a11ychecker.quickFixes.get( mappingValue[ i ], onTypeLoaded );
 			}
 		}
 

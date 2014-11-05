@@ -441,15 +441,15 @@ define( [
 	 */
 	Controller.prototype.setMode = function( mode ) {
 		var modeConstructors = {},
-			targetConstructor;
+			ModeConstructor;
 
 		modeConstructors[ Controller.modes.CHECKING ] = CheckingMode;
 		modeConstructors[ Controller.modes.LISTENING ] = ListeningMode;
 		modeConstructors[ Controller.modes.BUSY ] = BusyMode;
 
-		targetConstructor = modeConstructors[ mode ];
+		ModeConstructor = modeConstructors[ mode ];
 
-		if ( !targetConstructor ) {
+		if ( !ModeConstructor ) {
 			throw new Error( 'Invalid mode value, use Controller.modes members' );
 		}
 
@@ -463,7 +463,7 @@ define( [
 			this.mode.close();
 		}
 
-		this.mode = new targetConstructor( this );
+		this.mode = new ModeConstructor( this );
 		this.mode.init();
 		this.modeType = mode;
 	};
