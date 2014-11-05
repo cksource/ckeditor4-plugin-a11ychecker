@@ -200,6 +200,7 @@
 	// Function is a simply copy-n-paste editor.addContentsCss added in CKE 4.4.0.
 	// Will be used if function is not available for better backward compatibility.
 	function editorAddContentsCss( cssPath ) {
+		/*jshint validthis: true */
 		var cfg = this.config,
 			curContentsCss = cfg.contentsCss;
 

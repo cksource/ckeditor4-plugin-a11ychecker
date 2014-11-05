@@ -184,6 +184,7 @@ module.exports = function( grunt ) {
 };
 
 function markPluginVersions() {
+	/*jshint validthis: true */
 	// This task will inspect related plugins and obtain its git hashes. Then it looks
 	// into plugin.js (ONLY) and replaces all the %REV% occurrences.
 	// It it modifies only build/<pluginName>/plugin.js files.
