@@ -13,7 +13,6 @@
 		 */
 		function ImgAlt( issue ) {
 			Base.call( this, issue );
-			this.auto = false;
 		}
 
 		/**

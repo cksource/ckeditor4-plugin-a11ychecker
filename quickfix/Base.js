@@ -9,13 +9,6 @@
 	 *
 	 * It encapsulates logic responsible for fixing Accessibility issue.
 	 *
-	 * Fixes can have following types:
-	 * * **automatical** - Fully automatic, doesn't require any input from the end user.
-	 * * **manual** - Requires some input from end-user. Information from user are gathered
-	 * through form being displayed to the end user.
-	 *
-	 * You can check type of the issue by checking the {@link #auto} property.
-	 *
 	 * ## Working with QuickFix objects
 	 *
 	 * ### Adding controls to the QuickFix form
@@ -38,12 +31,6 @@
 	}
 
 	Base.prototype = {
-		/**
-		 * @member CKEDITOR.plugins.a11ychecker.quickFix.Base
-		 * @property {Boolean} auto Indicates if QuickFix is fully automatic, or if
-		 * it needs a human input.
-		 */
-		auto: true,
 		/**
 		 * @member CKEDITOR.plugins.a11ychecker.quickFix.Base
 		 * @property {CKEDITOR.plugins.a11ychecker.Issue} issue Issue object that QuickFix was created for.

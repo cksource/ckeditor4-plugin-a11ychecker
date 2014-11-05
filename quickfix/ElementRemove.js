@@ -4,8 +4,7 @@
 
 	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
 		/**
-		 * Awesome automatic fix which will solve all the issues! : D if you have problem with
-		 * an element then... remove it! Attaboy!
+		 * The ultimate fix for unsolvable problem - removing an element.
 		 *
 		 * @member CKEDITOR.plugins.a11ychecker.quickFix
 		 * @class ElementRemove
