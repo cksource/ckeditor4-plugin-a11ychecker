@@ -3,7 +3,7 @@
 	'use strict';
 
 	/**
-	 * Base type for the QuickFix objects.
+	 * QuickFix type for the QuickFix objects.
 	 *
 	 * # Overview
 	 *
@@ -22,25 +22,25 @@
 	 * you're sure to apply the fix.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.quickFix
-	 * @class Base
+	 * @class QuickFix
 	 * @constructor
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
 	 */
-	function Base( issue ) {
+	function QuickFix( issue ) {
 		this.issue = issue;
 	}
 
-	Base.prototype = {
+	QuickFix.prototype = {
 		/**
-		 * @member CKEDITOR.plugins.a11ychecker.quickFix.Base
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix.QuickFix
 		 * @property {CKEDITOR.plugins.a11ychecker.Issue} issue Issue object that QuickFix was created for.
 		 */
 		issue: null
 	};
 
-	Base.prototype.constructor = Base;
+	QuickFix.prototype.constructor = QuickFix;
 
-	Base.prototype.display = function( form ) {
+	QuickFix.prototype.display = function( form ) {
 	};
 
 	/**
@@ -49,7 +49,7 @@
 	 * @param {Function} callback Function to be called when a fix was applied. Gets QuickFix object
 	 * as a first parameter.
 	 */
-	Base.prototype.fix = function( formAttributes, callback ) {
+	QuickFix.prototype.fix = function( formAttributes, callback ) {
 		if ( callback ) {
 			callback( this );
 		}
@@ -62,9 +62,9 @@
 	 * {@link CKEDITOR.plugins.a11ychecker.ViewerForm#serialize}.
 	 * @returns {String[]} Array of error messages. If array is empty, then it means no errors occured.
 	 */
-	Base.prototype.validate = function( formAttributes ) {
+	QuickFix.prototype.validate = function( formAttributes ) {
 		return [];
 	};
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.add( 'Base', Base );
+	CKEDITOR.plugins.a11ychecker.quickFixes.add( 'QuickFix', QuickFix );
 }());

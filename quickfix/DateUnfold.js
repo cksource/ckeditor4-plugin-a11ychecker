@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'QuickFix', function( QuickFix ) {
 		// List of month names.
 		var monthNames = {
 			en: [
@@ -31,10 +31,10 @@
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
 		 */
 		function DateUnfold( issue ) {
-			Base.call( this, issue );
+			QuickFix.call( this, issue );
 		}
 
-		DateUnfold.prototype = new Base();
+		DateUnfold.prototype = new QuickFix();
 
 		DateUnfold.prototype.constructor = DateUnfold;
 

@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'QuickFix', function( QuickFix ) {
 		/**
 		 * The ultimate fix for unsolvable problem - removing an element.
 		 *
@@ -12,10 +12,10 @@
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue
 		 */
 		function ElementRemove( issue ) {
-			Base.call( this, issue );
+			QuickFix.call( this, issue );
 		}
 
-		ElementRemove.prototype = new Base();
+		ElementRemove.prototype = new QuickFix();
 		ElementRemove.prototype.constructor = ElementRemove;
 
 		ElementRemove.prototype.display = function( form ) {

@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'QuickFix', function( QuickFix ) {
 		/**
 		 * QuickFix renaming an attribute {@link #attributeName} to another name
 		 * {@link #attributeTargetName}.
@@ -13,10 +13,10 @@
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
 		 */
 		function AttributeRename( issue ) {
-			Base.call( this, issue );
+			QuickFix.call( this, issue );
 		}
 
-		AttributeRename.prototype = new Base();
+		AttributeRename.prototype = new QuickFix();
 
 		AttributeRename.prototype.constructor = AttributeRename;
 

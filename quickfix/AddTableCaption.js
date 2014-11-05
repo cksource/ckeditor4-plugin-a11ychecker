@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'QuickFix', function( QuickFix ) {
 
 		var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
 
@@ -15,10 +15,10 @@
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
 		 */
 		function AddTableCaption( issue ) {
-			Base.call( this, issue );
+			QuickFix.call( this, issue );
 		}
 
-		AddTableCaption.prototype = new Base();
+		AddTableCaption.prototype = new QuickFix();
 
 		AddTableCaption.prototype.constructor = AddTableCaption;
 
