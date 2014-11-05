@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'ui/ViewerController', 'helpers/sinon/sinon_amd.min' ], function( ViewerController, sinon ) {
+	require( [ 'ui/ViewerController', 'mocking' ], function( ViewerController, mocking ) {
 
 		bender.test( {
 			'test ViewerController.showIssue calls callback': function() {
@@ -40,7 +40,7 @@
 					};
 
 				mockup.showIssue = ViewerController.prototype.showIssue;
-				mockup.fire = sinon.spy();
+				mockup.fire = mocking.spy();
 
 				mockup.showIssue( getIssueMockup(), params );
 				wait();
@@ -49,7 +49,7 @@
 
 		// Returns a mockup of a ViewerController instance.
 		function getViewerControllerMockup() {
-			return {
+			var ret = {
 				viewer: {
 					panel:
 						{
@@ -58,6 +58,15 @@
 				},
 				fire: function(){}
 			};
+
+			mocking.mockProperty( 'editor.window.once', ret, function() {
+				// This is needed because of #51.
+				return {
+					removeListener: mocking.spy()
+				};
+			} );
+
+			return ret;
 		}
 
 		// Returns a mockup of a Issue instance.
