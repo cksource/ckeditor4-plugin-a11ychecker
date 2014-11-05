@@ -7,7 +7,7 @@
 		 * QuickFix renaming an attribute {@link #attributeName} to another name
 		 * {@link #attributeTargetName}.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix
 		 * @class AttributeRename
 		 * @constructor
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
@@ -23,14 +23,14 @@
 		/**
 		 * Name of the attribute to be renamed.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix.AttributeRename
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix.AttributeRename
 		 */
 		AttributeRename.prototype.attributeName = 'title';
 
 		/**
 		 * A desired name for the attribute.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix.AttributeRename
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix.AttributeRename
 		 */
 		AttributeRename.prototype.attributeTargetName = 'alt';
 

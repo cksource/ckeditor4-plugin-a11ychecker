@@ -7,8 +7,9 @@
 		 * Awesome automatic fix which will solve all the issues! : D if you have problem with
 		 * an element then... remove it! Attaboy!
 		 *
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix
+		 * @class ElementRemove
 		 * @constructor
-		 * @class CKEDITOR.plugins.a11ychecker.quickfix.ElementRemove
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue
 		 */
 		function ElementRemove( issue ) {

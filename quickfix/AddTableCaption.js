@@ -9,7 +9,7 @@
 		/**
 		 * QuickFix adding a caption in the `table` element.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix
 		 * @class AddTableCaption
 		 * @constructor
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.

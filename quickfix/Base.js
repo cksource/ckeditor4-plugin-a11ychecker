@@ -28,7 +28,7 @@
 	 * The fixing logic is placed in {@link #fix} method, so you need to simply call it when
 	 * you're sure to apply the fix.
 	 *
-	 * @member CKEDITOR.plugins.a11ychecker.quickfix
+	 * @member CKEDITOR.plugins.a11ychecker.quickFix
 	 * @class Base
 	 * @constructor
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
@@ -39,13 +39,13 @@
 
 	Base.prototype = {
 		/**
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix.Base
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix.Base
 		 * @property {Boolean} auto Indicates if QuickFix is fully automatic, or if
 		 * it needs a human input.
 		 */
 		auto: true,
 		/**
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix.Base
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix.Base
 		 * @property {CKEDITOR.plugins.a11ychecker.Issue} issue Issue object that QuickFix was created for.
 		 */
 		issue: null,

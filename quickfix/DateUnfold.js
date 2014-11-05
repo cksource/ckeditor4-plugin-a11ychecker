@@ -25,7 +25,7 @@
 		 * QuickFix converting short dates to more verbose format. Eg. convert 21-3-2030
 		 * to 21 March 2030.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix
 		 * @class DateUnfold
 		 * @constructor
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.

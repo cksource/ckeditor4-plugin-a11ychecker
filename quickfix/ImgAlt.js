@@ -20,7 +20,7 @@
 		 * Maximal count of characters in the alt. It might be changed to `0` to prevent
 		 * length validation.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix.AttributeRename
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix.AttributeRename
 		 * @static
 		 */
 		ImgAlt.altLengthLimit = 100;
