@@ -7,28 +7,28 @@
 	require( [ 'helpers/QuickFixTest' ], function( QuickFixTest ) {
 		var tests = {
 				setUp: function() {
-					// Assign a QuickFix/Base class to more precise property.
-					Base = this.quickFixType;
+					// Assign a QuickFix class to more precise property.
+					QuickFix = this.quickFixType;
 				},
 
 				'test constructor': function() {
 					var expectedIssue = {},
-						fix = new Base( expectedIssue );
+						fix = new QuickFix( expectedIssue );
 
 					assert.areSame( expectedIssue, fix.issue, 'Object has valid issue property' );
 				},
 
-				'test Base.validate': function() {
+				'test QuickFix.validate': function() {
 					// Lets simply check default return value, because there's no
-					// special logic in Base.validate.
-					var ret = Base.prototype.validate.call( {}, {} );
+					// special logic in QuickFix.validate.
+					var ret = QuickFix.prototype.validate.call( {}, {} );
 
 					assert.isInstanceOf( Array, ret );
 					assert.areSame( 0, ret.length, 'Return array length' );
 				}
 			},
-			Base;
+			QuickFix;
 
-		QuickFixTest( 'Base', tests );
+		QuickFixTest( 'QuickFix', tests );
 	} );
 } )();

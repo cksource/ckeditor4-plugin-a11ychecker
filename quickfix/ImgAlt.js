@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Manual', function( Manual ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'QuickFix', function( QuickFix ) {
 
 		var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
 
@@ -12,25 +12,20 @@
 		 * @constructor
 		 */
 		function ImgAlt( issue ) {
-			Manual.call( this, issue );
-			this.auto = false;
+			QuickFix.call( this, issue );
 		}
 
 		/**
 		 * Maximal count of characters in the alt. It might be changed to `0` to prevent
 		 * length validation.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix.AttributeRename
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix.AttributeRename
 		 * @static
 		 */
 		ImgAlt.altLengthLimit = 100;
 
-		ImgAlt.prototype = new Manual();
+		ImgAlt.prototype = new QuickFix();
 		ImgAlt.prototype.constructor = ImgAlt;
-
-		ImgAlt.prototype.title = 'Fix alt attribute';
-
-		ImgAlt.prototype.descr = 'Please, provide an alternative text (...)';
 
 		ImgAlt.prototype.display = function( form ) {
 			form.setInputs( {

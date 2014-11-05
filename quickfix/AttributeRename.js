@@ -2,35 +2,35 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Manual', function( Manual ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'QuickFix', function( QuickFix ) {
 		/**
 		 * QuickFix renaming an attribute {@link #attributeName} to another name
 		 * {@link #attributeTargetName}.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix
 		 * @class AttributeRename
 		 * @constructor
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
 		 */
 		function AttributeRename( issue ) {
-			Manual.call( this, issue );
+			QuickFix.call( this, issue );
 		}
 
-		AttributeRename.prototype = new Manual();
+		AttributeRename.prototype = new QuickFix();
 
 		AttributeRename.prototype.constructor = AttributeRename;
 
 		/**
 		 * Name of the attribute to be renamed.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix.AttributeRename
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix.AttributeRename
 		 */
 		AttributeRename.prototype.attributeName = 'title';
 
 		/**
 		 * A desired name for the attribute.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix.AttributeRename
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix.AttributeRename
 		 */
 		AttributeRename.prototype.attributeTargetName = 'alt';
 

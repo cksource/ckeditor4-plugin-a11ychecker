@@ -2,23 +2,23 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Manual', function( Manual ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'QuickFix', function( QuickFix ) {
 
 		var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
 
 		/**
 		 * QuickFix adding a caption in the `table` element.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix
 		 * @class AddTableCaption
 		 * @constructor
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
 		 */
 		function AddTableCaption( issue ) {
-			Manual.call( this, issue );
+			QuickFix.call( this, issue );
 		}
 
-		AddTableCaption.prototype = new Manual();
+		AddTableCaption.prototype = new QuickFix();
 
 		AddTableCaption.prototype.constructor = AddTableCaption;
 
@@ -61,7 +61,6 @@
 
 			return ret;
 		};
-
 
 		CKEDITOR.plugins.a11ychecker.quickFixes.add( 'AddTableCaption', AddTableCaption );
 	} );

@@ -15,7 +15,7 @@ define( function() {
 	 * The reason that class is needed is that we want to load QuickFixes on demand,
 	 * rather than load all of them at once.
 	 *
-	 * @member CKEDITOR.plugins.a11ychecker.quickfix
+	 * @member CKEDITOR.plugins.a11ychecker.quickFix
 	 * @constructor
 	 * @param {String} basePath A path to the directory where QuickFix classes are
 	 * stored.
@@ -45,7 +45,7 @@ define( function() {
 	 *			quickFix.fix();
 	 *		} );
 	 *
-	 * @member CKEDITOR.plugins.a11ychecker.QuickFix.Repository
+	 * @member CKEDITOR.plugins.a11ychecker.quickFix.Repository
 	 * @param {String} name
 	 * @param {Function} callback A function to be called when given type is registered.
 	 * It gets only one parameter which is a construct function for given QuickFix.
@@ -96,7 +96,7 @@ define( function() {
 	 * The default way of downloading JavaScript files. This will be used
 	 * if `requested` event was not canceled.
 	 *
-	 * @member CKEDITOR.plugins.a11ychecker.QuickFix.Repository
+	 * @member CKEDITOR.plugins.a11ychecker.quickFix.Repository
 	 * @param {String} name Type name. Based on that function will create a file name.
 	 */
 	Repository.prototype.requestQuickFix = function( name ) {
@@ -106,7 +106,7 @@ define( function() {
 	/**
 	 * Registers a class of given QuickFix.
 	 *
-	 * @member CKEDITOR.plugins.a11ychecker.QuickFix.Repository
+	 * @member CKEDITOR.plugins.a11ychecker.quickFix.Repository
 	 * @param {String} name QuickFix name.
 	 * @param {Function} cls QuickFix type.
 	 */
@@ -129,7 +129,7 @@ define( function() {
 	/**
 	 * An internal function, to expose some internals to tests.
 	 *
-	 * @member CKEDITOR.plugins.a11ychecker.QuickFix.Repository
+	 * @member CKEDITOR.plugins.a11ychecker.quickFix.Repository
 	 * @private
 	 * @param {mixed} value
 	 */
@@ -142,7 +142,7 @@ define( function() {
 	 *
 	 * Returns loaded type mapping.
 	 *
-	 * @member CKEDITOR.plugins.a11ychecker.QuickFix.Repository
+	 * @member CKEDITOR.plugins.a11ychecker.quickFix.Repository
 	 * @private
 	 * @returns {Object}
 	 */
@@ -155,7 +155,7 @@ define( function() {
 	 *
 	 * Returns pending callbacks mapping.
 	 *
-	 * @member CKEDITOR.plugins.a11ychecker.QuickFix.Repository
+	 * @member CKEDITOR.plugins.a11ychecker.quickFix.Repository
 	 * @private
 	 * @returns {Object}
 	 */
@@ -172,7 +172,7 @@ define( function() {
 	 * It is important then to call {@link #register} method when the type is loaded,
 	 * otherwise pending callback won't be called.
 	 *
-	 * @member CKEDITOR.plugins.a11ychecker.QuickFix.Repository
+	 * @member CKEDITOR.plugins.a11ychecker.quickFix.Repository
 	 * @event requested
 	 * @param {Object} data
 	 * @param {String} data.name Name of requested type.

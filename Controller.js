@@ -490,7 +490,7 @@ define( [
 	 * Applies given quickfix, fires the {@link #fixed} event.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
-	 * @param {CKEDITOR.plugins.a11ychecker.QuickFix} quickFix
+	 * @param {CKEDITOR.plugins.a11ychecker.quickFix.QuickFix} quickFix
 	 * @param {Object} formAttributes Object containing serialized form inputs. See
 	 * {@link CKEDITOR.plugins.a11ychecker.ViewerForm#serialize}.
 	 */
@@ -500,7 +500,7 @@ define( [
 
 	/**
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
-	 * @param {CKEDITOR.plugins.a11ychecker.QuickFix} quickFix
+	 * @param {CKEDITOR.plugins.a11ychecker.quickFix.QuickFix} quickFix
 	 * @private
 	 */
 	Controller.prototype._onQuickFix = function( quickFix ) {
@@ -595,7 +595,7 @@ define( [
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {Object} data
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue} data.issue Issue object.
-	 * @param {CKEDITOR.plugins.a11ychecker.QuickFix} data.quickFix Applied QuickFix object.
+	 * @param {CKEDITOR.plugins.a11ychecker.quickFix.QuickFix} data.quickFix Applied QuickFix object.
 	 */
 
 	return Controller;

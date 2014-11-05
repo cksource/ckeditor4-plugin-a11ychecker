@@ -21,7 +21,7 @@ define( function() {
 	Engine.prototype = {
 		/**
 		 * Provides a mapping {@link CKEDITOR.plugins.a11ychecker.Issue#id} and a
-		 * {@link CKEDITOR.plugins.a11ychecker.quickfix.Base} deriving type name.
+		 * {@link CKEDITOR.plugins.a11ychecker.quickFix.Base} deriving type name.
 		 *
 		 *		EngineType.prototype.fixesMapping = {
 		 *			'imgHasAlt': [ 'ImgAlt' ],
@@ -126,7 +126,7 @@ define( function() {
 	 * @member CKEDITOR.plugins.a11ychecker.Engine
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue
 	 * @param {Function} callback Callback to be called when types are ready. It gets
-	 * one argument, that's array of {@link CKEDITOR.plugins.a11ychecker.quickfix.Base}
+	 * one argument, that's array of {@link CKEDITOR.plugins.a11ychecker.quickFix.Base}
 	 * objects bound to the issue.
 	 *
 	 * @todo: This function requires rewriting, for the time being it needs to do its

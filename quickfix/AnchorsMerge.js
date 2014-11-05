@@ -2,20 +2,20 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'QuickFix', function( QuickFix ) {
 		/**
 		 * QuickFix merging two or more sibling anchors with the same href.
 		 *
-		 * @member CKEDITOR.plugins.a11ychecker.quickfix
+		 * @member CKEDITOR.plugins.a11ychecker.quickFix
 		 * @class AnchorsMerge
 		 * @constructor
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
 		 */
 		function AnchorsMerge( issue ) {
-			Base.call( this, issue );
+			QuickFix.call( this, issue );
 		}
 
-		AnchorsMerge.prototype = new Base();
+		AnchorsMerge.prototype = new QuickFix();
 
 		AnchorsMerge.prototype.constructor = AnchorsMerge;
 
