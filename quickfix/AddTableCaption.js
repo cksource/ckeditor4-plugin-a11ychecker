@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Manual', function( Manual ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
 
 		var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
 
@@ -15,10 +15,10 @@
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
 		 */
 		function AddTableCaption( issue ) {
-			Manual.call( this, issue );
+			Base.call( this, issue );
 		}
 
-		AddTableCaption.prototype = new Manual();
+		AddTableCaption.prototype = new Base();
 
 		AddTableCaption.prototype.constructor = AddTableCaption;
 
@@ -61,7 +61,6 @@
 
 			return ret;
 		};
-
 
 		CKEDITOR.plugins.a11ychecker.quickFixes.add( 'AddTableCaption', AddTableCaption );
 	} );

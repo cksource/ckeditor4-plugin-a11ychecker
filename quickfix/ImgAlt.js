@@ -2,7 +2,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Manual', function( Manual ) {
+	CKEDITOR.plugins.a11ychecker.quickFixes.get( 'Base', function( Base ) {
 
 		var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
 
@@ -12,7 +12,7 @@
 		 * @constructor
 		 */
 		function ImgAlt( issue ) {
-			Manual.call( this, issue );
+			Base.call( this, issue );
 			this.auto = false;
 		}
 
@@ -25,7 +25,7 @@
 		 */
 		ImgAlt.altLengthLimit = 100;
 
-		ImgAlt.prototype = new Manual();
+		ImgAlt.prototype = new Base();
 		ImgAlt.prototype.constructor = ImgAlt;
 
 		ImgAlt.prototype.title = 'Fix alt attribute';
