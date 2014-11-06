@@ -612,6 +612,39 @@
 				mocking.assert.alwaysCalledWith( mock.editableDecorator.markIssueElement, issueMock, mock.issues );
 			},
 
+			'test Controller.attachEditorListeners beforeCommandExec': function() {
+				// Checks if beforeCommandExec event on editor will trigget Controller.setMode.
+				var editorMock = {},
+					controllerMock = {
+						setMode: mocking.spy(),
+						enabled: true
+					};
+				CKEDITOR.event.implementOn( editorMock );
+
+				Controller.prototype.attachEditorListeners.call( controllerMock, editorMock );
+
+				editorMock.fire( 'beforeCommandExec', { name: 'foo' } );
+
+				assert.areSame( 1, controllerMock.setMode.callCount, 'Controller.setMode call count' );
+			},
+
+			'test Controller.attachEditorListeners beforeCommandExec a11y': function() {
+				// Event `beforeCommandExec` should not call a11ychecker.close if called command
+				// is `a11ychecker`.
+				var editorMock = {},
+					controllerMock = {
+						setMode: mocking.spy(),
+						enabled: true
+					};
+				CKEDITOR.event.implementOn( editorMock );
+
+				Controller.prototype.attachEditorListeners.call( controllerMock, editorMock );
+
+				editorMock.fire( 'beforeCommandExec', { name: 'a11ychecker' } );
+
+				assert.areSame( 0, controllerMock.setMode.callCount, 'Controller.setMode call count' );
+			},
+
 			/**
 			 * A helper function to test Controller.onNoIssues method calls from Controller.exec.
 			 *

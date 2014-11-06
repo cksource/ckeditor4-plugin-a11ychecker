@@ -484,6 +484,13 @@ define( [
 		editor.on( 'blur', function() {
 			that.close();
 		} );
+
+		editor.on( 'beforeCommandExec', function( evt ) {
+			var evtName = String( evt.data.name );
+			if ( evtName != 'a11ychecker' && that.enabled ) {
+				that.setMode( Controller.modes.LISTENING );
+			}
+		} );
 	};
 
 	/**
