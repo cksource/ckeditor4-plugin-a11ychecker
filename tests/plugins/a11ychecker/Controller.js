@@ -645,6 +645,27 @@
 				assert.areSame( 0, controllerMock.setMode.callCount, 'Controller.setMode call count' );
 			},
 
+			'test Controller.attachEditorListeners beforeCommandExec canceled': function() {
+				// In this test we'll ensure that canceled beforeCommandExec, with a default
+				// priority will prevent from calling Controller.setMode.
+				var editorMock = {},
+					controllerMock = {
+						setMode: mocking.spy(),
+						enabled: true
+					};
+				CKEDITOR.event.implementOn( editorMock );
+
+				Controller.prototype.attachEditorListeners.call( controllerMock, editorMock );
+
+				editorMock.once( 'beforeCommandExec', function( evt ) {
+					evt.cancel();
+				} );
+
+				editorMock.fire( 'beforeCommandExec', { name: 'foo' } );
+
+				assert.areSame( 0, controllerMock.setMode.callCount, 'Controller.setMode call count' );
+			},
+
 			/**
 			 * A helper function to test Controller.onNoIssues method calls from Controller.exec.
 			 *
