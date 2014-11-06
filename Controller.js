@@ -476,7 +476,12 @@ define( [
 	Controller.prototype.attachEditorListeners = function( editor ) {
 		// Before mode change we want to remove all the a11ychecker markup, hide
 		// whole ui and reset the state.
-		var that = this;
+		var that = this,
+			// Commands that's not going to set AC to listening mode, on
+			// beforeCommandExec. It even sounds to me like a candidate for a
+			// configurable array.
+			handledCommands = [ 'a11ychecker', 'wysiwyg', 'source' ];
+
 		editor.on( 'beforeSetMode', function() {
 			that.close();
 		} );
@@ -484,6 +489,16 @@ define( [
 		editor.on( 'blur', function() {
 			that.close();
 		} );
+
+		editor.on( 'beforeCommandExec', function( evt ) {
+			// This listener should have fairly low proprity, because one might
+			// cancel it for whatever reason.
+			var evtName = String( evt.data.name );
+
+			if ( CKEDITOR.tools.indexOf( handledCommands, evtName ) === -1 && that.enabled ) {
+				that.setMode( Controller.modes.LISTENING );
+			}
+		}, null, null, 9999 );
 	};
 
 	/**
