@@ -17,6 +17,7 @@
     "grunt-jscs": "~0.6.2",
     "grunt-preprocess": "^4.0.0",
     "less": "~1.7.5",
+    "load-grunt-tasks": "^1.0.0",
     "requirejs": "~2.1.14",
     "uglify-js": "~2.4.15"
   },
