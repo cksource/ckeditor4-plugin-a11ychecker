@@ -194,8 +194,6 @@ define( [
 			editor = that.editor,
 			scratchpad;
 
-		focusIssueOffset = focusIssueOffset || 0;
-
 		// Set busy state, so end-user will have "loading" feedback.
 		this.setMode( Controller.modes.BUSY );
 
@@ -220,39 +218,7 @@ define( [
 		// Specify a callback when engine has doon its job. When it's done lets assign the issue list,
 		// and refresh the UI.
 		var completeCallback = function( issueList ) {
-			var checkedEvent;
-			// We need to determine Issue.element properties in each Issue.
-			that.editableDecorator.resolveEditorElements( issueList );
-
-			// Sort the issues so they will keep their DOM order.
-			issueList.sort();
-
-			that.issues = issueList;
-
-			that.setMode( Controller.modes.CHECKING );
-
-			// Notify the UI about update.
-			that.ui.update();
-
-			// Trigger the checked event. If it's canceled then we should not focus first issue by ourself.
-			checkedEvent = that.fire( 'checked', {
-				issues: issueList
-			} );
-
-			if ( checkedEvent !== false ) {
-				if ( issueList.count() ) {
-					// In case when we have any issue, we should move to the next one.
-					if ( focusIssueOffset >= issueList.count() ) {
-						// Ensure that focusIssueOffset is not bigger than actual size.
-						// If it is, we'll start from the begining.
-						focusIssueOffset = 0;
-					}
-					that.showIssue( issueList.getItem( focusIssueOffset ) );
-				} else {
-					// In case when there's no issue lets inform that content is OK.
-					that.onNoIssues();
-				}
-			}
+			that._engineProcessed.call( that, issueList, focusIssueOffset );
 		};
 
 		this.engine.process( this, scratchpad, completeCallback );
@@ -567,6 +533,54 @@ define( [
 		}
 
 		return protectedSpace.scratchpad;
+	};
+
+	/**
+	 * Method to be called when the Engine has processed the scratchpad. Engine should
+	 * pass the `issueList` parameter.
+	 *
+	 * @private
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} issueList Complete list of issues found
+	 * in the scratchpad.
+	 */
+	Controller.prototype._engineProcessed = function( issueList, focusIssueOffset ) {
+		var editor = this.editor,
+			checkedEvent;
+
+		focusIssueOffset = focusIssueOffset || 0;
+
+		// We need to determine Issue.element properties in each Issue.
+		this.editableDecorator.resolveEditorElements( issueList );
+
+		// Sort the issues so they will keep their DOM order.
+		issueList.sort();
+
+		this.issues = issueList;
+
+		this.setMode( Controller.modes.CHECKING );
+
+		// Notify the UI about update.
+		this.ui.update();
+
+		// Trigger the checked event. If it's canceled then we should not focus first issue by ourself.
+		checkedEvent = this.fire( 'checked', {
+			issues: issueList
+		} );
+
+		if ( checkedEvent !== false ) {
+			if ( issueList.count() ) {
+				// In case when we have any issue, we should move to the next one.
+				if ( focusIssueOffset >= issueList.count() ) {
+					// Ensure this focusIssueOffset is not bigger than actual size.
+					// If it is, we'll start from the begining.
+					focusIssueOffset = 0;
+				}
+				this.showIssue( issueList.getItem( focusIssueOffset ) );
+			} else {
+				// In case when there's no issue lets inform this content is OK.
+				this.onNoIssues();
+			}
+		}
 	};
 
 	CKEDITOR.event.implementOn( Controller.prototype );
