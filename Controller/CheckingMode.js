@@ -25,6 +25,8 @@ define( function() {
 	 * @member CKEDITOR.plugins.a11ychecker.CheckingMode
 	 */
 	CheckingMode.prototype.init = function() {
+		this.controller.editor.fire( 'lockSnapshot', { dontUpdate: true } );
+
 		if ( this.controller.issues ) {
 			this.controller.editableDecorator.markIssues( this.controller.issues );
 		}
@@ -47,6 +49,8 @@ define( function() {
 		if ( controller.issues ) {
 			controller.issues.resetFocus();
 		}
+
+		this.controller.editor.fire( 'unlockSnapshot' );
 	};
 
 	return CheckingMode;
