@@ -704,7 +704,9 @@
 		} );
 
 		function getControllerMockup() {
-			return new Controller();
+			var ret = new Controller();
+			mocking.mockProperty( 'editor.fire', ret );
+			return ret;
 		}
 
 		function getViewerControllerMockup() {
@@ -727,7 +729,8 @@
 			};
 
 			controllerMockup.editor = {
-				getData: sinon.spy()
+				getData: sinon.spy(),
+				fire: sinon.spy()
 			};
 
 			controllerMockup.next = sinon.spy();

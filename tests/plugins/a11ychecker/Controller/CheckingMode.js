@@ -17,6 +17,7 @@
 
 				mocking.mockProperty( 'issues.resetFocus', this.controller );
 				mocking.mockProperty( 'viewerController.viewer.panel.hide', this.controller );
+				mocking.mockProperty( 'editor.fire', this.controller );
 
 				this.mock = new CheckingMode( this.controller );
 			},

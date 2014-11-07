@@ -194,6 +194,18 @@ define( [
 			editor = that.editor,
 			scratchpad;
 
+		if ( this.modeType == Controller.modes.CHECKING ) {
+			// If controller is already in checking mode, it means that it's a "recheck",
+			// eg. after applying a QuickFix.
+			// In this case we'll have to unlock snapshot, because CHECKING mode adds a lock
+			// on its own.
+			this.editor.fire( 'unlockSnapshot' );
+			this.editableDecorator.removeMarkup();
+			this.editor.fire( 'saveSnapshot' );
+			// Restore a lock.
+			this.editor.fire( 'lockSnapshot', { dontUpdate: true } );
+		}
+
 		// Set busy state, so end-user will have "loading" feedback.
 		this.setMode( Controller.modes.BUSY );
 
