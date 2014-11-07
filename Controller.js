@@ -480,7 +480,14 @@ define( [
 			// Commands that's not going to set AC to listening mode, on
 			// beforeCommandExec. It even sounds to me like a candidate for a
 			// configurable array.
-			handledCommands = [ 'a11ychecker', 'wysiwyg', 'source' ];
+			handledCommands = [
+				'a11ychecker',
+				'a11ychecker.next',
+				'a11ychecker.prev',
+				'a11ychecker.close',
+				'wysiwyg',
+				'source'
+			];
 
 		editor.on( 'beforeSetMode', function() {
 			that.close();
