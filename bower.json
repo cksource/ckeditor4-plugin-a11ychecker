@@ -1,13 +1,10 @@
 {
   "name": "ckeditor-a11ychecker",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "homepage": "https://github.com/cksource/ckeditor-a11ychecker",
   "authors": "CKSource (http://cksource.com/)",
-  "license": "MIT",
+  "license": "",
   "private": true,
-  "dependencies": {
-    "quail": "2.1.1"
-  },
   "ignore": [
     "**/.*",
     "node_modules",
