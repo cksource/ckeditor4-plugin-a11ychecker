@@ -135,15 +135,21 @@
 		 */
 		commandRegister: function( editor ) {
 			editor.addCommand( pluginName, {
-				exec: cmdExec
+				exec: cmdExec,
+				async: true,
+				canUndo: false
 			} );
 
 			editor.addCommand( pluginName + '.next', {
-				exec: cmdNext
+				exec: cmdNext,
+				async: true,
+				canUndo: false
 			} );
 
 			editor.addCommand( pluginName + '.prev', {
-				exec: cmdPrev
+				exec: cmdPrev,
+				async: true,
+				canUndo: false
 			} );
 
 			editor.addCommand( pluginName + '.close', {
