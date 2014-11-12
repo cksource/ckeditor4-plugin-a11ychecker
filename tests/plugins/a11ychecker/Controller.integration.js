@@ -13,8 +13,19 @@
 		startupData: '<p>foo</p>'
 	};
 
-	require( [ 'helpers/sinon/sinon_amd.min', 'Controller', 'EngineMock', 'ui/ViewerController', 'EngineDefault' ], function( sinon, Controller, EngineMock ) {
+	require( [ 'mocking', 'Controller', 'EngineMock', 'mock/ui/ViewerControllerMockup', 'ui/ViewerController', 'EngineDefault' ], function( mocking, Controller, EngineMock, ViewerControllerMockup ) {
+		var sinon = mocking.sinon;
 		bender.test( {
+			setUp: function() {
+					var a11ychecker = this.editor._.a11ychecker;
+					// Make sure that AC is closed.
+					a11ychecker.close();
+					// Even though it's an integration test, we won't use real enigne, to keep
+					// checking synchronous.
+					a11ychecker.setEngine( new EngineMock() );
+					a11ychecker.viewerController = new ViewerControllerMockup();
+			},
+
 			'test non inited plugin .close()': function() {
 				// When plugin is not inited its .close() call shouldn't throw any
 				// exception.
@@ -86,10 +97,6 @@
 
 			'test command sets listening mode': function() {
 				var a11ychecker = this.editor._.a11ychecker;
-				a11ychecker.setEngine( new EngineMock() );
-
-				// This is needed due to the #51 fix.
-				this.editor.window = CKEDITOR.document.getWindow();
 
 				a11ychecker.exec();
 
