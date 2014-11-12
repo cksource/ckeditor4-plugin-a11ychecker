@@ -160,8 +160,11 @@ define( [
 	 * It toggles the state of Accessibility Checker, if it's disabled then Accessibility
 	 * Checker will be enabled, and perform content checking. In case of Accessibility
 	 * Checker being already enabled, it will close it.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {Function} callback Callback to be called when the function is executed.
 	 */
-	Controller.prototype.exec = function() {
+	Controller.prototype.exec = function( callback ) {
 		if ( this.enabled ) {
 			this.close();
 			return;
@@ -174,7 +177,7 @@ define( [
 		this.enable();
 
 		// Do content checking.
-		this.check();
+		this.check( 0, callback );
 	};
 
 	/**
@@ -188,8 +191,9 @@ define( [
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {Number} focusIssueOffset Offset of the issue to be focused after checking
 	 * is done. If element with given offset doesn't exist, the first one will be focused.
+	 * @param {Function} callback Callback to be called when the function is executed.
 	 */
-	Controller.prototype.check = function( focusIssueOffset ) {
+	Controller.prototype.check = function( focusIssueOffset, callback ) {
 		var that = this,
 			editor = that.editor,
 			scratchpad;
@@ -231,6 +235,9 @@ define( [
 		// and refresh the UI.
 		var completeCallback = function( issueList ) {
 			that._engineProcessed.call( that, issueList, focusIssueOffset );
+			if ( callback ) {
+				callback.call( that );
+			}
 		};
 
 		this.engine.process( this, scratchpad, completeCallback );
