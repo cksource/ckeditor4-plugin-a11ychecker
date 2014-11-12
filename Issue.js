@@ -5,14 +5,14 @@ define( function() {
 	/**
 	 * Represents a single accessibility issue within content.
 	 *
-	 * This object contains only essential informations about the issue, such as:
+	 * This object contains only essential information about the issue, such as:
 	 *
 	 * * {@link #element}
 	 * * {@link #id}
 	 * * {@link #testability}
 	 *
-	 * By default it does not provide informations like title, or description. These
-	 * informations are available using {@link CKEDITOR.plugins.a11ychecker.IssueDetails}
+	 * By default it does not provide information like title, or description. These
+	 * information are available using {@link CKEDITOR.plugins.a11ychecker.IssueDetails}
 	 * object returned by {@link #getDetails}.
 	 *
 	 * This allows Issue object to be more lightweight object.

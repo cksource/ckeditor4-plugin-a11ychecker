@@ -3,7 +3,7 @@ define( function() {
 	'use strict';
 
 	/**
-	 * IssueDetails instance contains more detailed informations about the Issue,
+	 * IssueDetails instance contains more detailed information about the Issue,
 	 * like a title, description.
 	 *
 	 * @class CKEDITOR.plugins.a11ychecker.IssueDetails
