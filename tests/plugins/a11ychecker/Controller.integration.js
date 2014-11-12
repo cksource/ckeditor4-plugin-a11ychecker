@@ -18,12 +18,15 @@
 		bender.test( {
 			setUp: function() {
 					var a11ychecker = this.editor._.a11ychecker;
-					// Make sure that AC is closed.
-					a11ychecker.close();
 					// Even though it's an integration test, we won't use real enigne, to keep
 					// checking synchronous.
 					a11ychecker.setEngine( new EngineMock() );
 					a11ychecker.viewerController = new ViewerControllerMockup();
+			},
+
+			tearDown: function() {
+				// Make sure that AC is closed.
+				this.editor._.a11ychecker.close();
 			},
 
 			'test non inited plugin .close()': function() {
