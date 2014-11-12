@@ -10,11 +10,20 @@ define( [ 'ui/ViewerController', 'mocking' ], function( ViewerController, mockin
 	 * @constructor
 	 */
 	function ViewerControllerMockup() {
+		var that = this;
+
 		for ( var i in ViewerController.prototype ) {
 			ViewerControllerMockup.prototype[ i ] = mocking.spy();
 		}
 
 		mocking.mockProperty( 'viewer.panel.hide', this );
+		mocking.mockProperty( 'viewer.navigation.parts.next.focus', this );
+
+		this.showIssue = mocking.spy( function( issues, cfg ) {
+			if ( cfg && cfg.callback ) {
+				cfg.callback.call( that );
+			}
+		} );
 	}
 
 	ViewerControllerMockup.prototype = {};

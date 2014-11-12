@@ -50,6 +50,99 @@
 				assert.isTrue( true );
 			},
 
+			'test a11ychecker command fires afterCommandExec event': function() {
+				var eventCount = 0,
+					listener;
+
+				listener = this.editor.on( 'afterCommandExec', function( evt ) {
+					if ( evt.data && evt.data.name !== 'a11ychecker' ) {
+						return ;
+					}
+
+					eventCount += 1;
+
+					var data = evt.data;
+					assert.isInstanceOf( Object, data, 'afterCommandExec data property is an object' );
+					assert.areSame( 'a11ychecker', data.name, 'data.name property' );
+					assert.isInstanceOf( CKEDITOR.command, data.command, 'data.command property' );
+					assert.isInstanceOf( Object, data.commandData, 'data.commandData property' );
+				} );
+
+				try {
+					this.editor.execCommand( 'a11ychecker' );
+
+					assert.areSame( 1, eventCount, 'Event fired only once' );
+				} catch( e ) {
+					throw e;
+				} finally {
+					listener.removeListener();
+				}
+			},
+
+			'test a11ychecker.next command fires afterCommandExec event': function() {
+				var eventCount = 0,
+					listener;
+
+				this.editor.execCommand( 'a11ychecker' );
+
+				listener = this.editor.on( 'afterCommandExec', function( evt ) {
+					if ( evt.data && evt.data.name !== 'a11ychecker.next' ) {
+						return ;
+					}
+
+					eventCount += 1;
+
+					var data = evt.data;
+					assert.isInstanceOf( Object, data, 'afterCommandExec data property is an object' );
+					assert.areSame( 'a11ychecker.next', data.name, 'data.name property' );
+					assert.isInstanceOf( CKEDITOR.command, data.command, 'data.command property' );
+					assert.isInstanceOf( Object, data.commandData, 'data.commandData property' );
+				} );
+
+				try {
+					// Since next() command is async, we need to wait for the afterCommandExec event.
+					this.editor.execCommand( 'a11ychecker.next' );
+
+					assert.areSame( 1, eventCount, 'Event fired only once' );
+				} catch( e ) {
+					throw e;
+				} finally {
+					listener.removeListener();
+				}
+			},
+
+			'test a11ychecker.prev command fires afterCommandExec event': function() {
+				var eventCount = 0,
+					listener;
+
+				this.editor.execCommand( 'a11ychecker' );
+
+				listener = this.editor.on( 'afterCommandExec', function( evt ) {
+					if ( evt.data && evt.data.name !== 'a11ychecker.prev' ) {
+						return ;
+					}
+
+					eventCount += 1;
+
+					var data = evt.data;
+					assert.isInstanceOf( Object, data, 'afterCommandExec data property is an object' );
+					assert.areSame( 'a11ychecker.prev', data.name, 'data.name property' );
+					assert.isInstanceOf( CKEDITOR.command, data.command, 'data.command property' );
+					assert.isInstanceOf( Object, data.commandData, 'data.commandData property' );
+				} );
+
+				try {
+					// Since prev() command is async, we need to wait for the afterCommandExec event.
+					this.editor.execCommand( 'a11ychecker.prev' );
+
+					assert.areSame( 1, eventCount, 'Event fired only once' );
+				} catch( e ) {
+					throw e;
+				} finally {
+					listener.removeListener();
+				}
+			},
+
 			'test change to sourcemode': function() {
 				var a11ychecker = this.editor._.a11ychecker,
 					editor = this.editor;

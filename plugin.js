@@ -177,22 +177,40 @@
 	 */
 	function cmdNext( editor ) {
 		if ( a11ycheckerInCheckingMode( editor ) ) {
-			return editor._.a11ychecker.next();
+			return generateCommand( editor, 'a11ychecker.next', 'next' );
 		}
 	}
 
 	function cmdPrev( editor ) {
 		if ( a11ycheckerInCheckingMode( editor ) ) {
-			return editor._.a11ychecker.prev();
+			return generateCommand( editor, 'a11ychecker.prev', 'prev' );
 		}
 	}
 
 	function cmdExec( editor ) {
-		return editor._.a11ychecker.exec();
+		return generateCommand( editor, 'a11ychecker', 'exec' );
 	}
 
 	function cmdClose( editor ) {
 		return editor._.a11ychecker.close();
+	}
+
+	// A function to generate an async command exec function.
+	//
+	// @param {CKEDITOR.editor} editor
+	// @param {String} name Name of the command to be registered.
+	// @param {String} controllerMethod Name of method in controller that should be called.
+	// @returns {Mixed} Any value that related method will return.
+	function generateCommand( editor, name, controllerMethod ) {
+		return editor._.a11ychecker[ controllerMethod ]( function() {
+			// Since the command is async, we need to fire afterCommandExec event
+			// on our own.
+			editor.fire( 'afterCommandExec', {
+				name: name,
+				command: editor.getCommand( name ),
+				commandData: {}
+			} );
+		} );
 	}
 
 	// Tmp helper method, returns true if given editor Accessibility Checker is in
