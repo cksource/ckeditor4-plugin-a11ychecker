@@ -25,8 +25,6 @@
 
 				// Snapshot manager needs to be reset.
 				this.editor.resetUndo();
-				// Force lock state to be disabled. Eventually we might not need it.
-				//this.editor.undoManager.locked = null;
 			},
 
 			tearDown: function() {
@@ -49,13 +47,13 @@
 				this.editor.execCommand( 'a11ychecker' );
 				// Close AC.
 				this.editor.execCommand( 'a11ychecker' );
-				this.assertSnapshotCount( 1, 'No snapshot made after first closing' );
+				this.assertSnapshotCount( INITIAL_SNAPSHOT_COUNT, 'No snapshot made after first closing' );
 				// Open.
 				this.editor.execCommand( 'a11ychecker' );
 				// Close.
 				this.editor.execCommand( 'a11ychecker' );
 
-				this.assertSnapshotCount( 1 );
+				this.assertSnapshotCount( INITIAL_SNAPSHOT_COUNT );
 			},
 
 			'test undo unlock in listening mode': function() {
@@ -104,7 +102,7 @@
 							a11ychecker.applyQuickFix( renameFix, {} );
 
 							// It should produce two **additional** snaps, so 3 in total.
-							that.assertSnapshotCount( 3, 'Snapshot count after 2 QuickFixes' );
+							that.assertSnapshotCount( INITIAL_SNAPSHOT_COUNT + 2, 'Snapshot count after 2 QuickFixes' );
 
 							this.assertSnapshotsMarkup();
 						} );
