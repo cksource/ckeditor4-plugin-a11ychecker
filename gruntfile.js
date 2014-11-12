@@ -8,6 +8,9 @@
 
 'use strict';
 
+// Note:
+// You can also find some information on how to use some grunt tasks in README.md.
+
 module.exports = function( grunt ) {
 
 	require( 'load-grunt-tasks' )( grunt );
