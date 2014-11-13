@@ -63,9 +63,9 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			this.editor.focus();
 
 			// (#51).
-			if ( a11ychecker.issues.getFocused() ) {
-				a11ychecker.issues.resetFocus();
-			}
+			//if ( a11ychecker.issues.getFocused() ) {
+			//	a11ychecker.issues.resetFocus();
+			//}
 		}, this, null, 5 );
 
 		// Handle "previous" button click in the panel.
@@ -231,18 +231,24 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			issue.element.scrollIntoView();
 
 			// Wait for the scroll to stabilize.
-			CKEDITOR.tools.setTimeout( function() {
+			//CKEDITOR.tools.setTimeout( function() {
 				scrollListener.removeListener();
 
 				// Since #51, the issue is unfocused on editor window's scroll (because the panel is hidden).
 				// While it is OK when the scroll is an user interaction, we don't want the issue to be
 				// unfocused when the scroll originates from element#scrollIntoView. That's why the issue
 				// focus must be immediately restored in such case, after the scrolling is done (#51).
-				if ( windowScrolled ) {
-					this.a11ychecker.showIssue( issue );
-				}
+				//if ( windowScrolled ) {
+				//	this.a11ychecker.showIssue( issue );
+				//}
 
 				this.viewer.panel.attach( issue.element );
+
+				var a11ychecker = this.a11ychecker;
+				this.editor.window.once( 'scroll', function() {
+					//windowScrolled = true;
+					a11ychecker.issues.resetFocus();
+				} );
 
 				if ( params ) {
 					if ( params.event ) {
@@ -253,7 +259,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 						params.callback.call( this );
 					}
 				}
-			}, 50, this );
+			//}, 50, this );
 		},
 
 		/**
