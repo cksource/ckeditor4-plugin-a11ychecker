@@ -26,14 +26,12 @@
 
 			// Namespace register.
 			require( [
-				'Controller',
 				'Engine',
 				'Issue',
 				'IssueList',
 				'IssueDetails',
 				'QuickFix/Repository'
 			], function(
-				Controller,
 				Engine,
 				Issue,
 				IssueList,
@@ -41,44 +39,13 @@
 				Repository
 			) {
 				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
-					Controller: Controller,
 					Engine: Engine,
 					Issue: Issue,
 					IssueList: IssueList,
-					IssueDetails: IssueDetails,
-					quickfix: {
-						Repository: Repository
-					}
+					IssueDetails: IssueDetails
 				} );
 
 				CKEDITOR.plugins.a11ychecker.quickFixes = new Repository( path + 'QuickFix/' );
-			} );
-
-			// Expose UI classes.
-			require( [
-				'ui/ViewerInputs',
-				'ui/ViewerInput',
-				'ui/ViewerDescription',
-				'ui/ViewerNavigation',
-				'ui/Viewer',
-				'ui/ViewerForm'
-			], function(
-				ViewerInputs,
-				ViewerInput,
-				ViewerDescription,
-				ViewerNavigation,
-				Viewer,
-				ViewerForm
-			) {
-				// Make all Viewer* classes public.
-				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
-					viewer: Viewer,
-					viewerNavigation: ViewerNavigation,
-					viewerDescription: ViewerDescription,
-					viewerForm: ViewerForm,
-					viewerInput: ViewerInput,
-					viewerInputs: ViewerInputs
-				} );
 			} );
 		},
 
