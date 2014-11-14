@@ -10,7 +10,7 @@
  * start tests.
  */
 
-define( [ 'mocking', 'QuickFix/Repository' ], function( mocking, Repository ) {
+define( [ 'mocking', 'quickfix/Repository' ], function( mocking, Repository ) {
 	return function( quickFixName, tests ) {
 		var appBaseDir = '/apps/ckeditor/plugins/a11ychecker/QuickFix/';
 

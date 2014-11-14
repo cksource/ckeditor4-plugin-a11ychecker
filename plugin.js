@@ -30,7 +30,7 @@
 				'Issue',
 				'IssueList',
 				'IssueDetails',
-				'QuickFix/Repository'
+				'quickfix/Repository'
 			], function(
 				Engine,
 				Issue,
@@ -45,7 +45,7 @@
 					IssueDetails: IssueDetails
 				} );
 
-				CKEDITOR.plugins.a11ychecker.quickFixes = new Repository( path + 'QuickFix/' );
+				CKEDITOR.plugins.a11ychecker.quickFixes = new Repository( path + 'quickfix/' );
 			} );
 		},
 

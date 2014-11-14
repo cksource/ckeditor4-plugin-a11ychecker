@@ -18,7 +18,7 @@
 				assert.areSame( 1, require.callCount, 'require calls count' );
 				var requireParam = require.getCalls()[ 0 ].args[ 0 ];
 				assert.isInstanceOf( Array, requireParam, 'Invalid param type given to require()' );
-				assert.areSame( 'QuickFix/Foo', requireParam[ 0 ], 'Invalid param value given to require()' );
+				assert.areSame( 'quickfix/Foo', requireParam[ 0 ], 'Invalid param value given to require()' );
 
 				require = originRequire;
 			},

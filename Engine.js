@@ -102,7 +102,7 @@ define( function() {
 			}
 		} else {
 			// Lets do a request for given type.
-			require( [ 'QuickFix/' + fixClass ], function( quickFixType ) {
+			require( [ 'quickfix/' + fixClass ], function( quickFixType ) {
 				// Having the type we can store it and return via callback.
 				Engine.fixes[ fixClass ] = quickFixType;
 

@@ -94,7 +94,7 @@ module.exports = function( grunt ) {
 			build: {
 				// nonull to let us know if any of given entiries is missing.
 				nonull: true,
-				src: [ 'skins/**', 'styles/**', 'QuickFix/**', 'icons/**', 'lang/*' ],
+				src: [ 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*' ],
 				dest: 'build/a11ychecker/'
 			},
 
