@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'QuickFix/Repository', 'mocking' ], function( Repository, mocking ) {
+	require( [ 'quickfix/Repository', 'mocking' ], function( Repository, mocking ) {
 		bender.test( {
 			'test Repository.get': function() {
 				var mock = new Repository(),
