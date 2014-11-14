@@ -198,7 +198,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 
 			checking: {
 				panelShowListeners: function( viewer ) {
-					return [
+					var ret = [
 						// Hide the panel once blurred.
 						function() {
 							return this.parts.panel.on( 'blur', function( evt ) {
@@ -228,7 +228,21 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 								this.hide();
 							}, this );
 						}
-					]
+					];
+
+					// This workaround is needed for Chrome (bug) so that it won't put keyboard
+					// input to the last contenteditable element, even if anchor is focused. (#39)
+					if ( CKEDITOR.env.chrome ) {
+						ret.push( function() {
+							return this.parts.panel.on( 'keydown', function( evt ) {
+								if ( CKEDITOR.env.chrome && !evt.data.getTarget().is( 'input', 'select', 'textarea' ) ) {
+									evt.data.preventDefault();
+								}
+							} );
+						} );
+					}
+
+					return ret;
 				}
 			}
 		},
@@ -310,6 +324,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 			this.mode = mode;
 		}
 	};
+
 
 	return Viewer;
 } );
