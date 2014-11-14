@@ -92,18 +92,18 @@ Other samples will not work because of RequireJS dependency, which is not a part
 
 ## Tests Installation
 
-Create a symbolic link
+Create a symbolic link to the `tests` directory.
 
 Linux:
 
 ```bash
-ln -s $CKEDITOR_DEV_PATH/plugins/a11ychecker/tests/plugins/a11ychecker $CKEDITOR_DEV_PATH/tests/plugins/a11ychecker
+ln -s $CKEDITOR_DEV_PATH/plugins/a11ychecker/tests/plugins/a11ychecker $CKEDITOR_DEV_PATH/tests
 ```
 
 Windows (run cli as administrator):
 
 ```bat
-mklink /D "%CKEDITOR_DEV_PATH%/tests/plugins/a11ychecker" "%CKEDITOR_DEV_PATH%/plugins/a11ychecker/tests/plugins/a11ychecker"
+mklink /D "%CKEDITOR_DEV_PATH%/tests/plugins/a11ychecker" "%CKEDITOR_DEV_PATH%/plugins/a11ychecker/tests"
 ```
 
 ## License
