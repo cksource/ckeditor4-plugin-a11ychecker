@@ -193,8 +193,13 @@ define( [
 	 * Note: depending on used engine results might be asynchronous.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {Object} [options]
 	 * @param {Boolean} [options.ui] Property telling if UI should be shown.
-	 * @param {Function} [options.callback] A function to be called after checking is done.
+	 * @param {Function} [options.callback] A function to be called after checking is done. It gets
+	 * two arguments:
+	 *
+	 * * `Boolean` - Telling if content is valid
+	 * * `IssueList` - Object containing found issues.
 	 * @param {Number} [options.focusIssueOffset]  Offset of the issue to be focused after
 	 * checking is done. If element with given offset doesn't exist, the first one will be focused.
 	 */
@@ -255,7 +260,7 @@ define( [
 			} );
 
 			if ( options.callback ) {
-				options.callback.call( that, issueList );
+				options.callback.call( that, issueList.count( true ) === true, issueList );
 			}
 
 			if ( checkedEvent !== false ) {

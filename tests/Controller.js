@@ -71,7 +71,15 @@
 
 				var listMock = {
 					sort: mocking.spy(),
-					count: mocking.spy()
+					count: mocking.spy( function() {
+						return  2;
+					} )
+				};
+
+				// Overwrite fire so it will prevent any extra logic. And we dont't
+				// expect any events beside checked to be fired.
+				this.mockup.fire = function() {
+					return false;
 				};
 
 				this.mockup.engine.process = function( a11ychecker, scratchpad, completeCallback ) {
@@ -85,7 +93,7 @@
 				this.mockup.check( options );
 
 				assert.areSame( 1, options.callback.callCount, 'Callback call count' );
-				mocking.assert.calledWith( options.callback, listMock );
+				mocking.assert.calledWith( options.callback, false, listMock );
 			},
 
 			'test Controller.check gui featured call': function() {
