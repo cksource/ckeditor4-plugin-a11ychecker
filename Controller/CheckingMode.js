@@ -44,7 +44,7 @@ define( function() {
 		}
 
 		if ( CKEDITOR.env.chrome && this.controller.editor ) {
-			this._storedSel = this.controller.editor.getSelection().createBookmarks2();
+			this._storedSel = this.controller.editor.getSelection().createBookmarks();
 		}
 	};
 
