@@ -66,6 +66,58 @@
 				assert.areSame( 1, this.mockup.close.callCount, 'Controller.close calls count' );
 			},
 
+			'test Controller.check callback': function() {
+				patchMockupForExecMethod( this.mockup );
+
+				var listMock = {
+					sort: mocking.spy(),
+					count: mocking.spy( function() {
+						return  2;
+					} )
+				};
+
+				// Overwrite fire so it will prevent any extra logic. And we dont't
+				// expect any events beside checked to be fired.
+				this.mockup.fire = function() {
+					return false;
+				};
+
+				this.mockup.engine.process = function( a11ychecker, scratchpad, completeCallback ) {
+					completeCallback.call( a11ychecker, listMock );
+				};
+
+				var options = {
+					callback: sinon.spy()
+				};
+
+				this.mockup.check( options );
+
+				assert.areSame( 1, options.callback.callCount, 'Callback call count' );
+				mocking.assert.calledWith( options.callback, false, listMock );
+			},
+
+			'test Controller.check gui featured call': function() {
+				patchMockupForCheckMethod( this.mockup );
+
+				this.mockup.check( {
+					ui: true
+				} );
+
+				assert.areSame( 1, this.mockup.ui.show.callCount, 'ui show was called' );
+				assert.areSame( 1, this.mockup.ui.update.callCount, 'ui update was called' );
+			},
+
+			'test Controller.check gui-less call': function() {
+				patchMockupForCheckMethod( this.mockup );
+
+				this.mockup.check( {
+					ui: false
+				} );
+
+				assert.areSame( 0, this.mockup.ui.show.callCount, 'ui show was not called' );
+				assert.areSame( 0, this.mockup.ui.update.callCount, 'ui update was not called' );
+			},
+
 			'test Controller.disable': function() {
 				var mockup = this.mockup;
 
@@ -517,7 +569,10 @@
 				controllerMock._onQuickFix( quickFix );
 
 				assert.areEqual( 1, controllerMock.check.callCount, 'Controller.exec call count' );
-				sinon.assert.calledWith( controllerMock.check, 3 );
+				sinon.assert.calledWith( controllerMock.check, {
+					focusIssueOffset: 3,
+					ui: true
+				} );
 			},
 
 			'test Controller._onQuickFix event cancel': function() {
@@ -736,6 +791,22 @@
 			controllerMockup.ui.update = sinon.spy();
 			controllerMockup.fire = sinon.spy();
 			controllerMockup.onNoIssues = sinon.spy();
+		}
+
+		function patchMockupForCheckMethod( controllerMockup ) {
+			patchMockupForExecMethod( controllerMockup );
+
+			controllerMockup.engine.process = function( a11ychecker, scratchpad, completeCallback ) {
+				completeCallback.call( a11ychecker, {
+					sort: mocking.spy(),
+					count: mocking.spy()
+				} );
+			};
+
+			controllerMockup.ui = {
+				update: mocking.spy(),
+				show: mocking.spy()
+			};
 		}
 	} );
 } )();

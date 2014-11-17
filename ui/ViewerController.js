@@ -115,7 +115,9 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 
 		// Leave listening mode if the button of the indicator was pressed.
 		viewer.listeningIndicator.on( 'check', function() {
-			a11ychecker.check();
+			a11ychecker.check( {
+				ui: true
+			} );
 			a11ychecker.editor.focus();
 		}, this );
 	}

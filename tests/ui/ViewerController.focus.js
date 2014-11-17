@@ -97,7 +97,9 @@
 					expectedFocusElem = viewer.navigation.parts.next;
 
 				// Perform check, so we have a11ychecker.list
-				a11ychecker.check();
+				a11ychecker.check( {
+					ui: true
+				} );
 
 				var issuedElement = a11ychecker.issues.getItem( 0 ).element,
 					evt = {
