@@ -430,6 +430,7 @@
 					a11ychecker: {
 						showIssueByElement: sinon.spy(),
 						setMode: sinon.spy(),
+						mode: {},
 						enabled: 1
 					}
 				}

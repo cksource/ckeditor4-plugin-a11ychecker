@@ -220,6 +220,11 @@ define( function() {
 			} );
 			a11ychecker.setMode( 1 );
 		} else if ( a11ychecker.enabled ) {
+			if ( a11ychecker.mode._storedSel ) {
+				// Part of Chrome workaround for #39.
+				a11ychecker.mode._storedSel = null;
+			}
+
 			// User clicked area without issue.
 			// Listening mode...
 			a11ychecker.setMode( 2 );
