@@ -426,7 +426,8 @@
 				_: {
 					a11ychecker: {
 						showIssueByElement: sinon.spy(),
-						setMode: sinon.spy()
+						setMode: sinon.spy(),
+						enabled: 1
 					}
 				}
 			};
