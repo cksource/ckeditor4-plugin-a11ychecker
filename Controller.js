@@ -431,6 +431,12 @@ define( [
 		this.ui.hide();
 
 		this.mode.close();
+
+		// Closing AC should result with removing mode object.
+		// Otherwise next time we set it in eg. BUSY mode it will call
+		// "old" mode.close method.
+		this.mode = null;
+		this.modeType = null;
 	};
 
 	/**

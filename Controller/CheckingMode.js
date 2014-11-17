@@ -14,6 +14,20 @@ define( function() {
 		 * @property {CKEDITOR.plugins.a11ychecker.Controller} controller
 		 */
 		this.controller = controller;
+
+		/**
+		 * This property is solely for workarounding Chrome
+		 * [#433303](https://code.google.com/p/chromium/issues/detail?id=433303) bug.
+		 *
+		 * It stores the selection before enabling CHECKING mode, so when mode is closed
+		 * it can retrieve original selection.
+		 *
+		 * More details can be found in ticket #39.
+		 *
+		 * @property {null/Object} _storedSel
+		 * @private
+		 */
+		this._storedSel = null;
 	}
 
 	CheckingMode.prototype = {};
@@ -27,6 +41,10 @@ define( function() {
 	CheckingMode.prototype.init = function() {
 		if ( this.controller.issues ) {
 			this.controller.editableDecorator.markIssues( this.controller.issues );
+		}
+
+		if ( CKEDITOR.env.chrome && this.controller.editor ) {
+			this._storedSel = this.controller.editor.getSelection().createBookmarks();
 		}
 	};
 
@@ -46,6 +64,10 @@ define( function() {
 
 		if ( controller.issues ) {
 			controller.issues.resetFocus();
+		}
+
+		if ( this._storedSel ) {
+			this.controller.editor.getSelection().selectBookmarks( this._storedSel );
 		}
 	};
 
