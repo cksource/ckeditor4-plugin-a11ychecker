@@ -174,33 +174,46 @@ define( [
 		this.enable();
 
 		// Do content checking.
-		this.check();
+		this.check( {
+			ui: true
+		} );
 	};
 
 	/**
 	 * This method will force content checking. It's considered to be an internal method
 	 * if you want to simply trigger Accessibility Checker consider using {@link #exec}.
 	 *
+	 * By default it's not showing the ui.
+	 *
 	 * Automatically sets the Controller mode to `BUSY` / `CHECKING`.
+	 *
+	 * Accessibility Checker does not need to have {@link #enabled} set to `true` in order
+	 * to execute this function.
 	 *
 	 * Note: depending on used engine results might be asynchronous.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
-	 * @param {Number} focusIssueOffset Offset of the issue to be focused after checking
-	 * is done. If element with given offset doesn't exist, the first one will be focused.
+	 * @param {Boolean} [options.ui] Property telling if UI should be shown.
+	 * @param {Function} [options.callback] A function to be called after checking is done.
+	 * @param {Number} [options.focusIssueOffset]  Offset of the issue to be focused after
+	 * checking is done. If element with given offset doesn't exist, the first one will be focused.
 	 */
-	Controller.prototype.check = function( focusIssueOffset ) {
+	Controller.prototype.check = function( options ) {
+
+		options = options || {};
+
 		var that = this,
 			editor = that.editor,
+			focusIssueOffset = options.focusIssueOffset || 0,
 			scratchpad;
-
-		focusIssueOffset = focusIssueOffset || 0;
 
 		// Set busy state, so end-user will have "loading" feedback.
 		this.setMode( Controller.modes.BUSY );
 
-		// UI must be visible.
-		this.ui.show();
+		if ( options.ui ) {
+			// UI must be visible.
+			this.ui.show();
+		}
 
 		// Get the element where we will save tmp output.
 		scratchpad = this.getTempOutput();
@@ -231,13 +244,19 @@ define( [
 
 			that.setMode( Controller.modes.CHECKING );
 
-			// Notify the UI about update.
-			that.ui.update();
+			if ( options.ui ) {
+				// Notify the UI about update.
+				that.ui.update();
+			}
 
 			// Trigger the checked event. If it's canceled then we should not focus first issue by ourself.
 			checkedEvent = that.fire( 'checked', {
 				issues: issueList
 			} );
+
+			if ( options.callback ) {
+				options.callback.call( that, issueList );
+			}
 
 			if ( checkedEvent !== false ) {
 				if ( issueList.count() ) {
@@ -541,7 +560,10 @@ define( [
 			issueOffset = this.issues.indexOf( quickFix.issue );
 
 		if ( eventResult !== false ) {
-			this.check( issueOffset );
+			this.check( {
+				focusIssueOffset: issueOffset,
+				ui: true
+			} );
 		}
 	};
 
