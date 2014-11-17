@@ -202,34 +202,31 @@
 
 			'test Controller.close': function() {
 				var issueClearCalls = 0,
-					removeMarkupCalls = 0,
-					uiHideCalls = 0,
 					issuesMock = {
 						clear: function() { issueClearCalls += 1; }
 					},
 					controllerMockup = {
 						issues: issuesMock,
 						enabled: true,
-						editableDecorator: {
-							removeMarkup: function() { removeMarkupCalls += 1; }
-						},
 						ui: {
 							hide: sinon.spy()
 						},
 						close: Controller.prototype.close,
 						disable: sinon.spy(),
-						mode: {
-							close: sinon.spy()
-						}
-					};
+						modeType: 1
+					},
+					modeClose = mocking.mockProperty( 'mode.close', controllerMockup );
 
 				controllerMockup.close();
 
 				assert.areSame( 1, issueClearCalls, 'Controller.issue.clear calls count' );
-				//assert.areSame( 1, removeMarkupCalls, 'Controller.editableDecorator.removeMarkupCalls calls count' );
 				assert.areSame( 1, controllerMockup.ui.hide.callCount, 'ui.hide call count' );
 				assert.areSame( 1, controllerMockup.disable.callCount, 'Controller.disable calls count' );
 
+				assert.areSame( 1, modeClose.callCount, 'Controller.mode.close call count' );
+				// Ensure that mode was unset.
+				assert.isNull( controllerMockup.modeType, 'mode property reset' );
+				assert.isNull( controllerMockup.modeType, 'modeType property reset' );
 			},
 
 			'test Controller.next': function() {
