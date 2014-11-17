@@ -68,6 +68,35 @@
 				assert.areSame( 2, callsCount, 'Callback calls count' );
 			},
 
+			'test IssueList.count without ignored': function() {
+				var list = new IssueList();
+
+				list.list = [
+					{
+						isIgnored: function() {
+							return true;
+						}
+					},
+					{
+						isIgnored: function() {
+							return true;
+						}
+					},
+					{
+						isIgnored: function() {
+							return false;
+						}
+					},
+					{
+						isIgnored: function() {
+							return false;
+						}
+					}
+				];
+
+				assert.areSame( 2, list.count( true ), 'ret value' );
+			},
+
 			'test IssueList.clear': function() {
 				var list = new IssueList();
 				list.list = [ {} ];

@@ -61,10 +61,23 @@ define( function() {
 
 	/**
 	 * @member CKEDITOR.plugins.a11ychecker.IssueList
+	 * @param {Boolean} excludeIgnored If `true` ignored issues won't be counted.
 	 * @returns {Number} Issues count.
 	 */
-	IssueList.prototype.count = function() {
-		return this.list.length;
+	IssueList.prototype.count = function( excludeIgnored ) {
+		if ( excludeIgnored ) {
+			var ret = 0,
+				i = 0;
+			for ( i = 0; i < this.list.length; i++ ) {
+				if ( !this.list[ i ].isIgnored() ) {
+					ret += 1;
+				}
+			}
+
+			return ret;
+		} else {
+			return this.list.length;
+		}
 	};
 
 	/**
