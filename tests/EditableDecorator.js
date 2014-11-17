@@ -205,6 +205,7 @@
 				patchMockupForClick( this.mockup );
 
 				var showIssueByElementMock = this.mockup.editor._.a11ychecker.showIssueByElement,
+					setModeMock = this.mockup.editor._.a11ychecker.setMode,
 					element = CKEDITOR.document.getById( 'nestedIssue' ).$,
 					evtMock = new CKEDITOR.dom.event( {
 						target: element
@@ -214,6 +215,8 @@
 
 				assert.areSame( 1, showIssueByElementMock.callCount, 'Controller.showIssueByElement calls count' );
 				assert.areSame( element, showIssueByElementMock.args[ 0 ][ 0 ].$ );
+
+				mocking.assert.calledWith( setModeMock, 1 );
 			},
 
 			'test clickListener nested': function() {

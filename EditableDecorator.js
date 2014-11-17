@@ -209,13 +209,16 @@ define( function() {
 
 		// Note: If clicked issue is already focused, then it means that user wants
 		// to edit it (switch to LISTENING mode).
+		// Magic numbers remark: until we won't export modes enum (Controller.modes) to
+		// a separate module, we won't be able to use it here, because it would cause circular
+		// dependency.
 		if ( target && !target.hasClass( 'cke_a11yc_focused' ) ) {
 			// User clicked a standard Accessibility issue.
 			a11ychecker.showIssueByElement( target, function() {
 				// Put the focus on next button. (#10)
 				this.viewer.navigation.parts.next.focus();
 			} );
-			a11ychecker.setMode( 1 ); // REMOVE ME! :((((
+			a11ychecker.setMode( 1 );
 		} else if ( a11ychecker.enabled ) {
 			// User clicked area without issue.
 			// Listening mode...
