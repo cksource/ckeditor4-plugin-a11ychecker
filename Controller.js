@@ -522,10 +522,6 @@ define( [
 		editor.on( 'beforeSetMode', function() {
 			that.close();
 		} );
-		// We want to close the Accessibility Checker when the editor blurs.
-		editor.on( 'blur', function() {
-			that.close();
-		} );
 
 		editor.on( 'beforeCommandExec', function( evt ) {
 			// This listener should have fairly low proprity, because one might

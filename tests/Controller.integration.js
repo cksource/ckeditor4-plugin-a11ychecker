@@ -13,7 +13,7 @@
 		startupData: '<p>foo</p>'
 	};
 
-	require( [ 'helpers/sinon/sinon_amd.min', 'Controller', 'EngineMock', 'ui/ViewerController', 'EngineDefault' ], function( sinon, Controller, EngineMock ) {
+	require( [ 'mocking', 'Controller', 'EngineMock', 'ui/ViewerController', 'EngineDefault' ], function( mocking, Controller, EngineMock ) {
 		bender.test( {
 			'test non inited plugin .close()': function() {
 				// When plugin is not inited its .close() call shouldn't throw any
@@ -43,7 +43,7 @@
 				var a11ychecker = this.editor._.a11ychecker,
 					editor = this.editor;
 
-				sinon.spy( a11ychecker, 'close' );
+				mocking.spy( a11ychecker, 'close' );
 
 				editor.once( 'mode', function() {
 					// Ensure that close was called.
@@ -65,23 +65,6 @@
 				this.editor.execCommand( 'source' );
 
 				wait();
-			},
-
-			'test editor blur': function() {
-				// Bluring the editor should call Controller.close().
-				var a11ychecker = this.editor._.a11ychecker;
-
-				try {
-					a11ychecker.close = sinon.spy( a11ychecker, 'close' );
-
-					this.editor.fire( 'blur' );
-
-					assert.areEqual( 1, a11ychecker.close.callCount, 'a11ychecker.close call count' );
-				} catch( e ) {
-					throw e;
-				} finally {
-					a11ychecker.close.restore();
-				}
 			},
 
 			'test command sets listening mode': function() {

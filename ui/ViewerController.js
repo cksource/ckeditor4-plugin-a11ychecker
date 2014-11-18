@@ -65,8 +65,6 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		// Before hiding a panel we need to force focus on the editor.
 		// This will prevent from editor#blur to be risen (#41).
 		viewer.panel.on( 'hide', function() {
-			this.editor.focus();
-
 			// (#51).
 			if ( a11ychecker.issues.getFocused() ) {
 				a11ychecker.issues.resetFocus();
