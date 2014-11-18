@@ -37,14 +37,6 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		 */
 		this.a11ychecker = a11ychecker;
 
-		/**
-		 * UI lang code.
-		 *
-		 * @todo: This property should be moved to the Accessibility Checker Controller
-		 * class.
-		 */
-		this.lang = 'en';
-
 		// Setup the refresh of panel UI once attached to an element.
 		viewer.panel.on( 'attach', function() {
 
@@ -141,13 +133,12 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Focused issue to be displayed in.
 		 */
 		updateDescription: function( issue ) {
-			var descriptionPart = this.viewer.description,
-				lang = this.lang;
+			var descriptionPart = this.viewer.description;
 
 			// Request for issue details.
 			issue.getDetails( function( details ) {
-				descriptionPart.setTitle( details.title[ lang ] );
-				descriptionPart.setInfo( details.descr[ lang ] );
+				descriptionPart.setTitle( details.title );
+				descriptionPart.setInfo( details.descr );
 			} );
 		},
 
