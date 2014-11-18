@@ -199,18 +199,6 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 			checking: {
 				panelShowListeners: function( viewer ) {
 					return [
-						// Hide the panel once blurred.
-						function() {
-							return this.parts.panel.on( 'blur', function( evt ) {
-								var target = new CKEDITOR.dom.element( evt.data.$.relatedTarget || evt.data.$.toElement );
-
-								// Make sure the focus has moved out of the panel.
-								if ( !this.parts.panel.contains( target ) && !this.parts.panel.equals( target ) ) {
-									this.hide();
-								}
-							}, this );
-						},
-
 						// Hide the panel on iframe window's scroll.
 						function() {
 							return this.editor.window.on( 'scroll', function() {
