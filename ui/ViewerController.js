@@ -227,6 +227,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		 * @param {String} params.event Name of event to be fired when issue is focused.
 		 */
 		showIssue: function( issue, params ) {
+			// Make sure that viewport shows the issue element.
 			issue.element.scrollIntoView();
 
 			this.viewer.panel.attach( issue.element );

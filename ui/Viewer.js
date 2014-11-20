@@ -99,6 +99,17 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 		this.setMode( 'checking' );
 	};
 
+	/**
+	 * A minimal number of milliseconds between `scroll` event listener calls.
+	 *
+	 * This listener is used for repositioning of the balloon.
+	 *
+	 * Higher number is more performance friendly, but gives worse UX.
+	 *
+	 * @constant
+	 */
+	Viewer.SCROLL_THROTTLING_RATE = 200;
+
 	Viewer.prototype = {
 		/**
 		 * @property modesDefinition Mode definitions of the viewer.
@@ -198,15 +209,48 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 
 			checking: {
 				panelShowListeners: function( viewer ) {
+					// Function tells if element is visible within window viewport.
+					// It considers only y axis for simplification sake.
+					function isElementInViewport( element, window ) {
+						// Y offset for bottom edge of the element.
+						var yOffset = element.$.offsetTop,
+							yOffsetWithHeight = yOffset + element.getClientRect().height,
+							scrollYOffset = window.getScrollPosition().y;
+
+						return scrollYOffset <= yOffsetWithHeight && scrollYOffset + window.$.innerHeight >= yOffset;
+					}
+
 					return [
-						// Hide the panel on iframe window's scroll.
+						// Repositions balloon / unset focused issue on classic editor scroll.
 						function() {
-							return this.editor.window.on( 'scroll', function() {
-								if ( !this.editor.editable().isInline() ) {
-									this.blur();
-									this.hide();
-								}
-							}, this );
+							var editor = viewer.editor,
+								// We'll use throttling for scroll listener to reduce performance impact.
+								scrollListener = CKEDITOR.tools.eventsBuffer( Viewer.SCROLL_THROTTLING_RATE, function() {
+									// Only in case of classic editor, we want to detect a situation when
+									// issue element is out of viewport. If it's outside then it should be hidden.
+									if ( !editor.editable().isInline() ) {
+										var a11ychecker = editor._.a11ychecker,
+											issue = a11ychecker.issues.getFocused(),
+											panel = viewer.panel;
+
+										// It may happen that there's no focused issue.
+										if ( !issue ) {
+											return;
+										}
+
+										if ( !isElementInViewport( issue.element, editor.window ) ) {
+											// If issue element is no longer in the viewport we're going to
+											// remove the focus.
+											a11ychecker.issues.resetFocus();
+											panel.hide();
+										} else {
+											// And if element is still in viewport we're going to update its position.
+											panel.attach( issue.element );
+										}
+									}
+								} );
+
+							return this.editor.window.on( 'scroll', scrollListener.input );
 						},
 
 						// Hide the panel on editor resize.
