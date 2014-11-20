@@ -4,6 +4,7 @@ define( [
 	'Controller/ListeningMode',
 	'Controller/BusyMode',
 	'EditableDecorator',
+	'PreferredIssueFinder',
 	'ui/Ui',
 	'ui/ViewerController',
 	'HotkeyManager'
@@ -12,6 +13,7 @@ define( [
 	ListeningMode,
 	BusyMode,
 	EditableDecorator,
+	PreferredIssueFinder,
 	Ui,
 	ViewerController,
 	HotkeyManager
@@ -83,6 +85,15 @@ define( [
 		 * @property {CKEDITOR.plugins.a11ychecker.ui.Ui} ui
 		 */
 		this.ui = new Ui( this );
+
+		/**
+		 * An object managing the order of focusing the issues when resuming / starting
+		 * the checking process.
+		 *
+		 * @member CKEDITOR.plugins.a11ychecker.Controller
+		 * @type {CKEDITOR.plugins.a11ychecker.PreferredIssueFinder}
+		 */
+		this.preferredIssueFinder = new PreferredIssueFinder();
 
 		if ( editor ) {
 			this.viewerController = new ViewerController( this, {
@@ -242,10 +253,8 @@ define( [
 			// We need to determine Issue.element properties in each Issue.
 			that.editableDecorator.resolveEditorElements( issueList );
 
-			// Sort the issues so they will keep their DOM order.
-			issueList.sort();
-
-			that.issues = issueList;
+			// Set new issue list.
+			that._setIssueList( issueList );
 
 			that.setMode( Controller.modes.CHECKING );
 
@@ -265,6 +274,7 @@ define( [
 
 			if ( checkedEvent !== false ) {
 				if ( issueList.count() ) {
+					focusIssueOffset = that.preferredIssueFinder.getFromListIndex( issueList ) || 0;
 					// In case when we have any issue, we should move to the next one.
 					if ( focusIssueOffset >= issueList.count() ) {
 						// Ensure that focusIssueOffset is not bigger than actual size.
@@ -454,6 +464,8 @@ define( [
 
 		this.ui.hide();
 
+		this.preferredIssueFinder.unset();
+
 		this.mode.close();
 
 		// Closing AC should result with removing mode object.
@@ -556,18 +568,38 @@ define( [
 				quickFix: quickFix,
 				issue: quickFix.issue
 			},
-			eventResult = this.fire( 'fixed', event, this.editor ),
-			// Offset of fixed issue.
-			issueOffset = this.issues.indexOf( quickFix.issue );
+			eventResult = this.fire( 'fixed', event, this.editor );
 
 		if ( eventResult !== false ) {
 			this.check( {
-				focusIssueOffset: issueOffset,
 				ui: true
 			} );
 		}
 	};
 
+	/**
+	 * A setter method for issues list.
+	 *
+	 * It will automatically sord list and bind necessary listeners.
+	 *
+	 * @private
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} issueList
+	 */
+	Controller.prototype._setIssueList = function( issueList ) {
+		var that = this;
+		// Sort the issues so they will keep their DOM order.
+		issueList.sort();
+
+		issueList.on( 'focusChanged', function( evt ) {
+			var currentIssue = evt.data.current;
+			if ( currentIssue ) {
+				that.preferredIssueFinder.set( currentIssue );
+			}
+		} );
+
+		that.issues = issueList;
+	};
 
 	/**
 	 * Method to be called when no issues are deteted during the checking. It's supposed
