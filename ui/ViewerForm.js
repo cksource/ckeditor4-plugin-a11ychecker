@@ -205,7 +205,7 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 			}, this );
 
 			// Quick Fix: enter.
-			this.parts.wrapper.on( 'keydown', keyListener( 13, function( evt ) {
+			this.parts.fieldset.on( 'keydown', keyListener( 13, function( evt ) {
 				this.fire( 'submit' );
 			} ), this );
 

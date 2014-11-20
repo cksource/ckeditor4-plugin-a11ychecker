@@ -15,6 +15,13 @@
 
 	require( [ 'mocking', 'Controller', 'EngineMock', 'ui/ViewerController', 'EngineDefault' ], function( mocking, Controller, EngineMock ) {
 		bender.test( {
+
+			_should: {
+				ignore: {
+					'test enter key in ignore button': !CKEDITOR.env.chrome
+				}
+			},
+
 			'test non inited plugin .close()': function() {
 				// When plugin is not inited its .close() call shouldn't throw any
 				// exception.
@@ -71,14 +78,58 @@
 				var a11ychecker = this.editor._.a11ychecker;
 				a11ychecker.setEngine( new EngineMock() );
 
-				// This is needed due to the #51 fix.
-				this.editor.window = CKEDITOR.document.getWindow();
-
 				a11ychecker.exec();
 
 				this.editor.execCommand( 'newpage' );
 
 				assert.areSame( Controller.modes.LISTENING, a11ychecker.modeType, 'Listening mode is set' );
+			},
+
+			'test enter key in ignore button': function() {
+				// This test will simulate *enter* key pressed while ignore button
+				// is focused. It should cause bubbling and all kind of these things. (#67)
+				// This test is only for Chrome, because other browsers would require
+				// a lot of ifs, etc. so it's just a simplification.
+				var a11ychecker = this.editor._.a11ychecker;
+
+				// Dispatch AC.
+				a11ychecker.setEngine( new EngineMock() );
+				a11ychecker.exec();
+
+				// Now pick ignore button, and init KeyboardEvent.
+				var viewer = a11ychecker.viewerController.viewer,
+					fireMock = mocking.sinon.spy( viewer.form, 'fire' ),
+					ignoreButton = viewer.form.parts.ignoreButton,
+					keyEvent = document.createEvent( 'KeyboardEvent' );
+
+				// Focus the button.
+				ignoreButton.focus();
+
+				// And all the logic needed to dispatch keydown event on ignoreButton.
+				keyEvent.initKeyboardEvent( 'keydown', true, true, window, 'Enter', 13 );
+
+				// Chromium workaround.
+				Object.defineProperty(keyEvent, 'keyCode', {
+					get : function() {
+						return 13;
+					}
+				});
+
+				Object.defineProperty(keyEvent, 'which', {
+					get : function() {
+						return 13;
+					}
+				});
+
+				ignoreButton.$.dispatchEvent( keyEvent );
+
+				// Make sure that original fire is restored.
+				fireMock.restore();
+
+				mocking.assert.neverCalledWith( fireMock, 'submit' );
+
+				// Dummy assertion.
+				assert.isTrue( true );
 			}
 		} );
 	} );
