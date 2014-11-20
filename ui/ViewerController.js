@@ -66,9 +66,9 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		// This will prevent from editor#blur to be risen (#41).
 		viewer.panel.on( 'hide', function() {
 			// (#51).
-			if ( a11ychecker.issues.getFocused() ) {
-				a11ychecker.issues.resetFocus();
-			}
+			//if ( a11ychecker.issues.getFocused() ) {
+			//	a11ychecker.issues.resetFocus();
+			//}
 		}, this, null, 5 );
 
 		// Handle "previous" button click in the panel.
@@ -227,37 +227,20 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		 * @param {String} params.event Name of event to be fired when issue is focused.
 		 */
 		showIssue: function( issue, params ) {
-			var scrollListener = this.editor.window.once( 'scroll', function() {
-					windowScrolled = true;
-				} ),
-				windowScrolled;
-
+			// Make sure that viewport shows the issue element.
 			issue.element.scrollIntoView();
 
-			// Wait for the scroll to stabilize.
-			CKEDITOR.tools.setTimeout( function() {
-				scrollListener.removeListener();
+			this.viewer.panel.attach( issue.element );
 
-				// Since #51, the issue is unfocused on editor window's scroll (because the panel is hidden).
-				// While it is OK when the scroll is an user interaction, we don't want the issue to be
-				// unfocused when the scroll originates from element#scrollIntoView. That's why the issue
-				// focus must be immediately restored in such case, after the scrolling is done (#51).
-				if ( windowScrolled ) {
-					this.a11ychecker.showIssue( issue );
+			if ( params ) {
+				if ( params.event ) {
+					this.fire( params.event );
 				}
 
-				this.viewer.panel.attach( issue.element );
-
-				if ( params ) {
-					if ( params.event ) {
-						this.fire( params.event );
-					}
-
-					if ( params.callback ) {
-						params.callback.call( this );
-					}
+				if ( params.callback ) {
+					params.callback.call( this );
 				}
-			}, 50, this );
+			}
 		},
 
 		/**
