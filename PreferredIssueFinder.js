@@ -106,5 +106,19 @@ define( function() {
 		return ret || issueList.getItem( 0 );
 	};
 
+	/**
+	 * Works exactly the same as {@link #getFromList} but returns a number (index in
+	 * `issueList`) rather than {@link CKEDITOR.plugins.a11ychecker.Issue} instance.
+	 *
+	 * @memberOf CKEDITOR.plugins.a11ychecker.PreferredIssueFinder
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} issueList
+	 * @returns {Number/null}
+	 */
+	PreferredIssueFinder.prototype.getFromListIndex = function( issueList ) {
+		var ret = this.getFromList( issueList );
+
+		return ret ? issueList.indexOf( ret ) : null;
+	};
+
 	return PreferredIssueFinder;
 } );
