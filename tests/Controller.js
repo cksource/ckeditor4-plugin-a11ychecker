@@ -28,7 +28,8 @@
 					getItem: sinon.spy(),
 					count: function() {
 						return 5;
-					}
+					},
+					on: mocking.spy()
 				};
 
 				this.mockup.showIssue = sinon.spy();
@@ -73,7 +74,8 @@
 					sort: mocking.spy(),
 					count: mocking.spy( function() {
 						return  2;
-					} )
+					} ),
+					on: mocking.spy()
 				};
 
 				// Overwrite fire so it will prevent any extra logic. And we dont't
@@ -267,13 +269,15 @@
 						disable: sinon.spy(),
 						modeType: 1
 					},
-					modeClose = mocking.mockProperty( 'mode.close', controllerMockup );
+					modeClose = mocking.mockProperty( 'mode.close', controllerMockup ),
+					preferredIssueUnset = mocking.mockProperty( 'preferredIssueFinder.unset', controllerMockup );
 
 				controllerMockup.close();
 
 				assert.areSame( 1, issueClearCalls, 'Controller.issue.clear calls count' );
 				assert.areSame( 1, controllerMockup.ui.hide.callCount, 'ui.hide call count' );
 				assert.areSame( 1, controllerMockup.disable.callCount, 'Controller.disable calls count' );
+				assert.areSame( 1, preferredIssueUnset.callCount, 'Controller.preferredIssueFinder.unset call count' );
 
 				assert.areSame( 1, modeClose.callCount, 'Controller.mode.close call count' );
 				// Ensure that mode was unset.
@@ -294,7 +298,8 @@
 						},
 						count: function() {
 							return 3;
-						}
+						},
+						on: mocking.spy()
 					};
 
 				mock.issues = issueListMock;
@@ -322,7 +327,8 @@
 						},
 						count: function() {
 							return 0;
-						}
+						},
+						on: mocking.spy()
 					};
 
 				mock.issues = issueListMock;
@@ -345,7 +351,8 @@
 						},
 						count: function() {
 							return 3;
-						}
+						},
+						on: mocking.spy()
 					};
 
 				mock.issues = issueListMock;
@@ -570,7 +577,6 @@
 
 				assert.areEqual( 1, controllerMock.check.callCount, 'Controller.exec call count' );
 				sinon.assert.calledWith( controllerMock.check, {
-					focusIssueOffset: 3,
 					ui: true
 				} );
 			},
@@ -735,7 +741,8 @@
 				var issueList = {
 					sort: sinon.spy(),
 					count: function() { return issuesNumber; },
-					getItem: function() { return null; }
+					getItem: function() { return null; },
+					on: mocking.spy()
 				};
 
 				if ( mockAdjust ) {
@@ -791,6 +798,10 @@
 			controllerMockup.ui.update = sinon.spy();
 			controllerMockup.fire = sinon.spy();
 			controllerMockup.onNoIssues = sinon.spy();
+
+			mocking.mockProperty( 'preferredIssueFinder.getFromListIndex', controllerMockup, function() {
+				return 0;
+			} );
 		}
 
 		function patchMockupForCheckMethod( controllerMockup ) {
@@ -799,7 +810,8 @@
 			controllerMockup.engine.process = function( a11ychecker, scratchpad, completeCallback ) {
 				completeCallback.call( a11ychecker, {
 					sort: mocking.spy(),
-					count: mocking.spy()
+					count: mocking.spy(),
+					on: mocking.spy()
 				} );
 			};
 
