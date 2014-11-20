@@ -211,8 +211,6 @@ define( [
 	 *
 	 * * `Boolean` - Telling if content is valid
 	 * * `IssueList` - Object containing found issues.
-	 * @param {Number} [options.focusIssueOffset]  Offset of the issue to be focused after
-	 * checking is done. If element with given offset doesn't exist, the first one will be focused.
 	 */
 	Controller.prototype.check = function( options ) {
 
@@ -220,7 +218,6 @@ define( [
 
 		var that = this,
 			editor = that.editor,
-			focusIssueOffset = options.focusIssueOffset || 0,
 			scratchpad;
 
 		// Set busy state, so end-user will have "loading" feedback.
@@ -249,7 +246,8 @@ define( [
 		// Specify a callback when engine has doon its job. When it's done lets assign the issue list,
 		// and refresh the UI.
 		var completeCallback = function( issueList ) {
-			var checkedEvent;
+			var checkedEvent,
+				focusIssueOffset;
 			// We need to determine Issue.element properties in each Issue.
 			that.editableDecorator.resolveEditorElements( issueList );
 
