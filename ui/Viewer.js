@@ -97,7 +97,7 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 
 		this.setupModes();
 		this.setMode( 'checking' );
-	};
+	}
 
 	/**
 	 * A minimal number of milliseconds between `scroll` event listener calls.
