@@ -23,11 +23,16 @@
 			},
 
 			'test non inited plugin .close()': function() {
-				// When plugin is not inited its .close() call shouldn't throw any
-				// exception.
-				this.editor._.a11ychecker.close();
-				// No exceptions, all fine.
-				assert.isTrue( true );
+				window.setTimeout( function() {
+					resume( function() {
+						// When plugin is not inited its .close() call shouldn't throw any
+						// exception.
+						this.editor._.a11ychecker.close();
+						// No exceptions, all fine.
+						assert.isTrue( true );
+					} );
+				}, CKEDITOR.env.ie ? 500 : 0 );
+				wait();
 			},
 
 			'test non inited plugin .next()': function() {
