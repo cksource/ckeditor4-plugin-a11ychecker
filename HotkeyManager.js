@@ -12,7 +12,7 @@ define( function() {
 		this.controller = controller;
 
 		if ( controller ) {
-			var mapping = HotkeyManager.parseConfig( controller.editor.config.a11ychecker_hotkeys );
+			var mapping = HotkeyManager.parseConfig( controller.editor.config.a11ychecker_keystrokes );
 
 			// Editor hotkeys.
 			this.setEditorHotkeys( controller.editor, mapping );
@@ -80,7 +80,7 @@ define( function() {
 
 
 	/**
-	 * Parses the object given in `config.a11ychecker_hotkeys` object and transforms it to more
+	 * Parses the object given in `config.a11ychecker_keystrokes` object and transforms it to more
 	 * programmer-friendly object where keystrokes are obj keys, and the command name is value, eg.
 	 *
 	 *		{
@@ -92,7 +92,7 @@ define( function() {
 	 *
 	 * @static
 	 * @member CKEDITOR.plugins.a11ychecker.HotkeyManager
-	 * @param {Object/undefined} configEntry A value of {@link CKEDITOR.config.a11ychecker_hotkeys}
+	 * @param {Object/undefined} configEntry A value of {@link CKEDITOR.config.a11ychecker_keystrokes}
 	 * @returns {Object}
 	 */
 	HotkeyManager.parseConfig = function( configEntry ) {
