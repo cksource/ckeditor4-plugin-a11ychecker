@@ -220,9 +220,9 @@ define( function() {
 			} );
 			a11ychecker.setMode( 1 );
 		} else if ( a11ychecker.enabled ) {
-			if ( a11ychecker.mode._storedSel ) {
+			if ( a11ychecker.mode.unsetStoredSelection ) {
 				// Part of Chrome workaround for #39.
-				a11ychecker.mode._storedSel = null;
+				a11ychecker.mode.unsetStoredSelection();
 			}
 
 			// User clicked area without issue.

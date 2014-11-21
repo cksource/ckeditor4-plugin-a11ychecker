@@ -171,8 +171,11 @@ define( [
 	 * It toggles the state of Accessibility Checker, if it's disabled then Accessibility
 	 * Checker will be enabled, and perform content checking. In case of Accessibility
 	 * Checker being already enabled, it will close it.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 * @param {Function} callback Callback to be called when the function is executed.
 	 */
-	Controller.prototype.exec = function() {
+	Controller.prototype.exec = function( callback ) {
 		if ( this.enabled ) {
 			this.close();
 			return;
@@ -186,7 +189,8 @@ define( [
 
 		// Do content checking.
 		this.check( {
-			ui: true
+			ui: true,
+			callback: callback
 		} );
 	};
 
@@ -223,6 +227,12 @@ define( [
 		// Set busy state, so end-user will have "loading" feedback.
 		this.setMode( Controller.modes.BUSY );
 
+		// Before performing check process, we'll fire an undo. Because of that we need to
+		// be sure that editableDecorator markup is removed. Otherwise we would have
+		// AC extra attributes in the snapshot.
+		this.editableDecorator.removeMarkup();
+		this.editor.fire( 'saveSnapshot' );
+
 		if ( options.ui ) {
 			// UI must be visible.
 			this.ui.show();
@@ -246,45 +256,7 @@ define( [
 		// Specify a callback when engine has doon its job. When it's done lets assign the issue list,
 		// and refresh the UI.
 		var completeCallback = function( issueList ) {
-			var checkedEvent,
-				focusIssueOffset;
-			// We need to determine Issue.element properties in each Issue.
-			that.editableDecorator.resolveEditorElements( issueList );
-
-			// Set new issue list.
-			that._setIssueList( issueList );
-
-			that.setMode( Controller.modes.CHECKING );
-
-			if ( options.ui ) {
-				// Notify the UI about update.
-				that.ui.update();
-			}
-
-			// Trigger the checked event. If it's canceled then we should not focus first issue by ourself.
-			checkedEvent = that.fire( 'checked', {
-				issues: issueList
-			} );
-
-			if ( options.callback ) {
-				options.callback.call( that, issueList.count( true ) === true, issueList );
-			}
-
-			if ( checkedEvent !== false ) {
-				if ( issueList.count() ) {
-					focusIssueOffset = that.preferredIssueFinder.getFromListIndex( issueList ) || 0;
-					// In case when we have any issue, we should move to the next one.
-					if ( focusIssueOffset >= issueList.count() ) {
-						// Ensure that focusIssueOffset is not bigger than actual size.
-						// If it is, we'll start from the begining.
-						focusIssueOffset = 0;
-					}
-					that.showIssue( issueList.getItem( focusIssueOffset ) );
-				} else {
-					// In case when there's no issue lets inform that content is OK.
-					that.onNoIssues();
-				}
-			}
+			that._engineProcessed.call( that, issueList, options );
 		};
 
 		this.engine.process( this, scratchpad, completeCallback );
@@ -626,6 +598,58 @@ define( [
 		}
 
 		return protectedSpace.scratchpad;
+	};
+
+	/**
+	 * Method to be called when the Engine has processed the scratchpad. Engine should
+	 * pass the `issueList` parameter.
+	 *
+	 * @private
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} issueList Complete list of issues found
+	 * in the scratchpad.
+	 * @param {Object} options Options passed to {@link #check}.
+	 */
+	Controller.prototype._engineProcessed = function( issueList, options ) {
+		var that = this,
+			checkedEvent,
+			focusIssueOffset;
+		// We need to determine Issue.element properties in each Issue.
+		that.editableDecorator.resolveEditorElements( issueList );
+
+		// Set new issue list.
+		that._setIssueList( issueList );
+
+		that.setMode( Controller.modes.CHECKING );
+
+		if ( options.ui ) {
+			// Notify the UI about update.
+			that.ui.update();
+		}
+
+		// Trigger the checked event. If it's canceled then we should not focus first issue by ourself.
+		checkedEvent = that.fire( 'checked', {
+			issues: issueList
+		} );
+
+		if ( options.callback ) {
+			options.callback.call( that, issueList.count( true ) === true, issueList );
+		}
+
+		if ( checkedEvent !== false ) {
+			if ( issueList.count() ) {
+				focusIssueOffset = that.preferredIssueFinder.getFromListIndex( issueList ) || 0;
+				// In case when we have any issue, we should move to the next one.
+				if ( focusIssueOffset >= issueList.count() ) {
+					// Ensure that focusIssueOffset is not bigger than actual size.
+					// If it is, we'll start from the begining.
+					focusIssueOffset = 0;
+				}
+				that.showIssue( issueList.getItem( focusIssueOffset ) );
+			} else {
+				// In case when there's no issue lets inform that content is OK.
+				that.onNoIssues();
+			}
+		}
 	};
 
 	CKEDITOR.event.implementOn( Controller.prototype );

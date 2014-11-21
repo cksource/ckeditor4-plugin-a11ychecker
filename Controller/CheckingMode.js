@@ -39,12 +39,20 @@ define( function() {
 	 * @member CKEDITOR.plugins.a11ychecker.CheckingMode
 	 */
 	CheckingMode.prototype.init = function() {
-		if ( this.controller.issues ) {
-			this.controller.editableDecorator.markIssues( this.controller.issues );
+		var controller = this.controller,
+			editor = controller.editor;
+
+		if ( editor ) {
+			// Editor might not be available in tests.
+			editor.fire( 'lockSnapshot', { dontUpdate: true } );
 		}
 
-		if ( CKEDITOR.env.chrome && this.controller.editor ) {
-			this._storedSel = this.controller.editor.getSelection().createBookmarks();
+		if ( controller.issues ) {
+			controller.editableDecorator.markIssues( controller.issues );
+		}
+
+		if ( CKEDITOR.env.chrome && controller.editor ) {
+			this._storedSel = controller.editor.getSelection().createBookmarks();
 		}
 	};
 
@@ -68,6 +76,41 @@ define( function() {
 
 		if ( this._storedSel ) {
 			this.controller.editor.getSelection().selectBookmarks( this._storedSel );
+		}
+
+		this.controller.editor.fire( 'unlockSnapshot' );
+	};
+
+	/**
+	 * This method is solely created for Chromium bug (433303) described in #39.
+	 *
+	 * Unsets previously stored selection.
+	 *
+	 * It might be needed eg. when user is about to change caret position explicitly.
+	 * If we wouldn't revert it, it would be restored when mode is closed.
+	 */
+	CheckingMode.prototype.unsetStoredSelection = function() {
+		var bookmark = this._storedSel;
+		if ( bookmark ) {
+			this.removeBookmark( bookmark );
+			this._storedSel = null;
+		}
+	};
+
+	/**
+	 * A helper function for removing bookmark instanced with sel.createBookmark().
+	 *
+	 * @param {Object} bookmark
+	 */
+	CheckingMode.prototype.removeBookmark = function( bookmark ) {
+		// We don't really need to worry whether it's serializable or not,
+		// because we're not using serialization.
+		for ( var i = 0; i < bookmark.length; i++ ) {
+			var range = bookmark[ i ];
+			range.startNode.remove();
+			if ( range.endNode ) {
+				range.endNode.remove();
+			}
 		}
 	};
 
