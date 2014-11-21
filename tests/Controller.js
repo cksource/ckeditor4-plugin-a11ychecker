@@ -150,6 +150,7 @@
 				var mockup = this.mockup;
 
 				mockup.fire = sinon.spy();
+				mockup.setMode = sinon.spy();
 
 				mockup.enable();
 
@@ -767,9 +768,9 @@
 		}
 
 		function getViewerControllerMockup() {
-			return {
-				showIssue: function() {}
-			};
+			var ret = new Controller();
+			mocking.mockProperty( 'editor.fire', ret );
+			return ret;
 		}
 
 		// This method will patch all the properties required to run Controller.exec
@@ -786,7 +787,8 @@
 			};
 
 			controllerMockup.editor = {
-				getData: sinon.spy()
+				getData: sinon.spy(),
+				fire: sinon.spy()
 			};
 
 			controllerMockup.next = sinon.spy();
@@ -795,6 +797,7 @@
 			controllerMockup.setMode = sinon.spy();
 			controllerMockup.editableDecorator.resolveEditorElements = sinon.spy();
 			controllerMockup.editableDecorator.markIssues = sinon.spy();
+			controllerMockup.editableDecorator.removeMarkup = sinon.spy();
 			controllerMockup.ui.update = sinon.spy();
 			controllerMockup.fire = sinon.spy();
 			controllerMockup.onNoIssues = sinon.spy();

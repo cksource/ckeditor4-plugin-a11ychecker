@@ -17,12 +17,22 @@
 
 				mocking.mockProperty( 'issues.resetFocus', this.controller );
 				mocking.mockProperty( 'viewerController.viewer.panel.hide', this.controller );
+				mocking.mockProperty( 'editor.fire', this.controller );
 
 				this.mock = new CheckingMode( this.controller );
 			},
 
 			'test init': function() {
 				var editableDecorator = this.controller.editableDecorator;
+
+				if ( CKEDITOR.env.chrome ) {
+					// A patch needed for chrome workaround introduced in #39.
+					mocking.mockProperty( 'editor.getSelection', this.controller, mocking.spy( function() {
+						return {
+							createBookmarks: mocking.spy()
+						};
+					} ) );
+				}
 
 				this.mock.init();
 
