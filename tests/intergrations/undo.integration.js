@@ -16,13 +16,11 @@
 	// The count of snapshots that CKE contains by default.
 	var INITIAL_SNAPSHOT_COUNT = 1;
 
-	require( [ 'mocking', 'EngineMock', 'Controller', 'mock/ui/ViewerControllerMockup', 'helpers/QuickFixTest', 'EditableDecorator', 'EngineDefault' ], function( mocking, EngineMock, Controller, ViewerControllerMockup, QuickFixTest, EditableDecorator ) {
+	require( [ 'mocking', 'EngineMock', 'Controller', 'helpers/QuickFixTest', 'EditableDecorator', 'EngineDefault' ], function( mocking, EngineMock, Controller, QuickFixTest, EditableDecorator ) {
 		bender.test( {
 			setUp: function() {
 				// Ensure that editor uses synchronous EngineMock.
 				this.editor._.a11ychecker.setEngine( new EngineMock() );
-				this.editor._.a11ychecker.viewerController = new ViewerControllerMockup();
-
 				// Snapshot manager needs to be reset.
 				this.editor.resetUndo();
 			},

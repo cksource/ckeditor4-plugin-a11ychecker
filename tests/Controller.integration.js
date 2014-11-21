@@ -15,7 +15,7 @@
 		startupData: startupData
 	};
 
-	require( [ 'mocking', 'Controller', 'EngineMock', 'mock/ui/ViewerControllerMockup', 'ui/ViewerController', 'EngineDefault' ], function( mocking, Controller, EngineMock, ViewerControllerMockup ) {
+	require( [ 'mocking', 'Controller', 'EngineMock', 'ui/ViewerController', 'EngineDefault' ], function( mocking, Controller, EngineMock ) {
 		bender.test( {
 
 			_should: {
