@@ -66,5 +66,7 @@
 		return [];
 	};
 
+	QuickFix.prototype.lang = {};
+
 	CKEDITOR.plugins.a11ychecker.quickFixes.add( 'QuickFix', QuickFix );
 }());
