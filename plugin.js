@@ -16,6 +16,8 @@
 	CKEDITOR.plugins.add( pluginName, {
 		requires: 'balloonpanel',
 		lang: 'en', // %REMOVE_LINE_CORE%
+		// List of preferred languages for quickfixes.
+		quickFixesLang: 'en-us,en,pt-br,pt',
 		icons: pluginName, // %REMOVE_LINE_CORE%
 		hidpi: true, // %REMOVE_LINE_CORE%
 
