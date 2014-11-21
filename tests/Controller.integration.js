@@ -1,5 +1,5 @@
 /* bender-tags: editor,unit */
-/* bender-ckeditor-plugins: a11ychecker,sourcearea,toolbar,newpage */
+/* bender-ckeditor-plugins: a11ychecker,sourcearea */
 /* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
 /**
@@ -9,8 +9,10 @@
 ( function() {
 	'use strict';
 
+	var startupData = '<p>foo</p>';
+
 	bender.editor = {
-		startupData: '<p>foo</p>'
+		startupData: startupData
 	};
 
 	require( [ 'mocking', 'Controller', 'EngineMock', 'ui/ViewerController', 'EngineDefault' ], function( mocking, Controller, EngineMock ) {
@@ -20,6 +22,18 @@
 				ignore: {
 					'test enter key in ignore button': !CKEDITOR.env.chrome
 				}
+			},
+
+			setUp: function() {
+				var a11ychecker = this.editor._.a11ychecker;
+				// Even though it's an integration test, we won't use real enigne, to keep
+				// checking synchronous.
+				a11ychecker.setEngine( new EngineMock() );
+			},
+
+			tearDown: function() {
+				// Make sure that AC is closed.
+				this.editor._.a11ychecker.close();
 			},
 
 			'test non inited plugin .close()': function() {
@@ -81,11 +95,18 @@
 
 			'test command sets listening mode': function() {
 				var a11ychecker = this.editor._.a11ychecker;
-				a11ychecker.setEngine( new EngineMock() );
 
 				a11ychecker.exec();
 
-				this.editor.execCommand( 'newpage' );
+				// Lets use dummy command to reduce dependencies count.
+				this.editor.addCommand( 'dummyCommand', new CKEDITOR.command( this.editor, {
+					exec: function( editor ) {
+						return true;
+					},
+					canUndo: false
+				} ) );
+
+				this.editor.execCommand( 'dummyCommand' );
 
 				assert.areSame( Controller.modes.LISTENING, a11ychecker.modeType, 'Listening mode is set' );
 			},
@@ -98,7 +119,6 @@
 				var a11ychecker = this.editor._.a11ychecker;
 
 				// Dispatch AC.
-				a11ychecker.setEngine( new EngineMock() );
 				a11ychecker.exec();
 
 				// Now pick ignore button, and init KeyboardEvent.
