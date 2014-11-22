@@ -4,6 +4,7 @@
   "description": "",
   "devDependencies": {
     "amdclean": "~2.2.4",
+    "chai": "^1.9.1",
     "grunt": "~0.4.5",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-compress": "^0.12.0",
@@ -18,8 +19,14 @@
     "grunt-preprocess": "^4.0.0",
     "less": "~1.7.5",
     "load-grunt-tasks": "^1.0.0",
+    "mocha": "^1.21.4",
     "requirejs": "~2.1.14",
+    "rimraf": "^2.2.8",
+    "sinon": "^1.12.1",
     "uglify-js": "~2.4.15"
+  },
+  "scripts": {
+    "test-quickfix-builder": "mocha -R dot dev/testsbuilder"
   },
   "author": "CKSource (http://cksource.com/)",
   "license": "See LICENSE.md"

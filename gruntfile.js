@@ -18,6 +18,13 @@ module.exports = function( grunt ) {
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
 
+		'build-quickfix': {
+			build: {
+				source: 'quickfix',
+				target: 'quickfix/lang'
+			}
+		},
+
 		env: {
 			dev: {
 				DEV: true
@@ -178,6 +185,8 @@ module.exports = function( grunt ) {
 		[ 'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:readme', 'plugin-versions:build' ] );
 	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.',
 		[ 'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'process', 'compress:build' ] );
+
+	grunt.loadTasks( 'dev/tasks' );
 
 	// Default tasks.
 	grunt.registerTask( 'default', [ 'jshint', 'jscs' ] );
