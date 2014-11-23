@@ -16,18 +16,18 @@
 
 	CKEDITOR.plugins.a11ychecker.quickFixes.lang( {
 		AddTableCaption: {
-			captionLabel: 'Caption',
-			errorEmpty: 'Caption text can not be empty'
+			captionLabel: 'Captiono',
+			errorEmpty: 'El captiono nuo empty'
 		},
 		AnchorsMerge: {},
 		AttributeRename: {},
 		DateUnfold: {},
 		ElementRemove: {},
 		ImgAlt: {
-			altLabel: 'Alternative text',
-			errorTooLong: 'Alternative text is too long. It should be up to {limit} characters while your has {length}.',
-			errorWhitespace: 'Alternative text can not only contain whitespace characters',
-			errorEmpty: 'Alternative text can not be empty'
+			altLabel: 'Alternativno text e puta',
+			errorTooLong: 'Uno too longe alte {limit} cerveza {length}.',
+			errorWhitespace: 'Uno charactero needeto',
+			errorEmpty: 'Non empto alternative texto'
 		},
 		QuickFix: {},
 		Repository: {}
