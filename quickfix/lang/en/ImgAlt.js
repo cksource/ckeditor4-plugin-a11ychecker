@@ -1,9 +1,3 @@
-/**
- * @todo: At the end this file will be minified.
- *
- * This file is generated from QuickFix source file in quickfix/ImgAlt.js with addition of lang property, taken from
- * quickfix/lang/en.js.
- */
 
 ( function() {
 	'use strict';
@@ -74,13 +68,7 @@
 			return ret;
 		};
 
-		ImgAlt.prototype.lang = {
-			altLabel: 'Alternative text',
-			errorTooLong: 'Alternative text is too long. It should be up to {limit} characters while your has {length}.',
-			errorWhitespace: 'Alternative text can not only contain whitespace characters',
-			errorEmpty: 'Alternative text can not be empty'
-		};
-
-		CKEDITOR.plugins.a11ychecker.quickFixes.add( 'ImgAlt', ImgAlt );
+		ImgAlt.prototype.lang = {"altLabel":"Alternative text","errorTooLong":"Alternative text is too long. It should be up to {limit} characters while your has {length}.","errorWhitespace":"Alternative text can not only contain whitespace characters","errorEmpty":"Alternative text can not be empty"};
+	CKEDITOR.plugins.a11ychecker.quickFixes.add( 'ImgAlt', ImgAlt );
 	} );
 }() );

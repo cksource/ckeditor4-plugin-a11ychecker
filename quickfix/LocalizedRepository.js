@@ -11,16 +11,16 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	 */
 	function LocalizedRepository( basePath ) {
 		Repository.call( this, basePath );
-		
-		this._langDictionary = null;
 	}
 
 	LocalizedRepository.prototype = new Repository();
 	LocalizedRepository.prototype.constructor = LocalizedRepository;
 
+	LocalizedRepository.prototype._langDictionary = {};
+	
 	// An array of arguments from calls that were deferred.
-	var deferredGetCalls = [],
-		languageRequested = false;
+	var deferredGetCalls = {},
+		languagesRequested = [];
 
 	/**
 	 * Returns the QuickFix class with given name. When type is loaded `callback` will
@@ -35,10 +35,12 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	 * @param {String} name
 	 * @param {Function} callback A function to be called when given type is registered.
 	 * It gets only one parameter which is a construct function for given QuickFix.
+	 * @param {String} [langCode='en]
 	 * @returns {Function}
 	 */
-	LocalizedRepository.prototype.get = function( name, callback ) {
-		if ( this.deferGetCall( arguments ) ) {
+	LocalizedRepository.prototype.get = function( name, callback, langCode ) {
+		langCode = langCode || 'en';
+		if ( this.deferGetCall( langCode, arguments ) ) {
 			// Call should be deferred, because no lang is available yet.
 			return;
 		}
@@ -48,25 +50,53 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	};
 	
 	/**
+	 * Similar to {@link #get} but returns localized instance rather than class.
+	 *
+	 * @todo: this method should be also available in generic class.
+	 */
+	LocalizedRepository.prototype.getInstance = function( name, callback, issue, langCode ) {
+		var that = this,
+			devDistribution = CKEDITOR.plugins.a11ychecker.dev;
+		
+		langCode = langCode || 'en';
+		
+		//if ( devDistribution ) {
+		//	name = 'lang/' + langCode + '/' + name;
+		//}
+		
+		this.get( name, function( QuickFixType ) {
+			// This callback is guaranteed to be called when dictionary for langCode is fetched.
+			var instance = new QuickFixType( issue );
+			
+			if ( devDistribution ) {
+				// We only need to assign lang for dev version, built class will already have this property.
+				instance.lang = that._langDictionary[ langCode ][ name ];
+			}
+			
+			callback( instance );
+		}, langCode );
+	};
+	
+	
+	/**
 	 * If needed will defer {@link #get} call.
 	 *
 	 * @returns {Boolean} `true` if call was deferred, `false` otherwise.
 	 */
-	LocalizedRepository.prototype.deferGetCall = function( getArguments ) {
-		if ( !CKEDITOR.plugins.a11ychecker.dev || this._langDictionary ) {
+	LocalizedRepository.prototype.deferGetCall = function( langCode, getArguments ) {
+		var indexOf = CKEDITOR.tools.indexOf;
+		if ( !CKEDITOR.plugins.a11ychecker.dev || this._langDictionary[ langCode ] ) {
 			// Deferring is always disabled in built version, and if _langDictionary is already
 			// loaded.
 			return false;
 		}
-		console.log('deferring' + getArguments[ 0 ] );
 		
-		deferredGetCalls.push( getArguments );
+		this._addDeferredGet( langCode, getArguments );
 		
-		if ( !languageRequested ) {
-			console.log('requesting lang');
-			CKEDITOR.scriptLoader.load( this.basePath + 'lang/' + 'it' + '.js' );
-			// Language was not requested yet.
-			languageRequested = true;
+		if ( indexOf( languagesRequested, langCode ) === -1 ) {
+			// This particular language was not requested yet.
+			languagesRequested.push( langCode );
+			CKEDITOR.scriptLoader.load( this.basePath + 'lang/' + langCode + '.js' );
 		}
 		
 		return true;
@@ -83,8 +113,6 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 		// At this point language dictionary *must* be available so we can freely access it.
 		cls.prototype.lang = this._langDictionary[ name ] || {};
 		
-		console.log( name, cls.prototype );
-
 		return Repository.prototype.add.call( this, name, cls );
 	};
 	
@@ -96,29 +124,45 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	 *
 	 * @param {Object} dictionary
 	 */
-	LocalizedRepository.prototype.lang = function( dictionary ) {
-		console.log( 'lang received' );
-		this._langDictionary = dictionary;
+	LocalizedRepository.prototype.lang = function( langCode, dictionary ) {
+		this._langDictionary[ langCode ] = dictionary;
+		
+		var getQueue = deferredGetCalls[ langCode ];
+		
+		if ( !getQueue ) {
+			// No get calls were queued for that language.
+			return;
+		}
+		
 		// All deferred gets should be called in reversed order.
-		for ( var i = deferredGetCalls.length - 1; i >= 0; i-- ) {
-			this.get.apply( this, deferredGetCalls[ i ] );
+		for ( var i = getQueue.length - 1; i >= 0; i-- ) {
+			this.get.apply( this, getQueue[ i ] );
 		}
 	};
+	
+	LocalizedRepository.prototype._addDeferredGet = function( langCode, getArguments ) {
+		if ( deferredGetCalls[ langCode ] ) {
+			deferredGetCalls[ langCode ].push( getArguments );
+		} else {
+			deferredGetCalls[ langCode ] = [ getArguments ];
+		}
+	};
+	
 	
 	/**
 	 * Function created for tests, returns count of deferred get functions.
 	 *
 	 * @returns {Number}
 	 */
-	LocalizedRepository.prototype._getDeferredGetCount = function() {
-		return deferredGetCalls.length;
+	LocalizedRepository.prototype._getDeferredGetCount = function( langCode ) {
+		return deferredGetCalls[ langCode ] ? deferredGetCalls[ langCode ].length : 0;
 	};
 	
 	/**
 	 * Function created for tests, clears deferred get queue.
 	 */
 	LocalizedRepository.prototype._clearDeferredGetQueue = function() {
-		deferredGetCalls.splice( 0, deferredGetCalls.length );
+		deferredGetCalls = {};
 	};
 
 	return LocalizedRepository;
