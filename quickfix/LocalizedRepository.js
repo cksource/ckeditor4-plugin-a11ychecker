@@ -11,6 +11,8 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	 */
 	function LocalizedRepository( basePath ) {
 		Repository.call( this, basePath );
+		
+		this._langDictionary = null;
 	}
 
 	LocalizedRepository.prototype = new Repository();
@@ -51,8 +53,8 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	 * @returns {Boolean} `true` if call was deferred, `false` otherwise.
 	 */
 	LocalizedRepository.prototype.deferGetCall = function( getArguments ) {
-		if ( !CKEDITOR.plugins.a11ychecker.dev || this.langDictionary ) {
-			// Deferring is always disabled in built version, and if langDictionary is already
+		if ( !CKEDITOR.plugins.a11ychecker.dev || this._langDictionary ) {
+			// Deferring is always disabled in built version, and if _langDictionary is already
 			// loaded.
 			return false;
 		}
@@ -79,21 +81,44 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	 */
 	LocalizedRepository.prototype.add = function( name, cls ) {
 		// At this point language dictionary *must* be available so we can freely access it.
-		cls.prototype.lang = this.langDictionary[ name ] || {};
+		cls.prototype.lang = this._langDictionary[ name ] || {};
 		
 		console.log( name, cls.prototype );
 
 		return Repository.prototype.add.call( this, name, cls );
 	};
 	
+	/**
+	 * Method to register language dictionary for developer version.
+	 *
+	 * In built version languages are already inlined into a QuickFix class file, so there's
+	 * no need to execute it.
+	 *
+	 * @param {Object} dictionary
+	 */
 	LocalizedRepository.prototype.lang = function( dictionary ) {
 		console.log( 'lang received' );
-		this.langDictionary = dictionary;
+		this._langDictionary = dictionary;
 		// All deferred gets should be called in reversed order.
-		//deferredGetCalls.reverse();
 		for ( var i = deferredGetCalls.length - 1; i >= 0; i-- ) {
 			this.get.apply( this, deferredGetCalls[ i ] );
 		}
+	};
+	
+	/**
+	 * Function created for tests, returns count of deferred get functions.
+	 *
+	 * @returns {Number}
+	 */
+	LocalizedRepository.prototype._getDeferredGetCount = function() {
+		return deferredGetCalls.length;
+	};
+	
+	/**
+	 * Function created for tests, clears deferred get queue.
+	 */
+	LocalizedRepository.prototype._clearDeferredGetQueue = function() {
+		deferredGetCalls.splice( 0, deferredGetCalls.length );
 	};
 
 	return LocalizedRepository;
