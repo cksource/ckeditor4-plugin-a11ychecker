@@ -26,7 +26,7 @@
 			form.setInputs( {
 				caption: {
 					type: 'text',
-					label: 'Caption'
+					label: this.lang.captionLabel
 				}
 			} );
 		};
@@ -56,7 +56,7 @@
 
 			// Test if the caption has only whitespaces.
 			if ( !proposedCaption || proposedCaption.match( emptyWhitespaceRegExp ) ) {
-				ret.push( 'Caption text can not be empty' );
+				ret.push( this.lang.errorEmpty );
 			}
 
 			return ret;

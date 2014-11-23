@@ -31,7 +31,7 @@
 			form.setInputs( {
 				alt: {
 					type: 'text',
-					label: 'Alternative text',
+					label: this.lang.altLabel,
 					value: this.issue.element.getAttribute( 'alt' ) || ''
 				}
 			} );
@@ -51,12 +51,12 @@
 
 
 			if ( !proposedAlt ) {
-				ret.push( 'Alternative text can not be empty' );
+				ret.push( this.lang.errorEmpty );
 			}
 
 			// Test if the alt has only whitespaces.
 			if ( proposedAlt.match( emptyWhitespaceRegExp ) ) {
-				ret.push( 'Alternative text can not only contain whitespace characters' );
+				ret.push( this.lang.errorWhitespace );
 			}
 
 			// Testing against exceeding max length.
