@@ -14,7 +14,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.lang( {
+	CKEDITOR.plugins.a11ychecker.quickFixes.lang( 'it', {
 		AddTableCaption: {
 			captionLabel: 'Captiono',
 			errorEmpty: 'El captiono nuo empty'

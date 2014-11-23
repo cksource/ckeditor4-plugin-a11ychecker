@@ -14,7 +14,7 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.lang( {
+	CKEDITOR.plugins.a11ychecker.quickFixes.lang( 'en', {
 		AddTableCaption: {
 			captionLabel: 'Caption',
 			errorEmpty: 'Caption text can not be empty'
