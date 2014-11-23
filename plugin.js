@@ -17,7 +17,7 @@
 		requires: 'balloonpanel',
 		lang: 'en', // %REMOVE_LINE_CORE%
 		// List of preferred languages for quickfixes.
-		quickFixesLang: 'en-us,en,pt-br,pt',
+		quickFixesLang: 'en,it',
 		icons: pluginName, // %REMOVE_LINE_CORE%
 		hidpi: true, // %REMOVE_LINE_CORE%
 
@@ -32,13 +32,13 @@
 				'Issue',
 				'IssueList',
 				'IssueDetails',
-				'quickfix/Repository'
+				'quickfix/LocalizedRepository'
 			], function(
 				Engine,
 				Issue,
 				IssueList,
 				IssueDetails,
-				Repository
+				LocalizedRepository
 			) {
 				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
 					Engine: Engine,
@@ -47,7 +47,7 @@
 					IssueDetails: IssueDetails
 				} );
 
-				CKEDITOR.plugins.a11ychecker.quickFixes = new Repository( path + 'quickfix/' );
+				CKEDITOR.plugins.a11ychecker.quickFixes = new LocalizedRepository( path + 'quickfix/' );
 			} );
 		},
 

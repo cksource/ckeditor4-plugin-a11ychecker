@@ -149,7 +149,8 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		 */
 		updateForm: function( issue ) {
 			var that = this,
-				form = that.viewer.form;
+				form = that.viewer.form,
+				quickFixLang = that.a11ychecker.getQuickFixLang();
 
 			// Set the state of Ignore button.
 			form.setIgnored( issue.isIgnored() );
@@ -175,7 +176,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 				if ( fixesCount ) {
 					form.show();
 				}
-			} );
+			}, quickFixLang );
 		},
 
 		/**

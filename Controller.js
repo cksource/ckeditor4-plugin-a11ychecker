@@ -628,6 +628,26 @@ define( [
 		return protectedSpace.scratchpad;
 	};
 
+	/**
+	 * Returns a preferred QuickFix language.
+	 *
+	 * @returns {String} Returns a language code used for QuickFixes.
+	 */
+	Controller.prototype.getQuickFixLang = function() {
+		var editor = this.editor,
+			plugin = editor.plugins.a11ychecker,
+			config = editor.config,
+			preferredLang = config.contentsLanguage || config.language || config.defaultLanguage,
+			availLangs = plugin.quickFixesLang.split( ',' ),
+			indexOf = CKEDITOR.tools.indexOf;
+
+		if ( indexOf( availLangs, preferredLang ) !== -1 ) {
+			return preferredLang;
+		} else {
+			return availLangs[ 0 ];
+		}
+	};
+
 	CKEDITOR.event.implementOn( Controller.prototype );
 
 	/**
