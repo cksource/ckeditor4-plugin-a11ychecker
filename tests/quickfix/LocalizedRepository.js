@@ -75,9 +75,14 @@
 					callback( fakeConstructor );
 				} );
 
-				mock.getInstance( 'SampleQuickFix', function( quickFixInstance ) {
-					instance = quickFixInstance;
-				}, issue, 'de' );
+				mock.getInstance( {
+					name: 'SampleQuickFix',
+					callback: function( quickFixInstance ) {
+						instance = quickFixInstance;
+					},
+					issue: issue,
+					langCode: 'de'
+				} );
 				
 				// Code in getInstance() callback is executed synchronously, so we can assert here, no problem.
 				assert.isInstanceOf( fakeConstructor, instance, 'Object created by getInstance has a valid type' );
