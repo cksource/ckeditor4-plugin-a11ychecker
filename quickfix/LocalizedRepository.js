@@ -23,30 +23,46 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 		languagesRequested = [];
 
 	/**
-	 * Returns the QuickFix class with given name. When type is loaded `callback` will
-	 * be called.
-	 *
-	 *		quickFixes.get( 'ImgAlt', function( ImgAlt ) {
-	 *			var quickFix = new ImgAlt( myIssue );
-	 *			quickFix.fix();
-	 *		} );
-	 *
 	 * @member CKEDITOR.plugins.a11ychecker.quickFix.LocalizedRepository
-	 * @param {String} name
-	 * @param {Function} callback A function to be called when given type is registered.
-	 * It gets only one parameter which is a construct function for given QuickFix.
-	 * @param {String} [langCode='en]
+	 * @param {Object} options See {@link CKEDITOR.plugins.a11ychecker.quickFix.Repository#get}. This implementation adds one more parameter:
+	 * @param {String} options.langCode Language code of quickFix to be loaded.
 	 * @returns {Function}
 	 */
-	LocalizedRepository.prototype.get = function( name, callback, langCode ) {
-		langCode = langCode || 'en';
-		if ( this.deferGetCall( langCode, arguments ) ) {
+	LocalizedRepository.prototype.get = function( options ) {
+		options.langCode = options.langCode || 'en';
+		
+		if ( this.deferGetCall( options.langCode, arguments ) ) {
 			// Call should be deferred, because no lang is available yet.
 			return;
 		}
 		
+		if ( !CKEDITOR.plugins.a11ychecker.dev ) {
+			// In case of release code we'll do a trick here.
+			// Each class will be represented as '<lang>/<className>' string, that way we
+			// can load multiple language combination with given class.
+			options.name = options.langCode + '/' + options.name;
+		}
+		
 		// If lang is available call to the base class.
-		return Repository.prototype.get.call( this, name, callback );
+		return Repository.prototype.get.call( this, options );
+	};
+	
+	/**
+	 * The default way of downloading JavaScript files. This will be used
+	 * if `requested` event was not canceled.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.quickFix.LocalizedRepository
+	 * @param {Object} options Same as in {@link #get}
+	 */
+	LocalizedRepository.prototype.requestQuickFix = function( options ) {
+		if ( !CKEDITOR.plugins.a11ychecker.dev ) {
+			// In case of builded version we're loading localized QuickFix class from
+			// quickfix/lang/<langCode>/<className>.js file.
+			// Note that at this point options.name has prepended '<lang>/' part.
+			CKEDITOR.scriptLoader.load( this.basePath + 'lang/' + options.name + '.js' );
+		} else {
+			Repository.prototype.requestQuickFix.call( this, options );
+		}
 	};
 	
 	/**
@@ -59,21 +75,24 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	LocalizedRepository.prototype.getInstance = function( options ) {
 		options = options || {};
 		var name = options.name,
-			langCode = options.langCode  || 'en',
-			that = this,
-			devDistribution = CKEDITOR.plugins.a11ychecker.dev;
-		
-		this.get( name, function( QuickFixType ) {
-			// This callback is guaranteed to be called when dictionary for langCode is fetched.
-			var instance = new QuickFixType( options.issue );
+			langCode = options.langCode || 'en',
+			that = this;
 			
-			if ( devDistribution ) {
-				// We only need to assign lang for dev version, built class will already have this property.
-				instance.lang = that._langDictionary[ langCode ][ name ];
-			}
-			
-			options.callback( instance );
-		}, langCode );
+		this.get( {
+			name: name,
+			callback: function( QuickFixType ) {
+				// This callback is guaranteed to be called when dictionary for langCode is fetched.
+				var instance = new QuickFixType( options.issue );
+				
+				if ( CKEDITOR.plugins.a11ychecker.dev ) {
+					// We only need to assign lang for dev version, built class will already have this property.
+					instance.lang = that._langDictionary[ langCode ][ name ];
+				}
+				
+				options.callback( instance );
+			},
+			langCode: langCode
+		} );
 	};
 	
 	
@@ -109,9 +128,6 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	 * @param {Function} cls QuickFix type.
 	 */
 	LocalizedRepository.prototype.add = function( name, cls ) {
-		// At this point language dictionary *must* be available so we can freely access it.
-		cls.prototype.lang = this._langDictionary[ name ] || {};
-		
 		return Repository.prototype.add.call( this, name, cls );
 	};
 	

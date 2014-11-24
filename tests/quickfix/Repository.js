@@ -8,11 +8,15 @@
 		bender.test( {
 			'test Repository.get': function() {
 				var mock = new Repository(),
-					callback = mocking.spy();
+					callback = mocking.spy(),
+					options = {
+						name: 'fooFix',
+						callback: callback
+					};
 
 				mock.fire = mocking.spy();
 				mock.requestQuickFix = mocking.spy();
-				mock.get( 'fooFix', callback );
+				mock.get( options );
 
 				assert.areSame( 1, mock.fire.callCount, 'Repository.fire called' );
 				mocking.assert.calledWith( mock.fire, 'requested' );
@@ -21,7 +25,7 @@
 				var eventArgument = mock.fire.args[ 0 ][ 1 ];
 				assert.areSame( 'fooFix', eventArgument.name, 'Event name' );
 
-				mocking.assert.calledWith( mock.requestQuickFix, 'fooFix' );
+				mocking.assert.calledWith( mock.requestQuickFix, options );
 
 				// And we should ensure that a callback was stroed in waitingCallbacks.
 				var waitingCallbacks = mock.getWaitingCallbacks();
@@ -50,17 +54,32 @@
 				mock.requestQuickFix = mocking.spy();
 
 				// Call 4 times.
-				mock.get( 'bar', callback );
-				mock.get( 'bar', callback );
-				mock.get( 'bar', callback );
-				mock.get( 'bar', callbackOther );
+				mock.get( {
+					name: 'bar',
+					callback: callback
+				} );
+				mock.get( {
+					name: 'bar',
+					callback: callback
+				} );
+				mock.get( {
+					name: 'bar',
+					callback: callback
+				} );
+				mock.get( {
+					name: 'bar',
+					callback: callbackOther
+				} );
 
 				assert.areSame( 1, mock.fire.callCount, 'Repository.fire called only once' );
 				mocking.assert.calledWith( mock.fire, 'requested' );
 
 				assert.areSame( 1, mock.requestQuickFix.callCount,
 					'mock.requestQuickFix called only once' );
-				mocking.assert.calledWith( mock.requestQuickFix, 'bar' );
+				mocking.assert.calledWith( mock.requestQuickFix, {
+					name: 'bar',
+					callback: callback
+				} );
 
 				// And we should ensure that a callbacks were stroed in waitingCallbacks.
 				var waitingCallbacks = mock.getWaitingCallbacks();
@@ -98,7 +117,10 @@
 				} );
 
 				mock.fire = mocking.spy();
-				mock.get( 'fooBar', getCallback );
+				mock.get( {
+					name: 'fooBar',
+					callback: getCallback
+				} );
 
 				assert.areSame( 0, mock.fire.callCount, 'mock.fire call count' );
 
@@ -111,7 +133,9 @@
 				mocking.spy( CKEDITOR.scriptLoader, 'load' );
 
 				try {
-					mock.requestQuickFix( 'foo' );
+					mock.requestQuickFix( {
+						name: 'foo'
+					} );
 
 					assert.areSame( 1, CKEDITOR.scriptLoader.load.callCount );
 					mocking.assert.calledWith( CKEDITOR.scriptLoader.load, 'foo.js' );
@@ -187,12 +211,15 @@
 				// Inject mock to the globally available a11ychecker object.
 				mocking.mockProperty( 'CKEDITOR.plugins.a11ychecker.quickFixRepo', window, mock );
 
-				mock.get( 'SampleQuickFix', function( SampleQuickFix ) {
-					resume( function() {
-						assert.isInstanceOf( Function, SampleQuickFix );
-						// Ensure that it's the correct type.
-						assert.areSame( 'bar', SampleQuickFix.prototype.foo() );
-					} );
+				mock.get( {
+					name: 'SampleQuickFix',
+					callback: function( SampleQuickFix ) {
+						resume( function() {
+							assert.isInstanceOf( Function, SampleQuickFix );
+							// Ensure that it's the correct type.
+							assert.areSame( 'bar', SampleQuickFix.prototype.foo() );
+						} );
+					}
 				} );
 
 				wait();
