@@ -12,14 +12,17 @@
 
 define( [ 'mocking', 'quickfix/Repository' ], function( mocking, Repository ) {
 	return function( quickFixName, tests ) {
-		var appBaseDir = '/apps/ckeditor/plugins/a11ychecker/QuickFix/';
+		var appBaseDir = '/apps/ckeditor/plugins/a11ychecker/quickfix/';
 
 		// This function is used not really to mock, but to make sure that properties exists.
 		mocking.mockProperty( 'CKEDITOR.plugins.a11ychecker.quickFixes', window, new Repository( appBaseDir ) );
 
-		CKEDITOR.plugins.a11ychecker.quickFixes.get( quickFixName, function( QuickFixType ) {
-			tests.quickFixType = QuickFixType;
-			bender.test( tests );
+		CKEDITOR.plugins.a11ychecker.quickFixes.get( {
+			name: quickFixName,
+			callback: function( QuickFixType ) {
+				tests.quickFixType = QuickFixType;
+				bender.test( tests );
+			}
 		} );
 	};
 } );
