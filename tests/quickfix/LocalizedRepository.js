@@ -71,8 +71,8 @@
 				mock._langDictionary.de = dict;
 				
 				// Overwrite get, so it's synchronous, and uses our fake type.
-				mock.get = mocking.spy( function( name, callback, lang ) {
-					callback( fakeConstructor );
+				mock.get = mocking.spy( function( options ) {
+					options.callback( fakeConstructor );
 				} );
 
 				mock.getInstance( {

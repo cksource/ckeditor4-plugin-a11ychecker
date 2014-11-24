@@ -180,7 +180,6 @@ describe( 'QuickFixBuilder', function() {
 			
 			mock.loadDictionaries();
 			
-			//assert.strictEqual( _injectLanguageObject( 'QuickFix', inputFile, lang), expected, 'Language object inlined into source' );
 			assert.sameMembers( Object.keys( mock.langDicts ), mock.langs, 'langDicts has valid keys' );
 			
 			assert.deepEqual( mock.langDicts, {
@@ -209,7 +208,7 @@ describe( 'QuickFixBuilder', function() {
 					'	function QuickFix( issue ) {}' +
 					'	QuickFix.prototype = {};' +
 					'	QuickFix.prototype.lang = {"a":"b","foo":"bar"};\n' +
-					'	CKEDITOR.plugins.a11ychecker.quickFixes.add( \'QuickFix\', QuickFix );' +
+					'	\t\tCKEDITOR.plugins.a11ychecker.quickFixes.add( \'zh/QuickFix\', QuickFix );' +
 					'}() );',
 				lang = {
 					a: 'b',
@@ -217,7 +216,39 @@ describe( 'QuickFixBuilder', function() {
 				},
 				_injectLanguageObject = QuickFixBuilder.prototype._injectLanguageObject;
 			
-			assert.strictEqual( _injectLanguageObject( 'QuickFix', inputFile, lang), expected, 'Language object inlined into source' );
+			assert.strictEqual( _injectLanguageObject( 'QuickFix', inputFile, lang, 'zh' ), expected, 'Language object inlined into source' );
+		} );
+		
+		it( 'places langCode property correctly', function() {
+			// If QuickFix class calls Repository.get() method we need to make sure that
+			// lang code is injected to the options object.
+			var inputFile = '( function() {' +
+					'	\'use strict\';' +
+					'	function SubClass( issue ) {}' +
+					'	CKEDITOR.plugins.a11ychecker.quickFixes.get( {\n' +
+					'		name: \'QuickFix\', ' +
+					'		callback: function( QuickFix ) {' +
+					'			SubClass.prototype = new QuickFix();' +
+					'			CKEDITOR.plugins.a11ychecker.quickFixes.add( \'SubClass\', SubClass );' +
+					'		}' +
+					'	} );' +
+					'}() );',
+				expected = '( function() {' +
+					'	\'use strict\';' +
+					'	function SubClass( issue ) {}' +
+					'	CKEDITOR.plugins.a11ychecker.quickFixes.get( { langCode: \'en\',\n' +
+					'		name: \'QuickFix\', ' +
+					'		callback: function( QuickFix ) {' +
+					'			SubClass.prototype = new QuickFix();' +
+					'			SubClass.prototype.lang = {};\n' +
+					'			CKEDITOR.plugins.a11ychecker.quickFixes.add( \'en/SubClass\', SubClass );' +
+					'		}' +
+					'	} );' +
+					'}() );',
+				lang = {},
+				_injectLanguageObject = QuickFixBuilder.prototype._injectLanguageObject;
+			
+			assert.strictEqual( _injectLanguageObject( 'SubClass', inputFile, lang, 'en' ), expected, 'Language object inlined into source' );
 		} );
 	} );
 	

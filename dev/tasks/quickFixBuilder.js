@@ -160,7 +160,7 @@
 			targetFile = this.targetDir + sep + lang + sep + quickFixName + '.js',
 			langDict = this._getDictionaryForQuickFix( quickFixName, lang ),
 			// And here we'll store source content with added lang property.
-			replacedContent = QuickFixBuilder.prototype._injectLanguageObject( quickFixName, fs.readFileSync( srcFile ), langDict );
+			replacedContent = QuickFixBuilder.prototype._injectLanguageObject( quickFixName, fs.readFileSync( srcFile ), langDict, lang );
 
 		fs.writeFileSync( targetFile, replacedContent );
 	};
@@ -178,7 +178,7 @@
 					plugins: {
 						a11ychecker: {
 							quickFixes: {
-								lang: function( dict ) {
+								lang: function( langCode, dict ) {
 									// It will store the dict in a global langDicts.
 									langDicts[ curLang ] = dict;
 								}
@@ -213,13 +213,18 @@
 	 * @param {String} fileSource Source of QuickFix class file.
 	 * @param {Object} lang Language object (proper dirctionary).
 	 */
-	QuickFixBuilder.prototype._injectLanguageObject = function( className, fileSource, lang ) {
+	QuickFixBuilder.prototype._injectLanguageObject = function( className, fileSource, lang, langCode ) {
 		// We'll prepend "CKEDITOR.plugins.a11ychecker.quickFixes.add" string occurence with lang
 		// assignment.
-		var langProperty = className + '.prototype.lang = ' + JSON.stringify( lang ) + ';\n\t',
-			replacement = langProperty + 'CKEDITOR.plugins.a11ychecker.quickFixes.add';
+		// Also we'll overwrite class name, so it'll end up with a calss like '<lang>/<className>'.
+		var langProperty = className + '.prototype.lang = ' + JSON.stringify( lang ) + ';\n\t\t\t',
+			localizedClassName = langCode + '/' + className,
+			replacement = langProperty + 'CKEDITOR.plugins.a11ychecker.quickFixes.add( \'' + localizedClassName + '\'',
+			ret = String( fileSource ).replace( /CKEDITOR\.plugins\.a11ychecker\.quickFixes\.add\(\s*['"].*['"]/, replacement );
 		
-		return String( fileSource ).replace( /CKEDITOR\.plugins\.a11ychecker\.quickFixes\.add/, replacement );
+		ret = ret.replace( /(CKEDITOR.plugins.a11ychecker.quickFixes.get\(\s*\{[\t ]*)/, '$1 langCode: \'' + langCode + '\',' );
+		
+		return ret;
 	};
 	
 	/**
