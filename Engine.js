@@ -146,7 +146,12 @@ define( function() {
 				i;
 			// We need to fetch every QuickFix type.
 			for ( i = 0; i < mappingValue.length; i++ ) {
-				CKEDITOR.plugins.a11ychecker.quickFixes.getInstance( mappingValue[ i ], onQuickFixCreated, issue, langCode );
+				CKEDITOR.plugins.a11ychecker.quickFixes.getInstance( {
+					name: mappingValue[ i ],
+					callback: onQuickFixCreated,
+					issue: issue,
+					langCode: langCode
+				} );
 			}
 		}
 

@@ -115,9 +115,9 @@
 					originRequire = require,
 					// A sequence of results returned by require() method.
 					requireSequence = [ new DummyType(), new DummyType(), new DummyType(), new DummyType() ],
-					quickFixGet = mocking.spy( function( requrestedType, receivedCallback ) {
+					quickFixGet = mocking.spy( function( options ) { // requrestedType, receivedCallback ) {
 						setTimeout( function() {
-							receivedCallback( requireSequence.pop() );
+							options.callback( requireSequence.pop() );
 						}, 40 );
 					} );
 

@@ -52,28 +52,27 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	/**
 	 * Similar to {@link #get} but returns localized instance rather than class.
 	 *
+	 * Please note that options.callback is mandatory.
+	 *
 	 * @todo: this method should be also available in generic class.
 	 */
-	LocalizedRepository.prototype.getInstance = function( name, callback, issue, langCode ) {
-		var that = this,
+	LocalizedRepository.prototype.getInstance = function( options ) {
+		options = options || {};
+		var name = options.name,
+			langCode = options.langCode  || 'en',
+			that = this,
 			devDistribution = CKEDITOR.plugins.a11ychecker.dev;
-		
-		langCode = langCode || 'en';
-		
-		//if ( devDistribution ) {
-		//	name = 'lang/' + langCode + '/' + name;
-		//}
 		
 		this.get( name, function( QuickFixType ) {
 			// This callback is guaranteed to be called when dictionary for langCode is fetched.
-			var instance = new QuickFixType( issue );
+			var instance = new QuickFixType( options.issue );
 			
 			if ( devDistribution ) {
 				// We only need to assign lang for dev version, built class will already have this property.
 				instance.lang = that._langDictionary[ langCode ][ name ];
 			}
 			
-			callback( instance );
+			options.callback( instance );
 		}, langCode );
 	};
 	
