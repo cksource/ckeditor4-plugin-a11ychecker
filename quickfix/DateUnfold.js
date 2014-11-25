@@ -22,7 +22,7 @@
 					'December'
 				]
 			};
-	
+
 			/**
 			 * QuickFix converting short dates to more verbose format. Eg. convert 21-3-2030
 			 * to 21 March 2030.
@@ -35,11 +35,11 @@
 			function DateUnfold( issue ) {
 				QuickFix.call( this, issue );
 			}
-	
+
 			DateUnfold.prototype = new QuickFix();
-	
+
 			DateUnfold.prototype.constructor = DateUnfold;
-	
+
 			/**
 			 * @param {Object} formAttributes Object containing serialized form inputs. See
 			 * {@link CKEDITOR.plugins.a11ychecker.ViewerForm#serialize}.
@@ -50,20 +50,20 @@
 				var issueElement = this.issue.element,
 					innerText = issueElement.getText(),
 					that = this;
-	
+
 				innerText = innerText.replace( /(\d{1,2}[.\/-]\d{1,2}[.\/-]\d{2,4})/g, function( occur ) {
 					var extractedDate = that.parseDate( occur );
-	
+
 					return that.getFriendlyDate( extractedDate );
 				} );
-	
+
 				issueElement.setText( innerText );
-	
+
 				if ( callback ) {
 					callback( this );
 				}
 			};
-	
+
 			/**
 			 * Parses given "short" data. Returns an object with 1-based values.
 			 *
@@ -82,14 +82,14 @@
 			 */
 			DateUnfold.prototype.parseDate = function( dateString ) {
 				var ret = dateString.split( /[.\-\/]+/ );
-	
+
 				return {
 					day: ret[ 0 ],
 					month: ret[ 1 ],
 					year: ret[ 2 ]
 				};
 			};
-	
+
 			/**
 			 *		var ret = dateFix.getFriendlyDate( {
 			 *			day: "21",
@@ -106,7 +106,7 @@
 				// month - 1 because monthNames is 0-based array.
 				var monthName = monthNames.en[ Number( dateObj.month - 1 ) ],
 					year = Number( dateObj.year );
-	
+
 				// In case of 2 digit year value, lets fix it.
 				if ( year >= 0 && year < 100 ) {
 					// Year 70 and greater will be considered 19xx.
@@ -117,11 +117,11 @@
 						year += 2000;
 					}
 				}
-	
+
 				// Cast day to Number, to remove leading 0.
 				return [ Number( dateObj.day ), monthName, year ].join( ' ' );
 			};
-	
+
 			CKEDITOR.plugins.a11ychecker.quickFixes.add( 'DateUnfold', DateUnfold );
 		}
 	} );

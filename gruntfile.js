@@ -298,7 +298,6 @@ function buildJs() {
 		return code;
 	}
 
-
 	function minify( code ) {
 		var uglifyJS = require( 'uglify-js' );
 

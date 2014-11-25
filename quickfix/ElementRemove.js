@@ -16,22 +16,22 @@
 			function ElementRemove( issue ) {
 				QuickFix.call( this, issue );
 			}
-	
+
 			ElementRemove.prototype = new QuickFix();
 			ElementRemove.prototype.constructor = ElementRemove;
-	
+
 			ElementRemove.prototype.display = function( form ) {
 				form.setInputs( {} );
 			};
-	
+
 			ElementRemove.prototype.fix = function( formAttributes, callback ) {
 				this.issue.element.remove();
-	
+
 				if ( callback ) {
 					callback( this );
 				}
 			};
-	
+
 			CKEDITOR.plugins.a11ychecker.quickFixes.add( 'ElementRemove', ElementRemove );
 		}
 	} );

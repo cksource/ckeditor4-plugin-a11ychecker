@@ -5,9 +5,9 @@
 	CKEDITOR.plugins.a11ychecker.quickFixes.get( {
 		name: 'QuickFix',
 		callback: function( QuickFix ) {
-	
+
 			var emptyWhitespaceRegExp = /^[\s\n\r]+$/g;
-	
+
 			/**
 			 * QuickFix adding a caption in the `table` element.
 			 *
@@ -19,11 +19,11 @@
 			function AddTableCaption( issue ) {
 				QuickFix.call( this, issue );
 			}
-	
+
 			AddTableCaption.prototype = new QuickFix();
-	
+
 			AddTableCaption.prototype.constructor = AddTableCaption;
-	
+
 			AddTableCaption.prototype.display = function( form ) {
 				form.setInputs( {
 					caption: {
@@ -32,7 +32,7 @@
 					}
 				} );
 			};
-	
+
 			/**
 			 * @param {Object} formAttributes Object containing serialized form inputs. See
 			 * {@link CKEDITOR.plugins.a11ychecker.ViewerForm#serialize}.
@@ -42,28 +42,28 @@
 			AddTableCaption.prototype.fix = function( formAttributes, callback ) {
 				var issueElement = this.issue.element,
 					caption = issueElement.getDocument().createElement( 'caption' );
-	
+
 				caption.setHtml( formAttributes.caption );
 				// Prepend the caption.
 				issueElement.append( caption, true );
-	
+
 				if ( callback ) {
 					callback( this );
 				}
 			};
-	
+
 			AddTableCaption.prototype.validate = function( formAttributes ) {
 				var proposedCaption = formAttributes.caption,
 					ret = [];
-	
+
 				// Test if the caption has only whitespaces.
 				if ( !proposedCaption || proposedCaption.match( emptyWhitespaceRegExp ) ) {
 					ret.push( this.lang.errorEmpty );
 				}
-	
+
 				return ret;
 			};
-	
+
 			CKEDITOR.plugins.a11ychecker.quickFixes.add( 'AddTableCaption', AddTableCaption );
 		}
 	} );
