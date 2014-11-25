@@ -87,7 +87,7 @@ define( function() {
 			};
 
 			loadedTypes[ name ] = false;
-			
+
 			requestEvent = this.fire( 'requested', evt );
 
 			if ( requestEvent !== false ) {
