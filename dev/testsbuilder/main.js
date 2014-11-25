@@ -171,11 +171,8 @@ describe( 'QuickFixBuilder', function() {
 			var mock = {
 					langs: [ 'en', 'de' ],
 					langDicts: {},
-					//data: {
-					//	source: fixturesPath + '/sampleDictionaries'
-					//},
 					loadDictionaries: QuickFixBuilder.prototype.loadDictionaries,
-					targetDir: fixturesPath + '/sampleDictionaries'
+					sourceLangsDir: fixturesPath + '/sampleDictionaries'
 				};
 
 			mock.loadDictionaries();

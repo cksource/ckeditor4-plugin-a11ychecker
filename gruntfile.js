@@ -21,7 +21,7 @@ module.exports = function( grunt ) {
 		'build-quickfix': {
 			build: {
 				source: 'quickfix',
-				target: 'quickfix/lang'
+				target: 'build/a11ychecker/quickfix/lang'
 			}
 		},
 
