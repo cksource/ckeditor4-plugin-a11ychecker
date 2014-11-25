@@ -1,36 +1,36 @@
 ( function() {
 	'use strict';
-	
+
 	var fs = require( 'fs' ),
 		util = require( 'util' ),
 		// Path separator. There is no need to use windows-sepcific.
 		sep = '/';
-	
+
 	/**
 	 * @constructor
 	 */
 	function QuickFixBuilder( grunt ) {
 		this.grunt = grunt;
 	}
-	
+
 	QuickFixBuilder.prototype = {
 		/**
 		 * Target directory, where builded files (and directories) will be created.
 		 * It should also contain source language files.
 		 */
 		targetDir: '',
-		
+
 		langs: [],
-		
+
 		langDicts: {},
-		
+
 		/**
 		 * Array with names of the QuickFix classes.
 		 */
 		quickFixes: []
 	};
 	QuickFixBuilder.prototype.constructor = QuickFixBuilder;
-	
+
 	/**
 	 * Main function to be executed when running a task.
 	 *
@@ -39,44 +39,58 @@
 	 */
 	QuickFixBuilder.prototype.exec = function( task ) {
 		this.data = task.data;
-		
+
 		this.targetDir = this.data.target || this.data.source + '/lang';
-		
+
 		try {
 			this.validate( task.data );
 		} catch ( e ) {
 			this.grunt.log.error( e.message );
 			return false;
 		}
-		
+
 		// Gather languages.
 		this.langs = this.listLanguages( this.targetDir );
-		
+
 		if ( !this.langs.length ) {
 			this.grunt.fail.warn( 'No languages detected, aborting.' );
 			return false;
 		}
-		
+
 		// Load source dictionaries.
 		this.loadDictionaries();
-		
-		console.log( 'langs listed:', this.langs );
-		
+
 		this.quickFixes = this.listQuickFixClasses( this.data.source );
-		
-		console.log( 'Fixes: ', this.quickFixes );
-		
+
 		this.createLanguageDirectories();
-		
+
 		this.quickFixes.map( function( quickFixName ) {
 			this.langs.map( function( langCode ) {
 				this.buildQuickFixClass( quickFixName, langCode );
 			}, this );
 		}, this );
-		
+
+		this.displaySummary();
+
 		return true;
 	};
-	
+
+
+	/**
+	 * Displays a short summary of grunt task.
+	 */
+	QuickFixBuilder.prototype.displaySummary = function() {
+		var colors = require('colors/safe'),
+			emphasisColor = colors.cyan;
+		this.grunt.log.writeln(
+			util.format(
+				'Built %s QuickFixes in %s langs.',
+				emphasisColor( this.quickFixes.length ),
+				emphasisColor( this.langs.length )
+			)
+		);
+	};
+
 	/**
 	 * Determines the langage list.
 	 *
@@ -86,7 +100,7 @@
 	QuickFixBuilder.prototype.listLanguages = function( directory ) {
 		return this._getJavaScriptFiles( directory, true );
 	};
-	
+
 	/**
 	 * List QuickFix classes.
 	 *
@@ -95,15 +109,15 @@
 	 */
 	QuickFixBuilder.prototype.listQuickFixClasses = function( directory ) {
 		var ret = this._getJavaScriptFiles( directory, true );
-		
+
 		if ( ret.indexOf( 'Repository' ) !== -1 ) {
 			// Repository class should be excluded.
 			ret.splice( ret.indexOf( 'Repository' ), 1 );
 		}
-		
+
 		return ret;
 	};
-	
+
 	/**
 	 * Validates properties given in task data.
 	 *
@@ -115,11 +129,11 @@
 	QuickFixBuilder.prototype.validate = function( data ) {
 		var source = data.source,
 			basePath = fs.realpathSync( '.' ) + sep;
-		
+
 		if ( !source ) {
 			throw new Error( 'Missing source property in task data! Please revise the config in gruntfile.' );
 		}
-		
+
 		try {
 			if ( !fs.statSync( source ).isDirectory() ) {
 				throw new Error( util.format( 'Invalid source. %s is not a directory!', basePath + source ) );
@@ -132,7 +146,7 @@
 			}
 		}
 	};
-	
+
 	/**
 	 * Creates language directories in this.targetDir.
 	 */
@@ -151,7 +165,7 @@
 			}
 		} );
 	};
-	
+
 	/**
 	 * Builds a single, localized QuickFix class.
 	 */
@@ -164,7 +178,7 @@
 
 		fs.writeFileSync( targetFile, replacedContent );
 	};
-	
+
 	/**
 	 * Loads all the dictionaries (from lang source files, so these directly in lang dir).
 	 */
@@ -192,12 +206,12 @@
 		this.langs.map( function( langCode ) {
 			langDicts[ langCode ] = {};
 			curLang = langCode;
-			
+
 			var path = this.targetDir + sep + langCode + '.js';
 			vm.runInContext( String( fs.readFileSync( path ) ), context );
 		}, this );
 	};
-	
+
 	/**
 	 * Returns a dictionary for a quickfix in given language.
 	 *
@@ -208,7 +222,7 @@
 	QuickFixBuilder.prototype._getDictionaryForQuickFix = function( quickFixClass, langCode ) {
 		return this.langDicts[ langCode ][ quickFixClass ] || {};
 	};
-	
+
 	/**
 	 * @param {String} fileSource Source of QuickFix class file.
 	 * @param {Object} lang Language object (proper dirctionary).
@@ -221,12 +235,12 @@
 			localizedClassName = langCode + '/' + className,
 			replacement = langProperty + 'CKEDITOR.plugins.a11ychecker.quickFixes.add( \'' + localizedClassName + '\'',
 			ret = String( fileSource ).replace( /CKEDITOR\.plugins\.a11ychecker\.quickFixes\.add\(\s*['"].*['"]/, replacement );
-		
+
 		ret = ret.replace( /(CKEDITOR.plugins.a11ychecker.quickFixes.get\(\s*\{[\t ]*)/, '$1 langCode: \'' + langCode + '\',' );
-		
+
 		return ret;
 	};
-	
+
 	/**
 	 * Returns all javascript files DIRECTLY in give directory.
 	 *
@@ -238,14 +252,14 @@
 		var files = fs.readdirSync( directory ).filter( function( file ) {
 				return fs.statSync( directory + sep + file ).isFile() && QuickFixBuilder._endsWith( file.toLowerCase(), '.js' );
 			} );
-		
+
 		// From each file we should remove extension.
 		return files.map( function( entry ) {
 			// Cut the .js extension.
 			return stripExtensions ? entry.substr( 0, entry.length - 3 ) : entry;
 		} );
 	};
-	
+
 	/**
 	 * A helper function for strings.
 	 *
@@ -256,7 +270,7 @@
 	QuickFixBuilder._endsWith = function( str, suffix ) {
 		return str.indexOf(suffix, str.length - suffix.length) !== -1;
 	};
-	
+
 	module.exports = function( grunt ) {
 		grunt.registerMultiTask( 'build-quickfix', 'A builder for QuickFix classes.', function() {
 			// 1. First list all possible lanugages by listing files directly in lang directory.
@@ -266,6 +280,6 @@
 			task.exec( this );
 		} );
 	};
-	
+
 	module.exports.QuickFixBuilder = QuickFixBuilder;
 }() );
