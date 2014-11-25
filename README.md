@@ -1,14 +1,14 @@
 CKEditor Accessibility Checker
-==================================================
+==============================
 
 # Overview
 
-This repository contains the development version of Accessibility checker plugin for CKEditor.
+This repository contains the development version of the Accessibility Checker Plugin for CKEditor.
 
 ## Requirements
 
-* CKEditor **4.3.0** or later
-* jQuery **1.x** in order to run [Quail](http://quailjs.org/)
+* CKEditor **4.3.0** or later.
+* jQuery **1.x** in order to run [Quail](http://quailjs.org/).
 
 ## Installation
 
@@ -17,7 +17,7 @@ This repository contains the development version of Accessibility checker plugin
 If you're not interested in developing core Accessibility Checker features, feel free to skip this section.
 
 ```bash
- Assuming that $CKEDITOR_DEV_PATH is your CKEditor path.
+# Assuming that $CKEDITOR_DEV_PATH is your CKEditor path.
 cd $CKEDITOR_DEV_PATH/plugins
 git clone -b dev git@github.com:cksource/ckeditor-plugin-a11ychecker.git a11ychecker
 ```
@@ -25,7 +25,7 @@ git clone -b dev git@github.com:cksource/ckeditor-plugin-a11ychecker.git a11yche
 #### Checkout A11ychecker Quail Adapter
 
 ```bash
- Assuming that $CKEDITOR_DEV_PATH is your CKEditor path.
+# Assuming that $CKEDITOR_DEV_PATH is your CKEditor path.
 cd $CKEDITOR_DEV_PATH/plugins
 git clone git@github.com:cksource/ckeditor-plugin-a11ycheckerquail.git a11ycheckerquail
 ```
@@ -49,40 +49,40 @@ grunt build-css
 
 ### Distribution Version
 
-For more information about distribution version see [`DISTRIBUTION.md`](DISTRIBUTION.md) file.
+For more information about the distribution version see [`DISTRIBUTION.md`](DISTRIBUTION.md) file.
 
 ### Building a Distribution Version
 
-You can build a distribution package using grunt task.
+You can build a distribution package using grunt.
 
 Main changes in distribution version:
-* It doesn't use RequireJS, so all the classes are inlined.
-* It contains `CKEDITOR.plugins.a11ychecker.rev` property with a revision hash.
-* Got quickfixes minified.
-* It will automatically create a zip archive so that you can share it without putting a code to public repo.
 
-To build Accessibility Checker simply go to the `a11ychecker` plugin directory. And execute following commands:
+* It doesn't use RequireJS, so all the classes are inlined.
+* It contains the `CKEDITOR.plugins.a11ychecker.rev` property with a revision hash.
+* Quick-fixes are minified.
+* It will automatically create a zip archive so that you can share it without publishing the code into a public repo.
+
+To build the Accessibility Checker simply go to the `a11ychecker` plugin directory. And execute following commands:
 
 ```bash
 npm install
 grunt build
 ```
 
-Build files are put in `build` directory in `a11ychecker` plugin.
+Build files are put in `build` directory of the `a11ychecker` plugin directory.
 
 #### Building a Full Distribution
 
-Since Accessibility Checker has actually a few dependencies, you might want to include all the dependent plugins,
-just to make installation easier.
+Since the Accessibility Checker has actually a few dependencies, you might want to include all the dependent plugins, just to make installation easier.
 
-We have a build-full feature, that will include also dependent plugins into build directory, and created zip archive.
+We have a build-full feature, that will include also dependent plugins into the build directory, and created a zip archive.
 
 ```bash
 npm install
 grunt build-full
 ```
 
-Now another person might simply get a zip, extract it to `ckeditor/plugins` directory, and he's ready to go.
+Now another person might simply get the zip, extract it to `ckeditor/plugins` directory and everything is ready to go.
 
 ## Where Do I Start?
 
@@ -108,4 +108,7 @@ mklink /D "%CKEDITOR_DEV_PATH%/tests/plugins/a11ychecker" "%CKEDITOR_DEV_PATH%/p
 
 ## License
 
-@todo
+Copyright (c) 2014 CKSource - Frederico Knabben. All rights reserved.<br>
+License under the terms of the open source [GPL license](http://www.gnu.org/licenses/gpl-2.0.html).
+
+See LICENSE.md for more information.
