@@ -15,20 +15,12 @@
 	'use strict';
 
 	CKEDITOR.plugins.a11ychecker.quickFixes.lang( 'it', {
-		AddTableCaption: {
-			captionLabel: 'Captiono',
-			errorEmpty: 'El captiono nuo empty'
-		},
+		AddTableCaption: {},
 		AnchorsMerge: {},
 		AttributeRename: {},
 		DateUnfold: {},
 		ElementRemove: {},
-		ImgAlt: {
-			altLabel: 'Alternativno text e puta',
-			errorTooLong: 'Uno too longe alte {limit} cerveza {length}.',
-			errorWhitespace: 'Uno charactero needeto',
-			errorEmpty: 'Non empto alternative texto'
-		},
+		ImgAlt: {},
 		QuickFix: {},
 		Repository: {}
 	} );

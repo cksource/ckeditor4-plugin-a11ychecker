@@ -21,7 +21,7 @@ module.exports = function( grunt ) {
 		'build-quickfix': {
 			build: {
 				source: 'quickfix',
-				target: 'build/a11ychecker/quickfix/lang'
+				target: 'build/a11ychecker/quickfix'
 			}
 		},
 
@@ -94,7 +94,8 @@ module.exports = function( grunt ) {
 		},
 
 		clean: {
-			build: [ 'build' ]
+			build: [ 'build' ],
+			buildQuickFixes: [ 'build/a11ychecker/quickfix/*' ]
 		},
 
 		copy: {
@@ -183,7 +184,7 @@ module.exports = function( grunt ) {
 
 	grunt.registerTask( 'build', 'Generates a build.', [
 		'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:readme',
-		'plugin-versions:build', 'build-quickfix:build'
+		'plugin-versions:build', 'clean:buildQuickFixes', 'build-quickfix:build'
 	] );
 	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [
 		'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'process', 'compress:build'
