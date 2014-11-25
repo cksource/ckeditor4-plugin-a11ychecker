@@ -18,7 +18,7 @@ describe( 'QuickFixBuilder', function() {
 			data: {}
 		};
 	}
-	
+
 	describe( 'listLanguages', function() {
 		var mock = {
 				_getJavaScriptFiles: sinon.spy( function() {
@@ -26,11 +26,11 @@ describe( 'QuickFixBuilder', function() {
 				} )
 			},
 			ret = QuickFixBuilder.prototype.listLanguages.call( mock, 'langList' );
-		
+
 		assert.isArray( ret, 'Return val is an array' );
 		sinon.assert.calledWith( mock._getJavaScriptFiles, 'langList', true );
 	} );
-	
+
 	describe( 'listQuickFixClasses', function() {
 		it( 'reuses _getJavaScriptFiles', function() {
 			var mock = {
@@ -41,11 +41,11 @@ describe( 'QuickFixBuilder', function() {
 				ret;
 
 			ret = QuickFixBuilder.prototype.listQuickFixClasses.call( mock, 'foo' );
-			
+
 			assert.isArray( ret, 'Return type' );
 			sinon.assert.calledWith( mock._getJavaScriptFiles, 'foo', true );
 		} );
-		
+
 		it( 'excludes repository class', function() {
 			var mock = {
 					_getJavaScriptFiles: function() {
@@ -55,18 +55,18 @@ describe( 'QuickFixBuilder', function() {
 				ret;
 
 			ret = QuickFixBuilder.prototype.listQuickFixClasses.call( mock );
-			
+
 			assert.sameMembers( ret, [ 'a', 'b' ], 'Repository string is removed' );
 		} );
 	} );
-	
+
 	describe( 'validate', function() {
 		it( 'throws exception on missing source', function() {
 			assert.throws( function() {
 				QuickFixBuilder.prototype.validate( {} );
 			}, Error, /Missing source property in task data/ );
 		} );
-		
+
 		it( 'thorws exception on missing directory', function() {
 			assert.throws( function() {
 				QuickFixBuilder.prototype.validate( {
@@ -74,7 +74,7 @@ describe( 'QuickFixBuilder', function() {
 				} );
 			}, Error, /Invalid source\. Directory .+ not found!/ );
 		} );
-		
+
 		it( 'thorws exception when source is not a dir', function() {
 			assert.throws( function() {
 				QuickFixBuilder.prototype.validate( {
@@ -99,13 +99,13 @@ describe( 'QuickFixBuilder', function() {
 				},
 				task = getTaskMockup(),
 				ret;
-			
+
 			ret = QuickFixBuilder.prototype.exec.call( mock, task );
-			
+
 			sinon.assert.calledWith( mock.grunt.log.error, 'foobar' );
 			assert.isFalse( ret, 'Return value' );
 		} );
-		
+
 		it( 'logs a warning upon no langs', function() {
 			var mock = {
 					grunt: {
@@ -121,19 +121,19 @@ describe( 'QuickFixBuilder', function() {
 				},
 				task = getTaskMockup(),
 				ret;
-			
+
 			ret = QuickFixBuilder.prototype.exec.call( mock, task );
-			
+
 			sinon.assert.calledWith( mock.grunt.fail.warn, 'No languages detected, aborting.' );
 			assert.isFalse( ret, 'Return value' );
 		} );
 	} );
-	
+
 	describe( 'createLanguageDirectories', function() {
-		
+
 		var rimraf = require( 'rimraf' ),
 			dirCreationPath = fixturesPath + '/' + 'dirCreation';;
-			
+
 		beforeEach( function() {
 			// Before going here we need to cleanup dir.
 			if ( fs.existsSync( dirCreationPath ) ) {
@@ -142,13 +142,13 @@ describe( 'QuickFixBuilder', function() {
 			// Make so it's empty.
 			fs.mkdirSync( dirCreationPath );
 		} );
-		
+
 		afterEach( function() {
 			if ( fs.existsSync( dirCreationPath ) ) {
 				rimraf.sync( dirCreationPath );
 			}
 		} );
-		
+
 		it( 'creates dir structure', function() {
 			var mock = {
 					langs: [ 'en', 'en-us', 'sp' ],
@@ -156,16 +156,16 @@ describe( 'QuickFixBuilder', function() {
 					classes: []
 				},
 				files;
-			
+
 			QuickFixBuilder.prototype.createLanguageDirectories.call( mock );
-			
+
 			// Now we'll check languages
 			files = fs.readdirSync( dirCreationPath );
-			
+
 			assert.sameMembers( files, mock.langs, 'Created directories' );
 		} );
 	} );
-	
+
 	describe( 'loadDictionaries', function() {
 		it( 'reads dictionaries from directory', function() {
 			var mock = {
@@ -177,11 +177,11 @@ describe( 'QuickFixBuilder', function() {
 					loadDictionaries: QuickFixBuilder.prototype.loadDictionaries,
 					targetDir: fixturesPath + '/sampleDictionaries'
 				};
-			
+
 			mock.loadDictionaries();
-			
+
 			assert.sameMembers( Object.keys( mock.langDicts ), mock.langs, 'langDicts has valid keys' );
-			
+
 			assert.deepEqual( mock.langDicts, {
 				en: {
 					a: 'en1',
@@ -215,10 +215,10 @@ describe( 'QuickFixBuilder', function() {
 					foo: 'bar'
 				},
 				_injectLanguageObject = QuickFixBuilder.prototype._injectLanguageObject;
-			
+
 			assert.strictEqual( _injectLanguageObject( 'QuickFix', inputFile, lang, 'zh' ), expected, 'Language object inlined into source' );
 		} );
-		
+
 		it( 'places langCode property correctly', function() {
 			// If QuickFix class calls Repository.get() method we need to make sure that
 			// lang code is injected to the options object.
@@ -247,38 +247,38 @@ describe( 'QuickFixBuilder', function() {
 					'}() );',
 				lang = {},
 				_injectLanguageObject = QuickFixBuilder.prototype._injectLanguageObject;
-			
+
 			assert.strictEqual( _injectLanguageObject( 'SubClass', inputFile, lang, 'en' ), expected, 'Language object inlined into source' );
 		} );
 	} );
-	
+
 	describe( '_getJavaScriptFiles', function() {
 		it( 'return JS files in dir', function() {
 			var ret = QuickFixBuilder.prototype._getJavaScriptFiles( fixturesPath + '/langList' ),
 				expected = [ 'cz.js', 'de.js', 'en-us.js', 'en.js', 'it.js', 'pt.js' ];
-			
+
 			assert.isArray( ret, 'Return val is an array' );
 			assert.sameMembers( ret, expected, 'Return langs array' );
 			// Order should be preserved too.
 			assert.deepEqual( ret, expected, 'Returned langs order' );
 		} );
-		
+
 		it( 'strips the extension', function() {
 			var ret = QuickFixBuilder.prototype._getJavaScriptFiles( fixturesPath + '/langList', true ),
 				expected = [ 'cz', 'de', 'en-us', 'en', 'it', 'pt' ];
-			
+
 			assert.isArray( ret, 'Return val is an array' );
 			assert.sameMembers( ret, expected, 'Return langs array' );
 		} );
 	} );
 
-	
+
 	describe( '_endsWith', function() {
 		it( 'works', function() {
 			assert.isTrue( QuickFixBuilder._endsWith( 'foo/bar/baz', 'baz' ) );
 			assert.isTrue( QuickFixBuilder._endsWith( 'a', 'a' ) );
 		} );
-		
+
 		it( 'works negative', function() {
 			assert.isFalse( QuickFixBuilder._endsWith( 'a', 'b' ) );
 			assert.isFalse( QuickFixBuilder._endsWith( 'a', 'aa' ) );
