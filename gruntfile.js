@@ -102,14 +102,13 @@ module.exports = function( grunt ) {
 			build: {
 				// nonull to let us know if any of given entiries is missing.
 				nonull: true,
-				src: [ 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*' ],
+				src: [ 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*', 'samples/*', 'libs/**' ],
 				dest: 'build/a11ychecker/'
 			},
 
 			// Copies external dependencies into a build directory.
 			external: {
-				src: [ '../balloonpanel/**', '../a11ycheckerquail/**', '!../a11ycheckerquail/tests/**',
-					'!../a11ycheckerquail/README.md', '!../balloonpanel/tests/**', '!../balloonpanel/dev/**',
+				src: [ '../balloonpanel/**', '!../balloonpanel/tests/**', '!../balloonpanel/dev/**',
 					'!../balloonpanel/README.md'
 				],
 				dest: 'build/balloonpanel/'
@@ -128,7 +127,7 @@ module.exports = function( grunt ) {
 					archive: 'build/a11ychecker.zip'
 				},
 				cwd: 'build/',
-				src: [ 'a11ychecker/**', 'a11ycheckerquail/**', 'balloonpanel/**' ],
+				src: [ 'a11ychecker/**', 'balloonpanel/**' ],
 				dest: '',
 				expand: true
 			}
@@ -138,8 +137,7 @@ module.exports = function( grunt ) {
 			external: {
 				files: [
 					{
-						'build/balloonpanel/plugin.js': [ '../balloonpanel/plugin.js' ],
-						'build/a11ycheckerquail/plugin.js': [ '../a11ycheckerquail/plugin.js' ]
+						'build/balloonpanel/plugin.js': [ '../balloonpanel/plugin.js' ]
 					},
 					{
 						// This entry is going to minify QuickFix types.
@@ -153,10 +151,10 @@ module.exports = function( grunt ) {
 		},
 
 		preprocess: {
-			// Builds a dev/sample.html.
+			// Builds a sample.
 			build: {
-				src: '../a11ycheckerquail/dev/sample.html',
-				dest: 'build/a11ycheckerquail/dev/sample.html'
+				src: 'samples/a11ychecker.html',
+				dest: 'build/a11ychecker/samples/a11ychecker.html'
 			}
 		},
 
@@ -168,7 +166,7 @@ module.exports = function( grunt ) {
 			},
 			external: {
 				options: {
-					plugins: [ 'a11ycheckerquail', 'balloonpanel' ]
+					plugins: [ 'balloonpanel' ]
 				}
 			}
 		}
@@ -245,12 +243,15 @@ function buildJs() {
 	// 4. Append the copyright notices and save to build/plugin.js.
 
 	var requirejs = require( 'requirejs' ),
-		fs = require('fs' ),
+		fs = require( 'fs' ),
 		options = this.options();
 
 	var config = {
 		name: 'plugin',
 		out: 'build/a11ychecker/plugin.js',
+		paths: {
+			'Quail': 'libs/quail/quail.jquery'
+		},
 		optimize: 'none'	// Do not minify because of AMDClean.
 	};
 
