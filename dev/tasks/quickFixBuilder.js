@@ -20,6 +20,8 @@
 		 */
 		targetDir: '',
 
+		sourceLangsDir: '',
+
 		langs: [],
 
 		langDicts: {},
@@ -42,6 +44,8 @@
 
 		this.targetDir = this.data.target || this.data.source + '/lang';
 
+		this.sourceLangsDir = this.data.source + sep + 'lang';
+
 		try {
 			this.validate( task.data );
 		} catch ( e ) {
@@ -50,7 +54,7 @@
 		}
 
 		// Gather languages.
-		this.langs = this.listLanguages( this.targetDir );
+		this.langs = this.listLanguages( this.sourceLangsDir );
 
 		if ( !this.langs.length ) {
 			this.grunt.fail.warn( 'No languages detected, aborting.' );
@@ -207,7 +211,7 @@
 			langDicts[ langCode ] = {};
 			curLang = langCode;
 
-			var path = this.targetDir + sep + langCode + '.js';
+			var path = this.sourceLangsDir + sep + langCode + '.js';
 			vm.runInContext( String( fs.readFileSync( path ) ), context );
 		}, this );
 	};
