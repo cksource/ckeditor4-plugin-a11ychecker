@@ -181,10 +181,12 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, ' +
 		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions' ] );
 
-	grunt.registerTask( 'build', 'Generates a build.',
-		[ 'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:readme', 'plugin-versions:build' ] );
+	grunt.registerTask( 'build', 'Generates a build.', [
+		'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:readme',
+		'plugin-versions:build', 'build-quickfix:build'
+	] );
 	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [
-		'build', 'copy:external', 'plugin-versions:external', 'build-quickfix', 'uglify:external', 'process', 'compress:build'
+		'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'process', 'compress:build'
 	] );
 
 	grunt.loadTasks( 'dev/tasks' );
