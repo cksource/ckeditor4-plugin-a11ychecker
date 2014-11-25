@@ -261,8 +261,8 @@ function buildJs() {
 				// Add copyright notices.
 				code =
 					'/*\n' +
-					' Copyright (c) 2003-' + ( new Date() ).getFullYear() + ', CKSource - Frederico Knabben. All rights reserved.\n' +
-					' For licensing, see LICENSE.md or http://ckeditor.com/license\n' +
+					' Copyright (c) ' + ( new Date() ).getFullYear() + ' CKSource - Frederico Knabben. All rights reserved.\n' +
+					' For licensing, see LICENSE.md\n' +
 					'*/\n\n' +
 					code;
 
