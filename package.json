@@ -1,6 +1,6 @@
 {
   "name": "ckeditor-a11ychecker",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "devDependencies": {
     "amdclean": "~2.2.4",
