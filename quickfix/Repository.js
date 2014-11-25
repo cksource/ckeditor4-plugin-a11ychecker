@@ -46,12 +46,17 @@ define( function() {
 	 *		} );
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.quickFix.Repository
-	 * @param {String} name
-	 * @param {Function} callback A function to be called when given type is registered.
+	 * @param {Object} options
+	 * @param {String} options.name
+	 * @param {Function} options.callback A function to be called when given type is registered.
 	 * It gets only one parameter which is a construct function for given QuickFix.
 	 * @returns {Function}
 	 */
-	Repository.prototype.get = function( name, callback ) {
+	Repository.prototype.get = function( options ) {
+		var name = options.name,
+			callback = options.callback,
+			evt,
+			requestEvent;
 
 		if ( loadedTypes[ name ] ) {
 			// If type is already loaded return it immediately.
@@ -77,17 +82,16 @@ define( function() {
 
 			// If type is not yet loaded we need to fire an event (where one can
 			// override loading method).
-			var evt = {
-					name: name
-				},
-				requestEvent;
+			evt = {
+				name: name
+			};
 
 			loadedTypes[ name ] = false;
 
 			requestEvent = this.fire( 'requested', evt );
 
 			if ( requestEvent !== false ) {
-				this.requestQuickFix( name );
+				this.requestQuickFix( options );
 			}
 		}
 	};
@@ -97,10 +101,10 @@ define( function() {
 	 * if `requested` event was not canceled.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.quickFix.Repository
-	 * @param {String} name Type name. Based on that function will create a file name.
+	 * @param {Object} options Same as in {@link #get}
 	 */
-	Repository.prototype.requestQuickFix = function( name ) {
-		CKEDITOR.scriptLoader.load( this.basePath + name + '.js' );
+	Repository.prototype.requestQuickFix = function( options ) {
+		CKEDITOR.scriptLoader.load( this.basePath + options.name + '.js' );
 	};
 
 	/**

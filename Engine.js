@@ -114,46 +114,44 @@ define( function() {
 	};
 
 	/**
-	 * Finds array of matching QuickFix for a given `issue` and returns it to
+	 * Finds array of matching QuickFix instances for a given `issue` and returns it to
 	 * `callback`.
 	 *
-	 * If no matching QuickFix types are found, `callback` will be called with
-	 * empty array.
+	 * If no matching QuickFixes are found, `callback` will be called with an empty array.
 	 *
 	 * This method uses {@link #fixesMapping} to determine which fixes belongs to a
 	 * given issue.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Engine
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue
-	 * @param {Function} callback Callback to be called when types are ready. It gets
-	 * one argument, that's array of {@link CKEDITOR.plugins.a11ychecker.quickFix.Base}
-	 * objects bound to the issue.
-	 *
-	 * @todo: This function requires rewriting, for the time being it needs to do its
-	 * task.
+	 * @param {Function} callback Callback to be called when QuickFix objects are ready. It gets
+	 * one argument, that's array of {@link CKEDITOR.plugins.a11ychecker.quickFix.Base} instances
+	 * bound to the issue.
 	 */
-	Engine.prototype.getFixes = function( issue, callback ) {
+	Engine.prototype.getFixes = function( issue, callback, langCode ) {
 
 		var mappingValue = this.fixesMapping[ issue.id ];
 
 		if ( !mappingValue || !mappingValue.length ) {
 			callback( [] );
 		} else {
-			var matchedTypes = [],
-				onTypeLoaded = function( QuickFix ) {
-					// Note that in this case QuickFix doesn't have to really be a
-					// quickFix.QuickFix class, but it also might contain any other,
-					// QuickFix type like ImgAlt etc.
-					matchedTypes.push( new QuickFix( issue ) );
+			var matchedQuickFixes = [],
+				onQuickFixCreated = function( quickFixInstance ) {
+					matchedQuickFixes.push( quickFixInstance );
 
-					if ( matchedTypes.length === mappingValue.length ) {
-						callback( matchedTypes );
+					if ( matchedQuickFixes.length === mappingValue.length ) {
+						callback( matchedQuickFixes );
 					}
 				},
 				i;
 			// We need to fetch every QuickFix type.
 			for ( i = 0; i < mappingValue.length; i++ ) {
-				CKEDITOR.plugins.a11ychecker.quickFixes.get( mappingValue[ i ], onTypeLoaded );
+				CKEDITOR.plugins.a11ychecker.quickFixes.getInstance( {
+					name: mappingValue[ i ],
+					callback: onQuickFixCreated,
+					issue: issue,
+					langCode: langCode
+				} );
 			}
 		}
 

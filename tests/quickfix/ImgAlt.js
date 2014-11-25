@@ -12,7 +12,11 @@
 					},
 
 					'test ImgAlt.display': function() {
-						var fixMock = {},
+						var fixMock = {
+								lang: {
+									altLabel: 'Alternative text'
+								}
+							},
 							formMock = {},
 							ret;
 
@@ -86,12 +90,17 @@
 						assert.areSame( expectedError, ret[ 0 ], 'Error message' );
 					},
 					'test ImgAlt.validate no alt': function() {
-						var attributes = {
+						var fixMock = {
+								lang: {
+									errorEmpty: 'Alternative text can not be empty'
+								}
+							},
+							attributes = {
 								alt: ''
 							},
 							ret;
 
-						ret = ImgAlt.prototype.validate.call( {}, attributes );
+						ret = ImgAlt.prototype.validate.call( fixMock, attributes );
 
 						assert.isInstanceOf( Array, ret );
 						assert.areSame( 1, ret.length, 'Return array length' );

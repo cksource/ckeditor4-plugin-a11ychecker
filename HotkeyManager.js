@@ -78,7 +78,6 @@ define( function() {
 		};
 	};
 
-
 	/**
 	 * Parses the object given in `config.a11ychecker_keystrokes` object and transforms it to more
 	 * programmer-friendly object where keystrokes are obj keys, and the command name is value, eg.

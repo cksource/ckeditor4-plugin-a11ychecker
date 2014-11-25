@@ -114,14 +114,14 @@
 					} ),
 					originRequire = require,
 					// A sequence of results returned by require() method.
-					requireSequence = [ DummyType, DummyType, DummyType, DummyType ],
-					quickFixGet = mocking.spy( function( requrestedType, receivedCallback ) {
+					requireSequence = [ new DummyType(), new DummyType(), new DummyType(), new DummyType() ],
+					quickFixGet = mocking.spy( function( options ) {
 						setTimeout( function() {
-							receivedCallback( requireSequence.pop() );
+							options.callback( requireSequence.pop() );
 						}, 40 );
 					} );
 
-				mocking.mockProperty( 'CKEDITOR.plugins.a11ychecker.quickFixes.get', window, quickFixGet );
+				mocking.mockProperty( 'CKEDITOR.plugins.a11ychecker.quickFixes.getInstance', window, quickFixGet );
 
 				// That will force 4 require() calls.
 				engine.fixesMapping.foo = [ 1, 2, 3, 4 ];

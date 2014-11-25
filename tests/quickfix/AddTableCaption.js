@@ -40,7 +40,11 @@
 
 				'test adds field to form': function() {
 					// Ensure that this type adds a field to form.
-					var fixMockup = {},
+					var fixMockup = {
+							lang: {
+								captionLabel: 'Caption'
+							}
+						},
 						formMock = {
 							setInputs: mocking.spy()
 						},
