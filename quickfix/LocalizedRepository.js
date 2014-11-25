@@ -1,6 +1,6 @@
 define( [ 'quickfix/Repository' ], function( Repository ) {
 	'use strict';
-	
+
 	/**
 	 * This type adds localization support for repository.
 	 *
@@ -17,7 +17,7 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	LocalizedRepository.prototype.constructor = LocalizedRepository;
 
 	LocalizedRepository.prototype._langDictionary = {};
-	
+
 	// An array of arguments from calls that were deferred.
 	var deferredGetCalls = {},
 		languagesRequested = [];
@@ -30,41 +30,23 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	 */
 	LocalizedRepository.prototype.get = function( options ) {
 		options.langCode = options.langCode || 'en';
-		
+
 		if ( this.deferGetCall( options.langCode, arguments ) ) {
 			// Call should be deferred, because no lang is available yet.
 			return;
 		}
-		
+
 		if ( !CKEDITOR.plugins.a11ychecker.dev ) {
 			// In case of release code we'll do a trick here.
 			// Each class will be represented as '<lang>/<className>' string, that way we
 			// can load multiple language combination with given class.
 			options.name = options.langCode + '/' + options.name;
 		}
-		
+
 		// If lang is available call to the base class.
 		return Repository.prototype.get.call( this, options );
 	};
-	
-	/**
-	 * The default way of downloading JavaScript files. This will be used
-	 * if `requested` event was not canceled.
-	 *
-	 * @member CKEDITOR.plugins.a11ychecker.quickFix.LocalizedRepository
-	 * @param {Object} options Same as in {@link #get}
-	 */
-	LocalizedRepository.prototype.requestQuickFix = function( options ) {
-		if ( !CKEDITOR.plugins.a11ychecker.dev ) {
-			// In case of builded version we're loading localized QuickFix class from
-			// quickfix/lang/<langCode>/<className>.js file.
-			// Note that at this point options.name has prepended '<lang>/' part.
-			CKEDITOR.scriptLoader.load( this.basePath + 'lang/' + options.name + '.js' );
-		} else {
-			Repository.prototype.requestQuickFix.call( this, options );
-		}
-	};
-	
+
 	/**
 	 * Similar to {@link #get} but returns localized instance rather than class.
 	 *
@@ -77,25 +59,25 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 		var name = options.name,
 			langCode = options.langCode || 'en',
 			that = this;
-			
+
 		this.get( {
 			name: name,
 			callback: function( QuickFixType ) {
 				// This callback is guaranteed to be called when dictionary for langCode is fetched.
 				var instance = new QuickFixType( options.issue );
-				
+
 				if ( CKEDITOR.plugins.a11ychecker.dev ) {
 					// We only need to assign lang for dev version, built class will already have this property.
 					instance.lang = that._langDictionary[ langCode ][ name ];
 				}
-				
+
 				options.callback( instance );
 			},
 			langCode: langCode
 		} );
 	};
-	
-	
+
+
 	/**
 	 * If needed will defer {@link #get} call.
 	 *
@@ -108,18 +90,18 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 			// loaded.
 			return false;
 		}
-		
+
 		this._addDeferredGet( langCode, getArguments );
-		
+
 		if ( indexOf( languagesRequested, langCode ) === -1 ) {
 			// This particular language was not requested yet.
 			languagesRequested.push( langCode );
 			CKEDITOR.scriptLoader.load( this.basePath + 'lang/' + langCode + '.js' );
 		}
-		
+
 		return true;
 	};
-	
+
 	/**
 	 * Registers a class of given QuickFix.
 	 *
@@ -130,7 +112,7 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	LocalizedRepository.prototype.add = function( name, cls ) {
 		return Repository.prototype.add.call( this, name, cls );
 	};
-	
+
 	/**
 	 * Method to register language dictionary for developer version.
 	 *
@@ -141,20 +123,20 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	 */
 	LocalizedRepository.prototype.lang = function( langCode, dictionary ) {
 		this._langDictionary[ langCode ] = dictionary;
-		
+
 		var getQueue = deferredGetCalls[ langCode ];
-		
+
 		if ( !getQueue ) {
 			// No get calls were queued for that language.
 			return;
 		}
-		
+
 		// All deferred gets should be called in reversed order.
 		for ( var i = getQueue.length - 1; i >= 0; i-- ) {
 			this.get.apply( this, getQueue[ i ] );
 		}
 	};
-	
+
 	LocalizedRepository.prototype._addDeferredGet = function( langCode, getArguments ) {
 		if ( deferredGetCalls[ langCode ] ) {
 			deferredGetCalls[ langCode ].push( getArguments );
@@ -162,8 +144,8 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 			deferredGetCalls[ langCode ] = [ getArguments ];
 		}
 	};
-	
-	
+
+
 	/**
 	 * Function created for tests, returns count of deferred get functions.
 	 *
@@ -172,7 +154,7 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	LocalizedRepository.prototype._getDeferredGetCount = function( langCode ) {
 		return deferredGetCalls[ langCode ] ? deferredGetCalls[ langCode ].length : 0;
 	};
-	
+
 	/**
 	 * Function created for tests, clears deferred get queue.
 	 */
