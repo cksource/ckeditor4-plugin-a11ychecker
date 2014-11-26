@@ -534,6 +534,13 @@ define( [
 	 * @private
 	 */
 	Controller.prototype._onQuickFix = function( quickFix ) {
+
+		quickFix.markSelection( this.editor, this.editor.getSelection() );
+
+		if ( this.mode.unsetStoredSelection ) {
+			this.mode.unsetStoredSelection();
+		}
+
 		var event = {
 				quickFix: quickFix,
 				issue: quickFix.issue

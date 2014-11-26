@@ -64,6 +64,17 @@
 				return ret;
 			};
 
+			AddTableCaption.prototype.markSelection = function( editor, selection ) {
+				var caption = this.issue.element.findOne( 'caption' ),
+					rng = editor.createRange();
+
+				if ( caption ) {
+					rng.setStartAt( caption, CKEDITOR.POSITION_AFTER_START );
+					rng.setEndAt( caption, CKEDITOR.POSITION_BEFORE_END );
+					selection.selectRanges( [ rng ] );
+				}
+			};
+
 			CKEDITOR.plugins.a11ychecker.quickFixes.add( 'AddTableCaption', AddTableCaption );
 		}
 	} );

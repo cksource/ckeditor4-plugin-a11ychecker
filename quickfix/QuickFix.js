@@ -66,6 +66,18 @@
 		return [];
 	};
 
+	/**
+	 * A method called to mark the selection on object before quickfix is applied.
+	 *
+	 * @param {CKEDITOR.dom.selection} selection Editor selection.
+	 */
+	QuickFix.prototype.markSelection = function( editor, selection ) {
+		var rng = editor.createRange();
+		rng.setStartBefore( this.issue.element );
+		rng.setEndAfter( this.issue.element );
+		selection.selectRanges( [ rng ] );
+	};
+
 	QuickFix.prototype.lang = {};
 
 	CKEDITOR.plugins.a11ychecker.quickFixes.add( 'QuickFix', QuickFix );
