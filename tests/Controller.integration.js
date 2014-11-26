@@ -1,6 +1,6 @@
 /* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: a11ychecker,sourcearea */
-/* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
+/* bender-include: %TEST_DIR%_assets/jquery.min.js, %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
 /**
  * @fileoverview Integration tests for Controller class.
@@ -15,7 +15,7 @@
 		startupData: startupData
 	};
 
-	require( [ 'mocking', 'Controller', 'EngineMock', 'ui/ViewerController', 'EngineDefault' ], function( mocking, Controller, EngineMock ) {
+	require( [ 'mocking', 'Controller', 'EngineMock', 'ui/ViewerController', 'EngineDefault', 'EngineQuail' ], function( mocking, Controller, EngineMock ) {
 		bender.test( {
 
 			_should: {

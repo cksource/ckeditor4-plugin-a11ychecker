@@ -1,6 +1,6 @@
 /* bender-tags: editor,a11ychecker,undo */
 /* bender-ckeditor-plugins: a11ychecker,sourcearea,toolbar,undo */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
+/* bender-include: %TEST_DIR%../_assets/jquery.min.js, %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 /**
  * @fileoverview Integration with the undo plugin.
@@ -16,7 +16,7 @@
 	// The count of snapshots that CKE contains by default.
 	var INITIAL_SNAPSHOT_COUNT = 1;
 
-	require( [ 'mocking', 'EngineMock', 'Controller', 'helpers/QuickFixTest', 'EditableDecorator', 'EngineDefault' ], function( mocking, EngineMock, Controller, QuickFixTest, EditableDecorator ) {
+	require( [ 'mocking', 'EngineMock', 'Controller', 'helpers/QuickFixTest', 'EditableDecorator', 'EngineDefault', 'EngineQuail' ], function( mocking, EngineMock, Controller, QuickFixTest, EditableDecorator ) {
 		bender.test( {
 			setUp: function() {
 				// Ensure that editor uses synchronous EngineMock.

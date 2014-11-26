@@ -22,14 +22,6 @@ cd $CKEDITOR_DEV_PATH/plugins
 git clone -b dev git@github.com:cksource/ckeditor-plugin-a11ychecker.git a11ychecker
 ```
 
-#### Checkout A11ychecker Quail Adapter
-
-```bash
-# Assuming that $CKEDITOR_DEV_PATH is your CKEditor path.
-cd $CKEDITOR_DEV_PATH/plugins
-git clone git@github.com:cksource/ckeditor-plugin-a11ycheckerquail.git a11ycheckerquail
-```
-
 #### Checkout Balloon Plugin
 
 ```bash
@@ -86,7 +78,7 @@ Now another person might simply get the zip, extract it to `ckeditor/plugins` di
 
 ## Where Do I Start?
 
-You should use `plugins/a11ycheckerquail/dev/sample.html` sample to test the Accessibility Checker (eg. [ckeditor.dev](http://ckeditor.dev/plugins/a11ycheckerquail/dev/sample.html)).
+You should use `plugins/a11ychecker/samples/a11ychecker.html` sample to test the Accessibility Checker (eg. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/a11ychecker.html)).
 
 Other samples will not work because of RequireJS dependency, which is not a part of standard CKEditor distribution.
 
