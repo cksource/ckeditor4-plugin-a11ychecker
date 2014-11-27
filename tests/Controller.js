@@ -268,6 +268,7 @@
 						},
 						close: Controller.prototype.close,
 						disable: sinon.spy(),
+						_selectIssue: sinon.spy(),
 						modeType: 1
 					},
 					modeClose = mocking.mockProperty( 'mode.close', controllerMockup ),
