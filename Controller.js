@@ -422,14 +422,11 @@ define( [
 			return;
 		}
 
-		// When the ui is closed we want to make a selection on the issue.
-		this._selectIssue();
+		this.ui.hide();
 
 		this.disable();
 
 		this.issues.clear();
-
-		this.ui.hide();
 
 		this.preferredIssueFinder.unset();
 
@@ -691,38 +688,6 @@ define( [
 				that.onNoIssues();
 			}
 		}
-	};
-
-	/**
-	 * Selects current issue and makes a snapshot.
-	 *
-	 * @private
-	 */
-	Controller.prototype._selectIssue = function() {
-		if ( !this.issues.getFocused() ) {
-			console.log( '_selectIssue(): no focused issue');
-			return;
-		}
-		// Make sure that undo manager is unlocked.
-		this._withUndoManager( function() {
-			var editor = this.editor,
-				mode = this.mode;
-			// Make sure that editable decorator markup is not present, otherwise
-			// AC attribnutes would leak to the snapshot.
-			this.editableDecorator.removeMarkup();
-			// Select issue element.
-			editor.getSelection().selectElement( this.issues.getFocused().element );
-
-			if ( mode.unsetStoredSelection ) {
-				mode.unsetStoredSelection();
-			}
-			// Update the snapshot.
-			editor.fire( 'updateSnapshot' );
-
-			if ( mode.unsetStoredSelection ) {
-				mode._storedSel = editor.getSelection().createBookmarks();
-			}
-		} );
 	};
 
 	/**

@@ -33,6 +33,8 @@
 
 				assert.areEqual( 1, a11yCommand.setState.callCount, 'Command setState calls count' );
 				assert.areSame( CKEDITOR.TRISTATE_OFF, a11yCommand.setState.args[ 0 ][ 0 ], 'setState first arg' );
+
+				mocking.assert.calledOnce( uiMock._selectIssue );
 			},
 
 			'test Ui.getEditorCommand': function() {
@@ -142,7 +144,8 @@
 				show: Ui.prototype.show,
 				hide: Ui.prototype.hide,
 				focusChanged: Ui.prototype.focusChanged,
-				getEditorCommand: Ui.prototype.getEditorCommand
+				getEditorCommand: Ui.prototype.getEditorCommand,
+				_selectIssue: mocking.spy()
 			};
 		}
 	} );

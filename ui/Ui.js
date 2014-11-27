@@ -13,13 +13,15 @@ define( function() {
 
 	Ui.prototype = {
 		show: function() {
-			var cmd = this.getEditorCommand();
-			cmd.setState( CKEDITOR.TRISTATE_ON );
+			this.getEditorCommand().setState( CKEDITOR.TRISTATE_ON );
 		},
 
 		hide: function() {
-			var cmd = this.getEditorCommand();
-			cmd.setState( CKEDITOR.TRISTATE_OFF );
+			// When the ui is closed we want to make a selection on the issue.
+			this._selectIssue();
+
+			// Set command off.
+			this.getEditorCommand().setState( CKEDITOR.TRISTATE_OFF );
 		},
 
 		// Updates basic controls of the ui, like issues count etc.
@@ -66,6 +68,41 @@ define( function() {
 	};
 
 	Ui.prototype.constructor = Ui;
+
+	/**
+	 * Selects current issue and makes a snapshot.
+	 *
+	 * @private
+	 */
+	Ui.prototype._selectIssue = function() {
+		var controller = this.controller,
+			focusedIssue = controller.issues.getFocused();
+
+		if ( !focusedIssue ) {
+			return;
+		}
+
+		// Make sure that undo manager is unlocked.
+		controller._withUndoManager( function() {
+			var editor = controller.editor,
+				mode = controller.mode;
+			// Make sure that editable decorator markup is not present, otherwise
+			// AC attribnutes would leak to the snapshot.
+			controller.editableDecorator.removeMarkup();
+			// Select issue element.
+			editor.getSelection().selectElement( focusedIssue.element );
+
+			if ( mode.unsetStoredSelection ) {
+				mode.unsetStoredSelection();
+			}
+			// Update the snapshot.
+			editor.fire( 'updateSnapshot' );
+
+			if ( mode.unsetStoredSelection ) {
+				mode._storedSel = editor.getSelection().createBookmarks();
+			}
+		} );
+	};
 
 	return Ui;
 } );
