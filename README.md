@@ -82,21 +82,20 @@ You should use `plugins/a11ychecker/samples/a11ychecker.html` sample to test the
 
 Other samples will not work because of RequireJS dependency, which is not a part of standard CKEditor distribution.
 
-## Tests Installation
+## Unit Testing
 
-Create a symbolic link to the `tests` directory.
+Both unit tests and integration tests are placed in `tests` directory.
 
-Linux:
+They should be automatically detected by Bender as a "External Plugins", so make sure that `bender.js` in your CKEditor directory contains entry like following:
 
-```bash
-ln -s $CKEDITOR_DEV_PATH/plugins/a11ychecker/tests/plugins/a11ychecker $CKEDITOR_DEV_PATH/tests
-```
-
-Windows (run cli as administrator):
-
-```bat
-mklink /D "%CKEDITOR_DEV_PATH%/tests/plugins/a11ychecker" "%CKEDITOR_DEV_PATH%/plugins/a11ychecker/tests"
-```
+	'External Plugins': {
+		applications: [ 'ckeditor' ],
+		basePath: 'plugins/',
+		paths: [
+			'*/tests/**',
+			'!**/_*/**'
+		]
+	}
 
 ## License
 
