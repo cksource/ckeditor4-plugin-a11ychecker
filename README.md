@@ -88,14 +88,16 @@ Both unit tests and integration tests are placed in `tests` directory.
 
 They should be automatically detected by Bender as a "External Plugins", so make sure that `bender.js` in your CKEditor directory contains entry like following:
 
-	'External Plugins': {
-		applications: [ 'ckeditor' ],
-		basePath: 'plugins/',
-		paths: [
-			'*/tests/**',
-			'!**/_*/**'
-		]
-	}
+```javascript
+'External Plugins': {
+	applications: [ 'ckeditor' ],
+	basePath: 'plugins/',
+	paths: [
+		'*/tests/**',
+		'!**/_*/**'
+	]
+}
+```
 
 ## License
 
