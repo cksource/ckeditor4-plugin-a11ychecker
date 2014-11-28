@@ -244,18 +244,8 @@ define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/Vi
 											a11ychecker.issues.resetFocus();
 											panel.hide();
 										} else {
-											// This is a workaround for focus problem, described in #84.
-											var panelElement = panel.parts.panel,
-												initiallyFocusElem = panelElement.getDocument().getActive();
-
 											// And if element is still in viewport we're going to update its position.
-											panel.attach( issue.element );
-
-											if ( panelElement.getPosition( initiallyFocusElem ) & CKEDITOR.POSITION_CONTAINS ) {
-												// Since panel.attach is reseting the focus, we need to make sure that correct element
-												// is focused.
-												initiallyFocusElem.focus();
-											}
+											panel.attach( issue.element, false );
 										}
 									}
 								} );
