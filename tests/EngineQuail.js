@@ -1,6 +1,6 @@
 /* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: a11ychecker,sourcearea */
-/* bender-include: %TEST_DIR%_assets/jquery.min.js, %TEST_DIR%../a11ychecker/_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js, %TEST_DIR%_helpers/quail/228_collection.js */
+/* bender-include: %TEST_DIR%_assets/jquery.min.js, %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js, %TEST_DIR%_helpers/quail/228_collection.js */
 
 ( function() {
 	'use strict';

@@ -1,7 +1,7 @@
 // We'll place config here to keep things DRY.
 (function() {
 	var appBaseDir = '/apps/ckeditor/plugins/a11ychecker/',
-		testBaseDir = '/tests/plugins/a11ychecker/';
+		testBaseDir = '/plugins/a11ychecker/tests/';
 
 	require.config( {
 		baseUrl: appBaseDir,
