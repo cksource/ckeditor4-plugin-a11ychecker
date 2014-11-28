@@ -20,8 +20,8 @@
 	var INITIAL_SNAPSHOT_COUNT = 1,
 		innerHtmlMatching = bender.assert.isInnerHtmlMatching;
 
-	require( [ 'mocking', 'EngineMock', 'Controller', 'helpers/QuickFixTest', 'EditableDecorator', 'EngineDefault', 'EngineQuail' ], function( mocking, EngineMock, Controller, QuickFixTest, EditableDecorator ) {
-		bender.test( {
+	require( [ 'testSuite', 'mocking', 'EngineMock', 'Controller', 'helpers/QuickFixTest', 'EditableDecorator' ], function( testSuite, mocking, EngineMock, Controller, QuickFixTest, EditableDecorator ) {
+		testSuite.test( {
 			setUp: function() {
 				// Ensure that editor uses synchronous EngineMock.
 				this.editor._.a11ychecker.setEngine( new EngineMock() );

@@ -60,14 +60,22 @@
 				editor.filter.allow( '*[data-a11y-ignore]', 'a11ychecker' );
 			}
 
+			// Create a temp controller placeholder.
+			this.createTemporaryNamespace( editor );
+
 			editor.once( 'instanceReady', function() {
 				// Loads Engine, Controller and ViewerController classes.
 				require( [ 'Controller', 'EngineQuail' ], function( Controller, EngineQuail ) {
-					var a11ychecker = new Controller( editor );
+					var a11ychecker = new Controller( editor ),
+						tempNamespace = editor._.a11ychecker;
 
 					a11ychecker.setEngine( new EngineQuail( that ) );
 					// Assign controller object to the editor protected namespace.
 					editor._.a11ychecker = a11ychecker;
+
+					// Fire loaded event on old placeholder, so subscribers know that real Controller
+					// is available.
+					tempNamespace.fire( 'loaded', null, editor );
 				} );
 			} );
 
@@ -124,6 +132,17 @@
 			editor.addCommand( pluginName + '.close', {
 				exec: cmdClose
 			} );
+		},
+
+		/**
+		 * Creates a temporary editor._.a11ychecker object, implementing event listening.
+		 *
+		 * The only purpose of this object is to fire `loaded` event, telling that real
+		 * Controller was instantiated in editor._.a11ychecker method.
+		 */
+		createTemporaryNamespace: function( editor ) {
+			editor._.a11ychecker = {};
+			CKEDITOR.event.implementOn( editor._.a11ychecker );
 		}
 	} );
 
