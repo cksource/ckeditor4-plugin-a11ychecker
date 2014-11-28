@@ -10,11 +10,15 @@
 	'use strict';
 
 	bender.editor = {
-		startupData: '<p>foo</p>'
+		startupData: '<p>foo</p><p>bar</p>',
+		config: {
+			allowedContent: true
+		}
 	};
 
 	// The count of snapshots that CKE contains by default.
-	var INITIAL_SNAPSHOT_COUNT = 1;
+	var INITIAL_SNAPSHOT_COUNT = 1,
+		innerHtmlMatching = bender.assert.isInnerHtmlMatching;
 
 	require( [ 'mocking', 'EngineMock', 'Controller', 'helpers/QuickFixTest', 'EditableDecorator', 'EngineDefault', 'EngineQuail' ], function( mocking, EngineMock, Controller, QuickFixTest, EditableDecorator ) {
 		bender.test( {
@@ -103,7 +107,123 @@
 							that.assertSnapshotCount( INITIAL_SNAPSHOT_COUNT + 2, 'Snapshot count after 2 QuickFixes' );
 
 							this.assertSnapshotsMarkup();
+
+							// Cleanup editor contents by removing the attribute.
+							a11ychecker.issues.getItem( 0 ).element.removeAttribute( 'fooAttr' );
 						} );
+					} );
+				} );
+
+				wait();
+			},
+
+			'test snapshot selection updated on navigation': function() {
+				// Open AC, it already should focus first issue.
+				this.editor.execCommand( 'a11ychecker' );
+
+				this.assertSnapshotCount( INITIAL_SNAPSHOT_COUNT );
+
+				var snapshot = this.editor.undoManager.snapshots[ 0 ],
+					bookmark = snapshot.bookmarks[ 0 ],
+					editable = this.editor.editable();
+
+				assert.isTrue( bookmark.is2, 'bookmark2 is available' );
+				arrayAssert.itemsAreSame( [ 1 ], bookmark.start, 'bookmark start' );
+				arrayAssert.itemsAreSame( [ 1 ], bookmark.end, 'bookmark end' );
+
+				assert.areSame( 0, bookmark.startOffset, 'bookmark startOffset' );
+				assert.areSame( 1, bookmark.endOffset, 'bookmark endOffset' );
+			},
+
+			'test snapshot selection updated on close': function() {
+				// Open AC, it already should focus first issue.
+				this.editor.execCommand( 'a11ychecker' );
+				this.editor._.a11ychecker.close();
+
+				// Check snapshot count.
+				this.assertSnapshotCount( INITIAL_SNAPSHOT_COUNT );
+
+				// Now checking selection bookmark.
+				// It should contain first paragraph.
+				var snapshot = this.editor.undoManager.snapshots[ 0 ],
+					bookmark = snapshot.bookmarks[ 0 ];
+
+				assert.isTrue( bookmark.is2, 'bookmark2 is available' );
+				arrayAssert.itemsAreSame( [ 1 ], bookmark.start, 'bookmark start' );
+				arrayAssert.itemsAreSame( [ 1 ], bookmark.end, 'bookmark end' );
+
+				assert.areSame( 0, bookmark.startOffset, 'bookmark startOffset' );
+				assert.areSame( 1, bookmark.endOffset, 'bookmark endOffset' );
+			},
+
+			'test snapshot content on quickfix': function() {
+				// We'll test content of the snapshot made directly on Quickfix.
+				var a11ychecker = this.editor._.a11ychecker,
+					that = this;
+
+				this.editor.execCommand( 'a11ychecker' );
+
+				// Replace second issue element.
+				a11ychecker.issues.getItem( 1 ).element = this.editor.editable().find( 'p' ).getItem( 1 );
+
+				// Getting ImgAlt type with a helper function.
+				QuickFixTest( 'ImgAlt', null, function( ImgAlt ) {
+					resume( function() {
+						// Create a fix instance for current issue.
+						var altFix = new ImgAlt( a11ychecker.issues.getFocused() ),
+							snapshots = this.editor.undoManager.snapshots;
+
+						// Apply the quick fix with proper
+						a11ychecker.applyQuickFix( altFix, {
+							alt: 'bom'
+						} );
+
+						// This sequence will force next snapshot.
+						a11ychecker.next();
+						a11ychecker.close();
+
+						innerHtmlMatching( '<p>foo@</p><p>bar</p>', snapshots[ 0 ].contents, 'First snapshot contents' );
+						that.assertSnapshotCount( INITIAL_SNAPSHOT_COUNT + 1, 'Snapshot count after a single QuickFix' );
+						innerHtmlMatching( '<p alt="bom">foo@</p><p>bar</p>', snapshots[ 1 ].contents, 'Second snapshot contents' );
+					} );
+				} );
+
+				wait();
+			},
+
+			'test selection on quickfix': function() {
+				// Ensure that first snapshot has correct selection.
+				var a11ychecker = this.editor._.a11ychecker,
+					that = this,
+					curIssue,
+					fix;
+				this.editor.execCommand( 'a11ychecker' );
+
+				curIssue = a11ychecker.issues.getFocused();
+
+				// Alright, so it's going to be async stuff. We're going to reuse
+				// QuickFixTest code, to load fix types, because fixes does not use
+				// AMD.
+				QuickFixTest( 'ImgAlt', null, function( ImgAlt ) {
+					resume( function() {
+						var altFix = new ImgAlt( curIssue );
+
+						// Note: we're using synchronous fixes.
+						// First we'll add alt attribute.
+						a11ychecker.applyQuickFix( altFix, {
+							alt: 'bom'
+						} );
+
+						var snapshot = this.editor.undoManager.snapshots[ 0 ],
+							bookmark = snapshot.bookmarks[ 0 ],
+							editable = this.editor.editable();
+
+						assert.isTrue( bookmark.is2, 'bookmark2 is available' );
+						arrayAssert.itemsAreSame( [ 1 ], bookmark.start, 'bookmark start' );
+						arrayAssert.itemsAreSame( [ 1 ], bookmark.end, 'bookmark end' );
+
+						assert.areSame( 0, bookmark.startOffset, 'bookmark startOffset' );
+						assert.areSame( 1, bookmark.endOffset, 'bookmark endOffset' );
 					} );
 				} );
 

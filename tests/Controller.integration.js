@@ -1,5 +1,5 @@
 /* bender-tags: editor,unit */
-/* bender-ckeditor-plugins: a11ychecker,sourcearea */
+/* bender-ckeditor-plugins: a11ychecker,sourcearea,undo */
 /* bender-include: %TEST_DIR%_assets/jquery.min.js, %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
 /**

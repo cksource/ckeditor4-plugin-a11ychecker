@@ -227,12 +227,6 @@ define( [
 		// Set busy state, so end-user will have "loading" feedback.
 		this.setMode( Controller.modes.BUSY );
 
-		// Before performing check process, we'll fire an undo. Because of that we need to
-		// be sure that editableDecorator markup is removed. Otherwise we would have
-		// AC extra attributes in the snapshot.
-		this.editableDecorator.removeMarkup();
-		this.editor.fire( 'saveSnapshot' );
-
 		if ( options.ui ) {
 			// UI must be visible.
 			this.ui.show();
@@ -428,11 +422,11 @@ define( [
 			return;
 		}
 
+		this.ui.hide();
+
 		this.disable();
 
 		this.issues.clear();
-
-		this.ui.hide();
 
 		this.preferredIssueFinder.unset();
 
@@ -525,6 +519,25 @@ define( [
 	 * {@link CKEDITOR.plugins.a11ychecker.ViewerForm#serialize}.
 	 */
 	Controller.prototype.applyQuickFix = function( quickFix, formAttributes ) {
+		// We need to make sure that undo manager is unlocked, because most likely
+		// it's locked by the CHECKING mode.
+		this._withUndoManager( function() {
+			var mode = this.mode,
+				editor = this.editor;
+
+			// Make sure that no markup is in editable.
+			this.editableDecorator.removeMarkup();
+			// Selecting issue element.
+			quickFix.markSelection( editor, editor.getSelection() );
+			if ( mode.unsetStoredSelection ) {
+				mode.unsetStoredSelection();
+			}
+			// We're preferring update, so if only selection changed, the last snapshot
+			// will be overriden.
+			this.editor.fire( 'updateSnapshot' );
+		} );
+
+		// And now apply the QuickFix.
 		quickFix.fix( formAttributes, CKEDITOR.tools.bind( this._onQuickFix, this ) );
 	};
 
@@ -534,6 +547,11 @@ define( [
 	 * @private
 	 */
 	Controller.prototype._onQuickFix = function( quickFix ) {
+		// Adter a QuickFix next snapshot is fired, this time we want to save new one.
+		this._withUndoManager( function() {
+			this.editor.fire( 'saveSnapshot' );
+		} );
+
 		var event = {
 				quickFix: quickFix,
 				issue: quickFix.issue
@@ -671,6 +689,31 @@ define( [
 			}
 		}
 	};
+
+	/**
+	 * Executes `callback` synchronously, making sure that undo manager is unlocked;
+	 *
+	 * Callback is called in Controller instance context.
+	 *
+	 * @private
+	 * @param {Function} callback Function to be called when undo is unlocked.
+	 */
+	Controller.prototype._withUndoManager = function( callback ) {
+		var editor = this.editor,
+			locked = !!editor.undoManager.locked;
+
+		if ( locked ) {
+			editor.fire( 'unlockSnapshot' );
+		}
+
+		callback.call( this );
+
+		if ( locked ) {
+			// If it was locked before, lock it once again.
+			editor.fire( 'lockSnapshot', { dontUpdate: true } );
+		}
+	};
+
 
 	CKEDITOR.event.implementOn( Controller.prototype );
 
