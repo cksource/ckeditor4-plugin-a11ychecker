@@ -10,6 +10,7 @@
 			helpers: testBaseDir + '_helpers',
 			jquery: appBaseDir + 'libs/jquery.min',
 			mocking: testBaseDir + '_helpers/mocking',
+			'testSuite': testBaseDir + '_helpers/testSuite',
 			'Quail': appBaseDir + 'libs/quail/quail.jquery.min',
 			// Alias for Quail2.2.1.
 			'Quail2.2.1': appBaseDir + 'bower_components/quail/dist/quail.jquery'

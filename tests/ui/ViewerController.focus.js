@@ -8,7 +8,7 @@
 	// Note that we have an extra (unused) requirement for 'EngineMock' and 'Controller' classes.
 	// That way it will force them to be available for the editor, and we have sure that a11ychecker
 	// plugin will be ready synchronously.
-	require( [ 'ui/ViewerController', 'ui/ViewerDescription', 'EngineMock', 'Controller', 'ui/ViewerController' ], function( ViewerController, ViewerDescription, EngineMock ) {
+	require( [ 'testSuite', 'EngineMock' ], function( testSuite, EngineMock ) {
 
 		bender.test( {
 			'async:init': function() {
@@ -31,14 +31,33 @@
 					that.editors = editors;
 					that.editor = editors.classic;
 
-					// We should get rid of that timeout, but without it inline editor
-					// will not have _.a11ychecker property inited.
-					window.setTimeout( function() {
-						for ( var i in that.editors ) {
-							that.editors[ i ]._.a11ychecker.engine = new EngineMock();
-						}
-						that.callback();
-					}, 300 );
+					// Make sure that we run tests when AC for both instances is loaded.
+					var loaded = 0,
+						editorsCount = 2,
+						loadedCallback = function( evt ) {
+							loaded += 1;
+
+							this._.a11ychecker.engine = new EngineMock();
+
+							if ( loaded === editorsCount ) {
+								that.callback();
+							}
+						},
+						listenForLoad = function( editor ) {
+							var a11ychecker = editor._.a11ychecker;
+							if ( a11ychecker.exec ) {
+								// If by any chance it's already real object, run synchronously.
+								// IE tends to laod it synchronously.
+								loadedCallback.call( editor );
+							} else {
+								// Otherwise listen for event.
+								a11ychecker.once( 'loaded', loadedCallback, editor );
+							}
+						};
+
+					// Adding listener for both instances.
+					listenForLoad( editors.inline );
+					listenForLoad( editors.classic );
 				} );
 			},
 
