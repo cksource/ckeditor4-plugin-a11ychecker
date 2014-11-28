@@ -8,6 +8,18 @@
 		bender.test( {
 			setUp: function() {
 				this.finder = new PreferredIssueFinder();
+				// This HTML needs to be set each time, because we're removing some elements.
+				CKEDITOR.document.getById( 'set5' ).setHtml(
+					'<div>1</div>' +
+					'<div>2</div>' +
+					'<div>3</div>' +
+					'<div>' +
+					'	<strong>4</strong>' +
+					'	<p>5</p>' +
+					'	<a>6</a>' +
+					'</div>' +
+					'<div>7</div>'
+				);
 			},
 
 			'test PreferredIssueFinder.set': function() {
@@ -122,6 +134,111 @@
 
 				assert.isInstanceOf( Object, ret, 'Return type' );
 				assert.areSame( list.list[ 3 ], ret, 'Returned issue with element following preferred paragraph' );
+			},
+
+			'test PreferredIssueFinder.getFromList - removed preferred': function() {
+				// We'll removed the preferred element. In this case it should be determined from
+				// selection (#4).
+				var elementsSet = CKEDITOR.document.find( 'div#set5 div, div#set5 a' ),
+					list = nodeListToIssueList( elementsSet ),
+					preferredIssue = {
+						// This will be preferred element, but it's about to be removed.
+						element: CKEDITOR.document.findOne( 'div#set5 p' )
+					},
+					ret;
+
+				// Set the preferred issue.
+				this.finder.set( preferredIssue );
+
+				// Remove preferred issue element and make a selection.
+				preferredIssue.element.remove();
+				// Put the selection at the begining of strong with text 4.
+				this._putSelectionAtBegining( CKEDITOR.document.findOne( 'div#set5 strong' ) );
+
+				// And now retrieve.
+				ret = this.finder.getFromList( list );
+
+				// Anchor is the closest to the selection, so it should be selected.
+				assert.areSame( list.list[ 4 ], ret, 'Returned issue is not related to an anchor' );
+			},
+
+			'test removed preferred - selection in last element': function() {
+				// Here we'll remove preferred element, and put selection IN the last issue element.
+				// So we expect that this last element will be selected.
+				var elementsSet = CKEDITOR.document.find( 'div#set5 div, div#set5 a' ),
+					list = nodeListToIssueList( elementsSet ),
+					preferredIssue = {
+						// This will be preferred element, but it's about to be removed.
+						element: CKEDITOR.document.findOne( 'div#set5 p' )
+					},
+					ret;
+
+				// Set the preferred issue.
+				this.finder.set( preferredIssue );
+
+				// Remove preferred issue element and make a selection.
+				preferredIssue.element.remove();
+				this._putSelectionAtBegining( list.list[ 5 ].element );
+
+				// And now retrieve.
+				ret = this.finder.getFromList( list );
+
+				// Selection is in a div element, which is an issue element too, so it should be selected.
+				assert.areSame( list.list[ 5 ], ret, 'Invalid returned node' );
+			},
+
+			'test _nodeIsRemoved uninited node': function() {
+				// Uninited node, it should act as removed node, but let's test it just in case.
+				var node = new CKEDITOR.dom.element( 'a' );
+
+				assert.isTrue( PreferredIssueFinder._nodeIsRemoved.call( {}, node ), 'Return val' );
+			},
+
+			'test _nodeIsRemoved removed node': function() {
+				// Removed node should ofc return true.
+				var node = new CKEDITOR.dom.element( 'a' ),
+					body = CKEDITOR.document.getBody();
+
+				body.append( node );
+				node.remove();
+
+				assert.isTrue( PreferredIssueFinder._nodeIsRemoved.call( {}, node ), 'Return val' );
+			},
+
+			'test _nodeIsRemoved appended node': function() {
+				// Jucy, freshly appended node.
+				var node = new CKEDITOR.dom.element( 'a' );
+				CKEDITOR.document.getBody().append( node );
+
+				assert.isFalse( PreferredIssueFinder._nodeIsRemoved.call( {}, node ), 'Return val' );
+				// Remove it to reduce the mess.
+				node.remove();
+			},
+
+			'test _retreiveElementFromSelection': function() {
+				var playground = CKEDITOR.document.getById( 'set6' ),
+					// Second strong will get a selection.
+					// Important: text node will be selected, not the element itself.
+					selectionHolder = playground.find( 'strong' ).getItem( 1 ),
+					ret;
+
+				this._putSelectionAtBegining( selectionHolder );
+
+				ret = PreferredIssueFinder._retreiveElementFromSelection( CKEDITOR.document );
+
+				assert.isInstanceOf( CKEDITOR.dom.element, ret, 'Invalid return type' );
+				assert.isTrue( selectionHolder.equals( ret ), 'Returned value is a selectionHolder element' );
+			},
+
+			// Puts the selection at the begining of given node, selecting first node.
+			_putSelectionAtBegining: function( node ) {
+				var doc = node.getDocument(),
+					sel = doc.getSelection(),
+					rng = new CKEDITOR.dom.range( doc );
+
+				rng.setStart( node, 0 );
+				rng.setEnd( node, 0 );
+				sel.selectRanges( [ rng ] );
 			}
 		} );
 

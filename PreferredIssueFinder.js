@@ -84,6 +84,14 @@ define( function() {
 			return issueList.getItem( 0 );
 		}
 
+		// It's possible that element was removed while listening, then we'll continue
+		// from selection position (#86).
+		if ( preferredElement && PreferredIssueFinder._nodeIsRemoved( preferredElement ) ) {
+			preferredElement = PreferredIssueFinder._retreiveElementFromSelection(
+				preferredElement.getDocument()
+			);
+		}
+
 		issueList.each( function( issue ) {
 			if ( preferredElementFound ) {
 				return;
@@ -107,6 +115,19 @@ define( function() {
 	};
 
 	/**
+	 * Retrieves preferred element from a selection.
+	 *
+	 * @static
+	 * @private
+	 * @param {CKEDITOR.dom.document} document
+	 * @returns {CKEDITOR.dom.element/null}
+	 */
+	PreferredIssueFinder._retreiveElementFromSelection = function( document ) {
+		var sel = document.getSelection();
+		return sel ? sel.getCommonAncestor() : null;
+	};
+
+	/**
 	 * Works exactly the same as {@link #getFromList} but returns a number (index in
 	 * `issueList`) rather than {@link CKEDITOR.plugins.a11ychecker.Issue} instance.
 	 *
@@ -119,6 +140,20 @@ define( function() {
 
 		return ret ? issueList.indexOf( ret ) : null;
 	};
+
+	/**
+	 * A helper method to tell if node is removed from DOM.
+	 *
+	 * @static
+	 * @private
+	 * @param {CKEDITOR.dom.node}
+	 * @returns {Boolean}
+	 */
+	PreferredIssueFinder._nodeIsRemoved = function( node ) {
+		var parents = node.getParents();
+		return !( parents[ 0 ] && parents[ 0 ].getName() == 'html' );
+	};
+
 
 	return PreferredIssueFinder;
 } );
