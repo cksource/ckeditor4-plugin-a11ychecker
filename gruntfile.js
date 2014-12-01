@@ -38,6 +38,12 @@ module.exports = function( grunt ) {
 			options: {
 				ignores: [
 					// Automatically loaded from .gitignore. Add more if necessary.
+					'libs/**',
+					'samples/jquery.min.js',
+					'samples/require.js',
+					'tests/_assets/**',
+					'tests/_helpers/require.js',
+					'tests/_helpers/sinon/**'
 				]
 			}
 		},
@@ -46,6 +52,12 @@ module.exports = function( grunt ) {
 			options: {
 				excludeFiles: [
 					// Automatically loaded from .gitignore. Add more if necessary.
+					'libs/**',
+					'samples/jquery.min.js',
+					'samples/require.js',
+					'tests/_assets/**',
+					'tests/_helpers/require.js',
+					'tests/_helpers/sinon/**'
 				]
 			}
 		},
