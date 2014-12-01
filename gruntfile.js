@@ -4,7 +4,7 @@
  */
 
 // File specific JSHint configs.
-/* global module */
+/* jshint node: true */
 
 'use strict';
 
@@ -12,8 +12,8 @@
 // You can also find some information on how to use some grunt tasks in README.md.
 
 module.exports = function( grunt ) {
-
-	require( 'load-grunt-tasks' )( grunt );
+	// First register the "default" task, so it can be analized by other tasks.
+	grunt.registerTask( 'default', [ 'jshint:git', 'jscs:git' ] );
 
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
@@ -35,13 +35,13 @@ module.exports = function( grunt ) {
 		},
 
 		jshint: {
-			files: [ '*.js' ],
-			options: jshintConfig
+			options: {
+			}
 		},
 
 		jscs: {
-			src: '*.js',
-			options: jscsConfig
+			options: {
+			}
 		},
 
 		githooks: {
@@ -172,6 +172,8 @@ module.exports = function( grunt ) {
 		}
 	} );
 
+	require( 'load-grunt-tasks' )( grunt );
+
 	grunt.registerTask( 'build-css', 'Builds production-ready CSS using less.',
 		[ 'less:development', 'less:production' ] );
 	grunt.registerTask( 'build-js', 'Build JS files.', buildJs );
@@ -189,9 +191,6 @@ module.exports = function( grunt ) {
 	] );
 
 	grunt.loadTasks( 'dev/tasks' );
-
-	// Default tasks.
-	grunt.registerTask( 'default', [ 'jshint', 'jscs' ] );
 };
 
 function markPluginVersions() {
@@ -318,87 +317,3 @@ function buildJs() {
 		} );
 	}
 }
-
-// Configurations for JSHint
-var jshintConfig = {
-	globalstrict: true,
-	predef: [
-		'window',
-		'document',
-		'location',
-		'CKEDITOR',
-		'deine',
-		'require',
-		'console'	// Just for prototyping purposes. Must be removed.
-	]
-};
-
-// Configurations for JSCS (JavaScript Code Style checker)
-var jscsConfig = {
-	'excludeFiles': [
-		'node_modules/*'
-	],
-	'requireCurlyBraces': [
-		'if', 'else', 'for', 'while', 'do', 'switch', 'try', 'catch'
-	],
-	'requireSpaceAfterKeywords': [
-		'if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'
-	],
-	'requireSpaceBeforeBlockStatements': true,
-	'requireParenthesesAroundIIFE': true,
-	'requireSpacesInConditionalExpression': {
-		'afterTest': true,
-		'beforeConsequent': true,
-		'afterConsequent': true,
-		'beforeAlternate': true
-	},
-	'requireSpacesInFunctionExpression': {
-		'beforeOpeningCurlyBrace': true
-	},
-	'disallowSpacesInFunctionExpression': {
-		'beforeOpeningRoundBrace': true
-	},
-	'requireBlocksOnNewline': true,
-	'requireSpacesInsideObjectBrackets': 'all',
-	'requireSpacesInsideArrayBrackets': 'all',
-	'disallowSpaceAfterObjectKeys': true,
-	'requireCommaBeforeLineBreak': true,
-	'requireOperatorBeforeLineBreak': [
-		'?', '=', '+', '-', '/', '*', '==', '===', '!=', '!==', '>', '>=', '<', '<=', '|', '||', '&', '&&', '^', '+=', '*=',
-		'-=', '/=', '^='
-	],
-	'requireSpaceBeforeBinaryOperators': [
-		'+', '-', '/', '*', '=', '==', '===', '!=', '!==', '>', '>=', '<', '<=', '|', '||', '&', '&&', '^', '+=', '*=', '-=',
-		'/=', '^='
-	],
-	'requireSpaceAfterBinaryOperators': [
-		'+', '-', '/', '*', '=', '==', '===', '!=', '!==', '>', '>=', '<', '<=', '|', '||', '&', '&&', '^', '+=', '*=', '-=',
-		'/=', '^='
-	],
-	'disallowSpaceAfterPrefixUnaryOperators': [
-		'++', '--', '+', '-', '~', '!'
-	],
-	'disallowSpaceBeforePostfixUnaryOperators': [
-		'++', '--'
-	],
-	'disallowKeywords': [
-		'with'
-	],
-	'validateLineBreaks': 'LF',
-	'validateQuoteMarks': {
-		'mark': '\'',
-		'escape': true
-	},
-	'validateIndentation': '\t',
-	'disallowMixedSpacesAndTabs': true,
-	'disallowTrailingWhitespace': true,
-	'disallowKeywordsOnNewLine': [
-		'else', 'catch'
-	],
-	'maximumLineLength': 120,
-	'safeContextKeyword': [
-		'that'
-	],
-	'requireDotNotation': true,
-	'disallowYodaConditions': true
-};
