@@ -3,7 +3,7 @@ var assert = require( 'chai' ).assert,
 	path = require( 'path' ),
 	fs = require( 'fs' ),
 	sinon = require( 'sinon' ),
-	QuickFixBuilder = require( '../tasks/quickFixBuilder' ).QuickFixBuilder,
+	QuickFixBuilder = require( '../tasks/build-quickfix' ).QuickFixBuilder,
 	fixturesPath = path.resolve( 'dev/testsbuilder/_fixtures' );
 
 describe( 'Module', function() {
