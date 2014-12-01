@@ -63,7 +63,7 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		 *
 		 * @event ignore
 		 */
-	};
+	}
 
 	ViewerForm.prototype = {
 		/**
@@ -275,7 +275,7 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 				callback.call( this, evt );
 				evt.data.preventDefault();
 			}
-		}
+		};
 	}
 
 	CKEDITOR.event.implementOn( ViewerForm.prototype );

@@ -79,7 +79,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		}
 	};
 
-	ViewerInputs.Text.prototype = CKEDITOR.tools.extend( new ViewerInput, {
+	ViewerInputs.Text.prototype = CKEDITOR.tools.extend( new ViewerInput(), {
 		/**
 		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.text
 		 * Template of the input.
@@ -89,7 +89,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 			' aria-labelledby="id" aria-required="true">' )
 	} );
 
-	ViewerInputs.Checkbox.prototype = CKEDITOR.tools.extend( new ViewerInput, {
+	ViewerInputs.Checkbox.prototype = CKEDITOR.tools.extend( new ViewerInput(), {
 		/**
 		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.checkbox
 		 * Template of the input.
@@ -103,7 +103,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		}
 	}, true );
 
-	ViewerInputs.Select.prototype = CKEDITOR.tools.extend( new ViewerInput, {
+	ViewerInputs.Select.prototype = CKEDITOR.tools.extend( new ViewerInput(), {
 		/**
 		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.select
 		 * Template of the input.

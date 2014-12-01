@@ -39,14 +39,16 @@ define( function() {
 		 * Active listeners associated with this mode.
 		 */
 		this.activePanelShowlisteners = [];
-	};
+	}
 
 	ViewerMode.prototype = {
 		/**
 		 * Activates the mode.
 		 */
 		enterMode: function() {
-			this.init && this.init( this.viewer );
+			if ( this.init ) {
+				this.init( this.viewer );
+			}
 			this.addPanelShowListeners();
 		},
 
@@ -54,7 +56,9 @@ define( function() {
 		 * Leaves the mode.
 		 */
 		leaveMode: function() {
-			this.close && this.close( this.viewer );
+			if ( this.close ) {
+				this.close( this.viewer );
+			}
 			this.removePanelShowListeners();
 		},
 

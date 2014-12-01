@@ -1,5 +1,4 @@
 
-
 /**
  * Registers a global function which will return a typical Quail response object.
  * It's in separate file, because it's pretty long and boring.
@@ -11,6 +10,8 @@
 
 
 function getQuailCollectionMockup() {
+	/*jshint scripturl:true*/
+
 	'use strict';
 
 	// Returns a Mockup of tests collection given by Quail 2.2.8 to the HTML in #quailMarkupSource.

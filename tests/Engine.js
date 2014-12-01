@@ -3,6 +3,7 @@
 /*global require*/
 
 ( function() {
+	/*jshint -W020 */
 	'use strict';
 
 	require( [ 'Engine', 'mocking' ], function( Engine, mocking ) {
