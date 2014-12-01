@@ -2,7 +2,7 @@
 	'use strict';
 
 	module.exports = function( grunt ) {
-		grunt.registerTask( 'build-js', 'Build JS files.', function () {
+		grunt.registerTask( 'build-js', 'Build JS files.', function() {
 			/* jshint validthis:true */
 
 			// The intention of this build process is showcasing the possibility of

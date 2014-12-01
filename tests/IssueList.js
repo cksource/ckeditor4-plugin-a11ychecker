@@ -216,15 +216,21 @@
 				list.list = [
 					{ // Should be returned.
 						element: expectedElement,
-						isIgnored: function() { return false; }
+						isIgnored: function() {
+							return false;
+						}
 					},
 					{ // Should be skipped.
 						element: otherElement,
-						isIgnored: function() { return false; }
+						isIgnored: function() {
+							return false;
+						}
 					},
 					{ // Should be returned.
 						element: expectedElement,
-						isIgnored: function() { return false; }
+						isIgnored: function() {
+							return false;
+						}
 					}
 				];
 
@@ -245,15 +251,21 @@
 				list.list = [
 					{ // Should be skipped.
 						element: expectedElement,
-						isIgnored: function() { return true; }
+						isIgnored: function() {
+							return true;
+						}
 					},
 					{ // Should be skipped.
 						element: otherElement,
-						isIgnored: function() { return true; }
+						isIgnored: function() {
+							return true;
+						}
 					},
 					{ // Should be returned.
 						element: expectedElement,
-						isIgnored: function() { return false; }
+						isIgnored: function() {
+							return false;
+						}
 					}
 				];
 
@@ -274,11 +286,15 @@
 				list.list = [
 					{ // Should be returned.
 						element: new CKEDITOR.dom.element( domElement ),
-						isIgnored: function() { return false; }
+						isIgnored: function() {
+							return false;
+						}
 					},
 					{ // Should be returned.
 						element: new CKEDITOR.dom.element( domElement ),
-						isIgnored: function() { return false; }
+						isIgnored: function() {
+							return false;
+						}
 					}
 				];
 
@@ -359,7 +375,7 @@
 				list.currentIndex = 1;
 
 				// Each alert will push msg to messages array. We'll asert it later.
-				function alert( msg ){
+				function alert( msg ) {
 					messages.push( msg + '' );
 				}
 
@@ -413,7 +429,7 @@
 						assert.areSame( children.getItem( i ), mockup.list[ i ].element,
 							'Member list[ ' + i + ' ] has correct element' );
 					}
-				} catch( e ) {
+				} catch ( e ) {
 					// Propagate the exception.
 					throw e;
 				} finally {
@@ -449,7 +465,7 @@
 						assert.areSame( children.getItem( i ), mockup.list[ i ].element,
 							'Member list[ ' + i + ' ] has correct element' );
 					}
-				} catch( e ) {
+				} catch ( e ) {
 					// Propagate the exception.
 					throw e;
 				} finally {

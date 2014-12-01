@@ -5,7 +5,19 @@
 ( function() {
 	'use strict';
 
-	require( [ 'Controller', 'mock/ControllerMockup', 'Controller/CheckingMode', 'helpers/sinon/sinon_amd.min', 'mocking' ], function( Controller, ControllerMockup, CheckingMode, sinon, mocking ) {
+	require( [
+		'Controller',
+		'mock/ControllerMockup',
+		'Controller/CheckingMode',
+		'helpers/sinon/sinon_amd.min',
+		'mocking'
+	], function(
+		Controller,
+		ControllerMockup,
+		CheckingMode,
+		sinon,
+		mocking
+	) {
 		bender.test( {
 			setUp: function() {
 				this.mockup = getControllerMockup();
@@ -73,7 +85,7 @@
 				var listMock = {
 					sort: mocking.spy(),
 					count: mocking.spy( function() {
-						return  2;
+						return 2;
 					} ),
 					on: mocking.spy()
 				};
@@ -184,7 +196,7 @@
 
 					assert.isInstanceOf( CheckingMode, this.mockup.mode, 'mode property has a valid type' );
 					assert.areSame( 1, modeInitMock.callCount, 'Created mode object attach calls count' );
-				} catch( e ) {
+				} catch ( e ) {
 					// Propagate exception.
 					throw e;
 				} finally {
@@ -258,7 +270,9 @@
 			'test Controller.close': function() {
 				var issueClearCalls = 0,
 					issuesMock = {
-						clear: function() { issueClearCalls += 1; }
+						clear: function() {
+							issueClearCalls += 1;
+						}
 					},
 					controllerMockup = {
 						issues: issuesMock,
@@ -586,7 +600,9 @@
 				var controllerMock = new ControllerMockup();
 
 				assert.areEqual( 0, controllerMock.exec.callCount, '#0' );
-				controllerMock.fire = sinon.spy( function() { return false; } );
+				controllerMock.fire = sinon.spy( function() {
+					return false;
+				} );
 				controllerMock._onQuickFix = Controller.prototype._onQuickFix;
 
 				// Call method.
@@ -613,7 +629,7 @@
 
 					assert.areEqual( 1, alertMock.callCount, 'Alert call count' );
 					assert.areEqual( 1, mock.close.callCount, 'Accessibility Checker close calls' );
-				} catch( e ) {
+				} catch ( e ) {
 					// Repropagate.
 					throw e;
 				} finally {
@@ -741,8 +757,12 @@
 
 				var issueList = {
 					sort: sinon.spy(),
-					count: function() { return issuesNumber; },
-					getItem: function() { return null; },
+					count: function() {
+						return issuesNumber;
+					},
+					getItem: function() {
+						return null;
+					},
 					on: mocking.spy()
 				};
 

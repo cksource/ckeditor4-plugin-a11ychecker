@@ -1,12 +1,22 @@
 /* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: a11ychecker,sourcearea */
-/* bender-include: %TEST_DIR%_assets/jquery.min.js, %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js, %TEST_DIR%_helpers/quail/228_collection.js */
+/* bender-include: %TEST_DIR%_assets/jquery.min.js, %TEST_DIR%_helpers/require.js,
+%TEST_DIR%_helpers/requireConfig.js, %TEST_DIR%_helpers/quail/228_collection.js */
 
 ( function() {
 	'use strict';
 
-	// Just a note: we don't really need to load jQuery, since Bender will load it anyways and put it in global window.$ variable.
-	require( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails', 'EngineQuail' ], function( Engine, IssueList, Issue, IssueDetails, EngineQuail ) {
+	require( [
+		'IssueList',
+		'Issue',
+		'IssueDetails',
+		'EngineQuail'
+	], function(
+		IssueList,
+		Issue,
+		IssueDetails,
+		EngineQuail
+	) {
 		bender.editor = {};
 
 		bender.test( {
@@ -52,7 +62,12 @@
 
 				var keys = CKEDITOR.tools.objectKeys( engineMockup.issueDetails ),
 					// It should not contain "scriptsDoNotUseColorAlone", since it's marked as passing.
-					expectedKeys = [ 'aAdjacentWithSameResourceShouldBeCombined', 'aMustHaveTitle', 'documentAcronymsHaveElement', 'imgHasAlt', 'skipToContentLinkProvided' ];
+					expectedKeys = [ 'aAdjacentWithSameResourceShouldBeCombined',
+						'aMustHaveTitle',
+						'documentAcronymsHaveElement',
+						'imgHasAlt',
+						'skipToContentLinkProvided'
+					];
 
 				assert.areNotEqual( 0, keys.length, 'engineMockup.issueDetails obj should not be empty' );
 				bender.arrayAssert.itemsAreEqual( expectedKeys, keys, 'Keys matches' );
@@ -175,7 +190,7 @@
 				// Nor text nodes.
 				assertFilterResult( false, { originalElement: CKEDITOR.document.createText( 'asd' ) } );
 				// Quail tends to give a string as a issue element in aLinkTextDoesNotBeginWithRedundantWord.
-				assertFilterResult( false, { originalElement: "foo" } );
+				assertFilterResult( false, { originalElement: 'foo' } );
 
 				assertFilterResult( false, { originalElement: new CKEDITOR.dom.element( undefined ) } );
 				assertFilterResult( false, { originalElement: new CKEDITOR.dom.element( null ) } );
@@ -217,7 +232,7 @@
 
 					// Assertions are placed in jQuery().quail function.
 					EngineQuail.prototype.process.call( {}, a11ychecker, CKEDITOR.document.getBody() );
-				} catch( e ) {
+				} catch ( e ) {
 					throw e;
 				} finally {
 					// In any case clean up modifications.

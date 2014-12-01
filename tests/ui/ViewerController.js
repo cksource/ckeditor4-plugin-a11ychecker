@@ -53,10 +53,12 @@
 				viewer: {
 					panel:
 						{
-							attach: function() {}
+							attach: function() {
+							}
 						}
 				},
-				fire: function(){}
+				fire: function() {
+				}
 			};
 
 			mocking.mockProperty( 'editor.window.once', ret, function() {
@@ -73,7 +75,8 @@
 		function getIssueMockup() {
 			return {
 				element: {
-					scrollIntoView: function(){}
+					scrollIntoView: function() {
+					}
 				}
 			};
 		}

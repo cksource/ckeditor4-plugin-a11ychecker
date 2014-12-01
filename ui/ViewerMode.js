@@ -16,7 +16,8 @@ define( function() {
 	 * @constructor Creates a viewerMode instance.
 	 * @param {CKEDITOR.plugins.a11ychecker.viewer} viewer The viewer instance that mode
 	 * will be attached to.
-	 * @param {Object} definition An object containing mode definition. See {@link CKEDITOR.plugins.a11ychecker.viewerMode.definition}.
+	 * @param {Object} definition An object containing mode definition. See
+	 * {@link CKEDITOR.plugins.a11ychecker.viewerMode.definition}.
 	 */
 	function ViewerMode( viewer, definition ) {
 		/**
@@ -74,8 +75,9 @@ define( function() {
 		 * @param {Object} listener An object containing the `removeListener`.
 		 */
 		addPanelShowListeners: function( listener ) {
-			if ( !this.panelShowListeners )
+			if ( !this.panelShowListeners ) {
 				return;
+			}
 
 			for ( var i = 0; i < this.panelShowListeners.length; i++ ) {
 				this.addPanelShowListener(

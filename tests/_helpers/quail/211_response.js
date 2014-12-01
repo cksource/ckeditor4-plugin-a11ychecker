@@ -3,6 +3,8 @@
 // It's in separate file, because it's pretty long and boring.
 
 function getQuailResultsMockup() {
+	'use strict';
+
 	// Returns a Mockup of response given by Quail 2.1.1 to the HTML in #quailMarkupSource.
 	return {
 		totals: {
@@ -15,22 +17,24 @@ function getQuailResultsMockup() {
 				elements: [],
 				test:
 					{
-						callback: "aAdjacentWithSameResourceShouldBeCombined",
-						tags: [ "link", "content" ],
+						callback: 'aAdjacentWithSameResourceShouldBeCombined',
+						tags: [ 'link', 'content' ],
 						testability: 1,
-						type: "custom",
+						type: 'custom',
 						guidelines: {
 							wcag: {
-								"2.4.4": {
-									techniques: [ "H2" ]
+								'2.4.4': {
+									techniques: [ 'H2' ]
 								}
 							}
 						},
 						title: {
-							en: "Adjacent links that point to the same location should be merged"
+							en: 'Adjacent links that point to the same location should be merged'
 						},
 						description: {
-							en: "Because many users of screen-readers use links to navigate the page, providing two links right next to eachother that points to the same location can be confusing. Try combining the links."
+							en: 'Because many users of screen-readers use links to navigate the page, providing two' +
+							' links right next to eachother that points to the same location can be confusing. ' +
+							'Try combining the links.'
 						}
 					}
 			},
@@ -38,16 +42,16 @@ function getQuailResultsMockup() {
 				elements: [],
 				test:
 					{
-						selector: "a[href^='javascript:']",
-						tags: [ "link", "content" ],
+						selector: 'a[href^="javascript:"]',
+						tags: [ 'link', 'content' ],
 						testability: 1,
-						type: "selector",
+						type: 'selector',
 						guidelines: [],
 						title: {
-							en: "Links should not use \"javascript\" in their location"
+							en: 'Links should not use "javascript" in their location'
 						},
 						description: {
-							en: "Anchor (<code>a</code>.  elements may not use the \"javascript\" protocol in their \"href\" attributes."
+							en: 'Anchor (<code>a</code>.  elements may not use the "javascript" protocol in their "href" attributes.'
 						}
 					}
 			},
@@ -55,23 +59,23 @@ function getQuailResultsMockup() {
 				elements: [],
 				test:
 					{
-						selector: "img:not(img[alt])",
-						tags: [ "image", "content" ],
+						selector: 'img:not(img[alt])',
+						tags: [ 'image', 'content' ],
 						testability: 1,
-						type: "selector",
+						type: 'selector',
 						guidelines: {
-							508: [ "a" ],
+							508: [ 'a' ],
 							wcag: {
-								"1.1.1": {
-									techniques: [ "F65", "H37" ]
+								'1.1.1': {
+									techniques: [ 'F65', 'H37' ]
 								}
 							}
 						},
 						title: {
-							en: "Image elements must have an \"alt\" attribute"
+							en: 'Image elements must have an "alt" attribute'
 						},
 						description: {
-							en: "All <code>img</code> elements must have an alt attribute"
+							en: 'All <code>img</code> elements must have an alt attribute'
 						}
 					}
 			}

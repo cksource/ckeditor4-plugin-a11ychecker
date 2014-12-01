@@ -85,7 +85,8 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		 * Template of the input.
 		 */
 		inputTemplate: new CKEDITOR.template(
-			'<input class="cke_a11yc_ui_input cke_a11yc_ui_input_text" type="text" id={id} aria-labelledby="id" aria-required="true">' )
+			'<input class="cke_a11yc_ui_input cke_a11yc_ui_input_text" type="text" id={id}' +
+			' aria-labelledby="id" aria-required="true">' )
 	} );
 
 	ViewerInputs.Checkbox.prototype = CKEDITOR.tools.extend( new ViewerInput, {
@@ -94,7 +95,8 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		 * Template of the input.
 		 */
 		inputTemplate: new CKEDITOR.template(
-			'<input class="cke_a11yc_ui_input cke_a11yc_ui_input_checkbox" type="checkbox" id={id} aria-labelledby="id" aria-required="true">' ),
+			'<input class="cke_a11yc_ui_input cke_a11yc_ui_input_checkbox" type="checkbox"' +
+			' id={id} aria-labelledby="id" aria-required="true">' ),
 
 		getValue: function() {
 			return this.input.$.checked;
@@ -106,7 +108,8 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.select
 		 * Template of the input.
 		 */
-		inputTemplate: new CKEDITOR.template( '<select class="cke_a11yc_ui_input_select" id={id} aria-labelledby="id" aria-required="true"></select>' ),
+		inputTemplate: new CKEDITOR.template( '<select class="cke_a11yc_ui_input_select" id={id}' +
+			' aria-labelledby="id" aria-required="true"></select>' ),
 
 		/**
 		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.select

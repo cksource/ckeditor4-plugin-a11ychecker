@@ -11,7 +11,13 @@
 
 	bender.editor = true;
 
-	require( [ 'EditableDecorator', 'mock/EditableDecoratorMockup' ], function( EditableDecorator, EditableDecoratorMockup ) {
+	require( [
+		'EditableDecorator',
+		'mock/EditableDecoratorMockup'
+	], function(
+		EditableDecorator,
+		EditableDecoratorMockup
+	) {
 		// Name of attribute used to identify nodes.
 		var a11yCheckerIdAttr = EditableDecorator.ID_ATTRIBUTE_NAME,
 			a11yCheckerIdAttrFull = EditableDecorator.ID_ATTRIBUTE_NAME_FULL;

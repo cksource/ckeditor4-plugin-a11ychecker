@@ -3,7 +3,7 @@
  * @fileoverview Contains ControllerMockup type.
  */
 
-define( [ 'Controller', 'mock/IssueListMockup', 'helpers/sinon/sinon_amd.min' ], function( Controller, IssueListMockup, sinon ) {
+define( [ 'Controller', 'mock/IssueListMockup', 'mocking' ], function( Controller, IssueListMockup, mocking ) {
 	'use strict';
 
 	/**
@@ -13,7 +13,7 @@ define( [ 'Controller', 'mock/IssueListMockup', 'helpers/sinon/sinon_amd.min' ],
 	 */
 	function ControllerMockup() {
 		for ( var i in Controller.prototype ) {
-			ControllerMockup.prototype[ i ] = sinon.spy();
+			ControllerMockup.prototype[ i ] = mocking.spy();
 		}
 
 		Controller.call( this );
