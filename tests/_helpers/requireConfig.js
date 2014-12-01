@@ -1,5 +1,7 @@
 // We'll place config here to keep things DRY.
 (function() {
+	'use strict';
+
 	var appBaseDir = '/apps/ckeditor/plugins/a11ychecker/',
 		testBaseDir = '/plugins/a11ychecker/tests/';
 

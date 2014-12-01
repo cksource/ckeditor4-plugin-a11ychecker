@@ -1,4 +1,6 @@
 
+'use strict';
+
 var assert = require( 'chai' ).assert,
 	path = require( 'path' ),
 	fs = require( 'fs' ),

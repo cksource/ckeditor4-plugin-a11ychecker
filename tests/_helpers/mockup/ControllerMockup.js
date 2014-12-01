@@ -4,6 +4,8 @@
  */
 
 define( [ 'Controller', 'mock/IssueListMockup', 'helpers/sinon/sinon_amd.min' ], function( Controller, IssueListMockup, sinon ) {
+	'use strict';
+
 	/**
 	 * A simplified type of Controller.
 	 *

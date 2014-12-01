@@ -4,6 +4,8 @@
  */
 
 define( [ 'IssueList' ], function( IssueList ) {
+	'use strict';
+
 	/**
 	 * A simplified type of IssueList.
 	 *

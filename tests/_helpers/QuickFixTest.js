@@ -12,6 +12,8 @@
  */
 
 define( [ 'mocking', 'quickfix/Repository' ], function( mocking, Repository ) {
+	'use strict';
+
 	return function( quickFixName, tests, callback ) {
 		var appBaseDir = '/apps/ckeditor/plugins/a11ychecker/quickfix/';
 

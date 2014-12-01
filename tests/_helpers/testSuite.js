@@ -1,5 +1,7 @@
 
 define( [ 'mocking', 'EngineMock' ], function( mocking, EngineMock ) {
+	'use strict';
+
 	var fnOverride = CKEDITOR.tools.override;
 
 	/**

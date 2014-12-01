@@ -3,6 +3,7 @@
  */
 
 define( [ 'helpers/sinon/sinon_amd.min' ], function( sinon ) {
+	'use strict';
 
 	var ret = {
 		sinon: sinon,
