@@ -6,6 +6,12 @@ var dirtyFiles,
 	ignoreList;
 
 module.exports = {
+	/**
+	 * Check if a task (including its optional target) is in the queue of tasks to be executed by grunt.
+	 * @param grunt {Object} The grunt object.
+	 * @param task {String} The task name. May optionally include the target (e.g. 'task:target').
+	 * @returns {Boolean} "true" if the task is in the queue.
+	 */
 	checkTaskInQueue: function( grunt, task ) {
 		var cliTasks = grunt.cli.tasks;
 
@@ -20,9 +26,13 @@ module.exports = {
 		return isDirectCall || isTaskInDefault;
 	},
 
+	/**
+	 * Configures a multi-task and defines targets that are queued to be run by grunt.
+	 * @param grunt {Object} The grunt object.
+	 * @param options {Object} A list of options for the method. See the jscs and jshint tasks for example.
+	 */
 	setupMultitaskConfig: function( grunt, options ) {
-		var that = this,
-			task = options.task,
+		var task = options.task,
 			taskConfig = {},
 			config = taskConfig[ task ] = {
 				options: options.defaultOptions
@@ -33,20 +43,33 @@ module.exports = {
 			isAll = true;
 		delete options.targets.all;
 		Object.getOwnPropertyNames( options.targets ).forEach( function( target ) {
-			if ( that.checkTaskInQueue( grunt, task + ':' + target ) ) {
+			if ( this.checkTaskInQueue( grunt, task + ':' + target ) ) {
 				config[ target ] = options.targets[ target ]();
 				isAll = false;
 			}
-		} );
+		}, this );
 
 		if ( isAll ) {
 			config.all = all();
+		}
+
+		// Append .gitignore entries to the ignore list.
+		if ( options.addGitIgnore ) {
+			var ignoreProp = task + '.options.' + options.addGitIgnore,
+				ignores = grunt.config.get( ignoreProp ) || [];
+			ignores = ignores.concat( this.getGitIgnore( grunt ) );
+			grunt.config.set( ignoreProp, ignores );
 		}
 
 		// Merge over configurations set in gruntfile.js.
 		grunt.config.merge( taskConfig );
 	},
 
+	/**
+	 * Gets the list of ignores from .gitignore.
+	 * @param grunt {Object} The grunt object.
+	 * @returns {Array} The list of ignores.
+	 */
 	getGitIgnore: function( grunt ) {
 		if ( !ignoreList ) {
 			ignoreList = grunt.file.read( '.gitignore' );
@@ -65,10 +88,22 @@ module.exports = {
 		return ignoreList;
 	},
 
+	/**
+	 * Gets the list of files that are supposed to be included in the next git commit.
+	 * @returns {Array} A list of file paths.
+	 */
 	getGitDirtyFiles: function() {
 		// Cache it, so it is executed only once when running multiple tasks.
 		if ( !dirtyFiles ) {
-			dirtyFiles = this.shExec( 'git diff-index --name-only HEAD' ).replace( /\s*$/, '' ).split( '\n' );
+			dirtyFiles = this
+				// Compare the state of index with HEAD.
+				.shExec( 'git diff-index --name-only HEAD' )
+				// Remove trailing /n, to avoid empty entry.
+				.replace( /\s*$/, '' )
+				// Transform into array.
+				.split( '\n' );
+
+			// If nothing is returned, the array will one one empty string only.
 			if ( dirtyFiles.length == 1 && !dirtyFiles[ 0 ] ) {
 				dirtyFiles = [];
 			}
@@ -76,6 +111,11 @@ module.exports = {
 		return dirtyFiles;
 	},
 
+	/**
+	 * Executes a shell command.
+	 * @param command {String} The command to be executed.
+	 * @returns {String} The command output.
+	 */
 	shExec: function( command ) {
 		var sh = require( 'shelljs' );
 		sh.config.silent = true;
