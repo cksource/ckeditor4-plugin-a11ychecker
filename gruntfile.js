@@ -15,6 +15,16 @@ module.exports = function( grunt ) {
 	// First register the "default" task, so it can be analyzed by other tasks.
 	grunt.registerTask( 'default', [ 'jshint:git', 'jscs:git' ] );
 
+	// Array of paths excluded from linting.
+	var lintExclude = [
+		'libs/**',
+		'samples/jquery.min.js',
+		'samples/require.js',
+		'tests/_assets/**',
+		'tests/_helpers/require.js',
+		'tests/_helpers/sinon/**'
+	];
+
 	// Basic configuration which will be overloaded by the tasks.
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
@@ -37,29 +47,13 @@ module.exports = function( grunt ) {
 
 		jshint: {
 			options: {
-				ignores: [
-					// Automatically loaded from .gitignore. Add more if necessary.
-					'libs/**',
-					'samples/jquery.min.js',
-					'samples/require.js',
-					'tests/_assets/**',
-					'tests/_helpers/require.js',
-					'tests/_helpers/sinon/**'
-				]
+				ignores: lintExclude
 			}
 		},
 
 		jscs: {
 			options: {
-				excludeFiles: [
-					// Automatically loaded from .gitignore. Add more if necessary.
-					'libs/**',
-					'samples/jquery.min.js',
-					'samples/require.js',
-					'tests/_assets/**',
-					'tests/_helpers/require.js',
-					'tests/_helpers/sinon/**'
-				]
+				excludeFiles: lintExclude
 			}
 		},
 
