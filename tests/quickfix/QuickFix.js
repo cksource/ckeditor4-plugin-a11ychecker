@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'helpers/QuickFixTest' ], function( QuickFixTest ) {
+	require( [ 'helpers/quickFixTest' ], function( quickFixTest ) {
 		var tests = {
 				setUp: function() {
 					// Assign a QuickFix class to more precise property.
@@ -29,6 +29,6 @@
 			},
 			QuickFix;
 
-		QuickFixTest( 'QuickFix', tests );
+		quickFixTest( 'QuickFix', tests );
 	} );
 } )();

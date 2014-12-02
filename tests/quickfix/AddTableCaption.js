@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'helpers/QuickFixTest', 'mocking' ], function( QuickFixTest, mocking ) {
+	require( [ 'helpers/quickFixTest', 'mocking' ], function( quickFixTest, mocking ) {
 		var AddTableCaption,
 			tests = {
 				setUp: function() {
@@ -62,6 +62,6 @@
 				}
 			};
 
-		QuickFixTest( 'AddTableCaption', tests );
+		quickFixTest( 'AddTableCaption', tests );
 	} );
 } )();

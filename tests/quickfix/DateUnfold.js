@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'helpers/QuickFixTest', 'mocking' ], function( QuickFixTest, mocking ) {
+	require( [ 'helpers/quickFixTest', 'mocking' ], function( quickFixTest, mocking ) {
 		var DateUnfold,
 			tests = {
 				setUp: function() {
@@ -100,6 +100,6 @@
 				}
 			};
 
-		QuickFixTest( 'DateUnfold', tests );
+		quickFixTest( 'DateUnfold', tests );
 	} );
 } )();

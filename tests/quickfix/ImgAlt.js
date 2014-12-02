@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'helpers/QuickFixTest', 'mocking' ], function( QuickFixTest, mocking ) {
+	require( [ 'helpers/quickFixTest', 'mocking' ], function( quickFixTest, mocking ) {
 		var ImgAlt,
 			tests = {
 				setUp: function() {
@@ -137,6 +137,6 @@
 				}
 			};
 
-		QuickFixTest( 'ImgAlt', tests );
+		quickFixTest( 'ImgAlt', tests );
 	} );
 } )();
