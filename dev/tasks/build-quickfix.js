@@ -178,7 +178,9 @@
 			targetFile = this.targetDir + sep + lang + sep + quickFixName + '.js',
 			langDict = this._getDictionaryForQuickFix( quickFixName, lang ),
 			// And here we'll store source content with added lang property.
-			replacedContent = QuickFixBuilder.prototype._injectLanguageObject( quickFixName, fs.readFileSync( srcFile ), langDict, lang );
+			replacedContent = QuickFixBuilder.prototype._injectLanguageObject(
+				quickFixName, fs.readFileSync( srcFile ), langDict, lang
+			);
 
 		fs.writeFileSync( targetFile, replacedContent );
 	};
@@ -240,7 +242,8 @@
 			replacement = langProperty + 'CKEDITOR.plugins.a11ychecker.quickFixes.add( \'' + localizedClassName + '\'',
 			ret = String( fileSource ).replace( /CKEDITOR\.plugins\.a11ychecker\.quickFixes\.add\(\s*['"].*['"]/, replacement );
 
-		ret = ret.replace( /(CKEDITOR.plugins.a11ychecker.quickFixes.get\(\s*\{[\t ]*)/, '$1 langCode: \'' + langCode + '\',' );
+		ret = ret.replace( /(CKEDITOR.plugins.a11ychecker.quickFixes.get\(\s*\{[\t ]*)/,
+			'$1 langCode: \'' + langCode + '\',' );
 
 		return ret;
 	};

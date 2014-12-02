@@ -56,7 +56,8 @@ define( function() {
 
 	ViewerDescription.prototype = {
 		/**
-		 * @property templateDefinitions Templates of the description. Automatically converted into {@link CKEDITOR.template} in the constructor.
+		 * @property templateDefinitions Templates of the description. Automatically converted into
+		 * {@link CKEDITOR.template} in the constructor.
 		 * @property {String} templateDefinitions.wrapper
 		 * @property {String} templateDefinitions.title
 		 * @property {String} templateDefinitions.info

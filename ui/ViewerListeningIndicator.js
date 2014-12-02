@@ -52,7 +52,8 @@ define( function() {
 
 	ViewerListeningIndicator.prototype = {
 		/**
-		 * @property templateDefinitions Templates of the listening indicator. Automatically converted into {@link CKEDITOR.template} in the constructor.
+		 * @property templateDefinitions Templates of the listening indicator. Automatically
+		 * converted into {@link CKEDITOR.template} in the constructor.
 		 * @property {String} templateDefinitions.wrapper
 		 * @property {String} templateDefinitions.info
 		 * @property {String} templateDefinitions.button

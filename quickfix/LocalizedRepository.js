@@ -23,8 +23,11 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 		languagesRequested = [];
 
 	/**
+	 * See {@link CKEDITOR.plugins.a11ychecker.quickFix.Repository#get}. This implementation
+	 * adds only `options.langCode` param:
+	 *
 	 * @member CKEDITOR.plugins.a11ychecker.quickFix.LocalizedRepository
-	 * @param {Object} options See {@link CKEDITOR.plugins.a11ychecker.quickFix.Repository#get}. This implementation adds one more parameter:
+	 * @param {Object} options
 	 * @param {String} options.langCode Language code of quickFix to be loaded.
 	 * @returns {Function}
 	 */

@@ -121,7 +121,7 @@ define( function() {
 		var i,
 			nextIndex;
 		// We can use for loop, since in worst case scenario it will be listSize - 1 iterations.
-		for ( i = 1; i < listSize - 1 && !ret.isVisible(); i ++ ) {
+		for ( i = 1; i < listSize - 1 && !ret.isVisible(); i++ ) {
 			nextIndex = pickedIndex + i;
 			if ( nextIndex >= listSize ) {
 				nextIndex -= listSize;
@@ -165,7 +165,7 @@ define( function() {
 		var i,
 			nextIndex;
 		// We can use for loop, since in worst case scenario it will be listSize - 1 iterations.
-		for ( i = 1; i < listSize - 1 && !ret.isVisible(); i ++ ) {
+		for ( i = 1; i < listSize - 1 && !ret.isVisible(); i++ ) {
 			nextIndex = pickedIndex - i;
 			if ( nextIndex < 0 ) {
 				nextIndex = listSize + nextIndex;

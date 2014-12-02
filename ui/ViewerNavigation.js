@@ -72,7 +72,8 @@ define( function() {
 
 	ViewerNavigation.prototype = {
 		/**
-		 * @property templateDefinitions Templates of the navigation. Automatically converted into {@link CKEDITOR.template} in the constructor.
+		 * @property templateDefinitions Templates of the navigation. Automatically converted into
+		 * {@link CKEDITOR.template} in the constructor.
 		 * @property {String} templateDefinitions.wrapper
 		 * @property {String} templateDefinitions.counter
 		 * @property {String} templateDefinitions.buttonWrapper
@@ -86,7 +87,8 @@ define( function() {
 			buttonWrapper: '<div class="cke_a11yc_ui_button_wrapper"></div>',
 
 			button:
-				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button cke_a11yc_ui_{class}" role="button">' +
+				'<a href="javascript:void(0)" title="{title}" hidefocus="true" ' +
+				'class="cke_a11yc_ui_button cke_a11yc_ui_{class}" role="button">' +
 					'<span class="cke_a11yc_ui_button">{text}</span>' +
 				'</a>'
 		},
@@ -153,7 +155,7 @@ define( function() {
 			this.parts.next.unselectable();
 
 			// Adding listeners.
-			var spaceListener = keyListener( 32, function ( evt ) {
+			var spaceListener = keyListener( 32, function( evt ) {
 				this.fire( 'click' );
 			} );
 

@@ -4,6 +4,8 @@
  */
 
 define( [ 'EditableDecorator' ], function( EditableDecorator ) {
+	'use strict';
+
 	/**
 	 * A simplified type of EditableDecorator.
 	 *

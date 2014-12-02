@@ -3,6 +3,7 @@
 /*global require*/
 
 ( function() {
+	/*jshint -W020 */
 	'use strict';
 
 	require( [ 'Engine', 'mocking' ], function( Engine, mocking ) {
@@ -94,9 +95,9 @@
 					callback = mocking.spy();
 
 				engine.getFixes( {
-						// This property should not exist in engine.fixesMapping.
-						id: 'foo-bar-baz'
-					}, callback );
+					// This property should not exist in engine.fixesMapping.
+					id: 'foo-bar-baz'
+				}, callback );
 
 				assert.areSame( 1, callback.callCount, 'callback calls count' );
 				assert.isTrue( callback.alwaysCalledWithExactly( [] ), 'callback parameter' );

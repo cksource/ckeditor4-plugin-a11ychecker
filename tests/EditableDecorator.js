@@ -5,12 +5,27 @@
 ( function() {
 	'use strict';
 
-	require( [ 'EditableDecorator', 'Controller', 'mock/EditableDecoratorMockup', 'mock/IssueListMockup', 'IssueList', 'helpers/sinon/sinon_amd.min', 'mocking' ], function( EditableDecorator, Controller, EditableDecoratorMockup, IssueListMockup, IssueList, sinon, mocking ) {
+	require( [
+		'EditableDecorator',
+		'Controller',
+		'mock/EditableDecoratorMockup',
+		'mock/IssueListMockup',
+		'IssueList',
+		'mocking'
+	], function(
+		EditableDecorator,
+		Controller,
+		EditableDecoratorMockup,
+		IssueListMockup,
+		IssueList,
+		mocking
+	) {
 		var QUAIL_TESTABILITY = {
-			ERROR: 1,
-			WARNING: 0.5,
-			NOTICE: 0
-		};
+				ERROR: 1,
+				WARNING: 0.5,
+				NOTICE: 0
+			},
+			sinon = mocking.sinon;
 
 		bender.test( {
 

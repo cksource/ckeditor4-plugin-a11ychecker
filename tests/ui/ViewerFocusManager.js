@@ -144,7 +144,9 @@
 
 			var ret =  new CKEDITOR.dom.element( tagName );
 			if ( fakeIsVisible ) {
-				ret.isVisible = function() { return true; };
+				ret.isVisible = function() {
+					return true;
+				};
 			}
 			return ret;
 		}

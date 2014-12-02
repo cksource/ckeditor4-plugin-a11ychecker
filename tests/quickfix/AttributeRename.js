@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'helpers/QuickFixTest', 'mocking' ], function( QuickFixTest, mocking ) {
+	require( [ 'helpers/quickFixTest', 'mocking' ], function( quickFixTest, mocking ) {
 		var AttributeRename,
 			tests = {
 				setUp: function() {
@@ -92,6 +92,6 @@
 				}
 			};
 
-		QuickFixTest( 'AttributeRename', tests );
+		quickFixTest( 'AttributeRename', tests );
 	} );
 } )();

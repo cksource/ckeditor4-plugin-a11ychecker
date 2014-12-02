@@ -1,9 +1,12 @@
+/*global describe, it, before, beforeEach, after, afterEach, require */
+
+'use strict';
 
 var assert = require( 'chai' ).assert,
 	path = require( 'path' ),
 	fs = require( 'fs' ),
 	sinon = require( 'sinon' ),
-	QuickFixBuilder = require( '../tasks/quickFixBuilder' ).QuickFixBuilder,
+	QuickFixBuilder = require( '../tasks/build-quickfix' ).QuickFixBuilder,
 	fixturesPath = path.resolve( 'dev/testsbuilder/_fixtures' );
 
 describe( 'Module', function() {
@@ -130,9 +133,8 @@ describe( 'QuickFixBuilder', function() {
 	} );
 
 	describe( 'createLanguageDirectories', function() {
-
 		var rimraf = require( 'rimraf' ),
-			dirCreationPath = fixturesPath + '/' + 'dirCreation';;
+			dirCreationPath = fixturesPath + '/' + 'dirCreation';
 
 		beforeEach( function() {
 			// Before going here we need to cleanup dir.
@@ -213,7 +215,8 @@ describe( 'QuickFixBuilder', function() {
 				},
 				_injectLanguageObject = QuickFixBuilder.prototype._injectLanguageObject;
 
-			assert.strictEqual( _injectLanguageObject( 'QuickFix', inputFile, lang, 'zh' ), expected, 'Language object inlined into source' );
+			assert.strictEqual( _injectLanguageObject( 'QuickFix', inputFile, lang, 'zh' ), expected,
+				'Language object inlined into source' );
 		} );
 
 		it( 'places langCode property correctly', function() {
@@ -245,7 +248,8 @@ describe( 'QuickFixBuilder', function() {
 				lang = {},
 				_injectLanguageObject = QuickFixBuilder.prototype._injectLanguageObject;
 
-			assert.strictEqual( _injectLanguageObject( 'SubClass', inputFile, lang, 'en' ), expected, 'Language object inlined into source' );
+			assert.strictEqual( _injectLanguageObject( 'SubClass', inputFile, lang, 'en' ), expected,
+				'Language object inlined into source' );
 		} );
 	} );
 

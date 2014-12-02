@@ -63,11 +63,12 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		 *
 		 * @event ignore
 		 */
-	};
+	}
 
 	ViewerForm.prototype = {
 		/**
-		 * @property templateDefinitions Templates of the form. Automatically converted into {@link CKEDITOR.template} in the constructor.
+		 * @property templateDefinitions Templates of the form. Automatically converted into
+		 * {@link CKEDITOR.template} in the constructor.
 		 * @property {String} templateDefinitions.wrapper
 		 * @property {String} templateDefinitions.fieldset
 		 * @property {String} templateDefinitions.actionset
@@ -138,8 +139,9 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		 * @method removeInputs
 		 */
 		removeInputs: function() {
-			for ( var name in this.inputs )
+			for ( var name in this.inputs ) {
 				this.removeInput( name );
+			}
 		},
 
 		/**
@@ -150,8 +152,9 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 		serialize: function() {
 			var data = {};
 
-			for ( var i in this.inputs )
+			for ( var i in this.inputs ) {
 				data[ i ] = this.inputs[ i ].getValue();
+			}
 
 			return data;
 		},
@@ -272,7 +275,7 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 				callback.call( this, evt );
 				evt.data.preventDefault();
 			}
-		}
+		};
 	}
 
 	CKEDITOR.event.implementOn( ViewerForm.prototype );

@@ -1,6 +1,7 @@
 /* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: a11ychecker,sourcearea,undo */
-/* bender-include: %TEST_DIR%_assets/jquery.min.js, %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
+/* bender-include: %TEST_DIR%_assets/jquery.min.js, %TEST_DIR%_helpers/require.js,
+%TEST_DIR%_helpers/requireConfig.js */
 
 /**
  * @fileoverview Integration tests for Controller class.
@@ -15,7 +16,18 @@
 		startupData: startupData
 	};
 
-	require( [ 'mocking', 'Controller', 'EngineMock', 'ui/ViewerController', 'EngineDefault', 'EngineQuail' ], function( mocking, Controller, EngineMock ) {
+	require( [
+		'mocking',
+		'Controller',
+		'EngineMock',
+		'ui/ViewerController',
+		'EngineDefault',
+		'EngineQuail'
+	], function(
+		mocking,
+		Controller,
+		EngineMock
+	) {
 		bender.test( {
 
 			_should: {
@@ -87,7 +99,7 @@
 					this.editor.execCommand( 'a11ychecker' );
 
 					assert.areSame( 1, eventCount, 'Event fired only once' );
-				} catch( e ) {
+				} catch ( e ) {
 					throw e;
 				} finally {
 					listener.removeListener();
@@ -119,7 +131,7 @@
 					this.editor.execCommand( 'a11ychecker.next' );
 
 					assert.areSame( 1, eventCount, 'Event fired only once' );
-				} catch( e ) {
+				} catch ( e ) {
 					throw e;
 				} finally {
 					listener.removeListener();
@@ -151,7 +163,7 @@
 					this.editor.execCommand( 'a11ychecker.prev' );
 
 					assert.areSame( 1, eventCount, 'Event fired only once' );
-				} catch( e ) {
+				} catch ( e ) {
 					throw e;
 				} finally {
 					listener.removeListener();
@@ -228,13 +240,13 @@
 
 				// Chromium workaround.
 				Object.defineProperty(keyEvent, 'keyCode', {
-					get : function() {
+					get: function() {
 						return 13;
 					}
 				});
 
 				Object.defineProperty(keyEvent, 'which', {
-					get : function() {
+					get: function() {
 						return 13;
 					}
 				});

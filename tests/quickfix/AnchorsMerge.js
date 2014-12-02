@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'helpers/QuickFixTest', 'mocking' ], function( QuickFixTest, mocking ) {
+	require( [ 'helpers/quickFixTest', 'mocking' ], function( quickFixTest, mocking ) {
 		var AnchorsMerge,
 			tests = {
 				setUp: function() {
@@ -54,6 +54,6 @@
 				}
 			};
 
-		QuickFixTest( 'AnchorsMerge', tests );
+		quickFixTest( 'AnchorsMerge', tests );
 	} );
 } )();

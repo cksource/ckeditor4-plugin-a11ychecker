@@ -3,7 +3,21 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-define( [ 'ui/ViewerDescription', 'ui/ViewerNavigation', 'ui/ViewerForm', 'ui/ViewerListeningIndicator', 'ui/ViewerFocusManager', 'ui/ViewerMode' ], function( ViewerDescription, ViewerNavigation, ViewerForm, ViewerListeningIndicator, ViewerFocusManager, ViewerMode ) {
+define( [
+	'ui/ViewerDescription',
+	'ui/ViewerNavigation',
+	'ui/ViewerForm',
+	'ui/ViewerListeningIndicator',
+	'ui/ViewerFocusManager',
+	'ui/ViewerMode'
+], function(
+	ViewerDescription,
+	ViewerNavigation,
+	ViewerForm,
+	ViewerListeningIndicator,
+	ViewerFocusManager,
+	ViewerMode
+) {
 	'use strict';
 
 	/**

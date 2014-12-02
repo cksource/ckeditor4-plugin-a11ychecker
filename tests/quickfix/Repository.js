@@ -139,7 +139,7 @@
 
 					assert.areSame( 1, CKEDITOR.scriptLoader.load.callCount );
 					mocking.assert.calledWith( CKEDITOR.scriptLoader.load, 'foo.js' );
-				} catch(e) {
+				} catch (e) {
 					// Propagate.
 					throw e;
 				} finally {

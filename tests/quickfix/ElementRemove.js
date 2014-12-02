@@ -4,7 +4,7 @@
 ( function() {
 	'use strict';
 
-	require( [ 'helpers/QuickFixTest', 'mocking' ], function( QuickFixTest, mocking ) {
+	require( [ 'helpers/quickFixTest', 'mocking' ], function( quickFixTest, mocking ) {
 		var ElementRemove,
 			tests = {
 				setUp: function() {
@@ -31,6 +31,6 @@
 					assert.isTrue( callback.alwaysCalledWith( fixMockup ), 'Callback has QuickFix object as a first parameter' );
 				}
 			};
-		QuickFixTest( 'ElementRemove', tests );
+		quickFixTest( 'ElementRemove', tests );
 	} );
 } )();
