@@ -25,14 +25,14 @@
 		'mocking',
 		'EngineMock',
 		'Controller',
-		'helpers/QuickFixTest',
+		'helpers/quickFixTest',
 		'EditableDecorator'
 	], function(
 		testSuite,
 		mocking,
 		EngineMock,
 		Controller,
-		QuickFixTest,
+		quickFixTest,
 		EditableDecorator
 	) {
 		testSuite.test( {
@@ -96,10 +96,10 @@
 				issues = a11ychecker.issues;
 
 				// Alright, so it's going to be async stuff. We're going to reuse
-				// QuickFixTest code, to load fix types, because fixes does not use
+				// quickFixTest code, to load fix types, because fixes does not use
 				// AMD.
-				QuickFixTest( 'ImgAlt', null, function( ImgAlt ) {
-					QuickFixTest( 'AttributeRename', null, function( AttributeRename ) {
+				quickFixTest( 'ImgAlt', null, function( ImgAlt ) {
+					quickFixTest( 'AttributeRename', null, function( AttributeRename ) {
 						resume( function() {
 							var altFix = new ImgAlt( issues.getItem( 0 ) ),
 								renameFix = new AttributeRename( issues.getItem( 0 ) );
@@ -181,7 +181,7 @@
 				a11ychecker.issues.getItem( 1 ).element = this.editor.editable().find( 'p' ).getItem( 1 );
 
 				// Getting ImgAlt type with a helper function.
-				QuickFixTest( 'ImgAlt', null, function( ImgAlt ) {
+				quickFixTest( 'ImgAlt', null, function( ImgAlt ) {
 					resume( function() {
 						// Create a fix instance for current issue.
 						var altFix = new ImgAlt( a11ychecker.issues.getFocused() ),
@@ -216,9 +216,9 @@
 				curIssue = a11ychecker.issues.getFocused();
 
 				// Alright, so it's going to be async stuff. We're going to reuse
-				// QuickFixTest code, to load fix types, because fixes does not use
+				// quickFixTest code, to load fix types, because fixes does not use
 				// AMD.
-				QuickFixTest( 'ImgAlt', null, function( ImgAlt ) {
+				quickFixTest( 'ImgAlt', null, function( ImgAlt ) {
 					resume( function() {
 						var altFix = new ImgAlt( curIssue );
 
