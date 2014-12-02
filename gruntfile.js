@@ -12,9 +12,10 @@
 // You can also find some information on how to use some grunt tasks in README.md.
 
 module.exports = function( grunt ) {
-	// First register the "default" task, so it can be analized by other tasks.
+	// First register the "default" task, so it can be analyzed by other tasks.
 	grunt.registerTask( 'default', [ 'jshint:git', 'jscs:git' ] );
 
+	// Basic configuration which will be overloaded by the tasks.
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
 
