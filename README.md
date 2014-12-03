@@ -14,7 +14,7 @@ This repository contains the development version of the Accessibility Checker Pl
 
 ### Development Version
 
-If you're not interested in developing core Accessibility Checker features, feel free to skip this section.
+If you are not interested in developing core Accessibility Checker features, feel free to skip this section.
 
 ```bash
 # Assuming that $CKEDITOR_DEV_PATH is your CKEditor path.
@@ -22,7 +22,7 @@ cd $CKEDITOR_DEV_PATH/plugins
 git clone -b dev git@github.com:cksource/ckeditor-plugin-a11ychecker.git a11ychecker
 ```
 
-#### Checkout Balloon Plugin
+#### Checkout the Balloon Plugin
 
 ```bash
 git clone git@github.com:cksource/ckeditor-plugin-balloonpanel.git balloonpanel
@@ -30,63 +30,63 @@ git clone git@github.com:cksource/ckeditor-plugin-balloonpanel.git balloonpanel
 
 #### Building Extra Stuff
 
-You'll also need to build a CSS, since we use LESS.
+You will also need to build the CSS, since we use LESS.
 
 ```bash
 npm install
 grunt build-css
 ```
 
-//Pro tip:// you can also use `grunt watch:less`.
+**Pro tip:** You can also use `grunt watch:less`.
 
 ### Distribution Version
 
-For more information about the distribution version see [`DISTRIBUTION.md`](DISTRIBUTION.md) file.
+For more information about the distribution version see the [`DISTRIBUTION.md`](DISTRIBUTION.md) file.
 
 ### Building a Distribution Version
 
-You can build a distribution package using grunt.
+You can build a distribution package using [Grunt](http://gruntjs.com/).
 
-Main changes in distribution version:
+Main changes in the distribution version:
 
-* It doesn't use RequireJS, so all the classes are inlined.
+* It does not use RequireJS, so all classes are inlined.
 * It contains the `CKEDITOR.plugins.a11ychecker.rev` property with a revision hash.
 * Quick-fixes are minified.
-* It will automatically create a zip archive so that you can share it without publishing the code into a public repo.
+* It will automatically create a `zip` archive so that you can share it without publishing the code in a public repository.
 
-To build the Accessibility Checker simply go to the `a11ychecker` plugin directory. And execute following commands:
+To build Accessibility Checker go to the `a11ychecker` plugin directory and execute the following commands:
 
 ```bash
 npm install
 grunt build
 ```
 
-Build files are put in `build` directory of the `a11ychecker` plugin directory.
+Build files are put in the `build` directory of the `a11ychecker` plugin directory.
 
 #### Building a Full Distribution
 
-Since the Accessibility Checker has actually a few dependencies, you might want to include all the dependent plugins, just to make installation easier.
+Since Accessibility Checker actually has a few dependencies, you might want to include all the dependent plugins just to make the installation process easier.
 
-We have a build-full feature, that will include also dependent plugins into the build directory, and created a zip archive.
+A `build-full` feature is available for this purpose. It will include dependent plugins in the `build` directory and create a `zip` archive.
 
 ```bash
 npm install
 grunt build-full
 ```
 
-Now another person might simply get the zip, extract it to `ckeditor/plugins` directory and everything is ready to go.
+Another person might now simply get the `zip`, extract it to the `ckeditor/plugins` directory and everything is ready to go.
 
 ## Where Do I Start?
 
-You should use `plugins/a11ychecker/samples/a11ychecker.html` sample to test the Accessibility Checker (eg. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/a11ychecker.html)).
+You should use the `plugins/a11ychecker/samples/a11ychecker.html` sample to test Accessibility Checker (eg. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/a11ychecker.html)).
 
-Other samples will not work because of RequireJS dependency, which is not a part of standard CKEditor distribution.
+Other samples will not work because of the RequireJS dependency, which is not a part of the standard CKEditor distribution.
 
 ## Unit Testing
 
-Both unit tests and integration tests are placed in `tests` directory.
+Both unit tests and integration tests are placed in the `tests` directory.
 
-They should be automatically detected by Bender as a "External Plugins", so make sure that `bender.js` in your CKEditor directory contains entry like following:
+They should be automatically detected by Bender.js as "External Plugins", so make sure that `bender.js` in your CKEditor directory contains an entry like the following:
 
 ```javascript
 'External Plugins': {
@@ -102,6 +102,6 @@ They should be automatically detected by Bender as a "External Plugins", so make
 ## License
 
 Copyright (c) 2014 CKSource - Frederico Knabben. All rights reserved.<br>
-License under the terms of the open source [GPL license](http://www.gnu.org/licenses/gpl-2.0.html).
+Licensed under the terms of the open source [GPL license](http://www.gnu.org/licenses/gpl-2.0.html).
 
 See LICENSE.md for more information.
