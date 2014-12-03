@@ -103,6 +103,7 @@ define( function() {
 				'open': CKEDITOR.CTRL + CKEDITOR.ALT + 69 /*E*/,
 				'next': CKEDITOR.CTRL + 69 /*E*/,
 				'prev': CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 /*E*/,
+				'listen': CKEDITOR.SHIFT + 27 /*Esc*/,
 				'close': 27 /*Esc*/
 			},
 			commandSuffix,

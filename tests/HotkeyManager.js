@@ -18,8 +18,14 @@
 
 				assert.isInstanceOf( Object, ret, 'Return value has a valid type' );
 				var keys = CKEDITOR.tools.objectKeys( ret ).sort(),
-					expectedKeys = [ '1114181', '27', '3342405', '5570629' ],
-					expectedValues = [ 'a11ychecker.next', 'a11ychecker.close', 'a11ychecker.prev', 'a11ychecker' ],
+					expectedKeys = [ '1114181', '2228251', '27', '3342405', '5570629' ],
+					expectedValues = [
+						'a11ychecker.next',
+						'a11ychecker.listen',
+						'a11ychecker.close',
+						'a11ychecker.prev',
+						'a11ychecker'
+					],
 					i;
 
 				arrayAssert.itemsAreSame( expectedKeys, keys, 'Object has valid keys' );

@@ -117,6 +117,11 @@
 				canUndo: false
 			} );
 
+			editor.addCommand( pluginName + '.listen', {
+				exec: cmdListen,
+				canUndo: false
+			} );
+
 			editor.addCommand( pluginName + '.next', {
 				exec: cmdNext,
 				async: true,
@@ -179,6 +184,10 @@
 		return generateCommand( editor, 'a11ychecker', 'exec' );
 	}
 
+	function cmdListen( editor ) {
+		return editor._.a11ychecker.listen();
+	}
+
 	function cmdClose( editor ) {
 		return editor._.a11ychecker.close();
 	}
@@ -228,10 +237,12 @@
 	 * For every Accessibility Checker hotkey you may use `0` in order to disable it.
 	 *
 	 * @cfg {Object} a11ychecker_keystrokes
-	 * @cfg {Number} [a11ychecker_keystrokes.open = CKEDITOR.CTRL + CKEDITOR.ALT + 69 // E] Starts Accessibility checker.
+	 * @cfg {Number} [a11ychecker_keystrokes.open = CKEDITOR.CTRL + CKEDITOR.ALT + 69 // E] Starts Accessibility Checker.
+	 * @cfg {Number} [a11ychecker_keystrokes.close = 27 // ESC] Closes Accessibility Checker.
 	 * @cfg {Number} [a11ychecker_keystrokes.next = CKEDITOR.CTRL + 69 // E] Go to next accessibility issue.
-	 * @cfg {Number} [a11ychecker_keystrokes.next = CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 // E] Go to previous
+	 * @cfg {Number} [a11ychecker_keystrokes.prev = CKEDITOR.CTRL + CKEDITOR.SHIFT + 69 // E] Go to previous
 	 * accessibility issue.
+	 * @cfg {Number} [a11ychecker_keystrokes.listen = CKEDITOR.SHIFT + 27 // ESC] Toggles listening mode.
 	 */
 
 	/**
