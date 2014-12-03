@@ -388,6 +388,9 @@
 				patchMockupForExecMethod( this.mockup );
 
 				this.mockup.setMode = mocking.spy();
+				mocking.mockProperty( 'mockup.issues.getFocused', this, function() {
+					return null;
+				} );
 
 				// Prerequisites.
 				this.mockup.enabled = true;

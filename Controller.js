@@ -211,7 +211,13 @@ define( [
 		if ( this.modeType === modes.LISTENING ) {
 			this.check();
 		} else {
+			// When we're switching to listening mode we want to be sure that element
+			// will be selected.
+			var curIssueElement = this.issues.getFocused() && this.issues.getFocused().element;
 			this.setMode( modes.LISTENING );
+			if ( curIssueElement ) {
+				this.editor.getSelection().selectElement( curIssueElement );
+			}
 		}
 	};
 
