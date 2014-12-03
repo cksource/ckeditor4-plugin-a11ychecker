@@ -195,6 +195,28 @@ define( [
 	};
 
 	/**
+	 * Puts Accessibility Checker in listening mode.
+	 *
+	 * This method is not executed in case when Accessibility Checker is disabled.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Controller
+	 */
+	Controller.prototype.listen = function() {
+		// AC must be enabled in order to go to listening mode.
+		if ( !this.enabled ) {
+			return;
+		}
+
+		var modes = Controller.modes;
+		if ( this.modeType === modes.LISTENING ) {
+			this.check();
+		} else {
+			this.setMode( modes.LISTENING );
+		}
+	};
+
+
+	/**
 	 * This method will force content checking. It's considered to be an internal method
 	 * if you want to simply trigger Accessibility Checker consider using {@link #exec}.
 	 *
@@ -488,6 +510,7 @@ define( [
 			// configurable array.
 			handledCommands = [
 				'a11ychecker',
+				'a11ychecker.listen',
 				'a11ychecker.next',
 				'a11ychecker.prev',
 				'a11ychecker.close',

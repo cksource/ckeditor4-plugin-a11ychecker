@@ -82,12 +82,12 @@ define( function() {
 		templateDefinitions: {
 			wrapper: '<div class="cke_a11yc_ui_navigation"></div>',
 
-			counter: '<div class="cke_a11yc_ui_navigation_counter"></div>',
+			counter: '<div class="cke_a11yc_ui_navigation_counter" aria-live="polite"></div>',
 
 			buttonWrapper: '<div class="cke_a11yc_ui_button_wrapper"></div>',
 
 			button:
-				'<a href="javascript:void(0)" title="{title}" hidefocus="true" ' +
+				'<a href="javascript:void(0)" hidefocus="true" ' +
 				'class="cke_a11yc_ui_button cke_a11yc_ui_{class}" role="button">' +
 					'<span class="cke_a11yc_ui_button">{text}</span>' +
 				'</a>'

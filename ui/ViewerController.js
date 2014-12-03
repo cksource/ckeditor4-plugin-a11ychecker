@@ -90,7 +90,9 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 
 		// We'll need also to refresh the balloon contents.
 		viewer.form.on( 'ignore', function() {
-			this.update( a11ychecker.issues.getFocused() );
+			// Refreshing form should be enough, because only ignore button should change.
+			// If we'd update whole content, it would case AWT readers to read live fragments.
+			this.updateForm( a11ychecker.issues.getFocused() );
 		}, this	);
 
 		this.on( 'next', function( evt ) {

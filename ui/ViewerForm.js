@@ -86,7 +86,7 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 			buttonWrapper: '<div class="cke_a11yc_ui_button_wrapper {class}"></div>',
 
 			button:
-				'<a href="javascript:void(0)" title="{title}" hidefocus="true" class="cke_a11yc_ui_button {class}" role="button">' +
+				'<a href="javascript:void(0)" hidefocus="true" class="cke_a11yc_ui_button {class}" role="button">' +
 					'<span class="cke_a11yc_ui_button">{text}</span>' +
 				'</a>'
 		},

@@ -65,9 +65,9 @@ define( function() {
 		templateDefinitions: {
 			wrapper: '<div class="cke_a11yc_ui_desc_wrapper"></div>',
 
-			title: '<strong class="cke_a11yc_ui_desc_title"></strong>',
+			title: '<strong class="cke_a11yc_ui_desc_title" aria-live="polite"></strong>',
 
-			info: '<p class="cke_a11yc_ui_desc_info"></p>'
+			info: '<p class="cke_a11yc_ui_desc_info" aria-live="polite"></p>'
 		},
 
 		/**

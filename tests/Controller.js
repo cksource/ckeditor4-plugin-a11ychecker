@@ -384,6 +384,54 @@
 				assert.areSame( 1, showIssueCalled, 'Controller.viewerController.showIssue calls count' );
 			},
 
+			'test Controller.listen for checking mode': function() {
+				patchMockupForExecMethod( this.mockup );
+
+				this.mockup.setMode = mocking.spy();
+
+				// Prerequisites.
+				this.mockup.enabled = true;
+				this.mockup.modeType = Controller.modes.CHECKING;
+
+				this.mockup.listen();
+
+				assert.areSame( 1, this.mockup.setMode.callCount, 'Controller.setMode calls count' );
+				mocking.assert.calledWith( this.mockup.setMode, Controller.modes.LISTENING );
+			},
+
+			'test Controller.listen for listening mode': function() {
+				// When AC is already in listening mode it should call check() method.
+				patchMockupForExecMethod( this.mockup );
+
+				this.mockup.setMode = mocking.spy();
+				this.mockup.check = mocking.spy();
+
+				// Prerequisites.
+				this.mockup.enabled = true;
+				this.mockup.modeType = Controller.modes.LISTENING;
+
+				this.mockup.listen();
+
+				assert.areSame( 0, this.mockup.setMode.callCount, 'Controller.setMode calls count' );
+				mocking.assert.calledWith( this.mockup.check );
+			},
+
+			'test Controller.listen for disabled AC': function() {
+				// When AC is disabled, nothing should happen.
+				patchMockupForExecMethod( this.mockup );
+
+				this.mockup.setMode = mocking.spy();
+				this.mockup.check = mocking.spy();
+
+				// Prerequisites.
+				this.mockup.enabled = false;
+
+				this.mockup.listen();
+
+				assert.areSame( 0, this.mockup.setMode.callCount, 'Controller.setMode calls count' );
+				assert.areSame( 0, this.mockup.check.callCount, 'Controller.check calls count' );
+			},
+
 			'test Controller.showIssue': function() {
 				var controllerMock = new ControllerMockup(),
 					ret;
