@@ -111,6 +111,13 @@ define( [
 
 		this.setupModes();
 		this.setMode( 'checking' );
+
+		// This is a minor fix for balloon panel, should be removed after cksource/balloonpanel#5
+		// is done.
+		( function( panelPart, lang ) {
+			panelPart.removeAttribute( 'aria-labelledby' );
+			panelPart.setAttribute( 'aria-label', lang.balloonLabel );
+		}( this.panel.parts.panel, this.lang ) );
 	}
 
 	/**
