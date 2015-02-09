@@ -40,6 +40,10 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			other similar library to achieve comparable results. Refer to the <a href="#info">General Information</a> section below
 			for more information about default keyboard shortcuts and some configuration options.
 		</p>
+
+		<p>
+			For more guides on how to use Accessibility Checker read a <a href="#todo">complete guide</a>.
+		</p>
 	</div>
 
 	<div class="description">
@@ -99,17 +103,41 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 
 	<script>
 		CKEDITOR.replace( 'editor1', {
-			extraPlugins: 'a11ychecker,balloonpanel',
+			extraPlugins: 'a11ychecker',
 			height: 500,
-			on: {
-				instanceReady: function() {
-					var that = this;
-					setTimeout( function() {
-						//that._.a11ychecker.exec();
-					}, 700 );
-					this.focus();
-				}
-			}
+			toolbar: [
+				[ 'Source', '-', 'A11ychecker', '-', 'Preview' ],
+				[ 'Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo', '-', 'Find', 'Replace' ],
+				[ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ],
+				'/',
+				[ 'Format', 'Blockquote', 'CreateDiv', 'Link', 'Unlink', 'Anchor', 'Image', 'Table' ],
+				[ 'Maximize', 'About' ]
+			],
+			removePlugins:
+				'colorbutton,' +
+				'colordialog,' +
+				'entities,' +
+				'filebrowser,' +
+				'flash,' +
+				'floatingspace,' +
+				'forms,' +
+				'horizontalrule,' +
+				'iframe,' +
+				'indentlist,' +
+				'indentblock,' +
+				'language,' +
+				'list,' +
+				'liststyle,' +
+				'newpage,' +
+				'pagebreak,' +
+				'pastefromword,' +
+				'print,' +
+				'save,' +
+				'selectall,' +
+				'showborders,' +
+				'smiley,' +
+				'specialchar,' +
+				'templates'
 		} );
 	</script>
 
