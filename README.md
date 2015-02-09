@@ -101,7 +101,7 @@ They should be automatically detected by Bender.js as "External Plugins", so mak
 
 ## License
 
-Copyright (c) 2014 CKSource - Frederico Knabben. All rights reserved.<br>
+Copyright (c) 2015 CKSource - Frederico Knabben. All rights reserved.<br>
 Licensed under the terms of the open source [GPL license](http://www.gnu.org/licenses/gpl-2.0.html).
 
 See LICENSE.md for more information.
