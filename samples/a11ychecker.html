@@ -40,12 +40,6 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			other similar library to achieve comparable results. Refer to the <a href="#info">General Information</a> section below
 			for more information about default keyboard shortcuts and some configuration options.
 		</p>
-
-		<h2>Accessibility Checker Samples</h2>
-		<p>
-			You can find working examples of the Accessibility Checker integrated with two basic CKEditor usage scenarios,
-			<a href="#classic">classic</a> and <a href="#inline">inline</a> editor, below.
-		</p>
 	</div>
 
 	<div class="description">
@@ -103,66 +97,7 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 		&lt;p style=&quot;text-align: right;&quot;&gt;&lt;small&gt;Source: &lt;a href=&quot;http://en.wikipedia.org/wiki/Apollo_11&quot;&gt;Wikipedia.org&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
 	</textarea>
 
-	<div class="description">
-		<a name="inline"></a>
-		<h2>Inline Editor Sample</h2>
-		<p>
-			The following example showcases Accessibility Checker integrated with inline editor. Click inside any of the content
-			elements below to load the editor toolbar and begin editing. Use the
-			<span class="button_icon" data-icon="a11ychecker" title="Check Accessibility">&nbsp;</span> (<strong>Check Accessibility</strong>)
-			toolbar button to start the tool.
-		</p>
-	</div>
-	<div contenteditable="true" id="editor2">
-		<h1>Welcome to the CKEditor Accessibility Checker Demo!</h1>
-		<p>
-			This sample contains text with some accessibility problems. It will allow you to easily discover Accessibility Checker features. So, without further ado, let&#39;s move to the issues!
-		</p>
-		<h2>Short Date Format</h2>
-		<p>Here we have some short dates, like: 12/04/2014, 2/1/74 and 12-05-21, which some users may find confusing.</p>
-		<h2>Subsequent Links</h2>
-		<p>This line contains two subsequent anchor elements with identical "href" attribute value: <a href="http://ckeditor.com/about">read more </a><a href="http://ckeditor.com/about">at ckeditor.com</a>.</p>
-		<h2>Image with a Too Long Alternative Text</h2>
-		<p>
-			This image has an extremely long "alt" attribute value:
-			<img src="../../../samples/assets/sample.jpg" alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" style="height:100px; width:80px" />
-		</p>
-		<h2>Table Without a Caption</h2>
-		<p>Let&#39;s take a look at table below. It could definitely have a caption!</p>
-		<table>
-			<tr>
-				<td>Captionless HTML</td>
-				<td>table W3C</td>
-				<td>.</td>
-			</tr>
-		</table>
-		<h2>Image in a Link without an Alternative Text</h2>
-		<p>
-			The following image, wrapped in a link, has a "title" attribute, but does not provide any "alt" attribute. Note that this element causes multiple issues:
-		</p>
-		<p>
-			<a href="//cksource.com"><img src="../../../samples/assets/sample.jpg" title="Some title..." style="height:100px; width:80px" /></a>
-		</p>
-		<h2>Paragraph Used To Imitate a Header</h2>
-		<p>The next paragraph will be used to imitate a headline.</p>
-		<p><strong>This Should Be a Header Element</strong></p>
-		<h1>Real Use Sample</h1>
-		<p>
-			Now let's use the standard CKEditor "Apollo 11" sample.
-		</p>
-		<h2>
-			<img class="right" src="../../../samples/assets/sample.jpg"/> Apollo 11
-		</h2>
-		<p><b>Apollo 11</b> was the spaceflight that landed the first humans, Americans <a href="http://en.wikipedia.org/wiki/Neil_Armstrong" title="Neil Armstrong">Neil Armstrong</a> and <a href="http://en.wikipedia.org/wiki/Buzz_Aldrin" title="Buzz Aldrin">Buzz Aldrin</a>, on the Moon on July 20, 1969, at 20:18 UTC. Armstrong became the first to step onto the lunar surface 6 hours later on July 21 at 02:56 UTC.</p> <p>Armstrong spent about <s>three and a half</s> two and a half hours outside the spacecraft, Aldrin slightly less; and together they collected 47.5 pounds (21.5&nbsp;kg) of lunar material for return to Earth. A third member of the mission, <a href="http://en.wikipedia.org/wiki/Michael_Collins_(astronaut)" title="Michael Collins (astronaut)">Michael Collins</a>, piloted the <a href="http://en.wikipedia.org/wiki/Apollo_Command/Service_Module" title="Apollo Command/Service Module">command</a> spacecraft alone in lunar orbit until Armstrong and Aldrin returned to it for the trip back to Earth.</p>
-		<h3>Broadcasting and <em>quotes</em> <a id="quotes" name="quotes"></a></h3>
-		<p>Broadcast on live TV to a world-wide audience, Armstrong stepped onto the lunar surface and described the event as:</p> <blockquote><p>One small step for [a] man, one giant leap for mankind.</p></blockquote>
-		<hr/>
-		<p style="text-align: right;"><small>Source: <a href="http://en.wikipedia.org/wiki/Apollo_11">Wikipedia.org</a></small></p>
-	</div>
-
 	<script>
-		CKEDITOR.disableAutoInline = true;
-
 		CKEDITOR.replace( 'editor1', {
 			extraPlugins: 'a11ychecker,balloonpanel',
 			height: 500,
@@ -175,10 +110,6 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 					this.focus();
 				}
 			}
-		} );
-
-		CKEDITOR.inline( 'editor2', {
-			extraPlugins: 'a11ychecker,balloonpanel'
 		} );
 	</script>
 
