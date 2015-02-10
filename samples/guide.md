@@ -8,15 +8,43 @@ in CKEditor and immediately solve any issues that are found. This sample uses
 Quail as its accessibility tests library, but you can integrate any
 other similar library to achieve comparable results.
 
-_@ML: Above part was simply copied from current sample, I should remember to update it._
+_@ML: The above part was simply copied from current sample, I should remember to update it._
+
+It bring three key parts:
+
+* User Interface optimized for quick problems solving.
+* Flexibility for use with different issue spoting engine (use JavaScript, PHP, Java, .Net or any other language).
+* QuickFix feature - allowing you to fix common problems fully automatically!
+
+All of this comes with a perfect integration with CKEditor.
 
 ### How does it work?
 
-It inspects your output HTML code against predefined patterns for common mistakes (...).
+Typical Accessibility Checker process can be simplified down to three steps.
 
-_@ML: @todo: mention dedicated engine (Quail), flexebility for other engines / usages._
+#### Step One: Content Validation
+
+First it inspects your output HTML code against predefined patterns of common accessibility problems.
+
+For that purppose Accessibility Checker uses a dedicated **checking engine**.
+
+By default it's [Quail](http://quailjs.org), but you're free to integrate any other library you want - it can be written in JavaScript, PHP, Java, .Net - you name it!
+
+#### Step Two: Report Issues
+
+Accessibility Checker will list all the issues and highlight them in your document. It will provide a description what's wrong with each issue so you can verify and solve the problem.
+
+#### Step Three: Fix the Issue
+
+Fix the markup, so your content is free of accessibility issues.
+
+Thanks to [QuickFix feature](#using-quickfixes) fixing common problems is as easy as clicking a button.
+
+In case if there is no QuickFix available, you can always switch Accessibility Checker [into a listening](#switching-to-listening-mode) mode and make necessary corrections.
 
 ### How do I profit from accessible content?
+
+_@ML: This section needs to be unfolded._
 
 The more accessible your content is, the bigger market you can gain.
 
