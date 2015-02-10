@@ -57,7 +57,7 @@ When Accessibility Checker will find some isseues, it will display a panel conta
 
 Issues are presented as issue one at a time, allowing you to iterate over all the issue list.
 
-For more information about Checking Mode, please refer to **Checking mode** section.
+For more information about Checking Mode, please refer to [Checking mode](#checking-mode) section.
 
 #### No Issues
 
@@ -179,10 +179,70 @@ Issues occures with different types.
 * **Warning** - Checking engine discovered that there is a possibility for given error, but it can't give 100% certainty.
 * **Notice** - Checking engine has no way to detect this issue - it points issue only as a notice, so the user can verify if the content satisfy given rule.
 
+Based on their type, their highlight color will slightly differ while in checking mode in order to hint the type.
+
+Issue can be also ignored for more information see [Ignoring Issues](#ignoring-issues).
+
+#### Ignoring Issues
+
+You can also ignore issues individually.
+
+![Issue ignore button](assets/guide/ignorebutton.png)
+
+If the issue is ignored it will gain very subtle highlight despite of its initial type, as shown below.
+
+![Ignored issue higlighting](assets/guide/ignoredstyling.png)
+
+It's still possible to open the Accessibility Checker on the ignored issue by clicking it, or through issue navigation buttons.
+
+Once the issue is ignored you can also unset its ignore status, just by clicking "stop ignoring" button.
+
+![Ignored issue higlighting](assets/guide/ignorestopbutton.png)
+
+#### Switching to Listening Mode
+
+When you wish to do some manual changes to the content, Accessibility Checker will switch to a listening mode, waiting for your changes to be done.
+
+There are two ways of switching Accessibility Checker to listening mode:
+
+* Clicking anywhere in the content of the CKEditor.
+* Pressing listening mode keystroke ().
+
+### Keystrokes
+
+Accessibility Checker comes with a good keyboard support.
+
+Following table describes default keystrokes and assigned actions.
+
+#### Keystrokes for Windows / Linux
+
+| Command | Keystroke | Restrictions |
+| ----- | ----- | ----- |
+| Open/Close Accessibility Checker | `CTRL` + `ALT` + `E` | |
+| Next Issue | `CTRL` + `E` | Checking mode only |
+| Previous Issue | `CTRL` + `SHIFT` + `E` | Checking mode only |
+| Close Accessibility Checker | `ESC` | |
+| Switch to listening mode | `SHIFT` + `ESC` | Checking mode only |
+| Switch to checking mode | `SHIFT` + `ESC` | Listening mode only |
+
+#### Keystrokes for Mac
+
+| Command | Keystroke | Restrictions |
+| ----- | ----- | ----- |
+| Open/Close Accessibility Checker | `COMMAND` + `OPTION` + `E` | |
+| Next Issue | `COMMAND` + `E` | Checking mode only |
+| Previous Issue | `COMMAND` + `SHIFT` + `E` | Checking mode only |
+| Close Accessibility Checker | `ESC` | |
+| Switch to listening mode | `SHIFT` + `ESC` | Checking mode only |
+| Switch to checking mode | `SHIFT` + `ESC` | Listening mode only |
+
+Please, note that these keystrokes might be changed by the custom configuration.
+
+### Accessibility
+
+Accessibilty Checker is itself accessible
+
 # @todo:
 
-* Checking Mode
-	* Ignoring issues
-	* Switching to listening mode
 * Listening Mode
 * Mastering Accessibility Checker
