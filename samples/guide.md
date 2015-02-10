@@ -14,6 +14,8 @@ _@ML: Above part was simply copied from current sample, I should remember to upd
 
 It inspects your output HTML code against predefined patterns for common mistakes (...).
 
+_@ML: @todo: mention dedicated engine (Quail), flexebility for other engines / usages._
+
 ### How do I profit from accessible content?
 
 The more accessible your content is, the bigger market you can gain.
@@ -114,21 +116,72 @@ The default keystrokes are:
 | Next | `CTRL` + `E` |
 | Previous | `CTRL` + `SHIFT` + `E` |
 
+_@ML: @todo: This table should not be present here, instead we should put a link to complete default hotkeys table to keep it DRY._
+
 ### Using QuickFixes
 
+_@ML: This is the last moment to decide how do we want to refer to QF - QuickFix or Quick Fix. After we'll start using one version we should stick to it in the future._
+
 QuickFix is a powerful feature designed to solve issues as quickly as possible, without leaving the Accessibility Checker panel.
+
+There are two QuickFix types:
+
+* **Automatical** - Doesn't require any user input at all in order to fix the problem.
+* **Semi-automatic** - Requires user to provide some information before applying the QuickFix.
+
+#### Working with QuickFixes
+
+##### Automatical QuickFix
+
+_@ML: Mby lets change button text to "QuickFix"? I thought about adding an exclaimation mark, but it might take too much of the end user attention._
+
+For automatical QucikFixes it comes down to pressing the "Quick fix" button.
+
+![Automatical QuickFix example](assets/guide/quickfixauto.png)
+
+Once the button is pressed, the fix is applied. This will result with source markup being changed.
+
+##### Semi-automatic QuickFix
+
+_@ML: Hmm not sure about name "semi-automatic". Back in a days at some point I was using "manual" term, but i think it sounds bad, and carries a conotation that end-user will need to do whole job._
+
+Semi-automatic QuickFix requires some input from the user, typically requested by the text inputs in a form.
+
+As an example we can use following case:
+
+![Semi-automatic QuickFix example](assets/guide/quickfixmanual.png)
+
+Image had no alternative text at the begining, and QuickFix asks for the alternative text, as it's unable to determine this automatically.
+
+###### User Input Validation
+
+QuickFixes are also smart enough to validate user input data if needed.
+
+Lets consider that we should keep image alternative text shorter than `100` characters.
+
+If we'll provide too long text into the "Alternative Text" field, and try to apply it with a QuickFix, it will raise an error telling that it's too long.
+
+![Invalid user-provided data causes validation error](assets/guide/quickfixvalidation.png)
+
+#### Adding QuickFixes
+
+QuickFixes feature is created with extensibility in mind, as a result it's very easy for developer to add new, custom QuickFixes to his Accessibility Checker.
+
+More information on how to create QuickFix is available in developer tutorials.
+
+#### Issue Types
+
+_@ML: I think that this section should actually be moved closer to the root. Maybe directly inside `Feature overview`, there would be a position `Issues` briefly describing the issues and their types._
+
+Issues occures with different types.
+
+* **Error** - Checking engine is 100% sure that highlighted element contains the issue.
+* **Warning** - Checking engine discovered that there is a possibility for given error, but it can't give 100% certainty.
+* **Notice** - Checking engine has no way to detect this issue - it points issue only as a notice, so the user can verify if the content satisfy given rule.
 
 # @todo:
 
 * Checking Mode
-	* Using QuickFixes
-		* Working with QuickFix form.
-			* memo: Mention validation.
-		* memo: Emphasize that they're super easy for devs to create.
-	* Issue types
-		* Error
-		* Warning
-		* Notice
 	* Ignoring issues
 	* Switching to listening mode
 * Listening Mode
