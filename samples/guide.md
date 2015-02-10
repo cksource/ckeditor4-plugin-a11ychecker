@@ -256,7 +256,6 @@ Accessibilty Checker is itself accessible
 
 # @todo:
 
-* Listening Mode
 * Mastering Accessibility Checker
 
 Move issue types headline.
