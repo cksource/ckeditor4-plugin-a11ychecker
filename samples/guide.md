@@ -3,9 +3,7 @@
 
 ## About Accessibility Checker
 
-_@ML: The above part was simply copied from current sample, I should remember to update it._
-
-Accessibility Checker is an innovative solution that lets you inspect accessibility quality of content created in CKEditor and immediately solve any issues that are found.
+Accessibility Checker is an innovative solution that lets you inspect the quality of accessibility for content created in CKEditor and immediately solve any issues that are found.
 
 It brings three key parts:
 
