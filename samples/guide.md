@@ -41,15 +41,15 @@ In case if there is no QuickFix available, you can always switch Accessibility C
 
 ### How do I profit from accessible content?
 
-_@ML: This section needs to be unfolded._
+_@ML: Hmm, this section would look better when instead of list each member would be a separate headline, with a description._
 
-The more accessible your content is, the bigger market you can gain.
-
-(...)
-It's especially important for government institutions and big companies
-(...)
-
-It's not only about increasing the market, accessibility guides makes your content more semantic, therefore it will be much easier to work on it using applications of tommorow.
+* **Increased market reach** - the more accessible your content is, the bigger market you can gain.
+* **Conrofming legal requirements** - accessibility is especially important for certain entities including government institutions and big companies.
+	* These entities are a subject of legal requirements regarding web accessibility.
+* **Semantical content** - accessibility guides makes your content more semantic, therefore it will be much easier to work on it using applications of tommorow.
+* **Improve UX for all users** - following accessibilty guides, implements best pracitces. This will improve with better experience not only for disabled people, but for all visitors. Eg. it will improve experience of: mobile users, older low performance PCs, keyboard oriented users or older people.
+* **Better SEO** - again, better structure enables search engines to explore more content at your page.
+* **Emphasize social responsibility** - by keeping your contents accessible, you prove that your business care about each audience group, and does "right thing". That subtle thing can help you with building possitive public relations targeted to individuals, as well as B2B partners.
 
 ### What's so special about Accessibility Checker?
 
