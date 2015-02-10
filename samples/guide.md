@@ -208,6 +208,18 @@ There are two ways of switching Accessibility Checker to listening mode:
 * Clicking anywhere in the content of the CKEditor.
 * Pressing listening mode keystroke (see [Keystrokes](#keystrokes)).
 
+### Listening Mode
+
+Listening mode is a mode loaded turned when you want to make a quick change in a document.
+
+With listening mode Accessibility Checker minimalizes itself and waits until you're finished with your changes.
+
+Listening mode will put following indicator in bottom right corner of your browser screen.
+
+![Listening mode indicator](assets/guide/listeningindicator.png)
+
+Once you're done with your changes you can return to checking the content by clicking "Check again" button.
+
 ### Keystrokes
 
 Accessibility Checker comes with a good keyboard support.
