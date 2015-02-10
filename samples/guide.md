@@ -206,7 +206,7 @@ When you wish to do some manual changes to the content, Accessibility Checker wi
 There are two ways of switching Accessibility Checker to listening mode:
 
 * Clicking anywhere in the content of the CKEditor.
-* Pressing listening mode keystroke ().
+* Pressing listening mode keystroke (see [Keystrokes](#keystrokes)).
 
 ### Keystrokes
 
@@ -246,3 +246,5 @@ Accessibilty Checker is itself accessible
 
 * Listening Mode
 * Mastering Accessibility Checker
+
+Move issue types headline.
