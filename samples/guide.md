@@ -133,18 +133,11 @@ _@ML: I was wondering if we should include Accessibility Checker panel unfolded 
 
 #### Using a Keyboard
 
-You can use also keyboard to move across issues.
-
 _@ML: I've used term keystrokes rather than hotkey which is far less common, but we use it widely in CKEditor so I decided to keep the consistency here._
 
-The default keystrokes are:
+_@ML: I did link keystrokes section rather than put the default bindings here just to keep it DRY. It will be easier to maintenance._
 
-| Command | Keystroke |
-| ----- | ----- |
-| Next | `CTRL` + `E` |
-| Previous | `CTRL` + `SHIFT` + `E` |
-
-_@ML: @todo: This table should not be present here, instead we should put a link to complete default hotkeys table to keep it DRY._
+You can use also keyboard keystrokes to move across issues. For the list of default keystrokes, please refer to [Keystrokes](#keystrokes) section.
 
 ### Using QuickFixes
 
