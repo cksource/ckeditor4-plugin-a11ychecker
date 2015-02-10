@@ -79,7 +79,7 @@ Checking mode will work with a single issue at a time, allowing you to iterate o
 
 Following picture will highlight most important parts of the panel shown in checking mode.
 
-![Checking mode pane with highlighted parts](assets/guide/panelparts.png)
+![Checking mode panel with highlighted parts](assets/guide/panelparts.png)
 
 ### Navigating Over Issues
 
@@ -87,7 +87,7 @@ There are multiple ways to navigate over the issues.
 
 #### Navigation Buttons
 
-You can simply use `Previous` or `Next` buttons in Accessibility Checker pane.
+You can simply use `Previous` or `Next` buttons in Accessibility Checker panel.
 
 ![Navigation using next button](assets/guide/navigationbutton.png)
 
@@ -97,7 +97,7 @@ Since issues are highlighted in the CKEditor itself, you can simply click the ot
 
 The possibility to focus the issue is indicated by changing the coursor.
 
-_@ML: I was wondering if we should include Accessibility Checker pane unfolded on other issue nearby. But at the end i find it not necessary._
+_@ML: I was wondering if we should include Accessibility Checker panel unfolded on other issue nearby. But at the end i find it not necessary._
 
 ![Navigation using mouse](assets/guide/navigationmouse.png)
 
@@ -116,7 +116,7 @@ The default keystrokes are:
 
 ### Using QuickFixes
 
-QuickFix is a powerful feature designed to solve issues as quickly as possible, without leaving the Accessibility Checker pane.
+QuickFix is a powerful feature designed to solve issues as quickly as possible, without leaving the Accessibility Checker panel.
 
 # @todo:
 
