@@ -137,7 +137,9 @@ _@ML: I've used term keystrokes rather than hotkey which is far less common, but
 
 _@ML: I did link keystrokes section rather than put the default bindings here just to keep it DRY. It will be easier to maintenance._
 
-You can use also keyboard keystrokes to move across issues. For the list of default keystrokes, please refer to [Keystrokes](#keystrokes) section.
+You can use also keyboard keystrokes to move across issues.
+
+For the list of default keystrokes, please refer to [Keystrokes](#keystrokes) section.
 
 ### Using QuickFixes
 
