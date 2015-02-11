@@ -90,13 +90,13 @@ In case of no issues in the checked document, Accessibility Checker will provide
 
 This means that your content is validated.
 
-## Issues
+### Issues
 
 Issue represents a single accessibility problem in the content.
 
 Issue also are grouped into different types.
 
-### Issue Types
+#### Issue Types
 
 * **Error** - Checking engine is 100% sure that highlighted element contains the issue.
 * **Warning** - Checking engine discovered that there is a possibility for given error, but it can't give 100% certainty.
@@ -106,7 +106,7 @@ Based on their type, their highlight color will slightly differ while in checkin
 
 Issue can be also ignored for more information see [Ignoring Issues](#ignoring-issues).
 
-## Checking Mode
+### Checking Mode
 
 Checking mode is enabled when there is at least one issue in the content. It shows a panel containg all the key information about currently focused issue.
 
@@ -122,17 +122,17 @@ Following picture will highlight most important parts of the panel shown in chec
 
 ![Checking mode panel with highlighted parts](assets/guide/panelparts.png)
 
-### Navigating Over Issues
+#### Navigating Over Issues
 
 There are multiple ways to navigate over the issues.
 
-#### Navigation Buttons
+##### Navigation Buttons
 
 You can simply use `Previous` or `Next` buttons in Accessibility Checker panel.
 
 ![Navigation using next button](assets/guide/navigationbutton.png)
 
-#### Clicking Desired Issue
+##### Clicking Desired Issue
 
 Since issues are highlighted in the CKEditor itself, you can simply click the other issue with your mouse. It will focus first issue with given element.
 
@@ -142,7 +142,7 @@ _@ML: I was wondering if we should include Accessibility Checker panel unfolded 
 
 ![Navigation using mouse](assets/guide/navigationmouse.png)
 
-#### Using a Keyboard
+##### Using a Keyboard
 
 _@ML: I've used term keystrokes rather than hotkey which is far less common, but we use it widely in CKEditor so I decided to keep the consistency here._
 
@@ -152,7 +152,7 @@ You can use also keyboard keystrokes to move across issues.
 
 For the list of default keystrokes, please refer to [Keystrokes](#keystrokes) section.
 
-### Using QuickFixes
+#### Using QuickFixes
 
 _@ML: This is the last moment to decide how do we want to refer to the fixes - QuickFix or Quick Fix. After we'll start using one version we should stick to it in the future._
 
@@ -163,9 +163,9 @@ There are two QuickFix types:
 * **Automatical** - Doesn't require any user input at all in order to fix the problem.
 * **Semi-automatic** - Requires user to provide some information before applying the QuickFix.
 
-#### Working with QuickFixes
+##### Working with QuickFixes
 
-##### Automatical QuickFix
+###### Automatical QuickFix
 
 _@ML: Mby lets change button text to "QuickFix"? I thought about adding an exclaimation mark, but it might take too much of the end user attention._
 
@@ -175,7 +175,7 @@ For automatical QucikFixes it comes down to pressing the "Quick fix" button.
 
 Once the button is pressed, the fix is applied. This will result with source markup being changed.
 
-##### Semi-automatic QuickFix
+###### Semi-automatic QuickFix
 
 _@ML: Hmm not sure about name "semi-automatic". Back in a days at some point I was using "manual" term, but i think it sounds bad, and carries a conotation that end-user will need to do whole job._
 
@@ -197,7 +197,7 @@ If we'll provide too long text into the "Alternative Text" field, and try to app
 
 ![Invalid user-provided data causes validation error](assets/guide/quickfixvalidation.png)
 
-#### Adding QuickFixes
+##### Adding QuickFixes
 
 QuickFixes feature is created with extensibility in mind, as a result it's very easy for developer to add new, custom QuickFixes to his Accessibility Checker.
 
