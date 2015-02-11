@@ -90,6 +90,22 @@ In case of no issues in the checked document, Accessibility Checker will provide
 
 This means that your content is validated.
 
+## Issues
+
+Issue represents a single accessibility problem in the content.
+
+Issue also are grouped into different types.
+
+### Issue Types
+
+* **Error** - Checking engine is 100% sure that highlighted element contains the issue.
+* **Warning** - Checking engine discovered that there is a possibility for given error, but it can't give 100% certainty.
+* **Notice** - Checking engine has no way to detect this issue - it points issue only as a notice, so the user can verify if the content satisfy given rule.
+
+Based on their type, their highlight color will slightly differ while in checking mode in order to hint the type.
+
+Issue can be also ignored for more information see [Ignoring Issues](#ignoring-issues).
+
 ## Checking Mode
 
 Checking mode is enabled when there is at least one issue in the content. It shows a panel containg all the key information about currently focused issue.
@@ -138,7 +154,7 @@ For the list of default keystrokes, please refer to [Keystrokes](#keystrokes) se
 
 ### Using QuickFixes
 
-_@ML: This is the last moment to decide how do we want to refer to QF - QuickFix or Quick Fix. After we'll start using one version we should stick to it in the future._
+_@ML: This is the last moment to decide how do we want to refer to the fixes - QuickFix or Quick Fix. After we'll start using one version we should stick to it in the future._
 
 QuickFix is a powerful feature designed to solve issues as quickly as possible, without leaving the Accessibility Checker panel.
 
@@ -186,20 +202,6 @@ If we'll provide too long text into the "Alternative Text" field, and try to app
 QuickFixes feature is created with extensibility in mind, as a result it's very easy for developer to add new, custom QuickFixes to his Accessibility Checker.
 
 More information on how to create QuickFix is available in developer tutorials.
-
-#### Issue Types
-
-_@ML: I think that this section should actually be moved closer to the root. Maybe directly inside `Feature overview`, there would be a position `Issues` briefly describing the issues and their types._
-
-Issues occures with different types.
-
-* **Error** - Checking engine is 100% sure that highlighted element contains the issue.
-* **Warning** - Checking engine discovered that there is a possibility for given error, but it can't give 100% certainty.
-* **Notice** - Checking engine has no way to detect this issue - it points issue only as a notice, so the user can verify if the content satisfy given rule.
-
-Based on their type, their highlight color will slightly differ while in checking mode in order to hint the type.
-
-Issue can be also ignored for more information see [Ignoring Issues](#ignoring-issues).
 
 #### Ignoring Issues
 
@@ -274,6 +276,4 @@ Accessibilty Checker is itself accessible
 
 # @todo:
 
-* Mastering Accessibility Checker
-
-Move issue types headline.
+_@ML: We might add another section for accessibility of AC itself._
