@@ -270,10 +270,6 @@ Following table describes default keystrokes and assigned actions.
 
 Please, note that these keystrokes might be changed by the custom configuration.
 
-### Accessibility
-
-Accessibilty Checker is itself accessible
-
 # @todo:
 
 _@ML: We might add another section for accessibility of AC itself._
