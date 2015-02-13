@@ -8,7 +8,7 @@ It is built upon three key elements:
 
 * User Interface optimized for quick problem solving.
 * Flexibility allowing you to use the accessibility checking engine of your choice.
-* QuickFix feature letting you fix common problems fully automatically!
+* Quick Fix feature letting you fix common problems fully automatically!
 
 All of this comes bundled with a tight integration with CKEditor.
 
@@ -32,9 +32,9 @@ Accessibility Checker will list all issues found and highlight them in your docu
 
 Fix the markup, so your content is free of accessibility issues.
 
-Thanks to the [QuickFix feature](#using-quickfixes) correcting common problems is as easy as clicking a button.
+Thanks to the [Quick Fix feature](#using-quickfixes) correcting common problems is as easy as clicking a button.
 
-When there is no QuickFix available, you can switch Accessibility Checker [into listening mode](#switching-to-listening-mode) and make necessary corrections to your content manually, following the checking engine recommendations provided in the panel.
+When there is no Quick Fix available, you can switch Accessibility Checker [into listening mode](#switching-to-listening-mode) and make necessary corrections to your content manually, following the checking engine recommendations provided in the panel.
 
 ### How Do I Profit from Accessible Content?
 
@@ -72,10 +72,10 @@ It is the first major attempt to make content accessibility checking fully integ
 
 You can validate your content on the fly, without leaving CKEditor.
 
-What is more, with Accessibility Checker we are introducing QuickFixes. This feature will automatically, or with very little
+What is more, with Accessibility Checker we are introducing Quick Fixes. This feature will automatically, or with very little
 input from your side, correct some of the issues &mdash; reducing the amount of work to a bare minimum.
 
-With QuickFixes you are able to solve issues within a blink of an eye!
+With Quick Fixes you are able to solve issues within a blink of an eye!
 
 ## Functionality Overview
 
@@ -121,7 +121,7 @@ Issue are grouped into different types.
 * **Warning** &ndash; The checking engine discovered that there is a possibility of a given error, but it does not have 100% certainty.
 * **Notice** &ndash; The checking engine has no way to detect this issue, so it points an issue only as a notice and the user can verify if the content satisfies the given rule.
 
-In checking mode the content highlight color will slightly differ in order to hint the issue type.
+In checking mode the highlight color will slightly differ in order to hint the issue type.
 
 ### Checking Mode
 
@@ -163,52 +163,52 @@ You can also use the keyboard to move across issues. A few keyboard shortcuts we
 
 Please refer to the [Keyboard Shortcuts](#keyboard-shortcuts) section for a complete list of available keystrokes.
 
-#### Using QuickFixes
+#### Using Quick Fixes
 
-QuickFix is a powerful feature designed to solve issues as quickly as possible, without leaving the Accessibility Checker panel.
+Quick Fix is a powerful feature designed to solve issues as quickly as possible, without leaving the Accessibility Checker panel.
 
-There are two QuickFix types:
+There are two Quick Fix types:
 
 * **Automatic** &ndash; Does not require any user input at all to fix the problem.
-* **Semi-automatic** &ndash; Requires the user to provide some information before applying the QuickFix.
+* **Semi-automatic** &ndash; Requires the user to provide some information before applying the Quick Fix.
 
-##### Working with QuickFixes
+##### Working with Quick Fixes
 
-Depending on the QuickFix type, two approaches are possible.
+Depending on the Quick Fix type, two approaches are possible.
 
-###### Automatic QuickFix
+###### Automatic Quick Fix
 
-For automatic QucikFixes you job comes down to pressing the **Quick Fix** button in the Accessibility Checker panel.
+For automatic Quick Fixes your job comes down to pressing the **Quick Fix** button in the Accessibility Checker panel.
 
-![Automatic QuickFix example](assets/guide/quickfixauto.png)
+![Automatic Quick Fix example](assets/guide/quickfixauto.png)
 
 Once the button is pressed, the fix is applied. This will result in a change of the HTML source of your content.
 
-###### Semi-Automatic QuickFix
+###### Semi-Automatic Quick Fix
 
-A semi-automatic QuickFix requires some action from the user, typically requested by a form text input in the Accessibility Checker panel.
+A semi-automatic Quick Fix requires some action from the user, typically requested by a form text input in the Accessibility Checker panel.
 
 For example:
 
-![Semi-automatic QuickFix example](assets/guide/quickfixmanual.png)
+![Semi-automatic Quick Fix example](assets/guide/quickfixmanual.png)
 
-Initially this image has no alternative text so QuickFix asks the user to provide it as it is unable to determine this automatically.
+Initially this image has no alternative text so Quick Fix asks the user to provide it as it is unable to determine this automatically.
 
 ###### User Input Validation
 
-QuickFixes are also smart enough to validate the user input data if needed.
+Quick Fixes are also smart enough to validate the user input data if needed.
 
 For example, it is recommended that an alternative text for an image should be shorter than 100 characters.
 
-If the user enters a text exceeding 100 characters into the "Alternative Text" field and tries to apply it with a QuickFix, Accessibility Checker will raise an error warning the user that the text is too long.
+If the user enters a text that is longer than 100 characters into the "Alternative Text" field and tries to apply it with a Quick Fix, Accessibility Checker will raise an error warning the user that the text is too long.
 
 ![Invalid user-provided data causes a validation error](assets/guide/quickfixvalidation.png)
 
-##### Adding QuickFixes
+##### Adding Quick Fixes
 
-QuickFix feature was created with extensibility in mind, so it is very easy for a developer to add new, custom QuickFixes to Accessibility Checker.
+Quick Fix feature was created with extensibility in mind, so it is very easy for a developer to add new, custom Quick Fixes to Accessibility Checker.
 
-More information on how to create a custom QuickFix is available in CKEditor developer documentation.
+More information on how to create a custom Quick Fix is available in CKEditor developer documentation.
 
 #### Ignoring Issues
 
@@ -230,7 +230,7 @@ Once the issue is ignored you can also unset its ignore status by clicking the *
 
 When you wish to introduce some manual changes to your content, Accessibility Checker will switch to listening mode, waiting for your changes to be done.
 
-There are two ways of switching Accessibility Checker to listening mode:
+There are two ways of switching Accessibility Checker to listening mode after its initial activation:
 
 * Clicking anywhere in the CKEditor content area.
 * Pressing the listening mode [keyboard shortcut](#keyboard-shortcuts).
