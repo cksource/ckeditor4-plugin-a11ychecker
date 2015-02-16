@@ -42,14 +42,15 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 
 			if ( CKEDITOR.env.chrome ) {
 				// (#39).
-				var rng = editor.createRange(),
+				var panelPart = viewer.panel.parts.panel,
+					rng = new CKEDITOR.dom.range( panelPart.getDocument() ),
 					// We have to put selection into the .cke_balloon_title container, when it was placed
 					// in parts.panel directly it caused a visible layout issues.
-					selectionContainer = viewer.panel.parts.panel.findOne( '.cke_balloon_title' );
+					selectionContainer = panelPart.findOne( '.cke_balloon_title' );
 				rng.setStart( selectionContainer, 0 );
 				rng.setEnd( selectionContainer, 0 );
 
-				editor.getSelection().selectRanges( [ rng ] );
+				panelPart.getDocument().getSelection().selectRanges( [ rng ] );
 			}
 
 			this.update( a11ychecker.issues.getFocused() );
