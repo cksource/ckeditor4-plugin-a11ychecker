@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+-->
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Accessibility Checker &mdash; CKEditor Sample</title><!-- @if DEV == true -->
+	<script src="require.js"></script>
+	<script>
+	(function() {
+		if ( !window.require ) {
+			return;
+		}
+		require.config( {
+			baseUrl: '../../../plugins/a11ychecker/',
+			paths: {
+				'Quail': 'libs/quail/quail.jquery'
+			}
+		} );
+	}());
+	</script><!-- @endif -->
+	<script src="jquery.min.js"></script>
+	<script src="../../../ckeditor.js"></script>
+	<script src="../../../samples/sample.js"></script>
+	<link href="../../../samples/sample.css" rel="stylesheet">
+	<link href="../../a11ychecker/styles/contents.css" rel="stylesheet">
+</head>
+<body>
+	<h1 class="samples">
+		<a href="index.html">CKEditor Samples</a> &raquo; Accessibility Checker
+	</h1>
+	<div class="description">
+		<h2>Introduction</h2>
+		<p>
+			Accessibility Checker is an innovative solution that lets you <strong>inspect accessibility level of content created
+			in CKEditor</strong> and immediately <strong>solve any issues that are found</strong>. This sample uses
+			<a href="http://quailjs.org/" target="_blank">Quail</a> as its accessibility tests library, but you can integrate any
+			other similar library to achieve comparable results. Refer to the <a href="#info">General Information</a> section below
+			for more information about default keyboard shortcuts and some configuration options.
+		</p>
+
+		<h2>Accessibility Checker Samples</h2>
+		<p>
+			You can find working examples of the Accessibility Checker integrated with two basic CKEditor usage scenarios,
+			<a href="#classic">classic</a> and <a href="#inline">inline</a> editor, below.
+		</p>
+	</div>
+
+	<div class="description">
+		<a name="classic"></a>
+		<h2>Classic Editor Sample</h2>
+		<p>
+			The following example showcases Accessibility Checker integrated with classic editor. Click the
+			<span class="button_icon" data-icon="a11ychecker" title="Check Accessibility">&nbsp;</span> (<strong>Check Accessibility</strong>) toolbar button to start the tool.
+		</p>
+	</div>
+	<textarea cols="80" id="editor1" name="editor1" rows="10">
+		&lt;h1&gt;Welcome to the CKEditor Accessibility Checker Demo!&lt;/h1&gt;
+		&lt;p&gt;
+			This sample contains text with some accessibility problems. It will allow you to easily discover Accessibility Checker features. So, without further ado, let&amp;#39;s move to the issues!
+		&lt;/p&gt;
+		&lt;h2&gt;Short Date Format&lt;/h2&gt;
+		&lt;p&gt;Here we have some short dates, like: 12/04/2014, 2/1/74 and 12-05-21, which some users may find confusing.&lt;/p&gt;
+		&lt;h2&gt;Subsequent Links&lt;/h2&gt;
+		&lt;p&gt;This line contains two subsequent anchor elements with identical &quot;href&quot; attribute value: &lt;a href=&quot;http://ckeditor.com/about&quot;&gt;read more &lt;/a&gt;&lt;a href=&quot;http://ckeditor.com/about&quot;&gt;at ckeditor.com&lt;/a&gt;.&lt;/p&gt;
+		&lt;h2&gt;Image with a Too Long Alternative Text&lt;/h2&gt;
+		&lt;p&gt;
+			This image has an extremely long &quot;alt&quot; attribute value:
+			&lt;img src=&quot;../../../samples/assets/sample.jpg&quot; alt=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex&quot; style=&quot;height:100px; width:80px&quot; /&gt;
+		&lt;/p&gt;
+		&lt;h2&gt;Table without a Caption&lt;/h2&gt;
+		&lt;p&gt;Let&amp;#39;s take a look at the table below. It could definitely have a caption!&lt;/p&gt;
+		&lt;table&gt;
+			&lt;tr&gt;
+				&lt;td&gt;Captionless HTML&lt;/td&gt;
+				&lt;td&gt;table W3C&lt;/td&gt;
+				&lt;td&gt;.&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/table&gt;
+		&lt;h2&gt;Image in a Link without an Alternative Text&lt;/h2&gt;
+		&lt;p&gt;
+			The following image, wrapped in a link, has a &quot;title&quot; attribute, but does not provide any &quot;alt&quot; attribute. Note that this element causes multiple issues:
+		&lt;/p&gt;
+		&lt;p&gt;
+			&lt;a href=&quot;//cksource.com&quot;&gt;&lt;img src=&quot;../../../samples/assets/sample.jpg&quot; title=&quot;Some title...&quot; style=&quot;height:100px; width:80px&quot; /&gt;&lt;/a&gt;
+		&lt;/p&gt;
+		&lt;h2&gt;Paragraph Used to Imitate a Header&lt;/h2&gt;
+		&lt;p&gt;The next paragraph will be used to imitate a headline.&lt;/p&gt;
+		&lt;p&gt;&lt;strong&gt;This Should Be a Header Element&lt;/strong&gt;&lt;/p&gt;
+		&lt;h1&gt;Real Use Sample&lt;/h1&gt;
+		&lt;p&gt;
+			Now let's use the standard CKEditor &quot;Apollo 11&quot; sample.
+		&lt;/p&gt;
+		&lt;h2&gt;
+			&lt;img class=&quot;right&quot; src=&quot;../../../samples/assets/sample.jpg&quot;/&gt; Apollo 11
+		&lt;/h2&gt;
+		&lt;p&gt;&lt;b&gt;Apollo 11&lt;/b&gt; was the spaceflight that landed the first humans, Americans &lt;a href=&quot;http://en.wikipedia.org/wiki/Neil_Armstrong&quot; title=&quot;Neil Armstrong&quot;&gt;Neil Armstrong&lt;/a&gt; and &lt;a href=&quot;http://en.wikipedia.org/wiki/Buzz_Aldrin&quot; title=&quot;Buzz Aldrin&quot;&gt;Buzz Aldrin&lt;/a&gt;, on the Moon on July 20, 1969, at 20:18 UTC. Armstrong became the first to step onto the lunar surface 6 hours later on July 21 at 02:56 UTC.&lt;/p&gt; &lt;p&gt;Armstrong spent about &lt;s&gt;three and a half&lt;/s&gt; two and a half hours outside the spacecraft, Aldrin slightly less; and together they collected 47.5 pounds (21.5&amp;nbsp;kg) of lunar material for return to Earth. A third member of the mission, &lt;a href=&quot;http://en.wikipedia.org/wiki/Michael_Collins_(astronaut)&quot; title=&quot;Michael Collins (astronaut)&quot;&gt;Michael Collins&lt;/a&gt;, piloted the &lt;a href=&quot;http://en.wikipedia.org/wiki/Apollo_Command/Service_Module&quot; title=&quot;Apollo Command/Service Module&quot;&gt;command&lt;/a&gt; spacecraft alone in lunar orbit until Armstrong and Aldrin returned to it for the trip back to Earth.&lt;/p&gt;
+		&lt;h3&gt;Broadcasting and &lt;em&gt;quotes&lt;/em&gt; &lt;a id=&quot;quotes&quot; name=&quot;quotes&quot;&gt;&lt;/a&gt;&lt;/h3&gt;
+		&lt;p&gt;Broadcast on live TV to a world-wide audience, Armstrong stepped onto the lunar surface and described the event as:&lt;/p&gt; &lt;blockquote&gt;&lt;p&gt;One small step for [a] man, one giant leap for mankind.&lt;/p&gt;&lt;/blockquote&gt;
+		&lt;hr/&gt;
+		&lt;p style=&quot;text-align: right;&quot;&gt;&lt;small&gt;Source: &lt;a href=&quot;http://en.wikipedia.org/wiki/Apollo_11&quot;&gt;Wikipedia.org&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
+	</textarea>
+
+	<div class="description">
+		<a name="inline"></a>
+		<h2>Inline Editor Sample</h2>
+		<p>
+			The following example showcases Accessibility Checker integrated with inline editor. Click inside any of the content
+			elements below to load the editor toolbar and begin editing. Use the
+			<span class="button_icon" data-icon="a11ychecker" title="Check Accessibility">&nbsp;</span> (<strong>Check Accessibility</strong>)
+			toolbar button to start the tool.
+		</p>
+	</div>
+	<div contenteditable="true" id="editor2">
+		<h1>Welcome to the CKEditor Accessibility Checker Demo!</h1>
+		<p>
+			This sample contains text with some accessibility problems. It will allow you to easily discover Accessibility Checker features. So, without further ado, let&#39;s move to the issues!
+		</p>
+		<h2>Short Date Format</h2>
+		<p>Here we have some short dates, like: 12/04/2014, 2/1/74 and 12-05-21, which some users may find confusing.</p>
+		<h2>Subsequent Links</h2>
+		<p>This line contains two subsequent anchor elements with identical "href" attribute value: <a href="http://ckeditor.com/about">read more </a><a href="http://ckeditor.com/about">at ckeditor.com</a>.</p>
+		<h2>Image with a Too Long Alternative Text</h2>
+		<p>
+			This image has an extremely long "alt" attribute value:
+			<img src="../../../samples/assets/sample.jpg" alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex" style="height:100px; width:80px" />
+		</p>
+		<h2>Table Without a Caption</h2>
+		<p>Let&#39;s take a look at table below. It could definitely have a caption!</p>
+		<table>
+			<tr>
+				<td>Captionless HTML</td>
+				<td>table W3C</td>
+				<td>.</td>
+			</tr>
+		</table>
+		<h2>Image in a Link without an Alternative Text</h2>
+		<p>
+			The following image, wrapped in a link, has a "title" attribute, but does not provide any "alt" attribute. Note that this element causes multiple issues:
+		</p>
+		<p>
+			<a href="//cksource.com"><img src="../../../samples/assets/sample.jpg" title="Some title..." style="height:100px; width:80px" /></a>
+		</p>
+		<h2>Paragraph Used To Imitate a Header</h2>
+		<p>The next paragraph will be used to imitate a headline.</p>
+		<p><strong>This Should Be a Header Element</strong></p>
+		<h1>Real Use Sample</h1>
+		<p>
+			Now let's use the standard CKEditor "Apollo 11" sample.
+		</p>
+		<h2>
+			<img class="right" src="../../../samples/assets/sample.jpg"/> Apollo 11
+		</h2>
+		<p><b>Apollo 11</b> was the spaceflight that landed the first humans, Americans <a href="http://en.wikipedia.org/wiki/Neil_Armstrong" title="Neil Armstrong">Neil Armstrong</a> and <a href="http://en.wikipedia.org/wiki/Buzz_Aldrin" title="Buzz Aldrin">Buzz Aldrin</a>, on the Moon on July 20, 1969, at 20:18 UTC. Armstrong became the first to step onto the lunar surface 6 hours later on July 21 at 02:56 UTC.</p> <p>Armstrong spent about <s>three and a half</s> two and a half hours outside the spacecraft, Aldrin slightly less; and together they collected 47.5 pounds (21.5&nbsp;kg) of lunar material for return to Earth. A third member of the mission, <a href="http://en.wikipedia.org/wiki/Michael_Collins_(astronaut)" title="Michael Collins (astronaut)">Michael Collins</a>, piloted the <a href="http://en.wikipedia.org/wiki/Apollo_Command/Service_Module" title="Apollo Command/Service Module">command</a> spacecraft alone in lunar orbit until Armstrong and Aldrin returned to it for the trip back to Earth.</p>
+		<h3>Broadcasting and <em>quotes</em> <a id="quotes" name="quotes"></a></h3>
+		<p>Broadcast on live TV to a world-wide audience, Armstrong stepped onto the lunar surface and described the event as:</p> <blockquote><p>One small step for [a] man, one giant leap for mankind.</p></blockquote>
+		<hr/>
+		<p style="text-align: right;"><small>Source: <a href="http://en.wikipedia.org/wiki/Apollo_11">Wikipedia.org</a></small></p>
+	</div>
+
+	<script>
+		CKEDITOR.disableAutoInline = true;
+
+		CKEDITOR.replace( 'editor1', {
+			extraPlugins: 'a11ychecker,balloonpanel',
+			height: 500,
+			on: {
+				instanceReady: function() {
+					var that = this;
+					setTimeout( function() {
+						//that._.a11ychecker.exec();
+					}, 700 );
+					this.focus();
+				}
+			}
+		} );
+
+		CKEDITOR.inline( 'editor2', {
+			extraPlugins: 'a11ychecker,balloonpanel'
+		} );
+	</script>
+
+	<div class="description">
+		<a name="info"></a>
+		<h2>General Information</h2>
+
+		<h3>Configuration</h3>
+		<p>
+			Accessibility Checker exposes some configuration options explained below. You can specify the configuration either globally (in
+			the <code>ckeditor.js</code> file or a custom configuration file loaded with the
+			<code><a href="http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-customConfig" target="_blank">config.customConfig</a></code>
+			option), or in-page directly in the call creating a CKEditor instance.
+		</p>
+		<p>
+			If you need more information on how to change the editor configuration, refer to the <a href="http://docs.ckeditor.com/#!/guide/dev_configuration" target="_blank">Setting CKEditor Configuration</a> article.
+		</p>
+
+		<h3 style="clear: both;">Default Navigation Hotkeys</h3>
+		<p>
+			Working with Accessibility Checker can be really efficient if you use keyboard shortcuts to navigate it. The hotkeys
+			are available when the editor has focus.
+		</p>
+		<p>
+			The default navigation hotkeys are:
+		</p>
+		<ul>
+			<li><kbd>Ctrl+Alt+E</kbd> &ndash; Enables and disables the Accessibility Checker.</li>
+			<li><kbd>Ctrl+E</kbd> &ndash; Moves to the next issue.</li>
+			<li><kbd>Ctrl+Shift+E</kbd> &ndash; Moves to the previous issue.</li>
+		</ul>
+
+		<h3>Changing Tests</h3>
+		<p>
+			This example uses the Quail accessibility tests library. You may change these tests using the
+			<code>config.a11ychecker_quailParams</code> configuration option. You just need to provide the
+			<code>guideline</code> property, as in the example below:
+		</p>
+		<pre>
+config.a11ychecker_quailParams = {
+	guideline: [ 'imgHasAlt', 'aMustNotHaveJavascriptHref', 'aAdjacentWithSameResourceShouldBeCombined' ]
+};
+		</pre>
+		<h3>Changing Default Hotkeys</h3>
+		<p>
+			Accessibility Checker keyboard shortcuts can be customized in your configuration, like in the example below:
+		</p>
+		<pre>
+// Override default Accessibility Checker hotkeys.
+config.a11ychecker_keystrokes = {
+	// Ctrl+Shift+O
+	open: CKEDITOR.CTRL + CKEDITOR.SHIFT + 79,
+	// Ctrl+ESC
+	listen: CKEDITOR.SHIFT + 27,
+	// Ctrl+Shift+[
+	prev: CKEDITOR.CTRL + CKEDITOR.SHIFT + 219,
+	// Ctrl+Shift+]
+	next: CKEDITOR.CTRL + CKEDITOR.SHIFT + 221,
+	// ESC
+	close: 27
+};
+		</pre>
+	</div>
+
+	<div id="footer">
+		<hr>
+		<p>
+			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
+		</p>
+		<p id="copy">
+			Copyright &copy; 2003-2015, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico
+			Knabben. All rights reserved.
+		</p>
+	</div>
+</body>
+</html>
