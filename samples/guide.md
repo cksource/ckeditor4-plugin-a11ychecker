@@ -5,11 +5,7 @@ Let us take you through Accessibility Checker features.
 
 ## Running Accessibility Checker
 
-You can enable Accessibility Checker by clicking the **Check Accessibility** ![Accessibility Checker icon](assets/guide/acicon.png) toolbar button.
-
-Once the button is clicked, Accessibility Checker will perform a very quick checking process. Typically it takes a fraction of a second.
-
-Depending on the result, Accessibility Checker will switch to **checking mode** or inform you that the document contains no accessibility issues.
+You can enable Accessibility Checker by clicking the **Check Accessibility** ![Accessibility Checker icon](assets/guide/acicon.png) toolbar button. Once the button is clicked, Accessibility Checker will perform a very quick checking process. Typically it takes a fraction of a second. Depending on the result, Accessibility Checker will switch to **checking mode** or inform you that the document contains no accessibility issues.
 
 ### Issues Found &mdash; Checking Mode
 
@@ -17,11 +13,7 @@ When Accessibility Checker finds some issues, it will display a panel containing
 
 ![Accessibility Checker in a checking mode](assets/guide/checkingmode.png)
 
-Accessibility problems are presented as one issue at a time, allowing you to iterate over the entire list.
-
-Issues can also be ignored. For more information see the [Ignoring Issues](#ignoring-issues) section.
-
-For more information about checking mode please refer to the [Checking Mode](#checking-mode) section.
+Accessibility problems are presented as one issue at a time, allowing you to iterate over the entire list. Issues can also be ignored. For more information see the [Ignoring Issues](#ignoring-issues) section. For more information about checking mode please refer to the [Checking Mode](#checking-mode) section.
 
 ### No Issues
 
@@ -33,9 +25,7 @@ This means that your content is validated.
 
 ## What Exactly Are Issues?
 
-An issue represents a single accessibility problem in your content, as defined by your checking engine.
-
-Issue are grouped into different types.
+An issue represents a single accessibility problem in your content, as defined by your checking engine. Issue are grouped into different types.
 
 ### Issue Types
 
@@ -73,9 +63,7 @@ Use the **Previous** or **Next** buttons in the Accessibility Checker panel to m
 
 #### Clicking a Selected Issue
 
-Since issues are highlighted in CKEditor, you can click an issue with your mouse. It will focus the first issue within the selected element.
-
-The possibility to focus an issue is indicated by a hightlight and a cursor change.
+Since issues are highlighted in CKEditor, you can click an issue with your mouse. It will focus the first issue within the selected element. The possibility to focus an issue is indicated by a hightlight and a cursor change.
 
 ![Navigation using the mouse](assets/guide/navigationmouse.png)
 
@@ -161,9 +149,7 @@ There are two ways of switching Accessibility Checker to listening mode after it
 
 Listening mode is enabled when you want to make a quick change to the document.
 
-In listening mode Accessibility Checker minimizes itself and waits until you are finished editing your content.
-
-Listening mode will put the following indicator in the bottom right-hand corner of your browser:
+In listening mode Accessibility Checker minimizes itself and waits until you are finished editing your content. Listening mode will put the following indicator in the bottom right-hand corner of your browser:
 
 ![Listening mode indicator](assets/guide/listeningindicator.png)
 
@@ -171,9 +157,7 @@ When you are done with your changes you can return to checking the content by cl
 
 ## Keyboard Shortcuts
 
-Accessibility Checker comes with good keyboard support.
-
-The following table describes default keystrokes and actions assigned to them.
+Accessibility Checker comes with good keyboard support. The following table describes default keystrokes and actions assigned to them.
 
 ### Keyboard Shortcuts for Windows / Linux
 
