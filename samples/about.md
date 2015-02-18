@@ -31,9 +31,9 @@ Accessibility Checker will list all issues found and highlight them in your docu
 
 Fix the markup, so your content is free of accessibility issues.
 
-Thanks to the [Quick Fix feature](#using-quickfixes) correcting common problems is as easy as clicking a button.
+Thanks to the [Quick Fix feature](guide.html#using-quick-fixes) correcting common problems is as easy as clicking a button.
 
-When there is no Quick Fix available, you can switch Accessibility Checker [into listening mode](#switching-to-listening-mode) and make necessary corrections to your content manually, following the checking engine recommendations provided in the panel.
+When there is no Quick Fix available, you can switch Accessibility Checker [into listening mode](guide.html#switching-to-listening-mode) and make necessary corrections to your content manually, following the checking engine recommendations provided in the panel.
 
 ## How Do I Profit from Accessible Content?
 
