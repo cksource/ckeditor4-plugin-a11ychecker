@@ -118,8 +118,6 @@ If the user enters a text that is longer than 100 characters into the "Alternati
 
 Quick Fix feature was created with extensibility in mind, so it is very easy for a developer to add new, custom Quick Fixes to Accessibility Checker.
 
-More information on how to create a custom Quick Fix is available in CKEditor developer documentation.
-
 ### Ignoring Issues
 
 Issues reported by Accessibility Checker can also be ignored. This can be done by clicking the **Ignore** button for each selected issue in the Accessibility Checker panel.
@@ -182,7 +180,3 @@ Accessibility Checker comes with good keyboard support. The following table desc
 | Switch to checking mode | <kbd>Shift</kbd>+<kbd>Esc</kbd> | Listening mode only |
 
 Please note that the predefined keyboard shortcuts can be changed with the custom configuration.
-
-# @todo:
-
-_@ML: We might add another section for accessibility of AC itself._
