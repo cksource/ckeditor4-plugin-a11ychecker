@@ -166,8 +166,8 @@ module.exports = function( grunt ) {
 		preprocess: {
 			// Builds a sample.
 			build: {
-				src: 'samples/a11ychecker.html',
-				dest: 'build/a11ychecker/samples/a11ychecker.html'
+				src: 'samples/index.html',
+				dest: 'build/a11ychecker/samples/index.html'
 			}
 		},
 
