@@ -17,9 +17,7 @@ A typical accessibility checking process can be simplified to the following thre
 
 ### Step One: Content Validation
 
-First the Accessibility Checker inspects your output HTML code against predefined patterns of common accessibility problems.
-
-For that purpose Accessibility Checker uses a dedicated **accessibility checking engine**.
+First the Accessibility Checker inspects your output HTML code against predefined patterns of common accessibility problems. For that purpose Accessibility Checker uses a dedicated **accessibility checking engine**.
 
 The default checking engine is [Quail](http://quailjs.org), but you are free to integrate any other library you want &mdash; it can be written in JavaScript, PHP, Java, .NET or any other language of your choice.
 
@@ -29,11 +27,7 @@ Accessibility Checker will list all issues found and highlight them in your docu
 
 ### Step Three: Fix the Issue
 
-Fix the markup, so your content is free of accessibility issues.
-
-Thanks to the [Quick Fix feature](guide.html#using-quick-fixes) correcting common problems is as easy as clicking a button.
-
-When there is no Quick Fix available, you can switch Accessibility Checker [into listening mode](guide.html#switching-to-listening-mode) and make necessary corrections to your content manually, following the checking engine recommendations provided in the panel.
+Fix the markup, so your content is free of accessibility issues. Thanks to the [Quick Fix feature](guide.html#using-quick-fixes) correcting common problems is as easy as clicking a button. When there is no Quick Fix available, you can switch Accessibility Checker [into listening mode](guide.html#switching-to-listening-mode) and make necessary corrections to your content manually, following the checking engine recommendations provided in the panel.
 
 ## How Do I Profit from Accessible Content?
 
@@ -72,6 +66,4 @@ It is the first major attempt to make content accessibility checking fully integ
 You can validate your content on the fly, without leaving CKEditor.
 
 What is more, with Accessibility Checker we are introducing Quick Fixes. This feature will automatically, or with very little
-input from your side, correct some of the issues &mdash; reducing the amount of work to a bare minimum.
-
-With Quick Fixes you are able to solve issues within a blink of an eye!
+input from your side, correct some of the issues &mdash; reducing the amount of work to a bare minimum. With Quick Fixes you are able to solve issues within a blink of an eye!

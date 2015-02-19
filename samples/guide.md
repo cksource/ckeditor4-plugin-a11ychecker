@@ -106,9 +106,7 @@ Initially this image has no alternative text so Quick Fix asks the user to provi
 
 Quick Fixes are also smart enough to validate the user input data if needed.
 
-For example, it is recommended that an alternative text for an image should be shorter than 100 characters.
-
-If the user enters a text that is longer than 100 characters into the "Alternative Text" field and tries to apply it with a Quick Fix, Accessibility Checker will raise an error warning the user that the text is too long.
+For example, it is recommended that an alternative text for an image should be shorter than 100 characters. If the user enters a text that is longer than 100 characters into the "Alternative Text" field and tries to apply it with a Quick Fix, Accessibility Checker will raise an error warning the user that the text is too long.
 
 ![Invalid user-provided data causes a validation error](assets/guide/quickfixvalidation.png)
 
