@@ -11,7 +11,7 @@ When Accessibility Checker finds some issues, it will display a panel containing
 
 ![Accessibility Checker in a checking mode](assets/guide/checkingmode.png)
 
-Accessibility problems are presented as one issue at a time in the [checking mode](#checking-mode), allowing you to iterate over the entire list. Issues can also be ignored. For more information see the [Ignoring Issues](#ignoring-issues) section.
+Accessibility problems are presented as one issue at a time, allowing you to iterate over the entire list. Issues can also be ignored (see the [Ignoring Issues](#ignoring-issues)). For more information about checking mode please refer to the [Checking Mode](#checking-mode) section.
 
 ### No Issues
 
