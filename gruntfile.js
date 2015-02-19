@@ -115,7 +115,12 @@ module.exports = function( grunt ) {
 			build: {
 				// nonull to let us know if any of given entiries is missing.
 				nonull: true,
-				src: [ 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*', 'samples/*', 'libs/**' ],
+				src: [ 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*', 'libs/**' ],
+				dest: 'build/a11ychecker/'
+			},
+
+			samples: {
+				src: [ 'samples/**', '!samples/*.md', '!samples/require.js', '!samples/sdk-assets/less/**' ],
 				dest: 'build/a11ychecker/'
 			},
 
@@ -194,7 +199,7 @@ module.exports = function( grunt ) {
 		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions' ] );
 
 	grunt.registerTask( 'build', 'Generates a build.', [
-		'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:readme',
+		'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:samples', 'copy:readme',
 		'plugin-versions:build', 'clean:buildQuickFixes', 'build-quickfix:build'
 	] );
 	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [
