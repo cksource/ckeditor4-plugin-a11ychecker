@@ -78,7 +78,7 @@ Another person might now simply get the `zip`, extract it to the `ckeditor/plugi
 
 ## Where Do I Start?
 
-You should use the `plugins/a11ychecker/samples/a11ychecker.html` sample to test Accessibility Checker (eg. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/a11ychecker.html)).
+You should use the `plugins/a11ychecker/samples/index.html` sample to test Accessibility Checker (eg. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/index.html)).
 
 Other samples will not work because of the RequireJS dependency, which is not a part of the standard CKEditor distribution.
 
