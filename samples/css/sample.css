@@ -11,3 +11,8 @@ main section.adjoined,
 	background-image: none;
 }
 
+#accessibility-checker-functionality-overview,
+#about-accessibility-checker
+{
+	margin-bottom:24px;
+}
