@@ -24,7 +24,7 @@ This archive contains the following plugins, each placed in a separate directory
 * Download the `a11ychecker.zip` file to the `ckeditor/plugins` directory.
 * Use the "Extract here" option on the archive, so that the directories are extracted directly into `plugins` directory.
 
-That's it! At this point you can open the sample available in `a11ychecker/samples/a11ychecker.html` to see how it works for you.
+That's it! At this point you can open the sample available in `a11ychecker/samples/index.html` to see how it works for you.
 
 You can also add Accessibility Checker to any of your CKEditor instances by using the [`config.extraPlugins`](http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-extraPlugins) configuration option. For example:
 
@@ -40,6 +40,6 @@ config.extraPlugins = 'a11ychecker';
 
 # Where Do I Start?
 
-Use the `plugins/a11ychecker/samples/a11ychecker.html` sample loaded from a local web server to test Accessibility Checker.
+Use the `plugins/a11ychecker/samples/index.html` sample loaded from a local web server to test Accessibility Checker.
 
 Please note that other samples will not work because of the RequireJS dependency, which is not a part of the standard CKEditor distribution.
