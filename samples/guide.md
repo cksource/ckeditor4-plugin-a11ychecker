@@ -1,8 +1,6 @@
 
 # Accessibility Checker Functionality Overview
 
-Let us take you through Accessibility Checker features.
-
 ## Running Accessibility Checker
 
 You can enable Accessibility Checker by clicking the **Check Accessibility** ![Accessibility Checker icon](assets/guide/acicon.png) toolbar button. Once the button is clicked, Accessibility Checker will perform a very quick checking process. Typically it takes a fraction of a second. Depending on the result, Accessibility Checker will switch to **checking mode** or inform you that the document contains no accessibility issues.
