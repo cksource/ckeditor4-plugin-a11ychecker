@@ -1,55 +1,9 @@
 /*! QUAIL quailjs.org | quailjs.org/license */
-// %LEAVE_UNMINIFIED% %REMOVE_LINE%
 ;(function($) {
+'use strict';
 // Polyfill Function.prototype.bind
 // @see https://gist.github.com/dsingleton/1312328
 Function.prototype.bind=Function.prototype.bind||function(b){if(typeof this!=="function"){throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");}var a=Array.prototype.slice,f=a.call(arguments,1),e=this,c=function(){},d=function(){return e.apply(this instanceof c?this:b||window,f.concat(a.call(arguments)));};c.prototype=this.prototype;d.prototype=new c();return d;};
-
-"use strict";
-
-$.fn.quail = function(options) {
-  if (!this.length) {
-    return this;
-  }
-  quail.options = options;
-  quail.html = this;
-
-  quail.run(options);
-
-  return this;
-};
-
-$.expr[':'].quailCss = function(obj, index, meta) {
-  var args = meta[3].split(/\s*=\s*/);
-  return $(obj).css(args[0]).search(args[1]) > -1;
-};
-
-/**
- * Assembles data about the test and invokes appropriate callbacks.
- *
- * @param {string} type
- *   Possible values:  'notApplicable', 'failed', 'passed', 'cantTell',
- *   and 'untested'
- * @param {string} testName
- *   The name of the test.
- * @param {jQuery} $element
- *   The DOM element, wrapped in jQuery, that the test was run against.
- * @param {object} options
- */
-function _processTestResult () {
-  // var testability = test.get('testability');
-  // testability = (testability) ? testability : 'unknown';
-  // var info = {
-  //   element     : $element,
-  //   selector    : quail.defineUniqueSelector($element.length && $element[0] || null),
-  //   location    : window && window.location || null,
-  //   testName    : testName,
-  //   test        : quail.tests.find(testName),
-  //   testability : testability,
-  //   severity    : quail.testabilityTranslation[testability],
-  //   options     : options
-  // };
-}
 
 var quail = {
 
@@ -133,6 +87,12 @@ var quail = {
    */
   selfClosingTags : ['area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'],
 
+
+  /**
+   * A list of tags that optionally can be closed
+   */
+  optionalClosingTags: ['p', 'li', 'th','tr', 'td'],
+
   /**
    * Main run function for quail. It bundles up some accessibility tests,
    * and if tests are not passed, it instead fetches them using getJSON.
@@ -212,11 +172,18 @@ var quail = {
       });
       _run.call(quail);
     }
+    // Let wcag2 run itself, will call quail again when it knows what
+    // to
+    else if (options.guideline === 'wcag2') {
+      quail.lib.wcag2.run(options);
+    }
+
     // If a list of specific tests is provided, use them.
     else if (options.accessibilityTests) {
       buildTests(quail, options.accessibilityTests, options);
       _run.call(quail);
     }
+
     // Otherwise get the tests from the json data list.
     else {
       var url = options.jsonPath;
@@ -258,17 +225,6 @@ var quail = {
       return configuration;
     }
     return false;
-  },
-
-  /**
-   * Utility function called whenever a test fails.
-   * If there is a callback for testFailed, then it
-   * packages the object and calls it.
-   *
-   * @deprecated
-   */
-  testFails : function(testName, $element, options) {
-    _processTestResult('failed', testName, $element, options);
   },
 
   /**
@@ -392,6 +348,23 @@ if (window) {
   window.quail = quail;
 }
 
+$.fn.quail = function(options) {
+  if (!this.length) {
+    return this;
+  }
+  quail.options = options;
+  quail.html = this;
+
+  quail.run(options);
+
+  return this;
+};
+
+$.expr[':'].quailCss = function(obj, index, meta) {
+  var args = meta[3].split(/\s*=\s*/);
+  return $(obj).css(args[0]).search(args[1]) > -1;
+};
+
 quail.components.acronym = function(quail, test, Case) {
   test.get('$scope').each(function() {
     var $scope = $(this);
@@ -459,8 +432,8 @@ quail.components.acronym = function(quail, test, Case) {
   });
 };
 
-quail.components.color = function(quail, test, Case, options) {
-  var colors = {
+quail.components.color = {
+  colors: {
     cache: {},
     /**
      * Returns the lumosity of a given foreground and background object,
@@ -534,7 +507,7 @@ quail.components.color = function(quail, test, Case, options) {
             level = 3;
           }
           else {
-            level = 5;
+            level = 4.5;
           }
         }
       }
@@ -596,10 +569,10 @@ quail.components.color = function(quail, test, Case, options) {
      * different browsers can return colors, and handling transparencies.
      */
     getColor : function(element, type) {
+      var self = this;
       if (!element.attr('data-cacheId')) {
         element.attr('data-cacheId', 'id_' + Math.random());
       }
-
       var cacheKey = 'getColor_' + type + '_' + element.attr('data-cacheId');
       if (this.cache[cacheKey] !== undefined) {
         return this.cache[cacheKey];
@@ -618,8 +591,8 @@ quail.components.color = function(quail, test, Case, options) {
 
       element.parents().each(function(){
         var pcolor = $(this).css('background-color');
-        if (colors.hasBackgroundColor(pcolor)) {
-          return this.cache[cacheKey] = pcolor;
+        if (quail.components.color.colors.hasBackgroundColor(pcolor)) {
+          return self.cache[cacheKey] = pcolor;
         }
       });
       // Assume the background is white.
@@ -665,14 +638,14 @@ quail.components.color = function(quail, test, Case, options) {
       if (this.cache[cacheKey] !== undefined) {
         return this.cache[cacheKey];
       }
-
-      while (element.length > 0) {
-        var bimage = element.css('background-image');
+      element = element[0];
+      while(element && element.nodeType === 1 && element.nodeName !== 'BODY' && element.nodeName !== 'HTML') {
+        var bimage = $(element).css('background-image');
         if (bimage && bimage !== 'none' && bimage.search(/^(.*?)url(.*?)$/i) !== -1) {
-          this.cache[cacheKey] = bimage.replace('url(', '').replace(/'/, '').replace(')', '');
+          this.cache[cacheKey] = bimage.replace('url(', '').replace(/['"]/g, '').replace(')', '');
           return this.cache[cacheKey];
         }
-        element = element.parent();
+        element = element.parentNode;
       }
       this.cache[cacheKey] = false;
       return false;
@@ -694,13 +667,14 @@ quail.components.color = function(quail, test, Case, options) {
       var notEmpty = function(s) {
         return $.trim(s) !== '';
       };
-      while (element.length > 0) {
+      element = element[0];
+      while(element && element.nodeType === 1 && element.nodeName !== 'BODY' && element.nodeName !== 'HTML') {
         // Exit if element has a background color.
-        if (this.hasBackgroundColor(element)) {
+        if (this.hasBackgroundColor($(element).css('background-color'))) {
           this.cache[cacheKey] = false;
           return false;
         }
-        var bimage = element.css('backgroundImage');
+        var bimage = $(element).css('backgroundImage');
         if (bimage && bimage !== 'none' && bimage.search(/^(.*?)gradient(.*?)$/i) !== -1) {
           var gradient = bimage.match(/gradient(\(.*\))/g);
           if (gradient.length > 0) {
@@ -709,7 +683,7 @@ quail.components.color = function(quail, test, Case, options) {
             return this.cache[cacheKey];
           }
         }
-        element = element.parent();
+        element = element.parentNode;
       }
       this.cache[cacheKey] = false;
       return false;
@@ -817,55 +791,53 @@ quail.components.color = function(quail, test, Case, options) {
       });
       element.css('visibility', 'hidden');
 
-      // Get element at position x, y.
+      // Get element at position x, y. This only selects visible elements.
       var el = document.elementFromPoint(x,y);
       while (foundIt === undefined && el && el.tagName !== 'BODY' && el.tagName !== 'HTML') {
         el = $(el);
         var bcolor = el.css('backgroundColor');
         var bimage;
         // Only check visible elements.
-        if (el.css('visibility') !== "hidden" && el.css('display') !== 'none') {
-          switch (property) {
-          case 'background-color':
-            if (this.hasBackgroundColor(bcolor)) {
-              foundIt = bcolor;
-            }
-            break;
-          case 'background-gradient':
-            // Bail out if the element has a background color.
-            if (this.hasBackgroundColor(bcolor)) {
-              foundIt = false;
-              continue;
-            }
-
-            bimage = el.css('backgroundImage');
-            if (bimage && bimage !== 'none' && bimage.search(/^(.*?)gradient(.*?)$/i) !== -1) {
-              var gradient = bimage.match(/gradient(\(.*\))/g);
-              if (gradient.length > 0) {
-                gradient = gradient[0].replace(/(linear|radial|from|\bto\b|gradient|top|left|bottom|right|\d*%)/g, '');
-                foundIt = $.grep(gradient.match(/(rgb\([^\)]+\)|#[a-z\d]*|[a-z]*)/g), notempty);
-              }
-            }
-            break;
-          case 'background-image':
-            // Bail out if the element has a background color.
-            if (this.hasBackgroundColor(bcolor)) {
-              foundIt = false;
-              continue;
-            }
-            bimage = el.css('backgroundImage');
-            if (bimage && bimage !== 'none' && bimage.search(/^(.*?)url(.*?)$/i) !== -1) {
-              foundIt = bimage.replace('url(', '').replace(/'/, '').replace(')', '');
-            }
-            break;
+        switch (property) {
+        case 'background-color':
+          if (this.hasBackgroundColor(bcolor)) {
+            foundIt = bcolor;
           }
-          scannedElements.push({
-            element: el,
-            visibility: el.css('visibility')
-          });
-          el.css('visibility', 'hidden');
-          el = document.elementFromPoint(x,y);
+          break;
+        case 'background-gradient':
+          // Bail out if the element has a background color.
+          if (this.hasBackgroundColor(bcolor)) {
+            foundIt = false;
+            continue;
+          }
+
+          bimage = el.css('backgroundImage');
+          if (bimage && bimage !== 'none' && bimage.search(/^(.*?)gradient(.*?)$/i) !== -1) {
+            var gradient = bimage.match(/gradient(\(.*\))/g);
+            if (gradient.length > 0) {
+              gradient = gradient[0].replace(/(linear|radial|from|\bto\b|gradient|top|left|bottom|right|\d*%)/g, '');
+              foundIt = $.grep(gradient.match(/(rgb\([^\)]+\)|#[a-z\d]*|[a-z]*)/g), notempty);
+            }
+          }
+          break;
+        case 'background-image':
+          // Bail out if the element has a background color.
+          if (this.hasBackgroundColor(bcolor)) {
+            foundIt = false;
+            continue;
+          }
+          bimage = el.css('backgroundImage');
+          if (bimage && bimage !== 'none' && bimage.search(/^(.*?)url(.*?)$/i) !== -1) {
+            foundIt = bimage.replace('url(', '').replace(/['"]/g, '').replace(')', '');
+          }
+          break;
         }
+        scannedElements.push({
+          element: el,
+          visibility: el.css('visibility')
+        });
+        el.css('visibility', 'hidden');
+        el = document.elementFromPoint(x,y);
       }
 
       // Reset visibility.
@@ -881,25 +853,27 @@ quail.components.color = function(quail, test, Case, options) {
      * Get first element behind current with a background color.
      */
     getBehindElementBackgroundColor: function(element) {
-      return colors.traverseVisualTreeForBackground(element, 'background-color');
+      return quail.components.color.colors.traverseVisualTreeForBackground(element, 'background-color');
     },
 
     /**
      * Get first element behind current with a background gradient.
      */
     getBehindElementBackgroundGradient: function(element) {
-      return colors.traverseVisualTreeForBackground(element, 'background-gradient');
+      return quail.components.color.colors.traverseVisualTreeForBackground(element, 'background-gradient');
     },
 
     /**
      * Get first element behind current with a background image.
      */
     getBehindElementBackgroundImage: function(element) {
-      return colors.traverseVisualTreeForBackground(element, 'background-image');
+      return quail.components.color.colors.traverseVisualTreeForBackground(element, 'background-image');
     }
-  };
-
-  var buildCase = function (element, status, id, message) {
+  },
+  /**
+   *
+   */
+  buildCase: function (test, Case, element, status, id, message) {
     test.add(Case({
       element: element,
       expected: (function (element, id) {
@@ -908,238 +882,289 @@ quail.components.color = function(quail, test, Case, options) {
       message: message,
       status: status
     }));
-  };
-  function testCandidates (textNode) {
+  },
+  /**
+   *
+   */
+  testCandidates: function (id, textNode, test, Case, options) {
     // We want a tag, not just the text node.
     var element = textNode.parentNode;
     var $this = $(element);
     var algorithm = options.algorithm;
-    var id, failureFound, failedWCAGColorTest, failedWAIColorTest;
+    var failureFound, failedWCAGColorTest, failedWAIColorTest;
+    // The nodeType of the element must be 1. Nodes of type 1 implement the Element
+    // interface which is required of the first argument passed to window.getComputedStyle.
+    // Failure to pass an Element <node> to window.getComputedStyle will raised an exception
+    // if Firefox.
+    if (element.nodeType !== 1) {
+      return;
+    }
+    // Ignore elements whose content isn't displayed to the page.
+    if (['script', 'style', 'title', 'object', 'applet', 'embed', 'template']
+    .indexOf(element.nodeName.toLowerCase()) !== -1)  {
+      return;
+    }
 
-    // Bail out is the text is not readable.
+    // Bail out if the text is not readable.
     if (quail.isUnreadable($this.text())) {
-      buildCase(element, 'cantTell', '', 'The text cannot be processed');
+      quail.components.color.buildCase(test, Case, element, 'cantTell', '', 'The text cannot be processed');
       return;
     }
 
     var img, i, rainbow, numberOfSamples;
 
-    // Check text and background color using DOM.
-    id = 'colorFontContrast';
-    // Build a case.
-    if ((algorithm === 'wcag' && !colors.passesWCAG($this)) || (algorithm === 'wai' && !colors.passesWAI($this))) {
-      buildCase(element, 'failed', id, 'The font contrast of the text impairs readability');
-    }
-    else {
-      buildCase(element, 'passed', id, 'The font contrast of the text is sufficient for readability');
-    }
-
-    // Check text and background using element behind current element.
-    var backgroundColorBehind = colors.getBehindElementBackgroundColor($this);
-    if (backgroundColorBehind) {
-      id = 'colorElementBehindContrast';
-      failedWCAGColorTest = !colors.passesWCAGColor($this, colors.getColor($this, 'foreground'), backgroundColorBehind);
-      failedWAIColorTest = !colors.passesWAIColor(colors.getColor($this, 'foreground'), backgroundColorBehind);
+    /**
+     *
+     */
+    function colorFontContrast () {
+      // Check text and background color using DOM.
       // Build a case.
-      if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
-        buildCase(element, 'failed', id, 'The element behind this element makes the text unreadable');
+      if ((algorithm === 'wcag' && !quail.components.color.colors.passesWCAG($this)) ||
+      (algorithm === 'wai' && !quail.components.color.colors.passesWAI($this))) {
+        quail.components.color.buildCase(test, Case, element, 'failed', id, 'The font contrast of the text impairs readability');
       }
       else {
-        buildCase(element, 'passed', id, 'The element behind this element does not affect readability');
+        quail.components.color.buildCase(test, Case, element, 'passed', id, 'The font contrast of the text is sufficient for readability');
       }
     }
 
-    // Check if there's a backgroundImage using DOM.
-    var backgroundImage = colors.getBackgroundImage($this);
-    if (backgroundImage) {
-      img = new Image();
-      img.crossOrigin = "Anonymous";
-      // Get average color of the background image. The image must first load
-      // before information about it is available to the DOM.
-      img.onload = function () {
-        var id = 'colorBackgroundImageContrast';
-        var averageColorBackgroundImage = colors.getAverageRGB(img);
-        var failedWCAGColorTest = !colors.passesWCAGColor($this, colors.getColor($this, 'foreground'), averageColorBackgroundImage);
-        var failedWAIColorTest = !colors.passesWAIColor(colors.getColor($this, 'foreground'), averageColorBackgroundImage);
+    /**
+     *
+     */
+    function colorElementBehindContrast () {
+      // Check text and background using element behind current element.
+      var backgroundColorBehind;
+      // The option element is problematic.
+      if (!$this.is('option')) {
+        backgroundColorBehind = quail.components.color.colors.getBehindElementBackgroundColor($this);
+      }
+      if (backgroundColorBehind) {
+        id = 'colorElementBehindContrast';
+        failedWCAGColorTest = !quail.components.color.colors.passesWCAGColor($this, quail.components.color.colors.getColor($this, 'foreground'), backgroundColorBehind);
+        failedWAIColorTest = !quail.components.color.colors.passesWAIColor(quail.components.color.colors.getColor($this, 'foreground'), backgroundColorBehind);
         // Build a case.
         if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
-          buildCase(element, 'failed', id, 'The element\'s background image makes the text unreadable');
+          quail.components.color.buildCase(test, Case, element, 'failed', id, 'The element behind this element makes the text unreadable');
         }
         else {
-          buildCase(element, 'passed', id, 'The element\'s background image does not affect readability');
+          quail.components.color.buildCase(test, Case, element, 'passed', id, 'The element behind this element does not affect readability');
         }
-      };
-      img.onerror = img.onabort = function () {
-        var id = 'colorBackgroundImageContrast';
-        buildCase(element, 'cantTell', id, 'The element\'s background image could not be loaded (' + backgroundImage + ')');
-      };
-      // Load the image.
-      try {
+      }
+    }
+
+    /**
+     *
+     */
+    function colorBackgroundImageContrast () {
+      // Check if there's a backgroundImage using DOM.
+      var backgroundImage = quail.components.color.colors.getBackgroundImage($this);
+      if (backgroundImage) {
+        img = document.createElement('img');
+        img.crossOrigin = "Anonymous";
+        // Get average color of the background image. The image must first load
+        // before information about it is available to the DOM.
+        img.onload = function () {
+          var id = 'colorBackgroundImageContrast';
+          var averageColorBackgroundImage = quail.components.color.colors.getAverageRGB(img);
+          var failedWCAGColorTest = !quail.components.color.colors.passesWCAGColor($this, quail.components.color.colors.getColor($this, 'foreground'), averageColorBackgroundImage);
+          var failedWAIColorTest = !quail.components.color.colors.passesWAIColor(quail.components.color.colors.getColor($this, 'foreground'), averageColorBackgroundImage);
+          // Build a case.
+          if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
+            quail.components.color.buildCase(test, Case, element, 'failed', id, 'The element\'s background image makes the text unreadable');
+          }
+          else {
+            quail.components.color.buildCase(test, Case, element, 'passed', id, 'The element\'s background image does not affect readability');
+          }
+        };
+        img.onerror = img.onabort = function () {
+          var id = 'colorBackgroundImageContrast';
+          quail.components.color.buildCase(test, Case, element, 'cantTell', id, 'The element\'s background image could not be loaded (' + backgroundImage + ')');
+        };
+        // Load the image.
         img.src = backgroundImage;
-      } catch(e) {
-        var id = 'colorBackgroundImageContrast';
-        buildCase(element, 'cantTell', id, 'The element\'s background image could not be loaded (' + backgroundImage + ')');
       }
     }
 
-    // Check if there's a backgroundImage using element behind current element.
-    var behindBackgroundImage = colors.getBehindElementBackgroundImage($this);
-    if (behindBackgroundImage) {
-      img = new Image();
-      // The image must first load before information about it is available to
-      // the DOM.
-      img.onload = function () {
-        var id = 'colorElementBehindBackgroundImageContrast';
-        // Get average color of the background image.
-        var averageColorBehindBackgroundImage = colors.getAverageRGB(img);
-        var failedWCAGColorTest = !colors.passesWCAGColor($this, colors.getColor($this, 'foreground'), averageColorBehindBackgroundImage);
-        var failedWAIColorTest = !colors.passesWAIColor(colors.getColor($this, 'foreground'), averageColorBehindBackgroundImage);
-        if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
-          buildCase(element, 'failed', id, 'The background image of the element behind this element makes the text unreadable');
-        }
-        else {
-          buildCase(element, 'passed', id, 'The background image of the element behind this element does not affect readability');
-        }
-      };
-      img.onerror = img.onabort = function () {
-        var id = 'colorElementBehindBackgroundImageContrast';
-        buildCase(element, 'cantTell', id, 'The background image of the element behind this element could not be loaded (' + behindBackgroundImage + ')');
-      };
-      // Load the image.
-      try {
+    /**
+     *
+     */
+    function colorElementBehindBackgroundImageContrast () {
+      // Check if there's a backgroundImage using element behind current element.
+      var behindBackgroundImage;
+      // The option element is problematic.
+      if (!$this.is('option')) {
+        behindBackgroundImage = quail.components.color.colors.getBehindElementBackgroundImage($this);
+      }
+      if (behindBackgroundImage) {
+        img = document.createElement('img');
+        img.crossOrigin = "Anonymous";
+        // The image must first load before information about it is available to
+        // the DOM.
+        img.onload = function () {
+          var id = 'colorElementBehindBackgroundImageContrast';
+          // Get average color of the background image.
+          var averageColorBehindBackgroundImage = quail.components.color.colors.getAverageRGB(img);
+          var failedWCAGColorTest = !quail.components.color.colors.passesWCAGColor($this, quail.components.color.colors.getColor($this, 'foreground'), averageColorBehindBackgroundImage);
+          var failedWAIColorTest = !quail.components.color.colors.passesWAIColor(quail.components.color.colors.getColor($this, 'foreground'), averageColorBehindBackgroundImage);
+          if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
+            quail.components.color.buildCase(test, Case, element, 'failed', id, 'The background image of the element behind this element makes the text unreadable');
+          }
+          else {
+            quail.components.color.buildCase(test, Case, element, 'passed', id, 'The background image of the element behind this element does not affect readability');
+          }
+        };
+        img.onerror = img.onabort = function () {
+          var id = 'colorElementBehindBackgroundImageContrast';
+          quail.components.color.buildCase(test, Case, element, 'cantTell', id, 'The background image of the element behind this element could not be loaded (' + behindBackgroundImage + ')');
+        };
+        // Load the image.
         img.src = behindBackgroundImage;
-      } catch(e) {
-        var id = 'colorElementBehindBackgroundImageContrast';
-        buildCase(element, 'cantTell', id, 'The background image of the element behind this element could not be loaded (' + behindBackgroundImage + ')');
       }
     }
 
-    // Check if there's a background gradient using DOM.
-    var backgroundGradientColors = colors.getBackgroundGradient($this);
-    if (backgroundGradientColors) {
-      id = 'colorBackgroundGradientContrast';
-      // Convert colors to hex notation.
-      for (i = 0; i < backgroundGradientColors.length; i++) {
-        if (backgroundGradientColors[i].substr(0, 3) === 'rgb') {
-          backgroundGradientColors[i] = colors.colorToHex(backgroundGradientColors[i]);
+    /**
+     *
+     */
+    function colorBackgroundGradientContrast () {
+      // Check if there's a background gradient using DOM.
+      var backgroundGradientColors = quail.components.color.colors.getBackgroundGradient($this);
+      if (backgroundGradientColors) {
+        id = 'colorBackgroundGradientContrast';
+        // Convert colors to hex notation.
+        for (i = 0; i < backgroundGradientColors.length; i++) {
+          if (backgroundGradientColors[i].substr(0, 3) === 'rgb') {
+            backgroundGradientColors[i] = quail.components.color.colors.colorToHex(backgroundGradientColors[i]);
+          }
+        }
+
+        // Create a rainbow.
+        /* global Rainbow */
+        rainbow = new Rainbow();
+        rainbow.setSpectrumByArray(backgroundGradientColors);
+        // @todo, make the number of samples configurable.
+        numberOfSamples = backgroundGradientColors.length * options.gradientSampleMultiplier;
+
+        // Check each color.
+        failureFound = false;
+        for (i = 0; !failureFound && i < numberOfSamples; i++) {
+          failedWCAGColorTest = !quail.components.color.colors.passesWCAGColor($this, quail.components.color.colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
+          failedWAIColorTest = !quail.components.color.colors.passesWAIColor(quail.components.color.colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
+          if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
+            quail.components.color.buildCase(test, Case, element, 'failed', id, 'The background gradient makes the text unreadable');
+            failureFound = true;
+          }
+        }
+
+        // If no failure was found, the element passes for this case type.
+        if (!failureFound) {
+          quail.components.color.buildCase(test, Case, element, 'passed', id, 'The background gradient does not affect readability');
         }
       }
+    }
 
-      // Create a rainbow.
-      /* global Rainbow */
-      rainbow = new Rainbow();
-      rainbow.setSpectrumByArray(backgroundGradientColors);
-      // @todo, make the number of samples configurable.
-      numberOfSamples = backgroundGradientColors.length * options.gradientSampleMultiplier;
+    /**
+     *
+     */
+    function colorElementBehindBackgroundGradientContrast () {
+      // Check if there's a background gradient using element behind current element.
+      var behindGradientColors;
+      // The option element is problematic.
+      if (!$this.is('option')) {
+        behindGradientColors = quail.components.color.colors.getBehindElementBackgroundGradient($this);
+      }
+      if (behindGradientColors) {
+        id = 'colorElementBehindBackgroundGradientContrast';
+        // Convert colors to hex notation.
+        for (i = 0; i < behindGradientColors.length; i++) {
+          if (behindGradientColors[i].substr(0, 3) === 'rgb') {
+            behindGradientColors[i] = quail.components.color.colors.colorToHex(behindGradientColors[i]);
+          }
+        }
 
-      // Check each color.
-      failureFound = false;
-      for (i = 0; !failureFound && i < numberOfSamples; i++) {
-        failedWCAGColorTest = !colors.passesWCAGColor($this, colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
-        failedWAIColorTest = !colors.passesWAIColor(colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
-        if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
-          buildCase(element, 'failed', id, 'The background gradient makes the text unreadable');
-          failureFound = true;
+        // Create a rainbow.
+        /* global Rainbow */
+        rainbow = new Rainbow();
+        rainbow.setSpectrumByArray(behindGradientColors);
+        numberOfSamples = behindGradientColors.length * options.gradientSampleMultiplier;
+
+        // Check each color.
+        failureFound = false;
+        for (i = 0; !failureFound && i < numberOfSamples; i++) {
+          failedWCAGColorTest = !quail.components.color.colors.passesWCAGColor($this, quail.components.color.colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
+          failedWAIColorTest = !quail.components.color.colors.passesWAIColor(quail.components.color.colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
+          if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
+            quail.components.color.buildCase(test, Case, element, 'failed', id, 'The background gradient of the element behind this element makes the text unreadable');
+            failureFound = true;
+          }
+        }
+
+        // If no failure was found, the element passes for this case type.
+        if (!failureFound) {
+          quail.components.color.buildCase(test, Case, element, 'passed', id, 'The background gradient of the element behind this element does not affect readability');
         }
       }
-
-      // If no failure was found, the element passes for this case type.
-      if (!failureFound) {
-        buildCase(element, 'passed', id, 'The background gradient does not affect readability');
-      }
     }
 
-    // Check if there's a background gradient using element behind current element.
-    var behindGradientColors = colors.getBehindElementBackgroundGradient($this);
-    if (behindGradientColors) {
-      id = 'colorElementBehindBackgroundGradientContrast';
-      // Convert colors to hex notation.
-      for (i = 0; i < behindGradientColors.length; i++) {
-        if (behindGradientColors[i].substr(0, 3) === 'rgb') {
-          behindGradientColors[i] = colors.colorToHex(behindGradientColors[i]);
-        }
-      }
-
-      // Create a rainbow.
-      /* global Rainbow */
-      rainbow = new Rainbow();
-      rainbow.setSpectrumByArray(behindGradientColors);
-      numberOfSamples = behindGradientColors.length * options.gradientSampleMultiplier;
-
-      // Check each color.
-      failureFound = false;
-      for (i = 0; !failureFound && i < numberOfSamples; i++) {
-        failedWCAGColorTest = !colors.passesWCAGColor($this, colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
-        failedWAIColorTest = !colors.passesWAIColor(colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
-        if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
-          buildCase(element, 'failed', id, 'The background gradient of the element behind this element makes the text unreadable');
-          failureFound = true;
-        }
-      }
-
-      // If no failure was found, the element passes for this case type.
-      if (!failureFound) {
-        buildCase(element, 'passed', id, 'The background gradient of the element behind this element does not affect readability');
-      }
+    // Switch on the type of color test to run.
+    switch (id) {
+    case 'colorFontContrast':
+      colorFontContrast();
+      break;
+    case 'colorElementBehindContrast':
+      colorElementBehindContrast();
+      break;
+    case 'colorBackgroundImageContrast':
+      colorBackgroundImageContrast();
+      break;
+    case 'colorElementBehindBackgroundImageContrast':
+      colorElementBehindBackgroundImageContrast();
+      break;
+    case 'colorBackgroundGradientContrast':
+      colorBackgroundGradientContrast();
+      break;
+    case 'colorElementBehindBackgroundGradientContrast':
+      colorElementBehindBackgroundGradientContrast();
+      break;
     }
-  }
-
-  test.get('$scope').each(function () {
-    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-    var nodes = [];
-    var text = textnodes.iterateNext();
-    if (!text) {
-      buildCase(null, 'notApplicable', '', 'There is no text to evaluate');
-    }
-    else {
-      // Loop has to be separated. If we try to iterate and rund testCandidates
-      // the xpath thing will crash because document is being modified.
-      while (text) {
-        nodes.push(text);
-        text = textnodes.iterateNext();
-      }
-      nodes.forEach(testCandidates);
-    }
-  });
-};
-
-/**
- * For the color test, if any case passes for a given element, then all the
- * cases for that element pass.
- */
-quail.components.color.postInvoke = function (test) {
-  var passed = {};
-  var groupsBySelector = test.groupCasesBySelector();
-
+  },
   /**
-   * Determine the length of an object.
-   *
-   * @param object obj
-   *   The object whose size will be determined.
-   *
-   * @return number
-   *   The size of the object determined by the number of keys.
+   * For the color test, if any case passes for a given element, then all the
+   * cases for that element pass.
    */
-  function size (obj) {
-    return Object.keys(obj).length;
-  }
+  postInvoke: function (test) {
+    var passed = {};
+    var groupsBySelector = test.groupCasesBySelector();
 
-  // Go through each selector group.
-  var nub = '';
-  for (var selector in groupsBySelector) {
-    if (groupsBySelector.hasOwnProperty(selector)) {
-      var cases = groupsBySelector[selector];
-      cases.each(function (index, _case) {
-        if (_case.get('status') === passed) {
-          // This can just be an empty string. We only need the passed hash
-          // to contain keys, not values.
-          passed[selector] = nub;
-        }
-      });
+    /**
+     * Determine the length of an object.
+     *
+     * @param object obj
+     *   The object whose size will be determined.
+     *
+     * @return number
+     *   The size of the object determined by the number of keys.
+     */
+    function size (obj) {
+      return Object.keys(obj).length;
     }
-  }
 
-  return size(passed) === size(groupsBySelector);
+    // Go through each selector group.
+    var nub = '';
+    for (var selector in groupsBySelector) {
+      if (groupsBySelector.hasOwnProperty(selector)) {
+        var cases = groupsBySelector[selector];
+        cases.each(function (index, _case) {
+          if (_case.get('status') === passed) {
+            // This can just be an empty string. We only need the passed hash
+            // to contain keys, not values.
+            passed[selector] = nub;
+          }
+        });
+      }
+    }
+
+    return size(passed) === size(groupsBySelector);
+  }
 };
 
 quail.components.content = {
@@ -1496,15 +1521,313 @@ if (typeof Tautologistics !== 'undefined') {
   };
 }
 
+var htmlTagValidator=function(){
+  var startingTagFirstChar="<",
+    startingTagLastChar=">",
+    closingTagSecondChar="/",
+    selfClosingTagSecondToLastChar="/",
+    commentSecondCharacter="!",
+    doctypeSecondCharacterPattern=new RegExp("[dD]"),
+    startTagPattern=new RegExp("[a-z0-9-]"),
+    commentPattern=new RegExp("^<!--.*-->");
+
+  var parserFunc, previousParserFunc, currentTagName, startingTags,
+    characterIndex, currentComment, options;
+
+  var selfClosing=[
+    "area",
+    "base",
+    "br",
+    "col",
+    "command",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "keygen",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr"
+  ];
+
+  var ignoreWithin=[
+    "pre",
+    "code",
+    "textarea",
+    "script",
+    "style"
+  ];
+
+  var optionalClosing=[
+    "p",
+    "li",
+    "tr",
+    "th",
+    "td"
+  ];
+
+  var tagObject=function(lIndex, cIndex){
+    return {name: currentTagName, line: lIndex + 1, char: cIndex};
+  };
+
+  var throwEndingTagError=function(tagObj){
+    var newError=new Error("Ending tag not found for: " + tagObj.name + " at line: " + tagObj.line + " char: " + tagObj.char + " starting tags: " + startingTags[0].name);
+    newError.lineData=tagObj;
+    throw newError;
+  };
+
+  var throwEndingCommentError=function(commentObj){
+    var newError=new Error("Comment ending not found for: `comment` at line: " + commentObj.line + " char: " + commentObj.char);
+    newError.lineData=commentObj;
+    throw newError;
+  };
+
+  var throwSelfClosingFormatError=function(tagObj){
+    var newError=new Error("Ending `/` not found for: `" + tagObj.name + "` at line: " + tagObj.line + " char: " + tagObj.char);
+    newError.lineData=tagObj.name;
+    throw newError;
+  };
+
+  var setParserFunc=function(func){
+    previousParserFunc=parserFunc;
+    parserFunc=func;
+  };
+
+  var goBackNumChars=function(num){
+    characterIndex-=num;
+  };
+
+  // Handle starting html tags
+  var startingTagNameFinder=function startingTagNameFinder(character, lIndex, cIndex){
+    // If the character matches the matcher for approved tag name characters add it to
+    // the currentTagName
+    if (startTagPattern.test(character)) {
+      currentTagName+=character;
+      // If the character matches the closing tag second character set the finder function
+      // to the endingTagNameFinder
+    } else if (character === closingTagSecondChar) {
+      setParserFunc(endingTagNameFinder);
+      // If the character looks like a commentSecondCharacter(!) then check to see if it's
+      // really a comment or a comment with the commentOrDoctypeFinder
+    } else if (character === commentSecondCharacter) {
+      currentTagName="";
+      setParserFunc(commentOrDoctypeFinder);
+
+      // If the current tag name is a self closing tag, start looking for a new
+      // tag name with startingTagBeginningFinder
+    } else if (selfClosing.indexOf(currentTagName) > -1) {
+      if (options['strict_self_closing_tags']) {
+        setParserFunc(selfClosingEndingSlashFinder);
+      } else {
+        currentTagName="";
+        setParserFunc(startingTagBeginningFinder);
+      }
+
+      // If nothing else trips a check, the record the currentTag name and either:
+      //   ignore all the contents of the tag is an ignoredWithin tag (script, style, pre, etc)
+      // or
+      //   start looking for the matching ending tag.
+    } else {
+      var tagObj=tagObject(lIndex, cIndex);
+      startingTags.push(tagObj);
+
+      if (ignoreWithin.indexOf(currentTagName) > -1) {
+        currentTagName="";
+        goBackNumChars(1);
+        setParserFunc(ignoredWithinEndingTagStartFinder);
+      } else {
+        currentTagName="";
+        goBackNumChars(1);
+        setParserFunc(startingTagEndingFinder);
+      }
+    }
+  };
+
+  var selfClosingEndingSlashFinder=function selfClosingEndingSlashFinder(character, lIndex, cIndex){
+    if (character === selfClosingTagSecondToLastChar) {
+      currentTagName='';
+      setParserFunc(endingTagBeginningFinder);
+    } else if (character === startingTagLastChar) {
+      throwSelfClosingFormatError(tagObject(lIndex, cIndex));
+    }
+  };
+
+  var startingTagEndingFinder=function startingTagEndingFinder(character){
+    if (character === startingTagLastChar) {
+      setParserFunc(endingTagBeginningFinder);
+    }
+  };
+
+  var startingTagBeginningFinder=function startingTagBeginningFinder(character){
+    if (character === startingTagFirstChar) {
+      setParserFunc(startingTagNameFinder);
+    }
+  };
+
+  var endingTagNameFinder=function endingTagNameFinder(character){
+
+    function loopThroughTags () {
+      var lastStartTag=startingTags.pop();
+
+      // If the next tag in the startTags stack is the current tag, then we move on.
+      if (lastStartTag.name === currentTagName) {
+        setParserFunc(startingTagBeginningFinder);
+      }
+      // If the next tag in the startingTags is an optional tag, try popping it
+      // and repeating this process.
+      else if(optionalClosing.indexOf(lastStartTag.name) > -1) {
+        loopThroughTags();
+      }
+      // If this is not an optional closing tag, then the mismatch is an error.
+      else {
+        throwEndingTagError(lastStartTag);
+      }
+    }
+
+    if (startTagPattern.test(character)) {
+      currentTagName+=character;
+    }
+    else {
+      loopThroughTags();
+      currentTagName="";
+    }
+  };
+
+  var endingTagSlashFinder=function endingTagSlashFinder(character){
+    if (character === closingTagSecondChar) {
+      setParserFunc(endingTagNameFinder);
+    } else {
+      goBackNumChars(1);
+      setParserFunc(startingTagNameFinder);
+    }
+  };
+
+  var endingTagBeginningFinder=function endingTagBeginningFinder(character){
+    if (character === startingTagFirstChar) {
+      setParserFunc(endingTagSlashFinder);
+    }
+  };
+
+  // Ignore with ignored tag list ex. pre, script, code
+  var ignoredWithinEndingTagStartFinder=function ignoredWithinEndingTagStartFinder(character){
+    if (character === startingTagFirstChar) {
+      setParserFunc(ignoredWithinEndingTagSlashFinder);
+    }
+  };
+
+  var ignoredWithinEndingTagSlashFinder=function ignoredWithinEndingTagSlashFinder(character){
+    if (character === closingTagSecondChar) {
+      setParserFunc(ignoredWithinEndingTagNameFinder);
+    }
+  };
+
+  var ignoredWithinEndingTagNameFinder=function ignoredWithinEndingTagNameFinder(character){
+    if (startTagPattern.test(character)) {
+      currentTagName+=character;
+    } else {
+      var lastStartTag=startingTags.pop();
+
+      if (lastStartTag.name === currentTagName) {
+        setParserFunc(startingTagBeginningFinder);
+      } else {
+        throwEndingTagError(lastStartTag);
+      }
+      currentTagName="";
+    }
+  };
+
+  // Comments and doctypes both start with `<!` So we needed a custom finder to determine what it
+  // really is. If it's a doctype we want to ignore it and look for a new starting tag character,
+  // while if it's a comment, we want to look for a full comment.
+  var commentOrDoctypeFinder=function commentOrDoctypeFinder(character){
+    if (doctypeSecondCharacterPattern.test(character)) {
+      currentTagName="";
+      setParserFunc(startingTagBeginningFinder);
+    } else {
+      goBackNumChars(3);
+      setParserFunc(commentFinder);
+    }
+  };
+
+  // comment finding
+  // Look through the incoming characters until a full matching comment has been built,
+  // then reset the finder back to the startingTagBeginningFinder and clear the currentComment
+  var commentFinder=function commentFinder(character, lIndex, cIndex){
+    if (!currentComment) {
+      currentComment={content: "", line: lIndex + 1, char: cIndex + 1, name: "comment"};
+    }
+
+    currentComment.content+=character;
+
+    if (commentPattern.test(currentComment.content)) {
+      currentComment=null;
+      setParserFunc(startingTagBeginningFinder);
+    }
+  };
+
+  // Main entry point to the validator, it starts with the `startingTagBeginningFinder` first
+  var checkTags=function(string, opts){
+
+    var returnState = null;
+
+    try {
+      var lines=string.split("\n");
+      var ll;
+      setParserFunc(startingTagBeginningFinder);
+      currentTagName="";
+      startingTags=[];
+      currentComment=null;
+      options=opts || {};
+
+      for (var lineIndex=0, l=lines.length; lineIndex < l; lineIndex++) {
+        for (characterIndex=0, ll=lines[lineIndex].length; characterIndex < ll; characterIndex++) {
+          if (!parserFunc) {break;}
+
+          parserFunc(lines[lineIndex][characterIndex], lineIndex, characterIndex);
+        }
+      }
+
+      // currentComment gets cleared whenever a complete comment is found, so if the loops end and one still
+      // exists, we can assume that it was never closed.
+      if (currentComment) {
+        throwEndingCommentError(currentComment);
+
+        // The startTags array populates when a starting tag is found, but pops back out when
+        // matching ending tags are found. If there are any starting tags left at the end of
+        // the loop we can assume that the ending tag was never found and throw and error
+        // for the last tag in the array, unless the tag is optional closing.
+      } else if (startingTags.length > 0) {
+        var lastStartTag=startingTags[startingTags.length - 1];
+
+        if(optionalClosing.indexOf(lastStartTag.name) === -1) {
+          throwEndingTagError(lastStartTag);
+        }
+      }
+      returnState = null;
+    } catch (e) {
+      returnState = e.message;
+    } finally {
+      return returnState;
+    }
+  };
+
+  return checkTags;
+};
+
+quail.components.htmlTagValidator=htmlTagValidator();
+
 quail.components.label = function(quail, test, Case, options) {
   var $scope = test.get('$scope');
   $scope.each(function() {
     var $local = $(this);
     $local.find(options.selector).each(function() {
       if ((!$(this).parent('label').length ||
+        !$local.find('label[for=' + $(this).attr('id') + ']').length ||
           !quail.containsReadableText($(this).parent('label'))) &&
-          (!$local.find('label[for=' + $(this).attr('id') + ']').length ||
-          !quail.containsReadableText($local.find('label[for=' + $(this).attr('id') + ']')))) {
+          (!quail.containsReadableText($local.find('label[for=' + $(this).attr('id') + ']')))) {
         test.add(Case({
           element: this,
           expected: $(this).closest('.quail-test').data('expected'),
@@ -1720,6 +2043,10 @@ quail.components.placeholder = function(quail, test, Case, options) {
 
   test.get('$scope').find(options.selector).each(function() {
     var text = '';
+    if($(this).css('display') === 'none' && !$(this).is('title')){
+      resolve(this, 'inapplicable');
+      return;
+    }
     if (typeof options.attribute !== 'undefined') {
       if ((typeof $(this).attr(options.attribute) === 'undefined' ||
             (options.attribute === 'tabindex' &&
@@ -1831,20 +2158,28 @@ quail.components.selector = function (quail, test, Case, options) {
       // Passes.
       test.add(quail.lib.Case({
         element: undefined,
-        selector: options.selector,
         expected: $scope.data('expected') || $scope.find('[data-expected]').data('expected'),
-        status: 'passed'
+        // status: 'passed'
+        status: (options.test ? 'inapplicable' : 'passed')
       }));
     }
     else {
       // Fails.
       candidates.each(function () {
-        // Get the data-expected attribute.
+        var status,
+        $this = $(this);
+
+        // If a test is defined, then use it
+        if (options.test && !$this.is(options.test)) {
+          status = 'passed';
+        } else {
+          status = 'failed';
+        }
+
         test.add(quail.lib.Case({
           element: this,
-          selector: options.selector,
-          expected: $(this).closest('.quail-test').data('expected'),
-          status: 'failed'
+          expected: $this.closest('.quail-test').data('expected'),
+          status: status
         }));
       });
     }
@@ -2560,8 +2895,31 @@ quail.KINGUseLongDateFormat = function (quail, test, Case) {
   function testDateFormat(index, element) {
     // Detect dates with several separators.
     var dateReg = /\d{1,2}([./-])\d{1,2}\1\d{2,4}/g;
+    var elemChildNodes = element.childNodes;
+    var issueOccured = false;
 
-    var text = quail.getTextContents($(element));
+    // Lets find all the *direct* text node children.
+    var textNodeChildren = [];
+    var i = 0;
+    var childCount;
+
+    for (childCount = elemChildNodes.length; i < childCount; i++) {
+      if (elemChildNodes[i].nodeType === Node.TEXT_NODE) {
+        textNodeChildren.push(elemChildNodes[i]);
+      }
+    }
+
+    // Now we're going to check if any text node matches the pattern.
+    // Micro-optimization: check also if issueOccured == false, because we
+    // are not reporting more than one issue occurence.
+    for (i = 0; i < textNodeChildren.length && !issueOccured; i++) {
+      var curTextContent = textNodeChildren[i].nodeValue;
+
+      if ( dateReg.test( curTextContent ) ) {
+        issueOccured = true;
+      }
+    }
+
     var _case = Case({
       element: this,
       expected: $(this).closest('.quail-test').data('expected')
@@ -2570,10 +2928,14 @@ quail.KINGUseLongDateFormat = function (quail, test, Case) {
 
     // Only test if there is one date in the wrong format and call it.
     _case.set({
-      'status': dateReg.test(text) ? 'failed' : 'passed'
+      'status': issueOccured ? 'failed' : 'passed'
     });
   }
-  test.get('$scope').find('p').each(testDateFormat);
+
+  // Note it should also contain div, but that would lead to other issues.
+  var appliableElements = 'a, article, aside, b, blockquote, caption, cite, dd, del, div, em, figcaption, footer, h1, h2, h3, h4, h5, h6, header, i, label, legend, li, mark, nav, option, p, q, s, section, small, span, strong, sub, summary, sup, td, th, title, u';
+
+  test.get('$scope').find(appliableElements).each(testDateFormat);
 };
 
 quail.KINGUsePercentageWithSymbol = function (quail, test, Case) {
@@ -2643,7 +3005,7 @@ quail.aAdjacentWithSameResourceShouldBeCombined = function(quail, test, Case) {
     var _case = Case({ element: element });
     test.add(_case);
     _case.set({
-      'status': 'notApplicable',
+      'status': 'inapplicable',
       expected: $(element).closest('.quail-test').data('expected')
     });
   }
@@ -2670,6 +3032,98 @@ quail.aImgAltNotRepetitive = function(quail, test, Case) {
       });
     }
   });
+};
+
+quail.aInPHasADistinctStyle=function(quail, test, Case){
+
+  /**
+   * Checks if an element has a border set
+   * @param element
+   * @returns {boolean}
+   */
+  function hasBorder(element) {
+    return (element.outerWidth() - element.innerWidth() > 0) ||
+    (element.outerHeight() - element.innerHeight() > 0);
+  }
+
+  /**
+   * Test if two elements have a distinct style from it's ancestor
+   * @param  {jQuery node} $elm    
+   * @param  {jQuery node} $parent
+   * @return {boolean}
+   */
+  function elmHasDistinctStyle($elm, $parent) {
+    var result = false;
+    var styleProperties = ['font-weight', 'font-style'];
+    var textDecoration = $elm.css('text-decoration');
+
+    if (textDecoration !== 'none' &&
+    textDecoration !== $parent.css('text-decoration')) {
+      result = true;
+    }
+
+    if ($elm.css('background-color') !== 'rgba(0, 0, 0, 0)') {
+      styleProperties.push('background');
+    }
+
+    $.each(styleProperties, function (i, styleProp) {
+      if (!result && $elm.css(styleProp) !== $parent.css(styleProp)) {
+        result = true;
+      }
+    });
+
+    return result  || hasBorder($elm);
+  }
+
+  function elmHasDistinctPosition($elm) {
+    var isBlock = ($elm.css('display') === 'block');
+    var position = $elm.css('position');
+    var isPositioned = position !== 'relative' && position !== 'static';
+    return isBlock || isPositioned;
+  }
+
+
+  test.get('$scope').each(function () {
+    var $scope = $(this);
+    var anchors = $scope.find('p a[href]:visible');
+
+    anchors.each(function () {
+      var $this = $(this);
+      var $p = $this.closest('p');
+      var $parent = $this.parent();
+
+      var _case=Case({
+        element: this,
+        expected: $this.closest('.quail-test').data('expected')
+      });
+      test.add(_case);
+
+      var aText = $this.text().trim();
+      var pText = $p.text().trim();
+
+      if (aText === '' || aText === pText) {
+        _case.set('status', 'inapplicable');
+
+      } else if (elmHasDistinctStyle($this, $p)) {
+        _case.set('status', 'passed');
+
+      } else if (elmHasDistinctPosition($this)) {
+        _case.set('status', 'passed');
+
+      } else if ($this.find('img').length > 0) {
+        _case.set('status', 'passed');
+
+      } else if ($parent.text().trim() === aText &&
+      elmHasDistinctStyle($parent, $p)) {
+        _case.set('status', 'passed');
+
+      } else {
+        _case.set('status', 'failed');
+      }
+    });
+
+  });
+
 };
 
 quail.aLinkTextDoesNotBeginWithRedundantWord = function(quail, test, Case) {
@@ -2711,7 +3165,7 @@ quail.aLinkWithNonText = function(quail, test, Case) {
     test.add(_case);
     if (!$(this).is('a:has(img, object, embed)[href]')) {
       _case.set({
-        'status': 'notApplicable'
+        'status': 'inapplicable'
       });
       return;
     }
@@ -2837,7 +3291,7 @@ quail.aLinksNotSeparatedBySymbols = function(quail, test, Case) {
     // If nothing follows the link, then there is nothing to test.
     else {
       test.add(Case({
-        'status': 'notApplicable'
+        'status': 'inapplicable'
       }));
     }
   });
@@ -2850,21 +3304,23 @@ quail.aMustContainText = function(quail, test, Case) {
       expected: $(this).closest('.quail-test').data('expected')
     });
     test.add(_case);
-    if (!$(this).attr('href')) {
+
+    if (!$(this).attr('href') ||
+      $(this).css('display') === 'none') {
       _case.set({
-        'status': 'notApplicable'
+        'status': 'inapplicable'
       });
       return;
     }
-    if (!quail.containsReadableText($(this), true) &&
-       !(($(this).attr('name') || $(this).attr('id')) && !$(this).attr('href'))) {
+
+    if (quail.containsReadableText($(this), true)){
       _case.set({
-        'status': 'failed'
+        'status': 'passed'
       });
     }
     else {
       _case.set({
-        'status': 'passed'
+        'status': 'failed'
       });
     }
   });
@@ -2879,7 +3335,7 @@ quail.aSuspiciousLinkText = function(quail, test, Case) {
     test.add(_case);
     if (!$(this).attr('href')) {
       _case.set({
-        'status': 'notApplicable'
+        'status': 'inapplicable'
       });
       return;
     }
@@ -2897,6 +3353,98 @@ quail.aSuspiciousLinkText = function(quail, test, Case) {
         'status': 'passed'
       });
     }
+  });
+};
+
+quail.animatedGifMayBePresent=function(quail, test, Case){
+
+  /**
+   * Test if gif is animated
+   * Implemented from: https://gist.github.com/3012623.git
+   * @param src
+   * @param ext
+   * @param cb
+   */
+  function isAnimatedGif(src, ext, cb){
+
+    if(ext !== 'gif'){
+      cb(false);
+      return;
+    }
+
+    var request=new XMLHttpRequest();
+    request.open('GET', src, true);
+    request.responseType='arraybuffer';
+    request.addEventListener('load', function () {
+      var arr = new Uint8Array(request.response);
+      var frames = 0;
+
+      // make sure it's a gif (GIF8)
+      if (arr[0] !== 0x47 || arr[1] !== 0x49 ||
+        arr[2] !== 0x46 || arr[3] !== 0x38)
+      {
+        cb(false);
+        return;
+      }
+
+      //ported from php http://www.php.net/manual/en/function.imagecreatefromgif.php#104473
+      //an animated gif contains multiple "frames", with each frame having a
+      //header made up of:
+      // * a static 4-byte sequence (\x00\x21\xF9\x04)
+      // * 4 variable bytes
+      // * a static 2-byte sequence (\x00\x2C) (some variants may use \x00\x21 ?)
+      // We read through the file til we reach the end of the file, or we've found
+      // at least 2 frame headers
+      for (var i=0; i < arr.length -9; i++) {
+        if (arr[i] === 0x00 && arr[i+1] === 0x21 &&
+          arr[i+2] === 0xF9 && arr[i+3] === 0x04 &&
+          arr[i+8] === 0x00 &&
+          (arr[i+9] === 0x2C || arr[i+9] === 0x21))
+        {
+          frames++;
+        }
+        if(frames > 1){
+          cb(true);
+          return;
+        }
+      }
+
+      cb(false);
+    });
+    request.send();
+  }
+
+  test.get('$scope').find('img').each(function(){
+
+    var _case=Case({
+      element: this,
+      expected: $(this).closest('.quail-test').data('expected')
+    });
+    test.add(_case);
+
+    var imgSrc=$(this).attr('src');
+    var ext=$(this).attr('src').split('.').pop().toLowerCase();
+
+    if (ext !== 'gif') {
+      _case.set({
+        'status': 'inapplicable'
+      });
+      return;
+    }
+
+    isAnimatedGif(imgSrc, ext, function(animated){
+      if (animated) {
+        _case.set({
+          'status': 'cantTell'
+        });
+        return;
+      } else{
+        _case.set({
+          'status': 'inapplicable'
+        });
+        return;
+      }
+    });
   });
 };
 
@@ -2935,7 +3483,7 @@ quail.ariaOrphanedContent = function(quail, test, Case) {
     if (!scopeHasRole && !childrenHaveRole) {
       test.add(Case({
         expected: $local.data('expected'),
-        status: 'notApplicable'
+        status: 'inapplicable'
       }));
       return;
     }
@@ -2960,6 +3508,48 @@ quail.ariaOrphanedContent = function(quail, test, Case) {
   });
 };
 
+quail.audioMayBePresent=function(quail, test, Case){
+  var audioExtensions = ['mp3', 'm4p', 'ogg', 'oga', 'opus', 'wav', 'wma', 'wv'];
+
+  test.get('$scope').each(function() {
+    var $this = $(this);
+    var hasCase = false; // Test if a case has been created
+
+    // Audio is definately an audio, and objects could be too.
+    $this.find('object, audio').each(function () {
+      hasCase = true;
+      test.add(Case({
+        element: this,
+        expected: $(this).closest('.quail-test').data('expected'),
+        status: 'cantTell'
+      }));
+    });
+
+    // Links refering to files with an audio extensions are good indicators too
+    $this.find('a[href]').each(function () {
+      var $this = $(this);
+      var extension = $this.attr('href').split('.').pop();
+      if ($.inArray(extension, audioExtensions) !== -1) {
+        hasCase = true;
+        test.add(Case({
+          element: this,
+          expected: $this.closest('.quail-test').data('expected'),
+          status: 'cantTell'
+        }));
+      }
+    });
+
+    // if no case was added, return inapplicable
+    if (!hasCase) {
+      test.add(Case({
+        element: this,
+        status: 'inapplicable',
+        expected: $(this).closest('.quail-test').data('expected')
+      }));
+    }
+  });
+
+};
 quail.blockquoteUseForQuotations = function(quail, test, Case) {
   test.get('$scope').find('p').each(function() {
     var _case = Case({
@@ -2969,7 +3559,7 @@ quail.blockquoteUseForQuotations = function(quail, test, Case) {
     test.add(_case);
     if ($(this).parents('blockquote').length > 0) {
       _case.set({
-        'status': 'notApplicable'
+        'status': 'inapplicable'
       });
       return;
     }
@@ -3036,6 +3626,138 @@ quail.closingTagsAreUsed = function(quail, test, Case) {
   });
 };
 
+quail.colorBackgroundGradientContrast = function (quail, test, Case, options) {
+  test.get('$scope').each(function () {
+    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var text = textnodes.iterateNext();
+    if (!text) {
+      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+    else {
+      // Loop has to be separated. If we try to iterate and rund testCandidates
+      // the xpath thing will crash because document is being modified.
+      while (text) {
+        nodes.push(text);
+        text = textnodes.iterateNext();
+      }
+      nodes.forEach(function (textNode) {
+        quail.components.color.testCandidates('colorBackgroundGradientContrast', textNode, test, Case, options);
+      });
+    }
+  });
+};
+
+quail.colorBackgroundImageContrast = function (quail, test, Case, options) {
+  test.get('$scope').each(function () {
+    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var text = textnodes.iterateNext();
+    if (!text) {
+      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+    else {
+      // Loop has to be separated. If we try to iterate and rund testCandidates
+      // the xpath thing will crash because document is being modified.
+      while (text) {
+        nodes.push(text);
+        text = textnodes.iterateNext();
+      }
+      nodes.forEach(function (textNode) {
+        quail.components.color.testCandidates('colorBackgroundImageContrast', textNode, test, Case, options);
+      });
+    }
+  });
+};
+
+quail.colorElementBehindBackgroundGradientContrast = function (quail, test, Case, options) {
+  test.get('$scope').each(function () {
+    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var text = textnodes.iterateNext();
+    if (!text) {
+      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+    else {
+      // Loop has to be separated. If we try to iterate and rund testCandidates
+      // the xpath thing will crash because document is being modified.
+      while (text) {
+        nodes.push(text);
+        text = textnodes.iterateNext();
+      }
+      nodes.forEach(function (textNode) {
+        quail.components.color.testCandidates('colorElementBehindBackgroundGradientContrast', textNode, test, Case, options);
+      });
+    }
+  });
+};
+
+quail.colorElementBehindBackgroundImageContrast = function (quail, test, Case, options) {
+  test.get('$scope').each(function () {
+    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var text = textnodes.iterateNext();
+    if (!text) {
+      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+    else {
+      // Loop has to be separated. If we try to iterate and rund testCandidates
+      // the xpath thing will crash because document is being modified.
+      while (text) {
+        nodes.push(text);
+        text = textnodes.iterateNext();
+      }
+      nodes.forEach(function (textNode) {
+        quail.components.color.testCandidates('colorElementBehindBackgroundImageContrast', textNode, test, Case, options);
+      });
+    }
+  });
+};
+
+quail.colorElementBehindContrast = function (quail, test, Case, options) {
+  test.get('$scope').each(function () {
+    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var text = textnodes.iterateNext();
+    if (!text) {
+      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+    else {
+      // Loop has to be separated. If we try to iterate and rund testCandidates
+      // the xpath thing will crash because document is being modified.
+      while (text) {
+        nodes.push(text);
+        text = textnodes.iterateNext();
+      }
+      nodes.forEach(function (textNode) {
+        quail.components.color.testCandidates('colorElementBehindContrast', textNode, test, Case, options);
+      });
+    }
+  });
+};
+
+quail.colorFontContrast = function (quail, test, Case, options) {
+  test.get('$scope').each(function () {
+    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var text = textnodes.iterateNext();
+    if (!text) {
+      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+    else {
+      // Loop has to be separated. If we try to iterate and rund testCandidates
+      // the xpath thing will crash because document is being modified.
+      while (text) {
+        nodes.push(text);
+        text = textnodes.iterateNext();
+      }
+      nodes.forEach(function (textNode) {
+        quail.components.color.testCandidates('colorFontContrast', textNode, test, Case, options);
+      });
+    }
+  });
+};
+
 quail.contentPositioningShouldNotChangeMeaning = function(quail, test, Case) {
   //Look for absolute positioned elements that are being put into grids or columns
   var positions = ['top', 'left', 'right', 'bottom'];
@@ -3079,7 +3801,7 @@ quail.definitionListsAreUsed = function(quail, test, Case) {
     });
     test.add(_case);
     _case.set({
-      'status': 'notApplicable'
+      'status': 'inapplicable'
     });
   });
   test.get('$scope').find('p, li').each(function() {
@@ -3159,7 +3881,7 @@ quail.doNotUseGraphicalSymbolToConveyInformation = function(quail, test, Case) {
       expected: (function (element) {
         return quail.components.resolveExpectation(element);
       }(this)),
-      status: 'notApplicable'
+      status: 'inapplicable'
     }));
   });
 };
@@ -3191,36 +3913,49 @@ quail.documentAcronymsHaveElement = function(quail, test, Case) {
 };
 
 quail.documentIDsMustBeUnique = function(quail, test, Case) {
-  var ids = {};
-  test.get('$scope').find(':not([id])').each(function() {
-    var _case = Case({
-      element: this
-    });
-    test.add(_case);
-    _case.set({
-      'status': 'notApplicable',
-      expected: $(this).closest('.quail-test').data('expected')
-    });
+  test.get('$scope').each(function(){
+    if($(this).children().length === 0) {
+      test.add(Case({
+        element: this,
+        'status': 'inapplicable',
+        expected: $(this).closest('.quail-test').data('expected')
+      }));
+    }
   });
-  test.get('$scope').find('[id]').each(function() {
-    var _case = Case({
+  test.get('$scope').find(':not([id])').each(function() {
+    test.add(Case({
       element: this,
-      expected: (function (element) {
-        return quail.components.resolveExpectation(element);
-      }(this))
+      'status': 'inapplicable',
+      expected: $(this).closest('.quail-test').data('expected')
+    }));
+  });
+  test.get('$scope').each(function(){
+    var ids = {};
+    $(this).find('[id]').each(function() {
+      var _case = Case({
+        element: this,
+        expected: (function (element) {
+          return quail.components.resolveExpectation(element);
+        }(this))
+      });
+      test.add(_case);
+      if(typeof ids[$(this).attr('id')] === 'undefined' && Object.keys(ids).length === 0){
+        _case.set({
+          'status': 'inapplicable'
+        });
+        ids[$(this).attr('id')] = $(this).attr('id');
+      }else if (typeof ids[$(this).attr('id')] === 'undefined') {
+        _case.set({
+          'status': 'passed'
+        });
+        ids[$(this).attr('id')] = $(this).attr('id');
+      }
+      else {
+        _case.set({
+          'status': 'failed'
+        });
+      }
     });
-    test.add(_case);
-    if (typeof ids[$(this).attr('id')] === 'undefined') {
-      _case.set({
-        'status': 'passed'
-      });
-      ids[$(this).attr('id')] = $(this).attr('id');
-    }
-    else {
-      _case.set({
-        'status': 'failed'
-      });
-    }
   });
 };
 
@@ -3234,7 +3969,7 @@ quail.documentIsWrittenClearly = function(quail, test, Case) {
     test.add(_case);
     if (quail.isUnreadable(text)) {
       _case.set({
-        'status' : 'notApplicable'
+        'status' : 'inapplicable'
       });
       return;
     }
@@ -3255,24 +3990,42 @@ quail.documentLangIsISO639Standard = function(quail, test, Case) {
   var $element = (test.get('$scope').is('html')) ?
     test.get('$scope') :
     test.get('$scope').find('html').first();
+
   var _case = Case({
-    element: this,
+    element: $element[0],
     expected: ($element.closest('.quail-test').length) ?
       $element.closest('.quail-test').data('expected') :
       $element.data('expected')
   });
 
+  var langAttr = $element.attr('lang');
+  var matchedLang = false; // Check to see if a languagecode was matched
+
   test.add(_case);
-  if (!$element.attr('lang')) {
+  if (!$element.is('html') || typeof langAttr === 'undefined') {
     _case.set({
-      'status' : 'notApplicable'
+      'status' : 'inapplicable'
     });
+  } else {
+    // Loop over all language codes, checking if the current lang attribute starts
+    // with a value that's in the languageCodes array
+    $.each(quail.strings.languageCodes, function (i, currentLangCode) {
+      if (!matchedLang && langAttr.indexOf(currentLangCode) === 0) {
+        matchedLang = true;
+      }
+    });
+
+    if (!matchedLang) {
+      _case.set({'status': 'failed'});
+
+    } else if (langAttr.match(/^[a-z]{2}(-[A-Z]{2})?$/) === null) {
+      _case.set({'status': 'failed'});
+
+    } else {
+      _case.set({'status': 'passed'});
+    }
   }
-  _case.set({
-    'status': (quail.strings.languageCodes.indexOf($element.attr('lang')) === -1) ?
-      'failed' :
-      'passed'
-  });
+
 };
 
 quail.documentStrictDocType = function(quail, test, Case) {
@@ -3304,7 +4057,7 @@ quail.documentTitleIsShort = function(quail, test, Case) {
   if (!$title.length) {
     _case.set({
       element: test.get('$scope'),
-      'status' : 'notApplicable'
+      'status' : 'inapplicable'
     });
     return;
   }
@@ -3504,7 +4257,7 @@ quail.emoticonsExcessiveUse = function(quail, test, Case) {
     });
     if (count === 0) {
       _case.set({
-        'status': 'notApplicable'
+        'status': 'inapplicable'
       });
     }
     else {
@@ -3625,6 +4378,45 @@ quail.formWithRequiredLabel = function(quail, test, Case) {
   });
 };
 
+quail.headersAttrRefersToATableCell = function(quail, test, Case) {
+
+  // Table cell headers without referred ids
+  test.get('$scope').find('table').each(function() {
+
+    var element = this;
+    var _case = Case({
+        element: element,
+        expected: $(this).closest('.quail-test').data('expected')
+      });
+    test.add(_case);
+    var elmHeaders = $(element).find('th[headers], td[headers]');
+
+    if (elmHeaders.length === 0) {
+      _case.set({
+        'status': 'inapplicable'
+      });
+      return;
+    } else {
+      elmHeaders.each(function() {
+        var headers = $(this).attr('headers').split(/\s+/);
+        $.each(headers, function(index, item) {
+          if (item === "" || $(element).find('th#' + item + ',td#' + item).length > 0) {
+            _case.set({
+              'status': 'passed'
+            });
+            return;
+          } else {
+            _case.set({
+              'status': 'failed'
+            });
+            return;
+          }
+        });
+      });
+    }
+  });
+};
+
 quail.headersUseToMarkSections = function(quail, test, Case) {
   test.get('$scope').find('p').each(function() {
     var _case = Case({
@@ -3696,13 +4488,16 @@ quail.headersUsedToIndicateMainContent = function(quail, test, Case) {
 };
 
 quail.idRefHasCorrespondingId = function(quail, test, Case) {
-  test.get('$scope').find('[idref]').each(function() {
+  test.get('$scope').find('label[for], *[aria-activedescendant]').each(function() {
+    var $this = $(this);
     var _case = Case({
       element: this,
-      expected: $(this).closest('.quail-test').data('expected')
+      expected: $this.closest('.quail-test').data('expected')
     });
     test.add(_case);
-    if (test.get('$scope').find('#' + $(this).attr('idref')).length === 0) {
+
+    var find = $this.attr('for') || $this.attr('aria-activedescendant');
+    if (test.get('$scope').find('#' + find).length === 0) {
       _case.set({
         'status': 'failed'
       });
@@ -3715,12 +4510,73 @@ quail.idRefHasCorrespondingId = function(quail, test, Case) {
   });
 };
 
+quail.idrefsHasCorrespondingId = function( quail, test, Case ) {
+
+  function getAttribute($element){
+    var attribute = [];
+    var attributeList = ['headers', 'aria-controls', 'aria-describedby', 'aria-flowto', 'aria-labelledby', 'aria-owns'];
+
+    $.each(attributeList, function(index, item){
+
+      var attr =  $element.attr(item);
+
+      if(typeof attr !== typeof undefined && attr !== false){
+        attribute = attr;
+        return;
+      }
+    });
+    return attribute.split( /\s+/ );
+  }
+
+  test.get('$scope').each(function() {
+
+      var testableElements = $(this).find(
+        'td[headers], th[headers], [aria-controls], [aria-describedby], [aria-flowto], ' +
+        '[aria-labelledby], [aria-owns]');
+
+      if (testableElements.length === 0) {
+
+        test.add(Case({
+          element: this,
+          expected: $(this).closest('.quail-test').data('expected'),
+          status: 'inapplicable'
+        }));
+        return;
+      } else {
+
+        testableElements.each(function() {
+          var element = this;
+          var _case = test.add(Case({
+            element: this,
+            expected: $(this).closest('.quail-test').data('expected')
+          }));
+
+          var attributes = getAttribute($(element));
+          var status = 'passed';
+
+          $.each(attributes, function(index, item) {
+
+            if (item !== "" && $('#' + item).length === 0) {
+              status = 'failed';
+              return;
+            }
+          });
+
+          _case.set({
+            'status': status
+          });
+        });
+      }
+
+    }
+  );
+};
 quail.imgAltIsDifferent = function(quail, test, Case) {
   test.get('$scope').find('img:not([src])').each(function() {
     var _case = Case({
       element: this,
       expected: $(this).closest('.quail-test').data('expected'),
-      'status': 'notApplicable'
+      'status': 'inapplicable'
     });
     test.add(_case);
   });
@@ -3824,7 +4680,7 @@ quail.imgGifNoFlicker = function(quail, test, Case) {
         }
         else {
           _case.set({
-            'status' : 'notApplicable'
+            'status' : 'inapplicable'
           });
         }
       }
@@ -3910,7 +4766,7 @@ quail.imgMapAreasHaveDuplicateLink = function (quail, test, Case) {
     }
     else {
       _case.set({
-        'status': 'notApplicable'
+        'status': 'inapplicable'
       });
     }
   });
@@ -4033,27 +4889,48 @@ quail.inputImageAltNotRedundant = function (quail, test, Case) {
 };
 
 quail.inputWithoutLabelHasTitle = function (quail, test, Case) {
-  test.get('$scope').find('input, select, textarea').each(function() {
-    var _case = Case({
-      element: this,
-      expected: $(this).closest('.quail-test').data('expected')
-    });
-    test.add(_case);
-    if (!$(this).parent('label').length &&
-      !test.get('$scope').find('label[for=' + $(this).attr('id') + ']').length &&
-      (!$(this).attr('title') || quail.isUnreadable($(this).attr('title')))) {
-      _case.set({
-        'status': 'failed'
+
+  test.get('$scope').each(function(){
+
+    var testableElements = $(this).find('input, select, textarea');
+
+    if(testableElements.length === 0){
+      var _case = Case({
+        element: this,
+        expected: $(this).closest('.quail-test').data('expected'),
+        status: 'inapplicable'
       });
-    }
-    else {
-      _case.set({
-        'status': 'passed'
+      test.add(_case);
+      return;
+    }else{
+      testableElements.each(function() {
+        var _case = Case({
+          element: this,
+          expected: $(this).closest('.quail-test').data('expected')
+        });
+        test.add(_case);
+
+        if($(this).css('display') === 'none'){
+          _case.set({
+            'status': 'inapplicable'
+          });
+          return;
+        }
+        if (!test.get('$scope').find('label[for=' + $(this).attr('id') + ']').length &&
+          (!$(this).attr('title') || quail.isUnreadable($(this).attr('title')))) {
+          _case.set({
+            'status': 'failed'
+          });
+        }
+        else {
+          _case.set({
+            'status': 'passed'
+          });
+        }
       });
     }
   });
 };
-
 quail.labelMustBeUnique = function (quail, test, Case) {
   var labels = { };
   test.get('$scope').find('label[for]').each(function() {
@@ -4216,7 +5093,9 @@ quail.languageDirAttributeIsUsed = function(quail, test, Case) {
       var parentDir = $el.closest('[dir]').attr('dir');
       currentDirection = parentDir || currentDirection;
     }
-    currentDirection = currentDirection.toLowerCase();
+    if (typeof currentDirection === 'string') {
+      currentDirection = currentDirection.toLowerCase();
+    }
     if (typeof textDirection[currentDirection] === 'undefined') {
       currentDirection = 'ltr';
     }
@@ -4279,7 +5158,7 @@ quail.languageDirectionPunctuation = function(quail, test, Case) {
         }(this))
       }));
       if (!matches) {
-        _case.set({status : 'notApplicable'});
+        _case.set({status : 'inapplicable'});
         return;
       }
       var first = text.search(textDirection[oppositeDirection]);
@@ -4315,7 +5194,7 @@ quail.languageUnicodeDirection = function(quail, test, Case) {
         'rtl' :
         'ltr';
       if (text.search(textDirection[otherDirection]) === -1) {
-        _case.set({status: 'notApplicable'});
+        _case.set({status: 'inapplicable'});
       }
       else {
         if(text.search(textDirectionChanges[otherDirection]) !== -1) {
@@ -4324,6 +5203,189 @@ quail.languageUnicodeDirection = function(quail, test, Case) {
         else {
           _case.set({status: 'failed'});
         }
+      }
+    });
+  });
+};
+
+quail.linkHasAUniqueContext = function (quail, test, Case) {
+
+  var blockStyle = [
+    'block',
+    'flex',
+    'list-item',
+    'table',
+    'table-caption',
+    'table-cell'
+  ];
+
+  function getLinkSentence (link) {
+    // Find the closest block-like element
+    var $link = $(link);
+    var block = $link;
+    var text = simplifyText($link.text());
+
+    while(!block.is('body, html') && blockStyle.indexOf(block.css('display')) === -1) {
+      block = block.parent();
+    }
+
+    var sentences = block.text().match(/[^\.!\?]+[\.!\?]+/g);
+    if (sentences === null) {
+      sentences = [block.text()];
+    }
+
+    for (var i = 0; i < sentences.length; i+= 1) {
+      if (simplifyText(sentences[i]).indexOf(text) !== -1) {
+        return sentences[i].trim();
+      }
+    }
+  }
+
+  function simplifyText (text) {
+    var tmp = text.match(/\w+/g);
+    if (tmp !== null) {
+      text = tmp.join(' ');
+    }
+    return text.toLowerCase();
+  }
+
+  function txtNotAlike (a, b) {
+    return simplifyText("" + a) !== simplifyText("" + b);
+  }
+
+
+  function shareContext (linkA, linkB) {
+
+    if (linkA.href === linkB.href) {
+      return false;
+
+    } else if (txtNotAlike(linkA.title, linkB.title)) {
+      return false;
+    }
+
+    // Find the nearest list item, paragraph or table cell of both items
+    var linkACtxt = $(linkA).closest('p, li, dd, dt, td, th');
+    var linkBCtxt = $(linkB).closest('p, li, dd, dt, td, th');
+
+    // check if they are different
+    if (linkACtxt.length !== 0 && linkBCtxt.length !== 0 &&
+    txtNotAlike(getLinkText(linkACtxt), getLinkText(linkBCtxt))) {
+      return false;
+    }
+
+    // If one is a table cell and the other isn't, allow it
+    if (linkACtxt.is('td, th') && !linkBCtxt.is('td, th')) {
+      return false;
+
+    } else if (linkACtxt.is('td, th') && linkBCtxt.is('td, th')) {
+      var headerDiff = false;
+      var headersA = [];
+
+      // Make a list with the simplified text of link A
+      linkACtxt.tableHeaders().each(function () {
+        headersA.push(simplifyText($(this).text()));
+      });
+
+      // Compare it to the header context of link B
+      linkBCtxt.tableHeaders().each(function () {
+        var text = simplifyText($(this).text());
+        var pos = headersA.indexOf(text);
+        // Link B has something not part of link A's context, pass
+        if (pos === -1) {
+          headerDiff = true;
+
+        // Remove items part of both header lists
+        } else {
+          headersA.splice(pos, 1);
+        }
+      });
+      // Pass if A or B had a header not part of the other.
+      if (headerDiff || headersA.length > 0) {
+        return false;
+      }
+    }
+
+    if (txtNotAlike(getLinkSentence(linkA), getLinkSentence(linkB))) {
+      return false;
+    }
+
+    return true;
+  }
+
+
+  /**
+   * Get the text value of the link, including alt attributes
+   * @param  {jQuery} $link
+   * @return {string}
+   */
+  function getLinkText ($link) {
+    var text = $link.text();
+    $link.find('img[alt]').each(function () {
+      text += ' ' + this.alt.trim();
+    });
+    return simplifyText(text);
+  }
+
+  test.get('$scope').each(function() {
+    var $scope = $(this);
+    var $links = $scope.find('a[href]:visible');
+    var linkMap = {};
+
+
+    if ($links.length === 0) {
+      var _case = Case({
+        element: this,
+        status: 'inapplicable',
+        expected: $scope.closest('.quail-test').data('expected')
+      });
+      test.add(_case);
+    }
+
+    // Make a map with the link text as key and an array of links with
+    // that link text as it's value
+    $links.each(function () {
+      var text = getLinkText($(this));
+      if (typeof linkMap[text] === 'undefined') {
+        linkMap[text] = [];
+      }
+      linkMap[text].push(this);
+    });
+
+
+    // Iterate over each item in the linkMap
+    $.each(linkMap, function (linkText, links) {
+
+      // Link text is not unique, so the context should be checked
+      while (links.length > 1) {
+        var linkA = links.pop();
+        var linkAFailed = false;
+
+        for (var i=links.length - 1; i >= 0; i -= 1) {
+          var linkB = links[i];
+          if (shareContext(linkA, linkB)) {
+            linkAFailed = true;
+            links.splice(i, 1);
+            test.add(Case({
+              element: linkB,
+              status: 'failed',
+              expected: $(linkB).closest('.quail-test').data('expected')
+            }));
+          }
+        }
+        test.add(Case({
+          element: linkA,
+          status: (linkAFailed ? 'failed' : 'passed'),
+          expected: $(linkA).closest('.quail-test').data('expected')
+        }));
+      }
+
+      // The link text is unique, pass
+      if (links.length === 1) {
+        test.add(Case({
+          element: links[0],
+          status: 'passed',
+          expected: $(links[0]).closest('.quail-test').data('expected')
+        }));
       }
     });
   });
@@ -4405,6 +5467,63 @@ quail.newWindowIsOpened = function(quail, test, Case) {
 };
 
 quail.pNotUsedAsHeader = function(quail, test, Case) {
+  test.get('$scope').find('p').each(function() {
+    var _case = Case({
+      element : this,
+      expected: $(this).closest('.quail-test').data('expected')
+    });
+    test.add(_case);
+    if ($(this).text().search('.') >= 1) {
+      _case.set({
+        'status': 'inapplicable'
+      });
+    }
+    var failed = false;
+    if ($(this).text().search('.') < 1) {
+      var $paragraph = $(this),
+        priorParagraph = $paragraph.prev('p');
+      // Checking if any of suspectPHeaderTags has exact the same text as a paragraph.
+      $.each(quail.suspectPHeaderTags, function(index, tag) {
+        if ($paragraph.find(tag).length) {
+          $paragraph.find(tag).each(function() {
+            if ($(this).text().trim() === $paragraph.text().trim()) {
+              _case.set({
+                'status': 'failed'
+              });
+              failed = true;
+            }
+          });
+        }
+      });
+
+      // Checking if previous paragraph has a different values for style properties given in quail.suspectPCSSStyles.
+      if ( priorParagraph.length ) {
+        $.each(quail.suspectPCSSStyles, function(index, cssProperty) {
+          if ( $paragraph.css(cssProperty) !== priorParagraph.css(cssProperty) ) {
+            _case.set({
+              'status': 'failed'
+            });
+            failed = true;
+            return false; // Micro optimization - we no longer need to iterate here. jQuery css() method might be expansive.
+          }
+        });
+      }
+      if ($paragraph.css('font-weight') === 'bold') {
+        _case.set({
+          'status': 'failed'
+        });
+        failed = true;
+      }
+    }
+    if (!failed) {
+      _case.set({
+        'status': 'passed'
+      });
+    }
+  });
+};
+
+quail.pNotUsedAsHeader = function(quail, test, Case) {
   var priorStyle = { };
   test.get('$scope').find('p').each(function() {
     var _case = Case({
@@ -4414,7 +5533,7 @@ quail.pNotUsedAsHeader = function(quail, test, Case) {
     test.add(_case);
     if ($(this).text().search('.') >= 1) {
       _case.set({
-        'status': 'notApplicable'
+        'status': 'inapplicable'
       });
     }
     var failed = false;
@@ -4747,6 +5866,7 @@ quail.tableLayoutDataShouldNotHaveTh = function (quail, test, Case) {
       expected: $(this).closest('.quail-test').data('expected')
     });
     test.add(_case);
+
     if ($(this).find('th').length !== 0) {
       if (!quail.isDataTable($(this))) {
         _case.set({
@@ -4761,7 +5881,7 @@ quail.tableLayoutDataShouldNotHaveTh = function (quail, test, Case) {
     }
     else {
       _case.set({
-        'status': 'notApplicable'
+        'status': 'inapplicable'
       });
     }
   });
@@ -4795,7 +5915,7 @@ quail.tableLayoutHasNoCaption = function (quail, test, Case) {
         expected: (function (element) {
           return quail.components.resolveExpectation(element);
         }(this)),
-        'status': 'notApplicable'
+        'status': 'inapplicable'
       }));
     }
   });
@@ -5035,6 +6155,36 @@ quail.tabularDataIsInTable = function(quail, test, Case) {
   });
 };
 
+quail.tagsAreNestedCorrectly=function(quail, test, Case){
+
+  quail.components.htmlSource.getHtml(function(html) {
+
+    var validationResults = quail.components.htmlTagValidator(html);
+
+    var _case = Case({
+      // This is just for internal Quail testing. Get the first quail test element
+      // and then its expected attribute value. This will return 'undefined' for
+      // any other testing environment.
+      expected: test.get('$scope').filter('.quail-test').eq(0).data('expected')
+    });
+
+    test.add(_case);
+
+    // An error message is returned if a parsing error is found.
+    if (validationResults) {
+      _case.set({
+        'status': 'failed',
+        'html': validationResults
+      });
+    // Null is return if no parsing error is found; thus the test passes.
+    } else {
+      _case.set({
+        'status': 'passed'
+      });
+    }
+  });
+};
+
 quail.textIsNotSmall = function(quail, test, Case) {
   test.get('$scope').find(quail.textSelector).each(function() {
     var fontSize = $(this).css('font-size');
@@ -5064,12 +6214,113 @@ quail.textIsNotSmall = function(quail, test, Case) {
   });
 };
 
+quail.userInputMayBeRequired=function(quail, test, Case){
+  test.get('$scope').each(function(){
+
+    var _case=Case({
+      element: this,
+      expected: $(this).closest('.quail-test').data('expected')
+    });
+    test.add(_case);
+
+    var forms = $(this).find('form');
+    var formInputs = 0;
+    var inputsOutsideForm = $(this).find('input:not(form input, [type=button],[type=reset],[type=image],[type=submit],[type=hidden])');
+
+    forms.each(function(){
+      var inputs=$(this).find('input:not([type=button],[type=reset],[type=image],[type=submit],[type=hidden])');
+      if (inputs.length > 1) {
+        formInputs = inputs.length;
+      }
+    });
+
+    if(formInputs > 0){
+      _case.set({
+        'status': 'cantTell'
+      });
+      return;
+    }
+
+    if(inputsOutsideForm.length > 1) {
+      _case.set({
+        'status': 'cantTell'
+      });
+      return;
+    }
+
+    _case.set({
+      'status': 'inapplicable'
+    });
+
+  });
+};
+
+quail.videoMayBePresent=function(quail, test, Case){
+
+  var videoExtensions = ['webm', 'flv', 'ogv', 'ogg', 'avi', 'mov', 'qt', 'wmv', 'asf',
+  'mp4', 'm4p', 'm4v', 'mpg', 'mp2', 'mpeg', 'mpg', 'mpe', 'mpv', 'm2v', '3gp', '3g2'];
+  var videoHosts = ['//www.youtube.com/embed/', '//player.vimeo.com/video/'];
+
+  test.get('$scope').each(function(){
+    var $this = $(this);
+    var hasCase = false; // Test if a case has been created
+
+    // video elm is definately a video, and objects could be too.
+    $this.find('object, video').each(function () {
+      hasCase = true;
+      test.add(Case({
+        element: this,
+        expected: $(this).closest('.quail-test').data('expected'),
+        status: 'cantTell'
+      }));
+    });
+
+    // Links refering to files with an video extensions are probably video
+    // though the file may not exist. 
+    $this.find('a[href]').each(function () {
+      var $this = $(this);
+      var extension = $this.attr('href').split('.').pop();
+      if ($.inArray(extension, videoExtensions) !== -1) {
+        hasCase = true;
+        test.add(Case({
+          element: this,
+          expected: $this.closest('.quail-test').data('expected'),
+          status: 'cantTell'
+        }));
+      }
+    });
+
+    // some iframes with URL's of known video providers are also probably videos
+    $this.find('iframe').each(function () {
+      if (this.src.indexOf(videoHosts[0]) !== -1 ||
+      this.src.indexOf(videoHosts[1]) !== -1) {
+        hasCase = true;
+        test.add(Case({
+          element: this,
+          expected: $this.closest('.quail-test').data('expected'),
+          status: 'cantTell'
+        }));
+      }
+    });
+
+    // if no case was added, return inapplicable
+    if (!hasCase) {
+      test.add(Case({
+        element: this,
+        status: 'inapplicable',
+        expected: $(this).closest('.quail-test').data('expected')
+      }));
+    }
+
+  });
+};
+
 quail.videosEmbeddedOrLinkedNeedCaptions = function (quail, test, Case) {
 
   quail.components.video.findVideos(test.get('$scope'), function(element, pass) {
     if (!pass) {
       test.add(Case({
-        element: element,
+        element: element[0],
         expected: (function (element) {
           return quail.components.resolveExpectation(element);
         }(element)),
@@ -5078,7 +6329,7 @@ quail.videosEmbeddedOrLinkedNeedCaptions = function (quail, test, Case) {
     }
     else {
       test.add(Case({
-        element: element,
+        element: element[0],
         expected: (function (element) {
           return quail.components.resolveExpectation(element);
         }(element)),
@@ -5243,26 +6494,32 @@ quail.lib.Case = (function () {
 
       // Get a selector and HTML if an element is provided.
       if (el && el.nodeType && el.nodeType === 1) {
+        // Allow a test to provide a selector. Programmatically find one if none
+        // is provided.
         this.attributes.selector = this.defineUniqueSelector(el);
 
-        this.attributes.html = '';
+        // Get a serialized HTML representation of the element the raised the error
+        // if the Test did not provide it.
+        if (!this.attributes.html) {
+          this.attributes.html = '';
 
-        // If the element is either the <html> or <body> elements,
-        // just report that. Otherwise we might be returning the entire page
-        // as a string.
-        if (el.nodeName === 'HTML' || el.nodeName === 'BODY') {
-          this.attributes.html = '<' + el.nodeName + '>';
-        }
-        // Get the parent node in order to get the innerHTML for the selected
-        // element. Trim wrapping whitespace, remove linebreaks and spaces.
-        else if (typeof el.outerHTML === 'string') {
-          outerEl = el.outerHTML.trim().replace(/(\r\n|\n|\r)/gm,"").replace(/>\s+</g, '><');
-          // Guard against insanely long elements.
-          // @todo, make this length configurable eventually.
-          if (outerEl.length > 200) {
-            outerEl = outerEl.substr(0, 200) + '... [truncated]';
+          // If the element is either the <html> or <body> elements,
+          // just report that. Otherwise we might be returning the entire page
+          // as a string.
+          if (el.nodeName === 'HTML' || el.nodeName === 'BODY') {
+            this.attributes.html = '<' + el.nodeName + '>';
           }
-          this.attributes.html = outerEl;
+          // Get the parent node in order to get the innerHTML for the selected
+          // element. Trim wrapping whitespace, remove linebreaks and spaces.
+          else if (typeof el.outerHTML === 'string') {
+            outerEl = el.outerHTML.trim().replace(/(\r\n|\n|\r)/gm,"").replace(/>\s+</g, '><');
+            // Guard against insanely long elements.
+            // @todo, make this length configurable eventually.
+            if (outerEl.length > 200) {
+              outerEl = outerEl.substr(0, 200) + '... [truncated]';
+            }
+            this.attributes.html = outerEl;
+          }
         }
       }
 
@@ -5484,7 +6741,11 @@ quail.lib.Case = (function () {
       }
 
       return element && generateSelector(element);
-    }
+    },
+    push: [].push,
+    sort: [].sort,
+    concat: [].concat,
+    splice: [].splice
   };
 
   // Give the init function the Case prototype.
@@ -5681,7 +6942,7 @@ quail.lib.SuccessCriteria = (function () {
         passedPreEvaluation = preEvaluator.call(this, testCollection);
       }
       if (!passedPreEvaluation) {
-        this.set('status', 'notApplicable');
+        this.set('status', 'inapplicable');
       }
       this.set('tests', testCollection);
       this.listenTo(testCollection, 'complete', this.evaluate);
@@ -5735,7 +6996,7 @@ quail.lib.SuccessCriteria = (function () {
      * Runs the evaluator callbacks against the completed TestCollection.
      */
     evaluate: function (eventName, testCollection) {
-      if (this.get('status') !== 'notApplicable') {
+      if (this.get('status') !== 'inapplicable') {
         var sc = this;
         var associatedTests = this.filterTests(testCollection);
 
@@ -6004,6 +7265,7 @@ quail.lib.Test = (function () {
       if (this.attributes.complete) {
         throw new Error('The test ' + this.get('name') + ' has already been run.');
       }
+
       var type = this.get('type');
       var options = this.get('options') || {};
       var callback = this.get('callback');
@@ -6024,7 +7286,9 @@ quail.lib.Test = (function () {
             callback.call(this, quail, test, quail.lib.Case, options);
           }
           catch (e) {
-            // @todo, trigger an event for when the test fails outright.
+            if (window.console && window.console.error) {
+              window.console.error(e);
+            }
           }
         }
         else if (type === 'custom' && typeof quail[callback] === 'function') {
@@ -6032,7 +7296,9 @@ quail.lib.Test = (function () {
             quail[callback].call(this, quail, test, quail.lib.Case, options);
           }
           catch (e) {
-            // @todo, trigger an event for when the test fails outright.
+            if (window.console && window.console.error) {
+              window.console.error(e);
+            }
           }
         }
         else {
@@ -6044,7 +7310,9 @@ quail.lib.Test = (function () {
           quail.components[type].call(this, quail, test, quail.lib.Case, options);
         }
         catch (e) {
-          // @todo, trigger an event for when the test fails outright.
+          if (window.console && window.console.error) {
+            window.console.error(e);
+          }
         }
       }
       else {
@@ -6196,10 +7464,10 @@ quail.lib.Test = (function () {
           'status': 'cantTell'
         });
       }
-      // notApplicable.
-      else if (this.findByStatus(['notApplicable']).length === this.length) {
+      // inapplicable.
+      else if (this.findByStatus(['inapplicable']).length === this.length) {
         this.set({
-          'status': 'notApplicable'
+          'status': 'inapplicable'
         });
       }
       // Failed.
@@ -6250,6 +7518,7 @@ quail.lib.Test = (function () {
     },
     push: [].push,
     sort: [].sort,
+    concat: [].concat,
     splice: [].splice
   };
 
@@ -6759,6 +8028,338 @@ quail.lib.WCAGGuideline = (function () {
   return WCAGGuideline;
 }());
 
+(function ($) {
+  var scopeValues = ['row', 'col', 'rowgroup', 'colgroup'];
+
+  $.fn.getTableMap = function () {
+    var map = [];
+    this.find('tr').each(function (y) {
+      if (typeof map[y] === 'undefined') {
+        map[y] = [];
+      }
+      var row = map[y];
+      $(this).children().each(function () {
+        var x;
+        var i, il;
+        var cell = $(this);
+
+        // Grab the width and height, undefined, invalid or 0 become 1
+        var height = +cell.attr('rowspan') || 1;
+        var width = +cell.attr('colspan') || 1;
+        // Make x the first undefined cell in the row
+        for (i = 0, il = row.length; i <= il; i += 1) {
+          if (x === undefined && row[i] === undefined) {
+            x = i;
+          }
+        }
+        // add 'this' to each coordinate in the map based on width and height
+        for (i = 0, il = width * height; i < il; i += 1) {
+          // Create a new row if it doesn't exist yet
+          if (map[y + ~~(i/width)] === undefined) {
+            map[y + ~~(i/width)] = [];
+          }
+          // Add the cell to the correct x / y coordinates
+          map[y + ~~(i/width)][x + (i % width)] = this;
+        }
+      });
+
+    });
+    return map;
+  };
+
+  function isColumnHeader(tableMap, cell, x, y) {
+    var height = cell.attr('rowspan') || 1;
+    var scope = cell.attr('scope');
+    if (scope === 'col') {
+      return true;
+    } else if (scopeValues.indexOf(scope) !== -1) {
+      return false;
+    }
+
+    for (var i = 0; i < height * tableMap[y].length -1; i+=1) {
+      var currCell = $(tableMap[y + i % height][~~(i / height)]);
+      if (currCell.is('td')) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function isRowHeader(tableMap, cell, x, y) {
+    var width = cell.attr('colspan') || 1;
+    var scope = cell.attr('scope');
+
+    if (scope === 'row') {
+      return true;
+    } else if (scopeValues.indexOf(scope) !== -1 ||
+    isColumnHeader(tableMap, cell, x, y)) {
+      return false;
+    }
+
+    for (var i = 0; i < width * tableMap.length -1; i+=1) {
+      var currCell = $(tableMap[~~(i / width)][x + i % width]);
+      if (currCell.is('td')) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function scanHeaders(tableMap, x, y, deltaX, deltaY) {
+    var headerList = $();
+    var cell = $(tableMap[y][x]);
+    var opaqueHeaders = [];
+    var inHeaderBlock;
+    var headersFromCurrBlock;
+
+    if (cell.is('th')) {
+      headersFromCurrBlock = [{
+        cell: cell,
+        x: x,
+        y: y
+      }];
+
+      inHeaderBlock = true;
+    } else {
+      inHeaderBlock = false;
+      headersFromCurrBlock = [];
+    }
+
+    for (; x >= 0 && y >= 0; x += deltaX, y += deltaY) {
+      var currCell = $(tableMap[y][x]);
+      var dir = (deltaX === 0 ? 'col' : 'row');
+
+      if (currCell.is('th')) {
+        inHeaderBlock = true;
+        headersFromCurrBlock.push({
+          cell: currCell,
+          x: x,
+          y: y
+        });
+        var blocked = false;
+        if (deltaY === -1 && isRowHeader(tableMap, currCell, x, y) ||
+        deltaX === -1 && isColumnHeader(tableMap, currCell, x, y)) {
+          blocked = true;
+
+        } else {
+          $.each(opaqueHeaders, function (i, opaqueHeader) {
+            var currSize = +currCell.attr(dir + 'span') || 1;
+            var opaqueSize = +$(opaqueHeader.cell).attr(dir + 'span') || 1;
+            if (currSize === opaqueSize) {
+              if (deltaY === -1 && opaqueHeader.x === x ||
+                  deltaX === -1 && opaqueHeader.y === y)  {
+                blocked = true;
+              }
+            }
+          });
+        }
+        if (blocked === false) {
+          headerList = headerList.add(currCell);
+        }
+
+      } else if (currCell.is('td') && inHeaderBlock === true) {
+        inHeaderBlock = false;
+        opaqueHeaders.push(headersFromCurrBlock);
+        headersFromCurrBlock = $();
+      }
+    }
+    return headerList;
+  }
+
+  /**
+   * Get header cells based on the headers attribute of a cell
+   */
+  function getHeadersFromAttr(cell) {
+    var table = cell.closest('table');
+    var ids = cell.attr('headers').split(/\s/);
+    var headerCells = $();
+    // For each IDREF select an element with that ID from the table
+    // Only th/td cells in the same table can be headers
+    $.each(ids, function (i, id) {
+      headerCells = headerCells.add($('th#' + id + ', td#' + id, table));
+    });
+    return headerCells;
+  }
+
+  function findCellInTableMap(tableMap, cell) {
+    var i = 0;
+    var y = 0;
+    var x;
+    // Locate the x and y coordinates of the current cell
+    while (x === undefined) {
+      if (tableMap[y] === undefined) {
+        return;
+      } else if (tableMap[y][i] === cell[0]) {
+        x = i;
+
+      } else if (i + 1 === tableMap[y].length) {
+        y += 1;
+        i = 0;
+      } else {
+        i += 1;
+      }
+    }
+    return {x: x, y: y};
+  }
+
+
+  function getHeadersFromScope(cell, tableMap) {
+    var i;
+    var headerCells = $();
+    var coords = findCellInTableMap(tableMap, cell);
+
+    // Grab the width and height, undefined, invalid or 0 become 1
+    var height = +cell.attr('rowspan') || 1;
+    var width = +cell.attr('colspan') || 1;
+
+    for (i = 0; i < width; i++) {
+      headerCells = headerCells.add(
+        scanHeaders(tableMap, coords.x + i, coords.y, 0, -1)
+      );
+    }
+
+    for (i = 0; i < height; i++) {
+      headerCells = headerCells.add(
+        scanHeaders(tableMap, coords.x, coords.y + i, -1, 0)
+      );
+    }
+    return headerCells;
+  }
+
+
+  function getHeadersFromGroups(cell, tableMap) {
+    var cellCoords = findCellInTableMap(tableMap, cell);
+    var headers = $();
+
+    cell.closest('thead, tbody, tfoot')
+    .find('th[scope=rowgroup]').each(function () {
+      var headerCoords = findCellInTableMap(tableMap, $(this));
+      if (headerCoords.x <= cellCoords.x && headerCoords.y <= cellCoords.y) {
+        headers = headers.add(this);
+      }
+    });
+
+    // TODO colgroups
+
+  }
+
+  $.fn.tableHeaders = function () {
+    var headers = $();
+    this.each(function () {
+      var $this = $(this);
+
+      if ($this.is(':not(td, th)')) {
+        return;
+      }
+
+      if ($this.is('[headers]')) {
+        headers = headers.add(getHeadersFromAttr($this));
+
+      } else {
+        var map = $this.closest('table').getTableMap();
+        headers = headers
+        .add(getHeadersFromScope($this, map))
+        .add(getHeadersFromGroups($this, map));
+
+      }
+    });
+    return headers.not(':empty').not(this);
+  };
+
+
+}(jQuery));
+
+quail.lib.wcag2 = (function () {
+  'use strict';
+  var ajaxOpt = {async: false, dataType: 'json'};
+
+  /**
+   * Run Quail using WCAG 2
+   *
+   * Options can be used either to tell Quail where to load the wcag2 structure file
+   * or to give it directly (if it's already loaded). For the first, jsonPath
+   * must be provided. For the second the wcag2.json data must be given to 
+   * options.wcag2Structure and the tests data to options.accessibilityTests.
+   * 
+   * @param  {[object]} options Quail options
+   */
+  function runWCAG20Quail(options) {
+    if (options.wcag2Structure && options.accessibilityTests && options.preconditionTests) {
+      startWCAG20Quail(
+          options,
+          options.wcag2Structure,
+          options.accessibilityTests,
+          options.preconditionTests);
+
+    } else {
+      // Load the required json files
+      $.when(
+        $.ajax(options.jsonPath + '/wcag2.json', ajaxOpt),
+        $.ajax(options.jsonPath + '/tests.json', ajaxOpt),
+        $.ajax(options.jsonPath + '/preconditions.json', ajaxOpt))
+
+      // Setup quail given the tests described in the json files
+      .done(function (wcag2Call, testsCall, preconditionCall) {
+        startWCAG20Quail(options, wcag2Call[0], testsCall[0], preconditionCall[0]);
+      });
+
+    }
+  }
+
+  function startWCAG20Quail(options, wcag2Call, tests, preconditionTests) {
+    var criteria, accessibilityTests, knownTests;
+    var allTests = [];
+
+    criteria = $.map(wcag2Call, function (critData) {
+      return new quail.lib.wcag2.Criterion(
+        critData, tests, preconditionTests, options.subject);
+    });
+
+    // Create the accessibiliyTests object, based on the
+    // tests in the criteria
+    $.each(criteria, function (i, criterion) {
+      allTests.push.apply(allTests, criterion.getTests());
+    });
+
+    knownTests = [];
+    accessibilityTests = [];
+
+    // Remove duplicates
+    // TODO: Figure out why some tests are created multiple times
+    $.each(allTests, function (i, test) {
+      if (knownTests.indexOf(test.title.en) === -1) {
+        knownTests.push(test.title.en);
+        accessibilityTests.push(test);
+      }
+    });
+
+    // Run quail with the tests instead of the guideline
+    $(quail.html).quail({
+      accessibilityTests: accessibilityTests,
+      // Have wcag2 intercept the callback
+      testCollectionComplete: createCallback(
+          criteria, options.testCollectionComplete)
+    });
+  }
+
+
+  function createCallback(criteria, callback) {
+    return function (status, data) {
+      if (status === 'complete') {
+        data = $.map(criteria, function (criterion) {
+          return criterion.getResult(data);
+        });
+      }
+
+      callback(status, data);
+    };
+  }
+
+  return {
+    run: runWCAG20Quail
+  };
+
+}());
 quail.guidelines.wcag.successCriteria['1.1.1'] = (function (quail) {
   /**
    * Determines if this Success Criteria applies to the document.
@@ -8455,7 +10056,7 @@ quail.guidelines.wcag.successCriteria['4.1.2'] = (function (quail) {
   //           // Process 'inputWithoutLabelHasTitle'.
   //           var cases_inputWithoutLabelHasTitle = inputWithoutLabelHasTitle.findCasesBySelector(selector);
 
-  //           var passing = ['passed', 'notApplicable'];
+  //           var passing = ['passed', 'inapplicable'];
 
   //           // Make sure the arrays are not empty.
   //           if ((cases_labelsAreAssignedToAnInput.length >= 1 && cases_labelsAreAssignedToAnInput[0].hasStatus(passing)) &&
@@ -8539,4 +10140,406 @@ quail.guidelines.wcag.successCriteria['4.1.2'] = (function (quail) {
   return sc;
 }(quail));
 
+quail.lib.wcag2.Criterion = (function () {
+
+  // Provide default values for the assert objects
+  function aggregateParts(parts, defaultResult) {
+    var getResultPriority = quail.lib.wcag2.EarlAssertion.getResultPriority;
+    var outcome = {result: defaultResult};
+
+    $.each(parts, function (i, part) {
+      if (getResultPriority(outcome) < getResultPriority(part)) {
+        outcome.result = part.outcome.result;
+      }
+    });
+    return outcome;
+  }
+
+
+  function constructor (data, testDefinitions, preconditionDefinitions, subject) {
+    var testAggregators = [];
+    var criterion = {};
+    var defaultResult = data['default'] || 'untested';
+    var id = data.id;
+
+    // Create a TestAggregator object for each aggregator (if any)
+    if ($.isArray(data.testAggregators)) {
+      testAggregators = $.map(data.testAggregators, function (aggregateConf) {
+        return new quail.lib.wcag2.TestAggregator(
+          aggregateConf, testDefinitions, subject
+        );
+      });
+    }
+
+    // Create a precondition test
+    if ($.isArray(data.preconditions)) {
+      var preconditionTest = {
+        type: 'stacking', // If any of it's content is found it should return cantTell
+        tests: data.preconditions
+      };
+      // Add a test aggregator for the precondition tests
+      testAggregators.push(new quail.lib.wcag2.TestAggregator(
+        preconditionTest, preconditionDefinitions, subject
+      ));
+    }
+
+
+    criterion.getResult = function (data) {
+      var result;
+      var parts = [];
+
+      $.each(testAggregators, function (i, aggregator) {
+        var part = aggregator.getResults(data);
+        parts.push.apply(parts, part);
+      });
+      result = new quail.lib.wcag2.EarlAssertion({
+        testRequirement: id,
+        outcome: aggregateParts(parts, defaultResult),
+        subject: subject
+      });
+      if (parts.length > 0) {
+        result.hasPart = parts;
+      }
+      return result;
+    };
+
+    /**
+     * Get an array of test used in this criterion
+     * @param  {[json]} criteria
+     * @return {[array]}
+     */
+    criterion.getTests = function () {
+      var tests = [];
+      $.each(testAggregators, function (i, aggregator) {
+        tests.push.apply(tests, aggregator.tests);
+      });
+      return tests;
+    };
+
+    return criterion;
+  }
+
+  return constructor;
+
+}());
+
+quail.lib.wcag2.EarlAssertion = (function () {
+  var pageUrl;
+  var resultPriorityMap = [
+    'untested', 'inapplicable', 'passed',
+    'cantTell', 'failed'
+  ];
+  var defaultAssertion = {
+    type: 'assertion',
+    subject: pageUrl,
+    assertedBy: {
+      type: 'earl:Software',
+      name: 'QuailJS'
+    },
+    mode: 'automated'
+  };
+
+
+  if (window && window.location) {
+    pageUrl = window.location.href;
+  }
+
+  /**
+   * Create a new earl assert object
+   * @param {object} base Properties from this object are added to the Assertion
+   *                      and override the default.
+   */
+  function Assertion(base) {
+    $.extend(this, base, defaultAssertion);
+    this.outcome = $.extend({}, this.outcome);
+  }
+
+
+  /**
+   * Return the priorty index of the result
+   * @param  {result|assert|outcome} val
+   * @return {integer}     Result index in order of prioerty
+   */
+  Assertion.getResultPriority = function (val) {
+    if (typeof val === 'object') {
+      if (val.outcome) {
+        val = val.outcome.result;
+      } else {
+        val = val.result;
+      }
+    }
+    return resultPriorityMap.indexOf(val);
+  };
+
+  return Assertion;
+
+}());
+quail.lib.wcag2.TestAggregator = (function () {
+
+  var pointerMap = {
+    elms: [],
+    pointers: [],
+    add: function (testCase) {
+      var pointer;
+      if (pointerMap.elms.indexOf(testCase.get('element')) === -1) {
+        if (testCase.get('html')) {
+          pointer = [{
+            type: 'CharSnippetCompoundPointer',
+            chars: testCase.get('html'),
+            CSSSelector: testCase.get('selector')
+          }];
+        }
+        pointerMap.elms.push(testCase.get('element'));
+        pointerMap.pointers.push(pointer);
+      }
+    },
+    getPointer: function (elm) {
+      var index = pointerMap.elms.indexOf(elm);
+      return pointerMap.pointers[index];
+    }
+  };
+
+  /**
+   * Run the callback for each testcase within the array of tests
+   * @param  {array}   tests    
+   * @param  {Function} callback Given the parameters (test, testcase)
+   */
+  function eachTestCase(tests, callback) {
+    $.each(tests, function (i, test) {
+      test.each(function () {
+        callback.call(this, test, this);
+      });
+    });
+  }
+
+  /**
+   * Get an array of elements common to all tests provided
+   * @param  {Object} tests
+   * @return {Array}        Array of HTML elements
+   */
+  function getCommonElements(tests) {
+    var common = [];
+    var map = [];
+
+    $.each(tests, function (i, test) {
+      var elms = [];
+      test.each(function () {
+        elms.push(this.get('element'));
+        pointerMap.add(this);
+      });
+      map.push(elms);
+    });
+    $.each(map, function (i, arr) {
+      if (i === 0) {
+        common = arr;
+        return;
+      }
+      var newArr = [];
+      $.each(arr, function (i, val) {
+        if (common.indexOf(val) !== -1) {
+          newArr.push(val);
+        }
+      });
+      common = newArr;
+    });
+
+    return common;
+  }
+
+  /**
+   * Get an array of elements in the given tests
+   * @param  {Object} tests
+   * @return {Array}        Array of HTML elements
+   */
+  function getAllElements(tests) {
+    var elms = [];
+    eachTestCase(tests, function (test, testCase) {
+      var elm = testCase.get('element');
+      if (elms.indexOf(elm) === -1) {
+        elms.push(elm);
+        pointerMap.add(testCase);
+      }
+    });
+    return elms;
+  }
+
+  /**
+   * Look at each unique element and create an assert for it
+   * @param  {array[DOM element]} elms
+   * @param  {object} base Base object for the assert
+   * @return {array[assert]}      Array with asserts
+   */
+  function createAssertionsForEachElement(elms, base) {
+    var assertions = [];
+    // Create asserts for each element
+    $.each(elms, function (i, elm) {
+      var assertion = new quail.lib.wcag2.EarlAssertion(base);
+      if (elm) { // Don't do undefined pointers
+        assertion.outcome.pointer = pointerMap.getPointer(elm);
+      }
+      assertions.push(assertion);
+    });
+    return assertions;
+  }
+
+  /**
+   * Combine the test results of an Aggregator into asserts
+   *
+   * A combinbing aggregator is an aggregator which only fails if all it's tests fail
+   * 
+   * @param  {Object} aggregator
+   * @param  {Array[Object]} tests
+   * @return {Array[Object]}         Array of Asserts
+   */
+  function getCombinedAssertions(aggregator, tests) {
+    var elms = getCommonElements(tests);
+    var assertions = createAssertionsForEachElement(elms, {
+      testCase: aggregator.id,
+      outcome: {result: 'failed'}
+    });
+
+    // Iterate over all results to build the assert
+    eachTestCase(tests, function (test, testCase) {
+      // Look up the assert, if any
+      var newResult = testCase.get('status');
+      var getResultPriority = quail.lib.wcag2.EarlAssertion.getResultPriority;
+      var assertion = assertions[elms.indexOf(
+        testCase.get('element')
+      )];
+
+      // Allow the aggregator to override the results
+      if (aggregator[newResult]) {
+        newResult = aggregator[newResult];
+      }
+
+      // Override if the resultId is higher or equal (combine)
+      if (assertion && getResultPriority(assertion) >= getResultPriority(newResult)) {
+        var pointer = assertion.outcome.pointer;
+        assertion.outcome = {
+          result: newResult,
+          info: test.get('title')
+        };
+        if (pointer) {
+          assertion.outcome.pointer = pointer;
+        }
+      }
+    });
+
+    return assertions;
+  }
+
+
+  /**
+   * Stack the test results of a aggregator into asserts
+   *
+   * A stacked aggregator is one that fails if any of the tests fail
+   * 
+   * @param  {Object} aggregator
+   * @param  {Array[Object]} tests
+   * @return {Array[Object]}         Array of Asserts
+   */
+  function getStackedAssertions(aggregator, tests) {
+    var elms = getAllElements(tests);
+    var asserts = createAssertionsForEachElement(elms, {
+      testCase: aggregator.id,
+      outcome: { result: 'untested'}
+    });
+
+    // Iterate over all results to build the assert
+    eachTestCase(tests, function (test, testCase) {
+      // Look up the assert, if any
+      var newResult = testCase.get('status');
+      var getResultPriority = quail.lib.wcag2.EarlAssertion.getResultPriority;
+      var assert = asserts[elms.indexOf(
+        testCase.get('element')
+      )];
+
+      // Allow the aggregator to override the results
+      if (aggregator[newResult]) {
+        newResult = aggregator[newResult];
+      }
+
+      // Override if the resultId is lower (stacked)
+      if (assert && getResultPriority(assert) < getResultPriority(newResult)) {
+        assert.outcome = {
+          result: newResult,
+          info: test.get('title')
+        };
+      }
+    });
+    return asserts;
+  }
+
+
+  function TestAggregator(config, testDefinitions, subject) {
+    $.extend(this, {
+      id: config.tests.join('+'),
+      subject: subject
+    }, config);
+
+    this.tests = $.map(this.tests, function (test) {
+      return testDefinitions[test];
+    });
+  }
+
+
+  /**
+   * Filter the data array so it only contains results 
+   * from this aggregator
+   * @param  {Array} data
+   * @return {Array}
+   */
+  TestAggregator.prototype.filterDataToTests = function (data) {
+    var names = $.map(this.tests, function (test) {
+      return test.name;
+    });
+    var testData = [];
+
+    $.each(data, function (i, result) {
+      if (names.indexOf(result.get('name')) !== -1) {
+        testData.push(result);
+      }
+    });
+    return testData;
+  };
+
+  /**
+   * Get the results of this test aggregator based on the tests provided for it
+   * @param  {object} tests As provided by Quail
+   * @return {object}       EARL assertions
+   */
+  TestAggregator.prototype.getResults = function (tests) {
+    var assertions, assertion;
+    var filteredTests = this.filterDataToTests(tests);
+
+    if (filteredTests.length === 1 || this.type === 'combined') {
+      assertions = getCombinedAssertions(this, filteredTests);
+
+    } else if (this.type === "stacking") {
+      assertions = getStackedAssertions(this, filteredTests);
+
+    } else if (window) {
+      window.console.error(
+        "Unknown type for aggregator " + this.id
+      );
+    }
+
+    // Return a default assert if none was defined
+    if (assertions) {
+      if (assertions.length === 0) {
+        assertion = new quail.lib.wcag2.EarlAssertion({
+          testCase: this.id,
+          subject: this.subject,
+          outcome: {
+            result: 'inapplicable'
+          }
+        }),
+        assertions.push(assertion);
+      }
+      return assertions;
+    }
+  };
+
+  return TestAggregator;
+}());
 })(jQuery);
