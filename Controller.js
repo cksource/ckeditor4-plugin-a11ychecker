@@ -267,6 +267,8 @@ define( [
 		// identified even after serialization (output to HTML).
 		this.editableDecorator.applyMarkup();
 
+		this.editableDecorator.decorateScratchpad( scratchpad );
+
 		this.disableFilterStrip = true;
 		scratchpad.setHtml( editor.getData() );
 		this.disableFilterStrip = false;

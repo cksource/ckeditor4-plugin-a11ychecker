@@ -54,6 +54,14 @@ define( function() {
 	EditableDecorator.ID_ATTRIBUTE_NAME_FULL = 'data-quail-id';
 
 	/**
+	 * Initial value of attribute {@link #ID_ATTRIBUTE_NAME_FULL}.
+	 *
+	 * @static
+	 * @member CKEDITOR.plugins.a11ychecker.EditableDecorator
+	 */
+	EditableDecorator.INITIAL_ID_VALUE = 1;
+
+	/**
 	 * @returns {CKEDITOR.editable/null} Returns associated editors `editable` element, or `null` if
 	 * editable is not available.
 	 */
@@ -133,7 +141,7 @@ define( function() {
 	EditableDecorator.prototype.applyMarkup = function() {
 		var editable = this.editable(),
 			editorHasFakeobjectPlugin = !!this.editor.plugins.fakeobjects,
-			lastId = 1;
+			lastId = EditableDecorator.INITIAL_ID_VALUE;
 
 		// Note: id 1 will be assigned to editable itself, which is fine.
 		editable.forEach( function( element ) {
@@ -152,6 +160,14 @@ define( function() {
 
 			return true;
 		}, CKEDITOR.NODE_ELEMENT, false );
+	};
+
+	/**
+	 * Since scratchpad is created by the Controller we need a way to apply first identifier to the scratchpad.
+	 * Otherwise it wouldnt have an id.
+	 */
+	EditableDecorator.prototype.decorateScratchpad = function( scratchpad ) {
+		scratchpad.data( EditableDecorator.ID_ATTRIBUTE_NAME, EditableDecorator.INITIAL_ID_VALUE );
 	};
 
 	/**
@@ -248,8 +264,14 @@ define( function() {
 			curIssue = list.getItem( i );
 			// originalElement (the one in sketchpad) holds the id attribute.
 			a11yId = curIssue.originalElement.data( EditableDecorator.ID_ATTRIBUTE_NAME );
-			// Having this id we can simply fire a selector looking for matching element in editable.
-			curIssue.element = editable.findOne( '*[' + EditableDecorator.ID_ATTRIBUTE_NAME_FULL + '="' + a11yId + '"]' );
+
+			if ( a11yId === String( EditableDecorator.INITIAL_ID_VALUE ) ) {
+				// Special case: first id is reserved always for editable.
+				curIssue.element = editable;
+			} else {
+				// Having this id we can simply fire a selector looking for matching element in editable.
+				curIssue.element = editable.findOne( '*[' + EditableDecorator.ID_ATTRIBUTE_NAME_FULL + '="' + a11yId + '"]' );
+			}
 		}
 	};
 
