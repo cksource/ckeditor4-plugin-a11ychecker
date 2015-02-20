@@ -174,7 +174,7 @@ define( [
 			var langs = CKEDITOR.tools.objectKeys( dictionary ),
 				preferredLang = EngineQuail.getPreferredLanguage( editorConfig.language, editorConfig.defaultLanguage, langs );
 
-			return dictionary[ preferredLang ];
+			return String( dictionary[ preferredLang ] );
 		}
 
 		// Lets support WCAG only for the time being.
@@ -187,8 +187,8 @@ define( [
 			path.push( wcagGuideline[ successCriteria ].techniques.join( ',' ) );
 		}
 
-		var titleDictionary = test.get( 'title' ),
-			descriptionDictionary = test.get( 'description' );
+		var titleDictionary = test.get( 'title' ) || {},
+			descriptionDictionary = test.get( 'description' ) || {};
 
 		return new IssueDetails(
 			getLocalizedString( titleDictionary, editor.config ),
@@ -209,6 +209,10 @@ define( [
 			testability = test.get( 'testability' );
 
 		test.each( function( index, testCase ) {
+			if ( !that.isValidTestCase( testCase ) ) {
+				return;
+			}
+
 			var testAttribs = testCase.attributes,
 				newIssue;
 
@@ -222,6 +226,18 @@ define( [
 				issueList.addItem( newIssue );
 			}
 		} );
+	};
+
+	/**
+	 * Checks if given Quail `Test` is valid.
+	 *
+	 * @param {Object} test Quail `Test` instance.
+	 * @returns {Boolean}
+	 */
+	EngineQuail.prototype.isValidTestCase = function( test ) {
+		var el = test.attributes.element;
+
+		return el instanceof HTMLElement && el.parentNode !== null;
 	};
 
 	/**

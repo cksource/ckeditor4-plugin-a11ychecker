@@ -131,10 +131,30 @@
 				assert.areSame( 'desc3', ret.descr, 'description' );
 			},
 
+			'test EngineQuail.getIssueDetailsFromTest missing localization': function() {
+				// We need to ensure that nothing will break if there is no title.
+				var testObject = {
+						get: function( name ) {
+							if ( name == 'guidelines' ) {
+								return {};
+							}
+							return undefined;
+						}
+					},
+					ret;
+
+				ret = EngineQuail.prototype.getIssueDetailsFromTest( testObject, this.editor );
+
+				assert.areSame( 'undefined', ret.title, 'title' );
+				assert.areSame( 'undefined', ret.descr, 'description' );
+			},
+
 			'test EngineQuail.addIssuesFromTest': function() {
 				var list = new IssueList(),
 					test = getQuailTest(),
-					engineMockup = {};
+					engineMockup = {
+						isValidTestCase: sinon.stub().returns( true )
+					};
 
 				EngineQuail.prototype.addIssuesFromTest.call( engineMockup, test, list );
 
@@ -163,6 +183,47 @@
 					'Item 1 has a valid originalElement' );
 				assert.areSame( test.attributes.testability, secondItem.testability, 'Item 1 has a valid testability' );
 				assert.isNull( secondItem.element, 'Item 1 has a valid element' );
+			},
+
+			'test EngineQuail.isValidTestCase - null': function() {
+				var test = {
+					attributes: {
+						element: null
+					}
+				};
+
+				assert.isFalse( EngineQuail.prototype.isValidTestCase( test ), 'Invalid return value' );
+			},
+
+			'test EngineQuail.isValidTestCase - string': function() {
+				var test = {
+					attributes: {
+						element: null
+					}
+				};
+
+				assert.isFalse( EngineQuail.prototype.isValidTestCase( test ), 'Invalid return value' );
+			},
+
+			'test EngineQuail.isValidTestCase - element no parent': function() {
+				var test = {
+					attributes: {
+						element: document.createElement( 'div' )
+					}
+				};
+
+				assert.isFalse( EngineQuail.prototype.isValidTestCase( test ), 'Invalid return value' );
+			},
+
+			'test EngineQuail.isValidTestCase - existing element': function() {
+				var test = {
+					attributes: {
+						// Lets simply use body element, since it's still an element.
+						element: document.body
+					}
+				};
+
+				assert.isTrue( EngineQuail.prototype.isValidTestCase( test ), 'Invalid return value' );
 			},
 
 			'test EngineQuail._filterIssue': function() {

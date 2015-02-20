@@ -66,6 +66,9 @@
 					lastChildElement = editable.getLast( forceElementEvaluator ),
 					nestedChildElement = lastChildElement.getLast( forceElementEvaluator );
 
+				assert.isTrue( editable.hasAttribute( 'data-quail-id' ), 'Editable has data-quail-id attr' );
+				assert.areSame( '1', editable.data( 'quail-id' ), 'Editable id' );
+
 				assert.isTrue( firstChildElement.hasAttribute( 'data-quail-id' ), 'First element has data-quail-id attr' );
 				assert.areSame( '2', firstChildElement.data( 'quail-id' ), 'First element has valid data-quail-id attr value' );
 
