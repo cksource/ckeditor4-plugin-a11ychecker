@@ -1,4 +1,5 @@
 /*! QUAIL quailjs.org | quailjs.org/license */
+// %LEAVE_UNMINIFIED% %REMOVE_LINE%
 ;(function($) {
 'use strict';
 // Polyfill Function.prototype.bind
