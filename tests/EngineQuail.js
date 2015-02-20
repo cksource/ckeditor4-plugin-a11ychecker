@@ -131,6 +131,24 @@
 				assert.areSame( 'desc3', ret.descr, 'description' );
 			},
 
+			'test EngineQuail.getIssueDetailsFromTest missing localization': function() {
+				// We need to ensure that nothing will break if there is no title.
+				var testObject = {
+						get: function( name ) {
+							if ( name == 'guidelines' ) {
+								return {};
+							}
+							return undefined;
+						}
+					},
+					ret;
+
+				ret = EngineQuail.prototype.getIssueDetailsFromTest( testObject, this.editor );
+
+				assert.areSame( 'undefined', ret.title, 'title' );
+				assert.areSame( 'undefined', ret.descr, 'description' );
+			},
+
 			'test EngineQuail.addIssuesFromTest': function() {
 				var list = new IssueList(),
 					test = getQuailTest(),
