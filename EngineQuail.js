@@ -209,6 +209,10 @@ define( [
 			testability = test.get( 'testability' );
 
 		test.each( function( index, testCase ) {
+			if ( !that.isValidTestCase( testCase ) ) {
+				return;
+			}
+
 			var testAttribs = testCase.attributes,
 				newIssue;
 
@@ -230,7 +234,7 @@ define( [
 	 * @param {Object} test Quail `Test` instance.
 	 * @returns {Boolean}
 	 */
-	EngineQuail.prototype.isValidTest = function( test ) {
+	EngineQuail.prototype.isValidTestCase = function( test ) {
 		var el = test.attributes.element;
 
 		return el instanceof HTMLElement && el.parentNode !== null;
