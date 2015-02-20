@@ -165,6 +165,47 @@
 				assert.isNull( secondItem.element, 'Item 1 has a valid element' );
 			},
 
+			'test EngineQuail.isValidTest - null': function() {
+				var test = {
+					attributes: {
+						element: null
+					}
+				};
+
+				assert.isFalse( EngineQuail.prototype.isValidTest( test ), 'Invalid return value' );
+			},
+
+			'test EngineQuail.isValidTest - string': function() {
+				var test = {
+					attributes: {
+						element: null
+					}
+				};
+
+				assert.isFalse( EngineQuail.prototype.isValidTest( test ), 'Invalid return value' );
+			},
+
+			'test EngineQuail.isValidTest - element no parent': function() {
+				var test = {
+					attributes: {
+						element: document.createElement( 'div' )
+					}
+				};
+
+				assert.isFalse( EngineQuail.prototype.isValidTest( test ), 'Invalid return value' );
+			},
+
+			'test EngineQuail.isValidTest - existing element': function() {
+				var test = {
+					attributes: {
+						// Lets simply use body element, since it's still an element.
+						element: document.body
+					}
+				};
+
+				assert.isTrue( EngineQuail.prototype.isValidTest( test ), 'Invalid return value' );
+			},
+
 			'test EngineQuail._filterIssue': function() {
 				var iteration = 0,
 					engineMock = {

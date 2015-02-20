@@ -225,6 +225,18 @@ define( [
 	};
 
 	/**
+	 * Checks if given Quail `Test` is valid.
+	 *
+	 * @param {Object} test Quail `Test` instance.
+	 * @returns {Boolean}
+	 */
+	EngineQuail.prototype.isValidTest = function( test ) {
+		var el = test.attributes.element;
+
+		return el instanceof HTMLElement && el.parentNode !== null;
+	};
+
+	/**
 	 * Used to obtain issues' {@link CKEDITOR.plugins.a11ychecker.IssueDetails} object. This operation
 	 * might be asynchronous.
 	 *
