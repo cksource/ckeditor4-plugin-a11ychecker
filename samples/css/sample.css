@@ -17,18 +17,38 @@ main section.adjoined,
 	margin-bottom:24px;
 }
 
+main address {
+	padding: 4px 0px;
+}
 
 .phone-number,
-.mail {
+.mail,
+.working-hours{
 	display: inline-block;
 	height: 22px;
 	padding-left: 20px;
+	background-repeat: no-repeat;
+}
+
+main .phone-number,
+main .mail,
+main .working-hours {
+	background-position: 71px 5px;
+	padding-left: 92px;
+}
+
+main .working-hours {
+	background-position: 71px 3px;
 }
 
 .phone-number {
-	background: url(../assets/icons/phone-small.png) no-repeat;
+	background-image: url(../assets/icons/phone-small.png);
 }
 
 .mail {
-	background: url(../assets/icons/mail-small.png) no-repeat;
+	background-image: url(../assets/icons/mail-small.png);
+}
+
+.working-hours {
+	background-image: url(../assets/icons/clock-small.png);
 }
