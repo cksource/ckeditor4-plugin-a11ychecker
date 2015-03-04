@@ -86,6 +86,28 @@ module.exports = function( grunt ) {
 					paths: [ 'less' ],
 					compress: true
 				}
+			},
+
+			samples: {
+				expand: true,
+				cwd: 'samples/sdk-assets/',
+				src: 'less/sample.less',
+				dest: 'samples/sdk-assets/',
+				ext: '.css',
+				flatten: false,
+				rename: function( src, dest ) {
+					return src + dest.replace( 'less/', 'css/' );
+				},
+
+				options: {
+					ieCompat: true,
+					paths: [ 'samples/sdk-assets/' ],
+					relativeUrls: true,
+
+					sourceMap: true,
+					sourceMapRootpath: '/plugins/a11ychecker/',
+					sourceMapURL: 'sample.css.map'
+				}
 			}
 		},
 
@@ -193,7 +215,7 @@ module.exports = function( grunt ) {
 	require( 'load-grunt-tasks' )( grunt );
 
 	grunt.registerTask( 'build-css', 'Builds production-ready CSS using less.',
-		[ 'less:development', 'less:production' ] );
+		[ 'less:development', 'less:production', 'less:samples' ] );
 
 	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, ' +
 		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions' ] );
