@@ -147,9 +147,6 @@ main section address {
   cursor: pointer;
   color: #fff;
 }
-.top-navigation a:focus {
-  outline: 2px dashed red;
-}
 .top-navigation a.fork {
   background: url(../img/github-top.png ) no-repeat right center transparent;
   padding-right: 24px;
