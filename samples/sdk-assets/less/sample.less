@@ -87,48 +87,50 @@ header {
 	}
 }
 
+
+.top-navigation > address,
+main section address
+{
+	font-style: normal;
+}
+
 .top-navigation {
-	height: 26px;
+	height: 21px;
 	background: @sample-top-navigation-background;
 	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
-	padding: 0 @sample-standard-hgap;
+	padding: 5px @sample-standard-hgap 0px;
+	max-width: none;
+	text-transform: uppercase;
 
-	ul, li, a {
-		height: 26px;
+	& > address {
+		.centered-page-content();
+
+		.font-size( .5625 );
+		color: #c3c3c3;
+		text-align: right;
 	}
 
-	ul.right {
-		float: right;
-	}
+	a {
+		color: #c3c3c3;
+		font-weight: bold;
+		text-decoration: none;
+		text-transform: uppercase;
 
-	ul li {
-		display: inline-block;
-
-		& + li {
-			margin-left: 23px;
+		&:hover {
+			cursor: pointer;
+			color: #fff;
 		}
 
-		a {
-			.font-size( .5625 );
-			line-height: 26px;
-			float: left;
-			color: #c3c3c3;
-			font-weight: bold;
-			text-decoration: none;
-			text-transform: uppercase;
+		&:focus {
+			outline: 2px dashed red;
+		}
 
-			&:hover {
-				cursor: pointer;
-				color: #fff;
-			}
-
-			&.fork {
-				background: url( ../img/github-top.png ) no-repeat right center transparent;
-				padding-right: 24px;
-			}
+		&.fork {
+			background: url( ../img/github-top.png ) no-repeat right center transparent;
+			padding-right: 24px;
 		}
 	}
 }

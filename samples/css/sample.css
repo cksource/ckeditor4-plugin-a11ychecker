@@ -16,3 +16,19 @@ main section.adjoined,
 {
 	margin-bottom:24px;
 }
+
+
+.phone-number,
+.mail {
+	display: inline-block;
+	height: 22px;
+	padding-left: 20px;
+}
+
+.phone-number {
+	background: url(../assets/icons/phone-small.png) no-repeat;
+}
+
+.mail {
+	background: url(../assets/icons/mail-small.png) no-repeat;
+}
