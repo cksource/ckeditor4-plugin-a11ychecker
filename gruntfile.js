@@ -118,6 +118,14 @@ module.exports = function( grunt ) {
 				options: {
 					nospawn: true
 				}
+			},
+
+			samples: {
+				files: '<%= less.samples.cwd %><%= less.samples.src %>',
+				tasks: [ 'less:samples' ],
+				options: {
+					nospawn: true
+				}
 			}
 		},
 
