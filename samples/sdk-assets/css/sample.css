@@ -130,10 +130,10 @@ main section address {
 .top-navigation > address {
   max-width: 960px;
   margin: 0 auto;
-  font-size: 9px;
-  font-size: 0.5625rem;
-  line-height: 16.2px;
-  line-height: 1.01rem;
+  font-size: 9.6px;
+  font-size: 0.6rem;
+  line-height: 17.28px;
+  line-height: 1.08rem;
   color: #c3c3c3;
   text-align: right;
 }
