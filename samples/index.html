@@ -42,18 +42,13 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			</ul>
 		</nav>
 	</div>
-	<nav class="navigation top-navigation">
-		<div>
-			<ul>
-				<li><a href="http://ckeditor.com">Project Homepage</a></li>
-				<li><a href="http://dev.ckeditor.com/">I found a bug</a></li>
-				<li><a href="http://github.com/ckeditor/ckeditor-dev" class="fork">Fork CKEditor on GitHub</a></li>
-			</ul>
-			<ul class="right">
-				<li><a href="http://ckeditor.com/blog-list">CKEditor Blog</a></li>
-			</ul>
-		</div>
-	</nav>
+	<div class="navigation top-navigation">
+		<address>
+			<span class="phone-number">Toll-free (US/CAN): +1 800 820 4009</span>
+			<span class="phone-number">Internationally: +1 650 521 9065</span>
+			<a href="mailto:sales@cksource.com" class="mail">sales@cksource.com</a>
+		</address>
+	</div>
 </header>
 
 <main>
@@ -72,7 +67,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			</p>
 		</div>
 	</section>
-	<section>
+	<section class="demo">
+		<span class="fancy-tip" id="acceessibility-button-tip" role="presentation">Give it a try!</span>
 		<textarea cols="80" id="editor1" name="editor1" rows="10">
 			&lt;h1&gt;Welcome to the CKEditor Accessibility Checker Demo!&lt;/h1&gt;
 			&lt;p&gt;
@@ -120,6 +116,20 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			&lt;p style=&quot;text-align: right;&quot;&gt;&lt;small&gt;Source: &lt;a href=&quot;http://en.wikipedia.org/wiki/Apollo_11&quot;&gt;Wikipedia.org&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
 		</textarea>
 	</section>
+	<section class="contact-info yellow-box">
+		<h2>Contact us:</h2>
+
+		<address>
+			<p>
+				<span class="phone-number">Toll-free (US/CAN): +1 800 820 4009</span>
+				<span class="phone-number">Internationally: +1 650 521 9065</span>
+				<a href="mailto:sales@cksource.com" class="mail">sales@cksource.com</a>
+			</p>
+			<p>
+				<span class="working-hours">Working hours: 1am-3pm PST, 4am-6pm EST, 10am-12am CET</span>
+			</p>
+		</address>
+	</section>
 </main>
 
 <footer>
@@ -145,6 +155,12 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			[ 'Format', 'Blockquote', 'CreateDiv', 'Link', 'Unlink', 'Anchor', 'Image', 'Table' ],
 			[ 'Maximize', 'About' ]
 		],
+		on: {
+			instanceReady: function() {
+				// When editor is ready we'll show the hint.
+				document.getElementById( 'acceessibility-button-tip' ).style.display = 'block';
+			}
+		},
 		removePlugins:
 			'colorbutton,' +
 			'colordialog,' +

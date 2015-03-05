@@ -112,46 +112,42 @@ header h1 img {
 .navigation ul li {
   display: inline-block;
 }
+.top-navigation > address,
+main section address {
+  font-style: normal;
+}
 .top-navigation {
-  height: 26px;
+  height: 21px;
   background: #454545;
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
-  padding: 0 1.5em;
+  padding: 5px 1.5em 0px;
+  max-width: none;
+  text-transform: uppercase;
 }
-.top-navigation ul,
-.top-navigation li,
+.top-navigation > address {
+  max-width: 960px;
+  margin: 0 auto;
+  font-size: 9.6px;
+  font-size: 0.6rem;
+  line-height: 17.28px;
+  line-height: 1.08rem;
+  color: #c3c3c3;
+  text-align: right;
+}
 .top-navigation a {
-  height: 26px;
-}
-.top-navigation ul.right {
-  float: right;
-}
-.top-navigation ul li {
-  display: inline-block;
-}
-.top-navigation ul li + li {
-  margin-left: 23px;
-}
-.top-navigation ul li a {
-  font-size: 9px;
-  font-size: 0.5625rem;
-  line-height: 16.2px;
-  line-height: 1.01rem;
-  line-height: 26px;
-  float: left;
   color: #c3c3c3;
   font-weight: bold;
   text-decoration: none;
   text-transform: uppercase;
 }
-.top-navigation ul li a:hover {
+.top-navigation a:hover {
   cursor: pointer;
   color: #fff;
 }
-.top-navigation ul li a.fork {
+.top-navigation a.fork {
   background: url(../img/github-top.png ) no-repeat right center transparent;
   padding-right: 24px;
 }
@@ -305,7 +301,7 @@ main section.adjoined h1:before {
   background-repeat: repeat-x;
 }
 main section.adjoined p {
-  margin: 2.4em 0;
+  margin: 1.44em 0;
 }
 main section.adjoined .cke {
   -webkit-box-shadow: 0px 5px 10px 0 #a6dae1;
@@ -320,7 +316,7 @@ main blockquote {
   margin: 1.2em 0;
 }
 main .cke {
-  margin: 2.4em 0;
+  margin: 1.44em 0;
 }
 main h1,
 main h2,
