@@ -144,6 +144,10 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 </footer>
 
 <script>
+	// Performance optimization:
+	// Send a request for tests json file asap, so it's likely to be ready when user uses AC.
+	$.getJSON( '../libs/quail/tests.json' );
+
 	CKEDITOR.replace( 'editor1', {
 		extraPlugins: 'a11ychecker',
 		height: 500,
