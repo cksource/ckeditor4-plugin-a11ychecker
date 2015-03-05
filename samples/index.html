@@ -63,15 +63,12 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			</p>
 
 			<p>
-				To start Accessibility Checker use the <strong>Check Accessibility <img src="../icons/a11ychecker.png" alt="Accessibility Checker icon"></strong> button in the editor toolbar.
-			</p>
-
-			<p>
 				For more guides on how to use Accessibility Checker read a <a href="guide.html">complete guide</a>.
 			</p>
 		</div>
 	</section>
-	<section>
+	<section class="demo">
+		<span class="fancy-tip" id="acceessibility-button-tip" role="presentation">Give it a try!</span>
 		<textarea cols="80" id="editor1" name="editor1" rows="10">
 			&lt;h1&gt;Welcome to the CKEditor Accessibility Checker Demo!&lt;/h1&gt;
 			&lt;p&gt;
@@ -158,6 +155,12 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			[ 'Format', 'Blockquote', 'CreateDiv', 'Link', 'Unlink', 'Anchor', 'Image', 'Table' ],
 			[ 'Maximize', 'About' ]
 		],
+		on: {
+			instanceReady: function() {
+				// When editor is ready we'll show the hint.
+				document.getElementById( 'acceessibility-button-tip' ).style.display = 'block';
+			}
+		},
 		removePlugins:
 			'colorbutton,' +
 			'colordialog,' +

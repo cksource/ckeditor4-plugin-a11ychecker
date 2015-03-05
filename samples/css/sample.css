@@ -84,3 +84,37 @@ section.contact-info p:first-child {
   background: #fffbe3;
   border: 1px solid #e2ddc2;
 }
+
+section.demo {
+	position: relative;
+}
+
+.fancy-tip {
+	display: block;
+	position: absolute;
+	width: 212px;
+	height: 60px;
+	background: url(../img/navigation-tip.png );
+	background-repeat: no-repeat;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	color: #fff;
+	font-family: "Indie Flower";
+	font-size: 15.2px;
+	font-size: 0.95rem;
+	line-height: 27.36px;
+	line-height: 1.71rem;
+}
+
+#acceessibility-button-tip {
+	top: -42px;
+	left: 123px;
+	display: none;
+
+	height: 45px;
+	min-width: 149px;
+	padding: 2px 18px 0px 45px;
+	text-align: center;
+	background: url(../img/pointingArrow.png) no-repeat;
+}
