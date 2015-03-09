@@ -316,7 +316,7 @@ define( [
 	};
 
 	/**
-	 * For comments see {@link CKEDITOR.plugins.a11ychecker.EngineQuail#_filterIssue}.
+	 * For comments see {@link CKEDITOR.plugins.a11ychecker.Engine#_filterIssue}.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.EngineQuail
 	 * @protected
