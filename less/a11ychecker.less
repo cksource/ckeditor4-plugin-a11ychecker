@@ -16,7 +16,6 @@ a.@{A11YC_UI}_button
 	text-align: center;
 	color: #333;
 	vertical-align: middle;
-	cursor: pointer;
 	border: 1px solid #b6b6b6;
 	border-bottom-color: #999;
 	.border-radius( 3px );
@@ -31,6 +30,7 @@ a.@{A11YC_UI}_button
 
 	&:hover
 	{
+		cursor: pointer;
 		border-color: #9e9e9e;
 		background: #ccc;
 		.background-image( linear-gradient( top, #f2f2f2, #ccc ) );
@@ -48,6 +48,10 @@ a.@{A11YC_UI}_button
 	{
 		padding: 0 10px;
 		text-shadow: 0 1px 0 #fff;
+
+		&:hover {
+			cursor: pointer;
+		}
 	}
 
 	&_ok
