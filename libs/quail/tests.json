@@ -3417,7 +3417,7 @@
     "type": "custom",
     "testability": 1,
     "title": {
-      "en": "Image Alt text is short",
+      "en": "Image Alt text is too long",
       "nl": "Altteksten voor een afbeelding zijn kort"
     },
     "description": {
@@ -3588,8 +3588,7 @@
       "content"
     ],
     "options": {
-      "selector": "img:visible",
-      "test": ":not(img[alt])"
+      "selector": "img:not(img[alt])"
     }
   },
   "imgHasLongDesc": {
