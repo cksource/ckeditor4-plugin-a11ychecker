@@ -151,13 +151,21 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	CKEDITOR.replace( 'editor1', {
 		extraPlugins: 'a11ychecker',
 		height: 500,
-		toolbar: [
-			[ 'Source', '-', 'A11ychecker', '-', 'Preview' ],
-			[ 'Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo', '-', 'Find', 'Replace' ],
-			[ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat' ],
+		toolbarGroups: [
+			{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+			{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+			{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+			{ name: 'forms', groups: [ 'forms' ] },
+			{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 			'/',
-			[ 'Format', 'Blockquote', 'CreateDiv', 'Link', 'Unlink', 'Anchor', 'Image', 'Table' ],
-			[ 'Maximize', 'About' ]
+			{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+			{ name: 'links', groups: [ 'links' ] },
+			{ name: 'insert', groups: [ 'insert' ] },
+			{ name: 'styles', groups: [ 'styles' ] },
+			{ name: 'colors', groups: [ 'colors' ] },
+			{ name: 'tools', groups: [ 'tools' ] },
+			{ name: 'others', groups: [ 'others' ] },
+			{ name: 'about', groups: [ 'about' ] }
 		],
 		on: {
 			instanceReady: function() {
