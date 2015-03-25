@@ -4076,7 +4076,26 @@ quail.documentValidatesToDocType = function() {
 };
 
 quail.documentVisualListsAreMarkedUp = function(quail, test, Case) {
-  var symbols = /(<br(\/)?>)(\s)(♦|›|»|‣|▶|.|◦|✓|◽|•|—|◾|\||\*|&bull;|&#8226;|[0-9].|\(?[0-9]\)|[\u25A0-\u25FF]|(?:[IXC][MD]|D?C{0,4}))/i;
+
+  var itemStarters = [
+    '♦', '›', '»', '‣', '▶', '◦', '✓', '◽', '•', '—', '◾', // single characters
+    '-\\D',                       // dash, except for negative numbers
+    '\\\\',                       // Just an escaped slash
+    '\\*(?!\\*)',                 // *, but not ** (which could be a foot note)
+    '\\.\\s', 'x\\s',             // characters that should be followed by a space
+    '&bull;', '&#8226;', '&gt;',  // HTML entities
+    '[0-9]+\\.', '\\(?[0-9]+\\)', // Numbers: 1., 13., 13), (14)
+    '[\\u25A0-\\u25FF]',          // Unicode characters that look like bullets
+    '[IVX]{1,5}\\.\\s'            // Roman numerals up to (at least) 27, followed by ". " E.g. II. IV.
+  ];
+
+  var symbols = RegExp(
+    '(^|<br[^>]*>)' +                   // Match the String start or a <br> element
+    '[\\s]*' +                          // Optionally followed by white space characters
+    '(' + itemStarters.join('|') + ')', // Followed by a character that could indicate a list
+  'gi'); // global (for counting), case insensitive (capitalisation in elements / entities)
+
+
   test.get('$scope').find(quail.textSelector).each(function() {
     var _case = Case({
       element: this,
@@ -5465,63 +5484,6 @@ quail.newWindowIsOpened = function(quail, test, Case) {
   });
 
   window.open = fenestrate;
-};
-
-quail.pNotUsedAsHeader = function(quail, test, Case) {
-  test.get('$scope').find('p').each(function() {
-    var _case = Case({
-      element : this,
-      expected: $(this).closest('.quail-test').data('expected')
-    });
-    test.add(_case);
-    if ($(this).text().search('.') >= 1) {
-      _case.set({
-        'status': 'inapplicable'
-      });
-    }
-    var failed = false;
-    if ($(this).text().search('.') < 1) {
-      var $paragraph = $(this),
-        priorParagraph = $paragraph.prev('p');
-      // Checking if any of suspectPHeaderTags has exact the same text as a paragraph.
-      $.each(quail.suspectPHeaderTags, function(index, tag) {
-        if ($paragraph.find(tag).length) {
-          $paragraph.find(tag).each(function() {
-            if ($(this).text().trim() === $paragraph.text().trim()) {
-              _case.set({
-                'status': 'failed'
-              });
-              failed = true;
-            }
-          });
-        }
-      });
-
-      // Checking if previous paragraph has a different values for style properties given in quail.suspectPCSSStyles.
-      if ( priorParagraph.length ) {
-        $.each(quail.suspectPCSSStyles, function(index, cssProperty) {
-          if ( $paragraph.css(cssProperty) !== priorParagraph.css(cssProperty) ) {
-            _case.set({
-              'status': 'failed'
-            });
-            failed = true;
-            return false; // Micro optimization - we no longer need to iterate here. jQuery css() method might be expansive.
-          }
-        });
-      }
-      if ($paragraph.css('font-weight') === 'bold') {
-        _case.set({
-          'status': 'failed'
-        });
-        failed = true;
-      }
-    }
-    if (!failed) {
-      _case.set({
-        'status': 'passed'
-      });
-    }
-  });
 };
 
 quail.pNotUsedAsHeader = function(quail, test, Case) {
