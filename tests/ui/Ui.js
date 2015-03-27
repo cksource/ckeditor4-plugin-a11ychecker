@@ -1,10 +1,9 @@
 /* bender-tags: a11ychecker,unit */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'ui/Ui', 'mocking' ], function( Ui, mocking ) {
+	bender.require( [ 'ui/Ui', 'mocking' ], function( Ui, mocking ) {
 		bender.test( {
 			'test Ui constuctor': function() {
 				var controller = {},

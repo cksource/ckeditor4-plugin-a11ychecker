@@ -1,10 +1,17 @@
 /* bender-tags: unit,a11ychecker */
-/* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'PreferredIssueFinder', 'IssueList', 'mocking' ], function( PreferredIssueFinder, IssueList, mocking ) {
+	bender.require( [
+		'PreferredIssueFinder',
+		'IssueList',
+		'mocking'
+	], function(
+		PreferredIssueFinder,
+		IssueList,
+		mocking
+	) {
 		bender.test( {
 			setUp: function() {
 				this.finder = new PreferredIssueFinder();

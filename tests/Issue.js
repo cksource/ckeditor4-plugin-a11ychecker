@@ -1,10 +1,9 @@
 /* bender-tags: editor,unit */
-/* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'Issue', 'mocking' ], function( Issue, mocking ) {
+	bender.require( [ 'Issue', 'mocking' ], function( Issue, mocking ) {
 		bender.test( {
 			'test constructor definition handling': function() {
 				// Ensure that properties given in definition object, are assigned to the Issue.

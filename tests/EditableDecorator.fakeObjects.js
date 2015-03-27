@@ -1,6 +1,5 @@
 /* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: fakeobjects */
-/* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
 /**
  * @fileoverview An integration test suite with fakeobjects plugin.
@@ -11,7 +10,7 @@
 
 	bender.editor = true;
 
-	require( [
+	bender.require( [
 		'EditableDecorator',
 		'mock/EditableDecoratorMockup'
 	], function(

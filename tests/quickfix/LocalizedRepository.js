@@ -1,10 +1,9 @@
 /* bender-tags: a11ychecker,unit */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'quickfix/LocalizedRepository', 'mocking' ], function( LocalizedRepository, mocking ) {
+	bender.require( [ 'quickfix/LocalizedRepository', 'mocking' ], function( LocalizedRepository, mocking ) {
 
 		// We need to imitate dev property.
 		mocking.mockProperty( 'CKEDITOR.plugins.a11ychecker.dev', window, true );

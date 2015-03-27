@@ -1,14 +1,13 @@
 /* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: a11ychecker */
-/* bender-include: %TEST_DIR%_assets/jquery.min.js, %TEST_DIR%_helpers/require.js,
-%TEST_DIR%_helpers/requireConfig.js */
+/* bender-include: %TEST_DIR%_assets/jquery.min.js */
 
 ( function() {
 	'use strict';
 
 	bender.editor = {};
 
-	require( [ 'mocking' ], function( mocking ) {
+	bender.require( [ 'mocking' ], function( mocking ) {
 		bender.test( {
 			'test beforeInit synchronous methods': function() {
 				// This test ensures that some of the methods are called synchronously,

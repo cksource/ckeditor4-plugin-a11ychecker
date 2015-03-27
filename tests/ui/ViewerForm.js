@@ -1,10 +1,9 @@
 /* bender-tags: a11ychecker,unit */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'ui/ViewerForm', 'mocking' ], function( ViewerForm, mocking ) {
+	bender.require( [ 'ui/ViewerForm', 'mocking' ], function( ViewerForm, mocking ) {
 		bender.test( {
 			'test ViewerForm.hide': function() {
 				var formMockup = {};

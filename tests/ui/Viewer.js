@@ -1,10 +1,9 @@
 /* bender-tags: a11ychecker,unit */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'ui/Viewer', 'ui/ViewerDescription', 'mocking' ], function( Viewer, ViewerDescription, mocking ) {
+	bender.require( [ 'ui/Viewer', 'ui/ViewerDescription', 'mocking' ], function( Viewer, ViewerDescription, mocking ) {
 
 		bender.test( {
 			'test Viewer.setupDescription': function() {

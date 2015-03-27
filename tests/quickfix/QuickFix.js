@@ -1,10 +1,9 @@
 /* bender-tags: a11ychecker,unit */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'helpers/quickFixTest' ], function( quickFixTest ) {
+	bender.require( [ 'helpers/quickFixTest' ], function( quickFixTest ) {
 		var tests = {
 				setUp: function() {
 					// Assign a QuickFix class to more precise property.

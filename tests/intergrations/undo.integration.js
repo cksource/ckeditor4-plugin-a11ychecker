@@ -1,7 +1,6 @@
 /* bender-tags: editor,a11ychecker,undo */
 /* bender-ckeditor-plugins: a11ychecker,sourcearea,toolbar,undo */
-/* bender-include: %TEST_DIR%../_assets/jquery.min.js, %TEST_DIR%../_helpers/require.js,
-%TEST_DIR%../_helpers/requireConfig.js */
+/* bender-include: %TEST_DIR%../_assets/jquery.min.js */
 
 /**
  * @fileoverview Integration with the undo plugin.
@@ -21,7 +20,7 @@
 	var INITIAL_SNAPSHOT_COUNT = 1,
 		innerHtmlMatching = bender.assert.isInnerHtmlMatching;
 
-	require( [ 'testSuite',
+	bender.require( [ 'testSuite',
 		'mocking',
 		'EngineMock',
 		'Controller',
