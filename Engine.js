@@ -92,6 +92,8 @@ define( function() {
 	 * @param {String} fixClass A QuickFix class name to be loaded.
 	 * @param {Function} callback Gets called when given QuickFix class is loaded.
 	 * @static
+	 * @todo: Check if this method is needed - looks like it's not used anymore, especially that it uses
+	 * amd. We should use {@link #getFixes} method instead.
 	 */
 	Engine.getFixType = function( fixClass, callback ) {
 		if ( Engine.fixes[ fixClass ] ) {
