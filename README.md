@@ -84,20 +84,11 @@ Other samples will not work because of the RequireJS dependency, which is not a 
 
 ## Unit Testing
 
+Accessibility Checker comes with custom `bender.js` configuration, because it requires some custom Bender plugins that CKEditor does not need. You should use `-c` CLI parameter to point the custom config file.
+
+```bender server run -H 0.0.0.0 -c plugins/a11ychecker/bender.js```
+
 Both unit tests and integration tests are placed in the `tests` directory.
-
-They should be automatically detected by Bender.js as "External Plugins", so make sure that `bender.js` in your CKEditor directory contains an entry like the following:
-
-```javascript
-'External Plugins': {
-	applications: [ 'ckeditor' ],
-	basePath: 'plugins/',
-	paths: [
-		'*/tests/**',
-		'!**/_*/**'
-	]
-}
-```
 
 ## License
 
