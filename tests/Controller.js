@@ -8,13 +8,11 @@
 		'Controller',
 		'mock/ControllerMockup',
 		'Controller/CheckingMode',
-		'helpers/sinon/sinon_amd.min',
 		'mocking'
 	], function(
 		Controller,
 		ControllerMockup,
 		CheckingMode,
-		sinon,
 		mocking
 	) {
 		bender.test( {

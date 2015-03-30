@@ -3,7 +3,7 @@
 ( function() {
 	'use strict';
 
-	bender.require( [ 'ui/ViewerFocusManager', 'helpers/sinon/sinon_amd.min' ], function( ViewerFocusManager, sinon ) {
+	bender.require( [ 'ui/ViewerFocusManager' ], function( ViewerFocusManager ) {
 
 		bender.test( {
 			setUp: function() {

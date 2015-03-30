@@ -3,7 +3,7 @@
 ( function() {
 	'use strict';
 
-	bender.require( [ 'HotkeyManager', 'helpers/sinon/sinon_amd.min' ], function( HotkeyManager, sinon ) {
+	bender.require( [ 'HotkeyManager' ], function( HotkeyManager ) {
 		bender.test( {
 			'test HotkeyManager.parseConfig': function() {
 				var sampleConfig = {
