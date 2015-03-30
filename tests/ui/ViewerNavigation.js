@@ -1,10 +1,9 @@
 /* bender-tags: a11ychecker,unit */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'ui/ViewerNavigation', 'mocking' ], function( ViewerNavigation, mocking ) {
+	bender.require( [ 'ui/ViewerNavigation', 'mocking' ], function( ViewerNavigation, mocking ) {
 		bender.test( {
 			'test ViewerNavigation.update': function() {
 				// Checks if ViewerNavigation.update calls setText on counter elemnt.

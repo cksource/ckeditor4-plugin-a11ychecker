@@ -1,10 +1,9 @@
 /* bender-tags: a11ychecker,unit */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'ui/ViewerController', 'mocking' ], function( ViewerController, mocking ) {
+	bender.require( [ 'ui/ViewerController', 'mocking' ], function( ViewerController, mocking ) {
 
 		bender.test( {
 			'test ViewerController.showIssue calls callback': function() {

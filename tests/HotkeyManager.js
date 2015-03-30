@@ -1,10 +1,9 @@
 /* bender-tags: editor,unit */
-/* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'HotkeyManager', 'helpers/sinon/sinon_amd.min' ], function( HotkeyManager, sinon ) {
+	bender.require( [ 'HotkeyManager' ], function( HotkeyManager ) {
 		bender.test( {
 			'test HotkeyManager.parseConfig': function() {
 				var sampleConfig = {

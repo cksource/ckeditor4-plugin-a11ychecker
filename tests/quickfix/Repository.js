@@ -1,10 +1,9 @@
 /* bender-tags: a11ychecker,unit */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'quickfix/Repository', 'mocking' ], function( Repository, mocking ) {
+	bender.require( [ 'quickfix/Repository', 'mocking' ], function( Repository, mocking ) {
 		bender.test( {
 			'test Repository.get': function() {
 				var mock = new Repository(),

@@ -1,10 +1,9 @@
 /* bender-tags: a11ychecker,unit */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'ui/ViewerFocusManager', 'helpers/sinon/sinon_amd.min' ], function( ViewerFocusManager, sinon ) {
+	bender.require( [ 'ui/ViewerFocusManager' ], function( ViewerFocusManager ) {
 
 		bender.test( {
 			setUp: function() {

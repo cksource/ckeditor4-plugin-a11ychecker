@@ -1,11 +1,10 @@
 /* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: a11ychecker,toolbar */
-/* bender-include: %TEST_DIR%../_helpers/require.js, %TEST_DIR%../_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [ 'Controller', 'Controller/CheckingMode', 'mocking' ], function( Controller, CheckingMode, mocking ) {
+	bender.require( [ 'Controller', 'Controller/CheckingMode', 'mocking' ], function( Controller, CheckingMode, mocking ) {
 		bender.test( {
 			setUp: function() {
 				this.controller = {

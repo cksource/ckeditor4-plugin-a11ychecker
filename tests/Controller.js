@@ -1,21 +1,18 @@
 /* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: a11ychecker,toolbar */
-/* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 
 ( function() {
 	'use strict';
 
-	require( [
+	bender.require( [
 		'Controller',
 		'mock/ControllerMockup',
 		'Controller/CheckingMode',
-		'helpers/sinon/sinon_amd.min',
 		'mocking'
 	], function(
 		Controller,
 		ControllerMockup,
 		CheckingMode,
-		sinon,
 		mocking
 	) {
 		bender.test( {

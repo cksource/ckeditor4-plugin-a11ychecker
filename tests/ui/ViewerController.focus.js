@@ -1,7 +1,6 @@
 /* bender-tags: a11ychecker,unit */
 /* bender-ckeditor-plugins: a11ychecker,toolbar,undo */
-/* bender-include: %TEST_DIR%../_assets/jquery.min.js, %TEST_DIR%../_helpers/require.js,
-%TEST_DIR%../_helpers/requireConfig.js */
+/* bender-include: %TEST_DIR%../_assets/jquery.min.js */
 
 ( function() {
 	'use strict';
@@ -9,7 +8,7 @@
 	// Note that we have an extra (unused) requirement for 'EngineMock' and 'Controller' classes.
 	// That way it will force them to be available for the editor, and we have sure that a11ychecker
 	// plugin will be ready synchronously.
-	require( [ 'testSuite', 'EngineMock' ], function( testSuite, EngineMock ) {
+	bender.require( [ 'testSuite', 'EngineMock' ], function( testSuite, EngineMock ) {
 
 		bender.test( {
 			'async:init': function() {

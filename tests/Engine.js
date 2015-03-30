@@ -1,12 +1,11 @@
 /* bender-tags: editor,unit */
-/* bender-include: %TEST_DIR%_helpers/require.js, %TEST_DIR%_helpers/requireConfig.js */
 /*global require*/
 
 ( function() {
 	/*jshint -W020 */
 	'use strict';
 
-	require( [ 'Engine', 'mocking' ], function( Engine, mocking ) {
+	bender.require( [ 'Engine', 'mocking' ], function( Engine, mocking ) {
 
 		bender.test( {
 			'test Engine.getFixType': function() {
