@@ -114,24 +114,28 @@
 			editor.addCommand( pluginName, {
 				exec: cmdExec,
 				async: true,
-				canUndo: false
+				canUndo: false,
+				editorFocus: false // (#123)
 			} );
 
 			editor.addCommand( pluginName + '.listen', {
 				exec: cmdListen,
-				canUndo: false
+				canUndo: false,
+				editorFocus: false
 			} );
 
 			editor.addCommand( pluginName + '.next', {
 				exec: cmdNext,
 				async: true,
-				canUndo: false
+				canUndo: false,
+				editorFocus: false
 			} );
 
 			editor.addCommand( pluginName + '.prev', {
 				exec: cmdPrev,
 				async: true,
-				canUndo: false
+				canUndo: false,
+				editorFocus: false
 			} );
 
 			editor.addCommand( pluginName + '.close', {
