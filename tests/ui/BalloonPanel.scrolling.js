@@ -28,44 +28,84 @@
 				CKEDITOR.document.getWindow().$.scrollTo( 0, 0 );
 			},
 
-			'test _isElementInViewport out of viewport y-axis': function() {
+			'test _isElementInViewport': function() {
 				var elem = CKEDITOR.document.getById( 'top' ),
 					window = CKEDITOR.document.getWindow(),
-					ret = BallonProto._isElementInViewport.call( {}, elem, window );
+					mock = {
+						_isElementInViewport_internal: mocking.stub().returns( true )
+					},
+					ret = BallonProto._isElementInViewport.call( mock, elem, window );
+
+				mocking.assert.calledWith( mock._isElementInViewport_internal, elem, window );
+				mocking.assert.callCount( mock._isElementInViewport_internal, 1 );
+
+				assert.isTrue( ret, 'Return value' );
+			},
+
+			'test _isElementInViewport false': function() {
+				var elem = CKEDITOR.document.getById( 'top' ),
+					window = CKEDITOR.document.getWindow(),
+					mock = {
+						_isElementInViewport_internal: mocking.stub().returns( false )
+					},
+					ret = BallonProto._isElementInViewport.call( mock, elem, window );
 
 				assert.isFalse( ret, 'Return value' );
 			},
 
-			'test _isElementInViewport out of viewport x-axis': function() {
+			'test _isElementInViewport_internal out of viewport y-axis': function() {
+				var elem = CKEDITOR.document.getById( 'top' ),
+					window = CKEDITOR.document.getWindow(),
+					ret = BallonProto._isElementInViewport_internal.call( {}, elem, window );
+
+				assert.isArray( ret, 'Return type' );
+				assert.areEqual( 1, ret.length, 'Return array length' );
+				arrayAssert.itemsAreSame( [ BalloonPanel.MISPLACED_TOP ], ret );
+			},
+
+			'test _isElementInViewport_internal out of viewport x-axis': function() {
 				var elem = CKEDITOR.document.getById( 'right' ),
 					window = CKEDITOR.document.getWindow(),
-					ret = BallonProto._isElementInViewport.call( {}, elem, window );
+					ret = BallonProto._isElementInViewport_internal.call( {}, elem, window );
 
-				assert.isFalse( ret, 'Return value' );
+				assert.isArray( ret, 'Return type' );
+				arrayAssert.itemsAreSame( [ BalloonPanel.MISPLACED_RIGHT ], ret );
 			},
 
-			'test _isElementInViewport in viewport': function() {
+			'test _isElementInViewport_internal out of viewport both axis': function() {
+				var elem = CKEDITOR.document.getById( 'outTopRight' ),
+					window = CKEDITOR.document.getWindow(),
+					ret = BallonProto._isElementInViewport_internal.call( {}, elem, window );
+
+				assert.isArray( ret, 'Return type' );
+				arrayAssert.itemsAreSame( [ BalloonPanel.MISPLACED_RIGHT, BalloonPanel.MISPLACED_TOP ], ret );
+			},
+
+			'test _isElementInViewport_internal in viewport': function() {
 				var elem = CKEDITOR.document.getById( 'inBottom' ),
 					window = CKEDITOR.document.getWindow(),
-					ret = BallonProto._isElementInViewport.call( {}, elem, window );
+					ret = BallonProto._isElementInViewport_internal.call( {}, elem, window );
 
-				assert.isTrue( ret, 'Return value' );
+				assert.isArray( ret, 'Return type' );
+				assert.areEqual( 0, ret.length, 'Return arr lenght' );
 			},
 
-			'test _isElementInViewport partially in viewport': function() {
+			'test _isElementInViewport_internal partially in viewport': function() {
 				var elem = CKEDITOR.document.getById( 'edgeBottomRight' ),
 					window = CKEDITOR.document.getWindow(),
-					ret = BallonProto._isElementInViewport.call( {}, elem, window );
+					ret = BallonProto._isElementInViewport_internal.call( {}, elem, window );
 
-				assert.isTrue( ret, 'Return value' );
+				assert.isArray( ret, 'Return type' );
+				assert.areEqual( 0, ret.length, 'Return arr lenght' );
 			},
 
-			'test _isElementInViewport partially in viewport second': function() {
+			'test _isElementInViewport_internal partially in viewport second': function() {
 				var elem = CKEDITOR.document.getById( 'edgeTopLeft' ),
 					window = CKEDITOR.document.getWindow(),
-					ret = BallonProto._isElementInViewport.call( {}, elem, window );
+					ret = BallonProto._isElementInViewport_internal.call( {}, elem, window );
 
-				assert.isTrue( ret, 'Return value' );
+				assert.isArray( ret, 'Return type' );
+				assert.areEqual( 0, ret.length, 'Return arr lenght' );
 			}
 		} );
 
