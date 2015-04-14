@@ -9,14 +9,16 @@ define( [
 	'ui/ViewerForm',
 	'ui/ViewerListeningIndicator',
 	'ui/ViewerFocusManager',
-	'ui/ViewerMode'
+	'ui/ViewerMode',
+	'ui/BalloonPanel'
 ], function(
 	ViewerDescription,
 	ViewerNavigation,
 	ViewerForm,
 	ViewerListeningIndicator,
 	ViewerFocusManager,
-	ViewerMode
+	ViewerMode,
+	BalloonPanel
 ) {
 	'use strict';
 
@@ -41,7 +43,7 @@ define( [
 		/**
 		 * The {@link CKEDITOR.ui.panel} of this viewer.
 		 */
-		this.panel = new CKEDITOR.ui.balloonPanel( editor, definition );
+		this.panel = new BalloonPanel( editor, definition );
 
 		/**
 		 * The {@link CKEDITOR.plugins.a11ychecker.ui.ViewerFocusManager} of this viewer.
@@ -262,8 +264,9 @@ define( [
 										if ( !isElementInViewport( issue.element, editor.window ) ) {
 											// If issue element is no longer in the viewport we're going to
 											// remove the focus.
-											a11ychecker.issues.resetFocus();
-											panel.hide();
+											//a11ychecker.issues.resetFocus();
+											//panel.hide();
+											panel.attach( issue.element, false );
 										} else {
 											// And if element is still in viewport we're going to update its position.
 											panel.attach( issue.element, false );
