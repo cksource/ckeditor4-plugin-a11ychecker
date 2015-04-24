@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+-->
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>CKEditor Sample - Accessibility Checker Developer Guide</title>
+	<link rel="stylesheet" href="sdk-assets/css/sample.css">
+	<link rel="stylesheet" href="css/sample.css">
+</head>
+<body>
+
+<header>
+	<div>
+		<h1>
+			<a href="index.html"><img src="img/a11yc-logo.png" alt="Accessibility Checker"></a>
+		</h1>
+		<nav class="navigation main-navigation">
+			<ul>
+				<li><a href="index.html">Demo</a></li>
+				<li><a href="about.html">About</a></li>
+				<li><a href="guide.html">Guide</a></li>
+				<li><a href="dev.html" class="active">Developer Guide</a></li>
+			</ul>
+		</nav>
+	</div>
+	<div class="navigation top-navigation">
+		<address>
+			<span class="phone-number">Toll-free (US/CAN): +1 800 820 4009</span>
+			<span class="phone-number">Internationally: +1 650 521 9065</span>
+			<a href="mailto:sales@cksource.com" class="mail">sales@cksource.com</a>
+		</address>
+	</div>
+</header>
+
+<main>
+	<section class="adjoined">
+		<div>
+			<h1 id="about-accessibility-checker">Accessibility Checker Developer Guide</h1>
+		</div>
+	</section>
+
+	<section>
+		<h2>Table of contents</h2>
+		<ul>
+			<li><a href="#current-project-state">Current Project State</a></li>
+			<li><a href="#general-concepts">General Concepts</a><ul>
+			<li><a href="#document-structure-vs-presentation">Document Structure vs Presentation</a></li>
+			<li><a href="#internals">Internals</a></li>
+			<li><a href="#quail">Quail</a><ul>
+			<li><a href="#default-tests-preset">Default Tests Preset</a></li>
+			<li><a href="#customize-tests">Customize Tests</a></li>
+			<li><a href="#version-compatibility">Version Compatibility</a></li>
+			<li><a href="#adding-a-custom-test">Adding a Custom Test</a></li>
+			</ul>
+			</li>
+			<li><a href="#adding-a-quick-fix">Adding a Quick Fix</a></li>
+			<li><a href="#how-do-i-prevent-invalid-content-from-being-saved">How Do I Prevent Invalid Content From Being Saved?</a></li>
+			<li><a href="#how-to-report-an-issue">How to Report an Issue</a></li>
+			<li><a href="#more-questions-ask-us">More Questions? Ask Us!</a></li>
+			</ul>
+			</li>
+		</ul>
+
+		<h2 id="current-project-state">Current Project State</h2>
+		<p>Currently we&#39;re focusing on:</p>
+		<ul>
+		<li>Providing a best possible Quail tests list to conform WCAG 2 level AA.</li>
+		<li>General UI enhancements.</li>
+		</ul>
+		<p>Next we&#39;ll put our resources on enhancing the backend.</p>
+		<h2 id="general-concepts">General Concepts</h2>
+		<p>Accessibility Checker is an application that will find any accessibility issue in the document structure and present in a convenient way to the end-user. It will also provide a possibility to apply a <strong>Quick Fix</strong> to some of them.</p>
+		<h3 id="document-structure-vs-presentation">Document Structure vs Presentation</h3>
+		<p>@todo: explain what&#39;s the difference and why didn&#39;t we decide to go with presentation checks</p>
+		<p>By default AC will focus on structural issues.</p>
+		<h3 id="internals">Internals</h3>
+		<p>First of all, Accessibility Checker is a <a href="http://ckeditor.com">CKEditor</a> plugin, and as such, it works only with CKEditor.</p>
+		<p>When started it&#39;s using underlying <strong>checking engine</strong> to find all the issues within current editor content. Checking engines are defined by JavaScript class that provides integration between any checking library and AC. By default AC comes with a single checking engine class for <a href="http://quailjs.org">Quail</a> library.</p>
+		<p>After the engine returns an issue list then AC triggers its UI to show the results in a user-friendly way. Now it&#39;s up to user to decide if he want fix, ignore or just to navigate to the other issue.</p>
+		<h3 id="quail">Quail</h3>
+		<h4 id="default-tests-preset">Default Tests Preset</h4>
+		<p>Quail provides over 200 tests (called assessments). For sake of simplicity by default we&#39;re using only a handful subset of them, so the results are less confusing.</p>
+		<p>Running all tests isn&#39;t the best idea, because it would produce hundreds of issues with notices, making navigation over severe issues very difficult. Also some of Quail tests might produce fake positive results, that might confuse end-user. That&#39;s why it&#39;s a good idea to reduce tests down to important and high quality tests.</p>
+		<p><strong>We’re currently working on an ideal Quail preset that would match WCAG2 AA level, and it will replace default config for future AC releases.</strong></p>
+		<p>Here&#39;s the list of default tests:</p>
+		<ul>
+		<li>imgHasAlt</li>
+		<li>aMustNotHaveJavascriptHref</li>
+		<li>aAdjacentWithSameResourceShouldBeCombined</li>
+		<li>imgNonDecorativeHasAlt</li>
+		<li>imgImportantNoSpacerAlt</li>
+		<li>KINGUseLongDateFormat</li>
+		<li>aTitleDescribesDestination</li>
+		<li>blockquoteNotUsedForIndentation</li>
+		<li>imgAltNotEmptyInAnchor</li>
+		<li>tableUsesCaption</li>
+		<li>imgShouldNotHaveTitle</li>
+		<li>imgAltIsTooLong</li>
+		<li>pNotUsedAsHeader</li>
+		</ul>
+		<p>You can override this tests preset, see <a href="#">Quail Tests Configuration</a>.</p>
+		<h4 id="customize-tests">Customize Tests</h4>
+		<p>You can customize Quail tests by using the <code>a11ychecker_quailParams.guideline</code> <a href="http://docs.ckeditor.com/#!/guide/dev_configuration">CKEditor configuration</a>. This is an array storing Quail test (assessment) names.</p>
+		<ol>
+		<li><p>Custom config example:</p>
+		<pre><code> CKEDITOR.editorConfig = function( config ) {
+		     config.a11ychecker_quailParams = {
+		         guideline: [
+		             &#39;aAdjacentWithSameResourceShouldBeCombined&#39;,
+		             &#39;aImgAltNotRepetitive&#39;,
+		             &#39;aLinksAreSeparatedByPrintableCharacters&#39;,
+		             &#39;aMustNotHaveJavascriptHref&#39;,
+		             &#39;aSuspiciousLinkText&#39;,
+		             &#39;documentVisualListsAreMarkedUp&#39;,
+		             &#39;headerH1&#39;,
+		             &#39;headerH2&#39;,
+		             &#39;headerH3&#39;,
+		             &#39;imgAltIsDifferent&#39;,
+		             &#39;imgAltIsTooLong&#39;,
+		             &#39;imgAltNotEmptyInAnchor&#39;,
+		             &#39;imgAltTextNotRedundant&#39;,
+		             &#39;imgHasAlt&#39;,
+		             &#39;linkHasAUniqueContext&#39;,
+		             &#39;pNotUsedAsHeader&#39;,
+		             &#39;tableDataShouldHaveTh&#39;,
+		             &#39;tableNotUsedForLayout&#39;
+		         ]
+		     };
+		 };
+		</code></pre></li>
+		<li>Custom <a href="https://gist.github.com/mlewand/3de6cda9f5a1085738d1">config including all Quail tests</a> at gists, due to its size.</li>
+		</ol>
+		<h4 id="version-compatibility">Version Compatibility</h4>
+		<p>Note that since Quail <strong>2.3.x</strong> has not yet reached stable state, we&#39;re using Quail <strong>2.2.x</strong> version.</p>
+		<h4 id="adding-a-custom-test">Adding a Custom Test</h4>
+		<p>@todo</p>
+		<h3 id="adding-a-quick-fix">Adding a Quick Fix</h3>
+		<p>@todo</p>
+		<h3 id="how-do-i-prevent-invalid-content-from-being-saved-">How Do I Prevent Invalid Content From Being Saved?</h3>
+		<p>@todo</p>
+		<h3 id="how-to-report-an-issue">How to Report an Issue</h3>
+		<p>Currently issues should be reported through e-mail. If you have found some issue, please send them to your contact in CKSource.</p>
+		<h3 id="more-questions-ask-us-">More Questions? Ask Us!</h3>
+		<p>If you have more questions that have not been covered in this guide, please let us know through e-mail. As you&#39;ll ask for more technical details, we&#39;ll be putting them into this guide.</p>
+	</section>
+
+	<section class="contact-info yellow-box">
+		<h2>Contact us:</h2>
+
+		<address>
+			<p>
+				<span class="phone-number">Toll-free (US/CAN): +1 800 820 4009</span>
+				<span class="phone-number">Internationally: +1 650 521 9065</span>
+				<a href="mailto:sales@cksource.com" class="mail">sales@cksource.com</a>
+			</p>
+			<p>
+				<span class="working-hours">Working hours: 1am-3pm PST, 4am-6pm EST, 10am-12am CET</span>
+			</p>
+		</address>
+	</section>
+</main>
+
+<footer>
+	<div>
+		<p>
+			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
+		</p>
+		<p id="copy">
+			Copyright &copy; 2003-2015, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico Knabben. All rights reserved.
+		</p>
+	</div>
+</footer>
+
+</body>
+</html>
