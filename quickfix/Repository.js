@@ -45,8 +45,6 @@ define( function() {
 	Repository.prototype = {};
 	Repository.prototype.constructor = Repository;
 
-	var waitingCallbacks = {};
-
 	/**
 	 * Returns the QuickFix class with given name. When type is loaded `callback` will
 	 * be called.
@@ -77,11 +75,11 @@ define( function() {
 
 		// We need to store callback to queue before firing requested event, in case
 		// if developer will return type synchronously.
-		if ( !waitingCallbacks[ name ] ) {
-			waitingCallbacks[ name ] = [];
+		if ( !this._waitingCallbacks[ name ] ) {
+			this._waitingCallbacks[ name ] = [];
 		}
 
-		waitingCallbacks[ name ].push( callback );
+		this._waitingCallbacks[ name ].push( callback );
 
 		if ( this._loadedTypes[ name ] !== false ) {
 			// Firing the requested event.
@@ -126,7 +124,7 @@ define( function() {
 	 * @param {Function} cls QuickFix type.
 	 */
 	Repository.prototype.add = function( name, cls ) {
-		var callbackQueue = waitingCallbacks[ name ] || [],
+		var callbackQueue = this._waitingCallbacks[ name ] || [],
 			callbacksCount = callbackQueue.length,
 			i;
 
@@ -138,7 +136,7 @@ define( function() {
 		}
 
 		// And we can unset the callbacks array.
-		delete waitingCallbacks[ name ];
+		delete this._waitingCallbacks[ name ];
 	};
 
 	/**
@@ -175,7 +173,7 @@ define( function() {
 	 * @returns {Object}
 	 */
 	Repository.prototype.getWaitingCallbacks = function() {
-		return waitingCallbacks;
+		return this._waitingCallbacks;
 	};
 
 	CKEDITOR.event.implementOn( Repository.prototype );
