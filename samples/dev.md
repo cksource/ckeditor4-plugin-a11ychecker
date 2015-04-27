@@ -30,6 +30,14 @@ After the engine returns an issue list then AC triggers its UI to show the resul
 
 ### Quail
 
+#### Requirements
+
+Note that Quail requires **jQuery**, and Accessibility Checker doesn't injects it by default. Not having jQuery loaded will result with following exceptin:
+
+```
+Uncaught ReferenceError: jQuery is not defined
+```
+
 #### Default Tests Preset
 
 Quail provides over 200 tests (called assessments). For sake of simplicity by default we're using only a handful subset of them, so the results are less confusing.
