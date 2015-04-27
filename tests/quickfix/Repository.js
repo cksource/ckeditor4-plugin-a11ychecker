@@ -204,6 +204,18 @@
 					'waitingCallbacks.cusType' );
 			},
 
+			'test Repository.add is instance independent': function() {
+				// Initially Repository was supposed to be a singleton, and all the registered
+				// members were supposed to be shared.
+				var mock = new Repository(),
+					mock2 = new Repository(),
+					type = mocking.spy();
+
+				mock.add( 'indepTestType', type );
+				assert.isUndefined( mock2.getLoadedTypes().indepTestType,
+					'indepTestType is not registered in the other instance.' );
+			},
+
 			'test integration': function() {
 				var mock = new Repository( '%TEST_DIR%../_helpers/' );
 

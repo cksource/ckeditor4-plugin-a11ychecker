@@ -22,19 +22,30 @@ define( function() {
 	 */
 	function Repository( basePath ) {
 		this.basePath = basePath || '';
+
+		/**
+		 * Variable with a mapping of all loaded types.
+		 *
+		 * @private
+		 */
+		this._loadedTypes = {};
+
+		/**
+		 * It will contain QuickFix class names as a keys, and we expect following values:
+		 *
+		 * * Function - a loaded type/class for QuickFix
+		 * * `false` - temp variable indicating that given class was already requested for loading, but was
+		 * not registered yet.
+		 *
+		 * @private
+		 */
+		this._waitingCallbacks = {};
 	}
 
 	Repository.prototype = {};
 	Repository.prototype.constructor = Repository;
 
-	// Private variable with mapping of all loaded types.
-	var loadedTypes = {},
-		// It will contain QuickFix class names as a keys, and we expect following
-		// values:
-		// * Function - a loaded type/class for QuickFix
-		// * `false` - temp variable indicating that given class was already requested
-		// for loading, but was not registered yet.
-		waitingCallbacks = {};
+	var waitingCallbacks = {};
 
 	/**
 	 * Returns the QuickFix class with given name. When type is loaded `callback` will
@@ -58,9 +69,9 @@ define( function() {
 			evt,
 			requestEvent;
 
-		if ( loadedTypes[ name ] ) {
+		if ( this._loadedTypes[ name ] ) {
 			// If type is already loaded return it immediately.
-			callback( loadedTypes[ name ] );
+			callback( this._loadedTypes[ name ] );
 			return ;
 		}
 
@@ -72,7 +83,7 @@ define( function() {
 
 		waitingCallbacks[ name ].push( callback );
 
-		if ( loadedTypes[ name ] !== false ) {
+		if ( this._loadedTypes[ name ] !== false ) {
 			// Firing the requested event.
 			// Having a false value in types mapping it means that it was already
 			// requested to be fetched, but is not yet ready.
@@ -86,7 +97,7 @@ define( function() {
 				name: name
 			};
 
-			loadedTypes[ name ] = false;
+			this._loadedTypes[ name ] = false;
 
 			requestEvent = this.fire( 'requested', evt );
 
@@ -119,7 +130,7 @@ define( function() {
 			callbacksCount = callbackQueue.length,
 			i;
 
-		loadedTypes[ name ] = cls;
+		this._loadedTypes[ name ] = cls;
 
 		// Call pending callbacks.
 		for ( i = 0; i < callbacksCount; i++ ) {
@@ -138,7 +149,7 @@ define( function() {
 	 * @param {mixed} value
 	 */
 	Repository.prototype.setLoadedTypes = function( value ) {
-		loadedTypes = value;
+		this._loadedTypes = value;
 	};
 
 	/**
@@ -151,7 +162,7 @@ define( function() {
 	 * @returns {Object}
 	 */
 	Repository.prototype.getLoadedTypes = function() {
-		return loadedTypes;
+		return this._loadedTypes;
 	};
 
 	/**
