@@ -29,19 +29,23 @@
 			// Namespace register.
 			require( [
 				'Engine',
+				'EngineQuail',
 				'Issue',
 				'IssueList',
 				'IssueDetails',
 				'quickfix/LocalizedRepository'
 			], function(
 				Engine,
+				EngineQuail,
 				Issue,
 				IssueList,
 				IssueDetails,
 				LocalizedRepository
 			) {
+				// Expose common types.
 				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
 					Engine: Engine,
+					EngineQuail: EngineQuail,
 					Issue: Issue,
 					IssueList: IssueList,
 					IssueDetails: IssueDetails
