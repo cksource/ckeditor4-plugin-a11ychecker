@@ -32,19 +32,31 @@
 					nextSibling = issueElement.getNext(),
 					initialHref = issueElement.getAttribute( 'href' ),
 					extraInnerHtml = '',
-					isAnchor = function( node ) {
-						return node && node.getName && node.getName() == 'a';
-					};
+					isWhitespace = function( node ) {
+						return node.type === CKEDITOR.NODE_TEXT && node.getText().match( /^[\s]*$/ );
+					},
+					iterationAllowed = function( node ) {
+						if ( !node ) {
+							return false;
+						}
+						
+						// We only allow anchors that have the same href as the initial one
+						return ( node.getName && node.getName() == 'a' && nextSibling.getAttribute( 'href' ) == initialHref )
+							|| isWhitespace( node ); // Or whitespace text nodes.
+					},
+					curNode;
 
-				while ( isAnchor( nextSibling ) && nextSibling.getAttribute( 'href' ) == initialHref ) {
+				while ( iterationAllowed( nextSibling ) ) {
+					curNode = nextSibling;
+					
 					// This html will be added later on to the first anchor.
-					extraInnerHtml += nextSibling.getHtml();
+					extraInnerHtml += isWhitespace( curNode ) ? curNode.getText() : curNode.getHtml();
 
 					// Prepare nextSibling var for next iteration.
-					nextSibling = nextSibling.getNext();
+					nextSibling = curNode.getNext();
 
 					// And we can remove element safely.
-					nextSibling.getPrevious().remove();
+					curNode.remove();
 				}
 
 				// Adding extra html to first anchor.
