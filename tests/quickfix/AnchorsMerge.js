@@ -50,6 +50,46 @@
 					// Checking the callback.
 					assert.areSame( 1, callback.callCount, 'Callback was called' );
 					mocking.assert.alwaysCalledWith( callback, fixMockup );
+				},
+				
+				'test AnchorsMerge.fix anchors separated with whitespace': function() {
+					var playground = CKEDITOR.document.getById( 'anchorsWithWhitespace' ),
+						fixMockup = {
+							issue: {
+								element: playground.findOne( 'a' )
+							},
+							fix: AnchorsMerge.prototype.fix
+						},
+						callback = mocking.spy();
+
+					fixMockup.fix( {}, callback );
+
+					var anchors = playground.find( 'a' );
+					assert.areSame( 1, anchors.count(), 'Anchors count after the fix' );
+
+					// Checking the callback.
+					assert.areSame( 1, callback.callCount, 'Callback was called' );
+					mocking.assert.alwaysCalledWith( callback, fixMockup );
+				},
+				
+				'test AnchorsMerge.fix anchors separated with new line': function() {
+					var playground = CKEDITOR.document.getById( 'anchorsWithNL' ),
+						fixMockup = {
+							issue: {
+								element: playground.findOne( 'a' )
+							},
+							fix: AnchorsMerge.prototype.fix
+						},
+						callback = mocking.spy();
+
+					fixMockup.fix( {}, callback );
+
+					var anchors = playground.find( 'a' );
+					assert.areSame( 1, anchors.count(), 'Anchors count after the fix' );
+
+					// Checking the callback.
+					assert.areSame( 1, callback.callCount, 'Callback was called' );
+					mocking.assert.alwaysCalledWith( callback, fixMockup );
 				}
 			};
 
