@@ -195,7 +195,6 @@ var quail = {
 
       $.ajax({
         url : url + '/tests.json',
-        async : false,
         dataType : 'json',
         success : function (data) {
           if (typeof data === 'object') {
@@ -433,8 +432,26 @@ quail.components.acronym = function(quail, test, Case) {
   });
 };
 
-quail.components.color = {
-  colors: {
+quail.components.color = (function () {
+
+  function buildCase(test, Case, element, status, id, message) {
+    test.add(Case({
+      element: element,
+      expected: (function (element, id) {
+        return quail.components.resolveExpectation(element, id);
+      }(element, id)),
+      message: message,
+      status: status
+    }));
+  }
+
+  function notempty(s) {
+    return $.trim(s) !== '';
+  }
+
+
+
+  var colors = {
     cache: {},
     /**
      * Returns the lumosity of a given foreground and background object,
@@ -442,11 +459,11 @@ quail.components.color = {
      */
     getLuminosity : function(foreground, background) {
       var cacheKey = 'getLuminosity_' + foreground + '_' + background;
-      foreground = this.cleanup(foreground);
-      background = this.cleanup(background);
+      foreground = colors.parseColor(foreground);
+      background = colors.parseColor(background);
 
-      if (this.cache[cacheKey] !== undefined) {
-        return this.cache[cacheKey];
+      if (colors.cache[cacheKey] !== undefined) {
+        return colors.cache[cacheKey];
       }
 
       var RsRGB = foreground.r/255;
@@ -466,8 +483,8 @@ quail.components.color = {
       l1 = (0.2126 * R + 0.7152 * G + 0.0722 * B);
       l2 = (0.2126 * R2 + 0.7152 * G2 + 0.0722 * B2);
 
-      this.cache[cacheKey] = Math.round((Math.max(l1, l2) + 0.05)/(Math.min(l1, l2) + 0.05)*10)/10;
-      return this.cache[cacheKey];
+      colors.cache[cacheKey] = Math.round((Math.max(l1, l2) + 0.05)/(Math.min(l1, l2) + 0.05)*10)/10;
+      return colors.cache[cacheKey];
     },
 
     /**
@@ -484,12 +501,20 @@ quail.components.color = {
       return 'rgb(' + data[0] + ',' + data[1] + ',' + data[2] + ')';
     },
 
-    /**
-     * Returns whether an element's color passes
-     * WCAG at a certain contrast ratio.
-     */
-    passesWCAG : function(element, level) {
-      return this.passesWCAGColor(element, this.getColor(element, 'foreground'), this.getColor(element, 'background'), level);
+    testElmContrast: function (algorithm, element, level) {
+      var background = colors.getColor(element, 'background');
+      return colors.testElmBackground(algorithm, element, background, level);
+    },
+
+    testElmBackground: function (algorithm, element, background, level) {
+      var foreground = colors.getColor(element, 'foreground');
+      var res;
+      if (algorithm === 'wcag') {
+        res = colors.passesWCAGColor(element, foreground, background, level);
+      } else if (algorithm === 'wai') {
+        res = colors.passesWAIColor(foreground, background);
+      }
+      return res;
     },
 
     /**
@@ -512,17 +537,7 @@ quail.components.color = {
           }
         }
       }
-      return (this.getLuminosity(foreground, background) > level);
-    },
-
-    /**
-     * Returns whether an element's color passes
-     * WAI brightness levels.
-     */
-    passesWAI : function(element) {
-      var foreground = this.cleanup(this.getColor(element, 'foreground'));
-      var background = this.cleanup(this.getColor(element, 'background'));
-      return this.passesWAIColor(foreground, background);
+      return (colors.getLuminosity(foreground, background) > level);
     },
 
     /**
@@ -530,8 +545,10 @@ quail.components.color = {
      * WAI brightness levels.
      */
     passesWAIColor : function(foreground, background) {
-      return (this.getWAIErtContrast(foreground, background) > 500 &&
-              this.getWAIErtBrightness(foreground, background) > 125);
+      var contrast   = colors.getWAIErtContrast(foreground, background);
+      var brightness = colors.getWAIErtBrightness(foreground, background);
+
+      return (contrast > 500 && brightness > 125);
     },
 
     /**
@@ -539,7 +556,7 @@ quail.components.color = {
      * per the ERT contrast spec.
      */
     getWAIErtContrast : function(foreground, background) {
-      var diffs = this.getWAIDiffs(foreground, background);
+      var diffs = colors.getWAIDiffs(foreground, background);
       return diffs.red + diffs.green + diffs.blue;
     },
 
@@ -548,7 +565,7 @@ quail.components.color = {
      * per the ERT brightness spec.
      */
     getWAIErtBrightness : function(foreground, background) {
-      var diffs = this.getWAIDiffs(foreground, background);
+      var diffs = colors.getWAIDiffs(foreground, background);
       return ((diffs.red * 299) + (diffs.green * 587) + (diffs.blue * 114)) / 1000;
 
     },
@@ -557,11 +574,11 @@ quail.components.color = {
      * Returns differences between two colors.
      */
     getWAIDiffs : function(foreground, background) {
-      var diff = { };
-      diff.red = Math.abs(foreground.r - background.r);
-      diff.green = Math.abs(foreground.g - background.g);
-      diff.blue = Math.abs(foreground.b - background.b);
-      return diff;
+      return {
+        red:   Math.abs(foreground.r - background.r),
+        green: Math.abs(foreground.g - background.g),
+        blue:  Math.abs(foreground.b - background.b)
+      };
     },
 
     /**
@@ -570,41 +587,45 @@ quail.components.color = {
      * different browsers can return colors, and handling transparencies.
      */
     getColor : function(element, type) {
-      var self = this;
+      var self = colors;
       if (!element.attr('data-cacheId')) {
         element.attr('data-cacheId', 'id_' + Math.random());
       }
       var cacheKey = 'getColor_' + type + '_' + element.attr('data-cacheId');
-      if (this.cache[cacheKey] !== undefined) {
-        return this.cache[cacheKey];
+      if (colors.cache[cacheKey] !== undefined) {
+        return colors.cache[cacheKey];
       }
 
       if (type === 'foreground') {
-        this.cache[cacheKey] = (element.css('color')) ? element.css('color') : 'rgb(0,0,0)';
-        return this.cache[cacheKey];
+        colors.cache[cacheKey] = (element.css('color')) ? element.css('color') : 'rgb(0,0,0)';
+        return colors.cache[cacheKey];
       }
 
       var bcolor = element.css('background-color');
-      if (this.hasBackgroundColor(bcolor)) {
-        this.cache[cacheKey] = bcolor;
-        return this.cache[cacheKey];
+      if (colors.hasBackgroundColor(bcolor)) {
+        colors.cache[cacheKey] = bcolor;
+        return colors.cache[cacheKey];
       }
 
       element.parents().each(function(){
         var pcolor = $(this).css('background-color');
-        if (quail.components.color.colors.hasBackgroundColor(pcolor)) {
+        if (colors.hasBackgroundColor(pcolor)) {
           return self.cache[cacheKey] = pcolor;
         }
       });
       // Assume the background is white.
-      this.cache[cacheKey] = 'rgb(255,255,255)';
-      return this.cache[cacheKey];
+      colors.cache[cacheKey] = 'rgb(255,255,255)';
+      return colors.cache[cacheKey];
+    },
+
+    getForeground: function(element) {
+      return colors.getColor(element, 'foreground');
     },
 
     /**
      * Returns an object with rgba taken from a string.
      */
-    cleanup : function(color) {
+    parseColor : function(color) {
       if (typeof color === 'object') {
         return color;
       }
@@ -636,19 +657,19 @@ quail.components.color = {
       }
 
       var cacheKey = 'getBackgroundImage_' + element.attr('data-cacheId');
-      if (this.cache[cacheKey] !== undefined) {
-        return this.cache[cacheKey];
+      if (colors.cache[cacheKey] !== undefined) {
+        return colors.cache[cacheKey];
       }
       element = element[0];
       while(element && element.nodeType === 1 && element.nodeName !== 'BODY' && element.nodeName !== 'HTML') {
         var bimage = $(element).css('background-image');
         if (bimage && bimage !== 'none' && bimage.search(/^(.*?)url(.*?)$/i) !== -1) {
-          this.cache[cacheKey] = bimage.replace('url(', '').replace(/['"]/g, '').replace(')', '');
-          return this.cache[cacheKey];
+          colors.cache[cacheKey] = bimage.replace('url(', '').replace(/['"]/g, '').replace(')', '');
+          return colors.cache[cacheKey];
         }
         element = element.parentNode;
       }
-      this.cache[cacheKey] = false;
+      colors.cache[cacheKey] = false;
       return false;
     },
 
@@ -661,8 +682,8 @@ quail.components.color = {
       }
 
       var cacheKey = 'getBackgroundGradient_' + element.attr('data-cacheId');
-      if (this.cache[cacheKey] !== undefined) {
-        return this.cache[cacheKey];
+      if (colors.cache[cacheKey] !== undefined) {
+        return colors.cache[cacheKey];
       }
 
       var notEmpty = function(s) {
@@ -671,8 +692,8 @@ quail.components.color = {
       element = element[0];
       while(element && element.nodeType === 1 && element.nodeName !== 'BODY' && element.nodeName !== 'HTML') {
         // Exit if element has a background color.
-        if (this.hasBackgroundColor($(element).css('background-color'))) {
-          this.cache[cacheKey] = false;
+        if (colors.hasBackgroundColor($(element).css('background-color'))) {
+          colors.cache[cacheKey] = false;
           return false;
         }
         var bimage = $(element).css('backgroundImage');
@@ -680,13 +701,13 @@ quail.components.color = {
           var gradient = bimage.match(/gradient(\(.*\))/g);
           if (gradient.length > 0) {
             gradient = gradient[0].replace(/(linear|radial|from|\bto\b|gradient|top|left|bottom|right|\d*%)/g, '');
-            this.cache[cacheKey] = $.grep(gradient.match(/(rgb\([^\)]+\)|#[a-z\d]*|[a-z]*)/g), notEmpty);
-            return this.cache[cacheKey];
+            colors.cache[cacheKey] = $.grep(gradient.match(/(rgb\([^\)]+\)|#[a-z\d]*|[a-z]*)/g), notEmpty);
+            return colors.cache[cacheKey];
           }
         }
         element = element.parentNode;
       }
-      this.cache[cacheKey] = false;
+      colors.cache[cacheKey] = false;
       return false;
     },
 
@@ -695,8 +716,8 @@ quail.components.color = {
      */
     getAverageRGB: function(img) {
       var cacheKey = img.src;
-      if (this.cache[cacheKey] !== undefined) {
-        return this.cache[cacheKey];
+      if (colors.cache[cacheKey] !== undefined) {
+        return colors.cache[cacheKey];
       }
 
       var blockSize = 5, // only visit every 5 pixels
@@ -710,7 +731,7 @@ quail.components.color = {
         count = 0;
 
       if (!context) {
-        this.cache[cacheKey] = defaultRGB;
+        colors.cache[cacheKey] = defaultRGB;
         return defaultRGB;
       }
 
@@ -721,7 +742,7 @@ quail.components.color = {
       try {
         data = context.getImageData(0, 0, width, height);
       } catch(e) {
-        this.cache[cacheKey] = defaultRGB;
+        colors.cache[cacheKey] = defaultRGB;
         return defaultRGB;
       }
 
@@ -739,7 +760,7 @@ quail.components.color = {
       rgb.g = ~~(rgb.g/count);
       rgb.b = ~~(rgb.b/count);
 
-      this.cache[cacheKey] = rgb;
+      colors.cache[cacheKey] = rgb;
       return rgb;
     },
 
@@ -767,13 +788,9 @@ quail.components.color = {
       }
 
       var cacheKey = 'traverseVisualTreeForBackground_' + element.attr('data-cacheId') + '_' + property;
-      if (this.cache[cacheKey] !== undefined) {
-        return this.cache[cacheKey];
+      if (colors.cache[cacheKey] !== undefined) {
+        return colors.cache[cacheKey];
       }
-
-      var notempty = function(s) {
-        return $.trim(s) !== '';
-      };
 
       var foundIt;
       var scannedElements = [];
@@ -801,13 +818,13 @@ quail.components.color = {
         // Only check visible elements.
         switch (property) {
         case 'background-color':
-          if (this.hasBackgroundColor(bcolor)) {
+          if (colors.hasBackgroundColor(bcolor)) {
             foundIt = bcolor;
           }
           break;
         case 'background-gradient':
           // Bail out if the element has a background color.
-          if (this.hasBackgroundColor(bcolor)) {
+          if (colors.hasBackgroundColor(bcolor)) {
             foundIt = false;
             continue;
           }
@@ -823,7 +840,7 @@ quail.components.color = {
           break;
         case 'background-image':
           // Bail out if the element has a background color.
-          if (this.hasBackgroundColor(bcolor)) {
+          if (colors.hasBackgroundColor(bcolor)) {
             foundIt = false;
             continue;
           }
@@ -846,7 +863,7 @@ quail.components.color = {
         scannedElements[i].element.css('visibility', scannedElements[i].visibility);
       }
 
-      this.cache[cacheKey] = foundIt;
+      colors.cache[cacheKey] = foundIt;
       return foundIt;
     },
 
@@ -854,285 +871,55 @@ quail.components.color = {
      * Get first element behind current with a background color.
      */
     getBehindElementBackgroundColor: function(element) {
-      return quail.components.color.colors.traverseVisualTreeForBackground(element, 'background-color');
+      return colors.traverseVisualTreeForBackground(element, 'background-color');
     },
 
     /**
      * Get first element behind current with a background gradient.
      */
     getBehindElementBackgroundGradient: function(element) {
-      return quail.components.color.colors.traverseVisualTreeForBackground(element, 'background-gradient');
+      return colors.traverseVisualTreeForBackground(element, 'background-gradient');
     },
 
     /**
      * Get first element behind current with a background image.
      */
     getBehindElementBackgroundImage: function(element) {
-      return quail.components.color.colors.traverseVisualTreeForBackground(element, 'background-image');
+      return colors.traverseVisualTreeForBackground(element, 'background-image');
     }
-  },
-  /**
-   *
-   */
-  buildCase: function (test, Case, element, status, id, message) {
-    test.add(Case({
-      element: element,
-      expected: (function (element, id) {
-        return quail.components.resolveExpectation(element, id);
-      }(element, id)),
-      message: message,
-      status: status
-    }));
-  },
-  /**
-   *
-   */
-  testCandidates: function (id, textNode, test, Case, options) {
+  };
+
+  function textShouldBeTested(textNode) {
     // We want a tag, not just the text node.
     var element = textNode.parentNode;
     var $this = $(element);
-    var algorithm = options.algorithm;
-    var failureFound, failedWCAGColorTest, failedWAIColorTest;
+
     // The nodeType of the element must be 1. Nodes of type 1 implement the Element
     // interface which is required of the first argument passed to window.getComputedStyle.
     // Failure to pass an Element <node> to window.getComputedStyle will raised an exception
     // if Firefox.
     if (element.nodeType !== 1) {
-      return;
-    }
+      return false;
+
     // Ignore elements whose content isn't displayed to the page.
-    if (['script', 'style', 'title', 'object', 'applet', 'embed', 'template']
+    } else if (['script', 'style', 'title', 'object', 'applet', 'embed', 'template', 'noscript']
     .indexOf(element.nodeName.toLowerCase()) !== -1)  {
-      return;
-    }
+      return false;
 
     // Bail out if the text is not readable.
-    if (quail.isUnreadable($this.text())) {
-      quail.components.color.buildCase(test, Case, element, 'cantTell', '', 'The text cannot be processed');
-      return;
+    } else if (quail.isUnreadable($this.text())) {
+      return false;
+
+    } else {
+      return true;
     }
+  }
 
-    var img, i, rainbow, numberOfSamples;
-
-    /**
-     *
-     */
-    function colorFontContrast () {
-      // Check text and background color using DOM.
-      // Build a case.
-      if ((algorithm === 'wcag' && !quail.components.color.colors.passesWCAG($this)) ||
-      (algorithm === 'wai' && !quail.components.color.colors.passesWAI($this))) {
-        quail.components.color.buildCase(test, Case, element, 'failed', id, 'The font contrast of the text impairs readability');
-      }
-      else {
-        quail.components.color.buildCase(test, Case, element, 'passed', id, 'The font contrast of the text is sufficient for readability');
-      }
-    }
-
-    /**
-     *
-     */
-    function colorElementBehindContrast () {
-      // Check text and background using element behind current element.
-      var backgroundColorBehind;
-      // The option element is problematic.
-      if (!$this.is('option')) {
-        backgroundColorBehind = quail.components.color.colors.getBehindElementBackgroundColor($this);
-      }
-      if (backgroundColorBehind) {
-        id = 'colorElementBehindContrast';
-        failedWCAGColorTest = !quail.components.color.colors.passesWCAGColor($this, quail.components.color.colors.getColor($this, 'foreground'), backgroundColorBehind);
-        failedWAIColorTest = !quail.components.color.colors.passesWAIColor(quail.components.color.colors.getColor($this, 'foreground'), backgroundColorBehind);
-        // Build a case.
-        if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
-          quail.components.color.buildCase(test, Case, element, 'failed', id, 'The element behind this element makes the text unreadable');
-        }
-        else {
-          quail.components.color.buildCase(test, Case, element, 'passed', id, 'The element behind this element does not affect readability');
-        }
-      }
-    }
-
-    /**
-     *
-     */
-    function colorBackgroundImageContrast () {
-      // Check if there's a backgroundImage using DOM.
-      var backgroundImage = quail.components.color.colors.getBackgroundImage($this);
-      if (backgroundImage) {
-        img = document.createElement('img');
-        img.crossOrigin = "Anonymous";
-        // Get average color of the background image. The image must first load
-        // before information about it is available to the DOM.
-        img.onload = function () {
-          var id = 'colorBackgroundImageContrast';
-          var averageColorBackgroundImage = quail.components.color.colors.getAverageRGB(img);
-          var failedWCAGColorTest = !quail.components.color.colors.passesWCAGColor($this, quail.components.color.colors.getColor($this, 'foreground'), averageColorBackgroundImage);
-          var failedWAIColorTest = !quail.components.color.colors.passesWAIColor(quail.components.color.colors.getColor($this, 'foreground'), averageColorBackgroundImage);
-          // Build a case.
-          if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
-            quail.components.color.buildCase(test, Case, element, 'failed', id, 'The element\'s background image makes the text unreadable');
-          }
-          else {
-            quail.components.color.buildCase(test, Case, element, 'passed', id, 'The element\'s background image does not affect readability');
-          }
-        };
-        img.onerror = img.onabort = function () {
-          var id = 'colorBackgroundImageContrast';
-          quail.components.color.buildCase(test, Case, element, 'cantTell', id, 'The element\'s background image could not be loaded (' + backgroundImage + ')');
-        };
-        // Load the image.
-        img.src = backgroundImage;
-      }
-    }
-
-    /**
-     *
-     */
-    function colorElementBehindBackgroundImageContrast () {
-      // Check if there's a backgroundImage using element behind current element.
-      var behindBackgroundImage;
-      // The option element is problematic.
-      if (!$this.is('option')) {
-        behindBackgroundImage = quail.components.color.colors.getBehindElementBackgroundImage($this);
-      }
-      if (behindBackgroundImage) {
-        img = document.createElement('img');
-        img.crossOrigin = "Anonymous";
-        // The image must first load before information about it is available to
-        // the DOM.
-        img.onload = function () {
-          var id = 'colorElementBehindBackgroundImageContrast';
-          // Get average color of the background image.
-          var averageColorBehindBackgroundImage = quail.components.color.colors.getAverageRGB(img);
-          var failedWCAGColorTest = !quail.components.color.colors.passesWCAGColor($this, quail.components.color.colors.getColor($this, 'foreground'), averageColorBehindBackgroundImage);
-          var failedWAIColorTest = !quail.components.color.colors.passesWAIColor(quail.components.color.colors.getColor($this, 'foreground'), averageColorBehindBackgroundImage);
-          if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
-            quail.components.color.buildCase(test, Case, element, 'failed', id, 'The background image of the element behind this element makes the text unreadable');
-          }
-          else {
-            quail.components.color.buildCase(test, Case, element, 'passed', id, 'The background image of the element behind this element does not affect readability');
-          }
-        };
-        img.onerror = img.onabort = function () {
-          var id = 'colorElementBehindBackgroundImageContrast';
-          quail.components.color.buildCase(test, Case, element, 'cantTell', id, 'The background image of the element behind this element could not be loaded (' + behindBackgroundImage + ')');
-        };
-        // Load the image.
-        img.src = behindBackgroundImage;
-      }
-    }
-
-    /**
-     *
-     */
-    function colorBackgroundGradientContrast () {
-      // Check if there's a background gradient using DOM.
-      var backgroundGradientColors = quail.components.color.colors.getBackgroundGradient($this);
-      if (backgroundGradientColors) {
-        id = 'colorBackgroundGradientContrast';
-        // Convert colors to hex notation.
-        for (i = 0; i < backgroundGradientColors.length; i++) {
-          if (backgroundGradientColors[i].substr(0, 3) === 'rgb') {
-            backgroundGradientColors[i] = quail.components.color.colors.colorToHex(backgroundGradientColors[i]);
-          }
-        }
-
-        // Create a rainbow.
-        /* global Rainbow */
-        rainbow = new Rainbow();
-        rainbow.setSpectrumByArray(backgroundGradientColors);
-        // @todo, make the number of samples configurable.
-        numberOfSamples = backgroundGradientColors.length * options.gradientSampleMultiplier;
-
-        // Check each color.
-        failureFound = false;
-        for (i = 0; !failureFound && i < numberOfSamples; i++) {
-          failedWCAGColorTest = !quail.components.color.colors.passesWCAGColor($this, quail.components.color.colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
-          failedWAIColorTest = !quail.components.color.colors.passesWAIColor(quail.components.color.colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
-          if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
-            quail.components.color.buildCase(test, Case, element, 'failed', id, 'The background gradient makes the text unreadable');
-            failureFound = true;
-          }
-        }
-
-        // If no failure was found, the element passes for this case type.
-        if (!failureFound) {
-          quail.components.color.buildCase(test, Case, element, 'passed', id, 'The background gradient does not affect readability');
-        }
-      }
-    }
-
-    /**
-     *
-     */
-    function colorElementBehindBackgroundGradientContrast () {
-      // Check if there's a background gradient using element behind current element.
-      var behindGradientColors;
-      // The option element is problematic.
-      if (!$this.is('option')) {
-        behindGradientColors = quail.components.color.colors.getBehindElementBackgroundGradient($this);
-      }
-      if (behindGradientColors) {
-        id = 'colorElementBehindBackgroundGradientContrast';
-        // Convert colors to hex notation.
-        for (i = 0; i < behindGradientColors.length; i++) {
-          if (behindGradientColors[i].substr(0, 3) === 'rgb') {
-            behindGradientColors[i] = quail.components.color.colors.colorToHex(behindGradientColors[i]);
-          }
-        }
-
-        // Create a rainbow.
-        /* global Rainbow */
-        rainbow = new Rainbow();
-        rainbow.setSpectrumByArray(behindGradientColors);
-        numberOfSamples = behindGradientColors.length * options.gradientSampleMultiplier;
-
-        // Check each color.
-        failureFound = false;
-        for (i = 0; !failureFound && i < numberOfSamples; i++) {
-          failedWCAGColorTest = !quail.components.color.colors.passesWCAGColor($this, quail.components.color.colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
-          failedWAIColorTest = !quail.components.color.colors.passesWAIColor(quail.components.color.colors.getColor($this, 'foreground'), '#' + rainbow.colourAt(i));
-          if ((algorithm === 'wcag' && failedWCAGColorTest) || (algorithm === 'wai' && failedWAIColorTest)) {
-            quail.components.color.buildCase(test, Case, element, 'failed', id, 'The background gradient of the element behind this element makes the text unreadable');
-            failureFound = true;
-          }
-        }
-
-        // If no failure was found, the element passes for this case type.
-        if (!failureFound) {
-          quail.components.color.buildCase(test, Case, element, 'passed', id, 'The background gradient of the element behind this element does not affect readability');
-        }
-      }
-    }
-
-    // Switch on the type of color test to run.
-    switch (id) {
-    case 'colorFontContrast':
-      colorFontContrast();
-      break;
-    case 'colorElementBehindContrast':
-      colorElementBehindContrast();
-      break;
-    case 'colorBackgroundImageContrast':
-      colorBackgroundImageContrast();
-      break;
-    case 'colorElementBehindBackgroundImageContrast':
-      colorElementBehindBackgroundImageContrast();
-      break;
-    case 'colorBackgroundGradientContrast':
-      colorBackgroundGradientContrast();
-      break;
-    case 'colorElementBehindBackgroundGradientContrast':
-      colorElementBehindBackgroundGradientContrast();
-      break;
-    }
-  },
   /**
    * For the color test, if any case passes for a given element, then all the
    * cases for that element pass.
    */
-  postInvoke: function (test) {
+  function postInvoke(test) {
     var passed = {};
     var groupsBySelector = test.groupCasesBySelector();
 
@@ -1166,7 +953,15 @@ quail.components.color = {
 
     return size(passed) === size(groupsBySelector);
   }
-};
+
+  return {
+    colors: colors,
+    textShouldBeTested: textShouldBeTested,
+    postInvoke: postInvoke,
+    buildCase: buildCase
+  };
+
+}());
 
 quail.components.content = {
 
@@ -3049,7 +2844,7 @@ quail.aInPHasADistinctStyle=function(quail, test, Case){
 
   /**
    * Test if two elements have a distinct style from it's ancestor
-   * @param  {jQuery node} $elm    
+   * @param  {jQuery node} $elm
    * @param  {jQuery node} $parent
    * @return {boolean}
    */
@@ -3083,6 +2878,8 @@ quail.aInPHasADistinctStyle=function(quail, test, Case){
     return isBlock || isPositioned;
   }
 
+  // Ignore links where the p only contains white space, <, >, |, \, / and - chars
+  var allowedPText = /^([\s|-]|>|<|\\|\/|&(gt|lt);)*$/i;
 
   test.get('$scope').each(function () {
     var $scope = $(this);
@@ -3100,10 +2897,15 @@ quail.aInPHasADistinctStyle=function(quail, test, Case){
       test.add(_case);
 
       var aText = $this.text().trim();
-      var pText = $p.text().trim();
 
-      if (aText === '' || aText === pText) {
+      // Get all text of the p element with all anchors removed
+      var pText = $p.clone().find('a[href]').remove().end().text();
+
+      if (aText === '' || pText.match(allowedPText)) {
         _case.set('status', 'inapplicable');
+
+      } else if ($this.css('color') === $p.css('color')) {
+        _case.set('status', 'passed');
 
       } else if (elmHasDistinctStyle($this, $p)) {
         _case.set('status', 'passed');
@@ -3628,134 +3430,394 @@ quail.closingTagsAreUsed = function(quail, test, Case) {
 };
 
 quail.colorBackgroundGradientContrast = function (quail, test, Case, options) {
-  test.get('$scope').each(function () {
-    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-    var nodes = [];
-    var text = textnodes.iterateNext();
-    if (!text) {
-      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+
+  var colors    = quail.components.color.colors;
+  var buildCase =  quail.components.color.buildCase;
+  var id        = 'colorBackgroundGradientContrast';
+
+  /**
+   *
+   */
+  function colorBackgroundGradientContrast(test, Case, options, $this, element) {
+    // Check if there's a background gradient using DOM.
+    var failureFound, rainbow, numberOfSamples;
+    var backgroundGradientColors = colors.getBackgroundGradient($this);
+
+    if (!backgroundGradientColors) {
+      return;
     }
-    else {
-      // Loop has to be separated. If we try to iterate and rund testCandidates
-      // the xpath thing will crash because document is being modified.
-      while (text) {
-        nodes.push(text);
-        text = textnodes.iterateNext();
+
+    // Convert colors to hex notation.
+    for (var i = 0; i < backgroundGradientColors.length; i++) {
+      if (backgroundGradientColors[i].substr(0, 3) === 'rgb') {
+        backgroundGradientColors[i] = colors.colorToHex(backgroundGradientColors[i]);
       }
-      nodes.forEach(function (textNode) {
-        quail.components.color.testCandidates('colorBackgroundGradientContrast', textNode, test, Case, options);
-      });
     }
+
+    // Create a rainbow.
+    /* global Rainbow */
+    rainbow = new Rainbow();
+    rainbow.setSpectrumByArray(backgroundGradientColors);
+    // @todo, make the number of samples configurable.
+    numberOfSamples = backgroundGradientColors.length * options.gradientSampleMultiplier;
+
+    // Check each color.
+    failureFound = false;
+    for (i = 0; !failureFound && i < numberOfSamples; i++) {
+      var testResult = colors.testElmBackground(options.algorithm, $this,
+            '#' + rainbow.colourAt(i));
+
+      if (!testResult) {
+        buildCase(test, Case, element, 'failed', id, 'The background gradient makes the text unreadable');
+        failureFound = true;
+      }
+    }
+
+    // If no failure was found, the element passes for this case type.
+    if (!failureFound) {
+      buildCase(test, Case, element, 'passed', id, 'The background gradient does not affect readability');
+    }
+  }
+
+
+  test.get('$scope').each(function () {
+    var textNodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes     = [];
+    var textNode  = textNodes.iterateNext();
+
+    // Loop has to be separated. If we try to iterate and rund testCandidates
+    // the xpath thing will crash because document is being modified.
+    while (textNode) {
+      if (quail.components.color.textShouldBeTested(textNode)) {
+        nodes.push(textNode.parentNode);
+      }
+      textNode = textNodes.iterateNext();
+    }
+
+    if (nodes.length === 0) {
+      buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+
+    nodes.forEach(function (element) {
+      colorBackgroundGradientContrast(test, Case, options, $(element), element);
+    });
+
   });
 };
 
 quail.colorBackgroundImageContrast = function (quail, test, Case, options) {
-  test.get('$scope').each(function () {
-    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-    var nodes = [];
-    var text = textnodes.iterateNext();
-    if (!text) {
-      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+
+  var colors    = quail.components.color.colors;
+  var buildCase =  quail.components.color.buildCase;
+  var id        = 'colorBackgroundImageContrast';
+
+  /**
+   *
+   */
+  function colorBackgroundImageContrast(test, Case, options, $this, element) {
+    // Check if there's a backgroundImage using DOM.
+    var backgroundImage = colors.getBackgroundImage($this);
+    if (!backgroundImage) {
+      return;
     }
-    else {
-      // Loop has to be separated. If we try to iterate and rund testCandidates
-      // the xpath thing will crash because document is being modified.
-      while (text) {
-        nodes.push(text);
-        text = textnodes.iterateNext();
+
+    var img = document.createElement('img');
+    img.crossOrigin = "Anonymous";
+
+    // Get average color of the background image. The image must first load
+    // before information about it is available to the DOM.
+    img.onload = function () {
+      var averageColorBackgroundImage = colors.getAverageRGB(img);
+      var testResult = colors.testElmBackground(options.algorithm, $this,
+            averageColorBackgroundImage);
+
+      // Build a case.
+      if (!testResult) {
+        buildCase(test, Case, element, 'failed', id, 'The element\'s background image makes the text unreadable');
+
+      } else {
+        buildCase(test, Case, element, 'passed', id, 'The element\'s background image does not affect readability');
       }
-      nodes.forEach(function (textNode) {
-        quail.components.color.testCandidates('colorBackgroundImageContrast', textNode, test, Case, options);
-      });
+    };
+
+    img.onerror = img.onabort = function () {
+      buildCase(test, Case, element, 'cantTell', id, 'The element\'s background image could not be loaded (' + backgroundImage + ')');
+    };
+
+    // Load the image.
+    img.src = backgroundImage;
+  }
+
+
+  test.get('$scope').each(function () {
+    var textNodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var textNode = textNodes.iterateNext();
+
+    // Loop has to be separated. If we try to iterate and rund testCandidates
+    // the xpath thing will crash because document is being modified.
+    while (textNode) {
+      if (quail.components.color.textShouldBeTested(textNode)) {
+        nodes.push(textNode.parentNode);
+      }
+      textNode = textNodes.iterateNext();
     }
+
+    if (nodes.length === 0) {
+      buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+
+    nodes.forEach(function (element) {
+      colorBackgroundImageContrast(test, Case, options, $(element), element);
+    });
   });
 };
 
 quail.colorElementBehindBackgroundGradientContrast = function (quail, test, Case, options) {
-  test.get('$scope').each(function () {
-    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-    var nodes = [];
-    var text = textnodes.iterateNext();
-    if (!text) {
-      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+
+  var colors    = quail.components.color.colors;
+  var buildCase =  quail.components.color.buildCase;
+  var id        = 'colorElementBehindBackgroundGradientContrast';
+
+
+  /**
+   *
+   */
+  function colorElementBehindBackgroundGradientContrast(test, Case, options, $this, element) {
+    // Check if there's a background gradient using element behind current element.
+    var behindGradientColors;
+    var failureFound;
+    // The option element is problematic.
+    if (!$this.is('option')) {
+      behindGradientColors = colors.getBehindElementBackgroundGradient($this);
     }
-    else {
-      // Loop has to be separated. If we try to iterate and rund testCandidates
-      // the xpath thing will crash because document is being modified.
-      while (text) {
-        nodes.push(text);
-        text = textnodes.iterateNext();
+
+    if (!behindGradientColors) {
+      return;
+    }
+
+    // Convert colors to hex notation.
+    for (var i = 0; i < behindGradientColors.length; i++) {
+      if (behindGradientColors[i].substr(0, 3) === 'rgb') {
+        behindGradientColors[i] = colors.colorToHex(behindGradientColors[i]);
       }
-      nodes.forEach(function (textNode) {
-        quail.components.color.testCandidates('colorElementBehindBackgroundGradientContrast', textNode, test, Case, options);
-      });
     }
+
+    // Create a rainbow.
+    /* global Rainbow */
+    var rainbow = new Rainbow();
+    rainbow.setSpectrumByArray(behindGradientColors);
+    var numberOfSamples = behindGradientColors.length * options.gradientSampleMultiplier;
+
+    // Check each color.
+    failureFound = false;
+    for (i = 0; !failureFound && i < numberOfSamples; i++) {
+      failureFound = !colors.testElmBackground(options.algorithm, $this,
+            '#' + rainbow.colourAt(i));
+    }
+
+    // If no failure was found, the element passes for this case type.
+    if (failureFound) {
+      buildCase(test, Case, element, 'failed', id, 'The background gradient of the element behind this element makes the text unreadable');
+    } else {
+      buildCase(test, Case, element, 'passed', id, 'The background gradient of the element behind this element does not affect readability');
+    }
+  }
+
+
+  test.get('$scope').each(function () {
+    var textNodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var textNode = textNodes.iterateNext();
+
+    // Loop has to be separated. If we try to iterate and rund testCandidates
+    // the xpath thing will crash because document is being modified.
+    while (textNode) {
+      if (quail.components.color.textShouldBeTested(textNode)) {
+        nodes.push(textNode.parentNode);
+      }
+      textNode = textNodes.iterateNext();
+    }
+
+    if (nodes.length === 0) {
+      buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+
+    nodes.forEach(function (element) {
+      colorElementBehindBackgroundGradientContrast(test, Case, options, $(element), element);
+    });
   });
+
 };
 
 quail.colorElementBehindBackgroundImageContrast = function (quail, test, Case, options) {
-  test.get('$scope').each(function () {
-    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-    var nodes = [];
-    var text = textnodes.iterateNext();
-    if (!text) {
-      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+
+  var colors    = quail.components.color.colors;
+  var buildCase =  quail.components.color.buildCase;
+  var id        = 'colorElementBehindBackgroundImageContrast';
+
+  /**
+   *
+   */
+  function colorElementBehindBackgroundImageContrast(test, Case, options, $this, element) {
+    // Check if there's a backgroundImage using element behind current element.
+    var behindBackgroundImage;
+
+    // The option element is problematic.
+    if (!$this.is('option')) {
+      behindBackgroundImage = colors.getBehindElementBackgroundImage($this);
     }
-    else {
-      // Loop has to be separated. If we try to iterate and rund testCandidates
-      // the xpath thing will crash because document is being modified.
-      while (text) {
-        nodes.push(text);
-        text = textnodes.iterateNext();
+
+    if (!behindBackgroundImage) {
+      return;
+    }
+
+    var img = document.createElement('img');
+    img.crossOrigin = "Anonymous";
+    // The image must first load before information about it is available to
+    // the DOM.
+    img.onload = function () {
+
+      // Get average color of the background image.
+      var averageColorBehindBackgroundImage = colors.getAverageRGB(img);
+      var testResult = colors.testElmBackground(options.algorithm, $this,
+            averageColorBehindBackgroundImage);
+      if (!testResult) {
+        buildCase(test, Case, element, 'failed', id, 'The background image of the element behind this element makes the text unreadable');
+
+      } else {
+        buildCase(test, Case, element, 'passed', id, 'The background image of the element behind this element does not affect readability');
       }
-      nodes.forEach(function (textNode) {
-        quail.components.color.testCandidates('colorElementBehindBackgroundImageContrast', textNode, test, Case, options);
-      });
+    };
+    img.onerror = img.onabort = function () {
+      buildCase(test, Case, element, 'cantTell', id, 'The background image of the element behind this element could not be loaded (' + behindBackgroundImage + ')');
+    };
+    // Load the image.
+    img.src = behindBackgroundImage;
+  }
+
+
+  test.get('$scope').each(function () {
+    var textNodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var textNode = textNodes.iterateNext();
+
+    // Loop has to be separated. If we try to iterate and rund testCandidates
+    // the xpath thing will crash because document is being modified.
+    while (textNode) {
+      if (quail.components.color.textShouldBeTested(textNode)) {
+        nodes.push(textNode.parentNode);
+      }
+      textNode = textNodes.iterateNext();
     }
+
+    if (nodes.length === 0) {
+      buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+
+    nodes.forEach(function (element) {
+      colorElementBehindBackgroundImageContrast(test, Case, options, $(element), element);
+    });
   });
 };
 
 quail.colorElementBehindContrast = function (quail, test, Case, options) {
-  test.get('$scope').each(function () {
-    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-    var nodes = [];
-    var text = textnodes.iterateNext();
-    if (!text) {
-      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+
+  var colors    = quail.components.color.colors;
+  var buildCase =  quail.components.color.buildCase;
+  var id        = 'colorElementBehindContrast';
+
+  function colorElementBehindContrast(test, Case, options, $this, element) {
+    // Check text and background using element behind current element.
+    var backgroundColorBehind;
+    // The option element is problematic.
+    if (!$this.is('option')) {
+      backgroundColorBehind = colors.getBehindElementBackgroundColor($this);
+    }
+    if (!backgroundColorBehind) {
+      return;
+    }
+
+    var testResult = colors.testElmBackground(options.algorithm, $this,
+          backgroundColorBehind);
+
+    // Build a case.
+    if (!testResult) {
+      buildCase(test, Case, element, 'failed', id, 'The element behind this element makes the text unreadable');
     }
     else {
-      // Loop has to be separated. If we try to iterate and rund testCandidates
-      // the xpath thing will crash because document is being modified.
-      while (text) {
-        nodes.push(text);
-        text = textnodes.iterateNext();
-      }
-      nodes.forEach(function (textNode) {
-        quail.components.color.testCandidates('colorElementBehindContrast', textNode, test, Case, options);
-      });
+      buildCase(test, Case, element, 'passed', id, 'The element behind this element does not affect readability');
     }
+  }
+
+
+  test.get('$scope').each(function () {
+    var textNodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var textNode = textNodes.iterateNext();
+
+    // Loop has to be separated. If we try to iterate and rund testCandidates
+    // the xpath thing will crash because document is being modified.
+    while (textNode) {
+      if (quail.components.color.textShouldBeTested(textNode)) {
+        nodes.push(textNode.parentNode);
+      }
+      textNode = textNodes.iterateNext();
+    }
+
+    if (nodes.length === 0) {
+      buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+
+    nodes.forEach(function (element) {
+      colorElementBehindContrast(test, Case, options, $(element), element);
+    });
+
   });
 };
 
 quail.colorFontContrast = function (quail, test, Case, options) {
-  test.get('$scope').each(function () {
-    var textnodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
-    var nodes = [];
-    var text = textnodes.iterateNext();
-    if (!text) {
-      quail.components.color.buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+
+  var colors    = quail.components.color.colors;
+  var buildCase =  quail.components.color.buildCase;
+  var id        = 'colorFontContrast';
+
+  /**
+   *
+   */
+  function colorFontContrast(test, Case, options, $this, element) {
+    // Check text and background color using DOM.
+    // Build a case.
+    if (!colors.testElmContrast(options.algorithm, $this)) {
+      buildCase(test, Case, element, 'failed', id, 'The font contrast of the text impairs readability');
     }
     else {
-      // Loop has to be separated. If we try to iterate and rund testCandidates
-      // the xpath thing will crash because document is being modified.
-      while (text) {
-        nodes.push(text);
-        text = textnodes.iterateNext();
-      }
-      nodes.forEach(function (textNode) {
-        quail.components.color.testCandidates('colorFontContrast', textNode, test, Case, options);
-      });
+      buildCase(test, Case, element, 'passed', id, 'The font contrast of the text is sufficient for readability');
     }
+  }
+
+
+  test.get('$scope').each(function () {
+    var textNodes = document.evaluate('descendant::text()[normalize-space()]', this, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    var nodes = [];
+    var textNode = textNodes.iterateNext();
+
+    // Loop has to be separated. If we try to iterate and rund testCandidates
+    // the xpath thing will crash because document is being modified.
+    while (textNode) {
+      if (quail.components.color.textShouldBeTested(textNode)) {
+        nodes.push(textNode.parentNode);
+      }
+      textNode = textNodes.iterateNext();
+    }
+
+    if (nodes.length === 0) {
+      buildCase(test, Case, null, 'inapplicable', '', 'There is no text to evaluate');
+    }
+
+    nodes.forEach(function (element) {
+      colorFontContrast(test, Case, options, $(element), element);
+    });
   });
 };
 
@@ -4398,6 +4460,21 @@ quail.formWithRequiredLabel = function(quail, test, Case) {
   });
 };
 
+quail.headerTextIsTooLong = function(quail, test, Case) {
+  var headerMaxLength = 128;
+
+  test.get('$scope').find('h1, h2, h3, h4, h5, h6').each(function() {
+    var _case = Case({
+      element: this,
+      expected: $(this).closest('.quail-test').data('expected'),
+      status: $(this).text().replace(/^\s+|\s+$/gm,'').length > headerMaxLength ?
+        'failed' :
+        'passed'
+    });
+    test.add(_case);
+  });
+};
+
 quail.headersAttrRefersToATableCell = function(quail, test, Case) {
 
   // Table cell headers without referred ids
@@ -4635,14 +4712,22 @@ quail.imgAltIsTooLong = function(quail, test, Case) {
 };
 
 quail.imgAltNotEmptyInAnchor = function(quail, test, Case) {
-  test.get('$scope').find('a img').each(function() {
+  test.get('$scope').find('a[href]:has(img)').each(function() {
+    var $a   = $(this);
+    var text = $a.text();
+
     var _case = Case({
       element: this,
-      expected: $(this).closest('.quail-test').data('expected')
+      expected: $a.closest('.quail-test').data('expected')
     });
     test.add(_case);
-    if (quail.isUnreadable($(this).attr('alt')) &&
-        quail.isUnreadable($(this).parent('a:first').text())) {
+
+    // Concat all alt attributes of images to the text of the paragraph
+    $a.find('img[alt]').each(function () {
+      text += ' ' + $(this).attr('alt');
+    });
+
+    if (quail.isUnreadable(text)) {
       _case.set({
         'status': 'failed'
       });
@@ -10268,7 +10353,7 @@ quail.lib.wcag2.TestAggregator = (function () {
 
   /**
    * Run the callback for each testcase within the array of tests
-   * @param  {array}   tests    
+   * @param  {array}   tests
    * @param  {Function} callback Given the parameters (test, testcase)
    */
   function eachTestCase(tests, callback) {
@@ -10353,14 +10438,17 @@ quail.lib.wcag2.TestAggregator = (function () {
    * Combine the test results of an Aggregator into asserts
    *
    * A combinbing aggregator is an aggregator which only fails if all it's tests fail
-   * 
+   *
    * @param  {Object} aggregator
    * @param  {Array[Object]} tests
    * @return {Array[Object]}         Array of Asserts
    */
   function getCombinedAssertions(aggregator, tests) {
-    var elms = getCommonElements(tests);
-    var assertions = createAssertionsForEachElement(elms, {
+    // element should already be unique, but some tests have bugs that cause them
+    // not to be. This prevents those problems from escalating
+    var elms = jQuery.unique(getCommonElements(tests));
+
+    var assertions = createAssertionsForEachElement(jQuery.unique(elms), {
       testCase: aggregator.id,
       outcome: {result: 'failed'}
     });
@@ -10400,7 +10488,7 @@ quail.lib.wcag2.TestAggregator = (function () {
    * Stack the test results of a aggregator into asserts
    *
    * A stacked aggregator is one that fails if any of the tests fail
-   * 
+   *
    * @param  {Object} aggregator
    * @param  {Array[Object]} tests
    * @return {Array[Object]}         Array of Asserts
@@ -10451,7 +10539,7 @@ quail.lib.wcag2.TestAggregator = (function () {
 
 
   /**
-   * Filter the data array so it only contains results 
+   * Filter the data array so it only contains results
    * from this aggregator
    * @param  {Array} data
    * @return {Array}
