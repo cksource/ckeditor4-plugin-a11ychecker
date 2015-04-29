@@ -35,6 +35,7 @@ define( function() {
 	HotkeyManager.prototype.setEditorHotkeys = function( editor, hotkeyMapping ) {
 		for ( var i in hotkeyMapping ) {
 			editor.setKeystroke( Number( i ), hotkeyMapping[ i ] );
+			editor.keystrokeHandler.blockedKeystrokes[ Number( i ) ] = 1;
 		}
 	};
 
