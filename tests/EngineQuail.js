@@ -9,12 +9,16 @@
 		'IssueList',
 		'Issue',
 		'IssueDetails',
-		'EngineQuail'
+		'EngineQuail',
+		'EngineQuailConfig',
+		'mocking'
 	], function(
 		IssueList,
 		Issue,
 		IssueDetails,
-		EngineQuail
+		EngineQuail,
+		EngineQuailConfig,
+		mocking
 	) {
 		bender.editor = {};
 
@@ -269,8 +273,12 @@
 						baz: 'bom',
 						// Overriding testCollectionComplete is not allowed, so
 						// this value should not be used.
-						testCollectionComplete: 'foo',
-						guideline: [ 'foo', 'bar' ]
+						testCollectionComplete: 'foo'
+					},
+					engineMock = {
+						config: {
+							guideline: [ 'foo', 'bar' ]
+						}
 					},
 					// Lets replace jQuery for a mock which will return an imitation of quail function.
 					// This function will assert parameters given to the Quail.
@@ -280,7 +288,7 @@
 								assert.areSame( 'bar', params.foo, 'Quail config.foo was not changed' );
 								assert.areNotSame( 'foo', params.testCollectionComplete,
 									'Quail config.testCollectionComplete has been changed' );
-								assert.areSame( customConfig.guideline, params.guideline,
+								assert.areSame( engineMock.config.guideline, params.guideline,
 									'Quail config.guideline was not changed' );
 
 							}
@@ -291,7 +299,7 @@
 					this.editor.config.a11ychecker_quailParams = customConfig;
 
 					// Assertions are placed in jQuery().quail function.
-					EngineQuail.prototype.process.call( {}, a11ychecker, CKEDITOR.document.getBody() );
+					EngineQuail.prototype.process.call( engineMock, a11ychecker, CKEDITOR.document.getBody() );
 				} catch ( e ) {
 					throw e;
 				} finally {
@@ -361,6 +369,26 @@
 				assert.areSame( 'fr', ret, 'Return value' );
 			},
 
+			'test _createConfig': function() {
+				var ret = EngineQuail.prototype._createConfig.call( {}, this.editor );
+				assert.isInstanceOf( EngineQuailConfig, ret, 'Return val type' );
+			},
+
+			'test _createConfig considers custom config': function() {
+				var editor = {},
+					customGuideline = [ 'a', 'b', 'c' ],
+					protoGuideline = EngineQuailConfig.prototype.guideline,
+					ret;
+
+				mocking.mockProperty( 'config.a11ychecker_quailParams.guideline', editor, customGuideline );
+
+				ret = EngineQuail.prototype._createConfig.call( {}, editor );
+
+				assert.areSame( ret.guideline, customGuideline, 'ret.guideline' );
+				assert.areSame( EngineQuailConfig.prototype.guideline, protoGuideline,
+					'EngineQuailConfig prototype guideline array was not changed' );
+			},
+
 			'test integration': function() {
 				// A real Quail request.
 				// Here Quail seems to work asynchronously, so we need to use wait, resume.
@@ -384,6 +412,8 @@
 							assert.areNotEqual( 0, list.count(), 'Results are not empty' );
 						} );
 					};
+
+				engine.config = engine._createConfig( this.editor );
 
 				window.data = {
 					engine: engine,

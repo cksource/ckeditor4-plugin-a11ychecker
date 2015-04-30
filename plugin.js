@@ -70,6 +70,12 @@
 						tempNamespace = editor._.a11ychecker;
 
 					a11ychecker.setEngine( new EngineQuail( that ) );
+					/**
+					 * @todo: this line should be moved to the EngineQuail constructor.
+					 * I've put it here just to avoid conflicts with t/130 branch. After that we should move this.
+					 */
+					a11ychecker.engine.config = a11ychecker.engine._createConfig( editor );
+
 					// Assign controller object to the editor protected namespace.
 					editor._.a11ychecker = a11ychecker;
 
