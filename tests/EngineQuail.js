@@ -415,11 +415,6 @@
 
 				engine.config = engine._createConfig( this.editor );
 
-				window.data = {
-					engine: engine,
-					container: CKEDITOR.document.getById( 'quailMarkupSource' )
-				};
-
 				engine.process( a11ycheckerMockup, contentElement, callback );
 
 				wait();
