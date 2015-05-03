@@ -4,13 +4,15 @@ define( [
 	'IssueList',
 	'Issue',
 	'IssueDetails',
-	'Quail'
+	'Quail',
+	'EngineQuailConfig'
 ], function(
 	Engine,
 	IssueList,
 	Issue,
 	IssueDetails,
-	Quail
+	Quail,
+	EngineQuailConfig
 ) {
 	'use strict';
 
@@ -22,6 +24,8 @@ define( [
 	 */
 	function EngineQuail( plugin ) {
 		this.jsonPath = ( plugin ? plugin.path : '' ) + 'libs/quail/';
+
+		//this.config = this._createConfig();
 	}
 
 	EngineQuail.prototype = new Engine();
@@ -77,6 +81,7 @@ define( [
 				 */
 				// Causes total.results to be new in each call.
 				reset: true,
+				guideline: this.config.guideline,
 				// Method to be executed after Quail checking is complete.
 				// It will extract the issues.
 				testCollectionComplete: function( evtName, collection ) {
@@ -94,24 +99,6 @@ define( [
 
 		if ( !config.jsonPath ) {
 			config.jsonPath = this.jsonPath;
-		}
-
-		if ( !config.guideline ) {
-			config.guideline = [
-				'imgHasAlt',
-				'aMustNotHaveJavascriptHref',
-				'aAdjacentWithSameResourceShouldBeCombined',
-				'imgNonDecorativeHasAlt',
-				'imgImportantNoSpacerAlt',
-				'KINGUseLongDateFormat',
-				'aTitleDescribesDestination',
-				'blockquoteNotUsedForIndentation',
-				'imgAltNotEmptyInAnchor',
-				'tableUsesCaption',
-				'imgShouldNotHaveTitle',
-				'imgAltIsTooLong',
-				'pNotUsedAsHeader'
-			];
 		}
 
 		// Execute Quail checking.
@@ -341,6 +328,23 @@ define( [
 		return true;
 	};
 
+	/**
+	 * This method will return a config object. It will also check editor config if it has some customization to the
+	 * config.
+	 *
+	 * @param {CKEDITOR.editor} editor
+	 * @returns {CKEDITOR.plugins.a11ychecker.EngineQuailConfig}
+	 */
+	EngineQuail.prototype._createConfig = function( editor ) {
+		var ret = new EngineQuailConfig(),
+			instanceQuailConfig = editor.config.a11ychecker_quailParams;
+
+		if ( instanceQuailConfig && instanceQuailConfig.guideline ) {
+			ret.guideline = instanceQuailConfig.guideline;
+		}
+
+		return ret;
+	};
 
 	return EngineQuail;
 } );

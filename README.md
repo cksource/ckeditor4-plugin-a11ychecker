@@ -76,6 +76,28 @@ grunt build-full
 
 Another person might now simply get the `zip`, extract it to the `ckeditor/plugins` directory and everything is ready to go.
 
+#### Including Different Quail Config
+
+You might want to change default Quail guidelines config. Doing so, might have some benefit, in particular your AC distribution users won't need edit **config.js** on their own after your releases. You can do that by adding an extra CLI `--quail-config="foo.json"` parameter to the build command. It should point a JSON file that contains an array of strings. E.g.
+
+```json
+[
+	"aAdjacentWithSameResourceShouldBeCombined",
+	"documentVisualListsAreMarkedUp",
+	"headerH1",
+	"headerH2",
+	"headerH3",
+	"imgAltIsTooLong",
+	"pNotUsedAsHeader"
+]
+```
+
+Then you might include it into a build with:
+
+```
+grunt build-full --quail-config="_local/custom.json"
+```
+
 ## Where Do I Start?
 
 You should use the `plugins/a11ychecker/samples/index.html` sample to test Accessibility Checker (eg. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/index.html)).

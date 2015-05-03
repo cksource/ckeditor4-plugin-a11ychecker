@@ -29,6 +29,17 @@ module.exports = function( grunt ) {
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
 
+		'build-js': {
+			buildConfig: {
+				name: 'plugin',
+				out: 'build/a11ychecker/plugin.js',
+				paths: {
+					'Quail': 'libs/quail/quail.jquery'
+				},
+				optimize: 'none'	// Do not minify because of AMDClean.
+			}
+		},
+
 		'build-quickfix': {
 			build: {
 				source: 'quickfix',
@@ -229,7 +240,7 @@ module.exports = function( grunt ) {
 		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions' ] );
 
 	grunt.registerTask( 'build', 'Generates a build.', [
-		'clean:build', 'build-css', 'build-js', 'copy:build', 'copy:samples', 'copy:readme',
+		'clean:build', 'build-css', 'custom-quail-config', 'build-js', 'copy:build', 'copy:samples', 'copy:readme',
 		'plugin-versions:build', 'clean:buildQuickFixes', 'build-quickfix:build'
 	] );
 	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [
