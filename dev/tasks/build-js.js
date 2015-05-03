@@ -16,19 +16,10 @@
 
 			var requirejs = require( 'requirejs' ),
 				fs = require( 'fs' ),
-				options = this.options();
-
-			var config = {
-				name: 'plugin',
-				out: 'build/a11ychecker/plugin.js',
-				paths: {
-					'Quail': 'libs/quail/quail.jquery'
-				},
-				optimize: 'none'	// Do not minify because of AMDClean.
-			};
-
-			// Make grunt wait because requirejs.optimize is a async method.
-			var done = this.async();
+				options = this.options(),
+				config = grunt.config.get( 'build-js.buildConfig' ),
+				// Make grunt wait because requirejs.optimize is a async method.
+				done = this.async();
 
 			requirejs.optimize( config,
 				function( buildResponse ) {

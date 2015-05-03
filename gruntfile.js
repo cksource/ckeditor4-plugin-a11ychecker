@@ -29,6 +29,17 @@ module.exports = function( grunt ) {
 	grunt.initConfig( {
 		pkg: grunt.file.readJSON( 'package.json' ),
 
+		'build-js': {
+			buildConfig: {
+				name: 'plugin',
+				out: 'build/a11ychecker/plugin.js',
+				paths: {
+					'Quail': 'libs/quail/quail.jquery'
+				},
+				optimize: 'none'	// Do not minify because of AMDClean.
+			}
+		},
+
 		'build-quickfix': {
 			build: {
 				source: 'quickfix',
