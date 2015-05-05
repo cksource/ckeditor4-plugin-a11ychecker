@@ -185,9 +185,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			]
 		},
 		toolbarGroups: [
-			{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+			{ name: 'document', groups: [ 'mode', 'document' ] },
 			{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-			{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
 			{ name: 'forms', groups: [ 'forms' ] },
 			{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 			'/',
@@ -206,12 +205,13 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				document.getElementById( 'acceessibility-button-tip' ).style.display = 'block';
 			}
 		},
-		removeButtons: 'Outdent,Indent,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Styles,Font,FontSize,TextColor,BGColor',
+		removeButtons: 'Strike,Subscript,Superscript,PasteText,Outdent,Indent,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Styles,Font,FontSize,TextColor,BGColor',
 		removePlugins:
 			'colorbutton,' +
 			'colordialog,' +
 			'entities,' +
 			'filebrowser,' +
+			'find,' +
 			'flash,' +
 			'floatingspace,' +
 			'forms,' +
