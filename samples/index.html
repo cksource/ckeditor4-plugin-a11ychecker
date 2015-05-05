@@ -74,8 +74,6 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 			&lt;p&gt;
 				This sample contains text with some accessibility problems. It will allow you to easily discover Accessibility Checker features. So, without further ado, let&amp;#39;s move to the issues!
 			&lt;/p&gt;
-			&lt;h2&gt;Short Date Format&lt;/h2&gt;
-			&lt;p&gt;Here we have some short dates, like: 12/04/2014, 2/1/74 and 12-05-21, which some users may find confusing.&lt;/p&gt;
 			&lt;h2&gt;Subsequent Links&lt;/h2&gt;
 			&lt;p&gt;This line contains two subsequent anchor elements with identical &quot;href&quot; attribute value: &lt;a href=&quot;http://ckeditor.com/about&quot;&gt;read more &lt;/a&gt;&lt;a href=&quot;http://ckeditor.com/about&quot;&gt;at ckeditor.com&lt;/a&gt;.&lt;/p&gt;
 			&lt;h2&gt;Image with a Too Long Alternative Text&lt;/h2&gt;
@@ -83,6 +81,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				This image has an extremely long &quot;alt&quot; attribute value:
 				&lt;img src=&quot;../../../samples/assets/sample.jpg&quot; alt=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex&quot; style=&quot;height:100px; width:80px&quot; /&gt;
 			&lt;/p&gt;
+			&lt;h2&gt;Short Date Format&lt;/h2&gt;
+			&lt;p&gt;Here we have some short dates, like: 12/04/2014, 2/1/74 and 12-05-21, which some users may find confusing.&lt;/p&gt;
 			&lt;h2&gt;Table without a Caption&lt;/h2&gt;
 			&lt;p&gt;Let&amp;#39;s take a look at the table below. It could definitely have a caption!&lt;/p&gt;
 			&lt;table&gt;
@@ -152,6 +152,38 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 		extraPlugins: 'a11ychecker',
 		language: 'en',
 		height: 500,
+		a11ychecker_quailParams: {
+			// Override Accessibility Checker gudielines from the default config.
+			guideline: [
+				'imgNonDecorativeHasAlt',
+				'imgImportantNoSpacerAlt',
+				'KINGUseLongDateFormat',
+				'aTitleDescribesDestination',
+				'tableUsesCaption',
+				'aAdjacentWithSameResourceShouldBeCombined',
+				'aImgAltNotRepetitive',
+				'aLinksAreSeparatedByPrintableCharacters',
+				'aMustNotHaveJavascriptHref',
+				'aSuspiciousLinkText',
+				'blockquoteNotUsedForIndentation',
+				'documentVisualListsAreMarkedUp',
+				'headerH1',
+				'headerH2',
+				'headerH3',
+				'headerH4',
+				'headerH5',
+				'headerH6',
+				'imgAltIsDifferent',
+				'imgAltIsTooLong',
+				'imgAltNotEmptyInAnchor',
+				'imgAltTextNotRedundant',
+				'imgHasAlt',
+				'imgShouldNotHaveTitle',
+				'linkHasAUniqueContext',
+				'pNotUsedAsHeader',
+				'tableDataShouldHaveTh'
+			]
+		},
 		toolbarGroups: [
 			{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 			{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
