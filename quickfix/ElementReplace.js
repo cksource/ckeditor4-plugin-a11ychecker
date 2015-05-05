@@ -23,7 +23,7 @@
 			/**
 			 * Returns the name of the tag that issue.element should be converted to.
 			 *
-			 * @member CKEDITOR.plugins.a11ychecker.quickFix
+			 * @member CKEDITOR.plugins.a11ychecker.quickFix.ElementReplace
 			 * @returns {String}
 			 */
 			ElementReplace.prototype.getTargetName = function() {
