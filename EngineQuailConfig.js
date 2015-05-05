@@ -7,19 +7,27 @@ define( function() {
 
 	EngineQuailConfig.prototype = {
 		guideline: [
-			'imgHasAlt',
-			'aMustNotHaveJavascriptHref',
 			'aAdjacentWithSameResourceShouldBeCombined',
-			'imgNonDecorativeHasAlt',
-			'imgImportantNoSpacerAlt',
-			'KINGUseLongDateFormat',
-			'aTitleDescribesDestination',
+			'aImgAltNotRepetitive',
+			'aLinksAreSeparatedByPrintableCharacters',
+			'aMustNotHaveJavascriptHref',
+			'aSuspiciousLinkText',
 			'blockquoteNotUsedForIndentation',
-			'imgAltNotEmptyInAnchor',
-			'tableUsesCaption',
-			'imgShouldNotHaveTitle',
+			'documentVisualListsAreMarkedUp',
+			'headerH1',
+			'headerH2',
+			'headerH3',
+			'headerH4',
+			'headerH5',
+			'headerH6',
+			'imgAltIsDifferent',
 			'imgAltIsTooLong',
-			'pNotUsedAsHeader'
+			'imgAltNotEmptyInAnchor',
+			'imgAltTextNotRedundant',
+			'imgHasAlt',
+			'imgShouldNotHaveTitle',
+			'pNotUsedAsHeader',
+			'tableDataShouldHaveTh'
 		]
 	};
 
