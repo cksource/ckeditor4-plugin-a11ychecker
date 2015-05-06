@@ -30,6 +30,9 @@
 			errorEmpty: 'Alternative text can not be empty'
 		},
 		QuickFix: {},
+		ParagraphToHeader: {
+			levelLabel: 'Header level'
+		},
 		Repository: {}
 	} );
 } )();
