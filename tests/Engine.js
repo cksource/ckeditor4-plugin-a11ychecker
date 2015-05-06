@@ -121,7 +121,7 @@
 						}, 40 );
 					} );
 
-				mocking.mockProperty( 'CKEDITOR.plugins.a11ychecker.quickFixes.getInstance', window, quickFixGet );
+				mocking.mockProperty( 'controller.quickFixes.getInstance', engine, quickFixGet );
 
 				// That will force 4 require() calls.
 				engine.fixesMapping.foo = [ 1, 2, 3, 4 ];

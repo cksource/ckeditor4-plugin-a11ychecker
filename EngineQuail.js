@@ -19,9 +19,12 @@ define( [
 	 *
 	 * @class CKEDITOR.plugins.a11ychecker.EngineQuail
 	 * @constructor
+	 * @param {CKEDITOR.plugins.a11ychecker.Controller} controller Controller for which the object is created.
 	 */
-	function EngineQuail( plugin ) {
-		this.jsonPath = ( plugin ? plugin.path : '' ) + 'libs/quail/';
+	function EngineQuail( controller ) {
+		this.jsonPath = controller.path + 'libs/quail/';
+
+		Engine.call( this, controller );
 	}
 
 	EngineQuail.prototype = new Engine();

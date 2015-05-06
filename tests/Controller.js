@@ -23,10 +23,14 @@
 			'test Controller constructor': function() {
 				// Lets use 0 as editor, so EditableDecorator.attachListeners won't be called.
 				var editor = 0,
-					controller = new Controller( editor );
+					controller = new Controller( editor, 'foo/' );
 
 				assert.areSame( editor, controller.editor, 'editor property is stored' );
+				assert.areSame( 'foo/', controller.path, 'path property is stored' );
 				assert.isFalse( controller.enabled, 'By default controller is disabled' );
+
+				// @todo: do it in more unit-testing fashion.
+				assert.areSame( 'foo/quickfix/', controller.quickFixes.basePath, 'Invalid basePath set for quickFixes object.' );
 			},
 
 			'test Controller.exec': function() {

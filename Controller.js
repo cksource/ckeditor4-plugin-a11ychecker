@@ -7,7 +7,8 @@ define( [
 	'PreferredIssueFinder',
 	'ui/Ui',
 	'ui/ViewerController',
-	'HotkeyManager'
+	'HotkeyManager',
+	'quickfix/LocalizedRepository'
 ], function(
 	CheckingMode,
 	ListeningMode,
@@ -16,7 +17,8 @@ define( [
 	PreferredIssueFinder,
 	Ui,
 	ViewerController,
-	HotkeyManager
+	HotkeyManager,
+	LocalizedRepository
 ) {
 	'use strict';
 
@@ -50,8 +52,9 @@ define( [
 	 * @class CKEDITOR.plugins.a11ychecker.Controller
 	 * @constructor
 	 * @param {CKEDITOR.editor} editor
+	 * @param {String} pluginPath Path stored in the `plugin.path` for Accessibility Checker plugin definition.
 	 */
-	function Controller( editor ) {
+	function Controller( editor, pluginPath ) {
 		this._ = {};
 		/**
 		 * Editor owning this Accessibility Checker instance.
@@ -60,6 +63,14 @@ define( [
 		 * @type {CKEDITOR.editor}
 		 */
 		this.editor = editor;
+
+		this.quickFixes = new LocalizedRepository( pluginPath + 'quickfix/' );
+
+		/**
+		 * @param {String} path Path taken from plugin definitions `path` property. E.g.
+		 * `http://myHost.foo/ckeditor/plugins/a11ychecker/`.
+		 */
+		this.path = pluginPath;
 
 		/**
 		 * An accessibility checking engine object. It encapsulates all the logic related

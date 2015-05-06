@@ -30,6 +30,11 @@
 				CKEDITOR.dom.element = function( param ) {
 					this.param = param;
 				};
+
+				// A mockup for AC controller.
+				this.controller = {
+					path: this.editor.plugins.a11ychecker.path
+				};
 			},
 
 			tearDown: function() {
@@ -37,8 +42,16 @@
 				CKEDITOR.dom.element = this.originalDomElement;
 			},
 
+			'test EngineQuail constructor': function() {
+				var mock = {};
+
+				EngineQuail.call( mock, this.controller );
+
+				assert.areEqual( this.editor.plugins.a11ychecker.path + 'libs/quail/', mock.jsonPath, 'Invalid jsonPath value' );
+			},
+
 			'test EngineQuail.getIssuesFromCollection': function() {
-				var engineMockup = new EngineQuail(),
+				var engineMockup = new EngineQuail( this.controller ),
 					collectionMockup = getQuailCollectionMockup(),
 					ret;
 
@@ -50,7 +63,7 @@
 			'test EngineQuailOld.getIssuesFromCollection stores issue details': function() {
 				// Checks if method recognizes and fills issue details objects, based on given
 				// collection.
-				var engineMockup = new EngineQuail(),
+				var engineMockup = new EngineQuail( this.controller ),
 					collectionMockup = getQuailCollectionMockup();
 
 				// Because issueDetails property is shared by prototype, we need to overwrite it,
@@ -80,7 +93,7 @@
 			'test EngineQuail.getIssueDetailsFromTest': function() {
 				// Checks if method recognizes and fills issue details objects, based on given
 				// collection.
-				var engineMockup = new EngineQuail(),
+				var engineMockup = new EngineQuail( this.controller ),
 					collectionMockup = getQuailCollectionMockup(),
 					ret;
 
@@ -369,7 +382,7 @@
 				// implementation.
 				CKEDITOR.dom.element = this.originalDomElement;
 
-				var engine = new EngineQuail( this.editor.plugins.a11ychecker ),
+				var engine = new EngineQuail( this.controller ),
 					a11ycheckerMockup = {
 						editor: this.editor
 					},

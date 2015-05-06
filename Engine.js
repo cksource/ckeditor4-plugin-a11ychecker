@@ -12,10 +12,12 @@ define( function() {
 	 * methods, if the default behaviour is not suitable.
 	 *
 	 * @since 4.5
-	 * @class CKEDITOR.plugins.a11ychecker.Engine
 	 * @constructor
+	 * @class CKEDITOR.plugins.a11ychecker.Engine
+	 * @param {CKEDITOR.plugins.a11ychecker.Controller} controller Controller for which the object is created.
 	 */
-	function Engine() {
+	function Engine( controller ) {
+		this.controller = controller;
 	}
 
 	Engine.prototype = {
@@ -148,7 +150,7 @@ define( function() {
 				i;
 			// We need to fetch every QuickFix type.
 			for ( i = 0; i < mappingValue.length; i++ ) {
-				CKEDITOR.plugins.a11ychecker.quickFixes.getInstance( {
+				this.controller.quickFixes.getInstance( {
 					name: mappingValue[ i ],
 					callback: onQuickFixCreated,
 					issue: issue,

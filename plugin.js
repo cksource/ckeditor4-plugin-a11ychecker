@@ -31,14 +31,12 @@
 				'Engine',
 				'Issue',
 				'IssueList',
-				'IssueDetails',
-				'quickfix/LocalizedRepository'
+				'IssueDetails'
 			], function(
 				Engine,
 				Issue,
 				IssueList,
-				IssueDetails,
-				LocalizedRepository
+				IssueDetails
 			) {
 				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
 					Engine: Engine,
@@ -46,8 +44,6 @@
 					IssueList: IssueList,
 					IssueDetails: IssueDetails
 				} );
-
-				CKEDITOR.plugins.a11ychecker.quickFixes = new LocalizedRepository( path + 'quickfix/' );
 			} );
 		},
 
@@ -66,10 +62,10 @@
 			editor.once( 'instanceReady', function() {
 				// Loads Engine, Controller and ViewerController classes.
 				require( [ 'Controller', 'EngineQuail' ], function( Controller, EngineQuail ) {
-					var a11ychecker = new Controller( editor ),
+					var a11ychecker = new Controller( editor, that.path ),
 						tempNamespace = editor._.a11ychecker;
 
-					a11ychecker.setEngine( new EngineQuail( that ) );
+					a11ychecker.setEngine( new EngineQuail( a11ychecker ) );
 					// Assign controller object to the editor protected namespace.
 					editor._.a11ychecker = a11ychecker;
 
