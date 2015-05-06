@@ -50,6 +50,25 @@
 					fixMockup.fix( {}, mocking.spy() );
 
 					assert.areSame( 1, wrapper.find( 'div' ).count(), 'Div element created' );
+				},
+
+				'test ElementReplace position': function() {
+					var wrapper = CKEDITOR.document.findOne( '#replacePosition' ),
+						fixMockup = {
+							getTargetName: mocking.stub().returns( 'h1' ),
+							issue: {
+								element: wrapper.findOne( 'p' )
+							},
+							fix: ElementReplace.prototype.fix
+						},
+						newElem;
+
+					fixMockup.fix( {}, mocking.spy() );
+
+					newElem = wrapper.findOne( 'h1' );
+
+					assert.isNotNull( newElem, 'Element not found' );
+					assert.areSame( 3, newElem.getIndex() );
 				}
 			};
 		quickFixTest( 'ElementReplace', tests );

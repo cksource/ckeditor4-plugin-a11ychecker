@@ -35,13 +35,10 @@
 			};
 
 			ElementReplace.prototype.fix = function( formAttributes, callback ) {
-				var newElement = new CKEDITOR.dom.element( this.getTargetName() ),
-					parent = this.issue.element.getParent();
+				var newElement = new CKEDITOR.dom.element( this.getTargetName() );
 
-				this.issue.element.remove();
+				newElement.replace( this.issue.element );
 				this.issue.element.moveChildren( newElement );
-
-				parent.append( newElement );
 
 				if ( callback ) {
 					callback( this );
