@@ -24,9 +24,10 @@
 			 * Returns the name of the tag that issue.element should be converted to.
 			 *
 			 * @member CKEDITOR.plugins.a11ychecker.quickFix.ElementReplace
+			 * @param {Object} formAttributes Form attributes from {@link #fix}.
 			 * @returns {String}
 			 */
-			ElementReplace.prototype.getTargetName = function() {
+			ElementReplace.prototype.getTargetName = function( formAttributes ) {
 				return 'h1';
 			};
 
@@ -35,7 +36,7 @@
 			};
 
 			ElementReplace.prototype.fix = function( formAttributes, callback ) {
-				var newElement = new CKEDITOR.dom.element( this.getTargetName() );
+				var newElement = new CKEDITOR.dom.element( this.getTargetName( formAttributes ) );
 
 				newElement.replace( this.issue.element );
 				this.issue.element.moveChildren( newElement );
