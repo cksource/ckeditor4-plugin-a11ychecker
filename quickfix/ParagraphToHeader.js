@@ -20,38 +20,22 @@
 			ParagraphToHeader.prototype = new ElementReplace();
 			ParagraphToHeader.prototype.constructor = ParagraphToHeader;
 
-			/**
-			 * Returns the name of the tag that issue.element should be converted to.
-			 *
-			 * @member CKEDITOR.plugins.a11ychecker.quickFix.ParagraphToHeader
-			 * @returns {String}
-			 */
-			ParagraphToHeader.prototype.getTargetName = function() {
-				return 'h1';
+			ParagraphToHeader.prototype.getTargetName = function( formAttributes ) {
+				return formAttributes.level;
 			};
 
-			ParagraphToHeader.prototype.display = function( form ) {
+			ParagraphToHeader.prototype.display = function( form, editor ) {
+
+				var levelDict = this._getFormHeaderLeves( editor );
+
 				form.setInputs( {
 					level: {
-						type: 'text',
+						type: 'select',
 						label: this.lang.levelLabel,
-						value: 'h2'
+						value: 'h2',
+						options: levelDict
 					}
 				} );
-			};
-
-			ParagraphToHeader.prototype.fix = function( formAttributes, callback ) {
-				var newElement = new CKEDITOR.dom.element( this.getTargetName() ),
-					parent = this.issue.element.getParent();
-
-				this.issue.element.remove();
-				this.issue.element.moveChildren( newElement );
-
-				parent.append( newElement );
-
-				if ( callback ) {
-					callback( this );
-				}
 			};
 
 			/**
@@ -122,6 +106,28 @@
 
 				return ret;
 			};
+
+			/**
+			 * Returns options dictionary that should be put in form header level select.
+			 *
+			 * @param {CKEDITOR.editor} editor
+			 */
+			ParagraphToHeader.prototype._getFormHeaderLeves = function( editor ) {
+				var dict = {},
+					boundaries = this._getPossibleLevels( editor ),
+					preferredLevel = this._getPreferredLevel( editor );
+
+				for ( var i = boundaries.min; i <= boundaries.max; i++ ) {
+					dict[ 'h' + i ] = 'H' + i;
+				}
+
+				if ( dict[ 'h' + preferredLevel ] ) {
+					dict[ 'h' + preferredLevel ] += ' (Suggested)';
+				}
+
+				return dict;
+			};
+
 
 			CKEDITOR.plugins.a11ychecker.quickFixes.add( 'ParagraphToHeader', ParagraphToHeader );
 		}

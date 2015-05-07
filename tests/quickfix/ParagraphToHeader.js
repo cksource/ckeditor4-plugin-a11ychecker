@@ -106,6 +106,9 @@
 					assert.areSame( 3, ret.max, 'ret.max' );
 				},
 
+				'test ParagraphToHeader._hasBoldingTag': function() {
+				},
+
 				// This function creates an editor mock, with given "editable" and calls
 				// _getPreferredLevel method.
 				_callGetPreferredLevel: function( editable, issueElement ) {
