@@ -40,7 +40,7 @@
 
 	QuickFix.prototype.constructor = QuickFix;
 
-	QuickFix.prototype.display = function( form ) {
+	QuickFix.prototype.display = function( form, editor ) {
 	};
 
 	/**
