@@ -70,50 +70,62 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 	<section class="demo">
 		<span class="fancy-tip" id="acceessibility-button-tip" role="presentation">Give it a try!</span>
 		<textarea cols="80" id="editor1" name="editor1" rows="10">
-			&lt;h1&gt;Welcome to the CKEditor Accessibility Checker Demo!&lt;/h1&gt;
-			&lt;p&gt;
-				This sample contains text with some accessibility problems. It will allow you to easily discover Accessibility Checker features. So, without further ado, let&amp;#39;s move to the issues!
-			&lt;/p&gt;
-			&lt;h2&gt;Subsequent Links&lt;/h2&gt;
-			&lt;p&gt;This line contains two subsequent anchor elements with identical &quot;href&quot; attribute value: &lt;a href=&quot;http://ckeditor.com/about&quot;&gt;read more &lt;/a&gt;&lt;a href=&quot;http://ckeditor.com/about&quot;&gt;at ckeditor.com&lt;/a&gt;.&lt;/p&gt;
-			&lt;h2&gt;Image with a Too Long Alternative Text&lt;/h2&gt;
-			&lt;p&gt;
-				This image has an extremely long &quot;alt&quot; attribute value:
-				&lt;img src=&quot;../../../samples/assets/sample.jpg&quot; alt=&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex&quot; style=&quot;height:100px; width:80px&quot; /&gt;
-			&lt;/p&gt;
-			&lt;h2&gt;Short Date Format&lt;/h2&gt;
-			&lt;p&gt;Here we have some short dates, like: 12/04/2014, 2/1/74 and 12-05-21, which some users may find confusing.&lt;/p&gt;
-			&lt;h2&gt;Table without a Caption&lt;/h2&gt;
-			&lt;p&gt;Let&amp;#39;s take a look at the table below. It could definitely have a caption!&lt;/p&gt;
-			&lt;table&gt;
-				&lt;tr&gt;
-					&lt;td&gt;Captionless HTML&lt;/td&gt;
-					&lt;td&gt;table W3C&lt;/td&gt;
-					&lt;td&gt;.&lt;/td&gt;
-				&lt;/tr&gt;
-			&lt;/table&gt;
-			&lt;h2&gt;Image in a Link without an Alternative Text&lt;/h2&gt;
-			&lt;p&gt;
-				The following image, wrapped in a link, has a &quot;title&quot; attribute, but does not provide any &quot;alt&quot; attribute. Note that this element causes multiple issues:
-			&lt;/p&gt;
-			&lt;p&gt;
-				&lt;a href=&quot;//cksource.com&quot;&gt;&lt;img src=&quot;../../../samples/assets/sample.jpg&quot; title=&quot;Some title...&quot; style=&quot;height:100px; width:80px&quot; /&gt;&lt;/a&gt;
-			&lt;/p&gt;
-			&lt;h2&gt;Paragraph Used to Imitate a Header&lt;/h2&gt;
-			&lt;p&gt;The next paragraph will be used to imitate a headline.&lt;/p&gt;
-			&lt;p&gt;&lt;strong&gt;This Should Be a Header Element&lt;/strong&gt;&lt;/p&gt;
-			&lt;h1&gt;Real Use Sample&lt;/h1&gt;
-			&lt;p&gt;
-				Now let's use the standard CKEditor &quot;Apollo 11&quot; sample.
-			&lt;/p&gt;
-			&lt;h2&gt;
-				&lt;img class=&quot;right&quot; src=&quot;../../../samples/assets/sample.jpg&quot;/&gt; Apollo 11
-			&lt;/h2&gt;
-			&lt;p&gt;&lt;b&gt;Apollo 11&lt;/b&gt; was the spaceflight that landed the first humans, Americans &lt;a href=&quot;http://en.wikipedia.org/wiki/Neil_Armstrong&quot; title=&quot;Neil Armstrong&quot;&gt;Neil Armstrong&lt;/a&gt; and &lt;a href=&quot;http://en.wikipedia.org/wiki/Buzz_Aldrin&quot; title=&quot;Buzz Aldrin&quot;&gt;Buzz Aldrin&lt;/a&gt;, on the Moon on July 20, 1969, at 20:18 UTC. Armstrong became the first to step onto the lunar surface 6 hours later on July 21 at 02:56 UTC.&lt;/p&gt; &lt;p&gt;Armstrong spent about &lt;s&gt;three and a half&lt;/s&gt; two and a half hours outside the spacecraft, Aldrin slightly less; and together they collected 47.5 pounds (21.5&amp;nbsp;kg) of lunar material for return to Earth. A third member of the mission, &lt;a href=&quot;http://en.wikipedia.org/wiki/Michael_Collins_(astronaut)&quot; title=&quot;Michael Collins (astronaut)&quot;&gt;Michael Collins&lt;/a&gt;, piloted the &lt;a href=&quot;http://en.wikipedia.org/wiki/Apollo_Command/Service_Module&quot; title=&quot;Apollo Command/Service Module&quot;&gt;command&lt;/a&gt; spacecraft alone in lunar orbit until Armstrong and Aldrin returned to it for the trip back to Earth.&lt;/p&gt;
-			&lt;h3&gt;Broadcasting and &lt;em&gt;quotes&lt;/em&gt; &lt;a id=&quot;quotes&quot; name=&quot;quotes&quot;&gt;&lt;/a&gt;&lt;/h3&gt;
-			&lt;p&gt;Broadcast on live TV to a world-wide audience, Armstrong stepped onto the lunar surface and described the event as:&lt;/p&gt; &lt;blockquote&gt;&lt;p&gt;One small step for [a] man, one giant leap for mankind.&lt;/p&gt;&lt;/blockquote&gt;
-			&lt;hr/&gt;
-			&lt;p style=&quot;text-align: right;&quot;&gt;&lt;small&gt;Source: &lt;a href=&quot;http://en.wikipedia.org/wiki/Apollo_11&quot;&gt;Wikipedia.org&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
+			<h1 id="welcome-to-the-ckeditor-accessibility-checker-demo-">Welcome to the CKEditor Accessibility Checker Demo!</h1>
+			<p>This sample contains text with some accessibility problems. It will allow you to easily discover Accessibility Checker features. So, without further ado, let&#39;s move to the issues!</p>
+			<h2 id="common-problems">Common Problems</h2>
+			<h3 id="wrong-header-level">Wrong Header Level</h3>
+			<p>Well, wouldn&#39;t it be just great if headers had a logical order? So that we won&#39;t see <code>h3</code> followed by <code>h6</code>? Unfortunately the next headline is an example of such inconsistency.</p>
+			<h6 id="this-is-header-with-invalid-level">This is header with invalid level</h6>
+			<h3 id="paragraph-used-to-imitate-a-header">Paragraph Used to Imitate a Header</h3>
+			<p>The next paragraph will be used to imitate a headline.</p>
+			<p><strong>This Should Be a Header Element</strong></p>
+			<h3 id="invalid-lists">Invalid Lists</h3>
+			<p>Some users, not familiar with structuring the content or WYSIWYG editors, tends to emulate lists with plain text instead of using dedicated list markup. Take this as an example:</p>
+			<p>1) foo <br>
+			2) bar <br>
+			3) baz <br>
+			4) bom</p>
+			<p>Wouldn&#39;t it be great to have this list based on <code>ol</code> and <code>li</code> elements?</p>
+			<h3 id="subsequent-links">Subsequent Links</h3>
+			<p>This line contains two subsequent anchor elements with identical &quot;href&quot; attribute value: <a href="http://ckeditor.com/about">read more </a><a href="http://ckeditor.com/about">at ckeditor.com</a>.</p>
+			<h3 id="image-file-name-given-as-an-alt">Image File Name Given As An Alt</h3>
+			<p>Some CMS&#39;es generate alt based on file name. Well it&#39;s not a good practise. You must admit that <code>3ce00b07d39a1aeb2dd2.png</code> or <code>sample.jpg?timestamp=1431293422&amp;fo-bar=baz-bom</code> aren&#39;t a good tale at all.</p>
+			<p><img src="../../../samples/assets/sample.jpg?timestamp=1431293422&fo-bar=baz-bom" alt="sample.jpg?timestamp=1431293422&fo-bar=baz-bom" style="height:100px; width:80px" /></p>
+			<h3 id="image-without-alt">Image Without Alt</h3>
+			<p>This is a classic example. If an image has no alt then most readers will use its name as alternative text, which again is not a good idea.</p>
+			<p><img src="../../../samples/assets/sample.jpg" style="height:100px; width:80px" /></p>
+			<h3 id="table-without-a-header">Table Without a Header</h3>
+			<p>It&#39;s a good practise to use <code>th</code> elements to mark table headers.</p>
+			<table>
+				<tr>
+					<td>Name</td>
+					<td>Age</td>
+				</tr>
+				<tr>
+					<td>John</td>
+					<td>10</td>
+				</tr>
+				<tr>
+					<td>Jane</td>
+					<td>20</td>
+				</tr>
+				<tr>
+					<td>James</td>
+					<td>30</td>
+				</tr>
+			</table>
+
+			<h2 id="real-use-sample">Real Use Sample</h2>
+			<p>Now let&#39;s use the standard CKEditor &quot;Apollo 11&quot; sample.</p>
+			<h3 id="-img-class-right-src-samples-assets-sample-jpg-apollo-11"><img class="right" src="../../../samples/assets/sample.jpg"/> Apollo 11</h3>
+			<p><b>Apollo 11</b> was the spaceflight that landed the first humans, Americans <a href="http://en.wikipedia.org/wiki/Neil_Armstrong" title="Neil Armstrong">Neil Armstrong</a> and <a href="http://en.wikipedia.org/wiki/Buzz_Aldrin" title="Buzz Aldrin">Buzz Aldrin</a>, on the Moon on July 20, 1969, at 20:18 UTC. Armstrong became the first to step onto the lunar surface 6 hours later on July 21 at 02:56 UTC.</p> <p>Armstrong spent about <s>three and a half</s> two and a half hours outside the spacecraft, Aldrin slightly less; and together they collected 47.5 pounds (21.5&nbsp;kg) of lunar material for return to Earth. A third member of the mission, <a href="http://en.wikipedia.org/wiki/Michael_Collins_(astronaut)" title="Michael Collins (astronaut)">Michael Collins</a>, piloted the <a href="http://en.wikipedia.org/wiki/Apollo_Command/Service_Module" title="Apollo Command/Service Module">command</a> spacecraft alone in lunar orbit until Armstrong and Aldrin returned to it for the trip back to Earth.</p>
+			<h4 id="broadcasting-and-em-quotes-em-a-id-quotes-name-quotes-a-">Broadcasting and <em>quotes</em> <a id="quotes" name="quotes"></a></h4>
+			<p>Broadcast on live TV to a world-wide audience, Armstrong stepped onto the lunar surface and described the event as:</p>
+			<blockquote>
+			<p>One small step for [a] man, one giant leap for mankind.</p>
+			</blockquote>
+			<p><hr/></p>
+			<p style="text-align: right;"><small>Source: <a href="http://en.wikipedia.org/wiki/Apollo_11">Wikipedia.org</a></small></p>
 		</textarea>
 	</section>
 	<section class="contact-info yellow-box">
@@ -159,10 +171,8 @@ For licensing, see LICENSE.md or http://ckeditor.com/license
 				'imgImportantNoSpacerAlt',
 				'KINGUseLongDateFormat',
 				'aTitleDescribesDestination',
-				'tableUsesCaption',
 				'aAdjacentWithSameResourceShouldBeCombined',
 				'aImgAltNotRepetitive',
-				'aLinksAreSeparatedByPrintableCharacters',
 				'aMustNotHaveJavascriptHref',
 				'aSuspiciousLinkText',
 				'blockquoteNotUsedForIndentation',
