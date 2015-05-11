@@ -49,7 +49,8 @@
 
 			ImgAlt.prototype.validate = function( formAttributes ) {
 				var ret = [],
-					proposedAlt = formAttributes.alt + '';
+					proposedAlt = formAttributes.alt + '',
+					imgElem = this.issue && this.issue.element;
 
 
 				if ( !proposedAlt ) {
@@ -65,6 +66,13 @@
 				if ( ImgAlt.altLengthLimit && proposedAlt.length > ImgAlt.altLengthLimit ) {
 					ret.push( 'Alternative text is too long. It should be up to ' + ImgAlt.altLengthLimit +
 						' characters while your has ' + proposedAlt.length + '.' );
+				}
+
+				if ( imgElem ) {
+					var fileName = String( imgElem.getAttribute( 'src' ) ).split( '/' ).pop();
+					if ( fileName == proposedAlt ) {
+						ret.push( 'Image alt should not be the same as the file name.' );
+					}
 				}
 
 				return ret;

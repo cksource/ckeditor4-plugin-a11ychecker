@@ -40,6 +40,7 @@ define( [
 		'KINGUseLongDateFormat': [ 'DateUnfold' ],
 		'aAdjacentWithSameResourceShouldBeCombined': [ 'AnchorsMerge' ],
 		'imgAltNotEmptyInAnchor': [ 'ImgAlt' ],
+		'imgAltIsDifferent': [ 'ImgAlt' ],
 		'imgShouldNotHaveTitle': [ 'AttributeRename' ],
 		'tableUsesCaption': [ 'AddTableCaption' ],
 		'imgAltIsTooLong': [ 'ImgAlt' ],

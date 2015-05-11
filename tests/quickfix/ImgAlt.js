@@ -88,6 +88,28 @@
 					assert.areSame( 1, ret.length, 'Return array length' );
 					assert.areSame( expectedError, ret[ 0 ], 'Error message' );
 				},
+
+				'test ImgAlt.validate same as file name': function() {
+					var attributes = {
+							alt: 'my_file_name.png'
+						},
+						mock = {},
+						getAttr = mocking.stub().returns( '/foo/bar/my_file_name.png' ),
+						expectedError = 'Image alt should not be the same as the file name.',
+						ret;
+
+					mocking.mockProperty( 'issue.element.getAttribute', mock, getAttr );
+
+					ret = ImgAlt.prototype.validate.call( mock, attributes );
+
+					mocking.assert.calledOnce( getAttr );
+					mocking.assert.calledWith( getAttr, 'src' );
+
+					assert.isInstanceOf( Array, ret );
+					assert.areSame( 1, ret.length, 'Return array length' );
+					assert.areSame( expectedError, ret[ 0 ], 'Error message' );
+				},
+
 				'test ImgAlt.validate no alt': function() {
 					var fixMock = {
 							lang: {
