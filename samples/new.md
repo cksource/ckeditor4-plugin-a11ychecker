@@ -1,7 +1,7 @@
 
 # New York City
 
-<img src="img/sample/Lower_Manhattan_from_Jersey_City_November_2014_panorama_3.jpg" alt="Lower_Manhattan_from_Jersey_City_November_2014_panorama_3.jpg">
+<img src="img/sample/Lower_Manhattan_from_Jersey_City_November_2014_panorama_3.jpg">
 
 **Summary**
 
@@ -11,7 +11,7 @@ Situated on one of the world's largest natural harbors, New York City consists o
 
 ## Boroughs
 
-<img src="img/sample/Lower_Manhattan_viewed_from_Brooklyn.jpg">
+<img src="img/sample/Lower_Manhattan_viewed_from_Brooklyn.jpg" alt=”Lower_Manhattan_viewed_from_Brooklyn.jpg”>
 
 1) Manhattan (New York County) is the most densely populated borough and is home to Central Park and most of the city's skyscrapers.<br>
 2) The Bronx (Bronx County) is New York City's northernmost borough, the location of Yankee Stadium, home of the New York Yankees, and home to the largest cooperatively owned housing complex in the United States, Co-op City.<br>
