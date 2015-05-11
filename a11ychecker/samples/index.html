@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or http://ckeditor.com/license
+-->
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>CKEditor Sample - Accessibility Checker</title>
+	<script src="../../../ckeditor.js"></script>
+	<script src="jquery.min.js"></script>	<link rel="stylesheet" href="sdk-assets/css/sample.css">
+	<link rel="stylesheet" href="css/sample.css">
+</head>
+<body>
+
+<header>
+	<div>
+		<h1>
+			<a href="index.html"><img src="img/a11yc-logo.png" alt="Accessibility Checker"></a>
+		</h1>
+		<nav class="navigation main-navigation">
+			<ul>
+				<li><a href="index.html" class="active">Demo</a></li>
+				<li><a href="about.html">About</a></li>
+				<li><a href="guide.html">Guide</a></li>
+			</ul>
+		</nav>
+	</div>
+	<div class="navigation top-navigation">
+		<address>
+			<span class="phone-number">Toll-free (US/CAN): +1 800 820 4009</span>
+			<span class="phone-number">Internationally: +1 650 521 9065</span>
+			<a href="mailto:sales@cksource.com" class="mail">sales@cksource.com</a>
+		</address>
+	</div>
+</header>
+
+<main>
+	<section class="adjoined">
+		<div>
+			<h1>Accessibility Checker</h1>
+			<p>
+				Accessibility Checker is an innovative solution that lets you <strong>inspect accessibility level of content created
+				in CKEditor</strong> and immediately <strong>solve any issues that are found</strong>. This sample uses
+				<a href="http://quailjs.org/" target="_blank">Quail</a> as its accessibility tests library, but you can integrate any
+				other similar library to achieve comparable results.
+			</p>
+
+			<p>
+				For more guides on how to use Accessibility Checker read a <a href="guide.html">complete guide</a>.
+			</p>
+		</div>
+	</section>
+	<section class="demo">
+		<span class="fancy-tip" id="acceessibility-button-tip" role="presentation">Give it a try!</span>
+		<textarea cols="80" id="editor1" name="editor1" rows="10">
+			&lt;h1 id=&quot;new-york-city&quot;&gt;New York City&lt;/h1&gt;
+			&lt;p&gt;&lt;img src=&quot;img/sample/NewYorkCity.jpg&quot; class=&quot;right&quot;&gt;
+			&lt;strong&gt;New York&lt;/strong&gt; (NYC) – often called New York City or the City of New York to distinguish it from the State of New York, of which it is a part – is the most populous city in the United States and the center of the New York metropolitan area, the premier gateway for legal immigration to the United States and one of the most populous urban agglomerations in the world. A global power city, New York exerts a significant impact upon commerce, finance, media, art, fashion, research, technology, education, and entertainment. Home to the headquarters of the United Nations, New York is an important center for international diplomacy and has been described as the cultural and financial capital of the world.&lt;/p&gt;
+			&lt;p&gt;&lt;strong&gt;Boroughs&lt;/strong&gt;&lt;/p&gt;
+			&lt;p&gt;&lt;img src=&quot;img/sample/5Boroughs.png&quot; alt=&quot;5Boroughs.png&quot; class=&quot;right&quot; style=&quot;margin-top:10px&quot;&gt;&lt;/p&gt;
+			&lt;p&gt;1) Manhattan (New York County) is the most densely populated borough and is home to Central Park and most of the city&amp;#39;s skyscrapers.&lt;br&gt;
+			2) The Bronx (Bronx County) is New York City&amp;#39;s northernmost borough, the location of Yankee Stadium, home of the New York Yankees, and home to the largest cooperatively owned housing complex in the United States, Co-op City.&lt;br&gt;
+			3) Brooklyn (Kings County), on the western tip of Long Island, is the city&amp;#39;s most populous borough and was an independent city until 1898.&lt;br&gt;
+			4) Queens (Queens County), on Long Island east of Brooklyn, is geographically the largest borough, the most ethnically diverse county in the United States, as well as the most ethnically diverse urban area in the world.&lt;br&gt;
+			5) Staten Island (Richmond County) is the most suburban in character of the five boroughs.&lt;br&gt;&lt;/p&gt;
+			&lt;h4 id=&quot;demographics&quot;&gt;Demographics&lt;/h4&gt;
+			&lt;table&gt;
+				&lt;tr&gt;&lt;td&gt;Racial composition&lt;/td&gt;&lt;td&gt;2010&lt;/td&gt;&lt;td&gt;1990&lt;/td&gt;&lt;td&gt;1970&lt;/td&gt;&lt;td&gt;1940&lt;/td&gt;&lt;tr&gt;
+				&lt;tr&gt;&lt;td&gt;White&lt;/td&gt;&lt;td&gt;44.0%&lt;/td&gt;&lt;td&gt;52.3%&lt;/td&gt;&lt;td&gt;76.6%&lt;/td&gt;&lt;td&gt;93.6%&lt;/td&gt;&lt;tr&gt;
+				&lt;tr&gt;&lt;td&gt;—Non-Hispanic&lt;/td&gt;&lt;td&gt;33.3%&lt;/td&gt;&lt;td&gt;43.2%&lt;/td&gt;&lt;td&gt;62.9%&lt;/td&gt;&lt;td&gt;92.0%&lt;/td&gt;&lt;tr&gt;
+				&lt;tr&gt;&lt;td&gt;Black or African American&lt;/td&gt;&lt;td&gt;25.5%&lt;/td&gt;&lt;td&gt;28.7%&lt;/td&gt;&lt;td&gt;21.1%&lt;/td&gt;&lt;td&gt;6.1%&lt;/td&gt;&lt;tr&gt;
+				&lt;tr&gt;&lt;td&gt;Hispanic or Latino (of any race)&lt;/td&gt;&lt;td&gt;28.6%&lt;/td&gt;&lt;td&gt;24.4%&lt;/td&gt;&lt;td&gt;16.2%&lt;/td&gt;&lt;td&gt;1.6%&lt;/td&gt;&lt;tr&gt;
+				&lt;tr&gt;&lt;td&gt;Asian&lt;/td&gt;&lt;td&gt;12.7%&lt;/td&gt;&lt;td&gt;7.0%&lt;/td&gt;&lt;td&gt;1.2%&lt;/td&gt;&lt;td&gt;−&lt;/td&gt;&lt;tr&gt;
+			&lt;/table&gt;
+
+			&lt;p&gt;&lt;img src=&quot;img/sample/Demographics.JPG&quot; alt=&quot;Landmark 19th-century rowhouses on tree-lined Kent Street in Greenpoint Historic District, Brooklyn&quot; class=&quot;right&quot;&gt;
+			New York City is the most-populous city in the United States, with an estimated record high of 8,491,079 residents as of 2014, incorporating more immigration into the city than outmigration since the 2010 United States Census. More people live in New York City than in the next two most-populous U.S. cities (Los Angeles and Chicago) combined. This amounts to about 40% of the state of New York&amp;#39;s population and a similar percentage of the metropolitan regional population. In 2006, demographers estimated that New York&amp;#39;s population will reach between 9.2 and 9.5 million by 2030.&lt;/p&gt;
+			&lt;p&gt;Throughout its history, the city has been a major port of entry for immigrants into the United States; more than 12 million European immigrants were received at Ellis Island between 1892 and 1924. The term &lt;span style=&quot;font-style: italic;&quot;&gt;&amp;quot;melting pot&amp;quot;&lt;/span&gt; was first coined to describe densely populated immigrant neighborhoods on the Lower East Side. By 1900, Germans constituted the largest immigrant group, followed by the Irish, Jews, and Italians. In 1940, whites represented 92% of the city&amp;#39;s population.&lt;/p&gt;
+			&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/New_York_City&quot;&gt;Source:&lt;/a&gt; &lt;a href=&quot;http://en.wikipedia.org/wiki/New_York_City&quot;&gt;wikipedia.org&lt;/a&gt;&lt;/p&gt;
+		</textarea>
+	</section>
+	<section class="contact-info yellow-box">
+		<h2>Contact us:</h2>
+
+		<address>
+			<p>
+				<span class="phone-number">Toll-free (US/CAN): +1 800 820 4009</span>
+				<span class="phone-number">Internationally: +1 650 521 9065</span>
+				<a href="mailto:sales@cksource.com" class="mail">sales@cksource.com</a>
+			</p>
+			<p>
+				<span class="working-hours">Working hours: 1am-3pm PST, 4am-6pm EST, 10am-12am CET</span>
+			</p>
+		</address>
+	</section>
+</main>
+
+<footer>
+	<div>
+		<p>
+			CKEditor - The text editor for the Internet - <a class="samples" href="http://ckeditor.com/">http://ckeditor.com</a>
+		</p>
+		<p id="copy">
+			Copyright &copy; 2003-2015, <a class="samples" href="http://cksource.com/">CKSource</a> - Frederico Knabben. All rights reserved.
+		</p>
+	</div>
+</footer>
+
+<script>
+	// Performance optimization:
+	// Send a request for tests json file asap, so it's likely to be ready when user uses AC.
+	$.getJSON( '../libs/quail/tests.json' );
+
+	CKEDITOR.replace( 'editor1', {
+		extraPlugins: 'a11ychecker',
+		language: 'en',
+		height: 500,
+		a11ychecker_quailParams: {
+			// Override Accessibility Checker gudielines from the default config.
+			guideline: [
+				'imgNonDecorativeHasAlt',
+				'imgImportantNoSpacerAlt',
+				'aTitleDescribesDestination',
+				'aAdjacentWithSameResourceShouldBeCombined',
+				'aImgAltNotRepetitive',
+				'aMustNotHaveJavascriptHref',
+				'aSuspiciousLinkText',
+				'blockquoteNotUsedForIndentation',
+				'documentVisualListsAreMarkedUp',
+				'headerH1',
+				'headerH2',
+				'headerH3',
+				'headerH4',
+				'headerH5',
+				'headerH6',
+				'imgAltIsDifferent',
+				'imgAltIsTooLong',
+				'imgAltNotEmptyInAnchor',
+				'imgAltTextNotRedundant',
+				'imgHasAlt',
+				'imgShouldNotHaveTitle',
+				'linkHasAUniqueContext',
+				'pNotUsedAsHeader',
+				'tableDataShouldHaveTh'
+			]
+		},
+		toolbarGroups: [
+			{ name: 'document', groups: [ 'mode', 'document' ] },
+			{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+			{ name: 'forms', groups: [ 'forms' ] },
+			{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+			'/',
+			{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+			{ name: 'links', groups: [ 'links' ] },
+			{ name: 'insert', groups: [ 'insert' ] },
+			{ name: 'styles', groups: [ 'styles' ] },
+			{ name: 'colors', groups: [ 'colors' ] },
+			{ name: 'tools', groups: [ 'tools' ] },
+			{ name: 'others', groups: [ 'others' ] },
+			{ name: 'about', groups: [ 'about' ] }
+		],
+		on: {
+			instanceReady: function() {
+				// When editor is ready we'll show the hint.
+				document.getElementById( 'acceessibility-button-tip' ).style.display = 'block';
+			}
+		},
+		contentsCss: [ '../../../contents.css', 'css/contents.css' ],
+		removeButtons: 'Strike,Subscript,Superscript,PasteText,Outdent,Indent,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,BidiLtr,BidiRtl,Styles,Font,FontSize,TextColor,BGColor',
+		removePlugins:
+			'colorbutton,' +
+			'colordialog,' +
+			'entities,' +
+			'filebrowser,' +
+			'find,' +
+			'flash,' +
+			'floatingspace,' +
+			'forms,' +
+			'horizontalrule,' +
+			'iframe,' +
+			'indentlist,' +
+			'indentblock,' +
+			'language,' +
+			'liststyle,' +
+			'newpage,' +
+			'pagebreak,' +
+			'pastefromword,' +
+			'preview,' +
+			'print,' +
+			'save,' +
+			'selectall,' +
+			'showborders,' +
+			'smiley,' +
+			'specialchar,' +
+			'templates'
+	} );
+</script>
+
+</body>
+</html>
