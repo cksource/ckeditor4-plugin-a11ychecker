@@ -150,7 +150,7 @@
 				}
 
 				if ( dict[ 'h' + preferredLevel ] ) {
-					dict[ 'h' + preferredLevel ] += ' (Suggested)';
+					dict[ 'h' + preferredLevel ] += ( ' ' + this.lang.suggested );
 				}
 
 				return dict;

@@ -31,7 +31,8 @@
 		},
 		QuickFix: {},
 		ParagraphToHeader: {
-			levelLabel: 'Header level'
+			levelLabel: 'Header level',
+			suggested: '(Suggested)'
 		},
 		Repository: {}
 	} );
