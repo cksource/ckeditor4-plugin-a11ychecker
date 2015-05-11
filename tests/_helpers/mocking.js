@@ -8,6 +8,7 @@ define( function() {
 	var ret = {
 		sinon: sinon,
 		spy: sinon.spy,
+		stub: sinon.stub,
 		assert: sinon.assert
 	};
 

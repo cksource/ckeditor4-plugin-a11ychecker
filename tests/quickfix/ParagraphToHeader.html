@@ -1,0 +1,37 @@
+<div id="paragraphToH1">
+	<p>Random paragraph</p>
+</div>
+<div id="paragraphToH2">
+	<h1>foo</h1>
+	<p>Random paragraph</p>
+</div>
+<div id="paragraphToH6">
+	<h5>foo</h5>
+	<p>Random paragraph</p>
+</div>
+<div id="paragraphToH6Limit">
+	<h6>foo</h6>
+	<p>Random paragraph</p>
+</div>
+<div id="nestedParagraphToH3">
+	<h2>foo</h2>
+	<div>
+		<p>Random paragraph</p>
+	</div>
+</div>
+<div id="nestedEditableParagraph">
+	<h1>foo</h1>
+	<div id="nestedEditable">
+		<p>Random paragraph</p>
+	</div>
+</div>
+<div id="suspiciousTags">
+	<p id="suspiciousStrong"><strong>Should be converted to h1.</strong></p>
+	<p id="suspiciousB"><b>Should be converted to h1.</b></p>
+	<p><em>Should be converted to h1.</em></p>
+	<p><span style="font-weight: bolder;">Should be converted to h1.</span></p>
+</div>
+<div id="other">
+	<p id="multipleStrongs"><strong>mutli</strong> <strong>mutli</strong> <strong>strong</strong></p>
+	<p id="textParagraph">foo bar</p>
+</div>

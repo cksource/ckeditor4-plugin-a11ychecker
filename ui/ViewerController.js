@@ -173,7 +173,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 				}
 
 				for ( var i = 0; i < fixesCount; i++ ) {
-					fixes[ i ].display( form );
+					fixes[ i ].display( form, that.editor );
 				}
 
 				if ( fixesCount ) {
