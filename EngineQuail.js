@@ -42,7 +42,14 @@ define( [
 		'imgAltNotEmptyInAnchor': [ 'ImgAlt' ],
 		'imgShouldNotHaveTitle': [ 'AttributeRename' ],
 		'tableUsesCaption': [ 'AddTableCaption' ],
-		'imgAltIsTooLong': [ 'ImgAlt' ]
+		'imgAltIsTooLong': [ 'ImgAlt' ],
+		'pNotUsedAsHeader': [ 'ParagraphToHeader' ],
+		'headerH1': [ 'ParagraphToHeader' ],
+		'headerH2': [ 'ParagraphToHeader' ],
+		'headerH3': [ 'ParagraphToHeader' ],
+		'headerH4': [ 'ParagraphToHeader' ],
+		'headerH5': [ 'ParagraphToHeader' ],
+		'headerH6': [ 'ParagraphToHeader' ]
 	};
 
 	/**
