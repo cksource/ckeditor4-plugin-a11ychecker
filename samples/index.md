@@ -30,4 +30,4 @@ New York City is the most-populous city in the United States, with an estimated 
 
 Throughout its history, the city has been a major port of entry for immigrants into the United States; more than 12 million European immigrants were received at Ellis Island between 1892 and 1924. The term <span style="font-style: italic;">&quot;melting pot&quot;</span> was first coined to describe densely populated immigrant neighborhoods on the Lower East Side. By 1900, Germans constituted the largest immigrant group, followed by the Irish, Jews, and Italians. In 1940, whites represented 92% of the city's population.
 
-[Source:](http://en.wikipedia.org/wiki/New_York_City) [wikipedia.org](http://en.wikipedia.org/wiki/New_York_City)
+[Source:](http://en.wikipedia.org/wiki/New_York_City) [wikipedia.org](http://en.wikipedia.org/wiki/New_York_City) with modifications.
