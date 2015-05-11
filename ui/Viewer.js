@@ -129,8 +129,7 @@ define( [
 	 *
 	 * @constant
 	 */
-	//Viewer.SCROLL_THROTTLING_RATE = 200;
-	Viewer.SCROLL_THROTTLING_RATE = 10;
+	Viewer.SCROLL_THROTTLING_RATE = 50;
 
 	Viewer.prototype = {
 		/**
