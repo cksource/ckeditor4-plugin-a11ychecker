@@ -32,7 +32,7 @@
 					level: {
 						type: 'select',
 						label: this.lang.levelLabel,
-						value: 'h2',
+						value: 'h' + this._getPreferredLevel( editor ),
 						options: levelDict
 					}
 				} );
