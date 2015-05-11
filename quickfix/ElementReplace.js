@@ -41,6 +41,8 @@
 				newElement.replace( this.issue.element );
 				this.issue.element.moveChildren( newElement );
 
+				this.issue.element = newElement;
+
 				if ( callback ) {
 					callback( this );
 				}
