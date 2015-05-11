@@ -38,6 +38,14 @@
 				} );
 			};
 
+			ParagraphToHeader.prototype.fix = function( formAttributes, callback ) {
+				var that = this;
+				ElementReplace.prototype.fix.call( this, formAttributes, function() {
+					that._removeBoldTag();
+					callback( that );
+				} );
+			};
+
 			/**
 			 * Determines preferred heading level for the header that should be cerated.
 			 *
@@ -72,14 +80,14 @@
 			 * This method check if issue element contains `<strong>` element only as a first and the only child.
 			 * If so we'll remove it, but move its children to the `issue.element`.
 			 */
-			ParagraphToHeader.prototype._hasBoldingTag = function() {
+			ParagraphToHeader.prototype._removeBoldTag = function() {
 				var isElementEvaluator = function( el ) {
 						return el.type === CKEDITOR.NODE_ELEMENT;
 					},
 					elem = this.issue.element,
 					innerElement = elem.getFirst( isElementEvaluator ),
 					// If first child element is at the same time last element child, then it means it has only this element.
-					hasSingleElement = innerElement.equals( elem.getLast( isElementEvaluator ) ),
+					hasSingleElement = innerElement && innerElement.equals( elem.getLast( isElementEvaluator ) ),
 					suspiciousTagNames = [ 'strong', 'b' ];
 
 				if ( hasSingleElement && CKEDITOR.tools.indexOf( suspiciousTagNames, innerElement.getName() ) !== -1 ) {

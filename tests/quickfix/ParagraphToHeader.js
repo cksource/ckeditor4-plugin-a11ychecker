@@ -106,9 +106,9 @@
 					assert.areSame( 3, ret.max, 'ret.max' );
 				},
 
-				'test ParagraphToHeader._hasBoldingTag - removing strong': function() {
+				'test ParagraphToHeader._removeBoldTag - removing strong': function() {
 					var issueElement = CKEDITOR.document.getById( 'suspiciousStrong' ),
-						ret = ParagraphToHeader.prototype._hasBoldingTag.call( {
+						ret = ParagraphToHeader.prototype._removeBoldTag.call( {
 							issue: {
 								element: issueElement
 							}
@@ -118,9 +118,9 @@
 					assert.areEqual( 'Should be converted to h1.', issueElement.getHtml(), 'Inner HTML' );
 				},
 
-				'test ParagraphToHeader._hasBoldingTag - removing b': function() {
+				'test ParagraphToHeader._removeBoldTag - removing b': function() {
 					var issueElement = CKEDITOR.document.getById( 'suspiciousB' ),
-						ret = ParagraphToHeader.prototype._hasBoldingTag.call( {
+						ret = ParagraphToHeader.prototype._removeBoldTag.call( {
 							issue: {
 								element: issueElement
 							}
@@ -130,10 +130,21 @@
 					assert.areEqual( 'Should be converted to h1.', issueElement.getHtml(), 'Inner HTML' );
 				},
 
-				'test ParagraphToHeader._hasBoldingTag - multiple strong': function() {
+				'test ParagraphToHeader._removeBoldTag - no element child': function() {
+					var issueElement = CKEDITOR.document.getById( 'textParagraph' ),
+						ret = ParagraphToHeader.prototype._removeBoldTag.call( {
+							issue: {
+								element: issueElement
+							}
+						} );
+
+					assert.areEqual( 'foo bar', issueElement.getHtml(), 'Inner HTML' );
+				},
+
+				'test ParagraphToHeader._removeBoldTag - multiple strong': function() {
 					// If multiple strongs are in the same element, then they should not be removed.
 					var issueElement = CKEDITOR.document.getById( 'multipleStrongs' ),
-						ret = ParagraphToHeader.prototype._hasBoldingTag.call( {
+						ret = ParagraphToHeader.prototype._removeBoldTag.call( {
 							issue: {
 								element: issueElement
 							}
