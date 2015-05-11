@@ -106,7 +106,40 @@
 					assert.areSame( 3, ret.max, 'ret.max' );
 				},
 
-				'test ParagraphToHeader._hasBoldingTag': function() {
+				'test ParagraphToHeader._hasBoldingTag - removing strong': function() {
+					var issueElement = CKEDITOR.document.getById( 'suspiciousStrong' ),
+						ret = ParagraphToHeader.prototype._hasBoldingTag.call( {
+							issue: {
+								element: issueElement
+							}
+						} );
+
+					assert.areEqual( 0, issueElement.find( 'strong' ).count(), 'Strong was removed' );
+					assert.areEqual( 'Should be converted to h1.', issueElement.getHtml(), 'Inner HTML' );
+				},
+
+				'test ParagraphToHeader._hasBoldingTag - removing b': function() {
+					var issueElement = CKEDITOR.document.getById( 'suspiciousB' ),
+						ret = ParagraphToHeader.prototype._hasBoldingTag.call( {
+							issue: {
+								element: issueElement
+							}
+						} );
+
+					assert.areEqual( 0, issueElement.find( 'b' ).count(), 'B element was removed' );
+					assert.areEqual( 'Should be converted to h1.', issueElement.getHtml(), 'Inner HTML' );
+				},
+
+				'test ParagraphToHeader._hasBoldingTag - multiple strong': function() {
+					// If multiple strongs are in the same element, then they should not be removed.
+					var issueElement = CKEDITOR.document.getById( 'multipleStrongs' ),
+						ret = ParagraphToHeader.prototype._hasBoldingTag.call( {
+							issue: {
+								element: issueElement
+							}
+						} );
+
+					assert.areEqual( 3, issueElement.find( 'strong' ).count(), 'Strong elements were not removed' );
 				},
 
 				// This function creates an editor mock, with given "editable" and calls

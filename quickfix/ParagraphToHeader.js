@@ -69,6 +69,26 @@
 			};
 
 			/**
+			 * This method check if issue element contains `<strong>` element only as a first and the only child.
+			 * If so we'll remove it, but move its children to the `issue.element`.
+			 */
+			ParagraphToHeader.prototype._hasBoldingTag = function() {
+				var isElementEvaluator = function( el ) {
+						return el.type === CKEDITOR.NODE_ELEMENT;
+					},
+					elem = this.issue.element,
+					innerElement = elem.getFirst( isElementEvaluator ),
+					// If first child element is at the same time last element child, then it means it has only this element.
+					hasSingleElement = innerElement.equals( elem.getLast( isElementEvaluator ) ),
+					suspiciousTagNames = [ 'strong', 'b' ];
+
+				if ( hasSingleElement && CKEDITOR.tools.indexOf( suspiciousTagNames, innerElement.getName() ) !== -1 ) {
+					innerElement.moveChildren( elem );
+					innerElement.remove();
+				}
+			};
+
+			/**
 			 * Returns minimal and maximal possible header levels for given editor.
 			 *
 			 * Result will be based on ACF and `config.format_tags`.
