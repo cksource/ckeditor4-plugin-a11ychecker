@@ -167,9 +167,7 @@ module.exports = function( grunt ) {
 
 			// Copies external dependencies into a build directory.
 			external: {
-				src: [ '../balloonpanel/**', '!../balloonpanel/tests/**', '!../balloonpanel/dev/**',
-					'!../balloonpanel/README.md'
-				],
+				src: [ '../balloonpanel/skins/**', '../balloonpanel/plugin.js' ],
 				dest: 'build/balloonpanel/'
 			},
 
