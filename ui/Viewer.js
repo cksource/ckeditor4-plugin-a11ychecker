@@ -112,12 +112,7 @@ define( [
 		this.setupModes();
 		this.setMode( 'checking' );
 
-		// This is a minor fix for balloon panel, should be removed after cksource/balloonpanel#5
-		// is done.
-		( function( panelPart, lang ) {
-			panelPart.removeAttribute( 'aria-labelledby' );
-			panelPart.setAttribute( 'aria-label', lang.balloonLabel );
-		}( this.panel.parts.panel, this.lang ) );
+		this._fixAria();
 	}
 
 	/**
@@ -337,6 +332,31 @@ define( [
 
 			this.modes[ mode ].enterMode();
 			this.mode = mode;
+		},
+
+		/**
+		 * Fixes aria markup of balloonpanel by ading both `aria-labelledby` and `aria-describedby`
+		 * attributes to the balloon wrapper.
+		 *
+		 * @private
+		 */
+		_fixAria: function() {
+			// This is a minor fix for balloon panel, should be removed after cksource/balloonpanel#5
+			// is done.
+			var that = this,
+				panelPart = that.panel.parts.panel,
+				titleId = CKEDITOR.tools.getNextId(),
+				titleAdditionalId = CKEDITOR.tools.getNextId(),
+				descrId = CKEDITOR.tools.getNextId();
+
+			// Assigning unique ids.
+			that.panel.parts.title.setAttribute( 'id', titleId );
+			that.navigation.parts.counter.setAttribute( 'id', titleAdditionalId );
+			that.description.parts.wrapper.setAttribute( 'id', descrId );
+
+			// And now adding the proper attributes.
+			panelPart.setAttribute( 'aria-labelledby', titleId + ' ' + titleAdditionalId );
+			panelPart.setAttribute( 'aria-describedby', descrId );
 		}
 	};
 
