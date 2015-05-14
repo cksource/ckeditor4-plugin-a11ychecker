@@ -340,7 +340,7 @@ define( [
 		 *
 		 * @private
 		 */
-		_fixAria: function() {
+		_fixAria: function() { // (#93)
 			// This is a minor fix for balloon panel, should be removed after cksource/balloonpanel#5
 			// is done.
 			var that = this,
