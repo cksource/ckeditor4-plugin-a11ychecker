@@ -56,6 +56,9 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		 * @constructor Creates a select input instance.
 		 */
 		Select: function( name, definition ) {
+			var optionKey,
+				curOption;
+
 			ViewerInput.apply( this, arguments );
 
 			this.options = {};
@@ -64,13 +67,13 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 				id: this.id
 			} ) );
 
-			for ( var o in definition.options ) {
+			for ( optionKey in definition.options ) {
 				// Can't use CKEDITOR.dom.createFromHTML because of IE9 (#143).
-				var curOption = new CKEDITOR.dom.element( 'option' );
-				curOption.setText( definition.options[ o ] );
-				curOption.setAttribute( 'value', o );
+				curOption = new CKEDITOR.dom.element( 'option' );
+				curOption.setText( definition.options[ optionKey ] );
+				curOption.setAttribute( 'value', optionKey );
 				curOption.appendTo( this.input );
-				this.options[ o ] = curOption;
+				this.options[ optionKey ] = curOption;
 			}
 
 			this.input.appendTo( this.wrapper );
