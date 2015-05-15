@@ -56,6 +56,9 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		 * @constructor Creates a select input instance.
 		 */
 		Select: function( name, definition ) {
+			var optionKey,
+				curOption;
+
 			ViewerInput.apply( this, arguments );
 
 			this.options = {};
@@ -64,13 +67,13 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 				id: this.id
 			} ) );
 
-			for ( var o in definition.options ) {
-				this.options[ o ] = CKEDITOR.dom.element.createFromHtml( this.optionTemplate.output( {
-					value: o,
-					text: definition.options[ o ]
-				} ) );
-
-				this.options[ o ].appendTo( this.input );
+			for ( optionKey in definition.options ) {
+				// Can't use CKEDITOR.dom.createFromHTML because of IE9 (#143).
+				curOption = new CKEDITOR.dom.element( 'option' );
+				curOption.setText( definition.options[ optionKey ] );
+				curOption.setAttribute( 'value', optionKey );
+				curOption.appendTo( this.input );
+				this.options[ optionKey ] = curOption;
 			}
 
 			this.input.appendTo( this.wrapper );
@@ -109,13 +112,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		 * Template of the input.
 		 */
 		inputTemplate: new CKEDITOR.template( '<select class="cke_a11yc_ui_input_select" id={id}' +
-			' aria-labelledby="id" aria-required="true"></select>' ),
-
-		/**
-		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.select
-		 * Template of the option.
-		 */
-		optionTemplate: new CKEDITOR.template( '<option value="{value}">{text}</select>' )
+			' aria-labelledby="id" aria-required="true"></select>' )
 	} );
 
 	return ViewerInputs;
