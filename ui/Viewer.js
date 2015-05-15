@@ -109,6 +109,8 @@ define( [
 		this.setupForm();
 		this.setupListeningIndicator();
 
+		this.panel.registerFocusable( this.panel.parts.close );
+
 		this.setupModes();
 		this.setMode( 'checking' );
 
