@@ -253,6 +253,8 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		startListening: function() {
 			this.viewer.setMode( 'listening' );
 			this.viewer.panel.show();
+			// Put focus back to the editor (#142).
+			this.editor.focus();
 		},
 
 		/**
