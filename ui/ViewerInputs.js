@@ -65,12 +65,12 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 			} ) );
 
 			for ( var o in definition.options ) {
-				this.options[ o ] = CKEDITOR.dom.element.createFromHtml( this.optionTemplate.output( {
-					value: o,
-					text: definition.options[ o ]
-				} ) );
-
-				this.options[ o ].appendTo( this.input );
+				// Can't use CKEDITOR.dom.createFromHTML because of IE9 (#143).
+				var curOption = new CKEDITOR.dom.element( 'option' );
+				curOption.setText( definition.options[ o ] );
+				curOption.setAttribute( 'value', o );
+				curOption.appendTo( this.input );
+				this.options[ o ] = curOption;
 			}
 
 			this.input.appendTo( this.wrapper );
@@ -109,13 +109,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		 * Template of the input.
 		 */
 		inputTemplate: new CKEDITOR.template( '<select class="cke_a11yc_ui_input_select" id={id}' +
-			' aria-labelledby="id" aria-required="true"></select>' ),
-
-		/**
-		 * @member CKEDITOR.plugins.a11ychecker.viewerInputs.select
-		 * Template of the option.
-		 */
-		optionTemplate: new CKEDITOR.template( '<option value="{value}">{text}</select>' )
+			' aria-labelledby="id" aria-required="true"></select>' )
 	} );
 
 	return ViewerInputs;
