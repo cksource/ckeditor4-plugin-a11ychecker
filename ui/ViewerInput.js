@@ -20,7 +20,7 @@ define( function() {
 			CKEDITOR.tools.extend( this, definition, true );
 
 			this.name = name;
-			this.id = 'cke_' + CKEDITOR.tools.getNextId() + '_input';
+			this.id = CKEDITOR.tools.getNextId() + '_input';
 			this.wrapper = CKEDITOR.dom.element.createFromHtml( this.wrapperTemplate.output( {
 				label: this.label,
 				id: this.id
