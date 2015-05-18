@@ -26,9 +26,9 @@
 		ImgAlt: {
 			altLabel: 'Alternatieve tekst',
 			errorTooLong: 'Alternatieve tekst is te lang. Deze mag maximaal {limit} karakters' +
-				'bevatten terwijl opgegeven tekst {length} bevat.',
+				'bevatten terwijl opgegeven tekst {length} bevat',
 			errorWhitespace: 'Alternatieve tekst mag niet alleen uit spaties bestaan',
-			errorSameAsFileName: 'Alt-tekst van de afbeelding mag niet hetzelfde zijn als de bestandsnaam.',
+			errorSameAsFileName: 'Alt-tekst van de afbeelding mag niet hetzelfde zijn als de bestandsnaam',
 			errorEmpty: 'Alternatieve tekst mag niet leeg zijn'
 		},
 		QuickFix: {},
