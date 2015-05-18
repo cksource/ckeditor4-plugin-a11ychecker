@@ -27,6 +27,7 @@
 			altLabel: 'Alternative text',
 			errorTooLong: 'Alternative text is too long. It should be up to {limit} characters while your has {length}.',
 			errorWhitespace: 'Alternative text can not only contain whitespace characters',
+			errorSameAsFileName: 'Image alt should not be the same as the file name.',
 			errorEmpty: 'Alternative text can not be empty'
 		},
 		QuickFix: {},

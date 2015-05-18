@@ -28,6 +28,7 @@
 			errorTooLong: 'Alternatieve tekst is te lang. Deze mag maximaal {limit} karakters' +
 				'bevatten terwijl opgegeven tekst {length} bevat.',
 			errorWhitespace: 'Alternatieve tekst mag niet alleen uit spaties bestaan',
+			errorSameAsFileName: 'Image alt should not be the same as the file name.', // MISSING
 			errorEmpty: 'Alternatieve tekst mag niet leeg zijn'
 		},
 		QuickFix: {},

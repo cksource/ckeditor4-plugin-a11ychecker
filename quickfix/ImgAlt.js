@@ -50,28 +50,33 @@
 			ImgAlt.prototype.validate = function( formAttributes ) {
 				var ret = [],
 					proposedAlt = formAttributes.alt + '',
-					imgElem = this.issue && this.issue.element;
+					imgElem = this.issue && this.issue.element,
+					lang = this.lang;
 
 
 				if ( !proposedAlt ) {
-					ret.push( this.lang.errorEmpty );
+					ret.push( lang.errorEmpty );
 				}
 
 				// Test if the alt has only whitespaces.
 				if ( proposedAlt.match( emptyWhitespaceRegExp ) ) {
-					ret.push( this.lang.errorWhitespace );
+					ret.push( lang.errorWhitespace );
 				}
 
 				// Testing against exceeding max length.
 				if ( ImgAlt.altLengthLimit && proposedAlt.length > ImgAlt.altLengthLimit ) {
-					ret.push( 'Alternative text is too long. It should be up to ' + ImgAlt.altLengthLimit +
-						' characters while your has ' + proposedAlt.length + '.' );
+					var errorTemplate = new CKEDITOR.template( lang.errorTooLong );
+
+					ret.push( errorTemplate.output( {
+						limit: ImgAlt.altLengthLimit,
+						length: proposedAlt.length
+					} ) );
 				}
 
 				if ( imgElem ) {
 					var fileName = String( imgElem.getAttribute( 'src' ) ).split( '/' ).pop();
 					if ( fileName == proposedAlt ) {
-						ret.push( 'Image alt should not be the same as the file name.' );
+						ret.push( lang.errorSameAsFileName );
 					}
 				}
 
