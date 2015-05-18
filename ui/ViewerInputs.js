@@ -89,7 +89,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		 */
 		inputTemplate: new CKEDITOR.template(
 			'<input class="cke_a11yc_ui_input cke_a11yc_ui_input_text" type="text" id={id}' +
-			' aria-labelledby="id" aria-required="true">' )
+			' aria-labelledby="{id}_label" aria-required="true">' )
 	} );
 
 	ViewerInputs.Checkbox.prototype = CKEDITOR.tools.extend( new ViewerInput(), {
@@ -99,7 +99,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		 */
 		inputTemplate: new CKEDITOR.template(
 			'<input class="cke_a11yc_ui_input cke_a11yc_ui_input_checkbox" type="checkbox"' +
-			' id={id} aria-labelledby="id" aria-required="true">' ),
+			' id={id} aria-labelledby="{id}_label" aria-required="true">' ),
 
 		getValue: function() {
 			return this.input.$.checked;
@@ -112,7 +112,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		 * Template of the input.
 		 */
 		inputTemplate: new CKEDITOR.template( '<select class="cke_a11yc_ui_input_select" id={id}' +
-			' aria-labelledby="id" aria-required="true"></select>' )
+			' aria-labelledby="{id}_label" aria-required="true"></select>' )
 	} );
 
 	return ViewerInputs;
