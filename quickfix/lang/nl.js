@@ -14,14 +14,27 @@
 ( function() {
 	'use strict';
 
-	CKEDITOR.plugins.a11ychecker.quickFixes.lang( 'it', {
-		AddTableCaption: {},
+	CKEDITOR.plugins.a11ychecker.quickFixes.lang( 'nl', {
+		AddTableCaption: {
+			captionLabel: 'Caption',
+			errorEmpty: 'Caption (bijschtift) tekst mag niet leeg zijn'
+		},
 		AnchorsMerge: {},
 		AttributeRename: {},
 		DateUnfold: {},
 		ElementRemove: {},
-		ImgAlt: {},
+		ImgAlt: {
+			altLabel: 'Alternatieve tekst',
+			errorTooLong: 'Alternatieve tekst is te lang. Deze mag maximaal {limit} karakters' +
+				'bevatten terwijl opgegeven tekst {length} bevat.',
+			errorWhitespace: 'Alternatieve tekst mag niet alleen uit spaties bestaan',
+			errorEmpty: 'Alternatieve tekst mag niet leeg zijn'
+		},
 		QuickFix: {},
+		ParagraphToHeader: {
+			levelLabel: 'Header niveau',
+			suggested: '(Suggestie)'
+		},
 		Repository: {}
 	} );
 } )();
