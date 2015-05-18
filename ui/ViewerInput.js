@@ -36,7 +36,7 @@ define( function() {
 		 */
 		wrapperTemplate: new CKEDITOR.template(
 			'<div role="presentation" class="cke_a11yc_ui_input_wrapper">' +
-				'<label class="cke_a11yc_ui_input_label" for="{id}">{label}</label>' +
+				'<label class="cke_a11yc_ui_input_label" id="{id}_label" for="{id}">{label}</label>' +
 			'</div>' ),
 
 		/**
