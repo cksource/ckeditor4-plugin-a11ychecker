@@ -160,6 +160,17 @@ define( function() {
 	};
 
 	/**
+	 * This method will return a config object. It will also check editor config if it has some customization to the
+	 * config.
+	 *
+	 * @param {CKEDITOR.editor} editor
+	 * @returns {Object}
+	 */
+	Engine.prototype._createConfig = function( editor ) {
+		return {};
+	};
+
+	/**
 	 * A function used to filter out unwanted issues before they will be returned to the
 	 * {@link CKEDITOR.plugins.a11ychecker.Controller}. If `null` nothing will be filtered.
 	 *
