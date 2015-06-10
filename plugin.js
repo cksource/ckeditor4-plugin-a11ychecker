@@ -65,23 +65,25 @@
 
 			editor.once( 'instanceReady', function() {
 				// Loads Engine, Controller and ViewerController classes.
-				require( [ 'Controller', 'EngineQuail' ], function( Controller, EngineQuail ) {
+				require( [ 'Controller' ], function( Controller ) {
 					var a11ychecker = new Controller( editor ),
 						tempNamespace = editor._.a11ychecker;
-
-					a11ychecker.setEngine( new EngineQuail( that ) );
-					/**
-					 * @todo: this line should be moved to the EngineQuail constructor.
-					 * I've put it here just to avoid conflicts with t/130 branch. After that we should move this.
-					 */
-					a11ychecker.engine.config = a11ychecker.engine._createConfig( editor );
 
 					// Assign controller object to the editor protected namespace.
 					editor._.a11ychecker = a11ychecker;
 
-					// Fire loaded event on old placeholder, so subscribers know that real Controller
-					// is available.
-					tempNamespace.fire( 'loaded', null, editor );
+					tempNamespace.getEngineType( function( EngineType ) {
+						a11ychecker.setEngine( new EngineType( that ) );
+						/**
+						 * @todo: this line should be moved to the EngineQuail constructor.
+						 * I've put it here just to avoid conflicts with t/130 branch. After that we should move this.
+						 */
+						a11ychecker.engine.config = a11ychecker.engine._createConfig( editor );
+
+						// Fire loaded event on old placeholder, so subscribers know that real Controller
+						// is available.
+						tempNamespace.fire( 'loaded', null, editor );
+					} );
 				} );
 			} );
 
@@ -156,7 +158,14 @@
 		 * Controller was instantiated in editor._.a11ychecker method.
 		 */
 		createTemporaryNamespace: function( editor ) {
-			editor._.a11ychecker = {};
+			editor._.a11ychecker = {
+				getEngineType: function( callback ) {
+					require( [ 'EngineQuail' ], function( EngineQuail ) {
+						callback( EngineQuail );
+					} );
+				}
+			};
+
 			CKEDITOR.event.implementOn( editor._.a11ychecker );
 		}
 	} );
