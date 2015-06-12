@@ -31,7 +31,7 @@ module.exports = function( grunt ) {
 
 		'build-js': {
 			buildConfig: {
-				name: 'plugin',
+				name: 'build/a11ychecker/plugin',
 				out: 'build/a11ychecker/plugin.js',
 				paths: {
 					'Quail': 'libs/quail/quail.jquery'
@@ -154,10 +154,19 @@ module.exports = function( grunt ) {
 
 		copy: {
 			build: {
-				// nonull to let us know if any of given entiries is missing.
-				nonull: true,
-				src: [ 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*', 'libs/quail/**' ],
-				dest: 'build/a11ychecker/'
+				files: [
+					{
+						// nonull to let us know if any of given entiries is missing.
+						nonull: true,
+						src: [ 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*', 'libs/quail/**' ],
+						dest: 'build/a11ychecker/'
+					},
+					{
+						nonull: true,
+						src: 'foo.js',
+						dest: 'build/foo.js'
+					}
+				]
 			},
 
 			samples: {
@@ -222,11 +231,28 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		replace: {
+			quailInjection: {
+				// Replaces {quailPath} in foo.js file.
+				src: [ 'build/foo.js' ],
+				overwrite: true,
+				replacements: [ {
+					from: '{quailPath}',
+					to: 'libs/quail/quail.jquery.min.js'
+				} ]
+			}
+		},
+
 		preprocess: {
-			// Builds a sample.
 			build: {
+				// Builds a sample.
 				src: 'samples/index.html',
 				dest: 'build/a11ychecker/samples/index.html'
+			},
+
+			plugin: {
+				src: 'plugin.js',
+				dest: 'build/a11ychecker/plugin.js'
 			}
 		},
 

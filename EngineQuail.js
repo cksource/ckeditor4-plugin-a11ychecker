@@ -1,4 +1,5 @@
 
+/* @exclude */
 define( [
 	'Engine',
 	'IssueList',
@@ -15,6 +16,7 @@ define( [
 	EngineQuailConfig
 ) {
 	'use strict';
+/* @endexclude */
 
 	/**
 	 * Engine driver class for updated [Quail](http://quailjs.org/) 2.2.8 implementation.
@@ -354,5 +356,7 @@ define( [
 		return ret;
 	};
 
+/* @exclude */
 	return EngineQuail;
 } );
+/* @endexclude */

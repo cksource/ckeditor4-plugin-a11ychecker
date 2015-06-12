@@ -160,9 +160,13 @@
 		createTemporaryNamespace: function( editor ) {
 			editor._.a11ychecker = {
 				getEngineType: function( callback ) {
+					/* @exclude */
 					require( [ 'EngineQuail' ], function( EngineQuail ) {
 						callback( EngineQuail );
 					} );
+					/* @endexclude */
+
+					/* @include build/foo.js */
 				}
 			};
 
