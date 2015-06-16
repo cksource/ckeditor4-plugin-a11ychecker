@@ -1,3 +1,5 @@
+//jscs:disable
+/* jshint ignore:start */
 /**
  * @todo Describe the file.
  */
@@ -15,10 +17,17 @@ require( [ 'EngineQuailConfig' ], function( _EngineQuailConfig ) {
 	EngineQuailConfig = _EngineQuailConfig;
 } );
 
-/*@include {quailPath} */
+(function() {
+	// We'll load custom Quail only if it's not already registered.
+	if ( $.fn.quail ) {
+		return;
+	}
+/*@include libs/quail/quail.jquery.min.js */
+}());
 
 Quail = $.fn.quail;
 
-/*@include ../EngineQuail.js */
+/*@include ../../EngineQuail.js */
 
 callback( EngineQuail );
+/* jshint ignore:end */

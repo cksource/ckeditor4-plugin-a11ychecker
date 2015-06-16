@@ -166,7 +166,7 @@
 					} );
 					/* @endexclude */
 
-					/* @include build/foo.js */
+					/* @include foo.js */
 				}
 			};
 

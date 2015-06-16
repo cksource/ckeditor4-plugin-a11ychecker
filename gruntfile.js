@@ -34,7 +34,7 @@ module.exports = function( grunt ) {
 				name: 'build/a11ychecker/plugin',
 				out: 'build/a11ychecker/plugin.js',
 				paths: {
-					'Quail': 'libs/quail/quail.jquery'
+					'Quail': 'build/a11ychecker/libs/quail/quail.jquery'
 				},
 				optimize: 'none'	// Do not minify because of AMDClean.
 			}
@@ -158,13 +158,8 @@ module.exports = function( grunt ) {
 					{
 						// nonull to let us know if any of given entiries is missing.
 						nonull: true,
-						src: [ 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*', 'libs/quail/**' ],
+						src: [ 'plugin.js', 'foo.js', 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*', 'libs/quail/**' ],
 						dest: 'build/a11ychecker/'
-					},
-					{
-						nonull: true,
-						src: 'foo.js',
-						dest: 'build/foo.js'
 					}
 				]
 			},
@@ -251,8 +246,13 @@ module.exports = function( grunt ) {
 			},
 
 			plugin: {
+				options: {
+					inline: true
+				},
+				expand: true,
 				src: 'plugin.js',
-				dest: 'build/a11ychecker/plugin.js'
+				dest: 'build/a11ychecker',
+				cwd: 'build/a11ychecker'
 			}
 		},
 
@@ -283,13 +283,17 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, ' +
 		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions:build' ] );
 
+	grunt.registerTask( 'quail-prepare', 'Prepares lib/quail in build directory.',
+		[ 'custom-quail', 'replace:quailInjection' ] );
+
 	grunt.registerTask( 'build', 'Generates a build.', [
-		'clean:build', 'build-css', 'custom-quail-config', 'build-js', 'copy:build', 'copy:samples', 'copy:readme',
-		'plugin-versions:build', 'clean:buildQuickFixes', 'build-quickfix:build'
+		'clean:build', 'build-css', 'custom-quail-config', 'copy:build', 'copy:samples', 'copy:readme',
+		'quail-prepare', 'preprocess:plugin', 'process', 'build-js', 'plugin-versions:build',
+		'clean:buildQuickFixes', 'build-quickfix:build'
 	] );
 
 	var fullBuildTasks = [
-			'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'process', 'compress:build'
+			'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'compress:build'
 		],
 		buildFullDescr = 'Generates a sparse build including external plugin dependencies. Use --engines flag ' +
 			'to include additional engines plugins.';
