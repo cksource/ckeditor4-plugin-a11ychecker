@@ -31,7 +31,13 @@ define( function() {
 		 * @member CKEDITOR.plugins.a11ychecker.Engine
 		 * @property {Object} fixesMapping
 		 */
-		fixesMapping: {}
+		fixesMapping: {},
+		/**
+		 * Config object returned by {@link #createConfig} method.
+		 *
+		 * @member CKEDITOR.plugins.a11ychecker.Engine
+		 */
+		config: {}
 	};
 
 	Engine.prototype.constructor = Engine;
@@ -166,7 +172,7 @@ define( function() {
 	 * @param {CKEDITOR.editor} editor
 	 * @returns {Object}
 	 */
-	Engine.prototype._createConfig = function( editor ) {
+	Engine.prototype.createConfig = function( editor ) {
 		return {};
 	};
 

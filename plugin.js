@@ -78,7 +78,7 @@
 						 * @todo: this line should be moved to the EngineQuail constructor.
 						 * I've put it here just to avoid conflicts with t/130 branch. After that we should move this.
 						 */
-						a11ychecker.engine.config = a11ychecker.engine._createConfig( editor );
+						a11ychecker.engine.config = a11ychecker.engine.createConfig( editor );
 
 						// Fire loaded event on old placeholder, so subscribers know that real Controller
 						// is available.
