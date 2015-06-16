@@ -158,7 +158,8 @@ module.exports = function( grunt ) {
 					{
 						// nonull to let us know if any of given entiries is missing.
 						nonull: true,
-						src: [ 'plugin.js', 'foo.js', 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*', 'libs/quail/**' ],
+						src: [ 'plugin.js', 'quailInclude.js', 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*',
+							'libs/quail/**' ],
 						dest: 'build/a11ychecker/'
 					}
 				]
@@ -228,8 +229,8 @@ module.exports = function( grunt ) {
 
 		replace: {
 			quailInjection: {
-				// Replaces {quailPath} in foo.js file.
-				src: [ 'build/foo.js' ],
+				// Replaces {quailPath} in quailInclude.js file.
+				src: [ 'build/quailInclude.js' ],
 				overwrite: true,
 				replacements: [ {
 					from: '{quailPath}',

@@ -166,7 +166,7 @@
 					} );
 					/* @endexclude */
 
-					/* @include foo.js */
+					/* @include quailInclude.js */
 				}
 			};
 
