@@ -369,12 +369,12 @@
 				assert.areSame( 'fr', ret, 'Return value' );
 			},
 
-			'test _createConfig': function() {
-				var ret = EngineQuail.prototype._createConfig.call( {}, this.editor );
+			'test createConfig': function() {
+				var ret = EngineQuail.prototype.createConfig.call( {}, this.editor );
 				assert.isInstanceOf( EngineQuailConfig, ret, 'Return val type' );
 			},
 
-			'test _createConfig considers custom config': function() {
+			'test createConfig considers custom config': function() {
 				var editor = {},
 					customGuideline = [ 'a', 'b', 'c' ],
 					protoGuideline = EngineQuailConfig.prototype.guideline,
@@ -382,7 +382,7 @@
 
 				mocking.mockProperty( 'config.a11ychecker_quailParams.guideline', editor, customGuideline );
 
-				ret = EngineQuail.prototype._createConfig.call( {}, editor );
+				ret = EngineQuail.prototype.createConfig.call( {}, editor );
 
 				assert.areSame( ret.guideline, customGuideline, 'ret.guideline' );
 				assert.areSame( EngineQuailConfig.prototype.guideline, protoGuideline,
@@ -413,7 +413,7 @@
 						} );
 					};
 
-				engine.config = engine._createConfig( this.editor );
+				engine.config = engine.createConfig( this.editor );
 
 				engine.process( a11ycheckerMockup, contentElement, callback );
 

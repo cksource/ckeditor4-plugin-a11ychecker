@@ -1,4 +1,5 @@
 
+/* @exclude */
 define( [
 	'Engine',
 	'IssueList',
@@ -15,6 +16,7 @@ define( [
 	EngineQuailConfig
 ) {
 	'use strict';
+	/* @endexclude */
 
 	/**
 	 * Engine driver class for updated [Quail](http://quailjs.org/) 2.2.8 implementation.
@@ -25,7 +27,7 @@ define( [
 	function EngineQuail( plugin ) {
 		this.jsonPath = ( plugin ? plugin.path : '' ) + 'libs/quail/';
 
-		//this.config = this._createConfig();
+		//this.config = this.createConfig();
 	}
 
 	EngineQuail.prototype = new Engine();
@@ -343,7 +345,7 @@ define( [
 	 * @param {CKEDITOR.editor} editor
 	 * @returns {CKEDITOR.plugins.a11ychecker.EngineQuailConfig}
 	 */
-	EngineQuail.prototype._createConfig = function( editor ) {
+	EngineQuail.prototype.createConfig = function( editor ) {
 		var ret = new EngineQuailConfig(),
 			instanceQuailConfig = editor.config.a11ychecker_quailParams;
 
@@ -354,5 +356,7 @@ define( [
 		return ret;
 	};
 
+	/* @exclude */
 	return EngineQuail;
 } );
+/* @endexclude */

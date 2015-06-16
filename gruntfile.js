@@ -31,10 +31,10 @@ module.exports = function( grunt ) {
 
 		'build-js': {
 			buildConfig: {
-				name: 'plugin',
+				name: 'build/a11ychecker/plugin',
 				out: 'build/a11ychecker/plugin.js',
 				paths: {
-					'Quail': 'libs/quail/quail.jquery'
+					'Quail': 'build/a11ychecker/libs/quail/quail.jquery'
 				},
 				optimize: 'none'	// Do not minify because of AMDClean.
 			}
@@ -154,10 +154,15 @@ module.exports = function( grunt ) {
 
 		copy: {
 			build: {
-				// nonull to let us know if any of given entiries is missing.
-				nonull: true,
-				src: [ 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*', 'libs/quail/**' ],
-				dest: 'build/a11ychecker/'
+				files: [
+					{
+						// nonull to let us know if any of given entiries is missing.
+						nonull: true,
+						src: [ 'plugin.js', 'quailInclude.js', 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*',
+							'libs/quail/**' ],
+						dest: 'build/a11ychecker/'
+					}
+				]
 			},
 
 			samples: {
@@ -169,6 +174,11 @@ module.exports = function( grunt ) {
 			external: {
 				src: [ '../balloonpanel/skins/**', '../balloonpanel/plugin.js' ],
 				dest: 'build/balloonpanel/'
+			},
+
+			externalEngines: {
+				src: [ '../{htmlcodesniffer,axe}/**' ],
+				dest: 'build/htmlcodesniffer/'
 			},
 
 			// Copies DISTRIBUTION.md to the README.md.
@@ -184,7 +194,7 @@ module.exports = function( grunt ) {
 					archive: 'build/a11ychecker.zip'
 				},
 				cwd: 'build/',
-				src: [ 'a11ychecker/**', 'balloonpanel/**' ],
+				src: [ '*/**' ],
 				dest: '',
 				expand: true
 			}
@@ -204,14 +214,34 @@ module.exports = function( grunt ) {
 						dest: 'build/a11ychecker/QuickFix'
 					}
 				]
+			},
+			externalEngines: {
+				files: [
+					{
+						'build/htmlcodesniffer/plugin.js': [ '../htmlcodesniffer/plugin.js' ]
+					},
+					{
+						'build/axe/plugin.js': [ '../axe/plugin.js' ]
+					}
+				]
 			}
 		},
 
 		preprocess: {
-			// Builds a sample.
 			build: {
+				// Builds a sample.
 				src: 'samples/index.html',
 				dest: 'build/a11ychecker/samples/index.html'
+			},
+
+			plugin: {
+				options: {
+					inline: true
+				},
+				expand: true,
+				src: 'plugin.js',
+				dest: 'build/a11ychecker',
+				cwd: 'build/a11ychecker'
 			}
 		},
 
@@ -225,6 +255,11 @@ module.exports = function( grunt ) {
 				options: {
 					plugins: [ 'balloonpanel' ]
 				}
+			},
+			externalEngines: {
+				options: {
+					plugins: [ 'axe', 'htmlcodesniffer' ]
+				}
 			}
 		}
 	} );
@@ -235,15 +270,26 @@ module.exports = function( grunt ) {
 		[ 'less:development', 'less:production', 'less:samples' ] );
 
 	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, ' +
-		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions' ] );
+		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions:build' ] );
 
 	grunt.registerTask( 'build', 'Generates a build.', [
-		'clean:build', 'build-css', 'custom-quail-config', 'build-js', 'copy:build', 'copy:samples', 'copy:readme',
-		'plugin-versions:build', 'clean:buildQuickFixes', 'build-quickfix:build'
+		'clean:build', 'build-css', 'custom-quail-config', 'copy:build', 'copy:samples', 'copy:readme',
+		'custom-quail', 'preprocess:plugin', 'process', 'build-js', 'plugin-versions:build',
+		'clean:buildQuickFixes', 'build-quickfix:build'
 	] );
-	grunt.registerTask( 'build-full', 'Generates a sparse build including external plugin dependencies.', [
-		'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'process', 'compress:build'
-	] );
+
+	var fullBuildTasks = [
+			'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'compress:build'
+		],
+		buildFullDescr = 'Generates a sparse build including external plugin dependencies. Use --engines flag ' +
+			'to include additional engines plugins.';
+
+	if ( grunt.option( 'engines' ) ) {
+		fullBuildTasks.splice( 4, 0, 'uglify:externalEngines' );
+		fullBuildTasks.splice( 2, 0, 'copy:externalEngines', 'plugin-versions:externalEngines' );
+	}
+
+	grunt.registerTask( 'build-full', buildFullDescr, fullBuildTasks );
 
 	grunt.loadTasks( 'dev/tasks' );
 };

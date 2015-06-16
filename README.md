@@ -98,6 +98,12 @@ Then you might include it into a build with:
 grunt build-full --quail-config="_local/custom.json"
 ```
 
+#### Including Different Quail Build
+
+You can actually use a totally different custom Quail build. To do that provide a path to your custom Quail build using `--quail` option.
+
+E.g. `grunt build-full --quail=/C/dev/workspace/cksource/tmp/cke_clean/plugins/funnyQuail`
+
 ## Where Do I Start?
 
 You should use the `plugins/a11ychecker/samples/index.html` sample to test Accessibility Checker (eg. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/index.html)).

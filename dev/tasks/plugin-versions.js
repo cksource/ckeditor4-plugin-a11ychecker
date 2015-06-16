@@ -16,6 +16,11 @@
 				doneCount = 0;
 
 			plugins.map( function( pluginName ) {
+				if ( !fs.existsSync( '../' + pluginName ) ) {
+					grunt.log.writeln( 'Plugin ' + pluginName + ' not found, skipping.' );
+					return true;
+				}
+
 				exec( 'git log -n 1 --pretty=format:"%H"', {
 					cwd: '../' + pluginName
 				}, function( error, stdout, stderr ) {
@@ -25,7 +30,14 @@
 						// Any new line chars are not allowed.
 						var hash = String( stdout ).replace( /\r\n/g, '' ),
 							pluginJsPath = 'build/' + pluginName + '/plugin.js',
-							fileContent = fs.readFileSync( pluginJsPath , 'utf8' );
+							fileContent;
+
+						if ( !fs.existsSync( pluginJsPath ) ) {
+							grunt.log.writeln( 'File ' + pluginJsPath + ' not found, skipping.' );
+							return true;
+						}
+
+						fileContent = fs.readFileSync( pluginJsPath , 'utf8' );
 
 						fs.writeFileSync( pluginJsPath, fileContent.replace( /\%REV\%/g, hash ) );
 					}
