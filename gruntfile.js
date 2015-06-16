@@ -227,18 +227,6 @@ module.exports = function( grunt ) {
 			}
 		},
 
-		replace: {
-			quailInjection: {
-				// Replaces {quailPath} in quailInclude.js file.
-				src: [ 'build/quailInclude.js' ],
-				overwrite: true,
-				replacements: [ {
-					from: '{quailPath}',
-					to: 'libs/quail/quail.jquery.min.js'
-				} ]
-			}
-		},
-
 		preprocess: {
 			build: {
 				// Builds a sample.
@@ -284,12 +272,9 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, ' +
 		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions:build' ] );
 
-	grunt.registerTask( 'quail-prepare', 'Prepares lib/quail in build directory.',
-		[ 'custom-quail', 'replace:quailInjection' ] );
-
 	grunt.registerTask( 'build', 'Generates a build.', [
 		'clean:build', 'build-css', 'custom-quail-config', 'copy:build', 'copy:samples', 'copy:readme',
-		'quail-prepare', 'preprocess:plugin', 'process', 'build-js', 'plugin-versions:build',
+		'custom-quail', 'preprocess:plugin', 'process', 'build-js', 'plugin-versions:build',
 		'clean:buildQuickFixes', 'build-quickfix:build'
 	] );
 
