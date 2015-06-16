@@ -31,15 +31,27 @@ define( function() {
 		this.engine = engine;
 	}
 
+	/**
+	 * Enumerates values for {@link CKEDITOR.plugins.a11ychecker.Issue#testability} property.
+	 *
+	 *		console.log( CKEDITOR.plugins.a11ychecker.Issue.testability.WARNING );
+	 *		// Logs following number: 0.5
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker.Issue
+	 * @static
+	 * @readonly
+	 */
+	Issue.testability = {
+		ERROR: 1,
+		WARNING: 0.5,
+		NOTICE: 0
+	};
+
 	Issue.prototype = {
 		/**
 		 * Keeps an information about testability of the issue.
 		 *
-		 * Currently it takes 3 values:
-		 *
-		 * * 1 - high testability - We might be sure that this issue was identified correctly.
-		 * * 0.5 - moderate testability - This issue is likely to need human verification.
-		 * * 0 - none - Engine is not capable of resolving this issue.
+		 * Possible values are enumerated in {@link CKEDITOR.plugins.a11ychecker.Issue.testability}.
 		 *
 		 * Redundancy note: althought testability might be kept in IssueDetails object, we'll store it
 		 * in each Issue, because it does not require us to fetch whole IssueDetails object to get this
@@ -50,7 +62,7 @@ define( function() {
 		 * @member CKEDITOR.plugins.a11ychecker.Issue
 		 * @type {CKEDITOR.dom.element/null}
 		 */
-		testability: 0,
+		testability: Issue.testability.NOTICE,
 		/**
 		 * {@link CKEDITOR.editable} child element, which caused the issue.
 		 *
