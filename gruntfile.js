@@ -285,7 +285,7 @@ module.exports = function( grunt ) {
 			'to include additional engines plugins.';
 
 	if ( grunt.option( 'engines' ) ) {
-		//fullBuildTasks.splice( 4, 0, 'uglify:externalEngines' );
+		fullBuildTasks.splice( 4, 0, 'uglify:externalEngines' );
 		fullBuildTasks.splice( 2, 0, 'copy:externalEngines', 'plugin-versions:externalEngines' );
 	}
 

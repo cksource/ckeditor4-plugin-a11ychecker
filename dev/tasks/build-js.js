@@ -33,7 +33,7 @@
 						code = amdclean.clean( code );
 
 						// Finally, minify the whole code.
-						//code = minify( code );
+						code = minify( code );
 
 						// Add copyright notices.
 						code =
