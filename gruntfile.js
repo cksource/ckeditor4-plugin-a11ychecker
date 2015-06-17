@@ -159,7 +159,7 @@ module.exports = function( grunt ) {
 						// nonull to let us know if any of given entiries is missing.
 						nonull: true,
 						src: [ 'plugin.js', 'quailInclude.js', 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*',
-							'libs/quail/**' ],
+						'libs/quail/**' ],
 						dest: 'build/a11ychecker/'
 					}
 				]
@@ -177,8 +177,10 @@ module.exports = function( grunt ) {
 			},
 
 			externalEngines: {
-				src: [ '../{htmlcodesniffer,axe}/**' ],
-				dest: 'build/htmlcodesniffer/'
+				expand: true,
+				cwd: '..',
+				src: [ '{htmlcodesniffer,axe}/**', '!{htmlcodesniffer,axe}/samples/*.md' ],
+				dest: 'build/'
 			},
 
 			// Copies DISTRIBUTION.md to the README.md.
