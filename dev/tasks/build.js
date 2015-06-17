@@ -6,7 +6,7 @@
 		var buildCommon = [
 				'build-css', 'custom-quail-config', 'copy:build', 'copy:samples', 'copy:readme',
 				'custom-quail', 'preprocess:plugin', 'process', 'build-js', 'plugin-versions:build',
-				'clean:buildQuickFixes', 'build-quickfix:build'
+				'clean:buildQuickFixes', 'clean:buildLeftOvers', 'build-quickfix:build'
 			],
 			build = [ 'clean:build' ].concat( buildCommon ),
 			// Build-full will contain build tasks + maintenance of external AC plugins.

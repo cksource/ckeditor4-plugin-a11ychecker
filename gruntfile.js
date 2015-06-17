@@ -149,7 +149,8 @@ module.exports = function( grunt ) {
 
 		clean: {
 			build: [ 'build' ],
-			buildQuickFixes: [ 'build/a11ychecker/quickfix/*' ]
+			buildQuickFixes: [ 'build/a11ychecker/quickfix/*' ],
+			buildLeftOvers: [ 'build/a11ychecker/quailInclude.js' ]
 		},
 
 		copy: {
