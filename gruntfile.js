@@ -228,7 +228,7 @@ module.exports = function( grunt ) {
 		},
 
 		preprocess: {
-			build: {
+			samples: {
 				// Build samples.
 				options: {
 					inline: true
@@ -272,7 +272,7 @@ module.exports = function( grunt ) {
 		[ 'less:development', 'less:production', 'less:samples' ] );
 
 	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, ' +
-		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions:build' ] );
+		'and replaces revsion hashes.', [ 'env:build', 'preprocess:samples', 'plugin-versions:build' ] );
 
 	grunt.loadTasks( 'dev/tasks' );
 };
