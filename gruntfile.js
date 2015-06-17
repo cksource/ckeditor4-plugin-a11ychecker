@@ -229,9 +229,11 @@ module.exports = function( grunt ) {
 
 		preprocess: {
 			build: {
-				// Builds a sample.
-				src: 'samples/index.html',
-				dest: 'build/a11ychecker/samples/index.html'
+				// Build samples.
+				options: {
+					inline: true
+				},
+				src: 'build/*/samples/index.html'
 			},
 
 			plugin: {
@@ -271,25 +273,6 @@ module.exports = function( grunt ) {
 
 	grunt.registerTask( 'process', 'Process the HTML files, removing some conditional markup, ' +
 		'and replaces revsion hashes.', [ 'env:build', 'preprocess:build', 'plugin-versions:build' ] );
-
-	grunt.registerTask( 'build', 'Generates a build.', [
-		'clean:build', 'build-css', 'custom-quail-config', 'copy:build', 'copy:samples', 'copy:readme',
-		'custom-quail', 'preprocess:plugin', 'process', 'build-js', 'plugin-versions:build',
-		'clean:buildQuickFixes', 'build-quickfix:build'
-	] );
-
-	var fullBuildTasks = [
-			'build', 'copy:external', 'plugin-versions:external', 'uglify:external', 'compress:build'
-		],
-		buildFullDescr = 'Generates a sparse build including external plugin dependencies. Use --engines flag ' +
-			'to include additional engines plugins.';
-
-	if ( grunt.option( 'engines' ) ) {
-		fullBuildTasks.splice( 4, 0, 'uglify:externalEngines' );
-		fullBuildTasks.splice( 2, 0, 'copy:externalEngines', 'plugin-versions:externalEngines' );
-	}
-
-	grunt.registerTask( 'build-full', buildFullDescr, fullBuildTasks );
 
 	grunt.loadTasks( 'dev/tasks' );
 };
