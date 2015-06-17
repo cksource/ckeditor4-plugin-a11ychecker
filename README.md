@@ -102,7 +102,7 @@ grunt build-full --quail-config="_local/custom.json"
 
 You can actually use a totally different custom Quail build. To do that provide a path to your custom Quail build using `--quail` option.
 
-E.g. `grunt build-full --quail=/C/dev/workspace/cksource/tmp/cke_clean/plugins/funnyQuail`
+E.g. `grunt build-full --quail=/libs/js/customQuailBuild`
 
 ## Where Do I Start?
 
