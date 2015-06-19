@@ -30,14 +30,12 @@
 				'Engine',
 				'Issue',
 				'IssueList',
-				'IssueDetails',
-				'quickfix/LocalizedRepository'
+				'IssueDetails'
 			], function(
 				Engine,
 				Issue,
 				IssueList,
-				IssueDetails,
-				LocalizedRepository
+				IssueDetails
 			) {
 				CKEDITOR.tools.extend( CKEDITOR.plugins.a11ychecker, {
 					Engine: Engine,
@@ -45,13 +43,13 @@
 					IssueList: IssueList,
 					IssueDetails: IssueDetails
 				} );
-
-				CKEDITOR.plugins.a11ychecker.quickFixes = new LocalizedRepository( path + 'quickfix/' );
 			} );
 		},
 
 		beforeInit: function( editor ) {
 			var that = this;
+
+			that.initQuickFixRepo();
 
 			if ( !editor.config.a11ychecker_noIgnoreData ) {
 				// Register an ACF rule so it won't remove data-a11y-ignore attributes, only if there
@@ -60,7 +58,7 @@
 			}
 
 			// Create a temp controller placeholder.
-			this.createTemporaryNamespace( editor );
+			that.createTemporaryNamespace( editor );
 
 			editor.once( 'instanceReady', function() {
 				// Loads Engine, Controller and ViewerController classes.
@@ -88,6 +86,20 @@
 
 			that.commandRegister.call( that, editor );
 			that.guiRegister( editor );
+		},
+
+		initQuickFixRepo: function() {
+			var staticNamespace = CKEDITOR.plugins.a11ychecker,
+				path = this.path;
+
+			if ( staticNamespace.quickFixes ) {
+				return;
+			}
+
+			require( [ 'quickfix/LocalizedRepository' ], function( LocalizedRepository ) {
+				staticNamespace.quickFixes = new LocalizedRepository( path + 'quickfix/' );
+				CKEDITOR.plugins.a11ychecker.fire( 'quickFixesReady', staticNamespace.quickFixes );
+			} );
 		},
 
 		// Register buttons, dialogs etc.
@@ -173,17 +185,30 @@
 		}
 	} );
 
+	/**
+	 * Static namespace used by Accessibility Checker plugin.
+	 *
+	 * @singleton
+	 * @class CKEDITOR.plugins.a11ychecker
+	 * @mixins CKEDITOR.event
+	 */
 	CKEDITOR.plugins.a11ychecker = {
 		/**
-		 * @member CKEDITOR.plugins.a11ychecker
-		 * @type {Boolean/Undefined}
-		 *
 		 * Tells whether plugin is in development version or not. For plugin builded version
 		 * this property will be `undefined`.
+		 *
+		 * @property {Boolean/Undefined}
 		 */
 		dev: true, // %REMOVE_LINE%
+		/**
+		 * Contains source code revision hash of the plugin.
+		 *
+		 * @property {String}
+		 */
 		rev: '%REV%'
 	};
+
+	CKEDITOR.event.implementOn( CKEDITOR.plugins.a11ychecker );
 
 	/*
 	 * Editor command functions.
@@ -254,6 +279,13 @@
 
 		cfg.contentsCss.push( cssPath );
 	}
+
+	/**
+	 * Fired when static {@link CKEDITOR.plugins.a11ychecker#quickFixes} repository is ready.
+	 *
+	 * @member CKEDITOR.plugins.a11ychecker
+	 * @event quickFixesReady
+	 */
 
 	/**
 	 * For every Accessibility Checker hotkey you may use `0` in order to disable it.
