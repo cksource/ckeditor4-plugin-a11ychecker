@@ -6,7 +6,15 @@
 ( function() {
 	'use strict';
 
-	bender.require( [ 'quickfix/LocalizedRepository', 'mocking' ], function( LocalizedRepository, mocking ) {
+	bender.require( [
+		'quickfix/LocalizedRepository',
+		'quickfix/Repository',
+		'mocking'
+	], function(
+		LocalizedRepository,
+		Repository,
+		mocking
+	) {
 
 		// We need to imitate dev property.
 		mocking.mockProperty( 'CKEDITOR.plugins.a11ychecker.dev', window, true );
@@ -123,6 +131,50 @@
 				mocking.assert.calledWith( mock.get, 1 );
 				mocking.assert.calledWith( mock.get, 2 );
 				mocking.assert.calledWith( mock.get, 3 );
+			},
+
+			'test _getRequestEvent': function() {
+				var mock = new LocalizedRepository( 'foo' ),
+					parentMethod = sinon.stub( Repository.prototype, '_getRequestEvent' ).returns( {
+						name: 'foobarbaz'
+					} ),
+					ret = mock._getRequestEvent( 'de/bar' );
+
+				parentMethod.restore();
+
+				mocking.assert.calledWithExactly( parentMethod, 'bar' );
+
+				assert.isInstanceOf( Object, ret, 'Return type' );
+				assert.areEqual( 'foobarbaz', ret.name, 'ret.name' );
+				assert.areEqual( 'de', ret.lang, 'ret.lang' );
+			},
+
+			'test _getRequestEvent nested QF': function() {
+				// Make sure that QF nested in subdirectories are usable.
+				var mock = new LocalizedRepository( 'foo' ),
+					parentMethod = sinon.stub( Repository.prototype, '_getRequestEvent' ).returns( {
+						name: 'foobarbaz'
+					} ),
+					ret = mock._getRequestEvent( 'en/foo/bar/baz/bom' );
+
+				parentMethod.restore();
+
+				mocking.assert.calledWithExactly( parentMethod, 'foo/bar/baz/bom' );
+				assert.areEqual( 'en', ret.lang, 'ret.lang' );
+			},
+
+			'test _getRequestEvent empty name': function() {
+				// Make sure that QF nested in subdirectories are usable.
+				var mock = new LocalizedRepository( 'foo' ),
+					parentMethod = sinon.stub( Repository.prototype, '_getRequestEvent' ).returns( {
+						name: 'foobarbaz'
+					} ),
+					ret = mock._getRequestEvent( '' );
+
+				parentMethod.restore();
+
+				mocking.assert.calledWithExactly( parentMethod, '' );
+				assert.isNull( ret.lang, 'ret.lang' );
 			}
 		} );
 	} );

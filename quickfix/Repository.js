@@ -85,9 +85,7 @@ define( function() {
 
 			// If type is not yet loaded we need to fire an event (where one can
 			// override loading method).
-			evt = {
-				name: name
-			};
+			evt = this._getRequestEvent( name );
 
 			loadedTypes[ name ] = false;
 
@@ -168,6 +166,18 @@ define( function() {
 	 */
 	Repository.prototype.getWaitingCallbacks = function() {
 		return waitingCallbacks;
+	};
+
+	/**
+	 * Returns the data object for the {@link CKEDITOR.plugins.a11ychecker#request} event.
+	 *
+	 * @param {String} quickFixName
+	 * @returns {Object}
+	 */
+	Repository.prototype._getRequestEvent = function( quickFixName ) {
+		return {
+			name: quickFixName
+		};
 	};
 
 	CKEDITOR.event.implementOn( Repository.prototype );

@@ -14,20 +14,20 @@
 					options = {
 						name: 'fooFix',
 						callback: callback
+					},
+					evtData = {
+						name: 'fooFix'
 					};
 
 				mock.fire = mocking.spy();
 				mock.requestQuickFix = mocking.spy();
+				mock._getRequestEvent = sinon.stub().returns( evtData );
 				mock.get( options );
 
 				assert.areSame( 1, mock.fire.callCount, 'Repository.fire called' );
-				mocking.assert.calledWith( mock.fire, 'requested' );
-
-				// Check event argument given to fire().
-				var eventArgument = mock.fire.args[ 0 ][ 1 ];
-				assert.areSame( 'fooFix', eventArgument.name, 'Event name' );
-
-				mocking.assert.calledWith( mock.requestQuickFix, options );
+				mocking.assert.calledWithExactly( mock._getRequestEvent, 'fooFix' );
+				mocking.assert.calledWithExactly( mock.fire, 'requested', evtData );
+				mocking.assert.calledWithExactly( mock.requestQuickFix, options );
 
 				// And we should ensure that a callback was stroed in waitingCallbacks.
 				var waitingCallbacks = mock.getWaitingCallbacks();
@@ -54,6 +54,9 @@
 
 				mock.fire = mocking.spy();
 				mock.requestQuickFix = mocking.spy();
+				mock._getRequestEvent = sinon.stub().returns( {
+					name: 'bar'
+				} );
 
 				// Call 4 times.
 				mock.get( {
@@ -98,8 +101,9 @@
 			'test Repository.get with event canceled': function() {
 				var mock = new Repository();
 
-				mock.fire = mocking.spy( function() {
-					return false;
+				mock.fire = mocking.stub().returns( false );
+				mock._getRequestEvent = sinon.stub().returns( {
+					name: 'bar'
 				} );
 				mock.requestQuickFix = mocking.spy();
 				mock.get( 'fooFix' );
@@ -119,6 +123,10 @@
 				} );
 
 				mock.fire = mocking.spy();
+				mock._getRequestEvent = sinon.stub().returns( {
+					name: 'bar'
+				} );
+
 				mock.get( {
 					name: 'fooBar',
 					callback: getCallback
@@ -205,6 +213,14 @@
 
 				assert.areSame( undefined, waitingCallbacks.cusType,
 					'waitingCallbacks.cusType' );
+			},
+
+			'test Repository._getRequestEvent': function() {
+				var mock = new Repository( 'foo' ),
+					ret = mock._getRequestEvent( 'bar' );
+
+				assert.isInstanceOf( Object, ret, 'Return type' );
+				assert.areEqual( 'bar', ret.name, 'Return value' );
 			},
 
 			'test integration': function() {

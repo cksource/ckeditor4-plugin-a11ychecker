@@ -168,5 +168,18 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 		deferredGetCalls = {};
 	};
 
+	LocalizedRepository.prototype._getRequestEvent = function( name ) {
+		// We need to extract language part.
+		var parts = name.split( '/' ),
+			hasLang = parts.length > 1,
+			baseName = parts.slice( hasLang ? 1 : 0, parts.length ).join( '/' ),
+			ret = Repository.prototype._getRequestEvent.call( this, baseName );
+
+		ret.lang = hasLang ? parts[ 0 ] : null;
+
+		return ret;
+	};
+
+
 	return LocalizedRepository;
 } );
