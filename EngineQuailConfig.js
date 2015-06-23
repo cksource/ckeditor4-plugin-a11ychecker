@@ -18,8 +18,6 @@ define( function() {
 			'headerH2',
 			'headerH3',
 			'headerH4',
-			'headerH5',
-			'headerH6',
 			'imgAltIsDifferent',
 			'imgAltIsTooLong',
 			'imgAltNotEmptyInAnchor',
