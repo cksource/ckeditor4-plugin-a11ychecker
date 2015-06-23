@@ -76,9 +76,9 @@ grunt build-full
 
 Another person might now simply get the `zip`, extract it to the `ckeditor/plugins` directory and everything is ready to go.
 
-#### Including Different Quail Config
+#### Including a Different Quail Configuration
 
-You might want to change default Quail guidelines config. Doing so, might have some benefit, in particular your AC distribution users won't need edit **config.js** on their own after your releases. You can do that by adding an extra CLI `--quail-config="foo.json"` parameter to the build command. It should point a JSON file that contains an array of strings. E.g.
+You might want to change the default Quail guidelines configuration. Doing so might have some benefits. For example, the users of your Accessibility Checker distribution will not need to edit the ``config.js`` on their own after your releases. You can do that by adding an extra `--quail-config="foo.json"` CLI parameter to the build command. It should point to a JSON file that contains an array of strings. For example:
 
 ```json
 [
@@ -92,27 +92,31 @@ You might want to change default Quail guidelines config. Doing so, might have s
 ]
 ```
 
-Then you might include it into a build with:
+Then you might include it in the build with:
 
 ```
 grunt build-full --quail-config="_local/custom.json"
 ```
 
-#### Including Different Quail Build
+#### Including a Different Quail Build
 
-You can actually use a totally different custom Quail build. To do that provide a path to your custom Quail build using `--quail` option.
+You can actually use a totally different custom Quail build. To do that, provide a path to your custom Quail build using the `--quail` option.
 
-E.g. `grunt build-full --quail=/libs/js/customQuailBuild`
+For example:
+
+``bash
+grunt build-full --quail=/libs/js/customQuailBuild`
+``
 
 ## Where Do I Start?
 
-You should use the `plugins/a11ychecker/samples/index.html` sample to test Accessibility Checker (eg. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/index.html)).
+You should use the `plugins/a11ychecker/samples/index.html` sample to test Accessibility Checker (e.g. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/index.html)).
 
-Other samples will not work because of the RequireJS dependency, which is not a part of the standard CKEditor distribution.
+Other CKEditor samples will not work because of the RequireJS dependency, which is not a part of the standard CKEditor distribution.
 
 ## Unit Testing
 
-Accessibility Checker comes with custom `bender.js` configuration, because it requires some custom Bender plugins that CKEditor does not need. You should use `-c` CLI parameter to point the custom config file.
+Accessibility Checker comes with custom `bender.js` configuration, because it requires some custom Bender plugins that CKEditor does not need. You should use the `-c` CLI parameter to point to the custom configuration file.
 
 ```bender server run -H 0.0.0.0 -c plugins/a11ychecker/bender.js```
 
