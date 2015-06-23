@@ -24,13 +24,15 @@ This archive contains the following plugins, each placed in a separate directory
 * Download the `a11ychecker.zip` file into the `ckeditor/plugins` directory.
 * Use the "Extract here" option on the archive, so that the directories are extracted directly into `plugins` directory.
 
-That's it! At this point you can open the sample available in `a11ychecker/samples/index.html` to see how it works for you.
+	At this point you can open the sample available in `a11ychecker/samples/index.html` to see how it works for you.
 
-You can also add Accessibility Checker to any of your CKEditor instances by using the [`config.extraPlugins`](http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-extraPlugins) configuration option. For example:
+* To add Accessibility Checker plugin to CKEditor you need to set [`config.extraPlugins`](http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-extraPlugins) configuration option in `ckeditor/config.js`.
 
-```javascript
-config.extraPlugins = 'a11ychecker';
-```
+	```javascript
+	config.extraPlugins = 'a11ychecker';
+	```
+
+	In case if you don't use `config.js` file, you'll need to put it in inline configuration, you'll find detailed information in [CKEditor configuration guide](http://docs.ckeditor.com/#!/guide/dev_configuration).
 
 **Keep in mind that Quail has a jQuery dependency.** It requires you to have a global variable `jQuery` defined containing jQuery 1.x. The  sample mentioned above is shipped with jQuery, but jQuery is not loaded automatically with Accessibility Checker.
 
@@ -38,7 +40,7 @@ config.extraPlugins = 'a11ychecker';
 
 **Running on local filesystem:** You cannot run Accessibility Checker on a local filesystem, since Quail uses an `XMLHttpRequest` for fetching its resources. This is not allowed when working with the `file://` scheme.
 
-# Where Do I Start?
+## Where Do I Start?
 
 Use the `ckeditor/plugins/a11ychecker/samples/index.html` sample loaded from a local web server to test Accessibility Checker.
 
