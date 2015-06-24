@@ -35,6 +35,12 @@
 			levelLabel: 'Header level',
 			suggested: '(Suggested)'
 		},
-		Repository: {}
+		Repository: {},
+		TableHeaders: {
+			positionLabel: 'Position',
+			positionHorizontally: 'Horizontally',
+			positionVertically: 'Vertically',
+			positionBoth: 'Both'
+		}
 	} );
 } )();

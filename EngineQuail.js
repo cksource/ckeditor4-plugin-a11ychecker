@@ -52,7 +52,8 @@ define( [
 		'headerH3': [ 'ParagraphToHeader' ],
 		'headerH4': [ 'ParagraphToHeader' ],
 		'headerH5': [ 'ParagraphToHeader' ],
-		'headerH6': [ 'ParagraphToHeader' ]
+		'headerH6': [ 'ParagraphToHeader' ],
+		'tableDataShouldHaveTh': [ 'TableHeaders' ]
 	};
 
 	/**
