@@ -28,7 +28,7 @@
 					position: {
 						type: 'select',
 						label: lang.positionLabel,
-						value: 'vertical',
+						value: 'row',
 						options: {
 							'both': lang.positionBoth,
 							'row': lang.positionHorizontally,
