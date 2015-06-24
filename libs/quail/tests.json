@@ -7,7 +7,7 @@
       "nl": "Voeg naast elkaar gelegen links die naar dezelfde locatie verwijzen samen"
     },
     "description": {
-      "en": "Because many users of screen-readers use links to navigate the page, providing two links right next to each other that point to the same location can be confusing. Try combining the links.",
+      "en": "Because many users of screen readers use links to navigate the page, providing two links right next to each other that point to the same location can be confusing. Try combining the links.",
       "nl": "Veel gebruikers van schermlezers gebruiken links om op de pagina te navigeren. Voor hen zijn naast elkaar gelegen links die naar dezelfde locatie verwijzen verwarrend. Probeer de links samen te voegen."
     },
     "guidelines": {
@@ -40,7 +40,7 @@
     "type": "custom",
     "testability": 1,
     "title": {
-      "en": "When an image is in a link, its \"alt\" attribute should not repeat other text in the link",
+      "en": "Alternative text for image in a link should not repeat the text in the link",
       "nl": "Als een link een afbeelding bevat, moet het \"alt\"-attribuut niet dezelfde tekst bevatten als de linktekst"
     },
     "description": {
@@ -894,11 +894,11 @@
     "type": "selector",
     "testability": 0.5,
     "title": {
-      "en": "The \"blockquote\" tag should not be used just for indentation",
+      "en": "The block quote should not be used just for indentation",
       "nl": "De \"blockquote\"-tag mag niet gebruikt worden om in te springen"
     },
     "description": {
-      "en": "Blockquote tags are for long-form quotes, and should not be used to indent paragraphs. Use CSS to indent the paragraph instead.",
+      "en": "Blockquote tags are for longer quotes, and should not be used to indent text.",
       "nl": "Blockquotes zijn bedoeld voor lange stukken geciteerde tekst, en niet om tekst te laten inspringen."
     },
     "guidelines": {
@@ -1913,11 +1913,11 @@
     "type": "custom",
     "testability": 1,
     "title": {
-      "en": "Visual lists of items are marked using ordered or unordered lists",
+      "en": "Lists of items should be marked using list markup",
       "nl": "Lijsten moeten gemarkeerd worden als ordered of unordered lists"
     },
     "description": {
-      "en": "Use the ordered (<code>ol</code>) or unordered (<code>ul</code>) elements for lists of items, instead of just using new lines which start with numbers or characters to create a visual list.",
+      "en": "Use the ordered or unordered (bulleted) list elements to mark lists instead of using new lines that start with numbers or other characters to create a visual list.",
       "nl": "Gebruik ordered (<code>ol</code>) of unordered (<code>ul</code>) elementen voor lijsten, in plaats van een nieuwe regel per item aan te maken die je laat beginnen met een nummer of teken om een visuele lijst te maken."
     },
     "guidelines": {
@@ -2792,11 +2792,11 @@
     "type": "headingLevel",
     "testability": 0,
     "title": {
-      "en": "The header following an h1 is not h3 through h6",
+      "en": "Header level 1 can only be followed by level 2",
       "nl": "De header die volgt op een h1 is niet h3 tot h6"
     },
     "description": {
-      "en": "Header order should not skip a level. Do not follow a <code>h1</code> header with a <code>h3</code>, <code>h4</code>, <code>h5</code>, or <code>h6</code>.",
+      "en": "Header order should not skip a level. Do not follow a header level 1 with a level 3, 4, 5, or 6.",
       "nl": "Headers mogen geen niveau overslaan. Laat een <code>h1</code>-header niet volgen door een <code>h3</code>, <code>h4</code>, <code>h5</code>, of <code>h6</code>."
     },
     "guidelines": {
@@ -2854,11 +2854,11 @@
     "type": "headingLevel",
     "testability": 0,
     "title": {
-      "en": "The header following an h2 is not h4, h5, or h6",
+      "en": "Header level 2 can not be followed by levels from 4 to 6",
       "nl": "De header volgend op een h2 is geen h4, h5, of h6"
     },
     "description": {
-      "en": "Header order should not skip a level. Do not follow a <code>h2</code> header with a <code>h4</code>, <code>h5</code>, or <code>h6</code>.",
+      "en": "Header order should not skip a level. Do not follow a header level 2 with a level 4, 5, or 6.",
       "nl": "Headers mogen geen niveau overslaan. Laat een <code>h2</code>-header niet volgen door een <code>h4</code>, <code>h5</code>, of <code>h6</code>."
     },
     "guidelines": {
@@ -2916,11 +2916,11 @@
     "type": "headingLevel",
     "testability": 0,
     "title": {
-      "en": "The header following an h3 is not an h5 or h6",
+      "en": "Header level 3 can not be followed by levels 5 and 6",
       "nl": "De header volgend op een h3 is geen h5, of h6"
     },
     "description": {
-      "en": "Header order should not skip a level. Do not follow a <code>h3</code> header with a <code>h5<code> or <code>h6</code>.",
+      "en": "Header order should not skip a level. Do not follow a header level 3 with a level 5 or 6.",
       "nl": "Headers mogen geen niveau overslaan. Laat een <code>h3</code>-header niet volgen door een <code>h5</code>, of <code>h6</code>."
     },
     "guidelines": {
@@ -2978,11 +2978,11 @@
     "type": "headingLevel",
     "testability": 0,
     "title": {
-      "en": "The header following an h4 is not an h6",
+      "en": "Header level 4 can not be followed by level 6",
       "nl": "De header volgend op een h4 is geen h6"
     },
     "description": {
-      "en": "Header order should not skip a level. Do not follow a <code>h4</code> haeder with a <code>h6</code>.",
+      "en": "Header order should not skip a level. Do not follow a header level 4 with level 6 header.",
       "nl": "Headers mogen geen niveau overslaan. Laat een <code>h4/code> header niet volgen door een <code>h6</code>."
     },
     "guidelines": {
@@ -3381,11 +3381,11 @@
     "type": "custom",
     "testability": 0.5,
     "title": {
-      "en": "Image \"alt\" attributes should not be the same as the filename",
+      "en": "Image alternative text should not be the same as the file name",
       "nl": "\"Alt\"-attributen van afbeeldingen moeten niet hetzelfde zijn als de bestandsnaam"
     },
     "description": {
-      "en": "All <code>img</code> elements should have an \"alt\" attribute that is not just the name of the file",
+      "en": "All images should have a meaningful alternative text. The file name is rarely meaningful and does not always reflect information presented by the image.",
       "nl": "Alle <code>img</code>-elementen moeten een \"alt\"-attribuut hebben dat anders is dan de bestandsnaam van de afbeelding."
     },
     "guidelines": {
@@ -3442,11 +3442,11 @@
     "type": "custom",
     "testability": 1,
     "title": {
-      "en": "Image Alt text is too long",
+      "en": "Image alternative text is too long",
       "nl": "Altteksten voor een afbeelding zijn kort"
     },
     "description": {
-      "en": "All \"alt\" attributes for <code>img</code> elements should be clear and concise. \"Alt\" attributes over 100 characters long should be reviewed to see if they are too long.",
+      "en": "Image alternative text should be clear and concise. Alternative text longer than 100 characters should be reviewed to see if it can be shortened.",
       "nl": "Alle \"alt\"-attributen voor <code>img</code>-elementen moeten duidelijk en bondig zijn. Verifieer \"alt\"-attributen langer dan 100 tekens en kort ze in waar mogelijk."
     },
     "guidelines": {
@@ -3471,11 +3471,11 @@
     "type": "custom",
     "testability": 1,
     "title": {
-      "en": "An image within a link cannot have an empty \"alt\" attribute if there is no other text within the link",
+      "en": "An image within a link cannot have an empty alternative text if there is no other text within the link",
       "nl": "Een afbeelding binnen een link mag geen leeg \"alt\"-attribuut hebben als er geen andere tekst is in de link"
     },
     "description": {
-      "en": "Any image that is within a link (an <code>a</code> element) that has no other text cannot have an empty or missing \"alt\" attribute.",
+      "en": "Any image that is within a link that has no other text cannot have an empty or missing alternative text.",
       "nl": "Elke afbeelding binnen een link (een <code>a</code>-element) die geen andere tekst heeft, mag geen leeg of ontbrekend \"alt\"-attribuut hebben."
     },
     "guidelines": {
@@ -3588,11 +3588,11 @@
     "type": "selector",
     "testability": 1,
     "title": {
-      "en": "Image elements must have an \"alt\" attribute",
+      "en": "Images must provide alternative text",
       "nl": "Afbeeldingselementen moeten een \"alt\"-attribuut hebben"
     },
     "description": {
-      "en": "All <code>img</code> elements must have an alt attribute.",
+      "en": "Alternative text needs to convey the same information as the image. This text will be used when the browser has disabled images, the image was not found on the server, or by non-sighted visitors who use screen readers.",
       "nl": "Alle <code>img</code>-elementen moeten een \"alt\"-attribuut hebben."
     },
     "guidelines": {
@@ -5370,7 +5370,7 @@
       "nl": "Alinea's worden niet gebruikt als header"
     },
     "description": {
-      "en": "Headers like <code>h1</code> - <code>h6</code> are extremely useful for non-sighted users to navigate the structure of the page, and formatting a paragraph to just be big or bold, while it might visually look like a header, does not make it one.",
+      "en": "Headers are extremely useful for non-sighted users to navigate the structure of the page. Formatting a paragraph to just be big or bold, while it might visually look like a header, does not make it a header.",
       "nl": "Headers van <code>h1</code> - <code>h6</code> zijn handig voor blinde en slechtziende gebruikers om door een pagina te navigeren. Maak alinea's daarom niet op zodat deze lijkt op een header. Dit werkt verwarrend."
     },
     "guidelines": {
@@ -6420,11 +6420,11 @@
     "type": "selector",
     "testability": 1,
     "title": {
-      "en": "Data tables should contain \"th\" elements",
+      "en": "Data tables should contain a header",
       "nl": "Datatabellen moeten \"th\"-elementen bevatten"
     },
     "description": {
-      "en": "Tables which contain data (as opposed to layout tables) should contain <code>th</code> elements to mark headers for screen readers and enhance the structure of the document.",
+      "en": "Tables which contain data (as opposed to layout tables) should contain proper table header elements to mark them for screen readers and enhance the structure of the document.",
       "nl": "Tabellen die data bevatten (in tegenstelling tot lay-out tabellen) moeten <code>th</code>-elementen bevatten om koppen te markeren voor schermlezers en om de structuur van het document te verbeteren."
     },
     "guidelines": {
