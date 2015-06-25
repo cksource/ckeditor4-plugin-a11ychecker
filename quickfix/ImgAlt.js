@@ -53,11 +53,6 @@
 					imgElem = this.issue && this.issue.element,
 					lang = this.lang;
 
-
-				if ( !proposedAlt ) {
-					ret.push( lang.errorEmpty );
-				}
-
 				// Test if the alt has only whitespaces.
 				if ( proposedAlt.match( emptyWhitespaceRegExp ) ) {
 					ret.push( lang.errorWhitespace );

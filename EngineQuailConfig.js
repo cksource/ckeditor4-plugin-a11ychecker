@@ -25,7 +25,8 @@ define( function() {
 			'imgHasAlt',
 			'imgShouldNotHaveTitle',
 			'pNotUsedAsHeader',
-			'tableDataShouldHaveTh'
+			'tableDataShouldHaveTh',
+			'imgWithEmptyAlt'
 		]
 	};
 
