@@ -53,7 +53,8 @@ define( [
 		'headerH4': [ 'ParagraphToHeader' ],
 		'headerH5': [ 'ParagraphToHeader' ],
 		'headerH6': [ 'ParagraphToHeader' ],
-		'tableDataShouldHaveTh': [ 'TableHeaders' ]
+		'tableDataShouldHaveTh': [ 'TableHeaders' ],
+		'imgWithEmptyAlt': [ 'ImgAltNonEmpty' ]
 	};
 
 	/**

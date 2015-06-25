@@ -70,10 +70,16 @@
 				},
 
 				'test ImgAlt.validate too long': function() {
-					var attributes = {},
+					var qfMock = {
+							lang: {
+								errorTooLong: 'Alternative text is too long. It should ' +
+									'be up to {limit} characters while your has {length}'
+							}
+						},
+						attributes = {},
 						alt = '',
 						expectedError = 'Alternative text is too long. It should be up' +
-							' to 100 characters while your has 120.',
+							' to 100 characters while your has 120',
 						ret;
 
 					for ( var i = 0; i < 120; i++ ) {
@@ -82,7 +88,7 @@
 
 					attributes.alt = alt;
 
-					ret = ImgAlt.prototype.validate.call( {}, attributes );
+					ret = ImgAlt.prototype.validate.call( qfMock, attributes );
 
 					assert.isInstanceOf( Array, ret );
 					assert.areSame( 1, ret.length, 'Return array length' );
@@ -93,9 +99,13 @@
 					var attributes = {
 							alt: 'my_file_name.png'
 						},
-						mock = {},
+						mock = {
+							lang: {
+								errorSameAsFileName: 'Image alt should not be the same as the file name'
+							}
+						},
 						getAttr = mocking.stub().returns( '/foo/bar/my_file_name.png' ),
-						expectedError = 'Image alt should not be the same as the file name.',
+						expectedError = 'Image alt should not be the same as the file name',
 						ret;
 
 					mocking.mockProperty( 'issue.element.getAttribute', mock, getAttr );
@@ -112,9 +122,7 @@
 
 				'test ImgAlt.validate no alt': function() {
 					var fixMock = {
-							lang: {
-								errorEmpty: 'Alternative text can not be empty'
-							}
+							lang: {}
 						},
 						attributes = {
 							alt: ''
@@ -124,8 +132,7 @@
 					ret = ImgAlt.prototype.validate.call( fixMock, attributes );
 
 					assert.isInstanceOf( Array, ret );
-					assert.areSame( 1, ret.length, 'Return array length' );
-					assert.areSame( 'Alternative text can not be empty', ret[ 0 ], 'Error message' );
+					assert.areSame( 0, ret.length, 'Return array length' );
 				},
 
 				'test ImgAlt.validate no length limit': function() {
