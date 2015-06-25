@@ -3795,6 +3795,26 @@
       "selector": "img[title]"
     }
   },
+  "imgWithEmptyAlt": {
+    "type": "selector",
+    "testability": 0,
+    "title": {
+      "en": "Use empty alternative text only for decorative images",
+      "nl": ""
+    },
+    "description": {
+      "en": "Empty alternative text can only be used if the image serves purely decoration purposes. If the image is supposed to convey any information whatsoever, you need to set a proper alternative text for it.",
+      "nl": ""
+    },
+    "guidelines": [],
+    "tags": [
+      "image",
+      "content"
+    ],
+    "options": {
+      "selector": "img[alt=\"\"]"
+    }
+  },
   "imgWithMapHasUseMap": {
     "type": "selector",
     "testability": 1,
