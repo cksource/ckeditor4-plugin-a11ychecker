@@ -3,6 +3,10 @@ Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 
+.clearfix:before,
+.clearfix:after { content:""; display:table; }
+.clearfix:after { clear:both;}
+
 header,
 main section.adjoined,
 .main-navigation li a:hover,
@@ -28,6 +32,7 @@ main address {
 	height: 22px;
 	padding-left: 20px;
 	background-repeat: no-repeat;
+	margin-left: 20px;
 }
 
 main .phone-number,
@@ -51,11 +56,6 @@ main .working-hours {
 
 .working-hours {
 	background-image: url(../assets/icons/clock-small.png);
-}
-
-
-.top-navigation address .phone-number {
-	padding-right: 20px;
 }
 
 section.contact-info {
@@ -117,4 +117,39 @@ section.demo {
 	padding: 2px 18px 0px 45px;
 	text-align: center;
 	background: url(../img/pointingArrow.png) no-repeat;
+}
+@media handheld, only screen and (max-width: 767px) {
+	header h1 {
+		display: block;
+		text-align: center;
+	}
+	.main-navigation {
+		display: table;
+		margin: 0 auto;
+		float: none;
+	}
+	.main-navigation li{
+		display: inline;
+	}
+	.contact-info address p > span,
+	.contact-info address p > a.mail {
+		background-position: 0px 5px;
+		padding-left: 22px;
+	}
+	footer p, footer p#copy {
+		margin: 0 auto;
+		text-align: center;
+		display: block;
+		float: none;
+	}
+}
+@media handheld, only screen and (max-width: 430px) {
+	.main-navigation ul {
+		text-align: center;
+		float: none;
+	}
+	.main-navigation ul li{
+		display: block;
+		margin: 0.5em 0;
+	}
 }
