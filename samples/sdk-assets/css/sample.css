@@ -90,7 +90,8 @@ header a {
   outline: none;
 }
 header h1 {
-  display: inline-block;
+  display: block;
+  float: left;
 }
 header h1 img {
   border: transparent;

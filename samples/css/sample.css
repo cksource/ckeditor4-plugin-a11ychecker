@@ -121,7 +121,9 @@ section.demo {
 @media handheld, only screen and (max-width: 767px) {
 	header h1 {
 		display: block;
+		clear: both;
 		text-align: center;
+		float: none;
 	}
 	.main-navigation {
 		display: table;
