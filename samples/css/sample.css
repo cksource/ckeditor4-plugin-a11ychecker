@@ -42,12 +42,12 @@ main section img {
 main .phone-number,
 main .mail,
 main .working-hours {
-	background-position: 71px 5px;
-	padding-left: 92px;
+	background-position: 51px 5px;
+	padding-left: 72px;
 }
 
 main .working-hours {
-	background-position: 71px 3px;
+	background-position: 51px 3px;
 }
 
 .phone-number {
