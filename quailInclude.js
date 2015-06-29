@@ -20,7 +20,7 @@ var acNamespace = CKEDITOR.plugins.a11ychecker,
 	IssueDetails = acNamespace.IssueDetails,
 	Quail,
 	EngineQuailConfig,
-	$ = window.$ || window.jQuery;
+	$ = window.jQuery || window.$;
 
 // EngineQuailConfig class can still be loaded with RequireJS as it does not have any deps.
 require( [ 'EngineQuailConfig' ], function( _EngineQuailConfig ) {
