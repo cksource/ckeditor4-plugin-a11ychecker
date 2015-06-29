@@ -25,6 +25,10 @@ main address {
 	padding: 4px 0px;
 }
 
+main section img {
+	max-width: 100%;
+}
+
 .phone-number,
 .mail,
 .working-hours{
@@ -73,22 +77,24 @@ section.contact-info p:first-child {
 }
 
 .yellow-box {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-  background: #fffbe3;
-  border: 1px solid #e2ddc2;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+	box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+	background: #fffbe3;
+	border: 1px solid #e2ddc2;
 }
 
 section.demo {
 	position: relative;
 }
-
+#editor1 {
+	display: none;
+}
 .fancy-tip {
 	display: block;
 	position: absolute;
@@ -106,10 +112,79 @@ section.demo {
 	line-height: 27.36px;
 	line-height: 1.71rem;
 }
+#ac-loader {
+	margin: 250px auto;
+}
+.loader,
+.loader:before,
+.loader:after {
+	border-radius: 50%;
+}
+.loader:before,
+.loader:after {
+	position: absolute;
+	content: '';
+}
+.loader:before {
+	width: 5.2em;
+	height: 10.2em;
+	background: #fff;
+	border-radius: 10.2em 0 0 10.2em;
+	top: -0.1em;
+	left: -0.1em;
+	-webkit-transform-origin: 5.2em 5.1em;
+	transform-origin: 5.2em 5.1em;
+	-webkit-animation: load2 2s infinite ease 1.5s;
+	animation: load2 2s infinite ease 1.5s;
+}
+.loader {
+	font-size: 11px;
+	text-indent: -99999em;
+	margin: 5em auto;
+	position: relative;
+	width: 10em;
+	height: 10em;
+	box-shadow: inset 0 0 0 1em #4C78C9;
+	-webkit-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	transform: translateZ(0);
+}
+.loader:after {
+	width: 5.2em;
+	height: 10.2em;
+	background: #fff;
+	border-radius: 0 10.2em 10.2em 0;
+	top: -0.1em;
+	left: 5.1em;
+	-webkit-transform-origin: 0px 5.1em;
+	transform-origin: 0px 5.1em;
+	-webkit-animation: load2 2s infinite ease;
+	animation: load2 2s infinite ease;
+}
+@-webkit-keyframes load2 {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes load2 {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
 
 #acceessibility-button-tip {
 	top: -42px;
-	left: 123px;
+	left: 40px;
 	display: none;
 
 	height: 45px;
@@ -118,7 +193,42 @@ section.demo {
 	text-align: center;
 	background: url(../img/pointingArrow.png) no-repeat;
 }
-@media handheld, only screen and (max-width: 767px) {
+
+.half {
+	width: 50%;
+}
+.push-left {
+	float: left;
+}
+.push-right {
+	float: right;
+}
+
+ul.standard {
+	list-style: outside none none;
+	padding: 0;
+	margin: 4em 4em 0 3em;
+}
+ul.standard li:first-child, .products > ul > li ul li:first-child {
+	border-top: medium none;
+}
+ul.standard li, .products > ul > li ul li {
+	background: transparent url("http://c.cksource.com/c/3/sprites/sprites.png") no-repeat scroll -390px -1755px;
+	border-top: 1px solid #E7E7E7;
+	padding: 10px 0 10px 24px;
+}
+@media screen and (max-width: 920px) {
+	.contact-info .half {
+		width: 100%;
+	}
+	.contact-info .half ul.standard{
+		margin: 2em;
+	}
+	.contact-info #mc_embed_signup {
+		float: none;
+	}
+}
+@media screen and (max-width: 767px) {
 	header h1 {
 		display: block;
 		clear: both;
@@ -129,9 +239,19 @@ section.demo {
 		display: table;
 		margin: 0 auto;
 		float: none;
+		clear: both;
 	}
 	.main-navigation li{
 		display: inline;
+	}
+	.contact-info .half {
+		width: 100%;
+	}
+	.contact-info .half ul.standard{
+		margin: 2em;
+	}
+	.contact-info #mc_embed_signup {
+		float: none;
 	}
 	.contact-info address p > span,
 	.contact-info address p > a.mail {
@@ -145,7 +265,7 @@ section.demo {
 		float: none;
 	}
 }
-@media handheld, only screen and (max-width: 430px) {
+@media screen and (max-width: 430px) {
 	.main-navigation ul {
 		text-align: center;
 		float: none;

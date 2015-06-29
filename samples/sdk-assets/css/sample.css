@@ -171,7 +171,7 @@ main section address {
   float: right;
   margin-top: 30px;
   overflow: visible;
-  display: inline-block;
+  display: block;
 }
 .main-navigation li {
   margin-left: 10px;

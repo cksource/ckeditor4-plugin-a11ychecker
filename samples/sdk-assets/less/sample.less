@@ -63,7 +63,6 @@ html {
   font: 16px / 24px Arial, Helvetica, sans-serif;
   color: #575757;
 }
-header,
 main > section,
 footer {
   padding-left: 1.5em;
@@ -78,29 +77,28 @@ footer > div,
 }
 /* Header */
 header {
-  height: 130px;
   background: #cceaee;
 }
 header > div {
   position: relative;
-  height: 100%;
   background: url(../img/header-separator.png ) center bottom no-repeat;
+}
+header > div.navigation-wrapper {
+  padding: 0 1.5em;
 }
 header a {
   outline: none;
 }
 header h1 {
-  position: absolute;
-  left: 0;
-  top: 50px;
-  margin: 0;
+  display: block;
+  float: left;
 }
 header h1 img {
   border: transparent;
 }
 /* Navigations */
 .navigation {
-  display: block;
+  display: inline-block;
   overflow: hidden;
 }
 .navigation ul {
@@ -117,18 +115,15 @@ main section address {
   font-style: normal;
 }
 .top-navigation {
-  height: 21px;
   background: #454545;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  padding: 5px 1.5em 0px;
+  width: 100%;
   max-width: none;
+  padding-top: 5px;
   text-transform: uppercase;
 }
 .top-navigation > address {
-  max-width: 960px;
+  max-width: 930px;
+  padding: 0px 15px;
   margin: 0 auto;
   font-size: 9.6px;
   font-size: 0.6rem;
@@ -173,10 +168,10 @@ main section address {
   font-size: 1.063rem;
   line-height: 30.62px;
   line-height: 1.91rem;
-  position: absolute;
-  right: 0;
-  top: 60px;
+  float: right;
+  margin-top: 30px;
   overflow: visible;
+  display: block;
 }
 .main-navigation li {
   margin-left: 10px;
@@ -235,6 +230,7 @@ main section.adjoined {
   padding: 1.2em 1.5em;
   background: #cceaee;
   max-width: 100%;
+  width: 100%;
   overflow: hidden;
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMTAwJSIgeDI9IjAlIiB5Mj0iMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNiOWUyZTgiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2NjZWFlZSIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
   background-image: -webkit-linear-gradient(bottom, #b9e2e8 0%, #cceaee 100%);
