@@ -157,6 +157,33 @@
 				}
 			},
 
+			'test Repository.requestQuickFix fail': function() {
+				var mock = new Repository(),
+					options = {
+						name: 'foo',
+						fail: sinon.stub(),
+						callback: sinon.stub()
+					};
+
+				mocking.stub( CKEDITOR.scriptLoader, 'load', function( path, callback ) {
+					callback( 404 );
+				} );
+
+				try {
+					mock.requestQuickFix( options );
+
+					assert.areSame( 1, options.fail.callCount, 'options.fail call count' );
+					mocking.assert.calledWithExactly( options.fail );
+
+					assert.areSame( 0, options.callback.callCount, 'options.callback call count' );
+				} catch (e) {
+					// Propagate.
+					throw e;
+				} finally {
+					CKEDITOR.scriptLoader.load.restore();
+				}
+			},
+
 			'test Repository.add': function() {
 				var mock = new Repository(),
 					type = mocking.spy(),

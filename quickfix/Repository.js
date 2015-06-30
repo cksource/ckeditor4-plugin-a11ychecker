@@ -53,6 +53,7 @@ define( function() {
 	 * @param {String} options.name
 	 * @param {Function} options.callback A function to be called when given type is registered.
 	 * It gets only one parameter which is a construct function for given QuickFix.
+	 * @param {Function} options.fail A function to be called when given type could not be found.
 	 * @returns {Function}
 	 */
 	Repository.prototype.get = function( options ) {
@@ -105,7 +106,12 @@ define( function() {
 	 * @param {Object} options Same as in {@link #get}
 	 */
 	Repository.prototype.requestQuickFix = function( options ) {
-		CKEDITOR.scriptLoader.load( this.basePath + options.name + '.js' );
+		var filePath = this.basePath + options.name + '.js';
+		CKEDITOR.scriptLoader.load( filePath, function( res ) {
+			if ( res !== true && options.fail ) {
+				options.fail();
+			}
+		} );
 	};
 
 	/**
