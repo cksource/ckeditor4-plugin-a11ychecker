@@ -72,6 +72,7 @@
 	/**
 	 * A method called to mark the selection on object before quickfix is applied.
 	 *
+	 * @param {CKEDITOR.editor} editor
 	 * @param {CKEDITOR.dom.selection} selection Editor selection.
 	 */
 	QuickFix.prototype.markSelection = function( editor, selection ) {
