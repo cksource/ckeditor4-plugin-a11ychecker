@@ -172,7 +172,9 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 				}
 
 				for ( var i = 0; i < fixesCount; i++ ) {
-					fixes[ i ].display( form, that.editor );
+					if ( fixes[ i ].display ) {
+						fixes[ i ].display( form, that.editor );
+					}
 				}
 
 				if ( fixesCount ) {
@@ -200,7 +202,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 				console.erorr( 'No quickfix available!' ); // %REMOVE_LINE_CORE%
 				evt.cancel();
 			} else {
-				errors = currentFix.validate( values );
+				errors = currentFix.validate ? currentFix.validate( values ) : [];
 
 				if ( errors.length ) {
 					// If any errors were found, display them.

@@ -561,8 +561,12 @@ define( [
 
 			// Make sure that no markup is in editable.
 			this.editableDecorator.removeMarkup();
+
 			// Selecting issue element.
-			quickFix.markSelection( editor, editor.getSelection() );
+			if ( quickFix.markSelection ) {
+				quickFix.markSelection( editor, editor.getSelection() );
+			}
+
 			if ( mode.unsetStoredSelection ) {
 				mode.unsetStoredSelection();
 			}
