@@ -35,6 +35,10 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	 * @returns {Function}
 	 */
 	LocalizedRepository.prototype.get = function( options ) {
+		var that = this,
+			originalName = options.name,
+			callbacks;
+
 		options.langCode = options.langCode || 'en';
 
 		if ( this.deferGetCall( options.langCode, arguments ) ) {
@@ -46,7 +50,21 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 			// In case of release code we'll do a trick here.
 			// Each class will be represented as '<lang>/<className>' string, that way we
 			// can load multiple language combination with given class.
-			options.name = options.langCode + '/' + options.name;
+			options.name = options.langCode + '/' + originalName;
+
+			// Another trick! It will register the options.callback also for originalName (without
+			// any language prefix). The reason for that is that if AC requests for 'de/MyCustomFix',
+			// and dev specifying MyCustomFix didn't care about localization, then he'll trigger only 'MyCustomFix',
+			// so technically not the one requested. This is why we'll aslo add this listener for base type.
+			// Regardless register generic callback.
+			callbacks = this.getWaitingCallbacks();
+
+			callbacks[ originalName ] = callbacks[ originalName ] || [];
+
+			callbacks[ originalName ].push( function( type ) {
+				that.getLoadedTypes()[ options.langCode + '/' + originalName ] = type;
+				options.callback.apply( this, arguments );
+			} );
 		}
 
 		// If lang is available call to the base class.
@@ -106,17 +124,6 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 		}
 
 		return true;
-	};
-
-	/**
-	 * Registers a class of given QuickFix.
-	 *
-	 * @member CKEDITOR.plugins.a11ychecker.quickFix.LocalizedRepository
-	 * @param {String} name QuickFix name.
-	 * @param {Function} cls QuickFix type.
-	 */
-	LocalizedRepository.prototype.add = function( name, cls ) {
-		return Repository.prototype.add.call( this, name, cls );
 	};
 
 	/**

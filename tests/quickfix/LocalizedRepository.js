@@ -102,6 +102,37 @@
 				mocking.assert.calledWith( fakeConstructor, issue );
 			},
 
+			'test LocalizedRepository.get registers additional callback': function() {
+				// In non build version, despite registering callback for 'it/FooType' it should
+				// also register a callback for 'FooType' in case when no localization is implemented
+				// for added Quick Fix.
+				var mock = new LocalizedRepository(),
+					baseGet = mocking.stub( Repository.prototype, 'get', function( opts ) {
+						opts.fail();
+					} ),
+					devInitial = CKEDITOR.plugins.a11ychecker.dev,
+					options = {
+						name: 'FooType',
+						fail: mocking.stub(),
+						callback: mocking.stub(),
+						langCode: 'it'
+					},
+					waitingCallbacks;
+
+				// We need to force built environment.
+				CKEDITOR.plugins.a11ychecker.dev = undefined;
+
+				mock.get( options );
+
+				baseGet.restore();
+				CKEDITOR.plugins.a11ychecker.dev = devInitial;
+
+				waitingCallbacks = mock.getWaitingCallbacks();
+
+				assert.isInstanceOf( Array, waitingCallbacks.FooType );
+				assert.areSame( 1, waitingCallbacks.FooType.length );
+			},
+
 			'test lang': function() {
 				var mock = new LocalizedRepository(),
 					dict = {
