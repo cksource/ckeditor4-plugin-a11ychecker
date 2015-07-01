@@ -87,6 +87,7 @@ define( function() {
 			// If type is not yet loaded we need to fire an event (where one can
 			// override loading method).
 			evt = this._getRequestEvent( name );
+			evt.fail = options.fail;
 
 			loadedTypes[ name ] = false;
 
