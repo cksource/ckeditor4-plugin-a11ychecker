@@ -1,7 +1,3 @@
-/**
- * Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- * See LICENSE.md for license information.
- */
 
 // File specific JSHint configs.
 /* jshint node: true */
