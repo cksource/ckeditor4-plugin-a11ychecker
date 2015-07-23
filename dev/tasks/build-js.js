@@ -22,7 +22,11 @@
 				options = this.options(),
 				config = grunt.config.get( 'build-js.buildConfig' ),
 				// Make grunt wait because requirejs.optimize is a async method.
-				done = this.async();
+				done = this.async(),
+				licenseStatement = '/**\n' +
+					'* @license Copyright (c) 2014-' + ( new Date() ).getFullYear() +
+					', CKSource - Frederico Knabben. All rights reserved.\n' +
+					'*/\n\n';
 
 			requirejs.optimize( config,
 				function( buildResponse ) {
@@ -39,12 +43,7 @@
 						code = minify( code );
 
 						// Add copyright notices.
-						code =
-							'/*\n' +
-							' Copyright (c) ' + ( new Date() ).getFullYear() + ' CKSource - Frederico Knabben. All rights reserved.\n' +
-							' For licensing, see LICENSE.md\n' +
-							'*/\n\n' +
-							code;
+						code = licenseStatement + code;
 
 						// Overwrite the output file with the new code.
 						fs.writeFileSync( config.out, code );
