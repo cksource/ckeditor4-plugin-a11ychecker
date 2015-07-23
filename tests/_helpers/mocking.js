@@ -1,4 +1,7 @@
 /**
+ * @license Copyright (c) 2014-2015, CKSource - Frederico Knabben. All rights reserved.
+ */
+/**
  * @fileoverview A module that will make mocking function / objects easier.
  */
 

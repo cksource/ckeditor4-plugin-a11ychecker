@@ -1,4 +1,7 @@
 /**
+ * @license Copyright (c) 2014-2015, CKSource - Frederico Knabben. All rights reserved.
+ */
+/**
  * @fileoverview This module contains a function handling QuickFix type loading.
  *
  * The problem with QuickFixes is that they don't use AMD. So function exposed by this module

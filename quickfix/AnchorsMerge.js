@@ -1,3 +1,6 @@
+/**
+ * @license Copyright (c) 2014-2015, CKSource - Frederico Knabben. All rights reserved.
+ */
 
 ( function() {
 	'use strict';
@@ -39,16 +42,16 @@
 						if ( !node ) {
 							return false;
 						}
-						
+
 						// We only allow anchors that have the same href as the initial one
-						return ( node.getName && node.getName() == 'a' && nextSibling.getAttribute( 'href' ) == initialHref )
-							|| isWhitespace( node ); // Or whitespace text nodes.
+						return ( node.getName && node.getName() == 'a' && nextSibling.getAttribute( 'href' ) == initialHref ) ||
+							isWhitespace( node ); // Or whitespace text nodes.
 					},
 					curNode;
 
 				while ( iterationAllowed( nextSibling ) ) {
 					curNode = nextSibling;
-					
+
 					// This html will be added later on to the first anchor.
 					extraInnerHtml += isWhitespace( curNode ) ? curNode.getText() : curNode.getHtml();
 
