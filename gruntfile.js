@@ -1,6 +1,5 @@
 /**
- * Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
- * See LICENSE.md for license information.
+ * @license Copyright (c) 2014-2015, CKSource - Frederico Knabben. All rights reserved.
  */
 
 // File specific JSHint configs.

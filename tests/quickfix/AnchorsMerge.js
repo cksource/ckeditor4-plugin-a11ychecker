@@ -1,3 +1,6 @@
+/**
+ * @license Copyright (c) 2014-2015, CKSource - Frederico Knabben. All rights reserved.
+ */
 /* bender-tags: a11ychecker,unit */
 
 ( function() {
@@ -51,7 +54,7 @@
 					assert.areSame( 1, callback.callCount, 'Callback was called' );
 					mocking.assert.alwaysCalledWith( callback, fixMockup );
 				},
-				
+
 				'test AnchorsMerge.fix anchors separated with whitespace': function() {
 					var playground = CKEDITOR.document.getById( 'anchorsWithWhitespace' ),
 						fixMockup = {
@@ -71,7 +74,7 @@
 					assert.areSame( 1, callback.callCount, 'Callback was called' );
 					mocking.assert.alwaysCalledWith( callback, fixMockup );
 				},
-				
+
 				'test AnchorsMerge.fix anchors separated with new line': function() {
 					var playground = CKEDITOR.document.getById( 'anchorsWithNL' ),
 						fixMockup = {

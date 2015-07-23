@@ -1,3 +1,6 @@
+/**
+ * @license Copyright (c) 2014-2015, CKSource - Frederico Knabben. All rights reserved.
+ */
 /* bender-tags: unit,a11ychecker */
 
 ( function() {
