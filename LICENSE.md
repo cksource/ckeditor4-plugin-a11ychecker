@@ -2,7 +2,7 @@ Software License Agreement
 ==========================
 
 CKEditor Accessibility Checker Plugin
-Copyright (c) 2015 CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2014-2016 CKSource - Frederico Knabben. All rights reserved.
 
 License under the terms of the open source GPL license (Appendix A).
 
