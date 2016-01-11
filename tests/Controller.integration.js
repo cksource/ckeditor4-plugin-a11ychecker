@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2014-2015, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2014-2016, CKSource - Frederico Knabben. All rights reserved.
  */
 /* bender-tags: editor,unit */
 /* bender-ckeditor-plugins: a11ychecker,sourcearea,undo */
