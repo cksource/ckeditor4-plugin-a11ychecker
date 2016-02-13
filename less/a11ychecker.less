@@ -11,7 +11,7 @@ a.@{A11YC_UI}_button
 	display: inline-block;
 	*display: inline;
 	*zoom: 1;
-	padding: 4px 0;
+	padding: 4px;
 	margin: 0;
 	text-align: center;
 	color: #333;
@@ -46,7 +46,7 @@ a.@{A11YC_UI}_button
 
 	& > span
 	{
-		padding: 0 10px;
+		padding: 0 6px;
 		text-shadow: 0 1px 0 #fff;
 
 		&:hover {
@@ -377,5 +377,14 @@ input.@{A11YC_UI}_input_text
 	.@{A11YC_UI}_listening
 	{
 		display: block;
+	}
+}
+
+/* High contrast mode */
+
+.cke_hc {
+	a.@{A11YC_UI}_button:focus {
+		padding: 2px;
+		border-width: 3px;
 	}
 }
