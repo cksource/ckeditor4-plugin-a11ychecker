@@ -383,8 +383,21 @@ input.@{A11YC_UI}_input_text
 /* High contrast mode */
 
 .cke_hc {
-	a.@{A11YC_UI}_button:focus {
-		padding: 2px;
-		border-width: 3px;
+	select, input, a.@{A11YC_UI}_button {
+		&:focus {
+			&.@{A11YC_UI}_button {
+				padding: 2px;
+			}
+			
+			&.@{A11YC_UI}_input_select {
+				padding: 1px 1px 1px 4px;
+			}
+			
+			&.@{A11YC_UI}_input_text {
+				padding: 2px 4px;
+			}
+			
+			border-width: 3px;
+		}
 	}
 }
