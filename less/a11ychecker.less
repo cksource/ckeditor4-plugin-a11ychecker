@@ -57,16 +57,16 @@ a.@{A11YC_UI}_button
 	&_ok
 	{
 		color: #fff;
-		text-shadow: 0 -1px 0 #55830c;
-		border-color: #62a60a #62a60a #4d9200;
-		background: #69b10b;
-		.background-image( linear-gradient( to bottom, #9ad717, #69b10b) );
+		text-shadow: 0 -1px 0  darken( @QF_BG_DARK, 30% );
+		border-color: darken( @QF_BG_BRIGHT, 10% ) darken( @QF_BG_BRIGHT, 10% ) darken( @QF_BG_DARK, 10% );
+		background: @QF_BG_BRIGHT;
+		.background-image( linear-gradient( to bottom, @QF_BG_BRIGHT, @QF_BG_DARK ) );
 
 		&:hover
 		{
-			border-color: #5b9909 #5b9909 #478500;
-			background: #88be14;
-			.background-image( linear-gradient( to bottom, #88be14 0%,#5d9c0a 100%) );
+			border-color: darken( @QF_FOCUSED_BG_BRIGHT, 10% ) darken( @QF_FOCUSED_BG_BRIGHT, 10% ) darken( @QF_FOCUSED_BG_DARK, 10% );
+			background: QF_FOCUSED_BG_BRIGHT;
+			.background-image( linear-gradient( to bottom, @QF_FOCUSED_BG_BRIGHT 0%, @QF_FOCUSED_BG_DARK 100%) );
 		}
 
 		& > span
@@ -388,15 +388,15 @@ input.@{A11YC_UI}_input_text
 			&.@{A11YC_UI}_button {
 				padding: 2px;
 			}
-			
+
 			&.@{A11YC_UI}_input_select {
 				padding: 1px 1px 1px 4px;
 			}
-			
+
 			&.@{A11YC_UI}_input_text {
 				padding: 2px 4px;
 			}
-			
+
 			border-width: 3px;
 		}
 	}
