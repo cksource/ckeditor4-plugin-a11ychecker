@@ -34,7 +34,7 @@
     "test-quickfix-builder": "mocha -R dot dev/testsbuilder"
   },
   "author": "CKSource (http://cksource.com/)",
-  "license": "See LICENSE.md",
+  "license": "SEE LICENSE IN LICENSE.md",
   "homepage": "",
   "bugs": {
     "url": "https://github.com/cksource/ckeditor-plugin-a11ychecker/issues"
