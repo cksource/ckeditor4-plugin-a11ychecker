@@ -4,10 +4,10 @@ Software License Agreement
 CKEditor Accessibility Checker Plugin
 Copyright (c) 2014-2016 CKSource - Frederico Knabben. All rights reserved.
 
-License under the terms of the open source GPL license (Appendix A).
+License under the terms of the GNU General Public License Version 2 or later (the "GPL") (Appendix A).
 
 This license is not valid for integration within commercial
-applications or applications which license is not compatible
+applications or applications whose license is not compatible
 with the GPL.
 
 This program is free software; you can redistribute it and/or
