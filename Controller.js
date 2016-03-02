@@ -26,11 +26,11 @@ define( [
 	/**
 	 * Exposes Accessibility Checker interface.
 	 *
-	 * This type stores the issue list, and implements some high-level operations like
-	 * going to next issue, focusing particular issue, closing Accessibility Checker etc.
+	 * This type stores the issue list and implements some high-level operations like
+	 * going to next issue, focusing a particular issue, closing Accessibility Checker etc.
 	 * Most of these methods are directly used by CKEditor commands.
 	 *
-	 * Controller contains a reference (and manages) all the most important components
+	 * The controller contains a reference to (and manages) all the most important components
 	 * like:
 	 *
 	 * * {@link CKEDITOR.plugins.a11ychecker.Engine}
@@ -39,14 +39,14 @@ define( [
 	 * * {@link CKEDITOR.plugins.a11ychecker.ViewerController}
 	 * * {@link CKEDITOR.plugins.a11ychecker.HotkeyManager}
 	 *
-	 * Controller works in one of multiple modes. Currently we have following modes:
+	 * The controller works in one of multiple modes. Currently the following modes are available:
 	 *
 	 * * Checking
 	 * * Listening
 	 * * Busy
 	 *
-	 * States are changed by calling {@link #setState} method with a property listed
-	 * in {@link CKEDITOR.plugins.a11ychecker.Controller#modes} enumeration.
+	 * States are changed by calling the {@link #setState} method with a property listed
+	 * in the {@link CKEDITOR.plugins.a11ychecker.Controller#modes} enumeration.
 	 *
 	 * @since 4.5
 	 * @mixins CKEDITOR.event
@@ -57,7 +57,7 @@ define( [
 	function Controller( editor ) {
 		this._ = {};
 		/**
-		 * Editor owning this Accessibility Checker instance.
+		 * The editor that this Accessibility Checker instance belongs to.
 		 *
 		 * @member CKEDITOR.plugins.a11ychecker.Controller
 		 * @type {CKEDITOR.editor}
@@ -65,7 +65,7 @@ define( [
 		this.editor = editor;
 
 		/**
-		 * An accessibility checking engine object. It encapsulates all the logic related
+		 * The accessibility checking engine object. It encapsulates all the logic related
 		 * to fetching issues.
 		 *
 		 * @member CKEDITOR.plugins.a11ychecker.Controller
@@ -73,7 +73,7 @@ define( [
 		 */
 
 		/**
-		 * Object dedicated for all the editable modification, see
+		 * An object dedicated for all modifications of the editable, see
 		 * {@link CKEDITOR.plugins.a11ychecker.EditableDecorator}.
 		 *
 		 * @member CKEDITOR.plugins.a11ychecker.Controller
@@ -82,7 +82,7 @@ define( [
 		this.editableDecorator = new EditableDecorator( this.editor );
 
 		/**
-		 * Object managing the user interface.
+		 * An object managing the user interface.
 		 *
 		 * @member CKEDITOR.plugins.a11ychecker.Controller
 		 * @property {CKEDITOR.plugins.a11ychecker.ui.Ui} ui
@@ -90,7 +90,7 @@ define( [
 		this.ui = new Ui( this );
 
 		/**
-		 * An object managing the order of focusing the issues when resuming / starting
+		 * An object managing the order of focusing the issues when resuming or starting
 		 * the checking process.
 		 *
 		 * @member CKEDITOR.plugins.a11ychecker.Controller
@@ -113,7 +113,7 @@ define( [
 	 * Enumerates controller modes, used in {@link #setMode}.
 	 *
 	 *		console.log( CKEDITOR.plugins.a11ychecker.Controller.modes.LISTENING );
-	 *		// Logs following number: 2
+	 *		// Logs the following number: 2
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @static
@@ -127,30 +127,30 @@ define( [
 
 	Controller.prototype = {
 		/**
-		 * Contains all the issues identified by the Accessibility Checker.
+		 * Contains all issues identified by Accessibility Checker.
 		 *
 		 * @property {CKEDITOR.plugins.a11ychecker.IssueList} issues
 		 */
 		issues: null,
 		/**
-		 * Object encapsulating the balloon operations.
+		 * An object encapsulating the balloon operations.
 		 *
 		 * @property {CKEDITOR.plugins.a11ychecker.ViewerController} viewerController
 		 */
 		viewerController: null,
 		/**
-		 * An property indicating whether or not Accessibility Checker is enabled.
+		 * A property indicating whether Accessibility Checker is enabled.
 		 *
 		 * @property {Boolean} enabled
 		 * @readonly
 		 */
 		enabled: false,
 		/**
-		 * If set to true it prevent editor from stripping out
+		 * If set to `true`, it prevents the editor from stripping out
 		 * {@link CKEDITOR.plugins.a11ychecker.EditableDecorator.ID_ATTRIBUTE_NAME_FULL}
-		 * attributes from element.
+		 * attributes from the element.
 		 *
-		 * This is desired when generating an output for scratchpad.
+		 * This is desired when generating output for scratchpad.
 		 */
 		disableFilterStrip: false
 	};
@@ -167,13 +167,13 @@ define( [
 	};
 
 	/**
-	 * Performs an accessibility test against current editor content.
+	 * Performs an accessibility test against the current editor content.
 	 *
-	 * A main method executed on Accessibility Checker (toolbar) icon click.
+	 * This is the main method executed on Accessibility Checker (toolbar) icon click.
 	 *
-	 * It toggles the state of Accessibility Checker, if it's disabled then Accessibility
-	 * Checker will be enabled, and perform content checking. In case of Accessibility
-	 * Checker being already enabled, it will close it.
+	 * It toggles the state of Accessibility Checker. If Accessibility Checker is disabled,
+	 * it will be enabled and will perform content checking. If Accessibility Checker
+	 *  has already been enabled, this method will close it.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {Function} callback Callback to be called when the function is executed.
@@ -200,7 +200,7 @@ define( [
 	/**
 	 * Puts Accessibility Checker in listening mode.
 	 *
-	 * This method is not executed in case when Accessibility Checker is disabled.
+	 * This method is not executed when Accessibility Checker is disabled.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 */
@@ -214,7 +214,7 @@ define( [
 		if ( this.modeType === modes.LISTENING ) {
 			this.check();
 		} else {
-			// When we're switching to listening mode we want to be sure that element
+			// When we are switching to listening mode, we want to be sure that the element
 			// will be selected.
 			var curIssueElement = this.issues.getFocused() && this.issues.getFocused().element;
 			this.setMode( modes.LISTENING );
@@ -226,26 +226,26 @@ define( [
 
 
 	/**
-	 * This method will force content checking. It's considered to be an internal method
-	 * if you want to simply trigger Accessibility Checker consider using {@link #exec}.
+	 * This method will force content checking. It is considered to be an internal method.
+	 * If you want to simply trigger Accessibility Checker, consider using {@link #exec}.
 	 *
-	 * By default it's not showing the ui.
+	 * By default it is not showing the user interface.
 	 *
-	 * Automatically sets the Controller mode to `BUSY` / `CHECKING`.
+	 * This method automatically sets the Controller mode to `BUSY` or `CHECKING`.
 	 *
 	 * Accessibility Checker does not need to have {@link #enabled} set to `true` in order
 	 * to execute this function.
 	 *
-	 * Note: depending on used engine results might be asynchronous.
+	 * Note: Depending on checking engine used, results might be asynchronous.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {Object} [options]
-	 * @param {Boolean} [options.ui] Property telling if UI should be shown.
-	 * @param {Function} [options.callback] A function to be called after checking is done. It gets
-	 * two arguments:
+	 * @param {Boolean} [options.ui] A poperty telling if the UI should be shown.
+	 * @param {Function} [options.callback] A function to be called after the checking process is finished.
+	 * It gets two arguments:
 	 *
-	 * * `Boolean` - Telling if content is valid
-	 * * `IssueList` - Object containing found issues.
+	 * * `Boolean` &ndash; Stating if the content is valid.
+	 * * `IssueList` &ndash; An object containing found issues.
 	 */
 	Controller.prototype.check = function( options ) {
 
@@ -290,7 +290,7 @@ define( [
 	};
 
 	/**
-	 * Disables the Accessibility Checker.
+	 * Disables Accessibility Checker.
 	 */
 	Controller.prototype.disable = function() {
 		if ( this.enabled ) {
@@ -300,7 +300,7 @@ define( [
 	};
 
 	/**
-	 * Enables the Accessibility Checker.
+	 * Enables Accessibility Checker.
 	 */
 	Controller.prototype.enable = function() {
 		if ( !this.enabled ) {
@@ -312,9 +312,9 @@ define( [
 	};
 
 	/**
-	 * Moves the focus to the next issue, and shows the balloon.
+	 * Moves the focus to the next issue and shows the balloon panel.
 	 *
-	 * @param {Function} callback Function to be called when next issue is focused.
+	 * @param {Function} callback Function to be called when the next issue is focused.
 	 */
 	Controller.prototype.next = function( callback ) {
 		var issues = this.issues,
@@ -335,9 +335,9 @@ define( [
 	};
 
 	/**
-	 * Moves the focus to the previous issue, and shows the balloon.
+	 * Moves the focus to the previous issue and shows the balloon panel.
 	 *
-	 * @param {Function} callback Function to be called when previous issue is focused.
+	 * @param {Function} callback Function to be called when the previous issue is focused.
 	 */
 	Controller.prototype.prev = function( callback ) {
 		var issues = this.issues,
@@ -357,13 +357,13 @@ define( [
 	};
 
 	/**
-	 * Focuses Accessibility Checker on given issue.
+	 * Focuses Accessibility Checker on a given issue.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue/Number} Issue object or 0-based index in
 	 * the {@link CKEDITOR.plugins.a11ychecker.IssueList}.
-	 * @param {Function} callback Function to be called when issue is focused.
-	 * @returns {Boolean} returns `false` if given issue was not found, `true` otherwise.
+	 * @param {Function} callback A function to be called when the issue is focused.
+	 * @returns {Boolean} Returns `false` if the given issue was not found, `true` otherwise.
 	 */
 	Controller.prototype.showIssue = function( issue, callback ) {
 		var issues = this.issues,
@@ -408,16 +408,16 @@ define( [
 	};
 
 	/**
-	 * Shows the issue given its element (in editable).
+	 * Shows the issue given its element (in the editable).
 	 *
-	 * This function basically uses {@link #showIssue} but accepts DOM element as a
+	 * This function basically uses {@link #showIssue}, but accepts DOM element as a
 	 * parameter.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
-	 * @param {CKEDITOR.dom.element} element Element causing the issue. Stored in
+	 * @param {CKEDITOR.dom.element} element The element causing the issue. Stored in
 	 * {@Link CKEDITOR.plugins.a11ychecker.Issue#element}.
-	 * @param {Function} callback Function to be called when issue is focused.
-	 * @returns {Boolean} returns `false` if given issue was not found, `true` otherwise.
+	 * @param {Function} callback A function to be called when the issue is focused.
+	 * @returns {Boolean} Returns `false` if the given issue was not found, `true` otherwise.
 	 */
 	Controller.prototype.showIssueByElement = function( element, callback ) {
 		var issue = this.issues.getIssueByElement( element );
@@ -430,7 +430,7 @@ define( [
 	};
 
 	/**
-	 * Toggles focused issue ignore state for currently focused issue.
+	 * Toggles focused issue ignore state for the currently focused issue.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 */
@@ -447,7 +447,7 @@ define( [
 	};
 
 	/**
-	 * Closes the Accessibility Checker, hiding all the UI, reseting internal
+	 * Closes Accessibility Checker, hiding the UI and resetting internal
 	 * data.
 	 */
 	Controller.prototype.close = function() {
@@ -473,10 +473,10 @@ define( [
 	};
 
 	/**
-	 * Sets controller mode.
+	 * Sets the controller mode.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
-	 * @param {Number} mode Mode constant, based on {@link CKEDITOR.plugins.a11ychecker.Controller#modes}.
+	 * @param {Number} mode Mode constant based on {@link CKEDITOR.plugins.a11ychecker.Controller#modes}.
 	 */
 	Controller.prototype.setMode = function( mode ) {
 		var modeConstructors = {},
@@ -508,15 +508,15 @@ define( [
 	};
 
 	/**
-	 * Attaches editor specific listeners.
+	 * Attaches editor-specific event listeners.
 	 *
 	 * @param {CKEDITOR.editor} editor
 	 */
 	Controller.prototype.attachEditorListeners = function( editor ) {
 		// Before mode change we want to remove all the a11ychecker markup, hide
-		// whole ui and reset the state.
+		// the whole UI and reset the state.
 		var that = this,
-			// Commands that's not going to set AC to listening mode, on
+			// Commands that are not going to set AC to listening mode, on
 			// beforeCommandExec. It even sounds to me like a candidate for a
 			// configurable array.
 			handledCommands = [
@@ -545,11 +545,11 @@ define( [
 	};
 
 	/**
-	 * Applies given quickfix, fires the {@link #fixed} event.
+	 * Applies the given Quick Fix and fires the {@link #fixed} event.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {CKEDITOR.plugins.a11ychecker.quickFix.QuickFix} quickFix
-	 * @param {Object} formAttributes Object containing serialized form inputs. See
+	 * @param {Object} formAttributes An object containing serialized form inputs. See
 	 * {@link CKEDITOR.plugins.a11ychecker.ViewerForm#serialize}.
 	 */
 	Controller.prototype.applyQuickFix = function( quickFix, formAttributes ) {
@@ -600,9 +600,9 @@ define( [
 	};
 
 	/**
-	 * A setter method for issues list.
+	 * A setter method for issue list.
 	 *
-	 * It will automatically sord list and bind necessary listeners.
+	 * It will automatically sort the list and bind necessary event listeners.
 	 *
 	 * @private
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
@@ -624,8 +624,8 @@ define( [
 	};
 
 	/**
-	 * Method to be called when no issues are deteted during the checking. It's supposed
-	 * to show an information that content is validated positively.
+	 * A method to be called when no issues are detected during the checking. It is supposed
+	 * to show information that content is validated positively.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 */
@@ -637,7 +637,7 @@ define( [
 	/**
 	 * Returns a detached element, for the editor content.
 	 *
-	 * It acts as a scratchpad to temporarily copy editor contents, and run validation
+	 * It acts as a scratchpad to temporarily copy the editor content, and run validation
 	 * against that copy.
 	 *
 	 * @returns {CKEDITOR.dom.element}
@@ -653,9 +653,9 @@ define( [
 	};
 
 	/**
-	 * Returns a preferred QuickFix language.
+	 * Returns the preferred Quick Fix language.
 	 *
-	 * @returns {String} Returns a language code used for QuickFixes.
+	 * @returns {String} Returns a language code used for Quick Fixes.
 	 */
 	Controller.prototype.getQuickFixLang = function() {
 		var editor = this.editor,
@@ -673,11 +673,11 @@ define( [
 	};
 
 	/**
-	 * Method to be called when the Engine has processed the scratchpad. Engine should
+	 * A method to be called when the engine has processed the scratchpad. The engine should
 	 * pass the `issueList` parameter.
 	 *
 	 * @private
-	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} issueList Complete list of issues found
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} issueList A complete list of issues found
 	 * in the scratchpad.
 	 * @param {Object} options Options passed to {@link #check}.
 	 */
@@ -725,12 +725,12 @@ define( [
 	};
 
 	/**
-	 * Executes `callback` synchronously, making sure that undo manager is unlocked;
+	 * Executes `callback` synchronously, making sure that undo manager is unlocked.
 	 *
-	 * Callback is called in Controller instance context.
+	 * The callback is called in the Controller instance context.
 	 *
 	 * @private
-	 * @param {Function} callback Function to be called when undo is unlocked.
+	 * @param {Function} callback A function to be called when undo is unlocked.
 	 */
 	Controller.prototype._withUndoManager = function( callback ) {
 		var editor = this.editor,
@@ -752,16 +752,16 @@ define( [
 	CKEDITOR.event.implementOn( Controller.prototype );
 
 	/**
-	 * Fired when Accessibility Checker was disabled.
+	 * Event fired when Accessibility Checker was disabled.
 	 *
 	 * @event disabled
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 */
 
 	/**
-	 * Fired when Accessibility Checker was enabled.
+	 * Event fired when Accessibility Checker was enabled.
 	 *
-	 * Note that at this point {@link #issues} list still is not updated, or not
+	 * Note that at this point {@link #issues} list is still not updated, or not
 	 * even initialized.
 	 *
 	 * @event enabled
@@ -769,35 +769,35 @@ define( [
 	 */
 
 	/**
-	 * Fired when content checking is done. At this point Accessibility Checker
-	 * contains full list of issues.
+	 * Event fired when content checking is done. At this point Accessibility Checker
+	 * contains the full list of issues.
 	 *
-	 * This event can be canceled, in this case default Accessibility Checker action won't be
-	 * performed, that is:
+	 * This event can be canceled. In this case the default Accessibility Checker action will not
+	 * be performed, that is:
 	 * * Highlighting accessibility issue in case there is any.
-	 * * Calling {@link #onNoIssues} method when no issues are found.
+	 * * Calling the {@link #onNoIssues} method when no issues are found.
 	 *
 	 * @event checked
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {Object} data
 	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} data.issues Issues found in the document.
-	 * This is exactly the same object as in {@link #issues} property.
+	 * This is exactly the same object as in the {@link #issues} property.
 	 */
 
 	/**
-	 * Fired when a single issue was solved using a QuickFix (either automatic or manual).
+	 * Event fired when a single issue was solved using a Quick Fix (either automatic or manual).
 	 *
 	 * Right after this event Accessibility Checker will reload its content, and recheck
 	 * the content.
 	 *
-	 * This event might be canceled, in this case Accessibility Checker will not perform
+	 * This event might be canceled. In this case Accessibility Checker will not perform
 	 * content recheck.
 	 *
 	 * @event fixed
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {Object} data
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue} data.issue Issue object.
-	 * @param {CKEDITOR.plugins.a11ychecker.quickFix.QuickFix} data.quickFix Applied QuickFix object.
+	 * @param {CKEDITOR.plugins.a11ychecker.quickFix.QuickFix} data.quickFix Applied Quick Fix object.
 	 */
 
 	return Controller;

@@ -25,7 +25,7 @@ define( function() {
 	EditableDecorator.prototype.constructor = EditableDecorator;
 
 	/**
-	 * An enumeration for css classes being applied to the issue
+	 * An enumeration for CSS classes being applied to the issue
 	 * {CKEDITOR.plugins.a11ychecker.Issue#element}.
 	 *
 	 * Keys should be values used as {CKEDITOR.plugins.a11ychecker.Issue#testability}.
@@ -40,8 +40,8 @@ define( function() {
 	};
 
 	/**
-	 * Attribute name used to mark elements, so A11y Checker can keep track of them, even after
-	 * to HTML serialization.
+	 * The attribute name used to mark elements to make it possible for Accessibility Checker to
+	 * keep track of them, even after the HTML serialization.
 	 *
 	 * @static
 	 * @member CKEDITOR.plugins.a11ychecker.EditableDecorator
@@ -49,7 +49,7 @@ define( function() {
 	EditableDecorator.ID_ATTRIBUTE_NAME = 'quail-id';
 
 	/**
-	 * Fully qualified attribute name, including data prefix.
+	 * A fully qualified attribute name, including the data prefix.
 	 *
 	 * @static
 	 * @member CKEDITOR.plugins.a11ychecker.EditableDecorator
@@ -57,7 +57,7 @@ define( function() {
 	EditableDecorator.ID_ATTRIBUTE_NAME_FULL = 'data-quail-id';
 
 	/**
-	 * Initial value of attribute {@link #ID_ATTRIBUTE_NAME_FULL}.
+	 * The initial value of attribute {@link #ID_ATTRIBUTE_NAME_FULL}.
 	 *
 	 * @static
 	 * @member CKEDITOR.plugins.a11ychecker.EditableDecorator
@@ -65,15 +65,15 @@ define( function() {
 	EditableDecorator.INITIAL_ID_VALUE = 1;
 
 	/**
-	 * @returns {CKEDITOR.editable/null} Returns associated editors `editable` element, or `null` if
-	 * editable is not available.
+	 * @returns {CKEDITOR.editable/null} Returns associated editor `editable` element, or `null` if
+	 * the editable is not available.
 	 */
 	EditableDecorator.prototype.editable = function() {
 		return this.editor.editable();
 	};
 
 	/**
-	 * Adds a HTML class to each issue element, indicating that element is causing a11y problems.
+	 * Adds an HTML class to each issue element, indicating that the element is causing accessibility problems.
 	 *
 	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} list
 	 */
@@ -90,7 +90,7 @@ define( function() {
 	};
 
 	/**
-	 * Adds listeners to the {@link CKEDITOR.editor} instance.
+	 * Adds event listeners to the {@link CKEDITOR.editor} instance.
 	 */
 	EditableDecorator.prototype.addListeners = function() {
 		var editor = this.editor,
@@ -136,9 +136,9 @@ define( function() {
 	};
 
 	/**
-	 * Adds an extra markuyp to elements inside the editable.
+	 * Adds extra markup to elements inside the editable.
 	 *
-	 * We're adding `data-quail-id` attribute so we can identify nodes in (string HTML) output,
+	 * The `data-quail-id` attribute is added to make it possible to identify nodes in (string HTML) output,
 	 * and vice versa.
 	 */
 	EditableDecorator.prototype.applyMarkup = function() {
@@ -166,8 +166,8 @@ define( function() {
 	};
 
 	/**
-	 * Since scratchpad is created by the Controller we need a way to apply first identifier to the scratchpad.
-	 * Otherwise it wouldnt have an id.
+	 * Since the scratchpad is created by the Controller, we need a way to apply the first identifier to the scratchpad.
+	 * Otherwise it would not have an ID.
 	 */
 	EditableDecorator.prototype.decorateScratchpad = function( scratchpad ) {
 		scratchpad.data( EditableDecorator.ID_ATTRIBUTE_NAME, EditableDecorator.INITIAL_ID_VALUE );
@@ -202,7 +202,7 @@ define( function() {
 	};
 
 	/**
-	 * A listener attached to the {@link CKEDITOR.editable}.
+	 * An event listener attached to the {@link CKEDITOR.editable}.
 	 *
 	 * @param {Object} evt Click event object.
 	 */
@@ -251,8 +251,8 @@ define( function() {
 	};
 
 	/**
-	 * Takes the {@link CKEDITOR.plugins.a11ychecker.IssueList} object, finds
-	 * {@link CKEDITOR.plugins.a11ychecker.Issue#element} for each `Issue` object.
+	 * Takes the {@link CKEDITOR.plugins.a11ychecker.IssueList} object and finds
+	 * an {@link CKEDITOR.plugins.a11ychecker.Issue#element} for each `Issue` object.
 	 *
 	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} list
 	 */
@@ -279,9 +279,9 @@ define( function() {
 	};
 
 	/**
-	 * Refresh given issue ignored state.
+	 * Refreshes the ignored state of a given issue.
 	 *
-	 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue which element has to be refreshed.
+	 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue An issue whose element has to be refreshed.
 	 */
 	EditableDecorator.prototype.markIgnoredIssue = function( issue ) {
 		// Depending on issue.isIgnored() return value, either addClass or removeClass
@@ -292,7 +292,7 @@ define( function() {
 	/**
 	 * Applies formatting markup to the issue element.
 	 *
-	 * It automatically determines if issue element should be marked as ignored
+	 * It automatically determines if the issue element should be marked as ignored
 	 * or not.
 	 *
 	 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue
@@ -324,11 +324,11 @@ define( function() {
 	};
 
 	/**
-	 * Removes element formatting markup for the given issue.
+	 * Removes the element formatting markup for the given issue.
 	 *
-	 * @param {CKEDITOR.plugins.a11ychecker.Issue/CKEDITOR.dom.element} issue Issue object or dom
+	 * @param {CKEDITOR.plugins.a11ychecker.Issue/CKEDITOR.dom.element} issue An issue object or DOM
 	 * element associated with an issue.
-	 * @param {Boolean} skipCommonClass If `true` class `cke_a11yc_issue` won't be removed.
+	 * @param {Boolean} skipCommonClass If `true`, the `cke_a11yc_issue` class will not be removed.
 	 * All other classes like `cke_a11yc_error` and `cke_a11yc_ignored` are
 	 * going to be removed.
 	 */
@@ -347,7 +347,7 @@ define( function() {
 	};
 
 	/**
-	 * Checks if given element is a fake element.
+	 * Checks if the given element is a fake element.
 	 *
 	 * @param {CKEDITOR.dom.element} element
 	 * @returns {Boolean}
@@ -358,12 +358,12 @@ define( function() {
 
 	/**
 	 * @todo: It would be perfect to refactor this function later on.
-	 * Secondly: this function might reuse removeFakeObjectAttribute instead of doing it on its own.
+	 * Secondly: This function might reuse `removeFakeObjectAttribute` instead of doing it on its own.
 	 *
 	 * Adds an attribute to a fake object.
-	 * @param	{CKEDITOR.dom.element}	element		Dom element of fakeobject.
-	 * @param	{String}	attrName	Attribute name.
-	 * @param	{Mixed}	attrValue	New value.
+	 * @param	{CKEDITOR.dom.element}	element		The DOM element of the fake object.
+	 * @param	{String}	attrName	An attribute name.
+	 * @param	{Mixed}	attrValue	The new value.
 	 */
 	function updateFakeobjectsAttribute( element, attrName, attrValue ) {
 		attrValue = String( attrValue );
