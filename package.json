@@ -1,8 +1,8 @@
 {
   "name": "ckeditor-a11ychecker",
   "version": "0.0.8",
-  "description": "",
-  "keywords": [],
+  "description": "CKEditor Accessibility Checker plugin that lets you inspect the accessibility level of content created in the editor and immediately solve any accessibility issues that are found.",
+  "keywords": ["ckeditor", "editor", "wysiwyg", "accessibility", "a11y", "content", "checker"],
   "dependencies": {},
   "devDependencies": {
     "amdclean": "~2.2.4",
