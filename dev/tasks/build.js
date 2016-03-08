@@ -20,16 +20,12 @@
 		var buildCommon = [
 				'build-css', 'custom-quail-config', 'copy:build', 'copy:samples', 'copy:readme',
 				'custom-quail', 'preprocess:plugin', 'process', 'build-js', 'plugin-versions:build',
-				'clean:buildQuickFixes', 'clean:buildLeftOvers', 'build-quickfix:build'
+				'clean:buildQuickFixes', 'clean:buildLeftOvers', 'build-quickfix:build', 'copy:license'
 			],
 			buildFullDescr = 'Generates a sparse build including external plugin dependencies. Use --engines flag ' +
 				'to include additional engines plugins.',
 			build,
 			buildFull;
-
-		if ( grunt.option( 'license' ) ) {
-			buildCommon.push( 'copy:license' );
-		}
 
 		build = [ 'clean:build' ].concat( buildCommon );
 		// Build-full will contain build tasks + maintenance of external AC plugins.
