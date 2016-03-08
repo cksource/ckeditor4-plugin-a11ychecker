@@ -108,14 +108,6 @@ For example:
 grunt build-full --quail=/libs/js/customQuailBuild`
 ``
 
-## Including `LICENSE.md`
-
-By default `LICENSE.md` file will be skipped. You can include it by adding `--license` flag to the build command.
-
-```bash
-grunt build-full --license
-```
-
 ## Where Do I Start?
 
 You should use the `plugins/a11ychecker/samples/index.html` sample to test Accessibility Checker (e.g. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/index.html)).
