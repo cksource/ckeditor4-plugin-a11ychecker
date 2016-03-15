@@ -37,6 +37,26 @@ Third-party software included:
 - QUAIL, Copyright (c) 2013 Kevin Miller (libs/quail)<br>
   https://github.com/quailjs/quail<br>
   License under the terms of the MIT license.
+- jQuery, Copyright (c) 2011 John Resig (samples/jquery.min.js<!-- @if DEV == "true" -->, tests/_assets/jquery.min.js<!-- @endif -->)<br>
+  http://jquery.com<br>
+  License under the terms of the MIT license.
+<!-- @if DEV == "true" -->
+- LESSHat, Copyright (c) 2013 Petr Brzek (samples/sdk-assets/less/lesshat.less)<br>
+  https://lesshat.com<br>
+  License under the terms of the MIT license.
+- RequireJS, Copyright (c) 2010 The Dojo Foundation (samples/require.js)<br>
+  http://github.com/jrburke/requirejs<br>
+  License under the terms of the MIT license.
+<!-- @endif --> 
+
+Third-party fonts included:
+
+- Maven Pro, Copyright (c) 2011 Joe Prince, Vissol Ltd. (samples/sdk-assets/fonts/mavenpro)<br>
+  http://www.vissol.co.uk/mavenpro<br>
+  License under the terms of the SIL OPEN FONT LICENSE Version 1.1 license.
+- Indie Flower, Copyright (c) 2010 Kimberly Geswein (samples/sdk-assets/fonts/indieflower)<br>
+  http://www.kimberlygeswein.com<br>
+  License under the terms of the SIL OPEN FONT LICENSE Version 1.1 license.
 
 Trademarks
 ----------
