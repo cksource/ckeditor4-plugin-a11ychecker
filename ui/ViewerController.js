@@ -9,7 +9,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 	/**
 	 * A bridge between the logic and model of a11yc and panel-based issue Viewer.
 	 *
-	 * @since 4.5
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.viewerController
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewerController instance.

@@ -10,7 +10,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		/**
 		 * The text input of {@link CKEDITOR.plugins.a11ychecker.viewerForm}.
 		 *
-		 * @since 4.5
+		 * @since 4.6.0
 		 * @class CKEDITOR.plugins.a11ychecker.viewerInputs.text
 		 * @extends CKEDITOR.plugins.a11ychecker.viewerInput
 		 * @constructor Creates a text input instance.
@@ -30,7 +30,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		/**
 		 * The checkbox input of {@link CKEDITOR.plugins.a11ychecker.viewerForm}.
 		 *
-		 * @since 4.5
+		 * @since 4.6.0
 		 * @class CKEDITOR.plugins.a11ychecker.viewerInputs.checkbox
 		 * @extends CKEDITOR.plugins.a11ychecker.viewerInput
 		 * @constructor Creates a checkbox input instance.
@@ -50,7 +50,7 @@ define( [ 'ui/ViewerInput' ], function( ViewerInput ) {
 		/**
 		 * The select input of {@link CKEDITOR.plugins.a11ychecker.viewerForm}.
 		 *
-		 * @since 4.5
+		 * @since 4.6.0
 		 * @class CKEDITOR.plugins.a11ychecker.viewerInputs.select
 		 * @extends CKEDITOR.plugins.a11ychecker.viewerInput
 		 * @constructor Creates a select input instance.

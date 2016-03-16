@@ -9,7 +9,7 @@ define( function() {
 	/**
 	 * The deflated {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *
-	 * @since 4.5
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.viewerListeningIndicator
 	 * @constructor Creates a viewer's listening indicator instance.
 	 * @param {Object} lang Localization `a11ychecker` property object from {@link CKEDITOR.editor#lang}.

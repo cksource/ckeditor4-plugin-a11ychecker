@@ -49,7 +49,7 @@ define( [
 	 * States are changed by calling the {@link #setState} method with a property listed
 	 * in the {@link CKEDITOR.plugins.a11ychecker.Controller#modes} enumeration.
 	 *
-	 * @since 4.5
+	 * @since 4.6.0
 	 * @mixins CKEDITOR.event
 	 * @class CKEDITOR.plugins.a11ychecker.Controller
 	 * @constructor
