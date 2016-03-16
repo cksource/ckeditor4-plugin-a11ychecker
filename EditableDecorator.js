@@ -10,6 +10,7 @@ define( function() {
 	 * Encapsulates all the logic related to modification of issued elements within the
 	 * {@link CKEDITOR.editable}.
 	 *
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.EditableDecorator
 	 * @constructor
 	 * @param {CKEDITOR.editor} editor

@@ -9,6 +9,8 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, Is
 	/**
 	 * Engine driver working with fixtures only. Created for fast tests.
 	 *
+	 * @since 4.6.0
+	 * @class CKEDITOR.plugins.a11ychecker.EngineMock
 	 * @constructor
 	 */
 	function EngineMock( options ) {

@@ -7,6 +7,7 @@ define( function() {
 	'use strict';
 
 	/**
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.ui.ViewerFocusManager
 	 * @constructor
 	 */

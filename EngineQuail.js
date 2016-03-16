@@ -25,6 +25,7 @@ define( [
 	/**
 	 * Engine driver class for updated [Quail](http://quailjs.org/) 2.2.8 implementation.
 	 *
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.EngineQuail
 	 * @constructor
 	 */

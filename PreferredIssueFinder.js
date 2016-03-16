@@ -21,6 +21,7 @@ define( function() {
 	 * This method will automatically handle the case when given issue no longer appears
 	 * in list. In this case it can find next issue in the DOM.
 	 *
+	 * @since 4.6.0
 	 * @constructor
 	 * @class CKEDITOR.plugins.a11ychecker.PreferredIssueFinder
 	 */
