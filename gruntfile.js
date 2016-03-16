@@ -239,6 +239,11 @@ module.exports = function( grunt ) {
 				src: 'build/*/samples/index.html'
 			},
 
+			license: {
+				src: 'LICENSE.md',
+				dest: 'build/a11ychecker/LICENSE.md'
+			},
+
 			plugin: {
 				options: {
 					inline: true
