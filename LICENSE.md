@@ -47,6 +47,9 @@ Third-party software included:
 - RequireJS, Copyright (c) 2010 The Dojo Foundation (samples/require.js)<br>
   http://github.com/jrburke/requirejs<br>
   License under the terms of the MIT license.
+- AMDclean, Copyright (c) 2014 Greg Franko (npm dependency)<br>
+  https://github.com/gfranko/amdclean<br>
+  License under the terms of the MIT license.
 <!-- @endif --> 
 
 Third-party fonts included:
