@@ -52,6 +52,12 @@ Third-party software included:
   License under the terms of the MIT license.
 <!-- @endif --> 
 
+Parts of code taken from the following libraries are included in CKEditor Accessibility Checker:
+
+- CKEditor, Copyright (c) 2003 CKSource - Frederico Knabben (quickfix/TableHeaders.js)<br>
+  http://ckeditor.com<br>
+  License under the terms of the GNU General Public License Version 2 license.
+
 Third-party fonts included:
 
 - Maven Pro, Copyright (c) 2011 Joe Prince, Vissol Ltd. (samples/sdk-assets/fonts/mavenpro)<br>
