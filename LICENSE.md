@@ -61,10 +61,10 @@ Parts of code taken from the following libraries are included in CKEditor Access
 Third-party fonts included:
 
 - Maven Pro, Copyright (c) 2011 Joe Prince, Vissol Ltd. (samples/sdk-assets/fonts/mavenpro)<br>
-  http://www.vissol.co.uk/mavenpro<br>
+  http://vissol.co.uk/mavenpro<br>
   License under the terms of the SIL OPEN FONT LICENSE Version 1.1 license.
 - Indie Flower, Copyright (c) 2010 Kimberly Geswein (samples/sdk-assets/fonts/indieflower)<br>
-  http://www.kimberlygeswein.com<br>
+  http://kimberlygeswein.com<br>
   License under the terms of the SIL OPEN FONT LICENSE Version 1.1 license.
 
 Trademarks
