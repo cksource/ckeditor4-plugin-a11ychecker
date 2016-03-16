@@ -21,7 +21,8 @@ var config = {
 		'benderjs-yui',
 		'benderjs-sinon',
 		'benderjs-jquery',
-		'benderjs-amd',
+		// Tests are executed from CKE4 directory, so the path is relative.
+		'plugins/a11ychecker/node_modules/benderjs-amd',
 		'tests/_benderjs/ckeditor'
 	],
 

@@ -2,10 +2,19 @@
   "name": "ckeditor-a11ychecker",
   "version": "0.0.8",
   "description": "CKEditor Accessibility Checker plugin that lets you inspect the accessibility level of content created in the editor and immediately solve any accessibility issues that are found.",
-  "keywords": ["ckeditor", "editor", "wysiwyg", "accessibility", "a11y", "content", "checker"],
+  "keywords": [
+    "ckeditor",
+    "editor",
+    "wysiwyg",
+    "accessibility",
+    "a11y",
+    "content",
+    "checker"
+  ],
   "dependencies": {},
   "devDependencies": {
     "amdclean": "~2.2.4",
+    "benderjs-amd": "^0.2.3",
     "chai": "^1.9.1",
     "colors": "~1.0.3",
     "grunt": "~0.4.5",
@@ -40,7 +49,7 @@
     "url": "https://github.com/cksource/ckeditor-plugin-a11ychecker/issues"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/cksource/ckeditor-plugin-a11ychecker.git"
+    "type": "git",
+    "url": "https://github.com/cksource/ckeditor-plugin-a11ychecker.git"
   }
 }
