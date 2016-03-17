@@ -44,12 +44,78 @@ Third-party software included:
 - LESSHat, Copyright (c) 2013 Petr Brzek (samples/sdk-assets/less/lesshat.less)<br>
   https://lesshat.com<br>
   License under the terms of the MIT license.
-- RequireJS, Copyright (c) 2010 The Dojo Foundation (samples/require.js)<br>
+- RequireJS, Copyright (c) 2010 The Dojo Foundation (samples/require.js, npm dependency)<br>
   http://github.com/jrburke/requirejs<br>
   License under the terms of the MIT license.
 - AMDclean, Copyright (c) 2014 Greg Franko (npm dependency)<br>
   https://github.com/gfranko/amdclean<br>
   License under the terms of the MIT license.
+- Chai, Copyright (c) 2011-2014 Jake Luer <jake@alogicalparadox.com> (npm dependency)<br>
+  https://github.com/chaijs/chai<br>
+  License under the terms of the MIT license.
+- colors.js, Original Library - Copyright (c) Marak Squires. Additional Functionality - Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (http://sindresorhus.com) (npm dependency)<br>
+  https://github.com/marak/colors.js<br>
+  License under the terms of the MIT license.
+- Grunt, Copyright (c) 2014 "Cowboy" Ben Alman (npm dependency)<br>
+  https://github.com/gruntjs/grunt
+  License under the terms of the MIT license.
+- grunt-contrib-clean, Copyright (c) 2014 Tim Branyen, contributors (npm dependency)<br>
+  https://github.com/gruntjs/grunt-contrib-clean<br>
+  License under the terms of the MIT license.
+- grunt-contrib-compress, Copyright (c) 2014 Chris Talkington, contributors (npm dependency)<br>
+  https://github.com/gruntjs/grunt-contrib-compress<br>
+  License under the terms of the MIT license.
+- grunt-contrib-copy, Copyright (c) 2014 Chris Talkington, contributors (npm dependency)<br>
+  https://github.com/gruntjs/grunt-contrib-copy<br>
+  License under the terms of the MIT license.
+- grunt-contrib-jshint, Copyright (c) 2014 "Cowboy" Ben Alman, contributors (npm dependency)<br>
+  https://github.com/gruntjs/grunt-contrib-jshint<br>
+  License under the terms of the MIT license.
+- grunt-contrib-less, Copyright (c) 2014 Tyler Kellen, contributors (npm dependency)<br>
+  https://github.com/gruntjs/grunt-contrib-less<br>
+  License under the terms of the MIT license.
+- grunt-contrib-uglify, Copyright (c) 2014 "Cowboy" Ben Alman, contributors (npm dependency)<br>
+  https://github.com/gruntjs/grunt-contrib-uglify<br>
+  License under the terms of the MIT license.
+- grunt-contrib-watch, Copyright (c) 2014 "Cowboy" Ben Alman, contributors (npm dependency)<br>
+  https://github.com/gruntjs/grunt-contrib-watch<br>
+  License under the terms of the MIT license.
+- grunt-env, Copyright 2012 OneHealth Solutions, Inc.  (npm dependency)<br>
+  https://github.com/jsoverson/grunt-env<br>
+  License under the terms of the Apache 2.0 license.
+- grunt-extend-config, Copyright (c) 2013-2014 Ralf S. Engelschall (http://engelschall.com) (npm dependency)<br>
+  https://github.com/rse/grunt-extend-config<br>
+  License under the terms of the MIT license.
+- grunt-githooks, Copyright (c) 2013 Romaric Pascal (npm dependency)<br>
+  https://github.com/wecodemore/grunt-githooks<br>
+  License under the terms of the MIT license.
+- grunt-jscs, Copyright (c) 2014 Gustavo Henke, contributors (npm dependency)<br>
+  https://github.com/jscs-dev/grunt-jscs<br>
+  License under the terms of the MIT license.
+- grunt-preprocess, Copyright 2012 OneHealth Solutions, Inc.  (npm dependency)<br>
+  https://github.com/jsoverson/grunt-preprocess<br>
+  License under the terms of the Apache 2.0 license.
+- Less, Copyright (c) 2009-2014 [Alexis Sellier](http://cloudhead.io) & The Core Less Team  (npm dependency)<br>
+  https://github.com/less/less.js<br>
+  License under the terms of the Apache 2.0 license.
+- load-grunt-tasks, Copyright (c) Sindre Sorhus <sindresorhus@gmail.com> (http://sindresorhus.com) (npm dependency)<br>
+  https://github.com/sindresorhus/load-grunt-tasks<br>
+  License under the terms of the MIT license.
+- mocha, Copyright (c) 2011-2014 TJ Holowaychuk <tj@vision-media.ca> (npm dependency)<br>
+  https://github.com/mochajs/mocha<br>
+  License under the terms of the MIT license.
+- rimraf, Copyright (c) Isaac Z. Schlueter and Contributors (npm dependency)<br>
+  https://github.com/isaacs/rimraf<br>
+  License under the terms of the ISC license.
+- ShellJS, Copyright (c) 2012, Artur Adib <arturadib@gmail.com> (npm dependency)<br>
+  https://github.com/shelljs/shelljs<br>
+  License under the terms of the BSD-3 license.
+- Sinon.JS, Copyright (c) 2010-2014, Christian Johansen, christian@cjohansen.no (npm dependency)<br>
+  https://github.com/sinonjs/sinon<br>
+  License under the terms of the BSD-3 license.
+- UglifyJS, Copyright 2012-2013 (c) Mihai Bazon <mihai.bazon@gmail.com> (npm dependency)<br>
+  https://github.com/mishoo/UglifyJS<br>
+  License under the terms of the BSD license.
 <!-- @endif --> 
 
 Parts of code taken from the following libraries are included in CKEditor Accessibility Checker:
