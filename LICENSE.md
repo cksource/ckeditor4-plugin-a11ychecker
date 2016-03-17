@@ -57,7 +57,7 @@ Third-party software included:
   https://github.com/marak/colors.js<br>
   License under the terms of the MIT license.
 - Grunt, Copyright (c) 2014 "Cowboy" Ben Alman (npm dependency)<br>
-  https://github.com/gruntjs/grunt
+  https://github.com/gruntjs/grunt<br>
   License under the terms of the MIT license.
 - grunt-contrib-clean, Copyright (c) 2014 Tim Branyen, contributors (npm dependency)<br>
   https://github.com/gruntjs/grunt-contrib-clean<br>
