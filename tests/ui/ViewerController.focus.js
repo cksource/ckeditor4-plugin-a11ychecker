@@ -80,11 +80,11 @@
 				// For each test a11ychecker needs to be closed.
 				// Note that we have 2 editor instances, but only 1 can be enabled at
 				// a time.
-
 				function cleanupAC( editor ) {
 					var a11ychecker = editor._.a11ychecker;
 
 					if ( a11ychecker.issues && a11ychecker.issues.getFocused() ) {
+						// @todo: it might be worth to investigate what's causing wrong selection if we won't call resetFocus().
 						a11ychecker.issues.resetFocus();
 					}
 
