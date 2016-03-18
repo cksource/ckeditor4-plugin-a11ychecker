@@ -37,7 +37,6 @@
 			editorsCount: CKEDITOR.tools.objectKeys( bender.editors ).length,
 			editorLoaded: function( evt ) {
 				// @todo: init engine
-				console.log('called', evt, evt && evt.editor);
 				evt.editor._.a11ychecker.engine = new EngineMock();
 				
 				if ( !loader.isDone() ) {
@@ -59,7 +58,6 @@
 				var that = this;
 				
 				loader.done = function() {
-					console.log('loader is done');
 					that.callback();
 				};
 				
@@ -82,9 +80,19 @@
 				// For each test a11ychecker needs to be closed.
 				// Note that we have 2 editor instances, but only 1 can be enabled at
 				// a time.
-				//console.log( 'is it there?', this.editors.classic._.a11ychecker.close );
-				this.editors.classic._.a11ychecker.close();
-				this.editors.inline._.a11ychecker.close();
+
+				function cleanupAC( editor ) {
+					var a11ychecker = editor._.a11ychecker;
+
+					if ( a11ychecker.issues && a11ychecker.issues.getFocused() ) {
+						a11ychecker.issues.resetFocus();
+					}
+
+					a11ychecker.close();
+				}
+
+				cleanupAC( this.editors.classic );
+				cleanupAC( this.editors.inline );
 			},
 
 			'test initial focus': function( editor ) {
