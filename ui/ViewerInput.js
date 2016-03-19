@@ -9,7 +9,7 @@ define( function() {
 	/**
 	 * The generic class of {@link CKEDITOR.plugins.a11ychecker.viewerForm} input.
 	 *
-	 * @since 4.5
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.viewerInput
 	 * @constructor Creates an input instance.
 	 * @param {String} name Input name.

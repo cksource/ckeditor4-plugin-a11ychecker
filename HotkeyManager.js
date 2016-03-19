@@ -8,6 +8,7 @@ define( function() {
 	/**
 	 * A class taking care of registering hotkeys to the editor and balloon.
 	 *
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.HotkeyManager
 	 * @constructor
 	 * @param {CKEDITOR.plugins.a11ychecker.Controller} controller

@@ -10,6 +10,7 @@ define( function() {
 	 * IssueDetails instance contains more detailed information about the Issue,
 	 * like a title, description.
 	 *
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.IssueDetails
 	 * @constructor
 	 * @member CKEDITOR.plugins.a11ychecker

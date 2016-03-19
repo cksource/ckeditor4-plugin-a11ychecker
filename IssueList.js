@@ -14,6 +14,8 @@ define( function() {
 	 * **Focused issue** is the one that we're working on. It might be activated with a
 	 * click, keyboard hotkey, etc.
 	 *
+	 * @since 4.6.0
+	 * @mixins CKEDITOR.event
 	 * @class CKEDITOR.plugins.a11ychecker.IssueList
 	 * @constructor
 	 */

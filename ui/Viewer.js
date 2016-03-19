@@ -26,7 +26,7 @@ define( [
 	 *
 	 * *Note*: The panel is built upon the {@link CKEDITOR.ui.panel}.
 	 *
-	 * @since 4.5
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.viewer
 	 * @constructor Creates a viewer instance.
 	 * @param {CKEDITOR.editor} editor The editor instance for which the panel is created.

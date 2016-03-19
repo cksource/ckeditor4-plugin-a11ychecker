@@ -10,6 +10,8 @@ define( [ 'Engine', 'IssueList', 'Issue', 'IssueDetails' ], function( Engine, Is
 	 * A default engine driver which has to be overriden. This engine won't find
 	 * any issues.
 	 *
+	 * @since 4.6.0
+	 * @class CKEDITOR.plugins.a11ychecker.EngineDefault
 	 * @constructor
 	 */
 	function EngineDefault( options, plugin ) {

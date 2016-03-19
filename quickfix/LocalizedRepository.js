@@ -8,6 +8,7 @@ define( [ 'quickfix/Repository' ], function( Repository ) {
 	/**
 	 * This type adds localization support for repository.
 	 *
+	 * @mixins CKEDITOR.event
 	 * @member CKEDITOR.plugins.a11ychecker.quickFix
 	 * @constructor
 	 * @param {String} basePath A path to the directory where QuickFix classes are

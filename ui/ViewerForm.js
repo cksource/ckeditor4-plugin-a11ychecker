@@ -7,12 +7,12 @@ define( [ 'ui/ViewerInputs' ], function( ViewerInputs ) {
 	'use strict';
 
 	/**
-	 * The "quick fix" area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
+	 * Quick Fix area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *
-	 * @since 4.5
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.viewerForm
 	 * @mixins CKEDITOR.event
-	 * @constructor Creates a "quick fix" form instance.
+	 * @constructor Creates a Quick Fix form instance.
 	 * @param {CKEDITOR.plugins.a11ychecker.viewer} viewer The viewer instance that the object
 	 * will be attached to.
 	 */

@@ -9,7 +9,7 @@ define( function() {
 	/**
 	 * The description area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *
-	 * @since 4.5
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.viewerDescription
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewer's description instance.

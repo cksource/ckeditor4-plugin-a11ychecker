@@ -15,7 +15,7 @@ define( function() {
 	 * Custom classes might also override {@linnk #getFix} and {@link #getFixType}
 	 * methods, if the default behaviour is not suitable.
 	 *
-	 * @since 4.5
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.Engine
 	 * @constructor
 	 */

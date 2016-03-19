@@ -23,6 +23,7 @@ define( function() {
 	 *
 	 * Note that one DOM element might cause multiple accessibility issues.
 	 *
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.Issue
 	 * @constructor
 	 * @member CKEDITOR.plugins.a11ychecker

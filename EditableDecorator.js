@@ -10,6 +10,7 @@ define( function() {
 	 * Encapsulates all the logic related to modification of issued elements within the
 	 * {@link CKEDITOR.editable}.
 	 *
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.EditableDecorator
 	 * @constructor
 	 * @param {CKEDITOR.editor} editor
@@ -185,7 +186,7 @@ define( function() {
 		// Removes all Accessibility Checker attributes from the editable element.
 		editable.forEach( function( element ) {
 			/**
-			 * @todo: Why the hell do we check for removeAttribute here?
+			 * @todo: Why do we need to check for removeAttribute here?
 			 * Since it's an element it **must** contain removeAttribute.
 			 */
 			if ( element.removeAttribute ) {

@@ -9,7 +9,7 @@ define( function() {
 	/**
 	 * The navigation area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
 	 *
-	 * @since 4.5
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.viewerNavigation
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewer's navigation instance.

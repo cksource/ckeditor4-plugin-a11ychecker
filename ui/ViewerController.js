@@ -9,7 +9,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 	/**
 	 * A bridge between the logic and model of a11yc and panel-based issue Viewer.
 	 *
-	 * @since 4.5
+	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.viewerController
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewerController instance.
@@ -62,15 +62,6 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		viewer.panel.parts.close.on( 'click', function( evt ) {
 			this.a11ychecker.close();
 		}, this );
-
-		// Before hiding a panel we need to force focus on the editor.
-		// This will prevent from editor#blur to be risen (#41).
-		viewer.panel.on( 'hide', function() {
-			// (#51).
-			//if ( a11ychecker.issues.getFocused() ) {
-			//	a11ychecker.issues.resetFocus();
-			//}
-		}, this, null, 5 );
 
 		// Handle "previous" button click in the panel.
 		viewer.navigation.on( 'previous', function( evt ) {

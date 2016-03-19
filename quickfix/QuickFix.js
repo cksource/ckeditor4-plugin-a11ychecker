@@ -25,6 +25,7 @@
 	 * The fixing logic is placed in {@link #fix} method, so you need to simply call it when
 	 * you're sure to apply the fix.
 	 *
+	 * @since 4.6.0
 	 * @member CKEDITOR.plugins.a11ychecker.quickFix
 	 * @class QuickFix
 	 * @constructor
