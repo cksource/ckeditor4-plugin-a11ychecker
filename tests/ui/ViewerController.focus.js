@@ -48,14 +48,14 @@
 			},
 
 			'test initial focus': function( editor ) {
-				var a11ychecker = getACInstance( editor );
+				var a11ychecker = editor._.a11ychecker;
 				a11ychecker.exec();
 				a11ychecker.showIssue( 0 );
 				assert.isTrue( true );
 			},
 			
 			'test next focus': function( editor ) {
-				var a11ychecker = getACInstance( editor ),
+				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer;
 				a11ychecker.exec();
 				a11ychecker.showIssue( 0 );
@@ -72,7 +72,7 @@
 			},
 			
 			'test prev focus': function( editor ) {
-				var a11ychecker = getACInstance( editor ),
+				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer;
 				a11ychecker.exec();
 				a11ychecker.showIssue( 0 );
@@ -89,7 +89,7 @@
 			},
 			
 			'test focus on click': function( editor ) {
-				var a11ychecker = getACInstance( editor ),
+				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
 					expectedFocusElem = viewer.navigation.parts.next;
 			
@@ -128,7 +128,7 @@
 				// Dialog should have focus trap applied.
 				// That means that tab press at the last focusable element should take you to the
 				// first one and vice versa.
-				var a11ychecker = getACInstance( editor ),
+				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
 					initialFocusElem = getLastFocusable( viewer ),
 					expectedFocusElem = viewer.navigation.parts.previous;
@@ -152,7 +152,7 @@
 				// Dialog should have focus trap applied.
 				// That means that shift-tab at first focusable element should take you to the last one,
 				// and vice versa.
-				var a11ychecker = getACInstance( editor ),
+				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
 					expectedFocusElem = getLastFocusable( viewer );
 				a11ychecker.exec();
@@ -174,7 +174,7 @@
 			'test inline editor focus with balloon': function( editor ) {
 				// This test will ensure that after showing the balloon (.next() method) editor
 				// stays marked as focused, therefore it won't be blured.
-				var a11ychecker = getACInstance( editor );
+				var a11ychecker = editor._.a11ychecker;
 			
 				a11ychecker.exec();
 			
@@ -192,7 +192,7 @@
 			
 			'test a11ychecker.exec focus': function( editor ) {
 				// For exec function the focus should go to the next button.
-				var a11ychecker = getACInstance( editor ),
+				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
 					expectedFocusElem = viewer.navigation.parts.next;
 				a11ychecker.exec();
@@ -233,19 +233,6 @@
 			};
 		}
 
-		function getACInstance( editor ) {
-			// @todo: Inline this method it was created for testing purpose only.
-			if ( !editor._.a11ychecker ) {
-				console.log( 'missing AC instance' );
-				debugger;
-			} else if ( editor._.a11ychecker.engine instanceof EngineMock == false ) {
-				console.log( 'Wrong type of AC' );
-				debugger;
-			}
-
-			return editor._.a11ychecker;
-		}
-		
 		testSuite.testEditors( bender.editors, tests );
 	} );
 } )();
