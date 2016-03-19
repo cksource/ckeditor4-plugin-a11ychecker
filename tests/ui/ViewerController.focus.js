@@ -172,12 +172,6 @@
 			},
 			
 			'test inline editor focus with balloon': function( editor ) {
-				if ( editor.name != 'inline' ) {
-					//bender.ignore();
-					assert.isTrue( true );
-					return ;
-				}
-				
 				// This test will ensure that after showing the balloon (.next() method) editor
 				// stays marked as focused, therefore it won't be blured.
 				var a11ychecker = getACInstance( editor );
