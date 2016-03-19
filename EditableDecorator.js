@@ -186,7 +186,7 @@ define( function() {
 		// Removes all Accessibility Checker attributes from the editable element.
 		editable.forEach( function( element ) {
 			/**
-			 * @todo: Why the hell do we check for removeAttribute here?
+			 * @todo: Why do we need to check for removeAttribute here?
 			 * Since it's an element it **must** contain removeAttribute.
 			 */
 			if ( element.removeAttribute ) {
