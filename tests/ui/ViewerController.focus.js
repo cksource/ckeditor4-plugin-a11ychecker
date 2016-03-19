@@ -8,12 +8,17 @@
 
 ( function() {
 	'use strict';
-	
+
 	// Note that we have an extra (unused) requirement for 'EngineMock' and 'Controller' classes.
 	// That way it will force them to be available for the editor, and we have sure that a11ychecker
 	// plugin will be ready synchronously.
 	bender.require( [ 'testSuite', 'EngineMock' ], function( testSuite, EngineMock ) {
-		
+		CKEDITOR.on( 'instanceCreated', function( evt ) {
+			evt.editor.on( 'instanceReady', function( readyEvt ) {
+				readyEvt.editor._.a11ychecker.getEngineType = function( callback ) { callback( EngineMock ); };
+			}, null, null, 10 );
+		} );
+
 		bender.editors = {
 			classic: {
 				name: 'editor1',
@@ -36,7 +41,7 @@
 			loaded: 0,
 			editorsCount: CKEDITOR.tools.objectKeys( bender.editors ).length,
 			editorLoaded: function( evt ) {
-				// @todo: init engine
+				// @todo: Init engine, now this method may be removed.
 				evt.editor._.a11ychecker.engine = new EngineMock();
 				
 				if ( !loader.isDone() ) {
@@ -64,6 +69,13 @@
 				for ( var editorName in this.editors ) {
 					var editor = this.editors[ editorName ],
 						a11ychecker = editor._.a11ychecker;
+
+					console.log( a11ychecker.getEngineType );
+
+					a11ychecker.getEngineType = function( callback ) {
+						callback( EngineMock );
+					}
+
 					
 					if ( a11ychecker.exec ) {
 						// If by any chance it's already real object, run synchronously.
@@ -96,14 +108,14 @@
 			},
 
 			'test initial focus': function( editor ) {
-				var a11ychecker = editor._.a11ychecker;
+				var a11ychecker = getACInstance( editor );
 				a11ychecker.exec();
 				a11ychecker.showIssue( 0 );
 				assert.isTrue( true );
 			},
 			
 			'test next focus': function( editor ) {
-				var a11ychecker = editor._.a11ychecker,
+				var a11ychecker = getACInstance( editor ),
 					viewer = a11ychecker.viewerController.viewer;
 				a11ychecker.exec();
 				a11ychecker.showIssue( 0 );
@@ -120,7 +132,7 @@
 			},
 			
 			'test prev focus': function( editor ) {
-				var a11ychecker = editor._.a11ychecker,
+				var a11ychecker = getACInstance( editor ),
 					viewer = a11ychecker.viewerController.viewer;
 				a11ychecker.exec();
 				a11ychecker.showIssue( 0 );
@@ -137,7 +149,7 @@
 			},
 			
 			'test focus on click': function( editor ) {
-				var a11ychecker = editor._.a11ychecker,
+				var a11ychecker = getACInstance( editor ),
 					viewer = a11ychecker.viewerController.viewer,
 					expectedFocusElem = viewer.navigation.parts.next;
 			
@@ -176,7 +188,7 @@
 				// Dialog should have focus trap applied.
 				// That means that tab press at the last focusable element should take you to the
 				// first one and vice versa.
-				var a11ychecker = editor._.a11ychecker,
+				var a11ychecker = getACInstance( editor ),
 					viewer = a11ychecker.viewerController.viewer,
 					initialFocusElem = getLastFocusable( viewer ),
 					expectedFocusElem = viewer.navigation.parts.previous;
@@ -200,7 +212,7 @@
 				// Dialog should have focus trap applied.
 				// That means that shift-tab at first focusable element should take you to the last one,
 				// and vice versa.
-				var a11ychecker = editor._.a11ychecker,
+				var a11ychecker = getACInstance( editor ),
 					viewer = a11ychecker.viewerController.viewer,
 					expectedFocusElem = getLastFocusable( viewer );
 				a11ychecker.exec();
@@ -228,7 +240,7 @@
 				
 				// This test will ensure that after showing the balloon (.next() method) editor
 				// stays marked as focused, therefore it won't be blured.
-				var a11ychecker = editor._.a11ychecker;
+				var a11ychecker = getACInstance( editor );
 			
 				a11ychecker.exec();
 			
@@ -246,7 +258,7 @@
 			
 			'test a11ychecker.exec focus': function( editor ) {
 				// For exec function the focus should go to the next button.
-				var a11ychecker = editor._.a11ychecker,
+				var a11ychecker = getACInstance( editor ),
 					viewer = a11ychecker.viewerController.viewer,
 					expectedFocusElem = viewer.navigation.parts.next;
 				a11ychecker.exec();
@@ -285,6 +297,19 @@
 				preventDefault: function() {
 				}
 			};
+		}
+
+		function getACInstance( editor ) {
+			// @todo: Inline this method it was created for testing purpose only.
+			if ( !editor._.a11ychecker ) {
+				console.log( 'missing AC instance' );
+				debugger;
+			} else if ( editor._.a11ychecker.engine instanceof EngineMock == false ) {
+				console.log( 'Wrong type of AC' );
+				debugger;
+			}
+
+			return editor._.a11ychecker;
 		}
 		
 		bender.test( bender.tools.createTestsForEditors( CKEDITOR.tools.objectKeys( bender.editors ), tests ) );

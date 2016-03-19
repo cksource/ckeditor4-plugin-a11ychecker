@@ -37,7 +37,7 @@ define( [ 'mocking', 'EngineMock' ], function( mocking, EngineMock ) {
 		 */
 		addInitCode: function( bender, fn ) {
 			// Watch out this shit can destroy your brain.
-			bender.oldTest = fnOverride( bender.oldTest, function( original ) {
+			/*bender.oldTest = fnOverride( bender.oldTest, function( original ) {
 				return function( tests ) {
 					tests[ 'async:init' ] = fnOverride( tests[ 'async:init' ], function( original ) {
 						return function() {
@@ -56,14 +56,17 @@ define( [ 'mocking', 'EngineMock' ], function( mocking, EngineMock ) {
 
 					return original.apply( this, arguments );
 				};
-			} );
+			} );*/
 		},
 
 		test: function( tests ) {
 			var bender = window.bender;
 
+			//bender.test( tests );
+			//return;
+
 			// We need to inject code that will run tests when AC is ready.
-			this.addInitCode( bender, function( callback ) {
+			/*this.addInitCode( bender, function( callback ) {
 				var a11ychecker = bender.editor._.a11ychecker;
 				if ( a11ychecker.exec ) {
 					// If by any chance it's already real object, run synchronously.
@@ -77,7 +80,7 @@ define( [ 'mocking', 'EngineMock' ], function( mocking, EngineMock ) {
 						callback();
 					} );
 				}
-			} );
+			} );*/
 
 			bender.test( tests );
 		}
