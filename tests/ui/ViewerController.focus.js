@@ -13,81 +13,21 @@
 	// That way it will force them to be available for the editor, and we have sure that a11ychecker
 	// plugin will be ready synchronously.
 	bender.require( [ 'testSuite', 'EngineMock' ], function( testSuite, EngineMock ) {
-		CKEDITOR.on( 'instanceCreated', function( evt ) {
-			evt.editor.on( 'instanceReady', function( readyEvt ) {
-				readyEvt.editor._.a11ychecker.getEngineType = function( callback ) { callback( EngineMock ); };
-			}, null, null, 10 );
-		} );
+		testSuite.useEngine( EngineMock );
 
 		bender.editors = {
 			classic: {
 				name: 'editor1',
-				config: {
-					on: {}
-				},
 				startupData: '<p>foo</p>'
 			},
 			inline: {
 				name: 'editor2',
 				creator: 'inline',
-				config: {
-					on: {}
-				},
 				startupData: '<p>foo</p>'
-			}
-		};
-		
-		var loader = {
-			loaded: 0,
-			editorsCount: CKEDITOR.tools.objectKeys( bender.editors ).length,
-			editorLoaded: function( evt ) {
-				// @todo: Init engine, now this method may be removed.
-				evt.editor._.a11ychecker.engine = new EngineMock();
-				
-				if ( !loader.isDone() ) {
-					loader.loaded += 1;
-				}
-				
-				if ( loader.isDone() && loader.done ) {
-					loader.done();
-				}
-			},
-			done: null,
-			isDone: function() {
-				return this.loaded >= this.editorsCount;
 			}
 		};
 
 		var tests = {
-			'async:init': function() {
-				var that = this;
-				
-				loader.done = function() {
-					that.callback();
-				};
-				
-				for ( var editorName in this.editors ) {
-					var editor = this.editors[ editorName ],
-						a11ychecker = editor._.a11ychecker;
-
-					console.log( a11ychecker.getEngineType );
-
-					a11ychecker.getEngineType = function( callback ) {
-						callback( EngineMock );
-					}
-
-					
-					if ( a11ychecker.exec ) {
-						// If by any chance it's already real object, run synchronously.
-						// IE tends to laod it synchronously.
-						loader.editorLoaded( { editor: this.editors[ editorName ] } );
-					} else {
-						// Otherwise listen for event.
-						a11ychecker.once( 'loaded', loader.editorLoaded, editor );
-					}
-				}
-			},
-
 			tearDown: function() {
 				// For each test a11ychecker needs to be closed.
 				// Note that we have 2 editor instances, but only 1 can be enabled at
@@ -312,6 +252,6 @@
 			return editor._.a11ychecker;
 		}
 		
-		bender.test( bender.tools.createTestsForEditors( CKEDITOR.tools.objectKeys( bender.editors ), tests ) );
+		testSuite.testEditors( bender.editors, tests );
 	} );
 } )();

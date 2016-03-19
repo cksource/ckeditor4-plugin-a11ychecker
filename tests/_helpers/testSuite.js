@@ -21,68 +21,80 @@ define( [ 'mocking', 'EngineMock' ], function( mocking, EngineMock ) {
 		// Mocking module.
 		mocking: mocking,
 
-		/**
-		 * This method overrides test initialization methods, so it's executed right after CKEditor instance
-		 * are assinged to this.editor, but before tests are ran.
-		 *
-		 * You pass code that should be executed in a `fn` callback. This callback **must** call callback given
-		 * to it as a first argument.
-		 *
-		 * This method has crazy implementation, featuring multiple method overriding in order to hook up
-		 * to correct function.
-		 *
-		 * @param {Function} fn Function to be executed.
-		 *
-		 * It gets has one parameter: `callback`, which needs to be called to run the tests.
-		 */
-		addInitCode: function( bender, fn ) {
-			// Watch out this shit can destroy your brain.
-			/*bender.oldTest = fnOverride( bender.oldTest, function( original ) {
-				return function( tests ) {
-					tests[ 'async:init' ] = fnOverride( tests[ 'async:init' ], function( original ) {
-						return function() {
-							bender.testCase.callback = fnOverride( bender.testCase.callback, function( original ) {
-								return function() {
-									var that = this;
-									// Here we can essentially add some custom code.
-									fn.call( this, function() {
-										original.apply( that, arguments );
-									} );
-								};
-							} );
-							return original.apply( this, arguments );
-						};
-					} );
-
-					return original.apply( this, arguments );
-				};
-			} );*/
+		test: function ( tests ) {
+			window.bender.test( tests );
 		},
 
-		test: function( tests ) {
-			var bender = window.bender;
+		testEditors: function( editors, tests ) {
 
-			//bender.test( tests );
-			//return;
+			var bender = window.bender,
+				loader = {
+					loaded: 0,
+					editorsCount: CKEDITOR.tools.objectKeys( editors ).length,
+					editorLoaded: function( evt ) {
+						
+						if ( !loader.isDone() ) {
+							loader.loaded += 1;
+						}
+						
+						if ( loader.isDone() && loader.done ) {
+							loader.done();
+						}
+					},
+					done: null,
+					isDone: function() {
+						return this.loaded >= this.editorsCount;
+					}
+				},
+				originalAsyncInit = tests[ 'async:init' ];
 
-			// We need to inject code that will run tests when AC is ready.
-			/*this.addInitCode( bender, function( callback ) {
-				var a11ychecker = bender.editor._.a11ychecker;
-				if ( a11ychecker.exec ) {
-					// If by any chance it's already real object, run synchronously.
-					// IE tends to laod it synchronously.
-					callback();
-				} else {
-					// Otherwise listen for event.
-					a11ychecker.once( 'loaded', function() {
-						// When Accessibility Checker controller is ready and loaded, we can
-						// run tests.
-						callback();
-					} );
+			// Make sure that bender.editors is set.
+			bender.editors = editors;
+
+			tests[ 'async:init' ] = function() {
+				var that = this;
+				
+				loader.done = function() {
+					if ( !originalAsyncInit ) {
+						that.callback();
+					} else {
+						// It's up to implementer to call that.callback().
+						originalAsyncInit.call( that );
+					}
+				};
+				
+				for ( var editorName in this.editors ) {
+					var editor = this.editors[ editorName ],
+						a11ychecker = editor._.a11ychecker;
+					
+					if ( a11ychecker.exec ) {
+						// If by any chance it's already real object, run synchronously.
+						// IE tends to laod it synchronously.
+						loader.editorLoaded( { editor: this.editors[ editorName ] } );
+					} else {
+						// Otherwise listen for event.
+						a11ychecker.once( 'loaded', loader.editorLoaded, editor );
+					}
 				}
-			} );*/
+			};
 
-			bender.test( tests );
+			bender.test( bender.tools.createTestsForEditors( CKEDITOR.tools.objectKeys( editors ), tests ) );
+		},
+
+		/**
+		 * Adds a necessary callback logic that will set the default engine type. Useful for mocking the engine.
+		 *
+		 * **It will be applied to any editor created since it's call**, since it adds a global listener.
+		 *
+		 * @param {Function} type - A type inheriting from {@link CKEDITOR.plugins.a11ychecker.Engine}, e.g. 
+		 * {@link CKEDITOR.plugins.a11ychecker.EngineMock}.
+		 */
+		useEngine: function( type ) {
+			CKEDITOR.on( 'instanceCreated', function( evt ) {
+				evt.editor.on( 'instanceReady', function( readyEvt ) {
+					readyEvt.editor._.a11ychecker.getEngineType = function( callback ) { callback( EngineMock ); };
+				}, null, null, 10 );
+			} );
 		}
 	};
 } );
