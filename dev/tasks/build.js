@@ -20,7 +20,8 @@
 		var buildCommon = [
 				'build-css', 'custom-quail-config', 'copy:build', 'copy:samples', 'copy:readme',
 				'custom-quail', 'preprocess:plugin', 'process', 'build-js', 'plugin-versions:build',
-				'clean:buildQuickFixes', 'clean:buildLeftOvers', 'build-quickfix:build', 'copy:license'
+				'clean:buildQuickFixes', 'clean:buildLeftOvers', 'build-quickfix:build',
+				'copy:license', 'preprocess:license'
 			],
 			buildFullDescr = 'Generates a sparse build including external plugin dependencies. Use --engines flag ' +
 				'to include additional engines plugins.',
