@@ -110,6 +110,21 @@
 					assert.areSame( 3, ret.max, 'ret.max' );
 				},
 
+				'test ParagraphToHeader._getPossibleLevels missing config': function() {
+					var editorMock = {
+							config: {
+							},
+							filter: {
+								check: sinon.stub().returns( true )
+							}
+						},
+						// No exception should be thrown.
+						ret = ParagraphToHeader.prototype._getPossibleLevels.call( {}, editorMock );
+
+					assert.areSame( 1, ret.min, 'ret.min' );
+					assert.areSame( 6, ret.max, 'ret.max' );
+				},
+
 				'test ParagraphToHeader._removeBoldTag - removing strong': function() {
 					var issueElement = CKEDITOR.document.getById( 'suspiciousStrong' ),
 						ret = ParagraphToHeader.prototype._removeBoldTag.call( {

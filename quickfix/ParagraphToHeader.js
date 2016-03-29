@@ -111,7 +111,7 @@
 			 * @return {Number} return.email Maximal allowed level.
 			 */
 			ParagraphToHeader.prototype._getPossibleLevels = function( editor ) {
-				var tags = editor.config.format_tags.split( ';' ),
+				var tags = ( editor.config.format_tags || '' ).split( ';' ),
 					ret = {
 						min: 1,
 						max: 6
