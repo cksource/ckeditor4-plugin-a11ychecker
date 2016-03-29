@@ -32,6 +32,10 @@ require( [ 'EngineQuailConfig' ], function( _EngineQuailConfig ) {
 } );
 
 (function() {
+	if ( !$ || $.fn ) {
+		throw new Error( 'Missing jQuery - it\'s required by Quail engine.' );
+	}
+
 	// We'll load custom Quail only if it's not already registered.
 	if ( $.fn.quail ) {
 		return;
