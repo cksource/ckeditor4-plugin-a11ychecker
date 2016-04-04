@@ -44,7 +44,7 @@
   },
   "author": "CKSource (http://cksource.com/)",
   "license": "SEE LICENSE IN LICENSE.md",
-  "homepage": "",
+  "homepage": "https://cksource.com/accessibility-checker/",
   "bugs": {
     "url": "https://github.com/cksource/ckeditor-plugin-a11ychecker/issues"
   },
