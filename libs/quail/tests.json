@@ -89,7 +89,7 @@
       "en": "",
       "nl": ""
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "link",
       "content"
@@ -140,7 +140,7 @@
       "en": "If a list of links is provided within the same element, those links should be seperated by a non-linked, printable character. Structures like lists are not included in this.",
       "nl": "Als een rij met links binnen eenzelfde element staat, moeten de links gescheiden zijn door een niet-gelinkt, afdrukbaar teken. Dit geldt niet voor een gestructureerde lijst."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "link",
       "content"
@@ -192,7 +192,7 @@
       "en": "Since symbols are either not read, or can be confusing when using a screen reader, do not separate links with un-readable symbols.",
       "nl": "Symbolen worden niet voorgelezen of zijn verwarrend bij het gebruik van een schermlezer. Gebruik geen onleesbare symbolen om links van elkaar te scheiden."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "link",
       "content"
@@ -308,7 +308,7 @@
   "aMultimediaTextAlternative": {
     "type": "selector",
     "testability": 0,
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "link",
       "media",
@@ -374,7 +374,7 @@
       "en": "Every link must have a \"title\" attribute.",
       "nl": "Zorg ervoor dat elke link is voorzien van een \"title\"-attribuut."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "link",
       "content"
@@ -396,7 +396,7 @@
       "en": "Anchor (<code>a</code>.  elements may not use the \"javascript\" protocol in their \"href\" attributes.",
       "nl": "Anchor(<code>a</code>.-elementen mogen geen \"javascript\"protocol in hun \"href\"-attributen hebben staan."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "link",
       "content"
@@ -490,7 +490,7 @@
       "en": "Documents should provide a valid email address within an <code>address</code> element.",
       "nl": "Documenten moeten een e-mailadres bevatten binnen het <code>address</code>-element."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "document"
     ],
@@ -511,7 +511,7 @@
       "en": "Documents should provide a valid email address within an <code>address</code> element.",
       "nl": "Documenten moeten een geldig e-mailadres bevatten binnen het <code>address</code> element."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "document"
     ],
@@ -605,7 +605,7 @@
       "en": "Ensure that a user who has only a keyboard as an input device can escape an <code>applet</code> element. This requires manual confirmation.",
       "nl": "Zorg ervoor dat gebruikers die alleen het toetsenbord gebruiken als bediening een <code>applet</code>-element kunnen verlaten. Hiervoor is handmatige bevestiging nodig."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "applet",
@@ -780,7 +780,7 @@
       "en": "If an image is being used as a map, and an <code>area</code> encompasses text within the image, then the \"alt\" attribute of that <code>area</code> element should be the same as the text found in the image.",
       "nl": "Als een afbeelding als kaart wordt gebruikt, en een <code>area</code> bevat tekst binnen de afbeelding, dan moet het \"alt\"-attribuut van dat <code>area</code>-element hetzelfde zijn als de tekst die in de afbeelding staat."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "imagemap",
       "content"
@@ -802,7 +802,7 @@
       "en": "No <code>area</code> elements should open a new window without warning.",
       "nl": "<code>area</code>-elementen mogen geen nieuw scherm openen zonder dat de gebruiker hiervan een melding krijgt."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "imagemap",
       "content"
@@ -893,7 +893,7 @@
       "en": "If a page makes use of ARIA roles, then there should not be any content on the page which is not within an element that exposes a role, as it could cause that content to be rendreed inaccessible to users with screen readers.",
       "nl": "Als een pagina gebruik maakt van ARIA-rollen, mag er geen content op de pagina staan buiten een element dat een rol vertegenwoordigt. In dat geval kan het zijn dat deze content niet toegankelijk is voor gebruikers van schermlezers."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "aria",
       "content"
@@ -913,7 +913,7 @@
       "en": "The <code>basefont</code> tag is deprecated and should not be used. Investigate using stylesheets instead.",
       "nl": "The <code>basefont</code>-tag is afgekeurd en moet niet worden gebruikt. Gebruik in plaats hiervan stylesheets."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "document",
       "deprecated"
@@ -1023,7 +1023,7 @@
       "en": "The <code>b</code> (bold) element provides no emphasis for non-sighted readers. Use the <code>strong</code> tag instead.",
       "nl": "Het <code>b</code>-element voorziet niet in nadruk voor blinde en slechtziende gebruikers. Gebruik de <code>strong</code>-tag instead."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "semantics",
       "content"
@@ -1153,7 +1153,7 @@
       "en": "All input elements of type \"checkbox\" must have a corresponding label that is close to the form element. Users of screen magnification or with reduced spatial skills are hampered in using a form element if the label for that element is located far away.",
       "nl": "Alle inputelementen van het type \"keuzevakje\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -1523,7 +1523,7 @@
       "en": "Each document must contain a valid doctype declaration.",
       "nl": "Ieder document moet een geldige doctype-verklaring hebben."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "doctype"
     ],
@@ -1604,7 +1604,7 @@
       "en": "Because different users have different speeds and abilities when it comes to parsing the content of a page, a \"meta-refresh\" method to redirect users can prevent users from fully understanding the document before being redirected.",
       "nl": "Omdat verschillende gebruikers verschillende snelheden en vaardigheden hebben met het scannen van content op een pagina, kan een \"meta-refresh\"-methode om gebruikers door te sturen hen verhinderen het document volledig te begrijpen voor ze worden doorgestuurd."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "document"
     ],
@@ -1789,7 +1789,7 @@
       "en": "The document should have a default langauge, by setting the \"lang\" attribute in the <code>html</code> element.",
       "nl": "Het document moet een standaardtaal hebben, vastgelegd in het \"lang\"-attribuut in het <code>html</code>-element."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "document",
       "language"
@@ -1882,7 +1882,7 @@
       "en": "The doctype of the page or document should be either an HTML or XHTML strict doctype.",
       "nl": "Het doctype van een pagina of document moet een HTML of XHTML strikt doctype zijn."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "document",
       "doctype"
@@ -1968,7 +1968,7 @@
       "en": "The document title should be short and succinct. This test fails at 150 characters, but authors should consider this to be a suggestion.",
       "nl": "De documenttitel moet kort en beknopt zijn. Probeer bij een titel langer dan 150 tekense de titel in te korten waar mogelijk."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "document",
       "head"
@@ -2142,7 +2142,7 @@
       "en": "Because some users cannot use the <code>embed</code> element, provide alternative content in a <code>noembed</code> element.",
       "nl": "Sommige gebruikers kunnen het <code>embed</code>-element niet gebruiken. Biedt hiervoor alternatieve content aan in een <code>noembed</code>-element."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "object",
       "embed",
@@ -2163,7 +2163,7 @@
       "en": "Elements should only have one type of any attribute. For example, there should not be two 'class' attributes.",
       "nl": "Elementen mogen maar een type attribuut hebben. Er mogen bijvoorbeeld niet twee 'class'-attributen zijn."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "content"
     ],
@@ -2188,7 +2188,7 @@
       "en": "All <code>embed</code> elements must have an \"alt\" attribute.",
       "nl": "Alle <code>embed</code>-elementen moeten een \"alt\"-attribuut hebben."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "object",
       "embed",
@@ -2211,7 +2211,7 @@
       "en": "All <code>embed</code> elements must have an \"alt\" attribute that is not empty.",
       "nl": "Alle <code>embed</code>-elementen moeten een gevuld \"alt\"-attribuut hebben."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "object",
       "embed",
@@ -2415,7 +2415,7 @@
       "en": "All input elements of type \"file\" must have a corresponding label that is close to the form element. Users of screen magnification or with reduced spatial skills are hampered in using a form element if the label for that element is located far away.",
       "nl": "Alle inputelementen van het type \"file\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -2473,7 +2473,7 @@
       "en": "The <code>basefont</code> tag is deprecated and should not be used. Investigate using stylesheets instead.",
       "nl": "De <code>basefont</code>-tag is afgekeurd en moet niet worden gebruikt. Gebruik in plaats hiervan stylesheets."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "deprecated",
       "content"
@@ -2485,7 +2485,7 @@
   "formAllowsCheckIfIrreversable": {
     "type": "selector",
     "testability": 0,
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -2548,7 +2548,7 @@
       "en": "Check that, if a form has the option to delete an item, that the user has a chance to either reverse the delete process, or is asked for confirmation before the item is deleted. This is not something that can be checked through automated testing and requires manual confirmation.",
       "nl": "Controleer of een gebruiker de verwijdering van een invoer in een formulier ongedaan kan maken wanneer het mogelijk is om een invoer te verwijderen. Dit kan niet met een automatische test en moet handmatig gecontroleerd en bevestigd worden."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -2570,7 +2570,7 @@
       "en": "If the form allows users to perform some irrevocable action, like ordreing a product, ensure that users have the ability to review the contents of the form they submitted first. This is not something that can be checked through automated testing and requires manual confirmation.",
       "nl": "Als een formulier een gebruiker toestaat om een onomkeerbare actie uit te voeren, zoals het bestellen van een product, zorg er dan voor dat ze eerst het formulier kunnen controleren. Dit kan niet met een automatische test en moet handmatig gecontroleerd en bevestigd worden."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -2592,7 +2592,7 @@
       "en": "If the form has some required fields or other ways in which the user can commit an error, check that the reply is accessible. Use the words \"required\" or \"error\" within the <code>label</code> element of input items where the errors happened.",
       "nl": "Als het formulier verplichte velden heeft of op andere manier verkeerd ingevuld kan worden, controleer dan of de bijbehorende foutmelding begrijpelijk is. Gebruik de woorden \"required\" of \"error\" in het <code>label</code>-element of in de invoeritems waar de fout is opgetredenitems where the errors happened."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -2689,7 +2689,7 @@
       "en": "Frames should not be used to organize a page.",
       "nl": "Gebruik geen frames om een pagina te organiseren."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "deprecated",
       "frame"
@@ -2711,7 +2711,7 @@
       "en": "If a <code>frameset</code> contains three or more frames, use a \"longdesc\" attribute to help describe the purpose of the frames.",
       "nl": "Als een <code>frameset</code> drie of meer frames bevat, gebruik dan een \"longdesc\"-attribuut om het doel van de frames te beschrijven."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "deprecated",
       "frame"
@@ -2763,7 +2763,7 @@
       "en": "Each frame should contain accessible content, and contain content accessible to screen readers, like HTML as opposed to an image.",
       "nl": "Elk frame moet toegankelijke content bevatten, en content die toegankelijk is voor schermlezers, zoals HTML in tegenstelling tot een afbeelding."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "deprecated",
       "frame"
@@ -2930,7 +2930,7 @@
       "en": "Frames and framesets should not be used to organize content.",
       "nl": "Frames en framesets moeten niet gebruikt worden om content te organiseren."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "deprecated",
       "frame"
@@ -2952,7 +2952,7 @@
       "en": "If a <code>frameset</code> contains three or more frames, use a \"longdesc\" attribute to help describe the purpose of the frames.",
       "nl": "Als een <code>frameset</code> drie of meer frames bevat, gebruik dan een \"longdesc\"-attribuut om het doel van de frames te beschrijven."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "deprecated",
       "frame"
@@ -2974,7 +2974,7 @@
       "en": "",
       "nl": ""
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "headers",
       "td",
@@ -3506,7 +3506,7 @@
       "en": "The <code>i</code> (italic) element provides no emphasis for non-sighted readers. Use the <code>em</code> tag instead.",
       "nl": "Het <code>i</code>-element biedt geen nadruk voor slechtziende en blinde lezers. Gebruik in plaats daarvan de <code>em</code>-tag."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "deprecated",
       "content"
@@ -3528,7 +3528,7 @@
       "en": "Inline frames (iframe) should not have a \"longdesc\" attribute.",
       "nl": "Inline frames (\"iframes\") krijgen geen \"longdesc\"-attribuut."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "iframe",
@@ -3551,7 +3551,7 @@
       "en": "Any image with an \"usemap\" attribute for a server-side image map should have the available links duplicated elsewhere.",
       "nl": "Elke afbeelding met een \"usemap\"-attribuut voor een server-side map moet de beschikbare links ook elders hebben."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "iframe",
@@ -3604,7 +3604,7 @@
       "en": "Any image that is within a link should have an \"alt\" attribute which identifies the destination or purpose of the link.",
       "nl": "Elke afbeelding binnen link moet een \"alt\"-tekst hebben die de bestemming of het doel van de link beschrijft."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "image",
       "content"
@@ -3796,7 +3796,7 @@
       "en": "Every distinct image on a page should have it's own alt text which is different than all the others on the page to avoid redundancy and confusion.",
       "nl": "Elke unieke afbeelding op een pagina moet zijn eigen alttekst hebben die anders is dan die van andere afbeeldingen op de pagina om dubbeling en verwarring te voorkomen."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "image",
       "content"
@@ -3914,7 +3914,7 @@
       "en": "Any image that is not used decorativey or which is purely for layout purposes cannot have an \"alt\" attribute that consists solely of white space (i.e. a space).",
       "nl": "Elke afbeelding die niet ter decoratie is of die alleen voor lay-out doeleinden is bedoeld, mag geen leeg \"alt\"-attribuut hebben (bijvoorbeeld alleen een spatie)."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "image",
       "content"
@@ -4029,7 +4029,7 @@
       "en": "Server-side image maps should not be used.",
       "nl": "Server-side image maps mogen niet worden gebruikt."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "image",
       "imagemap",
@@ -4052,7 +4052,7 @@
       "en": "Images should not contain a \"title\" attribute.",
       "nl": "Afbeeldingen zouden geen \"title\"-attribuut moeten bevatten."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "image",
       "content"
@@ -4074,7 +4074,7 @@
       "en": "Empty alternative text can only be used if the image serves purely decoration purposes. If the image is supposed to convey any information whatsoever, you need to set a proper alternative text for it.",
       "nl": ""
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "image",
       "content"
@@ -4124,7 +4124,7 @@
       "en": "Images which contain math equations should be accompanied or link to a document with the equivalent equation marked up with <a href=\"http://www.w3.org/Math/\">MathML</a>.",
       "nl": "Afbeeldingen die wiskundige vergelijkingen bevatten moeten vergezeld zijn van of linken naar een document met daarin een equivalent van de vergelijking in <a href=\"http://www.w3.org/Math/\">MathML</a>."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "image",
       "content"
@@ -4144,7 +4144,7 @@
       "en": "All <code>input</code> elements of type \"checkbox\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
       "nl": "Alle invoerelementen van het type \"checkbox\" moeten \"tabindex\"-attribuut hebben dat ervoor zorgt dat je door een formulier kunt navigeren met het toetsenbord."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -4226,7 +4226,7 @@
       "en": "Input elements which are not images should not have an \"alt\" attribute, because of inconsistencies in how user agents use the \"alt\" attribute.",
       "nl": "Invoervelden die geen afbeelding zijn, moeten geen \"alt\"-attribuut hebben, omdat user agents het \"alt\"-attribuut niet consistent gebruiken."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -4248,7 +4248,7 @@
       "en": "All <code>input</code> elements of type \"file\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
       "nl": "Alle <code>invoer</code>-elementen van het type \"file\" moeten een \"tabindex\"-attribuut hebben om navigatie van het formulier met het toetsenbord mogelijk te maken."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "tabindex"
@@ -4537,7 +4537,7 @@
       "en": "All <code>input</code> elements of type \"password\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
       "nl": "Alle <code>input</code>-elementen van het type \"paswoord\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -4564,7 +4564,7 @@
       "en": "All <code>input</code> elements of type \"radio\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
       "nl": "Alle <code>input</code>-elementen van het type \"radio\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -4591,7 +4591,7 @@
       "en": "All <code>input</code> elements of type \"submit\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
       "nl": "Alle <code>input</code>-elementen van het type \"submit\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -4676,7 +4676,7 @@
       "en": "All <code>input</code> elements of type \"text\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
       "nl": "Alle <code>input</code>-elementen van het type \"text\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -4703,7 +4703,7 @@
       "en": "All <code>input</code> elements of type \"text\" should have a default text.",
       "nl": "Alle invoerelementen van het type \"text\" moeten een standaardtekst hebben."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -4730,7 +4730,7 @@
       "en": "All <code>input</code> elements with a type of \"text\" should have a default text which is not empty.",
       "nl": "Alle invoerelementen van het type \"text\" moeten een standaardtekst hebben die gevuld is."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -4803,7 +4803,7 @@
       "en": "Label elements should not wrap around another input element, as this can cause the label to be read twice by screen readers.",
       "nl": "Labelelementen moeten niet om een ander invoerelement heenstaan, omdat dan het label twee keer kan worden voorgelezen door schermlezers."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -4909,7 +4909,7 @@
       "en": "All <code>label</code> elements should be assigned to an input item, and should have a <em>for</em> attribute which equals the <em>id</em> attribute of a form element.",
       "nl": "Alle <code>label</code>-elementen moeten horen bij een invoerveld, en moeten een een <em>for</em>-attribuut hebben dat hetzelfde is als het <em>id</em>-attribuut van een formulierelement."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -5168,7 +5168,7 @@
   "liDontUseImageForBullet": {
     "type": "selector",
     "testability": 0.5,
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "list",
       "content"
@@ -5190,7 +5190,7 @@
       "en": "",
       "nl": ""
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "link",
       "content"
@@ -5210,7 +5210,7 @@
       "en": "Documents which contain things like videos, sound, or other forms of media that are not accessible, should provide a <code>link</code> element with a \"rel\" attribute of \"alternate\" in the document header.",
       "nl": "Documenten die content zoals video's, geluid of andere niet-toegankelijke vormen van media bevatten, moeten een <code>link</code>-element met een \"rel\"-attribuut of \"alternate\" in de documentheaderlink aanbieden."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "document"
     ],
@@ -5231,7 +5231,7 @@
       "en": "The link element can provide metadata about the position of an HTML page within a set of Web units or can assist in locating content with a set of Web units.",
       "nl": "Het link-element kan metadata bevatten over de positie van een HTML-pagina binnen een swet web units, of kan behulpzaamn zijn bij het lokaliseren van content binnen web units."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "document"
     ],
@@ -5308,7 +5308,7 @@
       "en": "The <code>marquee</code> element is difficult for users to read and is not a standard HTML element. Try to find another way to convey the importance of this text.",
       "nl": "Het <code>marquee</code>-element is moeilijk te lezen voor gebruikers en is geen standaard HTML-element. Gebruik een andere manier om aan te duiden dat het belangrijke content is."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "deprecated",
       "content"
@@ -5330,7 +5330,7 @@
       "en": "Menu is a deprecated tag, but is still honored in a transitional DTD. Menu tags are to provide structure for a document and should not be used for formatting. If a menu tag is to be used, it should only contain an ordered or unordered list of links.",
       "nl": "Menu is een afgekeurd tag, maar wordt nog wel gebruikt om structuur aan een document te geven. Het mag niet worden gebruikt voor opmaak. Als een menu-tag wordt gebruikt, mag het alleen bulleted of genummerde lijsten bevatten."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "list",
       "content"
@@ -5380,7 +5380,7 @@
       "en": "All <code>noembed</code> elements must contain or link to an accessible version of their <code>embed</code> counterparts.",
       "nl": "Alle <code>noembed</code>-elementen moeten een toegankelijke versie van hun <code>embed</code>-tegenhangers bevatten of hier naar linken."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "content"
@@ -5402,7 +5402,7 @@
       "en": "The <code>noframes</code> content should either replicate or link to the content visible within the frames.",
       "nl": "The <code>noframes</code>-content moet de zichtbare content binnen de frames repliceren of er naar linken."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "deprecated",
       "frame"
@@ -5424,7 +5424,7 @@
       "en": "The content within objects should still be available, even if the object is disabled. To do this, place a link to the direct object source within the <code>object</code> tag.",
       "nl": "Content binnen objecten moet beschikbaar blijven, ook als het object is uitgeschakeld. Plaats hiervoor een link naar de bron van het object binnen de <code>object</code>-tag."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "content"
@@ -5505,7 +5505,7 @@
       "en": "Object content should be assessed for accessibility.",
       "nl": "Content binnen objecten moeten gecontroleerd worden op toegankelijkheid."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "content"
@@ -5527,7 +5527,7 @@
       "en": "If an object contains a video, a link to the transcript should be provided near the object.",
       "nl": "Als een object een video bevat, moet een link naar de transcriptie hiervan worden aangeboden bij het object."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "content"
@@ -5585,7 +5585,7 @@
       "en": "Every <code>object</code> element must also contain an <code>embed</code> element.",
       "nl": "Elk <code>object</code>-element moet ook een \"embed\"-element bevatten."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "content"
@@ -5637,7 +5637,7 @@
       "en": "All <code>object</code> elements should have a \"title\" attribute which is not empty.",
       "nl": "All <code>object</code>-elementen hebben een \"titel\"-attribuut dat gevuld is."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "content"
@@ -5664,7 +5664,7 @@
       "en": "Ensure that a user who has only a keyboard as an input device can escape a <code>object</code> element. This requires manual confirmation.",
       "nl": "Zorg ervoor dat een gebruiker die alleen het toetsenbord als bediening gebruikt een <code>object</code>-element. Hiervoor is handmatige bevestiging nodig."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "content"
@@ -5686,7 +5686,7 @@
       "en": "Objects might require a long description, especially if their content is complicated.",
       "nl": "Objecten hebben soms een lange beschrijving nodig, zeker in het geval van ingewikkelde content."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "content"
@@ -5734,7 +5734,7 @@
       "en": "Objects who's content changes using java, ActiveX, or other similar technologies, should have their default text change when the object's content changes.",
       "nl": "Van objecten waarvan de content java, ActiveX of vergelijkbare technologie�n gebruiken, moet de standaardtekst veranderen als de content van het object verandert."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "content"
@@ -5754,7 +5754,7 @@
       "en": "Objects with \"classid\" attributes, should have their default text change when the object's content changes.",
       "nl": "Van objecten met \"classid\"-attributen moet de standaardtekst veranderen als de content van het object verandert."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "objects",
       "content"
@@ -5892,7 +5892,7 @@
       "en": "All input elements of type \"password\" must have a corresponding label that is close to the form element. Users of screen magnification or with reduced spatial skills are hampered in using a form element if the label for that element is located far away.",
       "nl": "Alle inputelementen van het type \"paswoord\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -6012,7 +6012,7 @@
       "en": "All input elements of type \"radio\" must have a corresponding label that is close to the form element. Users of screen magnification or with reduced spatial skills are hampered in using a form element if the label for that element is located far away.",
       "nl": "Alle inputelementen van het type \"radio\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -6072,7 +6072,7 @@
       "en": "All scripts should be assessed to see if, when the user is browsing with scrips turned off, the page content is still available.",
       "nl": "Alle scripts moeten gecontroleerd worden of, wanneer een gebruiker scripts heeft uitgezet, de content van de pagina nog steeds beschikbaar is."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "javascript"
     ],
@@ -6516,7 +6516,7 @@
       "en": "Actions like \"onchange\" can take control away from users who are trying to navigate the page. Using an \"onchange\" attribute for things like select-list menus should instead be replaced with a drop-down and a button which initiates the action.",
       "nl": "Acties als \"onchange\" kunnen de controle ontnemen van gebruikers die op een pagina proberen te navigeren. Het gebruik van een \"onchange\"-attribuut voor zaken zoals select-list menu's moet vervangen worden door een drop-down en een knop waarmee je de actie start."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -6917,7 +6917,7 @@
       "en": "The \"abbr\" attribute for table headers must be terse (less than 20 characters long).",
       "nl": "Het \"abbr\"-attribuut voor tabelkoppen moet bondig zijn (minder dan 20 tekens lang)."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "table",
       "content"
@@ -6937,7 +6937,7 @@
       "en": "Mark up the areas of tables using thead and tbody.",
       "nl": "Gebruik thead en tbody voor tabellen."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "table",
       "content"
@@ -7137,7 +7137,7 @@
       "en": "Table <code>summary</code> elements should describe the navigation tools and structure of the table, as well as provide an overview of what the table describes.",
       "nl": "Tabel \"summary\"-elementen moeten de navigatie en structuur van de tabel beschrijven, en een overzicht bieden van wat er in de tabel staat."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "table",
       "content"
@@ -7159,7 +7159,7 @@
       "en": "The summary and the caption must be different, as both provide different information. A <code>caption</code>. /code element identifies the table, while the \"summary\" attribute describes the table contents.",
       "nl": "De samenvatting en beschrijving van een tabel moeten verschillen, want ze bieden verschillende informatie. Een <code>caption</code>-element identificeert welke tabel het betreft en het \"summary\"-attribuut beschrijft de inhoud van de tabel."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "table",
       "content"
@@ -7179,7 +7179,7 @@
       "en": "If a table contains data, it should have a \"summary\" attribute.",
       "nl": "Als een tabel data bevat, moet hij een \"summary\"-attribuut hebben."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "table",
       "content"
@@ -7196,7 +7196,7 @@
   "tableSummaryIsNotTooLong": {
     "type": "custom",
     "testability": 0,
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "table",
       "content"
@@ -7216,7 +7216,7 @@
       "en": "If a table contains data, it should have a \"summary\" attribute that completely communicates the function and use of the table.",
       "nl": "Als een tabel data bevat, moet er een \"summary\"-attribuut zijn dat de functie en het doel van de tabel duidelijk maakt."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "table",
       "content"
@@ -7238,7 +7238,7 @@
       "en": "To help complex table headers make sense, use <code>colgroup</code> or <code>col</code> to group them together.",
       "nl": "Maak complexe tabelkoppen duidelijker door \"colgroup\"- of \"col\"-elementen te gebruiken om ze te groeperen."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "table",
       "content"
@@ -7258,7 +7258,7 @@
       "en": "For long table headers, use an \"abbr\" attribute that is less than short (less than 20 characters long).",
       "nl": "Gebruik een \"abbr\"-attribuut korter dan 20 tekens voor lange tabelkoppen."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "table",
       "content"
@@ -7369,7 +7369,7 @@
       "en": "Complex data tables should provide \"id\" attributes to headers and \"headers\" attributes for data cells.",
       "nl": "Complexe datatabellen moeten \"id\"-attributen aan headers koppelen en \"headers\"-attributen aan datacellen."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "table",
       "content"
@@ -7453,7 +7453,7 @@
       "en": "To help users with difficulty reading small text, ensure text size is no less than 9 pixels high.",
       "nl": "Help gebruikers die moeite hebben met het lezen van kleine letters, door ervoor te zorgen dat tekst groter is dan 8 pixels hoog."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "textsize",
       "content"
@@ -7536,7 +7536,7 @@
       "en": "All <code>textarea</code> elements should have a corresponding <code>label</code> element that is close in proximity.",
       "nl": "Alle \"textarea\"-elementen moeten een bijbehorend label hebben dat dicht bij het element staat."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -7720,7 +7720,7 @@
       "en": "Actions like \"onfocus\" can take control away from users who are trying to navigate the page. Using an \"onfocus\" attribute for things like links should be replaced with css.",
       "nl": "Acties zoals \"onfocus\" kunnen de controle ontnemen van gebruikers die op een pagina proberen te navigeren. Het gebruik van een \"onfocus\"-attribuut voor zaken als links moet worden vervangen door middel van css."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -7747,7 +7747,7 @@
       "en": "Actions like \"onfocus\" can take control away from users who are trying to navigate the page. Using an \"onfocus\" attribute for things like buttons should be replaced with css.",
       "nl": "Acties zoals \"onfocus\" kunnen de controle ontnemen van gebruikers die op een pagina proberen te navigeren. Het gebruik van een \"onfocus\"-attribuut voor zaken als knoppen moet worden vervangen door middel van css."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "content"
@@ -7772,7 +7772,7 @@
       "de": "<code>strong</code> ist nur in <code>li</code>-Elementen erlaubt",
       "en": "STRONG only allowed when parent element is LI."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "KING"
     ],
@@ -7789,7 +7789,7 @@
       "de": "Kurze Datumsformate können Benutzer verwirren. Benutzen Sie immer Monatsnamen, bspw. 14 März 2020",
       "en": "Short date formats might confuse users, Always use the month name: 20 May 2014."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "KING"
     ],
@@ -7806,7 +7806,7 @@
       "de": "",
       "en": ""
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "KING"
     ],
@@ -7823,7 +7823,7 @@
       "de": "Verwenden Sie nur Symbol und Währungsnamen anstelle von allgemeinen Namen wie € oder EUR.",
       "en": "Only use symbol and currency name instead of common name such as € or EUR."
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "KING"
     ],
@@ -7842,7 +7842,7 @@
       "en": "",
       "nl": ""
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "link",
       "video"
@@ -7862,7 +7862,7 @@
       "en": "",
       "nl": ""
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "link",
       "audio"
@@ -7882,7 +7882,7 @@
       "en": "",
       "nl": ""
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "link",
       "gif"
@@ -7902,7 +7902,7 @@
       "en": "",
       "nl": ""
     },
-    "guidelines": [ ],
+    "guidelines": [],
     "tags": [
       "form",
       "input"
