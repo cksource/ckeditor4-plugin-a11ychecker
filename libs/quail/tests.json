@@ -5747,10 +5747,12 @@
     "type": "selector",
     "testability": 1,
     "title": {
+      "de": "Objekte mit \"classid\"-Attribut sollten nicht ihren Text ändern, wenn sich der Inhalt des Objektes ändert",
       "en": "Objects with \"classid\" attributes should change their text if the content of the object changes",
       "nl": "Objecten met \"classid\"-attributen moeten hun tekst veranderen wanneer de content van het object verandert"
     },
     "description": {
+      "de": "Objekte mit \"classid\"-Attribut sollten nicht ihren Standardtext ändern, wenn sich der Inhalt des Objektes ändert.",
       "en": "Objects with \"classid\" attributes, should have their default text change when the object's content changes.",
       "nl": "Van objecten met \"classid\"-attributen moet de standaardtekst veranderen als de content van het object verandert."
     },
@@ -5767,10 +5769,12 @@
     "type": "custom",
     "testability": 0.5,
     "title": {
+      "de": "Paragraphen dürfen nicht für Überschriften verwendet werden",
       "en": "Paragraphs must not be used for headers",
       "nl": "Alinea's worden niet gebruikt als header"
     },
     "description": {
+      "de": "Überschriften sind für nicht-sehende Benutzer sehr nützlich um in der Seitenstruktur zu navigieren. Einen Paragraphen nur groß oder fett zu formatieren, damit es wie eine Überschrift aussieht, macht daraus keine Überschrift.",
       "en": "Headers are extremely useful for non-sighted users to navigate the structure of the page. Formatting a paragraph to just be big or bold, while it might visually look like a header, does not make it a header.",
       "nl": "Headers van <code>h1</code> - <code>h6</code> zijn handig voor blinde en slechtziende gebruikers om door een pagina te navigeren. Maak alinea's daarom niet op zodat deze lijkt op een header. Dit werkt verwarrend."
     },
@@ -5908,10 +5912,12 @@
     "type": "custom",
     "testability": 0,
     "title": {
+      "de": "Pre-Elemente sollten nicht für Tabellendaten verwendet werden",
       "en": "Pre elements should not be used for tabular data",
       "nl": "Pre-elementen worden niet gebruikt om data als tabel te rangschikken"
     },
     "description": {
+      "de": "Wenn ein <code>pre</code>-Element für Tabellendaten verwendet wird, ändern Sie die Daten sodass eine wohlgeformte Tabelle verwendet wird.",
       "en": "If a <code>pre</code> element is used for tabular data, change the data to use a well-formed table.",
       "nl": "Als een <code>pre</code>-element wordt gebruikt om data als tabel te rangschikken, verander de data dan zodat je een echte tabel kunt maken."
     },
@@ -5942,10 +5948,12 @@
     "type": "label",
     "testability": 1,
     "title": {
+      "de": "Alle \"Radio\"-Eingabeelemente müssen ein dazugehöriges Label haben",
       "en": "All \"radio\" input elements have a corresponding label",
       "nl": "Alle invoerelementen van het type \"radio\" hebben een bijbehorend label"
     },
     "description": {
+      "de": "Alle <code>Input</code>-Elemente vom Typ \"radio\" sollten ein dazugehöriges <code>label<code>-Element haben. Bildschirmleseprogramme verwenden oft einen Formularmodus, wenn nur Label-Text vorgelesen wird.",
       "en": "All <code>input</code> elements of type \"radio\" should have a corresponding <code>label</code> element. Screen readers often enter a \"form mode\" where only label text is read aloud to the user",
       "nl": "Alle <code>input</code>-elementen van het \"radio\" moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen."
     },
@@ -7380,6 +7388,7 @@
     "type": "custom",
     "testability": 1,
     "title": {
+      "de": "Alle Tags sollten korrekt verschachtelt werden",
       "en": "All tags should be nested correctly",
       "nl": "Alle tags moeten juist genest worden"
     },

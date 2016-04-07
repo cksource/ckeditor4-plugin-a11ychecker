@@ -38,8 +38,8 @@
 		},
 		QuickFix: {},
 		ParagraphToHeader: {
-			levelLabel: 'Kopfebene',
-			suggested: '(Vorgeschlagen)'
+			levelLabel: 'Überschriftenebene',
+			suggested: '(Vorschlag)'
 		},
 		Repository: {},
 		TableHeaders: {
