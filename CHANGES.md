@@ -3,7 +3,7 @@ CKEditor Accessibility Checker Changelog
 
 [CKEditor Accessibility Checker](https://cksource.com/accessibility-checker/)
 
-Copyright (c) 2007-2016, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2014-2016, CKSource - Frederico Knabben. All rights reserved.
 
 ## Version 1.0
 
@@ -21,4 +21,4 @@ The first release includes three language versions:
 
 * English
 * German (provided by Sebastian Peilicke of [Sopra Steria GmbH](http://www.soprasteria.de/de))
-* Dutch (_TODO: provided by..._)
+* Dutch (provided by [Dutch Government](https://www.government.nl/))
