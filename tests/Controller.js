@@ -21,7 +21,19 @@
 	) {
 		bender.test( {
 			setUp: function() {
+				// Controller's mock.
 				this.mockup = getControllerMockup();
+				// Mockup for plugin's static namespace.
+				this.pluginStaticMockup = {};
+				// If there's no need to use full featured editor use it's mockup instead.
+				this.editorMockup = {
+					plugins: {
+						a11ychecker: this.pluginStaticMockup
+					},
+					config: {}
+				};
+
+				this.mockup.editor = this.editorMockup;
 			},
 
 			'test Controller constructor': function() {
@@ -213,6 +225,8 @@
 
 				this.mockup.mode = oldMode;
 
+				// We don't need a real editor here, less dependencies.
+				this.mockup.editor = null;
 				this.mockup.setMode( Controller.modes.CHECKING );
 
 				assert.areSame( 1, oldMode.close.callCount, 'Old mode close() calls count' );
@@ -793,42 +807,24 @@
 				assert.areSame( 0, controllerMock.setMode.callCount, 'Controller.setMode call count' );
 			},
 
-			'test Controller.getQuickFixLang editor lang not in QF langs': function() {
-				var pluginStaticMock = {
-						quickFixesLang: 'en,nl,de,fr'
-					},
-					editorMock = {
-						plugins: {
-							a11ychecker: pluginStaticMock
-						},
-						config: {
-							language: 'br',
-							defaultLanguage: 'en'
-						}
-					};
-
-				this.mockup.editor = editorMock;
-
-				assert.areEqual( 'en', this.mockup.getQuickFixLang() );
-			},
-
 			'test Controller.getQuickFixLang': function() {
-				var pluginStaticMock = {
-						quickFixesLang: 'en,nl,de,fr'
-					},
-					editorMock = {
-						plugins: {
-							a11ychecker: pluginStaticMock
-						},
-						config: {
-							language: 'de',
-							defaultLanguage: 'en'
-						}
-					};
-
-				this.mockup.editor = editorMock;
+				this.pluginStaticMockup.quickFixesLang = 'en,nl,de,fr';
+				this.editorMockup.config = {
+					language: 'de',
+					defaultLanguage: 'en'
+				};
 
 				assert.areEqual( 'de', this.mockup.getQuickFixLang() );
+			},
+
+			'test Controller.getQuickFixLang editor lang not in QF langs': function() {
+				this.pluginStaticMockup.quickFixesLang = 'en,nl,de,fr';
+				this.editorMockup.config = {
+					language: 'br',
+					defaultLanguage: 'en'
+				};
+
+				assert.areEqual( 'en', this.mockup.getQuickFixLang() );
 			},
 
 			/**
