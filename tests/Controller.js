@@ -827,6 +827,16 @@
 				assert.areEqual( 'en', this.mockup.getQuickFixLang() );
 			},
 
+			'test Controller.getQuickFixLang different navigator language': function() {
+				this.pluginStaticMockup.quickFixesLang = 'en,nl,de,fr';
+				this.editorMockup.config = {
+					defaultLanguage: 'fr'
+				};
+				// @todo: set navigator.userLanguage to 'nl'.
+
+				assert.areEqual( 'nl', this.mockup.getQuickFixLang(), 'Navigator language is used' );
+			},
+
 			/**
 			 * A helper function to test Controller.onNoIssues method calls from Controller.exec.
 			 *
