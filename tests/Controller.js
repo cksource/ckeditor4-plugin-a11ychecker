@@ -793,6 +793,44 @@
 				assert.areSame( 0, controllerMock.setMode.callCount, 'Controller.setMode call count' );
 			},
 
+			'test Controller.getQuickFixLang editor lang not in QF langs': function() {
+				var pluginStaticMock = {
+						quickFixesLang: 'en,nl,de,fr'
+					},
+					editorMock = {
+						plugins: {
+							a11ychecker: pluginStaticMock
+						},
+						config: {
+							language: 'br',
+							defaultLanguage: 'en'
+						}
+					};
+
+				this.mockup.editor = editorMock;
+
+				assert.areEqual( 'en', this.mockup.getQuickFixLang() );
+			},
+
+			'test Controller.getQuickFixLang': function() {
+				var pluginStaticMock = {
+						quickFixesLang: 'en,nl,de,fr'
+					},
+					editorMock = {
+						plugins: {
+							a11ychecker: pluginStaticMock
+						},
+						config: {
+							language: 'de',
+							defaultLanguage: 'en'
+						}
+					};
+
+				this.mockup.editor = editorMock;
+
+				assert.areEqual( 'de', this.mockup.getQuickFixLang() );
+			},
+
 			/**
 			 * A helper function to test Controller.onNoIssues method calls from Controller.exec.
 			 *
