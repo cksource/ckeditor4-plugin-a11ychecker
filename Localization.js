@@ -7,7 +7,7 @@ define( function() {
 	'use strict';
 
 	/**
-	 * Used for language localization related operations.
+	 * Helper type used for language localization related operations.
 	 *
 	 * @since 4.6.0
 	 * @static
@@ -33,15 +33,15 @@ define( function() {
 	* or browser language are not available.
 	* @param {String[]} languages List of available languages.
 	* @param {Navigator} [navigator] Optional navigator object, if not present will be picked
-	* from window object.
+	* from the window object.
 	* @returns {String/null} Language code, or `null` if not found. Note that returned value
-	* will be always lowercased.
+	* is always lowercased.
 	*/
 	Localization.getPreferredLanguage = function( preferredLang, defaultLanguage, languages, navigator ) {
 		navigator = navigator || window.navigator;
 
 		var checkLangs = [ preferredLang, defaultLanguage, 'en' ],
-		// RegExp used to split language locale.
+			// RegExp used to split language locale.
 			localeRegExp = /([a-z]+)(?:-([a-z]+))?/,
 			navigatorLang = navigator.language || navigator.userLanguage,
 			indexOf = CKEDITOR.tools.indexOf;
