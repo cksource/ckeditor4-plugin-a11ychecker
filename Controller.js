@@ -666,7 +666,7 @@ define( [
 			config = editor.config,
 			availLangs = plugin.quickFixesLang.split( ',' );
 
-		return Localization.getPreferredLanguage( config.contentsLanguage || config.language, config.defaultLanguage, availLangs ) || availLangs[ 0 ];
+		return Localization.getPreferredLanguage( config.language, config.defaultLanguage, availLangs ) || availLangs[ 0 ];
 	};
 
 	/**
