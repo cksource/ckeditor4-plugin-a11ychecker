@@ -7,7 +7,7 @@ define( function() {
 	'use strict';
 
 	/**
-	 * Used for language related operations.
+	 * Used for language localization related operations.
 	 *
 	 * @since 4.6.0
 	 * @static
@@ -27,7 +27,7 @@ define( function() {
 	 * * `'en'` literal as a last proposition
 	 *
 	* @static
-	* @member CKEDITOR.plugins.a11ychecker.EngineQuail
+	* @member CKEDITOR.plugins.a11ychecker.Localization
 	* @param {String} preferredLang Language to be preferrred over the browser language.
 	* @param {String} defaultLanguage A fallback language, used when neither `preferredLang`
 	* or browser language are not available.
