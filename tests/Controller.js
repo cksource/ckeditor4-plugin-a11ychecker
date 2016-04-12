@@ -832,7 +832,7 @@
 				this.editorMockup.config = {
 					defaultLanguage: 'fr'
 				};
-				// @todo: set navigator.userLanguage to 'nl'.
+				navigator.userLanguage = 'nl';
 
 				assert.areEqual( 'nl', this.mockup.getQuickFixLang(), 'Navigator language is used' );
 			},

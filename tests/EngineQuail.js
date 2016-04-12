@@ -313,66 +313,6 @@
 				}
 			},
 
-			'test EngineQuail.getPreferredLanguage preffered lang': function() {
-				// Preffered lang should be returned.
-				var navigator = {
-						language: 'de'
-					},
-					ret = EngineQuail.getPreferredLanguage( 'fo-ba', 'bo-mb', [ 'fo', 'en-us', 'fo-ba', 'en-gb' ], navigator );
-
-				assert.areSame( 'fo-ba', ret, 'Return value' );
-			},
-
-			'test EngineQuail.getPreferredLanguage preffered lang no locale': function() {
-				// Preffered lang should be returned, but without locale.
-				var navigator = {
-						language: 'de'
-					},
-					ret = EngineQuail.getPreferredLanguage( 'fo-ba', 'bo-mb', [ 'en-us', 'en-gb', 'fo' ], navigator );
-
-				assert.areSame( 'fo', ret, 'Return value' );
-			},
-
-			'test EngineQuail.getPreferredLanguage invalid': function() {
-				// If no language is matched, null should be returned.
-				var navigator = {
-						language: 'de'
-					},
-					ret = EngineQuail.getPreferredLanguage( 'fo-ba', 'bo-mb', [ 'en-us', 'en-gb' ], navigator );
-
-				assert.isNull( ret, 'Return value' );
-			},
-
-			'test EngineQuail.getPreferredLanguage navigator': function() {
-				// Navigator lang has higher priority than default lang.
-				var navigator = {
-						language: 'de'
-					},
-					ret = EngineQuail.getPreferredLanguage( 'fo', 'bo', [ 'en-us', 'de', 'bo' ], navigator );
-
-				assert.areSame( 'de', ret, 'Return value' );
-			},
-
-			'test EngineQuail.getPreferredLanguage navigator.userLanguage': function() {
-				// Ensure that also userLanguage proprerty is considered.
-				var navigator = {
-						userLanguage: 'fr'
-					},
-					ret = EngineQuail.getPreferredLanguage( 'fo', 'bo', [ 'en-us', 'fr', 'bo' ], navigator );
-
-				assert.areSame( 'fr', ret, 'Return value' );
-			},
-
-			'test EngineQuail.getPreferredLanguage empty lang': function() {
-				// It might happen that preferred language is not given.
-				var navigator = {
-						userLanguage: 'fr'
-					},
-					ret = EngineQuail.getPreferredLanguage( '', 'bo', [ 'en-us', 'fr', 'bo' ], navigator );
-
-				assert.areSame( 'fr', ret, 'Return value' );
-			},
-
 			'test createConfig': function() {
 				var ret = EngineQuail.prototype.createConfig.call( {}, this.editor );
 				assert.isInstanceOf( EngineQuailConfig, ret, 'Return val type' );
