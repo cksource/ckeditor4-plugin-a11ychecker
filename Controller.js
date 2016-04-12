@@ -662,9 +662,8 @@ define( [
 	 */
 	Controller.prototype.getQuickFixLang = function() {
 		var editor = this.editor,
-			plugin = editor.plugins.a11ychecker,
 			config = editor.config,
-			availLangs = plugin.quickFixesLang.split( ',' );
+			availLangs = editor.plugins.a11ychecker.quickFixesLang.split( ',' );
 
 		return Localization.getPreferredLanguage( config.language, config.defaultLanguage, availLangs ) || availLangs[ 0 ];
 	};
