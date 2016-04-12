@@ -21,7 +21,19 @@
 	) {
 		bender.test( {
 			setUp: function() {
+				// Controller's mock.
 				this.mockup = getControllerMockup();
+				// Mockup for plugin's static namespace.
+				this.pluginStaticMockup = {};
+				// If there's no need to use full featured editor use it's mockup instead.
+				this.editorMockup = {
+					plugins: {
+						a11ychecker: this.pluginStaticMockup
+					},
+					config: {}
+				};
+
+				this.mockup.editor = this.editorMockup;
 			},
 
 			'test Controller constructor': function() {
@@ -213,6 +225,8 @@
 
 				this.mockup.mode = oldMode;
 
+				// We don't need a real editor here, less dependencies.
+				this.mockup.editor = null;
 				this.mockup.setMode( Controller.modes.CHECKING );
 
 				assert.areSame( 1, oldMode.close.callCount, 'Old mode close() calls count' );
@@ -791,6 +805,46 @@
 				editorMock.fire( 'beforeCommandExec', { name: 'foo' } );
 
 				assert.areSame( 0, controllerMock.setMode.callCount, 'Controller.setMode call count' );
+			},
+
+			'test Controller.getQuickFixLang': function() {
+				this.pluginStaticMockup.quickFixesLang = 'en,nl,de,fr';
+				this.editorMockup.config = {
+					language: 'de',
+					defaultLanguage: 'en'
+				};
+
+				assert.areEqual( 'de', this.mockup.getQuickFixLang() );
+			},
+
+			'test Controller.getQuickFixLang editor lang not in QF langs': function() {
+				this.pluginStaticMockup.quickFixesLang = 'en,nl,de,fr';
+				this.editorMockup.config = {
+					language: 'br',
+					defaultLanguage: 'en'
+				};
+
+				assert.areEqual( 'en', this.mockup.getQuickFixLang() );
+			},
+
+			'test Controller.getQuickFixLang different navigator language': function() {
+				var originalLanguage = navigator.language;
+
+				this.pluginStaticMockup.quickFixesLang = 'en,nl,de,fr';
+				this.editorMockup.config = {
+					defaultLanguage: 'fr'
+				};
+
+				navigator.language = 'nl';
+
+				try {
+					assert.areEqual( 'nl', this.mockup.getQuickFixLang(), 'Navigator language is used' );
+				} catch ( e ) {
+					// Make sure to restore original navigator's language.
+					navigator.language = originalLanguage;
+					// Redirect the exception.
+					throw e;
+				}
 			},
 
 			/**

@@ -11,7 +11,8 @@ define( [
 	'PreferredIssueFinder',
 	'ui/Ui',
 	'ui/ViewerController',
-	'HotkeyManager'
+	'HotkeyManager',
+	'Localization'
 ], function(
 	CheckingMode,
 	ListeningMode,
@@ -20,7 +21,8 @@ define( [
 	PreferredIssueFinder,
 	Ui,
 	ViewerController,
-	HotkeyManager
+	HotkeyManager,
+	Localization
 ) {
 	'use strict';
 
@@ -660,17 +662,10 @@ define( [
 	 */
 	Controller.prototype.getQuickFixLang = function() {
 		var editor = this.editor,
-			plugin = editor.plugins.a11ychecker,
 			config = editor.config,
-			preferredLang = config.contentsLanguage || config.language || config.defaultLanguage,
-			availLangs = plugin.quickFixesLang.split( ',' ),
-			indexOf = CKEDITOR.tools.indexOf;
+			availLangs = editor.plugins.a11ychecker.quickFixesLang.split( ',' );
 
-		if ( indexOf( availLangs, preferredLang ) !== -1 ) {
-			return preferredLang;
-		} else {
-			return availLangs[ 0 ];
-		}
+		return Localization.getPreferredLanguage( config.language, config.defaultLanguage, availLangs ) || availLangs[ 0 ];
 	};
 
 	/**
