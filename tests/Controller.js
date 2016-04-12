@@ -828,13 +828,23 @@
 			},
 
 			'test Controller.getQuickFixLang different navigator language': function() {
+				var originalLanguage = navigator.language;
+
 				this.pluginStaticMockup.quickFixesLang = 'en,nl,de,fr';
 				this.editorMockup.config = {
 					defaultLanguage: 'fr'
 				};
-				navigator.userLanguage = 'nl';
 
-				assert.areEqual( 'nl', this.mockup.getQuickFixLang(), 'Navigator language is used' );
+				navigator.language = 'nl';
+
+				try {
+					assert.areEqual( 'nl', this.mockup.getQuickFixLang(), 'Navigator language is used' );
+				} catch ( e ) {
+					// Make sure to restore original navigator's language.
+					navigator.language = originalLanguage;
+					// Redirect the exception.
+					throw e;
+				}
 			},
 
 			/**
