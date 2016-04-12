@@ -43,7 +43,7 @@ define( function() {
 		var checkLangs = [ preferredLang, defaultLanguage, 'en' ],
 		// RegExp used to split language locale.
 			localeRegExp = /([a-z]+)(?:-([a-z]+))?/,
-			navigatorLang = navigator.userLanguage || navigator.language,
+			navigatorLang = navigator.language || navigator.userLanguage,
 			indexOf = CKEDITOR.tools.indexOf;
 
 		if ( navigatorLang ) {
