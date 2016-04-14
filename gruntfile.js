@@ -159,8 +159,8 @@ module.exports = function( grunt ) {
 					{
 						// nonull to let us know if any of given entiries is missing.
 						nonull: true,
-						src: [ 'plugin.js', 'quailInclude.js', 'skins/**', 'styles/**', 'quickfix/**', 'icons/**', 'lang/*',
-						'libs/quail/**' ],
+						src: [ 'plugin.js', 'quailInclude.js', 'CHANGES.md', 'skins/**', 'styles/**', 'quickfix/**',
+						'icons/**', 'lang/*', 'libs/quail/**' ],
 						dest: 'build/a11ychecker/'
 					}
 				]
