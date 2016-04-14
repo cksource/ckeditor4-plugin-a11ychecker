@@ -13,7 +13,8 @@ define( function() {
 	 * @static
 	 * @class CKEDITOR.plugins.a11ychecker.Localization
 	 */
-	var Localization = {};
+	function Localization() {
+	}
 
 	/**
 	 * Returns a preferred language code, based on list in `languages` parameter.
