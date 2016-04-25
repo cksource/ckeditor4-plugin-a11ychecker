@@ -1,6 +1,6 @@
 @bender-include: %TEST_DIR%../_assets/jquery.min.js
 @bender-ui: collapsed
-@bender-ckeditor-plugins: a11ychecker,sourcearea,toolbar,undo,wysiwygarea,clipboard,basicstyles,list,link,format,image,table
+@bender-ckeditor-plugins: a11ychecker,sourcearea,toolbar,undo,wysiwygarea,clipboard,basicstyles,list,link,format,image,table,floatingspace
 
 Check for accessibility issues.
 
