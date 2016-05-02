@@ -113,12 +113,10 @@
 </div>
 
 <script>
-	bender.require( [], function () {
-		CKEDITOR.replace( 'editor1', {
-			height: 500,
-			width: 900
-		} );
-
-		CKEDITOR.inline( 'editor2' );
+	CKEDITOR.replace( 'editor1', {
+		height: 500,
+		width: 900
 	} );
+
+	CKEDITOR.inline( 'editor2' );
 </script>
