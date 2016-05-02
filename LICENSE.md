@@ -41,9 +41,6 @@ Third-party software included:
 - jQuery, Copyright (c) 2011 John Resig (tests/_assets/jquery.min.js)<br>
   http://jquery.com<br>
   License under the terms of the MIT license.
-- LESSHat, Copyright (c) 2013 Petr Brzek (samples/sdk-assets/less/lesshat.less)<br>
-  https://lesshat.com<br>
-  License under the terms of the MIT license.
 - RequireJS, Copyright (c) 2010 The Dojo Foundation (samples/require.js, npm dependency)<br>
   http://github.com/jrburke/requirejs<br>
   License under the terms of the MIT license.
