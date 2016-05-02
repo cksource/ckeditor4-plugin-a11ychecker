@@ -38,6 +38,9 @@ Third-party software included:
   https://github.com/quailjs/quail<br>
   License under the terms of the MIT license.
 <!-- @if DEV == "true" -->
+- jQuery, Copyright (c) 2011 John Resig (tests/_assets/jquery.min.js)<br>
+  http://jquery.com<br>
+  License under the terms of the MIT license.
 - LESSHat, Copyright (c) 2013 Petr Brzek (samples/sdk-assets/less/lesshat.less)<br>
   https://lesshat.com<br>
   License under the terms of the MIT license.
