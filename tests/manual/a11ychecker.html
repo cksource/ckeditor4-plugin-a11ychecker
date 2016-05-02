@@ -2,7 +2,7 @@
 	/* Style the body this way due to a known issue with Balloon Panel in Bender */
 	body {
 		margin-left: 0px;
-		padding-left: 300px;
+		padding-left: 320px;
 	}
 </style>
 <textarea id="editor1" cols="10" rows="10">
@@ -113,15 +113,15 @@
 </div>
 
 <script>
-	bender.require([], function () {
-		CKEDITOR.replace('editor1', {
+	bender.require( [], function () {
+		CKEDITOR.replace( 'editor1', {
 			height: 500,
 			width: 600
-		});
+		} );
 
-		CKEDITOR.inline('editor2', {
+		CKEDITOR.inline( 'editor2', {
 			height: 500,
 			width: 600
-		});
-	});
+		} );
+	} );
 </script>
