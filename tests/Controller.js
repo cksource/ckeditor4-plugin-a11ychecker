@@ -12,12 +12,14 @@
 		'Controller',
 		'mock/ControllerMockup',
 		'Controller/CheckingMode',
-		'mocking'
+		'mocking',
+		'Localization'
 	], function(
 		Controller,
 		ControllerMockup,
 		CheckingMode,
-		mocking
+		mocking,
+		Localization
 	) {
 		bender.test( {
 			setUp: function() {
@@ -828,20 +830,24 @@
 			},
 
 			'test Controller.getQuickFixLang different navigator language': function() {
-				var originalLanguage = navigator.language;
-
 				this.pluginStaticMockup.quickFixesLang = 'en,nl,de,fr';
 				this.editorMockup.config = {
 					defaultLanguage: 'fr'
 				};
 
-				navigator.language = 'nl';
+				Localization.getPreferredLanguage = sinon.stub().returns( 'en' );
 
 				try {
-					assert.areEqual( 'nl', this.mockup.getQuickFixLang(), 'Navigator language is used' );
+					assert.areEqual( 'en', this.mockup.getQuickFixLang(), 'Navigator language is used' );
+
+					assert.isTrue(
+						Localization.getPreferredLanguage.calledWith(
+							this.editorMockup.config.language,
+							this.editorMockup.config.defaultLanguage,
+							[ 'en', 'nl', 'de', 'fr' ]
+						)
+					);
 				} catch ( e ) {
-					// Make sure to restore original navigator's language.
-					navigator.language = originalLanguage;
 					// Redirect the exception.
 					throw e;
 				}
