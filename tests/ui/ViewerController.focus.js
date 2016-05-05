@@ -131,7 +131,7 @@
 				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
 					initialFocusElem = getLastFocusable( viewer ),
-					expectedFocusElem = viewer.navigation.parts.previous;
+					expectedFocusElem = viewer.panel.parts.close;
 				a11ychecker.exec();
 				// Will focus the last button.
 				initialFocusElem.focus();
@@ -154,15 +154,17 @@
 				// and vice versa.
 				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
+					initialFocusElem = viewer.panel.parts.close,
 					expectedFocusElem = getLastFocusable( viewer );
 				a11ychecker.exec();
-				// Will focus prev button.
-				a11ychecker.prev();
-			
+
+				// Focuses the close button.
+				initialFocusElem.focus();
+
 				window.setTimeout( function() {
 					resume( function() {
-						viewer.navigation.parts.previous.fire( 'keydown', getKeyEvent( CKEDITOR.SHIFT + 9 ) );
-			
+						initialFocusElem.fire( 'keydown', getKeyEvent( CKEDITOR.SHIFT + 9 ) );
+
 						var activeElement = CKEDITOR.document.getActive();
 						assert.areSame( expectedFocusElem, activeElement, 'Invalid element focused' );
 					} );
