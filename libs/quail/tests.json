@@ -3343,7 +3343,7 @@
     },
     "description": {
       "de": "Benutzer mit Bildschirmleseprogrammen verwenden Überschriften wie Tabulatoren, um über die Seitenstruktur zu navigieren.",
-      "en": "Users with screen readers use headings like the tabs <em>h1</em> to navigate the structure of a page. All headings should contain either text, or images with appropriate <em>alt</em> attributes.",
+      "en": "Users with screen readers use headings (e.g. <code>h1</code> elements), just like the tabs to navigate the structure of a page. All headings should contain either text, or images with appropriate alternative text.",
       "nl": "Gebruikers van schermlezers gebruiken headers om via de structuur van een pagina te navigeren. Alle headers moeten daarom tekst bevatten of afbeeldingen met toepasselijk <em>alt</em>-attributen."
     },
     "guidelines": {
