@@ -20,7 +20,7 @@ Accessibility Checker has [the same browser compatibility as CKEditor](http://do
 
 ## Installation
 
-The most recommended way to install Accessibility Checker is through [CKBuilder](http://ckeditor.com/builder).
+The recommended way to install Accessibility Checker is through [CKBuilder](http://ckeditor.com/builder).
 
 Select Accessibility Checker from the list of Available Plugins and add it to your editor build - CKBuilder will automatically resolve the dependencies for you and include all necessary plugins in your configuration. 
 
