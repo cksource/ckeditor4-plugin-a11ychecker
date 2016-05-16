@@ -11,6 +11,13 @@ This package contains the distribution version of Accessibility Checker.
 * [Balloon Panel](http://ckeditor.com/addon/balloonpanel) plugin for CKEditor.
 * jQuery **1.x** in order to run [Quail](http://quailjs.org/).
 
+## Browser Support
+
+Accessibility Checker has [the same browser compatibility as CKEditor](http://docs.ckeditor.com/#!/guide/dev_browsers), with the following exceptions:
+
+* Internet Explorer 8 is not supported.
+* Internet Explorer 9 Quirks Mode is not supported.
+
 ## Installation
 
 The most recommended way to install Accessibility Checker is through [CKBuilder](http://ckeditor.com/builder).

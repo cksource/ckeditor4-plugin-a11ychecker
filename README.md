@@ -10,6 +10,13 @@ This repository contains the development version of the Accessibility Checker Pl
 * CKEditor **4.3.0** or later.
 * jQuery **1.x** in order to run [Quail](http://quailjs.org/).
 
+## Browser Support
+
+Accessibility Checker has [the same browser compatibility as CKEditor](http://docs.ckeditor.com/#!/guide/dev_browsers), with the following exceptions:
+
+* Internet Explorer 8 is not supported.
+* Internet Explorer 9 Quirks Mode is not supported.
+
 ## Installation
 
 ### Development Version
