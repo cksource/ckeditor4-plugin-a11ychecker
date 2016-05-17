@@ -8,7 +8,7 @@ This repository contains the development version of the Accessibility Checker Pl
 ## Requirements
 
 * CKEditor **4.3.0** or later.
-* jQuery **1.x** in order to run [Quail](http://quailjs.org/).
+* jQuery **1.x** or later in order to run [Quail](http://quailjs.org/).
 
 ## Browser Support
 
