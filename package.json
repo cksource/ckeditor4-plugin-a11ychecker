@@ -1,6 +1,6 @@
 {
   "name": "ckeditor-a11ychecker",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "description": "CKEditor Accessibility Checker plugin that lets you inspect the accessibility level of content created in the editor and immediately solve any accessibility issues that are found.",
   "keywords": [
     "ckeditor",
