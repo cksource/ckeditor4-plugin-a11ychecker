@@ -53,7 +53,7 @@
 				a11ychecker.showIssue( 0 );
 				assert.isTrue( true );
 			},
-			
+
 			'test next focus': function( editor ) {
 				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer;
@@ -62,15 +62,15 @@
 				a11ychecker.next( function() {
 					resume( function() {
 						var activeElement = CKEDITOR.document.getActive();
-			
+
 						assert.isNotNull( activeElement, 'An element is focused' );
 						assert.areSame( viewer.navigation.parts.next, activeElement, 'The "Next" button is focused' );
 					} );
 				} );
-			
+
 				wait();
 			},
-			
+
 			'test prev focus': function( editor ) {
 				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer;
@@ -79,25 +79,25 @@
 				a11ychecker.prev( function() {
 					resume( function() {
 						var activeElement = CKEDITOR.document.getActive();
-			
+
 						assert.isNotNull( activeElement, 'An element is focused' );
 						assert.areSame( viewer.navigation.parts.previous, activeElement, 'The "Previous" button is focused' );
 					} );
 				} );
-			
+
 				wait();
 			},
-			
+
 			'test focus on click': function( editor ) {
 				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
 					expectedFocusElem = viewer.navigation.parts.next;
-			
+
 				// Perform check, so we have a11ychecker.list
 				a11ychecker.check( {
 					ui: true
 				} );
-			
+
 				var issuedElement = a11ychecker.issues.getItem( 0 ).element,
 					evt = {
 						data: {
@@ -108,22 +108,22 @@
 					};
 				// Ensure that element is not marked as focused.
 				issuedElement.removeClass( 'cke_a11yc_focused' );
-			
+
 				a11ychecker.editableDecorator.clickListener( evt );
-			
+
 				// Remember that balloon shows with a delay, so we need to workaround that.
 				window.setTimeout( function() {
 					resume( function() {
 						var activeElement = CKEDITOR.document.getActive();
-			
+
 						assert.isNotNull( activeElement, 'An element is focused' );
 						assert.areSame( expectedFocusElem, activeElement, 'The "Next" button is focused' );
 					} );
 				}, 500 );
-			
+
 				wait();
 			},
-			
+
 			'test focus trap': function( editor ) {
 				// Dialog should have focus trap applied.
 				// That means that tab press at the last focusable element should take you to the
@@ -131,53 +131,48 @@
 				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
 					initialFocusElem = getLastFocusable( viewer ),
-					expectedFocusElem = viewer.navigation.parts.previous;
+					expectedFocusElem = viewer.panel.parts.close;
 				a11ychecker.exec();
 				// Will focus the last button.
 				initialFocusElem.focus();
-			
-				window.setTimeout( function() {
-					resume( function() {
-						initialFocusElem.fire( 'keydown', getKeyEvent( 9 ) );
-			
-						var activeElement = CKEDITOR.document.getActive();
-						assert.areSame( expectedFocusElem, activeElement, 'Invalid element focused' );
-					} );
-				}, 300 );
-			
-				wait();
+
+				initialFocusElem.fire( 'keydown', getKeyEvent( 9 ) );
+
+				assert.areSame( expectedFocusElem, CKEDITOR.document.getActive(), 'Invalid element focused' );
 			},
-			
+
 			'test focus trap reversed': function( editor ) {
 				// Dialog should have focus trap applied.
 				// That means that shift-tab at first focusable element should take you to the last one,
 				// and vice versa.
 				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
+					initialFocusElem = viewer.panel.parts.close,
 					expectedFocusElem = getLastFocusable( viewer );
 				a11ychecker.exec();
-				// Will focus prev button.
-				a11ychecker.prev();
-			
+
+				// Focuses the close button.
+				initialFocusElem.focus();
+
 				window.setTimeout( function() {
 					resume( function() {
-						viewer.navigation.parts.previous.fire( 'keydown', getKeyEvent( CKEDITOR.SHIFT + 9 ) );
-			
+						initialFocusElem.fire( 'keydown', getKeyEvent( CKEDITOR.SHIFT + 9 ) );
+
 						var activeElement = CKEDITOR.document.getActive();
 						assert.areSame( expectedFocusElem, activeElement, 'Invalid element focused' );
 					} );
 				}, 300 );
-			
+
 				wait();
 			},
-			
+
 			'test inline editor focus with balloon': function( editor ) {
 				// This test will ensure that after showing the balloon (.next() method) editor
 				// stays marked as focused, therefore it won't be blured.
 				var a11ychecker = editor._.a11ychecker;
-			
+
 				a11ychecker.exec();
-			
+
 				a11ychecker.next( function() {
 					// Put an extra timeout.
 					window.setTimeout( function() {
@@ -186,28 +181,28 @@
 						} );
 					}, 500 );
 				} );
-			
+
 				wait();
 			},
-			
+
 			'test a11ychecker.exec focus': function( editor ) {
 				// For exec function the focus should go to the next button.
 				var a11ychecker = editor._.a11ychecker,
 					viewer = a11ychecker.viewerController.viewer,
 					expectedFocusElem = viewer.navigation.parts.next;
 				a11ychecker.exec();
-			
+
 				window.setTimeout( function() {
 					resume( function() {
 						var activeElement = CKEDITOR.document.getActive();
 						assert.areSame( expectedFocusElem, activeElement, 'Invalid element focused' );
 					} );
 				}, 300 );
-			
+
 				wait();
 			}
 		};
-		
+
 		// Returns the last focusable element in viewer.
 		function getLastFocusable( viewer ) {
 			return viewer.form.parts.ignoreButton;
