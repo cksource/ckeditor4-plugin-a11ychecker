@@ -830,23 +830,17 @@
 			},
 
 			'test Controller.getQuickFixLang different navigator language': function() {
+				var prefLangStub = Localization.getPreferredLanguage = sinon.stub().returns( 'en' ),
+					editorMock = this.editorMockup;
+
 				this.pluginStaticMockup.quickFixesLang = 'en,nl,de,fr';
-				this.editorMockup.config = {
+				editorMock.config = {
 					defaultLanguage: 'fr'
 				};
 
-				Localization.getPreferredLanguage = sinon.stub().returns( 'en' );
-
 				try {
 					assert.areEqual( 'en', this.mockup.getQuickFixLang(), 'Navigator language is used' );
-
-					assert.isTrue(
-						Localization.getPreferredLanguage.calledWith(
-							this.editorMockup.config.language,
-							this.editorMockup.config.defaultLanguage,
-							[ 'en', 'nl', 'de', 'fr' ]
-						)
-					);
+					sinon.assert.calledWith( prefLangStub, editorMock.config.language, editorMock.config.defaultLanguage );
 				} catch ( e ) {
 					// Redirect the exception.
 					throw e;
