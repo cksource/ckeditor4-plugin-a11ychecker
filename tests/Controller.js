@@ -838,13 +838,8 @@
 					defaultLanguage: 'fr'
 				};
 
-				try {
-					assert.areEqual( 'en', this.mockup.getQuickFixLang(), 'Navigator language is used' );
-					sinon.assert.calledWith( prefLangStub, editorMock.config.language, editorMock.config.defaultLanguage );
-				} catch ( e ) {
-					// Redirect the exception.
-					throw e;
-				}
+				assert.areEqual( 'en', this.mockup.getQuickFixLang(), 'Navigator language is used' );
+				sinon.assert.calledWith( prefLangStub, editorMock.config.language, editorMock.config.defaultLanguage );
 			},
 
 			/**
