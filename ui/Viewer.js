@@ -82,14 +82,14 @@ define( [
 			that.editor.focusManager.remove( elem );
 		};
 
-		// Hide the panel once the closing X is clicked.
-		this.panel.addShowListener( function() {
-			return this.parts.close.on( 'click', function( evt ) {
-				this.blur();
-				this.hide();
-				evt.data.preventDefault();
-			}, this );
-		} );
+		// // Hide the panel once the closing X is clicked.
+		// this.panel.addShowListener( function() {
+		// 	return this.parts.close.on( 'click', function( evt ) {
+		// 		this.blur();
+		// 		this.hide();
+		// 		evt.data.preventDefault();
+		// 	}, this );
+		// } );
 
 		this.panel.addShowListener( function() {
 			return this.parts.panel.on( 'keydown', function( evt ) {
