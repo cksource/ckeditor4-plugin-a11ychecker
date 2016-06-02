@@ -117,9 +117,7 @@ grunt build-full --quail=/libs/js/customQuailBuild`
 
 ## Where Do I Start?
 
-You should use the `plugins/a11ychecker/samples/index.html` sample to test Accessibility Checker (e.g. [ckeditor.dev](http://ckeditor.dev/plugins/a11ychecker/samples/index.html)).
-
-Other CKEditor samples will not work because of the RequireJS dependency, which is not a part of the standard CKEditor distribution.
+Run Bender as described in [Unit Testing](#unit-testing) and open the [manual test](http://tests.ckeditor.dev:1030/plugins/a11ychecker/tests/manual/a11ychecker).
 
 ## Unit Testing
 
