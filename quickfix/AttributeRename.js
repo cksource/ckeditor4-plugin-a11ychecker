@@ -41,7 +41,7 @@
 			AttributeRename.prototype.attributeTargetName = 'alt';
 
 			AttributeRename.prototype.display = function( form ) {
-				var proposedValue = this.issue.element.getAttribute( this.attributeName) || '';
+				var proposedValue = this.issue.element.getAttribute( this.attributeName ) || '';
 
 				form.setInputs( {
 					value: {
