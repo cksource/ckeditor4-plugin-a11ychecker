@@ -50,7 +50,7 @@ define( [
 		'aAdjacentWithSameResourceShouldBeCombined': [ 'AnchorsMerge' ],
 		'imgAltNotEmptyInAnchor': [ 'ImgAlt' ],
 		'imgAltIsDifferent': [ 'ImgAlt' ],
-		'imgShouldNotHaveTitle': [ 'AttributeRename' ],
+		'imgShouldNotHaveTitle': [ 'AttributeRenameDefault' ],
 		'tableUsesCaption': [ 'AddTableCaption' ],
 		'imgAltIsTooLong': [ 'ImgAlt' ],
 		'pNotUsedAsHeader': [ 'ParagraphToHeader' ],
