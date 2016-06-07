@@ -12,7 +12,8 @@ define( [
 	'ui/Ui',
 	'ui/ViewerController',
 	'HotkeyManager',
-	'Localization'
+	'Localization',
+	'IssueList'
 ], function(
 	CheckingMode,
 	ListeningMode,
@@ -22,7 +23,8 @@ define( [
 	Ui,
 	ViewerController,
 	HotkeyManager,
-	Localization
+	Localization,
+	IssueList
 ) {
 	'use strict';
 
@@ -288,6 +290,8 @@ define( [
 		var completeCallback = function( issueList ) {
 			that._engineProcessed.call( that, issueList, options );
 		};
+
+		this.issues = new IssueList();
 
 		this.engine.process( this, scratchpad, completeCallback );
 	};
