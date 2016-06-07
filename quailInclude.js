@@ -32,7 +32,7 @@ require( [ 'EngineQuailConfig' ], function( _EngineQuailConfig ) {
 } );
 
 (function() {
-	if ( !$ || $.fn ) {
+	if ( !$ || !$.fn ) {
 		throw new Error( 'Missing jQuery - it\'s required by Quail engine.' );
 	}
 
