@@ -13,13 +13,15 @@
 		'mock/ControllerMockup',
 		'Controller/CheckingMode',
 		'mocking',
-		'Localization'
+		'Localization',
+		'IssueList'
 	], function(
 		Controller,
 		ControllerMockup,
 		CheckingMode,
 		mocking,
-		Localization
+		Localization,
+		IssueList
 	) {
 		bender.test( {
 			setUp: function() {
@@ -123,6 +125,16 @@
 
 				assert.areSame( 1, options.callback.callCount, 'Callback call count' );
 				mocking.assert.calledWith( options.callback, false, listMock );
+			},
+
+			'test Controller.check before callback': function() {
+				patchMockupForExecMethod( this.mockup );
+
+				this.mockup.check( {
+					callback: function() {}
+				} );
+
+				assert.isTrue( this.mockup.issues instanceof IssueList );
 			},
 
 			'test Controller.check gui featured call': function() {
