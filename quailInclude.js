@@ -32,6 +32,11 @@ require( [ 'EngineQuailConfig' ], function( _EngineQuailConfig ) {
 } );
 
 (function() {
+	if ( !$ || !$.fn ) {
+		throw new Error( 'Missing jQuery. Accessibility Checker\'s default engine, Quail.js requires jQuery ' +
+			'to work correctly.' );
+	}
+
 	// We'll load custom Quail only if it's not already registered.
 	if ( $.fn.quail ) {
 		return;

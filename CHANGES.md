@@ -7,7 +7,9 @@ Copyright (c) 2014-2016, CKSource - Frederico Knabben. All rights reserved.
 
 ## Version 1.0.1
 
+New Features:
 
+* [#185](https://github.com/cksource/ckeditor-plugin-a11ychecker/issues/185) - Added more verbose error message when jQuery is missing in Accessibility Checker built version.
 
 ## Version 1.0
 
