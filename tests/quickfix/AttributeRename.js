@@ -72,7 +72,9 @@
 
 				'test adds field to form': function() {
 					// Ensure that this type adds a field to form.
-					var fixMockup = {},
+					var fixMockup = {
+							getProposedValue: AttributeRename.prototype.getProposedValue
+						},
 						formMock = {
 							setInputs: mocking.spy()
 						},
