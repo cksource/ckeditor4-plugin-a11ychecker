@@ -9,6 +9,16 @@
 	CKEDITOR.plugins.a11ychecker.quickFixes.get( {
 		name: 'AttributeRename',
 		callback: function( AttributeRename ) {
+			/**
+			 * QuickFix renaming an attribute {@link #attributeName} to another name
+			 * {@link #attributeTargetName} using a proposed default value
+			 * based on the value of {@link #attributeTargetName}.
+			 *
+			 * @member CKEDITOR.plugins.a11ychecker.quickFix
+			 * @class AttributeRenameDefault
+			 * @constructor
+			 * @param {CKEDITOR.plugins.a11ychecker.Issue} issue Issue QuickFix is created for.
+			 */
 			function AttributeRenameDefault( issue ) {
 				AttributeRename.call( this, issue );
 			}
