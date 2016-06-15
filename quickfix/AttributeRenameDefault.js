@@ -18,18 +18,10 @@
 			AttributeRenameDefault.prototype.constructor = AttributeRenameDefault;
 
 			CKEDITOR.tools.extend( AttributeRenameDefault.prototype, {
-				display: function( form ) {
-					var element = this.issue.element,
-						proposedValue = element.getAttribute( this.attributeTargetName ) ||
+				getProposedValue: function() {
+					var element = this.issue.element;
+					return	element.getAttribute( this.attributeTargetName ) ||
 						element.getAttribute( this.attributeName ) || '';
-
-					form.setInputs( {
-						value: {
-							type: 'text',
-							label: 'Value',
-							value: proposedValue
-						}
-					} );
 				}
 			}, true );
 
