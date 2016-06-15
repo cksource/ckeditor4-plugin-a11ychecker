@@ -82,24 +82,26 @@ define( [
 			that.editor.focusManager.remove( elem );
 		};
 
+		var hide = CKEDITOR.tools.bind( function( evt ) {
+			this.fire( 'close' );
+
+			if ( evt && evt.data ) {
+				evt.data.preventDefault();
+			}
+		}, this );
+
 		// Hide the panel once the closing X is clicked.
 		this.panel.addShowListener( function() {
-			return this.parts.close.on( 'click', function( evt ) {
-				this.blur();
-				this.hide();
-				evt.data.preventDefault();
-			}, this );
+			return this.parts.close.on( 'click', hide );
 		} );
 
 		this.panel.addShowListener( function() {
-			return this.parts.panel.on( 'keydown', function( evt ) {
+			return this.parts.close.on( 'keydown', function( evt ) {
 				var keystroke = evt.data.getKeystroke();
 
-				// Hide the panel on ESC key press.
-				if ( keystroke == 27 ) {
-					this.blur();
-					this.hide();
-					evt.data.preventDefault();
+				// Hide the panel on space or ESC key press in close button.
+				if ( keystroke == 32 || keystroke == 27 ) {
+					hide.call( null, evt );
 				}
 			}, this );
 		} );
@@ -362,6 +364,13 @@ define( [
 		}
 	};
 
+	/**
+	 * Fires when there's a request to close the viever originating from any of the UI elements.
+	 *
+	 * @event close
+	 */
+
+	CKEDITOR.event.implementOn( Viewer.prototype );
 
 	return Viewer;
 } );
