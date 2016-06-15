@@ -4,23 +4,24 @@
  */
 
 ( function() {
-	'use strict'
+	'use strict';
 
 	CKEDITOR.plugins.a11ychecker.quickFixes.get( {
 		name: 'AttributeRename',
-		callback: function( QuickFix ) {
-			function AttributeRenameDefault(issue) {
-				QuickFix.call(this, issue);
+		callback: function( AttributeRename ) {
+			function AttributeRenameDefault( issue ) {
+				AttributeRename.call( this, issue );
 			}
 
-			AttributeRenameDefault.prototype = new QuickFix();
+			AttributeRenameDefault.prototype = new AttributeRename();
 
 			AttributeRenameDefault.prototype.constructor = AttributeRenameDefault;
 
 			CKEDITOR.tools.extend( AttributeRenameDefault.prototype, {
 				display: function( form ) {
-					var proposedValue = this.issue.element.getAttribute( this.attributeTargetName ) ||
-						this.issue.element.getAttribute( this.attributeName ) || '';
+					var element = this.issue.element,
+						proposedValue = element.getAttribute( this.attributeTargetName ) ||
+						element.getAttribute( this.attributeName ) || '';
 
 					form.setInputs( {
 						value: {
@@ -33,5 +34,6 @@
 			}, true );
 
 			CKEDITOR.plugins.a11ychecker.quickFixes.add( 'AttributeRenameDefault', AttributeRenameDefault );
-		} } );
+		}
+	} );
 }() );
