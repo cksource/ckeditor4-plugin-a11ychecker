@@ -90,7 +90,6 @@
 
 					mocking.assert.calledWith( formMock.setInputs, expectedInputs );
 					assert.areSame( 1, fixMockup.getProposedValue.callCount, 'getProposedValue call count' );
-					assert.isTrue( true );
 				}
 			};
 
