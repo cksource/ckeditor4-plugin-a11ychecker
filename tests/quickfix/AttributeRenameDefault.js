@@ -14,38 +14,30 @@
 					AttributeRenameDefault = this.quickFixType;
 				},
 
-				'test AttributeRenameDefault.display no alt': function() {
-					var element = CKEDITOR.dom.element.createFromHtml( '<img title="aa" />' ),
-						issueMockup = {
-							element: element
-						},
-						formMock = {
-							setInputs: function( value ) {
-								this.value = value;
-							}
-						},
-						fix = new AttributeRenameDefault( issueMockup );
+				'test AttributeRenameDefault.getProposedValue no alt': function() {
+					var element = CKEDITOR.dom.element.createFromHtml( '<img title="bb" />' ),
+						fixMockup = this._getIssueMockup( element );
 
-					fix.display( formMock );
-
-					assert.areEqual( 'aa', formMock.value.value.value );
+					assert.areSame( 'bb', AttributeRenameDefault.prototype.getProposedValue.call( fixMockup ),
+						'Invalid return value' );
 				},
 
-				'test AttributeRenameDefault.display alt': function() {
+				'test AttributeRenameDefault.getProposedValue alt and title present': function() {
 					var element = CKEDITOR.dom.element.createFromHtml( '<img alt="aa" title="bb" />' ),
-						issueMockup = {
+						fixMockup = this._getIssueMockup( element );
+
+					assert.areSame( 'aa', AttributeRenameDefault.prototype.getProposedValue.call( fixMockup ),
+						'Invalid return value' );
+				},
+
+				_getIssueMockup: function( element ) {
+					return {
+						issue: {
 							element: element
 						},
-						formMock = {
-							setInputs: function( value ) {
-								this.value = value;
-							}
-						},
-						fix = new AttributeRenameDefault( issueMockup );
-
-					fix.display( formMock );
-
-					assert.areEqual( 'aa', formMock.value.value.value );
+						attributeTargetName: 'alt',
+						attributeName: 'title'
+					};
 				}
 			};
 
