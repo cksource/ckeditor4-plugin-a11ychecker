@@ -27,13 +27,11 @@
 
 			AttributeRenameDefault.prototype.constructor = AttributeRenameDefault;
 
-			CKEDITOR.tools.extend( AttributeRenameDefault.prototype, {
-				getProposedValue: function() {
-					var element = this.issue.element;
-					return	element.getAttribute( this.attributeTargetName ) ||
-						element.getAttribute( this.attributeName ) || '';
-				}
-			}, true );
+			AttributeRenameDefault.prototype.getProposedValue = function() {
+				var element = this.issue.element;
+				return element.getAttribute( this.attributeTargetName ) ||
+					element.getAttribute( this.attributeName ) || '';
+			};
 
 			CKEDITOR.plugins.a11ychecker.quickFixes.add( 'AttributeRenameDefault', AttributeRenameDefault );
 		}
