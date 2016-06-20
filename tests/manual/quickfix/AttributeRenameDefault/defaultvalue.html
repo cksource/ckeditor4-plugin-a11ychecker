@@ -1,0 +1,47 @@
+<style>
+	/* Style the body this way due to a known issue with Balloon Panel in Bender */
+	body {
+		margin-left: 0px;
+		padding-left: 320px;
+	}
+</style>
+<textarea id="editor1" cols="10" rows="10">
+	&lt;h1&gt;Quick Fix default values&lt;/h1&gt;
+	&lt;p&gt;The following image should have default value &quot;alt&quot;.&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;../../img/NewYorkCity.jpg&quot; alt=&quot;alt&quot; title=&quot;title&quot;&gt;&lt;/p&gt;
+	&lt;p&gt;The following image should have default value &quot;title&quot;.&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;../../img/NewYorkCity.jpg&quot; title=&quot;title&quot;&gt;&lt;/p&gt;
+	&lt;p&gt;The following image should have default value &quot;title&quot;.&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;../../img/NewYorkCity.jpg&quot; alt=&quot;&quot; title=&quot;title&quot;&gt;&lt;/p&gt;
+	&lt;p&gt;The following image should have (an empty) default value &quot;&quot;.&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;../../img/NewYorkCity.jpg&quot; title=&quot;&quot;&gt;&lt;/p&gt;
+</textarea>
+
+<div contenteditable="true" id="editor2">
+	<h1>Quick Fix default values</h1>
+	<p>The following image should have default value "alt".</p>
+	<p><img src="../../img/NewYorkCity.jpg" alt="alt" title="title"></p>
+	<p>The following image should have default value "title".</p>
+	<p><img src="../../img/NewYorkCity.jpg" title="title"></p>
+	<p>The following image should have default value "title".</p>
+	<p><img src="../../img/NewYorkCity.jpg" alt="" title="title"></p>
+	<p>The following image should have (an empty) default value "".</p>
+	<p><img src="../../img/NewYorkCity.jpg" title=""></p>
+</div>
+
+<script>
+	(function() {
+		var quailParams = {
+				guideline: [ 'imgShouldNotHaveTitle' ]
+			};
+
+		CKEDITOR.replace( 'editor1', {
+			height: 500,
+			a11ychecker_quailParams: quailParams
+		} );
+
+		CKEDITOR.inline( 'editor2', {
+			a11ychecker_quailParams: quailParams
+		} );
+	}());
+</script>

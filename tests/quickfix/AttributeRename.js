@@ -72,7 +72,9 @@
 
 				'test adds field to form': function() {
 					// Ensure that this type adds a field to form.
-					var fixMockup = {},
+					var fixMockup = {
+							getProposedValue: mocking.stub().returns( 'foo' )
+						},
 						formMock = {
 							setInputs: mocking.spy()
 						},
@@ -84,14 +86,10 @@
 							}
 						};
 
-					mocking.mockProperty( 'issue.element.getAttribute', fixMockup, function() {
-						return 'foo';
-					} );
-
 					AttributeRename.prototype.display.call( fixMockup, formMock );
 
 					mocking.assert.calledWith( formMock.setInputs, expectedInputs );
-					assert.isTrue( true );
+					assert.areSame( 1, fixMockup.getProposedValue.callCount, 'getProposedValue call count' );
 				}
 			};
 

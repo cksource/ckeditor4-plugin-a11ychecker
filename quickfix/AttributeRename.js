@@ -40,14 +40,21 @@
 			 */
 			AttributeRename.prototype.attributeTargetName = 'alt';
 
-			AttributeRename.prototype.display = function( form ) {
-				var proposedValue = this.issue.element.getAttribute( this.attributeName) || '';
+			/**
+			 * Gets the proposed new value of the target attribute.
+			 *
+			 * @returns {String}
+			*/
+			AttributeRename.prototype.getProposedValue = function() {
+				return this.issue.element.getAttribute( this.attributeName ) || '';
+			};
 
+			AttributeRename.prototype.display = function( form ) {
 				form.setInputs( {
 					value: {
 						type: 'text',
 						label: 'Value',
-						value: proposedValue
+						value: this.getProposedValue()
 					}
 				} );
 			};
