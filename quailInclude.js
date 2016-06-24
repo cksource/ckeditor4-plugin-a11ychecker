@@ -31,7 +31,7 @@ require( [ 'EngineQuailConfig' ], function( _EngineQuailConfig ) {
 	EngineQuailConfig = _EngineQuailConfig;
 } );
 
-(function() {
+( function() {
 	if ( !$ || !$.fn ) {
 		throw new Error( 'Missing jQuery. Accessibility Checker\'s default engine, Quail.js requires jQuery ' +
 			'to work correctly.' );
@@ -39,14 +39,27 @@ require( [ 'EngineQuailConfig' ], function( _EngineQuailConfig ) {
 
 	// We'll load custom Quail only if it's not already registered.
 	if ( $.fn.quail ) {
+		includeEngineQuailAndContinue();
 		return;
 	}
-/*@include libs/quail/quail.jquery.min.js */
-}());
 
-Quail = $.fn.quail;
+	var quailPath = 'plugins/a11ychecker/libs/quail/quail.jquery.min.js' || CKEDITOR.config.a11ychecker_quailPath;
 
-/*@include ../../EngineQuail.js */
+	CKEDITOR.scriptLoader.load( [ quailPath ], function( completed ) {
+		if ( completed ) {
+			includeEngineQuailAndContinue();
 
-callback( EngineQuail );
+		} else {
+			throw new Error( 'Could not load Quail' );
+		}
+	} );
+
+	function includeEngineQuailAndContinue() {
+		Quail = $.fn.quail;
+
+		/*@include ../../EngineQuail.js */
+
+		callback( EngineQuail );
+	}
+}() );
 /* jshint ignore:end */
