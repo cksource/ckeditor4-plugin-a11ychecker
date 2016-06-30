@@ -82,13 +82,13 @@ define( [
 			that.editor.focusManager.remove( elem );
 		};
 
-		var hide = CKEDITOR.tools.bind( function( evt ) {
-			this.fire( 'close' );
+		function hide( evt ) {
+			that.fire( 'close' );
 
 			if ( evt && evt.data ) {
 				evt.data.preventDefault();
 			}
-		}, this );
+		}
 
 		// Hide the panel once the closing X is clicked.
 		this.panel.addShowListener( function() {
@@ -99,7 +99,7 @@ define( [
 			return this.parts.close.on( 'keydown', function( evt ) {
 				// Hide the panel on space key press in close button.
 				if ( evt.data.getKeystroke() == 32 ) {
-					hide.call( null, evt );
+					hide( evt );
 				}
 			}, this );
 		} );
