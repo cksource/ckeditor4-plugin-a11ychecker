@@ -66,12 +66,15 @@ define( function() {
 	 * @member CKEDITOR.plugins.a11ychecker.CheckingMode
 	 */
 	CheckingMode.prototype.close = function() {
-		var controller = this.controller;
+		var controller = this.controller,
+			viewerPanel = controller.viewerController && controller.viewerController.viewer.panel;
 		// Remove all the DOM changes applied by the EditableDecorator.
 		controller.editableDecorator.removeMarkup();
 
-		if ( controller.viewerController ) {
-			controller.viewerController.viewer.panel.hide();
+		// Blur and hide the viewer panel if present.
+		if ( viewerPanel ) {
+			viewerPanel.blur();
+			viewerPanel.hide();
 		}
 
 		if ( controller.issues ) {
