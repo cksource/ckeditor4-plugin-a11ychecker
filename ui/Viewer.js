@@ -97,10 +97,8 @@ define( [
 
 		this.panel.addShowListener( function() {
 			return this.parts.close.on( 'keydown', function( evt ) {
-				var keystroke = evt.data.getKeystroke();
-
-				// Hide the panel on space or ESC key press in close button.
-				if ( keystroke == 32 || keystroke == 27 ) {
+				// Hide the panel on space key press in close button.
+				if ( evt.data.getKeystroke() == 32 ) {
 					hide.call( null, evt );
 				}
 			}, this );
