@@ -1,0 +1,23 @@
+<style>
+	/* Style the body this way due to a known issue with Balloon Panel in Bender */
+	body {
+		margin-left: 0px;
+		padding-left: 320px;
+	}
+</style>
+<textarea id="editor1" cols="10" rows="10">
+			&lt;p&gt;&lt;img src=&quot;img/NewYorkCity.jpg&quot; class=&quot;right&quot; title=&quot;New York City&quot;&gt;
+</textarea>
+
+<div contenteditable="true" id="editor2">
+	<img src="img/NewYorkCity.jpg" class="right" title="New York City">
+</div>
+
+<script>
+	CKEDITOR.replace( 'editor1', {
+		height: 500,
+		width: 900
+	} );
+
+	CKEDITOR.inline( 'editor2' );
+</script>
