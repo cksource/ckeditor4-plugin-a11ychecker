@@ -26,7 +26,7 @@ If you are not interested in developing core Accessibility Checker features, fee
 ```bash
 # Assuming that $CKEDITOR_DEV_PATH is your CKEditor path.
 cd $CKEDITOR_DEV_PATH/plugins
-git clone -b dev git@github.com:cksource/ckeditor-plugin-a11ychecker.git a11ychecker
+git clone git@github.com:cksource/ckeditor-plugin-a11ychecker.git a11ychecker
 ```
 
 #### Checkout the Balloon Plugin
