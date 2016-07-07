@@ -35,7 +35,9 @@ git clone git@github.com:cksource/ckeditor-plugin-a11ychecker.git a11ychecker
 git clone git@github.com:cksource/ckeditor-plugin-balloonpanel.git balloonpanel
 ```
 
-#### Building Extra Stuff
+#### Dependencies
+
+##### Building CSS
 
 You will also need to build the CSS, since we use LESS.
 
@@ -45,6 +47,10 @@ grunt build-css
 ```
 
 **Pro tip:** You can also use `grunt watch:less`.
+
+##### RequireJS
+
+Note that developer version requires RequireJS, so make sure you have it loaded.
 
 ### Distribution Version
 
