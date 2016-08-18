@@ -75,8 +75,10 @@ module.exports = function( grunt ) {
 		less: {
 			development: {
 				files: {
-					'styles/contents.css': 'less/contents.less',
-					'skins/moono/a11ychecker.css': 'less/a11ychecker.less'
+					'skins/moono/contents.css': 'less/skins/moono/contents.less',
+					'skins/moono/a11ychecker.css': 'less/skins/moono/a11ychecker.less',
+					'skins/moono-lisa/contents.css': 'less/skins/moono-lisa/contents.less',
+					'skins/moono-lisa/a11ychecker.css': 'less/skins/moono-lisa/a11ychecker.less'
 				},
 
 				options: {
@@ -88,7 +90,10 @@ module.exports = function( grunt ) {
 			// If you want to build production CSS use `grunt build-css` rather than `grunt less:production`.
 			production: {
 				files: {
-					'skins/moono/a11ychecker.css': 'less/a11ychecker.less'
+					'skins/moono/contents.css': 'less/skins/moono/contents.less',
+					'skins/moono/a11ychecker.css': 'less/skins/moono/a11ychecker.less',
+					'skins/moono-lisa/contents.css': 'less/skins/moono-lisa/contents.less',
+					'skins/moono-lisa/a11ychecker.css': 'less/skins/moono-lisa/a11ychecker.less'
 				},
 
 				options: {
@@ -100,7 +105,7 @@ module.exports = function( grunt ) {
 
 		watch: {
 			less: {
-				files: [ 'less/*.less' ],
+				files: [ 'less/**/*.less' ],
 				tasks: [ 'less:development' ],
 				options: {
 					nospawn: true
@@ -127,7 +132,7 @@ module.exports = function( grunt ) {
 					{
 						// nonull to let us know if any of given entiries is missing.
 						nonull: true,
-						src: [ 'plugin.js', 'quailInclude.js', 'CHANGES.md', 'skins/**', 'styles/**', 'quickfix/**',
+						src: [ 'plugin.js', 'quailInclude.js', 'CHANGES.md', 'skins/**', 'quickfix/**',
 						'icons/**', 'lang/*', 'libs/quail/**' ],
 						dest: 'build/a11ychecker/'
 					}

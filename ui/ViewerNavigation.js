@@ -89,7 +89,7 @@ define( function() {
 			button:
 				'<a href="javascript:void(0)" hidefocus="true" ' +
 				'class="cke_a11yc_ui_button cke_a11yc_ui_{class}" role="button">' +
-					'<span class="cke_a11yc_ui_button">{text}</span>' +
+					'<span class="cke_a11yc_ui_button"><span>{text}</span></span>' +
 				'</a>'
 		},
 
