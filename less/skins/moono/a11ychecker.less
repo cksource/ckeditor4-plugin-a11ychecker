@@ -1,0 +1,89 @@
+@import "global.less";
+@import "../../a11ychecker";
+
+/* Buttons */
+a.@{A11YC_UI}_button
+{
+	border-bottom-color: #999;
+	.box-shadow(
+		0 1px 0 rgba(255,255,255,.5),
+		0 0 2px rgba(255,255,255,.15) inset,
+		0 1px 0 rgba(255,255,255,.15) inset
+	);
+	.background-image( linear-gradient( top, #FFF, #E4E4E4 ) );
+
+	&:hover
+	{
+		.background-image( linear-gradient( top, #F2F2F2, #CCC ) );
+	}
+
+	&:focus,
+	&:active
+	{
+		.box-shadow( 0 0 6px rgba(0,0,0,.4) inset );
+	}
+
+	& > span
+	{
+		text-shadow: 0 1px 0 #FFF;
+	}
+
+	&_ok
+	{
+		text-shadow: 0 -1px 0 #55830C;
+		.background-image( linear-gradient( to bottom, #9AD717, #69B10B) );
+
+		&:hover
+		{
+			.background-image( linear-gradient( to bottom, #88BE14 0%,#5D9C0A 100%) );
+		}
+
+		& > span
+		{
+			text-shadow: 0 -1px 0 #55830C;
+		}
+	}
+}
+
+/* Description */
+.@{A11YC_UI}_desc_info
+{
+	font-style: italic;
+}
+
+/* Select */
+select.@{A11YC_UI}_input_select
+{
+	border-top-color: #AEB3B9;
+	.box-shadow( 0 1px 2px rgba(0,0,0,.15) inset );
+
+	&:focus
+	{
+		border-top-color: #1392E9;
+	}
+}
+
+input.@{A11YC_UI}_input_text
+{
+	border-top-color: #AEB3B9;
+	.box-shadow( 0 1px 2px rgba(0,0,0,.15) inset );
+
+	&:hover
+	{
+		border-top-color: #A0A6AD;
+	}
+
+	&:focus
+	{
+		border-top-color: #1392E9;
+	}
+}
+
+/* Listening info area */
+.@{A11YC_UI}_listening a.@{A11YC_UI}_button :before
+{
+	content: url( images/reload.png );
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
