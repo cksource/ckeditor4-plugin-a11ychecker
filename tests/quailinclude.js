@@ -3,6 +3,20 @@
 ( function() {
 	'use strict';
 
+	bender.editors = {
+		pathDefined: {
+			config: {
+				language: 'en',
+				a11ychecker_quailPath: 'test/path'
+			}
+		},
+		pathNotDefined: {
+			config: {
+				language: 'en'
+			}
+		}
+	};
+
 	CKEDITOR.plugins.a11ychecker = {
 		Engine: {}
 	};
@@ -18,8 +32,13 @@
 	define( 'EngineQuail', [], function() {} );
 
 	define( 'callback', [], function() {
-		return function() {};
+		return function() {
+			resume( function() {
+				assert.isTrue( true );
+			} );
+		};
 	} );
+
 
 	function mockLoad( success, onEnd ) {
 		CKEDITOR.scriptLoader.load = function( path, callback ) {
@@ -33,25 +52,69 @@
 		};
 	}
 
-	mockLoad( true, function() {} );
+	bender.test( {
+		'test loading Quail from the path defined in the config': function() {
+			var editor = this.editors.pathDefined;
+			define( 'editor', [], function() {
+				return editor;
+			} );
 
-	bender.require( [ 'quailInclude' ], function( quailInclude ) {
-		bender.test( {
-			'test wrong Quail path throws exception': function() {
-				mockLoad( false, function( error ) {
+
+			var load = CKEDITOR.scriptLoader.load;
+			CKEDITOR.scriptLoader.load = sinon.spy();
+
+			require( [ 'quailInclude' ], function( quailInclude ) {
+				resume( function() {
+					assert.isTrue( CKEDITOR.scriptLoader.load.calledWith( [ 'test/path' ] ) );
+
+					// Cleanup after the test.
+					CKEDITOR.scriptLoader.load = load;
+					requirejs.undef( 'quailInclude' );
+					requirejs.undef( 'editor' );
+				} );
+			} );
+
+			wait();
+		},
+		'test loading Quail from the default path': function() {
+			var editor = this.editors.pathNotDefined;
+			define( 'editor', [], function() {
+				return editor;
+			} );
+
+			var load = CKEDITOR.scriptLoader.load;
+			CKEDITOR.scriptLoader.load = sinon.spy();
+
+			require( [ 'quailInclude' ], function( quailInclude ) {
+				resume( function() {
+					assert.isTrue( CKEDITOR.scriptLoader.load.calledWith( [ 'plugins/a11ychecker/libs/quail/quail.jquery.min.js' ] ) );
+
+					CKEDITOR.scriptLoader.load = load;
+					requirejs.undef( 'quailInclude' );
+					requirejs.undef( 'editor' );
+
+				} );
+			} );
+
+			wait();
+		},
+		'test wrong Quail path throws exception': function() {
+			var editor = this.editors.pathNotDefined;
+			define( 'editor', [], function() {
+				return editor;
+			} );
+
+			mockLoad( false, function( error ) {
+				resume( function() {
 					assert.isObject( error );
 					assert.areEqual( 'Could not load Quail', error.message );
 				} );
+			} );
 
-				quailInclude();
-			},
-			'test correct Quail path does not throw exception': function() {
-				mockLoad( true, function( error ) {
-					assert.isNull( error );
-				} );
+			require( [ 'quailInclude' ], function( quailInclude ) {} );
 
-				quailInclude();
-			}
-		} );
+			wait();
+		}
 	} );
+
 } )();
