@@ -21,8 +21,9 @@
 define( [
 	'window',
 	'callback',
-	'EngineQuail'
-], function( window, callback, EngineQuail ) {
+	'EngineQuail',
+	'editor'
+], function( window, callback, EngineQuail, editor ) {
 /* @endexclude */
 	function quailInclude() {
 		var acNamespace = CKEDITOR.plugins.a11ychecker,
@@ -51,7 +52,7 @@ define( [
 			return;
 		}
 
-		var quailPath = 'plugins/a11ychecker/libs/quail/quail.jquery.min.js' || CKEDITOR.config.a11ychecker_quailPath;
+		var quailPath = editor.config.a11ychecker_quailPath || 'plugins/a11ychecker/libs/quail/quail.jquery.min.js';
 
 		CKEDITOR.scriptLoader.load( [ quailPath ], function( completed ) {
 
