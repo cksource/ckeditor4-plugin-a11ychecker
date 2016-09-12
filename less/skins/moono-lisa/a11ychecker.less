@@ -29,6 +29,13 @@
 	}
 }
 
+a.@{A11YC_UI}_button
+{
+	&_ok:focus {
+		box-shadow: inset 0 0 0 2px #FFF;
+	}
+}
+
 /* Navigation bar */
 .@{A11YC_UI}_navigation
 {
@@ -295,6 +302,11 @@ select.@{A11YC_UI}_input_select {
 		{
 			border: 2px solid @FOCUS_COLOR;
 			padding: 7px 2px 7px 13px;
+		}
+
+		&:focus
+		{
+			box-shadow: inset 0 0 0 2px #FFF;
 		}
 
 		& span
