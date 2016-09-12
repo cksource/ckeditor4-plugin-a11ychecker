@@ -251,32 +251,21 @@ input.@{A11YC_UI}_input_text
 	}
 }
 
-/* Select */
-select.@{A11YC_UI}_input_select
-{
+/* Select
+	Use border and box-shadow to get 1px width border and 2px width border on focus without 1px jumping effect. This is
+	the only way to prevent jumping in all browsers (except Safari) with display: table*; blocks.*/
+select.@{A11YC_UI}_input_select {
 	height: 28px;
 	line-height: 28px;
-
 	padding: 5px 3px 4px 6px;
 
-	width: ~"calc(100% - 2px)";
+	border: 1px solid #eee;
+	.border-radius(2px);
+	.box-shadow(inset 0 0 0 1px #c9cccf);
 
-	.border-radius( 2px );
-
-	&:focus
-	{
-		width: 100%;
-		border: 2px solid @FOCUS_COLOR;
-		margin: 0;
-	}
-}
-
-.@{A11YC_UI}_input_wrapper
-{
-	.@{A11YC_UI}_input_select
-	{
-		width: ~"calc(100% - 2px)";
-		margin: 0 1px;
+	&:focus {
+		border-color: @FOCUS_COLOR;
+		.box-shadow(inset 0 0 0 1px @FOCUS_COLOR);
 	}
 }
 
@@ -311,6 +300,30 @@ select.@{A11YC_UI}_input_select
 		& span
 		{
 			color: #FFF;
+		}
+	}
+}
+
+/* While Safari does not support box-shadow on select elements use 2px width border and 1px margin to prevent jumping. */
+@{SAFARI_ONLY} .@{A11YC_UI}_form {
+	select.@{A11YC_UI}_input_select {
+		width: ~"calc(100% - 2px)";
+		border: 1px solid #c9cccf;
+		.box-shadow(none);
+
+		&:focus {
+			border: 2px solid @FOCUS_COLOR;
+			width: 100%;
+			margin: 0;
+		}
+	}
+
+	.@{A11YC_UI}_input_wrapper
+	{
+		.@{A11YC_UI}_input_select
+		{
+			width: ~"calc(100% - 2px)";
+			margin: 0 1px;
 		}
 	}
 }
