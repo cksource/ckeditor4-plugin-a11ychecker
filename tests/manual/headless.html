@@ -1,0 +1,83 @@
+<style>
+	/* Style the body this way due to a known issue with Balloon Panel in Bender */
+	body {
+		margin-left: 0px;
+		padding-left: 320px;
+	}
+
+	.cke_a11yc_issue {
+		outline: 2px solid orange;
+	}
+</style>
+
+<textarea id="editor1" cols="10" rows="10">
+			&lt;h1 id=&quot;new-york-city&quot;&gt;New York City&lt;/h1&gt;
+			&lt;p&gt;&lt;img src=&quot;img/NewYorkCity.jpg&quot; class=&quot;right&quot;&gt;
+			&lt;strong&gt;New York&lt;/strong&gt; (NYC) – often called New York City or the City of New York to distinguish it from the State of New York, of which it is a part – is the most populous city in the United States and the center of the New York metropolitan area, the premier gateway for legal immigration to the United States and one of the most populous urban agglomerations in the world. A global power city, New York exerts a significant impact upon commerce, finance, media, art, fashion, research, technology, education, and entertainment. Home to the headquarters of the United Nations, New York is an important center for international diplomacy and has been described as the cultural and financial capital of the world.&lt;/p&gt;
+			&lt;p&gt;&lt;strong&gt;Boroughs&lt;/strong&gt;&lt;/p&gt;
+			&lt;p&gt;&lt;img src=&quot;img/5Boroughs.png&quot; alt=&quot;5Boroughs.png&quot; class=&quot;right&quot; style=&quot;margin-top:10px&quot;&gt;&lt;/p&gt;
+</textarea>
+
+<div>
+	<button onclick="checkContent( CKEDITOR.instances.editor1, 'save1' );">Check accessibility</button>
+	<button id="save1" disabled="disabled">Save</button>
+</div>
+
+<div contenteditable="true" id="editor2">
+	<h1 id="new-york-city">New York City</h1>
+	<p><img src="img/NewYorkCity.jpg" class="right"> <strong>New York</strong> (NYC) – often called New York City or the
+		City of New York to distinguish it from the State of New York, of which it is a part – is the most populous city
+		in the United States and the center of the New York metropolitan area, the premier gateway for legal immigration
+		to the United States and one of the most populous urban agglomerations in the world. A global power city, New
+		York exerts a significant impact upon commerce, finance, media, art, fashion, research, technology, education,
+		and entertainment. Home to the headquarters of the United Nations, New York is an important center for
+		international diplomacy and has been described as the cultural and financial capital of the world.</p>
+	<p><strong>Boroughs</strong></p>
+	<p><img src="img/5Boroughs.png" alt="5Boroughs.png" class="right" style="margin-top:10px"></p>
+</div>
+
+<div>
+	<button onclick="checkContent( CKEDITOR.instances.editor2, 'save2' );">Check accessibility</button>
+	<button id="save2" disabled="disabled">Save</button>
+</div>
+
+<script>
+	function checkContent( editor, buttonId ) {
+		var a11ychecker = editor._.a11ychecker,
+			button = document.getElementById( buttonId );
+
+		button.innerHTML = 'Checking accessibility issues...';
+
+		a11ychecker.once( 'checked', function( evt ) {
+			var issueList = evt.data.issues,
+				issueCount = issueList.count(),
+				isValid = issueCount === 0;
+
+			button.disabled = !isValid;
+
+			if ( isValid ) {
+				// Your content is good to go.
+				console.log( 'We\'re good!' );
+				button.innerHTML = 'Save';
+			} else {
+				// There are still some issues.
+				console.log( 'There are still ' + issueCount + ' issues' );
+				button.innerHTML = 'Save (disabled, ' + issueCount + ' issues remaining)';
+			}
+
+			// Cancel the event so AC make no further actions.
+			evt.cancel();
+		} );
+
+		a11ychecker.check( {
+			ui: false
+		} );
+	}
+
+	CKEDITOR.replace( 'editor1', {
+		height: 500,
+		width: 900
+	} );
+
+	CKEDITOR.inline( 'editor2' );
+</script>
