@@ -1,0 +1,341 @@
+@import "global.less";
+@import "../../a11ychecker";
+
+/* Buttons */
+.@{A11YC_UI}_button_wrapper
+{
+	a.@{A11YC_UI}_button
+	{
+		padding: 10px 5px;
+		.border-radius( 2px );
+
+		span
+		{
+			font-size: 15px;
+			line-height: 16px;
+		}
+
+		&:focus,
+		&:active
+		{
+			padding: 9px 4px;
+			border-width: 2px;
+		}
+
+		&_ignore
+		{
+			min-width: 100px;
+		}
+	}
+}
+
+a.@{A11YC_UI}_button
+{
+	&_ok:focus {
+		box-shadow: inset 0 0 0 2px #FFF;
+	}
+}
+
+/* Navigation bar */
+.@{A11YC_UI}_navigation
+{
+	padding: 0 6px;
+	margin: 1px 0 0 -6px;
+
+	a.@{A11YC_UI}_button
+	{
+		position: relative;
+
+		&:focus,
+		&:active
+		{
+			border: solid 2px @FOCUS_COLOR;
+			z-index: 1;
+		}
+
+		&:hover,
+		&:hover > span
+		{
+			background-color: @BUTTON_BACKGROUND_COLOR_HOVER;
+		}
+	}
+
+	a.@{A11YC_UI}_previous,
+	a.@{A11YC_UI}_next
+	{
+		& > span
+		{
+			background: none;
+			padding: 0;
+			margin: 0;
+		}
+
+		& > span > span
+		{
+			display: none;
+		}
+	}
+
+	a.@{A11YC_UI}_previous
+	{
+		padding: 9px 14px 9px 6px;
+
+		&:focus,
+		&:active
+		{
+			padding: 8px 13px 8px 5px;
+		}
+
+		& > span:before
+		{
+			content:'';
+			display: inline-block;
+			width:0;
+			height:0;
+			border: 6px solid transparent;
+			vertical-align: middle;
+		}
+	}
+
+	a.@{A11YC_UI}_next
+	{
+		padding: 9px 6px 9px 14px;
+		margin-left: -11px;
+
+		&:focus,
+		&:active
+		{
+			padding: 8px 5px 8px 13px;
+		}
+
+		& > span:after
+		{
+			content:'';
+			display: inline-block;
+			width:0;
+			height:0;
+			border: 6px solid transparent;
+			vertical-align: middle;
+		}
+	}
+
+	&.@{A11YC}_testability
+	{
+		&_notice
+		{
+			outline-color: #D1D1D1;
+
+			.@{A11YC_UI}_button
+			{
+				border-color: #D1D1D1;
+				background-color: #FAFAFA;
+			}
+
+			a.@{A11YC_UI}_previous > span:before
+			{
+				border-right-color: @TEXT_COLOR_NOTICE;
+			}
+
+			a.@{A11YC_UI}_next > span:after
+			{
+				border-left-color: @TEXT_COLOR_NOTICE;
+			}
+
+			.@{A11YC_UI}_navigation_counter
+			{
+				color: @TEXT_COLOR_NOTICE;
+			}
+
+		}
+
+		&_warning
+		{
+			outline-color: #C9C597;
+
+			.@{A11YC_UI}_button
+			{
+				border-color: #C9C597;
+				background-color: #FFFFFB;
+			}
+
+			a.@{A11YC_UI}_previous > span:before
+			{
+				border-right-color: @TEXT_COLOR_WARNING;
+			}
+
+			a.@{A11YC_UI}_next > span:after
+			{
+				border-left-color: @TEXT_COLOR_WARNING;
+			}
+
+			.@{A11YC_UI}_navigation_counter
+			{
+				color: @TEXT_COLOR_WARNING;
+			}
+		}
+
+		&_error
+		{
+			outline-color: #E9B6B6;
+
+			.@{A11YC_UI}_button
+			{
+				border-color: #E9B6B6;
+				background-color: #FFFBFB;
+			}
+
+			a.@{A11YC_UI}_previous > span:before
+			{
+				border-right-color: @TEXT_COLOR_ERROR;
+			}
+
+			a.@{A11YC_UI}_next > span:after
+			{
+				border-left-color: @TEXT_COLOR_ERROR;
+			}
+
+			.@{A11YC_UI}_navigation_counter
+			{
+				color: @TEXT_COLOR_ERROR;
+			}
+		}
+	}
+}
+
+/* Description */
+.@{A11YC_UI}_desc {
+
+	&_wrapper
+	{
+		margin-top: 30px;
+	}
+
+	&_title
+	{
+		color: #484848;
+	}
+}
+
+/* Quick fix form */
+.@{A11YC_UI}_form
+{
+	margin-top: 20px;
+
+	&_fieldset,
+	&_actionset
+	{
+		margin-bottom: 0;
+	}
+
+	/* Quick fix */
+	.@{A11YC_UI}_button_ok
+	{
+		width: 98%;
+	}
+}
+
+.@{A11YC_UI}_input_label
+{
+	color: #4B4B4B;
+	font-size: 14px;
+	padding-right: 0;
+}
+
+input.@{A11YC_UI}_input_text
+{
+	padding: 6px;
+	.border-radius( 2px );
+
+	&:hover
+	{
+		border: 1px solid @INPUT_BORDER_COLOR;
+	}
+
+	&:focus
+	{
+		border: 2px solid @FOCUS_COLOR;
+		padding: 5px;
+	}
+}
+
+/* Select
+	Use border and box-shadow to get 1px width border and 2px width border on focus without 1px jumping effect. This is
+	the only way to prevent jumping in all browsers (except Safari) with display: table*; blocks.*/
+select.@{A11YC_UI}_input_select {
+	height: 28px;
+	line-height: 28px;
+	padding: 5px 3px 4px 6px;
+
+	border: 1px solid #eee;
+	.border-radius(2px);
+	.box-shadow(inset 0 0 0 1px #c9cccf);
+
+	&:focus {
+		border-color: @FOCUS_COLOR;
+		.box-shadow(inset 0 0 0 1px @FOCUS_COLOR);
+	}
+}
+
+/* Listening info area */
+.@{A11YC_UI}_listening
+{
+	p
+	{
+		padding: 0 5px;
+		text-align: center;
+	}
+
+	a.@{A11YC_UI}_button
+	{
+		padding-top: 9px;
+		padding-bottom: 9px;
+		background: @BUTTON_OK_BACKGROUND_COLOR;
+		border-width: 0;
+
+		&:hover
+		{
+			background: @BUTTON_OK_BACKGROUND_COLOR_HOVER;
+		}
+
+		&:focus,
+		&:active
+		{
+			border: 2px solid @FOCUS_COLOR;
+			padding: 7px 2px 7px 13px;
+		}
+
+		&:focus
+		{
+			box-shadow: inset 0 0 0 2px #FFF;
+		}
+
+		& span
+		{
+			color: #FFF;
+		}
+	}
+}
+
+/* While Safari does not support box-shadow on select elements use 2px width border and 1px margin to prevent jumping. */
+@{SAFARI_ONLY} .@{A11YC_UI}_form {
+	select.@{A11YC_UI}_input_select {
+		width: ~"calc(100% - 2px)";
+		border: 1px solid #c9cccf;
+		.box-shadow(none);
+
+		&:focus {
+			border: 2px solid @FOCUS_COLOR;
+			width: 100%;
+			margin: 0;
+		}
+	}
+
+	.@{A11YC_UI}_input_wrapper
+	{
+		.@{A11YC_UI}_input_select
+		{
+			width: ~"calc(100% - 2px)";
+			margin: 0 1px;
+		}
+	}
+}

@@ -7,5 +7,5 @@
 node_modules/**
 build/**
 bower_components/**
-skins/moono/a11ychecker.css
+skins/*/*.css
 styles/contents.css

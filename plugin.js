@@ -23,8 +23,9 @@
 
 		onLoad: function() {
 			var path = this.path;
+
 			// Load skin CSS.
-			CKEDITOR.document.appendStyleSheet( path + 'skins/moono/a11ychecker.css' );
+			CKEDITOR.document.appendStyleSheet( path + 'skins/' + this.getStylesSkinName() + '/a11ychecker.css' );
 
 			// Namespace register.
 			require( [
@@ -93,7 +94,7 @@
 
 		// Register buttons, dialogs etc.
 		guiRegister: function( editor ) {
-			var cssPath = this.path + 'styles/contents.css',
+			var cssPath = this.path + 'skins/' + this.getStylesSkinName() + '/contents.css',
 				// We need to be aware that editor.addContentsCss might not be
 				// available as it was introduced in CKE 4.4.0.
 				addContentsCss = editor.addContentsCss || editorAddContentsCss;
@@ -171,6 +172,23 @@
 			};
 
 			CKEDITOR.event.implementOn( editor._.a11ychecker );
+		},
+
+		/**
+		 * Returns skinName for which CSS is prepared. If there is not CSS for the
+		 * current skin, the default skinName (moono-lisa) is returned.
+		 *
+		 * @returns {String} Skin name which CSS files should be used.
+		 */
+		getStylesSkinName: function() {
+			// Default skin is moono-lisa.
+			var skinName = 'moono-lisa';
+
+			// Handle other skins for which CSS is also prepared.
+			if ( CKEDITOR.skinName == 'moono' ) {
+				skinName = 'moono';
+			}
+			return skinName;
 		}
 	} );
 
