@@ -5,15 +5,17 @@ CKEditor Accessibility Checker Changelog
 
 Copyright (c) 2014-2016, CKSource - Frederico Knabben. All rights reserved.
 
-## Version 1.0.1
+## Version 1.1.0
 
 New Features:
+
+* [#228](https://github.com/cksource/ckeditor-plugin-a11ychecker/issues/228): Added compatibility with new default `moono-lisa` skin.
 
 Fixed Issues:
 
 * [#201](https://github.com/cksource/ckeditor-plugin-a11ychecker/issues/201): `imgShouldNotHaveTitle` Quick Fix - if the image has both title and alt attributes, the alt will be used as a default value.
 
-* [#185](https://github.com/cksource/ckeditor-plugin-a11ychecker/issues/185) - Added more verbose error message when jQuery is missing in Accessibility Checker built version.
+* [#185](https://github.com/cksource/ckeditor-plugin-a11ychecker/issues/185): Added more verbose error message when jQuery is missing in Accessibility Checker built version.
 
 ## Version 1.0
 
