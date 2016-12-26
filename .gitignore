@@ -9,3 +9,4 @@ build/**
 bower_components/**
 skins/*/*.css
 styles/contents.css
+.project
