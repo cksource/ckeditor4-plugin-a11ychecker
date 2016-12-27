@@ -5,12 +5,14 @@
     "title": {
       "de": "Angrenzende Verknüpfungen, die auf das gleiche Ziel zeigen, sollten zusammengeführt werden",
       "en": "Adjacent links that point to the same location should be merged",
-      "nl": "Voeg naast elkaar gelegen links die naar dezelfde locatie verwijzen samen"
+      "nl": "Voeg naast elkaar gelegen links die naar dezelfde locatie verwijzen samen",
+      "pt-br": "Links adjacentes que apontam para o mesmo local devem ser mesclados"
     },
     "description": {
       "de": "Da viele Benutzer von Bildschirmleseprogrammen Verknüpfungen verwenden, um auf der Seite zu navigieren, können zwei Verknüpfungen direkt nebeneinander verwirrend sein. Versuchen Sie, die Verknüpfungen zusammenzuführen.",
       "en": "Because many users of screen readers use links to navigate the page, providing two links right next to each other that point to the same location can be confusing. Try combining the links.",
-      "nl": "Veel gebruikers van schermlezers gebruiken links om op de pagina te navigeren. Voor hen zijn naast elkaar gelegen links die naar dezelfde locatie verwijzen verwarrend. Probeer de links samen te voegen."
+      "nl": "Veel gebruikers van schermlezers gebruiken links om op de pagina te navigeren. Voor hen zijn naast elkaar gelegen links die naar dezelfde locatie verwijzen verwarrend. Probeer de links samen te voegen.",
+      "pt-br": "Porque muitos usuários de leitores de tela usam links para navegar na página, fornecendo dois links próximos um do outro que apontam para o mesmo local pode ser confuso. Tente combinar os links."
     },
     "guidelines": {
       "wcag": {
@@ -44,12 +46,14 @@
     "title": {
       "de": "Alternativtexte für Grafiken, die in einer Verknüpfung eingebettet sind, sollten den Verknüpfungstext nicht wiederholen",
       "en": "Alternative text for image in a link should not repeat the text in the link",
-      "nl": "Als een link een afbeelding bevat, moet het \"alt\"-attribuut niet dezelfde tekst bevatten als de linktekst"
+      "nl": "Als een link een afbeelding bevat, moet het \"alt\"-attribuut niet dezelfde tekst bevatten als de linktekst",
+      "pt-br": "O texto alternativo para a imagem em um link não deve repetir o texto no link"
     },
     "description": {
       "de": "Grafiken mit einer Verknüpfung sollten keinen Alternativtext haben, der den Verknüpfungstext wiederholt. Das sorgt dafür, dass Bildschirmleseprogramme den Text doppelt vorlesen.",
       "en": "Images within a link should not have an alt attribute that simply repeats the text found in the link. This will cause screen readers to simply repeat the text twice.",
-      "nl": "Als een link een afbeelding bevat, moet deze afbeelding een andere tekst in het alt-attribuut hebben dan de tekst in de link. Hiermee voorkom je dat een schermlezer dezelfde tekst twee keer voorleest."
+      "nl": "Als een link een afbeelding bevat, moet deze afbeelding een andere tekst in het alt-attribuut hebben dan de tekst in de link. Hiermee voorkom je dat een schermlezer dezelfde tekst twee keer voorleest.",
+      "pt-br": "As imagens dentro de um link não devem ter um atributo alt que simplesmente repita o texto encontrado no link. Isso fará com que os leitores de tela simplesmente repitam o texto duas vezes."
     },
     "guidelines": {
       "wcag": {
@@ -82,12 +86,14 @@
     "title": {
       "de": "Verknüpfungen sollten einen eigenen Stil im einem p-Tag haben",
       "en": "Links should be have a distinct style inside a p tag",
-      "nl": "Links moeten een afwijkende stijl hebben binnen een paragraaf"
+      "nl": "Links moeten een afwijkende stijl hebben binnen een paragraaf",
+      "pt-br": "Links devem ter um estilo distinto dentro de uma tag p"
     },
     "description": {
       "de": "",
       "en": "",
-      "nl": ""
+      "nl": "",
+      "pt-br": ""
     },
     "guidelines": [],
     "tags": [
@@ -102,12 +108,14 @@
     "title": {
       "de": "Verknüpfungstexte sollten nicht mit redundantem Text beginnen",
       "en": "Link text should not begin with redundant text",
-      "nl": "Laat linkteksten niet beginnen met overbodige tekst"
+      "nl": "Laat linkteksten niet beginnen met overbodige tekst",
+      "pt-br": "O texto do link não deve começar com texto redundante"
     },
     "description": {
       "de": "Verknüpfungstexte sollten nicht mit redundantem Text oder Sätzen beginnen, wie \"Verknüpfung\" oder \"Hier klicken\"",
       "en": "Link text should not begin with redundant words or phrases like \"link\".",
-      "nl": "Laat linkteksten niet beginnen met overbodige woorden of woordcombinaties als \"link\" of \"klik hier\"."
+      "nl": "Laat linkteksten niet beginnen met overbodige woorden of woordcombinaties als \"link\" of \"klik hier\".",
+      "pt-br": "Link texto não deve começar com palavras redundantes ou frases como \"link\"."
     },
     "guidelines": {
       "wcag": {
@@ -133,12 +141,14 @@
     "title": {
       "de": "Listen von Verknüpfungen sollten durch druckbare Zeichen separiert werden",
       "en": "Lists of links should be seperated by printable characters",
-      "nl": "Lijsten met links moeten gescheiden worden door afdrukbare tekens"
+      "nl": "Lijsten met links moeten gescheiden worden door afdrukbare tekens",
+      "pt-br": "As listas de links devem ser separadas por caracteres imprimíveis"
     },
     "description": {
       "de": "Wenn eine Liste von Verknüpfung innerhalb des gleichen Elements vorgesehen ist, sollten diese Verknüpfungen durch einen nicht verknüpftes, druckbares Zeichen getrennt werden. Dies gilt nicht für strukturierte Listen.",
       "en": "If a list of links is provided within the same element, those links should be seperated by a non-linked, printable character. Structures like lists are not included in this.",
-      "nl": "Als een rij met links binnen eenzelfde element staat, moeten de links gescheiden zijn door een niet-gelinkt, afdrukbaar teken. Dit geldt niet voor een gestructureerde lijst."
+      "nl": "Als een rij met links binnen eenzelfde element staat, moeten de links gescheiden zijn door een niet-gelinkt, afdrukbaar teken. Dit geldt niet voor een gestructureerde lijst.",
+      "pt-br": "Se uma lista de links for fornecida dentro do mesmo elemento, esses links devem ser separados por um caractere não imprimível vinculado. Estruturas como listas não estão incluídas neste."
     },
     "guidelines": [],
     "tags": [
@@ -153,12 +163,14 @@
     "title": {
       "de": "Verknüpfungen sollten kein neues Fenster ohne vorherige Warnung öffnen",
       "en": "Links should not open a new window without warning",
-      "nl": "Met links open je geen nieuw scherm zonder melding"
+      "nl": "Met links open je geen nieuw scherm zonder melding",
+      "pt-br": "Links não devem abrir uma nova janela sem aviso"
     },
     "description": {
       "de": "Der Benutzer sollte gewarnt werden, wenn Verknüpfungen ein neues Fenster über das \"target\"-Attribut öffnen.",
       "en": "Links which open a new window using the \"target\" attribute should warn users.",
-      "nl": "Voordat links door middel van het \"target\"-attribuut een nieuw scherm openen moet de gebruiker een melding hiervan krijgen."
+      "nl": "Voordat links door middel van het \"target\"-attribuut een nieuw scherm openen moet de gebruiker een melding hiervan krijgen.",
+      "pt-br": "Links que abrem uma nova janela usando o atributo \"target\" devem alertar os usuários."
     },
     "guidelines": {
       "wcag": {
@@ -185,12 +197,14 @@
     "title": {
       "de": "Verknüpfungen sollten nicht nur durch Symbole getrennt werden",
       "en": "Links should not be separated by symbols alone",
-      "nl": "Links mogen niet alleen door symbolen gescheidn worden"
+      "nl": "Links mogen niet alleen door symbolen gescheidn worden",
+      "pt-br": "Links não devem ser separados por símbolos"
     },
     "description": {
       "de": "Da Symbole entweder nicht vorgelesen werden oder das Bildschirmleseprogramm verwirren, sollten Verknüpfungen nicht durch Symbole getrennt werden.",
       "en": "Since symbols are either not read, or can be confusing when using a screen reader, do not separate links with un-readable symbols.",
-      "nl": "Symbolen worden niet voorgelezen of zijn verwarrend bij het gebruik van een schermlezer. Gebruik geen onleesbare symbolen om links van elkaar te scheiden."
+      "nl": "Symbolen worden niet voorgelezen of zijn verwarrend bij het gebruik van een schermlezer. Gebruik geen onleesbare symbolen om links van elkaar te scheiden.",
+      "pt-br": "Como os símbolos não são lidos ou podem ser confusos ao usar um leitor de tela, não separe links com símbolos ilegíveis."
     },
     "guidelines": [],
     "tags": [
@@ -205,12 +219,14 @@
     "title": {
       "de": "Jede Verknüpfung zu einer Multimedia-Datei sollte auch eine Verknüpfung zu einem Transkript enthalten",
       "en": "Any links to a multimedia file should also include a link to a transcript",
-      "nl": "Elke link naar een multimediabestand moet ook een link bevatten naar een transcriptie"
+      "nl": "Elke link naar een multimediabestand moet ook een link bevatten naar een transcriptie",
+      "pt-br": "Quaisquer links para um arquivo multimídia também devem incluir um link para uma transcrição"
     },
     "description": {
       "de": "Auf eine Verknüpfung zu einer Multimedia-Datei sollte eine Verknüpfung zu einem Transkript folgen.",
       "en": "Links to a multimedia file should be followed by a link to a transcript of the file.",
-      "nl": "Links naar een multimediabestand moeten worden gevolgd door een link naar de transcriptie van dit bestand."
+      "nl": "Links naar een multimediabestand moeten worden gevolgd door een link naar de transcriptie van dit bestand.",
+      "pt-br": "Links para um arquivo multimídia deve ser seguido por um link para uma transcrição do arquivo."
     },
     "guidelines": {
       "508": [
@@ -239,12 +255,14 @@
     "title": {
       "de": "Jede Verknüpfung zu einer Audio-Datei sollte auch eine Verknüpfung zu einem Transkript enthalten",
       "en": "Any links to a sound file should also include a link to a transcript",
-      "nl": "Elke link naar een geluidsbestand moet ook een link bevatten naar een transcriptie"
+      "nl": "Elke link naar een geluidsbestand moet ook een link bevatten naar een transcriptie",
+      "pt-br": "Quaisquer links para um arquivo de som também devem incluir um link para uma transcrição"
     },
     "description": {
       "de": "Auf eine Verknüpfung zu einer Audio-Datei sollte eine Verknüpfung zu einem Transkript folgen.",
       "en": "Links to a sound file should be followed by a link to a transcript of the file.",
-      "nl": "Links naar een geluidsbestand moeten worden gevolgd door een link naar de transcriptie van dit bestand."
+      "nl": "Links naar een geluidsbestand moeten worden gevolgd door een link naar de transcriptie van dit bestand.",
+      "pt-br": "Links para um arquivo de som deve ser seguido por um link para uma transcrição do arquivo."
     },
     "guidelines": {
       "508": [
