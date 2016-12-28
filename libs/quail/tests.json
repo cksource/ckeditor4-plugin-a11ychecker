@@ -290,12 +290,14 @@
     "title": {
       "de": "Verknüpfungen ohne Text sollten vorlesbar sein",
       "en": "Links with only non-text content should be readable",
-      "nl": "Links zonder tekstuele content moeten leesbaar zijn"
+      "nl": "Links zonder tekstuele content moeten leesbaar zijn",
+      "pt-br": "Links com apenas conteúdo não textual devem ser legíveis"
     },
     "description": {
       "de": "Wenn eine Verknüpfung keinen Text enthält, sondern nur eine Grafik, sollte der Inhalt durch eine Assistenz-Technologie vorlesbar sein.",
       "en": "If a link contains only non-text content like an image, that content must be readable by assistive technology.",
-      "nl": "Als een link alleen maar niet-tekstuele content bevat zoals een afbeelding, moet deze content leesbaar worden gemaakt door middel van daarvoor geschikte technologie."
+      "nl": "Als een link alleen maar niet-tekstuele content bevat zoals een afbeelding, moet deze content leesbaar worden gemaakt door middel van daarvoor geschikte technologie.",
+      "pt-br": "Se um link contiver apenas conteúdo não textual como uma imagem, esse conteúdo deve ser legível por tecnologia assistiva."
     },
     "guidelines": {
       "wcag": {
@@ -342,12 +344,14 @@
     "title": {
       "de": "Verknüpfungen sollten Text enthalten",
       "en": "Links should contain text",
-      "nl": "Links moeten tekst bevatten"
+      "nl": "Links moeten tekst bevatten",
+      "pt-br": "Links devem conter texto"
     },
     "description": {
       "de": "Da viele Benutzer von Bildschirmleseprogrammen Verknüpfungen verwenden, um in der Seite zu navigieren, behindern Verknüpfung ohne Text (oder  Grafiken ohne Alternativtext im \"alt\"-Attribut bzw. ohne anderen lesbaren Text) diese Benutzer.",
       "en": "Because many users of screen-readers use links to navigate the page, providing links with no text (or with images that have empty \"alt\" attributes and no other readable text) hinders these users.",
-      "nl": "Veel gebruikers van schermlezers gebruiken links om op de pagina te navigeren. Links zonder tekst (of met afbeeldingen die een leeg \"alt\"-attribuut hebben en geen andere leesbare tekst) hinderen deze gebruikers."
+      "nl": "Veel gebruikers van schermlezers gebruiken links om op de pagina te navigeren. Links zonder tekst (of met afbeeldingen die een leeg \"alt\"-attribuut hebben en geen andere leesbare tekst) hinderen deze gebruikers.",
+      "pt-br": "Como muitos usuários de leitores de tela usam links para navegar na página, fornecer links sem texto (ou com imagens que possuem atributos \"alt \" vazios e nenhum outro texto legível) dificulta esses usuários."
     },
     "guidelines": {
       "wcag": {
@@ -385,12 +389,14 @@
     "title": {
       "de": "Alle Verknüpfungen müssen ein \"title\"-Attribut haben",
       "en": "All links must have a \"title\" attribute",
-      "nl": "Alle links moeten een \"title\"-attribuut hebben"
+      "nl": "Alle links moeten een \"title\"-attribuut hebben",
+      "pt-br": "Todos os links devem conter um atributo \"title\""
     },
     "description": {
       "de": "Jede Verknüpfung müss ein \"title\"-Attribut haben.",
       "en": "Every link must have a \"title\" attribute.",
-      "nl": "Zorg ervoor dat elke link is voorzien van een \"title\"-attribuut."
+      "nl": "Zorg ervoor dat elke link is voorzien van een \"title\"-attribuut.",
+      "pt-br": "Todo link devem conter um atributo \"title\""
     },
     "guidelines": [],
     "tags": [
@@ -407,12 +413,14 @@
     "title": {
       "de": "Verknüpfungen sollten kein \"javascript\" im Ziel verwenden",
       "en": "Links should not use \"javascript\" in their location",
-      "nl": "Links moeten geen \"javascript\" in hun locatie hebben"
+      "nl": "Links moeten geen \"javascript\" in hun locatie hebben",
+      "pt-br": "Links não devem usar \"javascript\" em sua localização"
     },
     "description": {
       "de": "Verknüpfungen (<code>a</code>.-Elemente sollten das \"javascript\"-Protokoll im \"href\"-Attribut nicht verwenden.",
       "en": "Anchor (<code>a</code>.  elements may not use the \"javascript\" protocol in their \"href\" attributes.",
-      "nl": "Anchor(<code>a</code>.-elementen mogen geen \"javascript\"protocol in hun \"href\"-attributen hebben staan."
+      "nl": "Anchor(<code>a</code>.-elementen mogen geen \"javascript\"protocol in hun \"href\"-attributen hebben staan.",
+      "pt-br": "Os elementos de âncora (<code> a </code>) não podem usar o protocolo \"javascript\" em seus atributos \"href\"."
     },
     "guidelines": [],
     "tags": [
@@ -429,12 +437,14 @@
     "title": {
       "de": "Verknüpfungstexte sollten sinnvoll sein",
       "en": "Link text should be useful",
-      "nl": "Linkteksten moeten bruikbaar en betekenisvol zijn"
+      "nl": "Linkteksten moeten bruikbaar en betekenisvol zijn",
+      "pt-br": "Texto do link deve ser útil"
     },
     "description": {
       "de": "Da viele Benutzer von Bildschirmvorleseprogrammen Verknüpfungen verwenden, um in der Seite zu navigieren, erlauben Verknüpfungen mit einfachen Texten (bspw. \"Hier klicken\") keinen Rückschluss auf ihren Zweck.",
       "en": "Because many users of screen-readers use links to navigate the page, providing links with text that simply read \"click here\" gives no hint of the function of the link.",
-      "nl": "Veel gebruikers van schermlezers gebruiken links om op de pagina te navigeren. Links met de tekst \"klik hier\" zijn voor deze gebruikers niet betekenisvol en niet bruikbaar."
+      "nl": "Veel gebruikers van schermlezers gebruiken links om op de pagina te navigeren. Links met de tekst \"klik hier\" zijn voor deze gebruikers niet betekenisvol en niet bruikbaar.",
+      "pt-br": "Como muitos usuários de tela-leitores usam links para navegar na página, fornecendo links com texto que simplesmente ler \"clique aqui\" não dá nenhuma dica da função do link."
     },
     "guidelines": {
       "wcag": {
@@ -470,12 +480,14 @@
     "title": {
       "de": "Das Title-Attribut von Verknüpfungen beschreibt das Verknüpfungs-Ziel.",
       "en": "The title attribute of all source a (anchor) elements describes the link destination.",
-      "nl": "Het titel-attribuut van alle source a (anchor)-elementen beschrijven de bestemming van de link"
+      "nl": "Het titel-attribuut van alle source a (anchor)-elementen beschrijven de bestemming van de link",
+      "pt-br": "O atributo título de todos os elementos (âncora) descrevem o destino do link."
     },
     "description": {
       "de": "Jede Verknüpfung muss ein \"title\"-Attribut haben, welches den Zweck oder das Ziel der Verknüpfung beschreibt.",
       "en": "Every link must have a \"title\" attribute which describes the purpose or destination of the link.",
-      "nl": "Elke link moet een \"title\"-attribuut hebben waarin het doel of de bestemming van de link wordt beschreven."
+      "nl": "Elke link moet een \"title\"-attribuut hebben waarin het doel of de bestemming van de link wordt beschreven.",
+      "pt-br": "Cada link deve ter um atributo \"title\" que descreve a finalidade ou destino do link."
     },
     "guidelines": {
       "wcag": {
@@ -501,12 +513,14 @@
     "title": {
       "de": "Das Dokument sollte eine korrekte Kontaktadresse zum Autor beinhalten",
       "en": "The document should contain an address for the author",
-      "nl": "Het document moet een adres voor de auteur bevatten"
+      "nl": "Het document moet een adres voor de auteur bevatten",
+      "pt-br": "O documento deve conter o endereço eletrônico do autor"
     },
     "description": {
       "de": "Dokumente sollten eine korrekte E-Mail-Addresse in einem <code>address</code>-Element enthalten.",
       "en": "Documents should provide a valid email address within an <code>address</code> element.",
-      "nl": "Documenten moeten een e-mailadres bevatten binnen het <code>address</code>-element."
+      "nl": "Documenten moeten een e-mailadres bevatten binnen het <code>address</code>-element.",
+      "pt-br": "Os documentos devem fornecer um endereço de e-mail válido dentro de um elemento <code> address </code>."
     },
     "guidelines": [],
     "tags": [
@@ -522,12 +536,14 @@
     "title": {
       "de": "Das Dokument sollte eine korrekte E-Mail-Adresse zum Autor beinhalten",
       "en": "The document should contain a valid email address for the author",
-      "nl": "Het document moet een geldig e-mailadres bevatten voor de auteur"
+      "nl": "Het document moet een geldig e-mailadres bevatten voor de auteur",
+      "pt-br": "O documento deve conter um email válido do autor"
     },
     "description": {
       "de": "Dokumente sollten eine korrekte E-Mail-Addresse in einem <code>address</code>-Element enthalten.",
       "en": "Documents should provide a valid email address within an <code>address</code> element.",
-      "nl": "Documenten moeten een geldig e-mailadres bevatten binnen het <code>address</code> element."
+      "nl": "Documenten moeten een geldig e-mailadres bevatten binnen het <code>address</code> element.",
+      "pt-br": "Os documentos devem fornecer um endereço de e-mail válido dentro de um elemento <code>address</code>."
     },
     "guidelines": [],
     "tags": [
@@ -543,12 +559,14 @@
     "title": {
       "de": "Alle Applets sollten den Inhalt im Element des Applets selbst enthalten",
       "en": "All applets should contain the same content within the body of the applet",
-      "nl": "Alle applets moeten dezelfde content bevatten in de body van de applet"
+      "nl": "Alle applets moeten dezelfde content bevatten in de body van de applet",
+      "pt-br": "Todos os applets devem conter o mesmo conteúdo dentro do corpo do applet"
     },
     "description": {
       "de": "Applets sollten ihre Text-Äquivalente oder eine Beschreibung innerhalb des <code>applet</ code>-Tag selbst enthalten.",
       "en": "Applets should contain their text equivalents or description within the <code>applet</code> tag itself.",
-      "nl": "Applets moeten hun tekstuele equivalent of beschrijving bevatten in de <code>applet</code> tag."
+      "nl": "Applets moeten hun tekstuele equivalent of beschrijving bevatten in de <code>applet</code> tag.",
+      "pt-br": "As applets devem conter seus equivalentes de texto ou descrição dentro da própria tag <code>applet</code>."
     },
     "guidelines": {
       "508": [
@@ -576,12 +594,14 @@
     "title": {
       "de": "Alle Applets sollten ein Text-Äquivalent im \"alt\"-Attribut enthalten",
       "en": "All applets should contain a text equivalent in the \"alt\" attribute",
-      "nl": "Alle applets moeten een tekstuele equivalent bevatten in het \"alt\"-attribuut"
+      "nl": "Alle applets moeten een tekstuele equivalent bevatten in het \"alt\"-attribuut",
+      "pt-br": "Todos os applets devem conter um equivalente de texto no atributo \"alt\""
     },
     "description": {
       "de": "Applets sollten ihr Text-Äquivalent oder eine Beschreibung im \"alt\"-Attribut enthalten.",
       "en": "Applets should contain their text equivalents or description in an \"alt\" attribute.",
-      "nl": "Applets moeten hun tekstuele equivalent of beschrijving bevatten in een \"alt\"-attribuut."
+      "nl": "Applets moeten hun tekstuele equivalent of beschrijving bevatten in een \"alt\"-attribuut.",
+      "pt-br": "Os applets devem conter seus equivalentes de texto ou descrição em um atributo \"alt\"."
     },
     "guidelines": {
       "508": [
@@ -616,12 +636,14 @@
     "title": {
       "de": "Alle Applets sollten einen Weg für Tastatur-Benutzer bieten, um das Applet zu verlassen.",
       "en": "All applets should provide a way for keyboard users to escape",
-      "nl": "Alle applets moeten door toetsenbordgebruikers kunnen worden verlaten"
+      "nl": "Alle applets moeten door toetsenbordgebruikers kunnen worden verlaten",
+      "pt-br": "Todos os applets devem fornecer uma maneira de escape para os usuários de teclado"
     },
     "description": {
       "de": "Stellen Sie sicher, dass ein Benutzer, der nur eine Tastatur als Eingabegerät  besitzt, ein <code>applet</ code>-Element per Tastaturbefehl verlassen kann. Dies muss manuell getestet werden.",
       "en": "Ensure that a user who has only a keyboard as an input device can escape an <code>applet</code> element. This requires manual confirmation.",
-      "nl": "Zorg ervoor dat gebruikers die alleen het toetsenbord gebruiken als bediening een <code>applet</code>-element kunnen verlaten. Hiervoor is handmatige bevestiging nodig."
+      "nl": "Zorg ervoor dat gebruikers die alleen het toetsenbord gebruiken als bediening een <code>applet</code>-element kunnen verlaten. Hiervoor is handmatige bevestiging nodig.",
+      "pt-br": "Assegure-se de que um usuário que tenha apenas um teclado como dispositivo de entrada possa escapar de um elemento <code>applet</code>. Isso requer confirmação manual."
     },
     "guidelines": [],
     "tags": [
@@ -664,12 +686,14 @@
     "title": {
       "de": "Jede Benutzerschnittstelle in einem Applet muss barrierefrei sein",
       "en": "Any user interface in an applet must be accessible",
-      "nl": "Elke user interface in een applet moet toegankelijk zijn"
+      "nl": "Elke user interface in een applet moet toegankelijk zijn",
+      "pt-br": "Qualquer interface de usuário em um applet deve ser acessível"
     },
     "description": {
       "de": "Inhalte in Applets sollten auf Barrierefreiheit geprüft werden.",
       "en": "Applet content should be assessed for accessibility.",
-      "nl": "Content in een applet moet getoetst worden op toegankelijkheid."
+      "nl": "Content in een applet moet getoetst worden op toegankelijkheid.",
+      "pt-br": "O conteúdo do applet deve ser avaliado quanto à acessibilidade."
     },
     "guidelines": {
       "508": [
@@ -699,12 +723,14 @@
     "title": {
       "de": "Applets sollten nicht flackern oder blinken",
       "en": "All applets do not flicker",
-      "nl": "Applets knipperen of flitsen niet"
+      "nl": "Applets knipperen of flitsen niet",
+      "pt-br": "Todos os applets não cintilam"
     },
     "description": {
       "de": "Applets sollten nicht flackern oder blinken.",
       "en": "Applets should not flicker.",
-      "nl": "Geen enkele applet mag knipperen of flitsen."
+      "nl": "Geen enkele applet mag knipperen of flitsen.",
+      "pt-br": "Todos os applets não devem cintilar"
     },
     "guidelines": {
       "508": [
@@ -733,12 +759,14 @@
     "title": {
       "de": "Applets sollten nicht nur Farben verwenden, um Inhalte zu kommunizieren",
       "en": "Applets should not use color alone to communicate content",
-      "nl": "Applets mogen niet alleen kleur gebruiken om een boodschap over te brengen"
+      "nl": "Applets mogen niet alleen kleur gebruiken om een boodschap over te brengen",
+      "pt-br": "Applets não devem usar uma cor única para comunicar conteúdo"
     },
     "description": {
       "de": "Applets sollten Inhalte so darstellen, das sie ohne Farben verständlich und für farbenblinde Benutzer zugänglich sind.",
       "en": "Applets should contain content that makes sense without color and is accessible to users who are color blind.",
-      "nl": "Applets moeten content bevatten die ook bruikbaar is zonder kleur en die toegankelijk is voor gebruikers met kleurenblindheid."
+      "nl": "Applets moeten content bevatten die ook bruikbaar is zonder kleur en die toegankelijk is voor gebruikers met kleurenblindheid.",
+      "pt-br": "Applets devem conter conteúdo que faz sentido sem cor e é acessível para usuários que são daltônicos."
     },
     "guidelines": {
       "508": [
@@ -760,12 +788,14 @@
     "title": {
       "de": "Alle \"area\"-Elementes müssen ein \"alt\"-Attribut haben, welches das Verknüpfungsziel beschreibt",
       "en": "All \"area\" elements must have an \"alt\" attribute which describes the link destination",
-      "nl": "Alle \"area\"-elementen moeten een \"alt\"-attribuut hebben die de bestemming van de link beschrijft"
+      "nl": "Alle \"area\"-elementen moeten een \"alt\"-attribuut hebben die de bestemming van de link beschrijft",
+      "pt-br": "Todos os elementos de \"área\" devem ter um atributo \"alt\" que descreve o destino do link"
     },
     "description": {
       "de": "Alle <code>area</code>-Element mit einem <code>map</code>-Element müsssen ein \"alt\"-Attribut haben",
       "en": "All <code>area</code> elements within a <code>map</code> must have an \"alt\" attribute",
-      "nl": "Alle <code>area</code>-elementen binnen een <code>map</code> moeten een \"alt\"-attribuut hebben."
+      "nl": "Alle <code>area</code>-elementen binnen een <code>map</code> moeten een \"alt\"-attribuut hebben.",
+      "pt-br": "Todos os elementos <code>area</code> dentro de um <code>mapa</code> devem ter um atributo \"alt\""
     },
     "guidelines": {
       "wcag": {
@@ -791,12 +821,14 @@
     "title": {
       "de": "Alternativtexte für \"area\"-Elemente sollten den Text wiedergeben, der in den Grafik-Verknüpfungen dargestellt ist",
       "en": "Alt text for \"area\" elements should replicate the text found in the image",
-      "nl": "Alt-tekst voor \"area\"-elementen moeten de tekst bevatten zoals die ook in de afbeelding staat"
+      "nl": "Alt-tekst voor \"area\"-elementen moeten de tekst bevatten zoals die ook in de afbeelding staat",
+      "pt-br": "Texto alternativo para elementos \"área\" devem replicar o texto encontrado na imagem"
     },
     "description": {
       "de": "Wenn ein Grafik als <code>map</code> verwendet wird und ein <code>area</code>-Element den Text im Grafik umschließt, sollte das \"alt\"-Attribut dieser <code>area</code> denselben Text enthalten, wie der im Grafik dargestellte Text.",
       "en": "If an image is being used as a map, and an <code>area</code> encompasses text within the image, then the \"alt\" attribute of that <code>area</code> element should be the same as the text found in the image.",
-      "nl": "Als een afbeelding als kaart wordt gebruikt, en een <code>area</code> bevat tekst binnen de afbeelding, dan moet het \"alt\"-attribuut van dat <code>area</code>-element hetzelfde zijn als de tekst die in de afbeelding staat."
+      "nl": "Als een afbeelding als kaart wordt gebruikt, en een <code>area</code> bevat tekst binnen de afbeelding, dan moet het \"alt\"-attribuut van dat <code>area</code>-element hetzelfde zijn als de tekst die in de afbeelding staat.",
+      "pt-br": "Se uma imagem está sendo usada como um mapa e uma área <code> </ code> abrange texto dentro da imagem, então o atributo \"alt\" desse elemento <code> area </ code> deve ser o mesmo que o texto encontrado na imagem."
     },
     "guidelines": [],
     "tags": [
@@ -813,12 +845,14 @@
     "title": {
       "de": "Kein \"area\"-Element sollte ein neues Fenster ohne Warnung öffnen",
       "en": "No \"area\" elements should open a new window without warning",
-      "nl": "\"area\"-elementen mogen geen nieuw scherm openen zonder melding"
+      "nl": "\"area\"-elementen mogen geen nieuw scherm openen zonder melding",
+      "pt-br": "Nenhum elemento \"área\" deve abrir uma nova janela sem aviso prévio"
     },
     "description": {
       "de": "<code>area</code>-Elemente sollte ein neues Fenster nicht ohne vorhergehende Warnung öffnen.",
       "en": "No <code>area</code> elements should open a new window without warning.",
-      "nl": "<code>area</code>-elementen mogen geen nieuw scherm openen zonder dat de gebruiker hiervan een melding krijgt."
+      "nl": "<code>area</code>-elementen mogen geen nieuw scherm openen zonder dat de gebruiker hiervan een melding krijgt.",
+      "pt-br": "Nenhum elemento <code> area </ code> deve abrir uma nova janela sem aviso prévio."
     },
     "guidelines": [],
     "tags": [
@@ -835,12 +869,14 @@
     "title": {
       "de": "Alle \"area\"-Elemente müssen ein \"alt\"-Attribut haben",
       "en": "All \"area\" elements must have an \"alt\" attribute",
-      "nl": "Alle \"area\"-elementen moeten een \"alt\"-attribuut hebben"
+      "nl": "Alle \"area\"-elementen moeten een \"alt\"-attribuut hebben",
+      "pt-br": "Todos os elementos de \"área\" devem ter um atributo \"alt\""
     },
     "description": {
       "de": "Alle <code>area</code>-Elemente in einem <code>map</code>-Element müssen ein \"alt\"-Attribut haben.",
       "en": "All <code>area</code> elements within a <code>map</code> must have an \"alt\" attribute.",
-      "nl": "Alle <code>area</code>-elementen binnen een <code>map</code> moeten een \"alt\"-attribuut hebben."
+      "nl": "Alle <code>area</code>-elementen binnen een <code>map</code> moeten een \"alt\"-attribuut hebben.",
+      "pt-br": "Todos os elementos <code> area </code> dentro de um <code> mapa </ code> devem ter um atributo \"alt\"."
     },
     "guidelines": {
       "wcag": {
@@ -873,12 +909,14 @@
     "title": {
       "de": "Alle  \"area\"-Elemente mit einer Verknüpfung zu einer Audio-Datei sollten auch eine Verknüpfung zu einem Transkript enthalten",
       "en": "All \"area\" elements which link to a sound file should also provide a link to a transcript",
-      "nl": "Alle \"area\"-elementen met een link naar een geluidsbestand moeten ook een link bevatten naar een transcriptie"
+      "nl": "Alle \"area\"-elementen met een link naar een geluidsbestand moeten ook een link bevatten naar een transcriptie",
+      "pt-br": "Todos os elementos de \"area\" que ligam a um arquivo de som devem também fornecer um link para uma transcrição" 
     },
     "description": {
       "de": "Alle  \"area\"-Elemente mit einer Verknüpfung Audio-Datei sollten eine Verknüpfung zu einem Transkript haben.",
       "en": "All <code>area</code> elements which link to a sound file should have a text transcript.",
-      "nl": "Alle \"area\"-elementen met een link naar een geluidsbestand moeten een transcriptie hebben in tekst."
+      "nl": "Alle \"area\"-elementen met een link naar een geluidsbestand moeten een transcriptie hebben in tekst.",
+      "pt-br": "Todos os elementos <code> area </code> que ligam a um arquivo de som devem ter uma transcrição de texto."
     },
     "guidelines": {
       "wcag": {
@@ -904,12 +942,14 @@
     "title": {
       "de": "Seiten mit ARIA-roles sollten keinen verwaisten Inhalt haben",
       "en": "Pages using ARIA roles should not have orphaned content",
-      "nl": "Pagina's die ARIA-rollen gebruiken mogen geen verweesde content hebben"
+      "nl": "Pagina's die ARIA-rollen gebruiken mogen geen verweesde content hebben",
+      "pt-br": "Páginas que usam funções ARIA não devem ter conteúdo orfão"
     },
     "description": {
       "de": "Wenn eine Seite ARIA-roles verwendet, sollte es keinen Seiteninhalt ohne ARIA-role geben, da dies fehlerhafte Darstellungen in Bildschirmleseprogrammen bewirken kann.",
       "en": "If a page makes use of ARIA roles, then there should not be any content on the page which is not within an element that exposes a role, as it could cause that content to be rendreed inaccessible to users with screen readers.",
-      "nl": "Als een pagina gebruik maakt van ARIA-rollen, mag er geen content op de pagina staan buiten een element dat een rol vertegenwoordigt. In dat geval kan het zijn dat deze content niet toegankelijk is voor gebruikers van schermlezers."
+      "nl": "Als een pagina gebruik maakt van ARIA-rollen, mag er geen content op de pagina staan buiten een element dat een rol vertegenwoordigt. In dat geval kan het zijn dat deze content niet toegankelijk is voor gebruikers van schermlezers.",
+      "pt-br": "Se uma página fizer uso de funções ARIA, então não deve haver nenhum conteúdo na página que não esteja dentro de um elemento que expõe uma função, pois poderia causar que o conteúdo fosse tornado inacessível para usuários com leitores de tela."
     },
     "guidelines": [],
     "tags": [
@@ -924,12 +964,14 @@
     "title": {
       "de": "Basefont sollte nicht verwendet werden",
       "en": "Basefont should not be used",
-      "nl": "Basefont moet niet worden gebruikt"
+      "nl": "Basefont moet niet worden gebruikt",
+      "pt-br": "Basefont não deve ser usado"
     },
     "description": {
       "de": "Der <code>basefont</code>-Tag ist deprecated und sollte nicht verwendet werden. Verwenden Sie besser Stylesheets.",
       "en": "The <code>basefont</code> tag is deprecated and should not be used. Investigate using stylesheets instead.",
-      "nl": "The <code>basefont</code>-tag is afgekeurd en moet niet worden gebruikt. Gebruik in plaats hiervan stylesheets."
+      "nl": "The <code>basefont</code>-tag is afgekeurd en moet niet worden gebruikt. Gebruik in plaats hiervan stylesheets.",
+      "pt-br": "A tag <code> basefont </code> está obsoleta e não deve ser usada. Investigue usando folhas de estilo."
     },
     "guidelines": [],
     "tags": [
@@ -946,12 +988,14 @@
     "title": {
       "de": "Der \"blink\"-Tag sollte nicht verwendet werden",
       "en": "The \"blink\" tag should not be used",
-      "nl": "De \"blink\"-tag moet niet worden gebruikt"
+      "nl": "De \"blink\"-tag moet niet worden gebruikt",
+      "pt-br": "A tag \"blink\" não deve ser usada"
     },
     "description": {
       "de": "Der <code>blink</code>-Tag sollte niemals verwendet werden.",
       "en": "The <code>blink</code> tag should not be used. Ever.",
-      "nl": "Het is nooit toegestaan om de \"blink\"-tag te gebruiken."
+      "nl": "Het is nooit toegestaan om de \"blink\"-tag te gebruiken.",
+      "pt-br": "A tag <code> blink</ code> não deve ser usada. Nunca."
     },
     "guidelines": {
       "wcag": {
@@ -976,12 +1020,14 @@
     "title": {
       "de": "Der \"blockquote\"-Tag sollte nicht zur Einrückung verwnendet werden",
       "en": "The block quote should not be used just for indentation",
-      "nl": "De \"blockquote\"-tag mag niet gebruikt worden om in te springen"
+      "nl": "De \"blockquote\"-tag mag niet gebruikt worden om in te springen",
+      "pt-br": "A citação de bloco não deve ser usada apenas para indentação"
     },
     "description": {
       "de": "Blockquotes sind für längere Zitate gedacht und sollten nicht zum Einrücken von Text verwendet werden.",
       "en": "Blockquote tags are for longer quotes, and should not be used to indent text.",
-      "nl": "Blockquotes zijn bedoeld voor lange stukken geciteerde tekst, en niet om tekst te laten inspringen."
+      "nl": "Blockquotes zijn bedoeld voor lange stukken geciteerde tekst, en niet om tekst te laten inspringen.",
+      "pt-br": "As tags Blockquote são para citações mais longas e não devem ser usadas para recuar texto."
     },
     "guidelines": {
       "wcag": {
@@ -1006,12 +1052,14 @@
     "title": {
       "de": "Für längere Zitate sollte das \"blockquote\"-Element verwendet werden",
       "en": "If long quotes are in the document, use the \"blockquote\" element to mark them",
-      "nl": "Gebruik voor lange citaten in het document het \"blockquote\"-element"
+      "nl": "Gebruik voor lange citaten in het document het \"blockquote\"-element",
+      "pt-br": "e as citações longas estiverem no documento, use o elemento \"blockquote\" para marcá-las"
     },
     "description": {
       "de": "Wenn längere Zitate über einen Absatz wiedergegeben werden sollen, sollte das \"blockquote\"-Element verwendet werden.",
       "en": "If there is a paragraph or more of a quote, use the blockquote element to mark it as such.",
-      "nl": "Als er een hele alinea of meer alinea's zijn van geciteerde tekst, gebruik dan blockquote om deze als zodanig te markeren."
+      "nl": "Als er een hele alinea of meer alinea's zijn van geciteerde tekst, gebruik dan blockquote om deze als zodanig te markeren.",
+      "pt-br": "Se houver um parágrafo ou mais de uma citação, use o elemento blockquote para marcá-lo como tal."
     },
     "guidelines": {
       "wcag": {
@@ -1034,12 +1082,14 @@
     "title": {
       "de": "Das \"b\"-Element (fett) wird nicht verwendet.",
       "en": "The \"b\" (bold) element is not used",
-      "nl": "Het \"b\"-element (bold) wordt niet gebruikt"
+      "nl": "Het \"b\"-element (bold) wordt niet gebruikt",
+      "pt-br": "O elemento \"b \" (negrito) não é usado"
     },
     "description": {
       "de": "Das <code>b</code>-Element bietet keine Hervorhebung für sehbehinderte Benutzer. Das <code>strong</code>-Element sollte anstelle dessen verwendet werden.",
       "en": "The <code>b</code> (bold) element provides no emphasis for non-sighted readers. Use the <code>strong</code> tag instead.",
-      "nl": "Het <code>b</code>-element voorziet niet in nadruk voor blinde en slechtziende gebruikers. Gebruik de <code>strong</code>-tag instead."
+      "nl": "Het <code>b</code>-element voorziet niet in nadruk voor blinde en slechtziende gebruikers. Gebruik de <code>strong</code>-tag instead.",
+      "pt-br": "O elemento <code> b </ code> (negrito) não dá ênfase aos leitores não-videntes. Use a tag <code> strong </ code> em vez disso."
     },
     "guidelines": [],
     "tags": [
@@ -1056,12 +1106,14 @@
     "title": {
       "de": "Schaltflächen sollten beschriftet sein",
       "en": "Button should contain text",
-      "nl": "Een knop moet tekst bevatten"
+      "nl": "Een knop moet tekst bevatten",
+      "pt-br": "Botões devem conter texto"
     },
     "description": {
       "de": "Schaltflächen sollten eine Beschriftung im Element oder im \"value\"-Attribut enthalten.",
       "en": "Buttons should contain a text value within the element, or have a value attribute.",
-      "nl": "Knoppen moeten een tekstwaarde binnen het element hebben, of een waarde-attribuut."
+      "nl": "Knoppen moeten een tekstwaarde binnen het element hebben, of een waarde-attribuut.",
+      "pt-br": "Os botões devem conter um valor de texto dentro do elemento ou ter um atributo de valor."
     },
     "guidelines": {
       "wcag": {
@@ -7922,12 +7974,14 @@
     "title": {
       "de": "Prüfen Sie, ob eine Benutzereingabe notwendig ist",
       "en": "Test if user input is required",
-      "nl": "Test of er invoervelden zijn"
+      "nl": "Test of er invoervelden zijn",
+      "pt-br": "Teste se a entrada do usuário é obrigatória"
     },
     "description": {
       "de": "",
       "en": "",
-      "nl": ""
+      "nl": "",
+      "pt-br": ""
     },
     "guidelines": [],
     "tags": [
