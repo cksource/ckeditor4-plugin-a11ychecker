@@ -1153,12 +1153,14 @@
     "title": {
       "de": "Alle Checkboxen muüssen ein dazugehöriges Label haben",
       "en": "All checkboxes must have a corresponding label",
-      "nl": "Alle keuzevakjes moeten een bijbehorend label hebben"
+      "nl": "Alle keuzevakjes moeten een bijbehorend label hebben",
+      "pt-br": "Todas as caixas de seleção devem ter um rótulo correspondente"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"checkbox\" sollten ein dazugehöriges <code>label</code>-Element haben. Bildschirmleseprogramme haben oftmals eine Formular-Modus, in dem nur Labels vorgelesen werden.",
       "en": "All <code>input</code> elements with a type of \"checkbox\" should have a corresponding <code>label</code> element. Screen readers often enter a \"form mode\" where only label text is read aloud to the user",
-      "nl": "Alle  <code>input</code>-elementen met een \"keuzevakje\" moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen."
+      "nl": "Alle  <code>input</code>-elementen met een \"keuzevakje\" moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen.",
+      "pt-br": "Todos os elementos <code> input </ code> com um tipo de \"checkbox\" devem ter um elemento <code> label </ code> correspondente. Os leitores de tela costumam entrar em um \"modo de formulário\" onde somente o texto do rótulo é lido em voz alta para o usuário"
     },
     "guidelines": {
       "508": [
@@ -1216,12 +1218,14 @@
     "title": {
       "de": "Alle \"checkbox\"-Elemente sollten ein dazugehöriges Label haben",
       "en": "All \"checkbox\" input elements have a label that is close",
-      "nl": "Van alle \"keuzevakjes\" invoerelementen staat het label in de buurt"
+      "nl": "Van alle \"keuzevakjes\" invoerelementen staat het label in de buurt",
+      "pt-br": "Todos os elementos de entrada \"checkbox\" têm um rótulo que está próximo"
     },
     "description": {
       "de": "Alle Eingabeelemente vom Typ \"checkbox\" müssen ein dazugehöriges Label haben das in der Nähe des Eingabeelements positioniert ist. Nutzer von Bildschirmvergrößerung oder mit reduzierten räumlichen Fähigkeiten werden bei der Verwendung eines Formularelements behindert, wenn das Label für das Element weit entfernt positioniert ist.",
       "en": "All input elements of type \"checkbox\" must have a corresponding label that is close to the form element. Users of screen magnification or with reduced spatial skills are hampered in using a form element if the label for that element is located far away.",
-      "nl": "Alle inputelementen van het type \"keuzevakje\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat."
+      "nl": "Alle inputelementen van het type \"keuzevakje\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat.",
+      "pt-br": "Todos os elementos de entrada do tipo \"checkbox\" devem ter um rótulo correspondente próximo ao elemento do formulário. Usuários de ampliação de tela ou com habilidades espaciais reduzidas são impedidos de usar um elemento de formulário se o rótulo para esse elemento estiver localizado longe."
     },
     "guidelines": [],
     "tags": [
@@ -1241,12 +1245,14 @@
     "title": {
       "de": "Alle schließenden Tags müssen vorhanden sein, wenn erforderlich",
       "en": "All tags that require closing tags have closing tags",
-      "nl": "Alle tags die een afsluitende tag behoeven, hebben een afsluitende tag"
+      "nl": "Alle tags die een afsluitende tag behoeven, hebben een afsluitende tag",
+      "pt-br": "Todas as tags que exigem tags de fechamento têm tags de fechamento"
     },
     "description": {
       "de": "Wenn Tags wie <code>p</code>, <code>ul</code> or <code>li</code> verwendet werden, müssen sie einen schließenden Tag besitzen.",
       "en": "When using tags such as p, ul, or li, there must be a closing tag.",
-      "nl": "Gebruik voor tags als p, ul, of li altijd een afsluitende tag, dus /p, /ul, /li."
+      "nl": "Gebruik voor tags als p, ul, of li altijd een afsluitende tag, dus /p, /ul, /li.",
+      "pt-br": "Ao usar tags como p, ul ou li, deve haver uma tag de fechamento, tal como /p, /ul, /li."
     },
     "guidelines": {
       "wcag": {
@@ -1271,12 +1277,14 @@
     "title": {
       "de": "Bedeutung sollte nicht über Positionierung gegeben werden",
       "en": "Meaning should not be created through positioning",
-      "nl": "Cre�er geen betekenis door positionering"
+      "nl": "Cre�er geen betekenis door positionering",
+      "pt-br": "O significado não deve ser criado através do posicionamento"
     },
     "description": {
       "de": "Die Position sollte nicht die Bedeutung eines Elementes verändern.",
       "en": "Positioning should not be used to change the meaning of an element.",
-      "nl": "Positionering moet niet worden gebruikt om de betekenis van een element te veranderen."
+      "nl": "Positionering moet niet worden gebruikt om de betekenis van een element te veranderen.",
+      "pt-br": "O posicionamento não deve ser usado para alterar o significado de um elemento."
     },
     "guidelines": {
       "wcag": {
@@ -1316,12 +1324,14 @@
     "title": {
       "de": "Das Dokument muss lesbar sein, wenn die Stylesheets deaktiviert sind",
       "en": "The document must be readable with styles turned off",
-      "nl": "Het document moet leesbaar zijn met stijlen uit"
+      "nl": "Het document moet leesbaar zijn met stijlen uit",
+      "pt-br": "O documento deve ser legível com estilos desligados"
     },
     "description": {
       "de": "Wenn alle Stylesheets für die Seite deaktiviert sind, sollte der Inhalt der Seite immernoch sinnvoll sein. Versuchen Sie die Stylesheets zu deaktivieren und prüfen Sie, ob der Inhalt dann noch lesbar und verständlich ist.",
       "en": "With all the styles for a page turned off, the content of the page should still make sense. Try to turn styles off in the browser and see if the page content is readable and clear.",
-      "nl": "Als alle stijlen voor een pagina zijn uitgezet, moet de content van de pagina nog steeds betekenisvol zijn. Zet stijlen uit in de browser en controleer of de content op de pagina nog steeds leesbaar en duidelijk is."
+      "nl": "Als alle stijlen voor een pagina zijn uitgezet, moet de content van de pagina nog steeds betekenisvol zijn. Zet stijlen uit in de browser en controleer of de content op de pagina nog steeds leesbaar en duidelijk is.",
+      "pt-br": "Com todos os estilos para uma página desativada, o conteúdo da página ainda deve fazer sentido. Tente desativar estilos no navegador e verifique se o conteúdo da página é legível e claro."
     },
     "guidelines": {
       "wcag": {
@@ -1355,12 +1365,14 @@
     "title": {
       "de": "Alle Elemente sollten einen angemessenen Farbkontrast haben",
       "en": "All elements should have appropriate color contrast",
-      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben"
+      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben",
+      "pt-br": "Todos os elementos devem ter o contraste de cor apropriado"
     },
     "description": {
       "de": "Für farbenblinde Benutzer sollten alle Texte und andere Elemente ein Kontrastverhältnis von 5:1 haben.",
       "en": "For users who have color blindness, all text or other elements should have a color contrast of 5:1.",
-      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1."
+      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1.",
+      "pt-br": "Para usuários que têm daltonismo, todos os textos ou outros elementos devem ter um contraste de cor de 5:1."
     },
     "guidelines": {
       "wcag": {
@@ -1389,12 +1401,14 @@
     "title": {
       "de": "Alle Elemente sollten einen angemessenen Farbkontrast haben",
       "en": "All elements should have appropriate color contrast",
-      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben"
+      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben",
+      "pt-br": "Todos os elementos devem ter o contraste de cor apropriado"
     },
     "description": {
       "de": "Für farbenblinde Benutzer sollten alle Texte und andere Elemente ein Kontrastverhältnis von 5:1 haben.",
       "en": "For users who have color blindness, all text or other elements should have a color contrast of 5:1.",
-      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1."
+      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1.",
+      "pt-br": "Para usuários que têm daltonismo, todos os textos ou outros elementos devem ter um contraste de cor de 5:1."
     },
     "guidelines": {
       "wcag": {
@@ -1423,12 +1437,14 @@
     "title": {
       "de": "Alle Elemente sollten einen angemessenen Farbkontrast haben",
       "en": "All elements should have appropriate color contrast",
-      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben"
+      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben",
+      "pt-br": "Todos os elementos devem ter o contraste de cor apropriado"
     },
     "description": {
       "de": "Für farbenblinde Benutzer sollten alle Texte und andere Elemente ein Kontrastverhältnis von 5:1 haben.",
       "en": "For users who have color blindness, all text or other elements should have a color contrast of 5:1.",
-      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1."
+      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1.",
+      "pt-br": "Para usuários que têm daltonismo, todos os textos ou outros elementos devem ter um contraste de cor de 5:1."
     },
     "guidelines": {
       "wcag": {
@@ -1457,12 +1473,14 @@
     "title": {
       "de": "Alle Elemente sollten einen angemessenen Farbkontrast haben",
       "en": "All elements should have appropriate color contrast",
-      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben"
+      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben",
+      "pt-br": "Todos os elementos devem ter o contraste de cor apropriado"
     },
     "description": {
       "de": "Für farbenblinde Benutzer sollten alle Texte und andere Elemente ein Kontrastverhältnis von 5:1 haben.",
       "en": "For users who have color blindness, all text or other elements should have a color contrast of 5:1.",
-      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1."
+      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1.",
+      "pt-br": "Para usuários que têm daltonismo, todos os textos ou outros elementos devem ter um contraste de cor de 5:1."
     },
     "guidelines": {
       "wcag": {
@@ -1491,12 +1509,14 @@
     "title": {
       "de": "Alle Elemente sollten einen angemessenen Farbkontrast haben",
       "en": "All elements should have appropriate color contrast",
-      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben"
+      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben",
+      "pt-br": "Todos os elementos devem ter o contraste de cor apropriado"
     },
     "description": {
       "de": "Für farbenblinde Benutzer sollten alle Texte und andere Elemente ein Kontrastverhältnis von 5:1 haben.",
       "en": "For users who have color blindness, all text or other elements should have a color contrast of 5:1.",
-      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1."
+      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1.",
+      "pt-br": "Para usuários que têm daltonismo, todos os textos ou outros elementos devem ter um contraste de cor de 5:1."
     },
     "guidelines": {
       "wcag": {
@@ -1525,12 +1545,14 @@
     "title": {
       "de": "Alle Elemente sollten einen angemessenen Farbkontrast haben",
       "en": "All elements should have appropriate color contrast",
-      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben"
+      "nl": "Alle elementen moeten een toepasselijk kleurcontract hebben",
+      "pt-br": "Todos os elementos devem ter o contraste de cor apropriado"
     },
     "description": {
       "de": "Für farbenblinde Benutzer sollten alle Texte und andere Elemente ein Kontrastverhältnis von 5:1 haben.",
       "en": "For users who have color blindness, all text or other elements should have a color contrast of 5:1.",
-      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1."
+      "nl": "Voor gebruikers met kleurenblindheid moeten alle tekst- en andere elementen een kleurcontrast hebben van 5:1.",
+      "pt-br": "Para usuários que têm daltonismo, todos os textos ou outros elementos devem ter um contraste de cor de 5:1."
     },
     "guidelines": {
       "wcag": {
@@ -1559,12 +1581,14 @@
     "title": {
       "de": "Eine Definitionsliste sollte zum definieren von Begriffen verwendet werden",
       "en": "Use a definition list for defining terms",
-      "nl": "Gebruik een definition list voor definities"
+      "nl": "Gebruik een definition list voor definities",
+      "pt-br": "Use uma lista de definições para definir termos"
     },
     "description": {
       "de": "Das \"dl\"-Element sollte verwendet werden, um eine Definitionsliste zum definieren von Begriffen zu erstellen",
       "en": "When providing a list of terms or definitions, use a definition list.",
-      "nl": "Wanneer er gebruik wordt gemaakt van een lijst termen of definities, gebruik hiervoor dan een definition list."
+      "nl": "Wanneer er gebruik wordt gemaakt van een lijst termen of definities, gebruik hiervoor dan een definition list.",
+      "pt-br": "Ao fornecer uma lista de termos ou definições, use uma lista de definições."
     },
     "guidelines": {
       "wcag": {
@@ -1586,12 +1610,14 @@
     "title": {
       "de": "Das Dokument sollte eine valide \"doctype\"-Deklaration enthalten",
       "en": "The document should contain a valid \"doctype\" declaration",
-      "nl": "Het document moet een geldige \"doctype\"-verklaring hebben"
+      "nl": "Het document moet een geldige \"doctype\"-verklaring hebben",
+      "pt-br": "O documento deve conter uma declaração \"doctype\" válida"
     },
     "description": {
       "de": "Jedes Dokument muss eine valide DOCTYPE-Deklaration enthalten.",
       "en": "Each document must contain a valid doctype declaration.",
-      "nl": "Ieder document moet een geldige doctype-verklaring hebben."
+      "nl": "Ieder document moet een geldige doctype-verklaring hebben.",
+      "pt-br": "Cada documento deve conter uma declaração válida de doctype."
     },
     "guidelines": [],
     "tags": [
@@ -1605,12 +1631,14 @@
     "title": {
       "de": "Abkürzungen müssen mit einem \"abbr\"-Element gekennzeichnet werden",
       "en": "Abbreviations must be marked with an \"abbr\" element",
-      "nl": "Afkortingen moeten worden gemarkeerd met een \"abbr\"-element"
+      "nl": "Afkortingen moeten worden gemarkeerd met een \"abbr\"-element",
+      "pt-br": "As abreviações devem ser marcadas com um elemento \"abbr\""
     },
     "description": {
       "de": "Abkürzungen sollten mindestens einmal pro Seite mit einem <code>abbr</code>-Element gekennzeichnet werden.",
       "en": "Abbreviations should be marked with an <code>abbr</code> element, at least once on the page for each abbreviation.",
-      "nl": "Afkortingen moeten worden gemarkeerd door middel van het <code>abbr</code>-element. Doe dit ten minste een keer per pagina voor elke afkorting."
+      "nl": "Afkortingen moeten worden gemarkeerd door middel van het <code>abbr</code>-element. Doe dit ten minste een keer per pagina voor elke afkorting.",
+      "pt-br": "As abreviações devem ser marcadas com um elemento <code>abbr</code>, pelo menos uma vez na página para cada abreviatura."
     },
     "guidelines": {
       "wcag": {
@@ -1636,12 +1664,14 @@
     "title": {
       "de": "Akronyme müssen mit einem \"acronym\"-Element gekennzeichnet werden",
       "en": "Acronyms must be marked with an \"acronym\" element",
-      "nl": "Acroniemen moeten worden gemarkeerd met een \"acronym\"-element"
+      "nl": "Acroniemen moeten worden gemarkeerd met een \"acronym\"-element",
+      "pt-br": "As siglas devem ser marcadas com um elemento \"acronym\""
     },
     "description": {
       "de": "Akronyme sollten mindestens einmal pro Seite mit einem <code>acronym</code>-Element gekennzeichnet werden.",
       "en": "Acronyms should be marked with an <code>acronym</code> element, at least once on the page for each acronym.",
-      "nl": "Acroniemen moeten worden gemarkeerd door middel van het <code>acronym</code>-element. Doe dit ten minste een keer per pagina voor elke acroniem."
+      "nl": "Acroniemen moeten worden gemarkeerd door middel van het <code>acronym</code>-element. Doe dit ten minste een keer per pagina voor elke acroniem.",
+      "pt-br": "As siglas devem ser marcadas com um elemento <code>acronym</code>, pelo menos uma vez na página de cada acrônimo."
     },
     "guidelines": {
       "wcag": {
@@ -1667,12 +1697,14 @@
     "title": {
       "de": "Automatische Umleitungen per \"meta\"-Elements sind unzulässig",
       "en": "Auto-redirect with \"meta\" elements must not be used",
-      "nl": "Auto-redirect met \"meta\"-elementen moeten niet worden gebruikt"
+      "nl": "Auto-redirect met \"meta\"-elementen moeten niet worden gebruikt",
+      "pt-br": "Redirecionamento automático com elementos \"meta\" não deve ser usado"
     },
     "description": {
       "de": "Weil Benutzer unterschiedliche Geschwindigkeiten und Fähigkeiten haben, wenn es um das Erfassen von Inhalten einer Seite geht, kann die \"meta-refresh\"-Methode dazu führen, dass Benutzer den Inhalt nicht vollständig verstehen, bevor sie umgeleitet werden.",
       "en": "Because different users have different speeds and abilities when it comes to parsing the content of a page, a \"meta-refresh\" method to redirect users can prevent users from fully understanding the document before being redirected.",
-      "nl": "Omdat verschillende gebruikers verschillende snelheden en vaardigheden hebben met het scannen van content op een pagina, kan een \"meta-refresh\"-methode om gebruikers door te sturen hen verhinderen het document volledig te begrijpen voor ze worden doorgestuurd."
+      "nl": "Omdat verschillende gebruikers verschillende snelheden en vaardigheden hebben met het scannen van content op een pagina, kan een \"meta-refresh\"-methode om gebruikers door te sturen hen verhinderen het document volledig te begrijpen voor ze worden doorgestuurd.",
+      "pt-br": "Como diferentes usuários têm diferentes velocidades e habilidades quando se trata de analisar o conteúdo de uma página, um método de \"meta-atualização\" para redirecionar os usuários pode impedir que os usuários entendam completamente o documento antes de serem redirecionados."
     },
     "guidelines": [],
     "tags": [
@@ -1688,12 +1720,14 @@
     "title": {
       "de": "Inhalte sollten ohne Stylesheets lesbar sein",
       "en": "Content should be readable without style sheets",
-      "nl": "Content moet zonder stylesheets leesbaar zijn"
+      "nl": "Content moet zonder stylesheets leesbaar zijn",
+      "pt-br": "O conteúdo deve ser legível sem folhas de estilo"
     },
     "description": {
       "de": "Wenn alle Stylesheets für die Seite deaktiviert sind, sollte der Inhalt der Seite immernoch sinnvoll sein. Versuchen Sie die Stylesheets zu deaktivieren und prüfen Sie, ob der Inhalt dann noch lesbar und verständlich ist.",
       "en": "With all the styles for a page turned off, the content of the page should still make sense. Try to turn styles off in the browser and see if the page content is readable and clear.",
-      "nl": "Ook als alle stijlen voor een pagina zijn uitgezet, moet de content van de pagina nog steeds betekenisvol zijn. Zet de stylesheets uit in de browser en controleer of de content nog steeds leesbaar en duidelijk is."
+      "nl": "Ook als alle stijlen voor een pagina zijn uitgezet, moet de content van de pagina nog steeds betekenisvol zijn. Zet de stylesheets uit in de browser en controleer of de content nog steeds leesbaar en duidelijk is.",
+      "pt-br": "Com todos os estilos para uma página desativada, o conteúdo da página ainda deve fazer sentido. Tente desativar estilos no navegador e verifique se o conteúdo da página é legível e claro."
     },
     "guidelines": {
       "508": [
@@ -1731,12 +1765,14 @@
     "title": {
       "de": "Das Dokument sollte ein \"title\"-Element haben",
       "en": "The document should have a title element",
-      "nl": "Het document moet een titelelement hebben"
+      "nl": "Het document moet een titelelement hebben",
+      "pt-br": "O documento deve ter um elemento de título"
     },
     "description": {
       "de": "Das Dokument sollte ein \"title\"-Element haben",
       "en": "The document should have a title element.",
-      "nl": "Het document moet een titelelement hebben."
+      "nl": "Het document moet een titelelement hebben.",
+      "pt-br": "O documento deve ter um elemento de título."
     },
     "guidelines": {
       "wcag": {
@@ -1761,12 +1797,14 @@
     "title": {
       "de": "Alle \"id\"-Attribute von Elementen müssen einmalig sein",
       "en": "All element \"id\" attributes must be unique",
-      "nl": "Alle element \"id\"-attributen moeten uniek zijn"
+      "nl": "Alle element \"id\"-attributen moeten uniek zijn",
+      "pt-br": "Todos os atributos \"id\" dos elementos devem ser único"
     },
     "description": {
       "de": "Alle \"id\"-Attribute von Elementen müssen einmalig sein",
       "en": "Element \"id\" attributes must be unique.",
-      "nl": "Element \"id\"-attributen moeten uniek zijn."
+      "nl": "Element \"id\"-attributen moeten uniek zijn.",
+      "pt-br": "O atributo \"id\" de um elemento deve ser único"
     },
     "guidelines": {
       "wcag": {
@@ -1790,12 +1828,14 @@
     "title": {
       "de": "Das Dokument sollte zur Zielgruppe passend geschrieben und deutlich lesbar sein.",
       "en": "The document should be written to the target audience and read clearly",
-      "nl": "Het document moet geschreven zijn op het niveau van de doelgroep"
+      "nl": "Het document moet geschreven zijn op het niveau van de doelgroep",
+      "pt-br": "O documento deve ser escrito para o público-alvo e ser lido claramente"
     },
     "description": {
       "de": "Bei umfangreichen Dokumenten sollte eine Zusammenfassung oder eine Hilfestellung für das Verständnis des Inhalts vorgesehen werden.",
       "en": "If a document is beyond a 10th grade level, then a summary or other guide should also be provided to guide the user through the content.",
-      "nl": "Als de inhoud van een document moeilijker is dan het vastgestelde taalniveau, moet een samenvatting of andere begeleiding worden toegevoegd om de gebruiker te helpen met de content."
+      "nl": "Als de inhoud van een document moeilijker is dan het vastgestelde taalniveau, moet een samenvatting of andere begeleiding worden toegevoegd om de gebruiker te helpen met de content.",
+      "pt-br": "Se um documento está além de um nível de 10ª série, um guia de resumo ou outro também deve ser fornecido para orientar o usuário através do conteúdo."
     },
     "guidelines": {
       "wcag": {
@@ -1821,12 +1861,14 @@
     "title": {
       "de": "Das \"language\"-Attribut des Dokumentes sollte einen ISO-Standardcode enthalten",
       "en": "The document's language attribute should be a standard code",
-      "nl": "Het language-attribuut van het document moet een standaard code zijn"
+      "nl": "Het language-attribuut van het document moet een standaard code zijn",
+      "pt-br": "O atributo de idioma do documento deve ser um código padrão"
     },
     "description": {
       "de": "Das Dokument sollte eine Standardsprache haben und diese Sprache sollte durch einen validen 2- bis 3-stelligen Sprachcode nach ISO 639 gekennzeichnet sein.",
       "en": "The document should have a default langauge, and that language should use the valid 2 or 3 letter language code according to ISO specification 639.",
-      "nl": "Het document moet een standaardtaal hebben en die taal moet de geldige 2- of 3-letterige taalcode hebben volgens de ISO-specificatie 639."
+      "nl": "Het document moet een standaardtaal hebben en die taal moet de geldige 2- of 3-letterige taalcode hebben volgens de ISO-specificatie 639.",
+      "pt-br": "O documento deve ter um idioma padrão, e esse idioma deve usar o código de idioma válido de 2 ou 3 letras de acordo com a especificação ISO 639."
     },
     "guidelines": {
       "wcag": {
@@ -1852,12 +1894,14 @@
     "title": {
       "de": "Das Dokument muss ein \"lang\"-Attribut haben.",
       "en": "The document must have a \"lang\" attribute",
-      "nl": "Het document moet een \"lang\"-attribuut hebben"
+      "nl": "Het document moet een \"lang\"-attribuut hebben",
+      "pt-br": "O documento deve ter um atributo \"lang\""
     },
     "description": {
       "de": "Das Dokument sollte eine Standardsprache haben, die im \"lang\"-Attribut im <code>HTML</code>-Element gesetzt ist.",
-      "en": "The document should have a default langauge, by setting the \"lang\" attribute in the <code>html</code> element.",
-      "nl": "Het document moet een standaardtaal hebben, vastgelegd in het \"lang\"-attribuut in het <code>html</code>-element."
+      "en": "The document should have a default language, by setting the \"lang\" attribute in the <code>html</code> element.",
+      "nl": "Het document moet een standaardtaal hebben, vastgelegd in het \"lang\"-attribuut in het <code>html</code>-element.",
+      "pt-br": "O documento deve ter um idioma padrão, definindo o atributo \"lang\" no elemento <code>html</code>."
     },
     "guidelines": [],
     "tags": [
@@ -1874,12 +1918,14 @@
     "title": {
       "de": "Meta-Elemente dürfen nicht zum Aktualisieren der Seite verwendet werden",
       "en": "Meta elements must not be used to refresh the content of a page",
-      "nl": "Meta-elementen mogen niet worden gebruikt om content op een pagina te verversen"
+      "nl": "Meta-elementen mogen niet worden gebruikt om content op een pagina te verversen",
+      "pt-br": "Meta elementos não devem ser usados ​​para atualizar o conteúdo de uma página"
     },
     "description": {
       "de": "Weil Benutzer unterschiedliche Geschwindigkeiten und Fähigkeiten haben, wenn es um das Erfassen von Inhalten einer Seite geht, kann die \"meta-refresh\"-Methode dazu führen, dass Benutzer den Inhalt nicht vollständig verstehen, bevor sie umgeleitet werden. Verwenden Sie eine \"Inhalt aktualisieren\"-Verknüpfung.",
       "en": "Because different users have different speeds and abilities when it comes to parsing the content of a page, a \"meta-refresh\" method to reload the content of the page can prevent users from having full access to the content. Try to use a \"refresh this\" link instead.",
-      "nl": "Omdat verschillende gebruikers verschillende snelheden en vaardigheden hebben met het scannen van content op een pagina, kan een \"meta-refresh\"-methode om de pagina te herladen gebruikers hinderen in toegang tot de content. Gebruik een \"refresh this\" link hiervoor."
+      "nl": "Omdat verschillende gebruikers verschillende snelheden en vaardigheden hebben met het scannen van content op een pagina, kan een \"meta-refresh\"-methode om de pagina te herladen gebruikers hinderen in toegang tot de content. Gebruik een \"refresh this\" link hiervoor.",
+      "pt-br": "Como diferentes usuários têm diferentes velocidades e habilidades quando se trata de analisar o conteúdo de uma página, um método de \"meta-refresh\" para recarregar o conteúdo da página pode impedir que os usuários tenham acesso total ao conteúdo. Tente usar um link \"atualizar este\" em vez disso."
     },
     "guidelines": {
       "wcag": {
@@ -1915,12 +1961,14 @@
     "title": {
       "de": "Die Leserichtung des Textes ist korrekt angegeben",
       "en": "Reading direction of text is correctly marked",
-      "nl": "De leesrichting van de tekst staat juist aangegeven"
+      "nl": "De leesrichting van de tekst staat juist aangegeven",
+      "pt-br": "Direção de leitura do texto está marcada corretamente"
     },
     "description": {
       "de": "Wenn notwendig, muss die Leserichtung (für Sprachen mit abweichender Leserichtung) für das Dokument oder Textabschnitte deklariert sein.",
       "en": "Where required, the reading direction of the document (for language that read in different directions), or portions of the text, must be declared.",
-      "nl": "Voor talen die een andere leesrichting hebben, moet de leesrichting van (een deel van) de tekst in een document worden opgenomen."
+      "nl": "Voor talen die een andere leesrichting hebben, moet de leesrichting van (een deel van) de tekst in een document worden opgenomen.",
+      "pt-br": "Quando necessário, deve ser declarada a direção de leitura do documento (para o idioma que lê em direções diferentes) ou partes do texto."
     },
     "guidelines": {
       "wcag": {
@@ -1945,12 +1993,14 @@
     "title": {
       "de": "Die Seite verwendet einen strikten DOCTYPE",
       "en": "The page uses a strict doctype",
-      "nl": "De pagina gebruikt een strikt doctype"
+      "nl": "De pagina gebruikt een strikt doctype",
+      "pt-br": "A página usa um doctype estrito"
     },
     "description": {
       "de": "Der Doctype Seite sollte entweder HTML Strict oder XHTML Strict sein.",
       "en": "The doctype of the page or document should be either an HTML or XHTML strict doctype.",
-      "nl": "Het doctype van een pagina of document moet een HTML of XHTML strikt doctype zijn."
+      "nl": "Het doctype van een pagina of document moet een HTML of XHTML strikt doctype zijn.",
+      "pt-br": "O doctype da página ou documento deve ser um doctype HTML ou XHTML estrito."
     },
     "guidelines": [],
     "tags": [
@@ -1965,12 +2015,14 @@
     "title": {
       "de": "Der Titel beschreibt das Dokument",
       "en": "The title describes the document",
-      "nl": "De titel beschrijft het document"
+      "nl": "De titel beschrijft het document",
+      "pt-br": "O título descreve o documento"
     },
     "description": {
       "de": "Der Dokumententitel sollte die Seite beschreiben. Bildschirmleseprogramme verwenden oft den Titel um von Fenster zu Fenster zu navigieren.",
       "en": "The document title should actually describe the page. Often, screen readers use the title to navigate from one window to another.",
-      "nl": "De documenttitel moet een beschrijving zijn van de pagina. Schermlezen gebruiken de titels van pagina's om van het ene naar het andere scherm te navigeren."
+      "nl": "De documenttitel moet een beschrijving zijn van de pagina. Schermlezen gebruiken de titels van pagina's om van het ene naar het andere scherm te navigeren.",
+      "pt-br": "O título do documento deve realmente descrever a página. Muitas vezes, os leitores de tela usam o título para navegar de uma janela para outra."
     },
     "guidelines": {
       "wcag": {
@@ -1996,12 +2048,14 @@
     "title": {
       "de": "Der Dokumententitel sollte kein Platzhaltertext sein",
       "en": "The document title should not be placeholder text",
-      "nl": "De documenttitle moet geen placeholder tekst zijn"
+      "nl": "De documenttitle moet geen placeholder tekst zijn",
+      "pt-br": "O título do documento não deve ser um texto de espaço reservado"
     },
     "description": {
       "de": "Der Dokumententitel sollte nicht durch einen Platzhalter verschwendet werden, der die Seite nicht beschreibt.",
       "en": "The document title should not be wasted placeholder text which does not describe the page.",
-      "nl": "De documenttitel moet geen placeholder tekst zijn die geen goede beschrijving van de pagina is."
+      "nl": "De documenttitel moet geen placeholder tekst zijn die geen goede beschrijving van de pagina is.",
+      "pt-br": "O título do documento não deve ser desperdiçado com um texto que não descreve a página."
     },
     "guidelines": {
       "wcag": {
@@ -2031,12 +2085,14 @@
     "title": {
       "de": "Der Dokumententitel sollte kurz sein",
       "en": "The document title should be short",
-      "nl": "De documenttitel moet kort zijn"
+      "nl": "De documenttitel moet kort zijn",
+      "pt-br": "O título do documento deve ser curto"
     },
     "description": {
       "de": "Der Dokumententitel sollte kurz und prägnant sein. Dieser Test schlägt bei 150 Zeichen fehl, es sollte aber als Empfehlung aufgefasst werden.",
       "en": "The document title should be short and succinct. This test fails at 150 characters, but authors should consider this to be a suggestion.",
-      "nl": "De documenttitel moet kort en beknopt zijn. Probeer bij een titel langer dan 150 tekense de titel in te korten waar mogelijk."
+      "nl": "De documenttitel moet kort en beknopt zijn. Probeer bij een titel langer dan 150 tekense de titel in te korten waar mogelijk.",
+      "pt-br": "O título do documento deve ser curto e sucinto. Este teste falha em 150 caracteres, mas os autores devem considerar isso como uma sugestão."
     },
     "guidelines": [],
     "tags": [
@@ -2051,12 +2107,14 @@
     "title": {
       "de": "Das Dokument sollte keinen leeren Titel haben",
       "en": "The document should not have an empty title",
-      "nl": "Het document mag geen lege titel hebben"
+      "nl": "Het document mag geen lege titel hebben",
+      "pt-br": "O documento não deve ter um título vazio"
     },
     "description": {
       "de": "Das Dokument sollte einen Titel haben, der nicht leer ist.",
       "en": "The document should have a title element that is not white space.",
-      "nl": "Het document moet een titelelement hebben dat is ingevuld."
+      "nl": "Het document moet een titelelement hebben dat is ingevuld.",
+      "pt-br": "O documento deve ter um elemento de título que não seja espaço em branco."
     },
     "guidelines": {
       "wcag": {
@@ -2087,12 +2145,14 @@
     "title": {
       "de": "Das Dokument muss sich gegen den Doctype validieren lassen",
       "en": "Document must validate to the doctype",
-      "nl": "Het document moet valideren met het doctype"
+      "nl": "Het document moet valideren met het doctype",
+      "pt-br": "Documento deve validar para o doctype"
     },
     "description": {
       "de": "Das Dokument muss sich gegen den Doctype validieren lassen",
       "en": "The document must validate to the declared doctype.",
-      "nl": "Het document moet valideren met het vastgestelde doctype."
+      "nl": "Het document moet valideren met het vastgestelde doctype.",
+      "pt-br": "O documento deve validar para o doctype declarado."
     },
     "guidelines": {
       "wcag": {
@@ -2115,12 +2175,14 @@
     "title": {
       "de": "Listen sollten mittels Listen-Markup deklariert werden",
       "en": "Lists of items should be marked using list markup",
-      "nl": "Lijsten moeten gemarkeerd worden als ordered of unordered lists"
+      "nl": "Lijsten moeten gemarkeerd worden als ordered of unordered lists",
+      "pt-br": "As listas de itens devem ser marcadas usando marcação de lista"
     },
     "description": {
       "de": "Verwende die sortierten (<code>ol</code>) oder unsortierten (<code>ul</code>) Listen-Elemente anstelle von Zeilenumbrüchen mit Zahlen oder Zeichen, um Listen auszuzeichen.",
       "en": "Use the ordered or unordered (bulleted) list elements to mark lists instead of using new lines that start with numbers or other characters to create a visual list.",
-      "nl": "Gebruik ordered (<code>ol</code>) of unordered (<code>ul</code>) elementen voor lijsten, in plaats van een nieuwe regel per item aan te maken die je laat beginnen met een nummer of teken om een visuele lijst te maken."
+      "nl": "Gebruik ordered (<code>ol</code>) of unordered (<code>ul</code>) elementen voor lijsten, in plaats van een nieuwe regel per item aan te maken die je laat beginnen met een nummer of teken om een visuele lijst te maken.",
+      "pt-br": "Use os elementos de lista ordenados ou não ordenados (com marcadores) para marcar listas em vez de usar novas linhas que começam com números ou outros caracteres para criar uma lista visual."
     },
     "guidelines": {
       "wcag": {
@@ -2149,12 +2211,14 @@
     "title": {
       "de": "Stellen Sie sicher, dass die visuelle Reihenfolge der Seitet mit dem DOM übereinstimmt",
       "en": "Ensure that the visual order of the page matches the DOM",
-      "nl": "Zorg ervoor dat de visuele ordening van de pagina overeenkomt met de DOM"
+      "nl": "Zorg ervoor dat de visuele ordening van de pagina overeenkomt met de DOM",
+      "pt-br": "Certifique-se de que a ordem visual da página corresponde ao DOM"
     },
     "description": {
       "de": "Wenn Sie Positionierungstechniken verwenden, stellen Sie sicher, dass die visuelle Reihenfolge mit dem Document Object Model (DOM) übereinstimmt.",
       "en": "When using positioning techniques, make sure that the visual order of the page matches the DOM.",
-      "nl": "Wanneer je gebruik maakt van positioneringstechnieken, zorg er dan voor dat de visuele ordening van de pagina overeenkomt met de DOM."
+      "nl": "Wanneer je gebruik maakt van positioneringstechnieken, zorg er dan voor dat de visuele ordening van de pagina overeenkomt met de DOM.",
+      "pt-br": "Ao usar técnicas de posicionamento, certifique-se de que a ordem visual da página corresponde ao DOM."
     },
     "guidelines": {
       "wcag": {
@@ -2183,12 +2247,14 @@
     "title": {
       "de": "Attribute sollten mit Leerzeichen getrennt sein und in Anführungszeichen gesetzt werden",
       "en": "Attributes should have spaces between them and be wrapped in quotes",
-      "nl": "Attributen moeten gescheiden zijn door spaties en ze moeten tussen aanhalingstekens"
+      "nl": "Attributen moeten gescheiden zijn door spaties en ze moeten tussen aanhalingstekens",
+      "pt-br": "Os atributos devem ter espaços entre eles e ser envolvidos entre aspas"
     },
     "description": {
       "de": "Attribute sollten mit Leerzeichen getrennt sein und in Anführungszeichen gesetzt werden.",
       "en": "Attributes should have spaces between them and be wrapped in quotes",
-      "nl": "Tussen attributen moeten spaties staan en ze moeten tussen aanhalingstekens staan."
+      "nl": "Tussen attributen moeten spaties staan en ze moeten tussen aanhalingstekens staan.",
+      "pt-br": "Os atributos devem ter espaços entre eles e ser envolvidos entre aspas"
     },
     "guidelines": {
       "4.1.1": {
@@ -2205,12 +2271,14 @@
     "title": {
       "de": "Alle \"embed\"-Elemente sollten ein zugehöriges \"noembed\"-Element haben",
       "en": "All \"embed\" elements have an associated \"noembed\" element",
-      "nl": "Alle \"embed\" elementen moeten een bijbehorend \"noembed\"-element hebben"
+      "nl": "Alle \"embed\" elementen moeten een bijbehorend \"noembed\"-element hebben",
+      "pt-br": "Todos os elementos \"embed\" têm um elemento \"noembed\" associado"
     },
     "description": {
       "de": "Da einige Benutzer das <code>embed</code>-Element nicht verwenden können, sollte eine alternativer Inhalt im <code>noembed</code>-Element angeboten werden.",
       "en": "Because some users cannot use the <code>embed</code> element, provide alternative content in a <code>noembed</code> element.",
-      "nl": "Sommige gebruikers kunnen het <code>embed</code>-element niet gebruiken. Biedt hiervoor alternatieve content aan in een <code>noembed</code>-element."
+      "nl": "Sommige gebruikers kunnen het <code>embed</code>-element niet gebruiken. Biedt hiervoor alternatieve content aan in een <code>noembed</code>-element.",
+      "pt-br": "Como alguns usuários não podem usar o elemento <code> embed </code>, forneça conteúdo alternativo em um elemento <code> noembed </code>."
     },
     "guidelines": [],
     "tags": [
@@ -2226,12 +2294,14 @@
     "title": {
       "de": "Elemente sollten keine doppelten Attribute haben",
       "en": "Elements should not have duplicate attributes",
-      "nl": "Elementen mogen geen dubbele attributen hebben"
+      "nl": "Elementen mogen geen dubbele attributen hebben",
+      "pt-br": "Elementos não devem ter atributos duplicados"
     },
     "description": {
       "de": "Elemente sollten jedes Attribut nur einmal haben. Zum Beispiel dürfen keine zwei \"class\"-Attribute vorhanden sein.",
       "en": "Elements should only have one type of any attribute. For example, there should not be two 'class' attributes.",
-      "nl": "Elementen mogen maar een type attribuut hebben. Er mogen bijvoorbeeld niet twee 'class'-attributen zijn."
+      "nl": "Elementen mogen maar een type attribuut hebben. Er mogen bijvoorbeeld niet twee 'class'-attributen zijn.",
+      "pt-br": "Os elementos devem ter apenas um tipo de qualquer atributo. Por exemplo, não deve haver dois atributos 'class'."
     },
     "guidelines": [],
     "tags": [
@@ -2251,12 +2321,14 @@
     "title": {
       "de": "\"Embed\"-Elemente müssen ein \"alt\"-Attribut haben",
       "en": "\"Embed\" elements must have an \"alt\" attribute",
-      "nl": "\"Embed\"-elementen moeten een \"alt\"-attribuut hebben"
+      "nl": "\"Embed\"-elementen moeten een \"alt\"-attribuut hebben",
+      "pt-br": "Elementos \"embed\" devem ter um atributo \"alt\""
     },
     "description": {
       "de": "Alle <code>embed</code>-Elemente müssen ein \"alt\"-Attribut haben.",
       "en": "All <code>embed</code> elements must have an \"alt\" attribute.",
-      "nl": "Alle <code>embed</code>-elementen moeten een \"alt\"-attribuut hebben."
+      "nl": "Alle <code>embed</code>-elementen moeten een \"alt\"-attribuut hebben.",
+      "pt-br": "Todos os elementos <code>embed</code> devem ter um atributo \"alt\"."
     },
     "guidelines": [],
     "tags": [
@@ -2274,12 +2346,14 @@
     "title": {
       "de": "\"Embed\"-Elemente dürfen kein leeres \"alt\"-Attribut haben",
       "en": "\"Embed\" elements cannot have an empty \"alt\" attribute",
-      "nl": "\"Embed\"-elementen mogen geen leeg \"alt\"-attribuut hebben"
+      "nl": "\"Embed\"-elementen mogen geen leeg \"alt\"-attribuut hebben",
+      "pt-br": "Elementos \"embed\" não podem ter um atributo \"alt\" vazio"
     },
     "description": {
       "de": "Alle <code>embed</code>-Elemente müssen ein \"alt\"-Attribut haben, dass nicht leer ist.",
       "en": "All <code>embed</code> elements must have an \"alt\" attribute that is not empty.",
-      "nl": "Alle <code>embed</code>-elementen moeten een gevuld \"alt\"-attribuut hebben."
+      "nl": "Alle <code>embed</code>-elementen moeten een gevuld \"alt\"-attribuut hebben.",
+      "pt-br": "Todos os elementos <code>embed</code> devem ter um atributo \"alt\" que não esteja vazio."
     },
     "guidelines": [],
     "tags": [
@@ -2297,12 +2371,14 @@
     "title": {
       "de": "Alle <code>embed</code>-Elemente sollten einen Weg für Tastatur-Benutzern bieten das Element zu verlassen.",
       "en": "All embed elements should provide a way for keyboard users to escape",
-      "nl": "Alle embed-elementen moeten een manier bieden voor toetsenbordgebruikers om het element te verlaten"
+      "nl": "Alle embed-elementen moeten een manier bieden voor toetsenbordgebruikers om het element te verlaten",
+      "pt-br": "Todos os elementos 'embed' devem fornecer uma maneira para que os usuários do teclado escapem"
     },
     "description": {
       "de": "Stellen Sie sicher, dass <code>embed</code>-Elemente einem Tastatur-Benutzer die Möglichkeit zum Verlassen des Elements bietet. Dies muss manuell getestet werden.",
       "en": "Ensure that a user who has only a keyboard as an input device can escape an <code>embed</code> element. This requires manual confirmation.",
-      "nl": "Zorg ervoor dat een gebruiker die alleen het toetsenbord gebruikt voor bediening een <code>embed</code>-element kan verlaten. Hiervoor is handmatige bevestiging nodig."
+      "nl": "Zorg ervoor dat een gebruiker die alleen het toetsenbord gebruikt voor bediening een <code>embed</code>-element kan verlaten. Hiervoor is handmatige bevestiging nodig.",
+      "pt-br": "Certifique-se de que um usuário que tenha apenas um teclado como um dispositivo de entrada pode escapar de um elemento <code>embed</code>. Isso requer confirmação manual."
     },
     "guidelines": {
       "wcag": {
@@ -2328,12 +2404,14 @@
     "title": {
       "de": "Emoticons sollten nicht exzessiv genutzt werden",
       "en": "Emoticons should not be used excessively",
-      "nl": "Gebruik emoticons spaarzaam"
+      "nl": "Gebruik emoticons spaarzaam",
+      "pt-br": "Emoticons não devem ser usados ​​excessivamente"
     },
     "description": {
       "de": "Emoticons sollten nicht exzessiv genutzt werden um Gefühle oder Inhalte zu kommunizieren. Versuchen Sie das Dokument so umzuschreiben, dass der Inhalt durch den Text wiedergegeben wird oder betten Sie Emoticons in ein <code>abbr</code>-Element ein. Emoticons werden von Bildschirmleseprogrammen nicht vorgelesen und werden oft verwendet, um Gefühle mitzuteilen, die für das Verständnis des Dokuments notwendig sind.",
       "en": "Emoticons should not be used excessively to communicate feelings or content. Try to rewrite the document to have more textual meaning, or wrapping the emoticons in an <code>abbr</code> element as outlined below. Emoticons are not read by screen-readers, and are often used to communicate feelings or other things which are relevant to the content of the document.",
-      "nl": "Gebruik emoticons spaarzaam om gevoel of content over te brengen. Probeer het document te herschrijven in tekst, of geef de emoticons een <code>abbr</code>-element. Emoticons worden niet voorgelezen door schermlezers, maar bevatten wel vaak informatie die relevant is voor de content van het document."
+      "nl": "Gebruik emoticons spaarzaam om gevoel of content over te brengen. Probeer het document te herschrijven in tekst, of geef de emoticons een <code>abbr</code>-element. Emoticons worden niet voorgelezen door schermlezers, maar bevatten wel vaak informatie die relevant is voor de content van het document.",
+      "pt-br": "Emoticons não devem ser usados ​​excessivamente para comunicar sentimentos ou conteúdo. Tente reescrever o documento para ter mais significado textual ou envolver os emoticons em um elemento <code>abbr</code> conforme descrito abaixo. Emoticons não são lidos por leitores de tela, e são freqüentemente usados ​​para comunicar sentimentos ou outras coisas que são relevantes para o conteúdo do documento."
     },
     "guidelines": {
       "wcag": {
@@ -2357,12 +2435,14 @@
     "title": {
       "de": "Emoticons sollten Abkürzungen haben",
       "en": "Emoticons should have abbreviations",
-      "nl": "Emoticons moeten afkortingen hebben"
+      "nl": "Emoticons moeten afkortingen hebben",
+      "pt-br": "Emoticons devem ter abreviaturas"
     },
     "description": {
       "de": "Emoticons werden von Bildschirmleseprogrammen nicht vorgelesen und werden oft verwendet, um Gefühle mitzuteilen, die für das Verständnis des Dokuments notwendig sind. Wenn ein Emoticon inhaltlich relevant ist, verwenden Sie ein \"abbr\"-Element oder \"acronym\"-Element, um zu markieren.",
       "en": "Emoticons are not read by screen-readers, and are often used to communicate feelings or other things which are relevant to the content of the document. If this emoticon is important content, mark it up with an \"abbr\" or \"acronym\" tag.",
-      "nl": "Emoticons worden niet voorgelezen door schermlezers, maar bevatten wel vaak informatie die relevant is voor de content van het document. Als een emoticon belangrijke content is, gebruik dan een \"abbr\" or \"acronym\" tag om het te markeren."
+      "nl": "Emoticons worden niet voorgelezen door schermlezers, maar bevatten wel vaak informatie die relevant is voor de content van het document. Als een emoticon belangrijke content is, gebruik dan een \"abbr\" or \"acronym\" tag om het te markeren.",
+      "pt-br": "Emoticons não são lidos por leitores de tela, e são frequentemente usados ​​para comunicar sentimentos ou outras coisas que são relevantes para o conteúdo do documento. Se este emoticon for conteúdo importante, marque-o com uma tag \"abbr\" ou \"acronym\"."
     },
     "guidelines": {
       "wcag": {
@@ -2386,12 +2466,14 @@
     "title": {
       "de": "Fieldsets benötigen ein \"label\"-Element",
       "en": "Fieldsets require a label element",
-      "nl": "Fieldsets behoeven een label-element"
+      "nl": "Fieldsets behoeven een label-element",
+      "pt-br": "Fieldsets requerem um elemento label"
     },
     "description": {
       "de": "Fieldsets zur Gruppierung von gleichen Formular-Elementen, bspw. Checkboxen, sollten ein Label haben, welches die Gruppierung beschreibt.",
       "en": "Fieldsets used to group similar form elements like checkboxes should have a label that describes the group of elements.",
-      "nl": "Fieldsets die een groep gelijkwaardige elementen bevatten moeten een label hebben die deze groep elementen beschrijft."
+      "nl": "Fieldsets die een groep gelijkwaardige elementen bevatten moeten een label hebben die deze groep elementen beschrijft.",
+      "pt-br": "Fieldsets usados ​​para agrupar elementos de formulário semelhantes como caixas de seleção devem ter um rótulo que descreve o grupo de elementos."
     },
     "guidelines": {
       "wcag": {
@@ -2426,12 +2508,14 @@
     "title": {
       "de": "Alle \"file\"-Eingabeelemente haben ein dazugehöriges Label",
       "en": "All \"file\" input elements have a corresponding label",
-      "nl": "Alle \"file\"-invoerelementen hebben een bijbehorend label"
+      "nl": "Alle \"file\"-invoerelementen hebben een bijbehorend label",
+      "pt-br": "Todos os elementos de entrada \"file\" têm um rótulo correspondente"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"file\" sollten ein dazugehöriges <code>label</code>-Element haben. Bildschirmleseprogramme haben oftmals eine Formular-Modus, in dem nur Labels vorgelesen werden.",
       "en": "All <code>input</code> elements of type \"file\" should have a corresponding <code>label</code> element. Screen readers often enter a \"form mode\" where only label text is read aloud to the user.",
-      "nl": "Alle <code>input</code>-elementen van het type \"file\" moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen."
+      "nl": "Alle <code>input</code>-elementen van het type \"file\" moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen.",
+      "pt-br": "Todos os elementos <code> input </code> do tipo \"file\" devem ter um elemento <code> label </code> correspondente. Os leitores de tela costumam entrar em um \"modo de formulário\" onde somente o texto da etiqueta é lido em voz alta para o usuário."
     },
     "guidelines": {
       "508": [
@@ -2478,12 +2562,14 @@
     "title": {
       "de": "Alle \"file\"-Eingabeelemente sollten ein dazugehöriges Label haben",
       "en": "All \"file\" input elements have a label that is close",
-      "nl": "Van alle \"file\"-invoerelementen staat het label in de buurt"
+      "nl": "Van alle \"file\"-invoerelementen staat het label in de buurt",
+      "pt-br": "Todos os elementos de entrada \"file\" têm um rótulo que está próximo"
     },
     "description": {
       "de": "Alle Eingabeelemente vom Typ \"file\" müssen ein dazugehöriges Label haben das in der Nähe des Eingabeelements positioniert ist. Nutzer von Bildschirmvergrößerung oder mit reduzierten räumlichen Fähigkeiten werden bei der Verwendung eines Formularelements behindert, wenn das Label für das Element weit entfernt positioniert ist.",
       "en": "All input elements of type \"file\" must have a corresponding label that is close to the form element. Users of screen magnification or with reduced spatial skills are hampered in using a form element if the label for that element is located far away.",
-      "nl": "Alle inputelementen van het type \"file\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat."
+      "nl": "Alle inputelementen van het type \"file\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat.",
+      "pt-br": "Todos os elementos de entrada do tipo \"arquivo\" devem ter um rótulo correspondente que esteja próximo ao elemento do formulário. Usuários de ampliação de tela ou com habilidades espaciais reduzidas são impedidos de usar um elemento de formulário se o rótulo para esse elemento estiver localizado longe."
     },
     "guidelines": [],
     "tags": [
@@ -2502,12 +2588,14 @@
     "title": {
       "de": "Focus indicators müssen gut sichtbar sein",
       "en": "Focus indicators have high visibility",
-      "nl": "Focus indicators moeten goed zichtbaar zijn"
+      "nl": "Focus indicators moeten goed zichtbaar zijn",
+      "pt-br": "Indicadores de foco têm alta visibilidade"
     },
     "description": {
       "de": "Wenn ein focus indicator verwendet wird, sollte es ausreichend Kontrast zum Hintergrund aufweisen und groß genug sein, um sichtbar zu sein.",
       "en": "When a focus indicator is used, it should have enough contrast with the background and big enough to be highly visible.",
-      "nl": "Wanneer je een focus indicator gebruikt, moet het contrast tussen de indicator en de achtergrond groot genoeg zijn in verband met de zichtbaarheid."
+      "nl": "Wanneer je een focus indicator gebruikt, moet het contrast tussen de indicator en de achtergrond groot genoeg zijn in verband met de zichtbaarheid.",
+      "pt-br": "Quando um indicador de foco é usado, ele deve ter bastante contraste com o fundo e grande o suficiente para ser altamente visível."
     },
     "guidelines": {
       "wcag": {
@@ -2536,12 +2624,14 @@
     "title": {
       "de": "Font.Elemente sollten nicht verwendet werden",
       "en": "Font elements should not be used",
-      "nl": "Het font element moet niet worden gebruikt"
+      "nl": "Het font element moet niet worden gebruikt",
+      "pt-br": "Os elementos de fonte não devem ser usados"
     },
     "description": {
       "de": "Der <code>basefont</code-Tag ist deprecated und sollte nicht verwendet werden. Verwenden Sie anstelle dessen Stylesheets.",
       "en": "The <code>basefont</code> tag is deprecated and should not be used. Investigate using stylesheets instead.",
-      "nl": "De <code>basefont</code>-tag is afgekeurd en moet niet worden gebruikt. Gebruik in plaats hiervan stylesheets."
+      "nl": "De <code>basefont</code>-tag is afgekeurd en moet niet worden gebruikt. Gebruik in plaats hiervan stylesheets.",
+      "pt-br": "A tag <code> basefont </code> está obsoleta e não deve ser usada. Investigue usando folhas de estilo."
     },
     "guidelines": [],
     "tags": [
@@ -2570,12 +2660,14 @@
     "title": {
       "de": "\"input\"-Elemente für button, submit oder reset müssen ein \"value\"-Attribut haben",
       "en": "Input elements for button, submit, or reset must have a value attribute",
-      "nl": "Invoerelementen voor knoppen, indienen of resetten moeten een waarde-attribuut hebben"
+      "nl": "Invoerelementen voor knoppen, indienen of resetten moeten een waarde-attribuut hebben",
+      "pt-br": "Elementos de entrada para botão, enviar ou redefinir devem ter um atributo de valor"
     },
     "description": {
       "de": "Jedes <code>form</code>-Element, welches als Schaltfläche (\"button\") angezeigt wird, muss ein lesbares \"value\"-Attribut haben.",
       "en": "Any form element that is rendered as a button has to have a readable value attribute.",
-      "nl": "Elk invoerelement dat eruit ziet als een knop moet een leesbaar waarde-attribuut hebben."
+      "nl": "Elk invoerelement dat eruit ziet als een knop moet een leesbaar waarde-attribuut hebben.",
+      "pt-br": "Qualquer elemento de formulário que é processado como um botão tem que ter um atributo de valor legível."
     },
     "guidelines": {
       "wcag": {
@@ -2611,12 +2703,14 @@
     "title": {
       "de": "Das Löschen von Elementen über Formulare sollte rückgängig gemacht werden können",
       "en": "Deleting items using a form should be reversable",
-      "nl": "De verwijdering van een item in een formulier moet ongedaan gemaakt kunnen worden"
+      "nl": "De verwijdering van een item in een formulier moet ongedaan gemaakt kunnen worden",
+      "pt-br": "Excluir itens usando um formulário deve ser reversível"
     },
     "description": {
       "de": "Wenn ein Formular die Option bietet ein Element zu löschen, stellen Sie sicher, dass der Benutzer den Vorgang rückgängig machen kann oder den Löschvorgang zuvor bestätigen muss. Dies muss manuell getestet werden.",
       "en": "Check that, if a form has the option to delete an item, that the user has a chance to either reverse the delete process, or is asked for confirmation before the item is deleted. This is not something that can be checked through automated testing and requires manual confirmation.",
-      "nl": "Controleer of een gebruiker de verwijdering van een invoer in een formulier ongedaan kan maken wanneer het mogelijk is om een invoer te verwijderen. Dit kan niet met een automatische test en moet handmatig gecontroleerd en bevestigd worden."
+      "nl": "Controleer of een gebruiker de verwijdering van een invoer in een formulier ongedaan kan maken wanneer het mogelijk is om een invoer te verwijderen. Dit kan niet met een automatische test en moet handmatig gecontroleerd en bevestigd worden.",
+      "pt-br": "Verifique se, se um formulário tem a opção de excluir um item, que o usuário tem a chance de inverter o processo de exclusão ou é solicitada confirmação antes que o item seja excluído. Isso não é algo que pode ser verificado através de testes automatizados e requer confirmação manual."
     },
     "guidelines": [],
     "tags": [
@@ -2633,12 +2727,14 @@
     "title": {
       "de": "Formulare erlauben es dem Benutzer die Eingabe zu prüfen, bevor eine irreversible Aktion durchgeführt wird",
       "en": "Forms offer the user a way to check the results of their form before performing an irrevocable action",
-      "nl": "Formulieren bieden gebruikers de gelegenheid om hun formulier te controleren voor ze een onomkeerbare actie uitvoeren"
+      "nl": "Formulieren bieden gebruikers de gelegenheid om hun formulier te controleren voor ze een onomkeerbare actie uitvoeren",
+      "pt-br": "Os formulários oferecem ao usuário uma maneira de verificar os resultados de seu formulário antes de executar uma ação irrevogável"
     },
     "description": {
       "de": "Wenn ein Formular eine irreversible Aktion durchführt, bspw. eine Bestellung, muss sichergestellt werden, dass der Benutzer die Eingabe vor dem Absenden des Formulars prüfen kann. Dies muss manuell getestet werden.",
       "en": "If the form allows users to perform some irrevocable action, like ordreing a product, ensure that users have the ability to review the contents of the form they submitted first. This is not something that can be checked through automated testing and requires manual confirmation.",
-      "nl": "Als een formulier een gebruiker toestaat om een onomkeerbare actie uit te voeren, zoals het bestellen van een product, zorg er dan voor dat ze eerst het formulier kunnen controleren. Dit kan niet met een automatische test en moet handmatig gecontroleerd en bevestigd worden."
+      "nl": "Als een formulier een gebruiker toestaat om een onomkeerbare actie uit te voeren, zoals het bestellen van een product, zorg er dan voor dat ze eerst het formulier kunnen controleren. Dit kan niet met een automatische test en moet handmatig gecontroleerd en bevestigd worden.",
+      "pt-br": "Se o formulário permitir que os usuários executem alguma ação irrevogável, como ordenar um produto, assegure-se de que os usuários tenham a capacidade de revisar o conteúdo do formulário que enviaram primeiro. Isso não é algo que pode ser verificado através de testes automatizados e requer confirmação manual."
     },
     "guidelines": [],
     "tags": [
@@ -2655,12 +2751,14 @@
     "title": {
       "de": "Fehlermeldungen im Formular sollten beim Ausfüllen unterstützen",
       "en": "Form error messages should assist in solving errors",
-      "nl": "Foutmeldingen in formulieren moeten fouten helpen oplossen"
+      "nl": "Foutmeldingen in formulieren moeten fouten helpen oplossen",
+      "pt-br": "Mensagens de erro de formulário devem ajudar a resolver erros"
     },
     "description": {
       "de": "Wenn ein Formular Pflichtfelder hat oder der Benutzer das Formular aufgrund fehlerhafter Eingaben nicht absenden kann, sollten die Fehlermeldungen verständlich sein. Verwenden Sie die Begriffe \"Pflicht\" oder \"Fehler\" im <code>label</code>-Element des Eingabefeldes, in dem der Fehler aufgetreten ist",
       "en": "If the form has some required fields or other ways in which the user can commit an error, check that the reply is accessible. Use the words \"required\" or \"error\" within the <code>label</code> element of input items where the errors happened.",
-      "nl": "Als het formulier verplichte velden heeft of op andere manier verkeerd ingevuld kan worden, controleer dan of de bijbehorende foutmelding begrijpelijk is. Gebruik de woorden \"required\" of \"error\" in het <code>label</code>-element of in de invoeritems waar de fout is opgetredenitems where the errors happened."
+      "nl": "Als het formulier verplichte velden heeft of op andere manier verkeerd ingevuld kan worden, controleer dan of de bijbehorende foutmelding begrijpelijk is. Gebruik de woorden \"required\" of \"error\" in het <code>label</code>-element of in de invoeritems waar de fout is opgetredenitems where the errors happened.",
+      "pt-br": "Se o formulário tiver alguns campos obrigatórios ou outras formas pelas quais o usuário pode cometer um erro, verifique se a resposta está acessível. Use as palavras \"required\" ou \"error\" dentro do elemento <code> label </code> dos itens de entrada onde ocorreram os erros."
     },
     "guidelines": [],
     "tags": [
@@ -2677,12 +2775,14 @@
     "title": {
       "de": "Formulare sollten eine Absenden-Schaltfläche haben",
       "en": "Form should have a submit button",
-      "nl": "Formulieren moeten een indienknop hebben"
+      "nl": "Formulieren moeten een indienknop hebben",
+      "pt-br": "O formulário deve ter um botão de submissão de dados"
     },
     "description": {
       "de": "Formulare sollten eine Schaltfläche haben, die es dem Benutzer erlaubt zu entscheiden, wann er das Formular absendet.",
       "en": "Forms should have a button that allows the user to select when they want to submit the form.",
-      "nl": "Formulieren moeten een knop hebben waarmee de gebruiker kan bepalen wanneer zij een formulieren willen versturen."
+      "nl": "Formulieren moeten een knop hebben waarmee de gebruiker kan bepalen wanneer zij een formulieren willen versturen.",
+      "pt-br": "Os formulários devem ter um botão que permite ao usuário selecionar quando deseja enviar o formulário."
     },
     "guidelines": {
       "wcag": {
@@ -2708,12 +2808,14 @@
     "title": {
       "de": "Pflichtfelder in einem Formular sollten auch im \"label\"-Element als solche markiert sein",
       "en": "Input items which are required are marked as so in the label element",
-      "nl": "Invoervelden die verplicht zijn, zijn zo gemarkeerd in het label-element"
+      "nl": "Invoervelden die verplicht zijn, zijn zo gemarkeerd in het label-element",
+      "pt-br": "Os itens de entrada que são necessários são marcados como tal no elemento de etiqueta"
     },
     "description": {
       "de": "Pflichtfelder in Formularen sollten entsprechend gekennzeichnet sein. Es sollte kein einfaches, rotes Sternchen sein sondern als \"Pflicht\" im Text markiert sein. Der Hinweis, dass ein Feld ein Pflichtfeld ist, sollte im <code>label</code>-Element enthalten sein.",
       "en": "If a form element is required, it should be marked as so. This should not be a mere red asterisk, but instead either a 'required' image with alt text of \"required\" or the actual text \"required\". The indicator that an item is required should be included in the input element's <code>label</code> element.",
-      "nl": "Als een formulierveld verplicht is, moet het ook zichtbaar zijn. Doe dit niet alleen met een asterisk achter het veld, maar met bijvoorbeeld een afbeelding met als alttekst \"required\" of de tekst \"required\". De indicatie dat een veld verplicht is moet opgenomen zijn in het <code>label</code>-element van het invoerveld."
+      "nl": "Als een formulierveld verplicht is, moet het ook zichtbaar zijn. Doe dit niet alleen met een asterisk achter het veld, maar met bijvoorbeeld een afbeelding met als alttekst \"required\" of de tekst \"required\". De indicatie dat een veld verplicht is moet opgenomen zijn in het <code>label</code>-element van het invoerveld.",
+      "pt-br": "Se for necessário um elemento de formulário, ele deve ser marcado como tal. Este não deve ser um mero asterisco vermelho, mas sim uma imagem 'necessária' com texto alternativo de \"required\" ou o texto real \"required\". O indicador de que um item é necessário deve ser incluído no elemento <code>label</code> do elemento de entrada."
     },
     "guidelines": {
       "wcag": {
@@ -2752,12 +2854,14 @@
     "title": {
       "de": "Verwenden Sie keine Frames",
       "en": "Frames are not used",
-      "nl": "Gebruik geen frames"
+      "nl": "Gebruik geen frames",
+      "pt-br": "Os quadros não são usados"
     },
     "description": {
       "de": "Frames sollten nicht verwendet werden, um eine Seite zu organisieren",
       "en": "Frames should not be used to organize a page.",
-      "nl": "Gebruik geen frames om een pagina te organiseren."
+      "nl": "Gebruik geen frames om een pagina te organiseren.",
+      "pt-br": "Os quadros não devem ser usados ​​para organizar uma página."
     },
     "guidelines": [],
     "tags": [
@@ -2774,12 +2878,14 @@
     "title": {
       "de": "Komplexe Framesets sollten ein \"longdesc\"-Attribut enthalten",
       "en": "Complex framesets should contain a \"longdesc\" attribute",
-      "nl": "Complexe framesets moeten een \"longdesc\"-attribuut bevatten"
+      "nl": "Complexe framesets moeten een \"longdesc\"-attribuut bevatten",
+      "pt-br": "Conjuntos de quadros complexos devem conter um atributo \"longdesc\""
     },
     "description": {
       "de": "Wenn ein <code>frameset</code> drei oder mehr Frames enthält, sollte ein \"longdesc\"-Attribut verwendet werden, um den Zweck der Frames zu beschreiben.",
       "en": "If a <code>frameset</code> contains three or more frames, use a \"longdesc\" attribute to help describe the purpose of the frames.",
-      "nl": "Als een <code>frameset</code> drie of meer frames bevat, gebruik dan een \"longdesc\"-attribuut om het doel van de frames te beschrijven."
+      "nl": "Als een <code>frameset</code> drie of meer frames bevat, gebruik dan een \"longdesc\"-attribuut om het doel van de frames te beschrijven.",
+      "pt-br": "Se um <code>frameset</code> contém três ou mais quadros, use um atributo \"longdesc\" para ajudar a descrever o propósito dos quadros."
     },
     "guidelines": [],
     "tags": [
@@ -2796,12 +2902,14 @@
     "title": {
       "de": "Verwenden Sie \"frame\"-Elemente um sich wiederholenden Inhalt darzustellen",
       "en": "Use frame elements to group repeated materials",
-      "nl": "Gebruik frame-elementen om herhaalde content te groeperen"
+      "nl": "Gebruik frame-elementen om herhaalde content te groeperen",
+      "pt-br": "Use elementos de estrutura para agrupar materiais repetidos"
     },
     "description": {
       "de": "Wenn sich in einer Seite Inhaltsblöcke wiederholen, sollten Frames verwendet werden, um den gleichartigen Inhalt zu gruppieren",
       "en": "When blocks of repeated content are used on a site, use frames to group content that is the same across pages.",
-      "nl": "Wanneer blokken content op een site herhaald worden, gebruik dan frames om content die op verschillende pagina's voorkomt te groeperen."
+      "nl": "Wanneer blokken content op een site herhaald worden, gebruik dan frames om content die op verschillende pagina's voorkomt te groeperen.",
+      "pt-br": "Quando blocos de conteúdo repetido são usados ​​em um site, use quadros para agrupar conteúdo que é o mesmo em páginas."
     },
     "guidelines": {
       "wcag": {
@@ -2826,12 +2934,14 @@
     "title": {
       "de": "Die Quelle jedes Frames sollte barrierefreien Inhalt beinhalten",
       "en": "The source for each frame is accessible content.",
-      "nl": "De bron van elk frame is toegankelijke content."
+      "nl": "De bron van elk frame is toegankelijke content.",
+      "pt-br": "A fonte para cada quadro é um conteúdo acessível."
     },
     "description": {
       "de": "Jeder Frame sollte barrierefreien Inhalt enthalten und für Bildschirmleseprogramme zugänglichen Inhalt beinhalten, bspw. als HTML anstatt von Grafiken",
       "en": "Each frame should contain accessible content, and contain content accessible to screen readers, like HTML as opposed to an image.",
-      "nl": "Elk frame moet toegankelijke content bevatten, en content die toegankelijk is voor schermlezers, zoals HTML in tegenstelling tot een afbeelding."
+      "nl": "Elk frame moet toegankelijke content bevatten, en content die toegankelijk is voor schermlezers, zoals HTML in tegenstelling tot een afbeelding.",
+      "pt-br": "Cada quadro deve conter conteúdo acessível e conter conteúdo acessível aos leitores de tela, como HTML em oposição a uma imagem."
     },
     "guidelines": [],
     "tags": [
@@ -2848,12 +2958,14 @@
     "title": {
       "de": "Alle \"frame\"-Elemente sollten ein \"title\"-Attribut haben, dass den Zweck des Frames beschreibt",
       "en": "All \"frame\" elements should have a \"title\" attribute that describes the purpose of the frame",
-      "nl": "Alle \"frame\" elementen moeten een \"title\"-attribuut hebben dat het doel van het frame beschrijft"
+      "nl": "Alle \"frame\" elementen moeten een \"title\"-attribuut hebben dat het doel van het frame beschrijft",
+      "pt-br": "Todos os elementos \"frame\" devem ter um atributo \"title\" que descreva a finalidade do frame"
     },
     "description": {
       "de": "Jedes <code>frame</code>-Element sollte ein \"title\"-Attribut haben, welches den Zweck und die Funktion des Frames beschreibt",
       "en": "Each <code>frame</code> elements should have a \"title\" attribute which describes the purpose or function of the frame.",
-      "nl": "Elk <code>frame</code>-element moet een \"title\"-attribuut hebben dat het doel of de functie van het frame beschrijft."
+      "nl": "Elk <code>frame</code>-element moet een \"title\"-attribuut hebben dat het doel of de functie van het frame beschrijft.",
+      "pt-br": "Cada elemento <code>frame</code> deve ter um atributo \"title\" que descreva a finalidade ou função da moldura."
     },
     "guidelines": {
       "wcag": {
@@ -2883,12 +2995,14 @@
     "title": {
       "de": "Frames dürfen kein leeres \"title\"-Attribut haben",
       "en": "Frames cannot have empty \"title\" attributes",
-      "nl": "Frames mogen geen leeg \"title\"-attribuut hebben"
+      "nl": "Frames mogen geen leeg \"title\"-attribuut hebben",
+      "pt-br": "Os quadros não podem ter atributos \"título\" vazios"
     },
     "description": {
       "de": "Alle <code>frame</code>-Elemente müssen ein korrektes \"title\"-Attribut haben",
       "en": "All <code>frame</code> elements must have a valid \"title\" attribute.",
-      "nl": "Alle <code>frame</code>-elementen moeten een geldig \"title\"-attribuut hebben."
+      "nl": "Alle <code>frame</code>-elementen moeten een geldig \"title\"-attribuut hebben.",
+      "pt-br": "Todos os elementos <code>frame</code> devem ter um atributo \"title\" válido."
     },
     "guidelines": {
       "wcag": {
