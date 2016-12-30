@@ -3032,12 +3032,14 @@
     "title": {
       "de": "Frames dürfen kein \"title\"-Attributes haben, dass nur aus Platzhaltertext besteht",
       "en": "Frames cannot have \"title\" attributes that are just placeholder text",
-      "nl": "Frames mogen geen \"title\"-attribuut hebben met placeholdertekst"
+      "nl": "Frames mogen geen \"title\"-attribuut hebben met placeholdertekst",
+      "pt-br": "Os quadros não podem ter atributo \"title\" que são apenas texto de espaço reservado"
     },
     "description": {
       "de": "\"title\"-Attribute in Frames sollten kein einfacher Platzhaltertext wie bspw. \"frame\" enthalten.",
       "en": "Frame \"title\" attributes should not be simple placeholder text like \"frame\".",
-      "nl": "Frame \"title\"-attributen mogen geen placeholdertekst bevatten zoals \"frame\"."
+      "nl": "Frame \"title\"-attributen mogen geen placeholdertekst bevatten zoals \"frame\".",
+      "pt-br": "Atributos \"title\" de frames não devem possuir texto simples como \"frame\"."
     },
     "guidelines": {
       "wcag": {
@@ -3071,12 +3073,14 @@
     "title": {
       "de": "Alle \"frame\"-Elemente sollten ein \"title\"-Attribut haben",
       "en": "All \"frame\" elements should have a \"title\" attribute",
-      "nl": "Alle \"frame\"-elementen moeten een \"title\"-attribuut hebben"
+      "nl": "Alle \"frame\"-elementen moeten een \"title\"-attribuut hebben",
+      "pt-br": "Todos os elementos \"frame\" devem ter um atributo \"title\""
     },
     "description": {
       "de": "Jedes <code>frame</code>-Element sollte ein \"title\"-Attribut haben.",
       "en": "Each <code>frame</code> elements should have a \"title\" attribute.",
-      "nl": "Elk <code>frame</code>-elementen moeten een \"title\"-attribuut hebben."
+      "nl": "Elk <code>frame</code>-elementen moeten een \"title\"-attribuut hebben.",
+      "pt-br": "Cada elemento <code>frame</code> deve ter um atributo \"title\"."
     },
     "guidelines": {
       "wcag": {
@@ -3107,12 +3111,14 @@
     "title": {
       "de": "Das \"frameset\"-Element sollte nicht verwendet werden",
       "en": "The \"frameset\" element should not be used",
-      "nl": "Het \"frameset\"-element wordt niet gebruikt"
+      "nl": "Het \"frameset\"-element wordt niet gebruikt",
+      "pt-br": "O elemento \"frameset\" não deve ser usado"
     },
     "description": {
       "de": "Frames und Framesets sollten nicht verwendet werden, um Inhalt zu organisieren",
       "en": "Frames and framesets should not be used to organize content.",
-      "nl": "Frames en framesets moeten niet gebruikt worden om content te organiseren."
+      "nl": "Frames en framesets moeten niet gebruikt worden om content te organiseren.",
+      "pt-br": "Frames e framesets não devem ser usados para organizar o conteúdo."
     },
     "guidelines": [],
     "tags": [
@@ -3129,12 +3135,14 @@
     "title": {
       "de": "Alle Framesets sollten ein <code>noframes</code>-Element beinhalten",
       "en": "All framesets should contain a noframes section",
-      "nl": "Alle framesets moeten een noframes-sectie bevatten"
+      "nl": "Alle framesets moeten een noframes-sectie bevatten",
+      "pt-br": "Todos os framesets devem conter uma seção <code>noframes</code>"
     },
     "description": {
       "de": "Jedes <code>frameset</code> sollte ein <code>noframes</code>-Element beinhalten, welches den Inhalt des Framesets beschreibt.",
       "en": "If a <code>frameset</code> contains three or more frames, use a \"longdesc\" attribute to help describe the purpose of the frames.",
-      "nl": "Als een <code>frameset</code> drie of meer frames bevat, gebruik dan een \"longdesc\"-attribuut om het doel van de frames te beschrijven."
+      "nl": "Als een <code>frameset</code> drie of meer frames bevat, gebruik dan een \"longdesc\"-attribuut om het doel van de frames te beschrijven.",
+      "pt-br": "Se um <code>frameset</code> contém três ou mais quadros, use um atributo \"longdesc\" para ajudar a descrever o propósito dos quadros."
     },
     "guidelines": [],
     "tags": [
@@ -3150,13 +3158,15 @@
     "testability": 1,
     "title": {
       "de": "Tabellenzellen mit \"header\"-Attribut müssen eine entsprechende Datenzelle in der gleichen Tabelle mit demselben \"id\"-Attribut haben.",
-      "en": "Table cell headers attrtibutes must within the same table have an associated data cell with the same id",
-      "nl": "Tabel cellen met een headers attribuut moeten binnen dezelfde tabel een overeenkomende data cel hebben in het id attribuut dezelfde waarde"
+      "en": "Table cell headers attributes must within the same table have an associated data cell with the same id",
+      "nl": "Tabel cellen met een headers attribuut moeten binnen dezelfde tabel een overeenkomende data cel hebben in het id attribuut dezelfde waarde",
+      "pt-br": "Os atributos de cabeçalhos de tabela devem ter dentro da mesma tabela uma célula de dados associada com o mesmo id"
     },
     "description": {
       "de": "",
       "en": "",
-      "nl": ""
+      "nl": "",
+      "pt-br": ""
     },
     "guidelines": [],
     "tags": [
@@ -3172,12 +3182,14 @@
     "title": {
       "de": "Überschriften mit Level 1 können nur gefolgt werden von Level 2",
       "en": "Header level 1 can only be followed by level 2",
-      "nl": "De header die volgt op een h1 is niet h3 tot h6"
+      "nl": "De header die volgt op een h1 is niet h3 tot h6",
+      "pt-br": "Cabeçalho nível 1 só pode ser seguido por nível 2"
     },
     "description": {
       "de": "Überschriften sollten keinen Level überspringen. Auf eine <code>h1</code>-Überschrift sollte kein <code>h3</code>, <code>h4</code>, <code>h5</code> oder <code>h6</code> folgen.",
       "en": "Header order should not skip a level. Do not follow a header level 1 with a level 3, 4, 5, or 6.",
-      "nl": "Headers mogen geen niveau overslaan. Laat een <code>h1</code>-header niet volgen door een <code>h3</code>, <code>h4</code>, <code>h5</code>, of <code>h6</code>."
+      "nl": "Headers mogen geen niveau overslaan. Laat een <code>h1</code>-header niet volgen door een <code>h3</code>, <code>h4</code>, <code>h5</code>, of <code>h6</code>.",
+      "pt-br": "Ordem de cabeçalho não deve saltar um nível. Não siga um nível de cabeçalho 1 com um nível 3, 4, 5 ou 6."
     },
     "guidelines": {
       "wcag": {
@@ -3205,12 +3217,14 @@
     "title": {
       "de": "Alle <code>h1</code>-Elemente werden nicht für Formatierungen verwendet",
       "en": "All h1 elements are not used for formatting",
-      "nl": "H1-elementen worden niet gebruikt voor formatting"
+      "nl": "H1-elementen worden niet gebruikt voor formatting",
+      "pt-br": "Todos os elementos h1 não são usados para formatação"
     },
     "description": {
       "de": "Ein <code>h1</code>-Element darf nicht nur für Formatierung verwendet werden",
       "en": "An <code>h1</code> element may not be used purely for formatting.",
-      "nl": "Een <code>h1</code>-element mag niet alleen gebruikt worden voor formatting."
+      "nl": "Een <code>h1</code>-element mag niet alleen gebruikt worden voor formatting.",
+      "pt-br": "Um elemento <code>h1</code> não pode ser usado apenas para formatação."
     },
     "guidelines": {
       "wcag": {
@@ -3238,12 +3252,14 @@
     "title": {
       "de": "Überschriften mit Level 2 können nicht gefolgt werden von Level 4 bis 6",
       "en": "Header level 2 can not be followed by levels from 4 to 6",
-      "nl": "De header volgend op een h2 is geen h4, h5, of h6"
+      "nl": "De header volgend op een h2 is geen h4, h5, of h6",
+      "pt-br": "O nível de cabeçalho 2 não pode ser seguido por níveis de 4 a 6"
     },
     "description": {
       "de": "Überschriften sollten keinen Level überspringen. Auf eine <code>h2</code>-Überschrift sollte kein <code>h4</code>, <code>h5</code> oder <code>h6</code> folgen.",
       "en": "Header order should not skip a level. Do not follow a header level 2 with a level 4, 5, or 6.",
-      "nl": "Headers mogen geen niveau overslaan. Laat een <code>h2</code>-header niet volgen door een <code>h4</code>, <code>h5</code>, of <code>h6</code>."
+      "nl": "Headers mogen geen niveau overslaan. Laat een <code>h2</code>-header niet volgen door een <code>h4</code>, <code>h5</code>, of <code>h6</code>.",
+      "pt-br": "Ordem de cabeçalho não deve saltar um nível. Não siga um nível de cabeçalho 2 com um nível 4, 5 ou 6."
     },
     "guidelines": {
       "wcag": {
@@ -3271,12 +3287,14 @@
     "title": {
       "de": "Alle <code>h2</code>-Elemente werden nicht für Formatierungen verwendet",
       "en": "All h2 elements are not used for formatting",
-      "nl": "H2-elementen worden niet gebruikt voor formatting"
+      "nl": "H2-elementen worden niet gebruikt voor formatting",
+      "pt-br": "Todos os elementos <code>h2</code> não são usados para formatação"
     },
     "description": {
       "de": "Alle <code>h2</code>-Elemente dürfen nicht nur für Formatierung verwendet werden",
       "en": "An <code>h2</code> element may not be used purely for formatting.",
-      "nl": "Een <code>h2</code>-element mag niet alleen gebruikt worden voor formatting."
+      "nl": "Een <code>h2</code>-element mag niet alleen gebruikt worden voor formatting.",
+      "pt-br": "Um elemento <code>h2</code> não pode ser usado puramente para formatação."
     },
     "guidelines": {
       "wcag": {
@@ -3304,12 +3322,14 @@
     "title": {
       "de": "Überschriften mit Level 3 können nicht gefolgt werden von Level 5 und 6",
       "en": "Header level 3 can not be followed by levels 5 and 6",
-      "nl": "De header volgend op een h3 is geen h5, of h6"
+      "nl": "De header volgend op een h3 is geen h5, of h6",
+      "pt-br": "Cabeçalho nível 3 não pode ser seguido por níveis 5 e 6"
     },
     "description": {
       "de": "Überschriften sollten keinen Level überspringen. Auf eine <code>h3</code>-Überschrift sollte kein <code>h5</code> oder <code>h6</code> folgen.",
       "en": "Header order should not skip a level. Do not follow a header level 3 with a level 5 or 6.",
-      "nl": "Headers mogen geen niveau overslaan. Laat een <code>h3</code>-header niet volgen door een <code>h5</code>, of <code>h6</code>."
+      "nl": "Headers mogen geen niveau overslaan. Laat een <code>h3</code>-header niet volgen door een <code>h5</code>, of <code>h6</code>.",
+      "pt-br": "Ordem de cabeçalho não deve saltar um nível. Não siga um nível de cabeçalho 3 com um nível 5 ou 6."
     },
     "guidelines": {
       "wcag": {
@@ -3337,12 +3357,14 @@
     "title": {
       "de": "Alle <code>h3</code>-Elemente werden nicht für Formatierungen verwendet",
       "en": "All h3 elements are not used for formatting",
-      "nl": "H3-elementen worden niet gebruikt voor formatting"
+      "nl": "H3-elementen worden niet gebruikt voor formatting",
+      "pt-br": "Todos os elementos h3 não são usados para formatação"
     },
     "description": {
       "de": "Ein <code>h3</code>-Element darf nicht nur für Formatierung verwendet werden",
       "en": "An <code>h3</code> element may not be used purely for formatting.",
-      "nl": "Een <code>h3</code>-element mag niet alleen gebruikt worden voor formatting."
+      "nl": "Een <code>h3</code>-element mag niet alleen gebruikt worden voor formatting.",
+      "pt-br": "Um elemento <code>h3</code> não pode ser usado apenas para formatação."
     },
     "guidelines": {
       "wcag": {
@@ -3370,12 +3392,14 @@
     "title": {
       "de": "Überschriften mit Level 4 können nicht gefolgt werden von Level 6",
       "en": "Header level 4 can not be followed by level 6",
-      "nl": "De header volgend op een h4 is geen h6"
+      "nl": "De header volgend op een h4 is geen h6",
+      "pt-br": "Cabeçalho nível 4 não pode ser seguido por nível 6"
     },
     "description": {
       "de": "Überschriften sollten keinen Level überspringen. Auf eine <code>h4</code>-Überschrift sollte kein <code>h6</code> folgen.",
       "en": "Header order should not skip a level. Do not follow a header level 4 with level 6 header.",
-      "nl": "Headers mogen geen niveau overslaan. Laat een <code>h4/code> header niet volgen door een <code>h6</code>."
+      "nl": "Headers mogen geen niveau overslaan. Laat een <code>h4/code> header niet volgen door een <code>h6</code>.",
+      "pt-br": "Ordem de cabeçalho não deve saltar um nível. Não siga um cabeçalho nível 4 com nível 6 cabeçalho."
     },
     "guidelines": {
       "wcag": {
@@ -3403,12 +3427,14 @@
     "title": {
       "de": "Alle <code>h4</code>-Elemente werden nicht für Formatierungen verwendet",
       "en": "All h4 elements are not used for formatting",
-      "nl": "H4-elementen worden niet gebruikt voor formatting"
+      "nl": "H4-elementen worden niet gebruikt voor formatting",
+      "pt-br": "Todos os elementos h4 não são usados para formatação"
     },
     "description": {
       "de": "Ein <code>h4</code>-Element darf nicht nur für Formatierung verwendet werden",
       "en": "An <code>h4</code> element may not be used purely for formatting.",
-      "nl": "Een <code>h4</code>-element mag niet alleen gebruikt worden voor formatting."
+      "nl": "Een <code>h4</code>-element mag niet alleen gebruikt worden voor formatting.",
+      "pt-br": "Um elemento <code>h4</code> não pode ser usado apenas para formatação."
     },
     "guidelines": {
       "wcag": {
@@ -3436,12 +3462,14 @@
     "title": {
       "de": "Alle <code>h5</code>-Elemente werden nicht für Formatierungen verwendet",
       "en": "All h5 elements are not used for formatting",
-      "nl": "H5-elementen worden niet gebruikt voor formatting"
+      "nl": "H5-elementen worden niet gebruikt voor formatting",
+      "pt-br": "Todos os elementos h5 não são usados para formatação"
     },
     "description": {
       "de": "Ein <code>h5</code>-Element darf nicht nur für Formatierung verwendet werden",
       "en": "An <code>h5</code> element may not be used purely for formatting.",
-      "nl": "Een <code>h5</code>-element mag niet alleen gebruikt worden voor formatting."
+      "nl": "Een <code>h5</code>-element mag niet alleen gebruikt worden voor formatting.",
+      "pt-br": "Um elemento <code>h5</code> não pode ser usado apenas para formatação."
     },
     "guidelines": {
       "wcag": {
@@ -3466,12 +3494,14 @@
     "title": {
       "de": "Alle <code>h6</code>-Elemente werden nicht für Formatierungen verwendet",
       "en": "All h6 elements are not used for formatting",
-      "nl": "H6-elementen worden niet gebruikt voor formatting"
+      "nl": "H6-elementen worden niet gebruikt voor formatting",
+      "pt-br": "Todos os elementos h6 não são usados para formatação"
     },
     "description": {
       "de": "Ein <code>h6</code>-Element darf nicht nur für Formatierung verwendet werden",
       "en": "An <code>h6</code> element may not be used purely for formatting.",
-      "nl": "Een <code>h6</code>-element mag niet alleen gebruikt worden voor formatting."
+      "nl": "Een <code>h6</code>-element mag niet alleen gebruikt worden voor formatting.",
+      "pt-br": "Um elemento <code>h6</code> não pode ser usado apenas para formatação."
     },
     "guidelines": {
       "wcag": {
@@ -3496,12 +3526,14 @@
     "title": {
       "de": "Überschriftentext ist zu lang",
       "en": "Header text is too long",
-      "nl": "-- missing translation --"
+      "nl": "Koptekst is te lang",
+      "pt-br": "O texto do cabeçalho é muito longo"
     },
     "description": {
       "de": "Überschriften sollten keinen zu langen Text enthalten, da sie die Dokumentenstruktur zeigen sollen. Benutzer überfliegen Dokumente oft nur anhand der Überschriften.",
       "en": "Headers should not contain too long text as they're designed to show document structure. Users will often skim document only by its headings.",
-      "nl": "-- missing translation --"
+      "nl": "Headers moet niet te lang tekst bevatten als ze zijn ontworpen om de documentstructuur te tonen. Gebruikers zullen vaak magere document alleen door zijn koppen.",
+      "pt-br": "Cabeçalhos não devem conter texto muito longo como eles são projetados para mostrar a estrutura do documento. Os usuários muitas vezes identificam os documentos apenas por seus títulos."
     },
     "guidelines": {
       "wcag": {
@@ -3523,12 +3555,14 @@
     "title": {
       "de": "Alle Überschriften sollten lesbaren Text enthalten",
       "en": "All headers should contain readable text",
-      "nl": "Alle headers moeten leesbare tekst bevatten"
+      "nl": "Alle headers moeten leesbare tekst bevatten",
+      "pt-br": "Todos os cabeçalhos devem conter texto legível"
     },
     "description": {
       "de": "Benutzer mit Bildschirmleseprogrammen verwenden Überschriften wie Tabulatoren, um über die Seitenstruktur zu navigieren.",
       "en": "Users with screen readers use headings (e.g. <code>h1</code> elements), just like the tabs to navigate the structure of a page. All headings should contain either text, or images with appropriate alternative text.",
-      "nl": "Gebruikers van schermlezers gebruiken headers om via de structuur van een pagina te navigeren. Alle headers moeten daarom tekst bevatten of afbeeldingen met toepasselijk <em>alt</em>-attributen."
+      "nl": "Gebruikers van schermlezers gebruiken headers om via de structuur van een pagina te navigeren. Alle headers moeten daarom tekst bevatten of afbeeldingen met toepasselijk <em>alt</em>-attributen.",
+      "pt-br": "Os usuários com leitores de tela usam títulos (por exemplo, elementos <code>h1</code>), assim como as guias para navegar pela estrutura de uma página. Todos os títulos devem conter texto ou imagens com texto alternativo apropriado."
     },
     "guidelines": {
       "wcag": {
@@ -3563,12 +3597,14 @@
     "title": {
       "de": "Verwenden Sie Überschriften, um den Beginn des Inhalts kenntlich zu machen",
       "en": "Use header to indicate start of main content",
-      "nl": "Gebruik headers om de start van belangrijke content aan te geven"
+      "nl": "Gebruik headers om de start van belangrijke content aan te geven",
+      "pt-br": "Usar o cabeçalho para indicar o início do conteúdo principal"
     },
     "description": {
       "de": "Für jeden Hauptinhaltsbereich sollte eine Überschrift vergeben werden",
       "en": "For every main content area, indicate the beginning of the main content using a header.",
-      "nl": "Geef het begin van de belangrijkste content in elk contentvlak aan door middel van een header."
+      "nl": "Geef het begin van de belangrijkste content in elk contentvlak aan door middel van een header.",
+      "pt-br": "Para cada área de conteúdo principal, indique o início do conteúdo principal usando um cabeçalho."
     },
     "guidelines": {
       "wcag": {
@@ -3591,12 +3627,14 @@
     "title": {
       "de": "Verwenden Sie Überschriften, um den Anfang eines Absatz kenntlich zu machen",
       "en": "Use headers to mark the beginning of each section",
-      "nl": "Gebruik headers om de start van elke sectie aan te geven."
+      "nl": "Gebruik headers om de start van elke sectie aan te geven.",
+      "pt-br": "Use cabeçalhos para marcar o início de cada seção"
     },
     "description": {
       "de": "Stellen Sie sicher, dass jeder logische Abschnitt in der Seite durch eine Überschrift abgetrennt wird.",
       "en": "Check that each logical section of the page is broken or introduced with a header (h1-h6) element.",
-      "nl": "Controleer dat elke logische sectie van een pagina wordt onderbroken door of start met een header-element (h1-h6)."
+      "nl": "Controleer dat elke logische sectie van een pagina wordt onderbroken door of start met een header-element (h1-h6).",
+      "pt-br": "Verifique se cada seção lógica da página está quebrada ou introduzida com um elemento de cabeçalho (h1-h6)."
     },
     "guidelines": {
       "wcag": {
@@ -3625,12 +3663,14 @@
     "title": {
       "de": "Elemente mit einem \"idref type\"-Attribut müssen mit einem Element mit der ID korrespondieren",
       "en": "Elements with an idref type attribute must correspond to an element with an ID",
-      "nl": "Elementen met een idref type attribuut moeten corresponderen met een element met een ID"
+      "nl": "Elementen met een idref type attribuut moeten corresponderen met een element met een ID",
+      "pt-br": "Os elementos com um atributo de tipo idref devem corresponder a um elemento com um ID"
     },
     "description": {
       "de": "Wenn ein \"idref type\"-Attrbiut verwendet wird, muss das Ziel-Element mit der ID auf der Seite existieren.",
       "en": "When using an idref type attribute, the target element with the ID must exist on the page.",
-      "nl": "Wanneer je een idref type attibuut gebruikt, moet het doelelement met dit ID ook bestaan op de pagina."
+      "nl": "Wanneer je een idref type attibuut gebruikt, moet het doelelement met dit ID ook bestaan op de pagina.",
+      "pt-br": "Ao usar um atributo de tipo idref, o elemento de destino com o ID deve existir na página."
     },
     "guidelines": {
       "wcag": {
@@ -3654,12 +3694,14 @@
     "title": {
       "de": "Elemente mit einem \"idref\"-Attribut muss mit einem Element mit der ID korrespondieren",
       "en": "Elements with an idref attribute must correspond to an element with an ID",
-      "nl": "Elementen met een idref-attribuut moeten corresponderen met een element met een ID"
+      "nl": "Elementen met een idref-attribuut moeten corresponderen met een element met een ID",
+      "pt-br": "Os elementos com um atributo idref devem corresponder a um elemento com um ID"
     },
     "description": {
       "de": "",
       "en": "",
-      "nl": ""
+      "nl": "",
+      "pt-br": ""
     },
     "guidelines": {
       "wcag": {
@@ -3683,12 +3725,14 @@
     "title": {
       "de": "Das \"i\"-Element (italic) darf nicht verwendet werden",
       "en": "The \"i\" (italic) element is not used",
-      "nl": "Het \"i\"-element (cursief) wordt niet gebruikt"
+      "nl": "Het \"i\"-element (cursief) wordt niet gebruikt",
+      "pt-br": "O elemento \"i\" (itálico) não é usado"
     },
     "description": {
       "de": "Das <code>i</code>-Element (italic) bietet keine Hervorhebung für sehbehinderte Benutzer. Das <code>em</code>-Element sollte anstelle dessen verwendet werden",
       "en": "The <code>i</code> (italic) element provides no emphasis for non-sighted readers. Use the <code>em</code> tag instead.",
-      "nl": "Het <code>i</code>-element biedt geen nadruk voor slechtziende en blinde lezers. Gebruik in plaats daarvan de <code>em</code>-tag."
+      "nl": "Het <code>i</code>-element biedt geen nadruk voor slechtziende en blinde lezers. Gebruik in plaats daarvan de <code>em</code>-tag.",
+      "pt-br": "O elemento <code>i</code> (itálico) não fornece ênfase para os leitores não-videntes. Em vez disso, use a tag <code>em</code>."
     },
     "guidelines": [],
     "tags": [
@@ -3705,12 +3749,14 @@
     "title": {
       "de": "Inline-Frames (\"ifframes\") sollten kein \"longdesc\"-Attribut haben",
       "en": "Inline frames (\"iframes\") should not have a \"longdesc\" attribute",
-      "nl": "Inline frames (\"iframes\") krijgen geen \"longdesc\"-attribuut"
+      "nl": "Inline frames (\"iframes\") krijgen geen \"longdesc\"-attribuut",
+      "pt-br": "Os frames inline (\"iframes\") não devem ter um atributo \"longdesc\""
     },
     "description": {
       "de": "Inline-Frames (\"ifframes\") sollten kein \"longdesc\"-Attribut haben",
       "en": "Inline frames (iframe) should not have a \"longdesc\" attribute.",
-      "nl": "Inline frames (\"iframes\") krijgen geen \"longdesc\"-attribuut."
+      "nl": "Inline frames (\"iframes\") krijgen geen \"longdesc\"-attribuut.",
+      "pt-br": "Os frames inline (iframe) não devem ter um atributo \"longdesc\"."
     },
     "guidelines": [],
     "tags": [
@@ -3728,12 +3774,14 @@
     "title": {
       "de": "Alle Verknüpfungen in einer server-seitigen map sollten duplizierte Verknüpfungen im Dokument haben",
       "en": "All links in a server-side map should have duplicate links available in the document",
-      "nl": "Alle links in een server-side map moeten elders in het document terugkeren"
+      "nl": "Alle links in een server-side map moeten elders in het document terugkeren",
+      "pt-br": "Todos os links em um mapa do lado do servidor devem ter links duplicados disponíveis no documento"
     },
     "description": {
       "de": "Für jede Grafik mit einem \"usemap\"-Attribut, für eine server-seitige \"image map\", sollten die Verknüpfungen der \"image map\" an andere Stelle dupliziert haben",
       "en": "Any image with an \"usemap\" attribute for a server-side image map should have the available links duplicated elsewhere.",
-      "nl": "Elke afbeelding met een \"usemap\"-attribuut voor een server-side map moet de beschikbare links ook elders hebben."
+      "nl": "Elke afbeelding met een \"usemap\"-attribuut voor een server-side map moet de beschikbare links ook elders hebben.",
+      "pt-br": "Qualquer imagem com um atributo \"usemap\" para um mapa de imagem do lado do servidor deve ter os links disponíveis duplicados em outro lugar."
     },
     "guidelines": [],
     "tags": [
@@ -3751,12 +3799,14 @@
     "title": {
       "de": "Wenn eine Grafik nur für dekorative Zwecke verwendet wird, muss das \"alt\"-Attribut leer sein",
       "en": "If an image is purely decorative, the \"alt\" text must be empty",
-      "nl": "Als een afbeelding alleen ter decoratie is, moet de \"alt\"-tekst leeg zijn"
+      "nl": "Als een afbeelding alleen ter decoratie is, moet de \"alt\"-tekst leeg zijn",
+      "pt-br": "Se uma imagem é puramente decorativa, o texto \"alt\" deve estar vazio"
     },
     "description": {
       "de": "Bei jeder Grafik, die nur dekorativen Zwecken dient (ohne Funktion oder inhaltliche Bedeutung), muss das \"alt\"-Attribut leer sein",
       "en": "Any image that is only decorative (serves no function or adds to the purpose of the page content) should have an empty \"alt\" attribute.",
-      "nl": "Elke afbeelding die alleen ter decoratie is (en die dus geen functie heeft of bijdraagt aan het doel van een contentpagina) moet een leeg \"alt\"-attirbuut hebben."
+      "nl": "Elke afbeelding die alleen ter decoratie is (en die dus geen functie heeft of bijdraagt aan het doel van een contentpagina) moet een leeg \"alt\"-attirbuut hebben.",
+      "pt-br": "Qualquer imagem que seja apenas decorativa (não serve a nenhuma função ou adiciona à finalidade do conteúdo da página) deve ter um atributo \"alt\" vazio."
     },
     "guidelines": {
       "wcag": {
@@ -3781,7 +3831,8 @@
     "title": {
       "de": "Jede Grafik mit einer Verknüpfung muss einen \"alt\"-Text haben, der das Verknüpfungsziel beschreibt",
       "en": "Any image within a link must have \"alt\" text the describes the link destination",
-      "nl": "Elke afbeelding binnen een link moet een \"alt\"-tekst hebben die de bestemming van de link beschrijft"
+      "nl": "Elke afbeelding binnen een link moet een \"alt\"-tekst hebben die de bestemming van de link beschrijft",
+      "pt-br": "Qualquer imagem dentro de um link deve ter texto \"alt\" descreve o destino do link"
     },
     "description": {
       "de": "Jede Grafik in einer Verknüpfung muss einen \"alt\"-Text haben, der das Ziel und den Zweck der Verknüpfung beschreibt",
@@ -3803,12 +3854,14 @@
     "title": {
       "de": "Der Alternativtext einer Grafik sollte nicht mit dem Dateinamen übereinstimmen",
       "en": "Image alternative text should not be the same as the file name",
-      "nl": "\"Alt\"-attributen van afbeeldingen moeten niet hetzelfde zijn als de bestandsnaam"
+      "nl": "\"Alt\"-attributen van afbeeldingen moeten niet hetzelfde zijn als de bestandsnaam",
+      "pt-br": "O texto alternativo da imagem não deve ser o mesmo que o nome do arquivo"
     },
     "description": {
       "de": "Jede Grafik sollte einen aussagekräftigen Alternativtext haben. Der Dateiname ist selten aussagekräftig und reflektiert nicht immer die in der Grafik dargestellte Information.",
       "en": "All images should have a meaningful alternative text. The file name is rarely meaningful and does not always reflect information presented by the image.",
-      "nl": "Alle <code>img</code>-elementen moeten een \"alt\"-attribuut hebben dat anders is dan de bestandsnaam van de afbeelding."
+      "nl": "Alle <code>img</code>-elementen moeten een \"alt\"-attribuut hebben dat anders is dan de bestandsnaam van de afbeelding.",
+      "pt-br": "Todas as imagens devem ter um texto alternativo significativo. O nome do arquivo raramente é significativo e nem sempre reflete as informações apresentadas pela imagem."
     },
     "guidelines": {
       "508": [
@@ -3834,12 +3887,14 @@
     "title": {
       "de": "Prüfen Sie, das Texte in einer Grafik auch im \"alt\"-Attribut vorhanden sind",
       "en": "Check that any text within an image is also in the \"alt\" attribute",
-      "nl": "Controleer dat tekst in een afbeelding ook is opgenomen in het \"alt\"-attribuut"
+      "nl": "Controleer dat tekst in een afbeelding ook is opgenomen in het \"alt\"-attribuut",
+      "pt-br": "Verifique se qualquer texto dentro de uma imagem também está no atributo \"alt\""
     },
     "description": {
       "de": "Wenn eine Grafik einen Text enthält, sollte dieser auch im \"alt\"-Attribut enthalten sein",
       "en": "If an image has text within it, that text should be repeated in the \"alt\" attribute",
-      "nl": "Als een afbeelding tekst bevat, moet deze tekst herhaald worden in het \"alt\"-attribuut."
+      "nl": "Als een afbeelding tekst bevat, moet deze tekst herhaald worden in het \"alt\"-attribuut.",
+      "pt-br": "Se uma imagem tiver texto dentro dele, esse texto deve ser repetido no atributo \"alt\""
     },
     "guidelines": {
       "508": [
@@ -3868,12 +3923,14 @@
     "title": {
       "de": "Der Alternativtext der Grafik ist zu lang",
       "en": "Image alternative text is too long",
-      "nl": "Altteksten voor een afbeelding zijn kort"
+      "nl": "Altteksten voor een afbeelding zijn kort",
+      "pt-br": "O texto alternativo da imagem é muito longo"
     },
     "description": {
       "de": "Der Alternativtext der Grafik sollte kurz und prägnant sein. Es sollte geprüft werden, ob Alternativtexte die länger als 100 Zeichen sind, gekürzt werden können",
       "en": "Image alternative text should be clear and concise. Alternative text longer than 100 characters should be reviewed to see if it can be shortened.",
-      "nl": "Alle \"alt\"-attributen voor <code>img</code>-elementen moeten duidelijk en bondig zijn. Verifieer \"alt\"-attributen langer dan 100 tekens en kort ze in waar mogelijk."
+      "nl": "Alle \"alt\"-attributen voor <code>img</code>-elementen moeten duidelijk en bondig zijn. Verifieer \"alt\"-attributen langer dan 100 tekens en kort ze in waar mogelijk.",
+      "pt-br": "O texto alternativo da imagem deve ser claro e conciso. Texto alternativo com mais de 100 caracteres deve ser revisado para ver se ele pode ser encurtado."
     },
     "guidelines": {
       "508": [
@@ -3899,12 +3956,14 @@
     "title": {
       "de": "Eine Grafik innerhalb einer Verknüpfung darf keinen leeren Alternativtext haben, wenn kein anderer Text in der Verknüpfung vorkommt",
       "en": "An image within a link cannot have an empty alternative text if there is no other text within the link",
-      "nl": "Een afbeelding binnen een link mag geen leeg \"alt\"-attribuut hebben als er geen andere tekst is in de link"
+      "nl": "Een afbeelding binnen een link mag geen leeg \"alt\"-attribuut hebben als er geen andere tekst is in de link",
+      "pt-br": "Uma imagem dentro de um link não pode ter um texto alternativo vazio se não houver outro texto dentro do link"
     },
     "description": {
       "de": "Jede Grafik innerhalb einer Verknüpfung ohne Verknüpfungstext, darf keinen leeren Alternativtext haben",
       "en": "Any image that is within a link that has no other text cannot have an empty or missing alternative text.",
-      "nl": "Elke afbeelding binnen een link (een <code>a</code>-element) die geen andere tekst heeft, mag geen leeg of ontbrekend \"alt\"-attribuut hebben."
+      "nl": "Elke afbeelding binnen een link (een <code>a</code>-element) die geen andere tekst heeft, mag geen leeg of ontbrekend \"alt\"-attribuut hebben.",
+      "pt-br": "Qualquer imagem que esteja dentro de um link que não tenha outro texto não pode ter um texto alternativo vazio ou ausente."
     },
     "guidelines": {
       "508": [
@@ -3930,12 +3989,14 @@
     "title": {
       "de": "Grafiken sollten keinen einfachen Platzhaltertext im \"alt\"-Attribut haben",
       "en": "Images should not have a simple placeholder text as an \"alt\" attribute",
-      "nl": "Afbeeldingen mogen geen placeholdertkest als \"alt\"-attribuut hebben"
+      "nl": "Afbeeldingen mogen geen placeholdertkest als \"alt\"-attribuut hebben",
+      "pt-br": "As imagens não devem ter um texto de espaço reservado simples como um atributo \"alt\""
     },
     "description": {
       "de": "Jede Grafik die nicht zur Dekoration oder für das Layout verwendet wird, muss einen Alternativtext haben, der nicht nur ein Platzhalter ist",
       "en": "Any image that is not used decorativey or which is purely for layout purposes cannot have an \"alt\" attribute that consists solely of placeholders.",
-      "nl": "Elke afbeelding die niet ter decoratie is of die alleen voor lay-out doeleinden is bedoeld, mag geen \"alt\"-attribuut hebben met daarin placeholdertekst."
+      "nl": "Elke afbeelding die niet ter decoratie is of die alleen voor lay-out doeleinden is bedoeld, mag geen \"alt\"-attribuut hebben met daarin placeholdertekst.",
+      "pt-br": "Qualquer imagem que não é usada decorativamente ou que é puramente para fins de layout não pode ter um atributo \"alt\" que consiste exclusivamente em espaços reservados."
     },
     "guidelines": {
       "508": [
