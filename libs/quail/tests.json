@@ -4034,12 +4034,14 @@
     "title": {
       "de": "Der Alternativtext sollten nur einmal vorkommen, außer die Grafik wird redundant verwendet",
       "en": "Unless the image files are the same, no image should contain redundant alt text",
-      "nl": "Tenzij afbeeldingen hetzelfde zijn, mag geen enkele afbeelding dezelfde alttekst hebben"
+      "nl": "Tenzij afbeeldingen hetzelfde zijn, mag geen enkele afbeelding dezelfde alttekst hebben",
+      "pt-br": "A menos que os arquivos de imagem sejam iguais, nenhuma imagem deve conter texto alternativo redundante"
     },
     "description": {
       "de": "Jede Grafik auf einer Seite solle einen eigenen Alternativtext haben, der sich von anderen unterscheidet, um Verwirrungen oder Redundanz zu vermeiden",
       "en": "Every distinct image on a page should have it's own alt text which is different than all the others on the page to avoid redundancy and confusion.",
-      "nl": "Elke unieke afbeelding op een pagina moet zijn eigen alttekst hebben die anders is dan die van andere afbeeldingen op de pagina om dubbeling en verwarring te voorkomen."
+      "nl": "Elke unieke afbeelding op een pagina moet zijn eigen alttekst hebben die anders is dan die van andere afbeeldingen op de pagina om dubbeling en verwarring te voorkomen.",
+      "pt-br": "Cada imagem distinta em uma página deve ter seu próprio texto alternativo que é diferente de todos os outros na página para evitar redundância e confusão."
     },
     "guidelines": [],
     "tags": [
@@ -4054,12 +4056,14 @@
     "title": {
       "de": "Animierte GIFs sollte nicht flackern",
       "en": "Any animated GIF should not flicker",
-      "nl": "Geen enkele animated GIF mag knipperen of flitsen"
+      "nl": "Geen enkele animated GIF mag knipperen of flitsen",
+      "pt-br": "Qualquer GIF animado não deve piscar"
     },
     "description": {
       "de": "Animierte GIF-Dateien sollten nicht flackern (über 2 Hz und unter 55 Hz). Sie können die Flacker-Rate der GIF mit Hilfe eines <a href=\"http://tools.webaccessibile.org/test/check.aspx\">Online-Werkzeugs</a> prüfen.",
       "en": "Animated GIF files should not flicker with a frequency over 2 Hz and lower than 55 Hz. You can check the flicker rate of this GIF <a href=\"http://tools.webaccessibile.org/test/check.aspx\">using an online tool</a>.",
-      "nl": "Animated GIF-bestanden mogen niet knipperen of flitsen met een frequentie hoger dan 2 Hz en lager dan 55 Hz. Controleer de frequentie van deze GIF met een <a href=\"http://tools.webaccessibile.org/test/check.aspx\">online tool</a>."
+      "nl": "Animated GIF-bestanden mogen niet knipperen of flitsen met een frequentie hoger dan 2 Hz en lager dan 55 Hz. Controleer de frequentie van deze GIF met een <a href=\"http://tools.webaccessibile.org/test/check.aspx\">online tool</a>.",
+      "pt-br": "Arquivos GIF animados não devem piscar com uma freqüência acima de 2 Hz e inferior a 55 Hz. Você pode verificar a taxa de cintilação deste GIF <a href=\"http://tools.webaccessibile.org/test/check.aspx\"> usando uma ferramenta on-line </a>."
     },
     "guidelines": {
       "508": [
@@ -4085,12 +4089,14 @@
     "title": {
       "de": "Grafiken sollten einen Alternativtext haben",
       "en": "Images must provide alternative text",
-      "nl": "Afbeeldingselementen moeten een \"alt\"-attribuut hebben"
+      "nl": "Afbeeldingselementen moeten een \"alt\"-attribuut hebben",
+      "pt-br": "As imagens devem fornecer texto alternativo"
     },
     "description": {
       "de": "Der Alternativtext sollte dieselben Informationen liefern, wie die Grafik. Dieser Text wird verwendet, wenn Grafiken im Browser deaktiviert wurden, die Grafik auf dem Server nicht gefunden werden kann oder für sehbehinderte Benutzer, die ein Bildschirmleseprogramm verwenden.",
       "en": "Alternative text needs to convey the same information as the image. This text will be used when the browser has disabled images, the image was not found on the server, or by non-sighted visitors who use screen readers.",
-      "nl": "Alle <code>img</code>-elementen moeten een \"alt\"-attribuut hebben."
+      "nl": "Alle <code>img</code>-elementen moeten een \"alt\"-attribuut hebben.",
+      "pt-br": "O texto alternativo precisa transmitir as mesmas informações da imagem. Este texto será usado quando o navegador tiver desativado imagens, a imagem não foi encontrada no servidor ou por visitantes sem visão que usam leitores de tela."
     },
     "guidelines": {
       "508": [
@@ -4119,12 +4125,14 @@
     "title": {
       "de": "Ein \"longdesc\"-Attribut wird für jede Grafik benötigt, bei der die Informationen im \"alt\"-Attribut nicht ausreichend ist",
       "en": "A \"longdesc\" attribute is required for any image where additional information not in the \"alt\" attribute is required",
-      "nl": "Een \"longdesc\"-attribuut is verplicht voor elke afbeelding waar aanvullende informatie niet benodigd is in het \"alt\"-attribuut"
+      "nl": "Een \"longdesc\"-attribuut is verplicht voor elke afbeelding waar aanvullende informatie niet benodigd is in het \"alt\"-attribuut",
+      "pt-br": "Um atributo \"longdesc\" é necessário para qualquer imagem onde informações adicionais que não estejam no atributo \"alt\" sejam necessárias"
     },
     "description": {
       "de": "Jede Grafik mit einem \"alt\"-Attribut, welches die volle Bedeutung der Grafik nicht vollständig beschreibt, muss ein \"longdesc\"-Attribut haben",
       "en": "Any image that has an \"alt\" attribute that does not fully convey the meaning of the image must have a \"longdesc\" attribute.",
-      "nl": "Elke afbeelding die een \"alt\"-attribuut heeft dat de volledige betekenis van de afbeelding bevat, moet een \"longdesc\"-attribuut hebben."
+      "nl": "Elke afbeelding die een \"alt\"-attribuut heeft dat de volledige betekenis van de afbeelding bevat, moet een \"longdesc\"-attribuut hebben.",
+      "pt-br": "Qualquer imagem que tenha um atributo \"alt\" que não transmita completamente o significado da imagem deve ter um atributo \"longdesc\"."
     },
     "guidelines": {
       "wcag": {
@@ -4152,12 +4160,14 @@
     "title": {
       "de": "Wichtige Grafiken sollten nicht nur ein leeres \"alt\"-Attribut haben",
       "en": "Images that are important should not have a purely white-space \"alt\" attribute",
-      "nl": "Afbeeldingen die belangrijk zijn mogen geen leeg \"alt\"-attribuut hebben"
+      "nl": "Afbeeldingen die belangrijk zijn mogen geen leeg \"alt\"-attribuut hebben",
+      "pt-br": "As imagens que são importantes não devem ter um atributo \"alt\" de espaço branco"
     },
     "description": {
       "de": "Jede Grafik, die nicht nur zur Dekoration oder für das Layout verwendet wird, sollte ein \"alt\"-Attribut haben, dass nicht nur aus Leerzeichen besteht",
       "en": "Any image that is not used decorativey or which is purely for layout purposes cannot have an \"alt\" attribute that consists solely of white space (i.e. a space).",
-      "nl": "Elke afbeelding die niet ter decoratie is of die alleen voor lay-out doeleinden is bedoeld, mag geen leeg \"alt\"-attribuut hebben (bijvoorbeeld alleen een spatie)."
+      "nl": "Elke afbeelding die niet ter decoratie is of die alleen voor lay-out doeleinden is bedoeld, mag geen leeg \"alt\"-attribuut hebben (bijvoorbeeld alleen een spatie).",
+      "pt-br": "Qualquer imagem que não é usada decorativamente ou que é puramente para fins de layout não pode ter um atributo \"alt\" que consiste exclusivamente em espaço em branco (ou seja, um espaço)."
     },
     "guidelines": [],
     "tags": [
@@ -4172,12 +4182,14 @@
     "title": {
       "de": "Alle Verknüpfungen in einer client-seitigen image map sollten duplizierte Verknüpfungen im Dokument haben",
       "en": "All links within a client-side image are duplicated elsewhere in the document",
-      "nl": "Alle links met een client-side afbeelding moeten elders in het document terugkeren"
+      "nl": "Alle links met een client-side afbeelding moeten elders in het document terugkeren",
+      "pt-br": "Todos os links dentro de uma imagem do lado do cliente são duplicados em outro local do documento"
     },
     "description": {
       "de": "Für jede Grafik mit einem \"usemap\"-Attribut, für eine client-seitige \"image map\", sollten die Verknüpfungen der \"image map\" an andere Stelle dupliziert haben",
       "en": "Any image that has a \"usemap\" attribute must have links replicated somewhere else in the document.",
-      "nl": "Elke afbeelding met een \"usemap\"-attribuut moet een link elders in het document hebben."
+      "nl": "Elke afbeelding met een \"usemap\"-attribuut moet een link elders in het document hebben.",
+      "pt-br": "Qualquer imagem que tenha um atributo \"usemap\" deve ter links replicados em outro lugar no documento."
     },
     "guidelines": {
       "508": [
@@ -4197,12 +4209,14 @@
     "title": {
       "de": "Jede nicht-dekorative Grafik sollte ein nicht-leeres \"alt\"-Attribut haben",
       "en": "Any non-decorative images should have a non-empty \"alt\" attribute",
-      "nl": "Elke niet-decoratieve afbeelding moet een gevuld \"alt\"-attribuut hebben"
+      "nl": "Elke niet-decoratieve afbeelding moet een gevuld \"alt\"-attribuut hebben",
+      "pt-br": "Todas as imagens não-decorativas devem ter um atributo \"alt\" não vazio"
     },
     "description": {
       "de": "Jede Grafik die nicht zur Dekoration oder für das Layout verwendet wird, darf kein leeres \"alt\"-Attribut haben",
       "en": "Any image that is not used decorativey or which is purely for layout purposes cannot have an empty \"alt\" attribute.",
-      "nl": "Elke afbeelding die niet ter decoratie is of voor lay-out doeleinden wordt gebruikt, moet een gevuld \"alt\"-attribuut hebben."
+      "nl": "Elke afbeelding die niet ter decoratie is of voor lay-out doeleinden wordt gebruikt, moet een gevuld \"alt\"-attribuut hebben.",
+      "pt-br": "Qualquer imagem que não seja usada decorativamente ou que seja puramente para fins de layout não pode ter um atributo \"alt\" vazio."
     },
     "guidelines": {
       "508": [
@@ -4228,12 +4242,14 @@
     "title": {
       "de": "Der Alternativtext einer Grafik kann nicht nur auf eine Farbe verweisen",
       "en": "For any image, the \"alt\" text cannot refer to color alone",
-      "nl": "Voor elke afbeelding geldt dat de \"alt\"-tekst niet alleen aan kleur mag refereren"
+      "nl": "Voor elke afbeelding geldt dat de \"alt\"-tekst niet alleen aan kleur mag refereren",
+      "pt-br": "Para qualquer imagem, o texto \"alt\" não pode se referir à cor sozinho"
     },
     "description": {
       "de": "Der \"alt\"-Text oder Inhaltstext einer Grafik sollte nicht nur auf die Farbe der Grafik verweisen. Das \"alt\"-Attribut sollte die Bedeutung der Grafik beinhalten",
       "en": "The \"alt\" text or content text for any image should not refer to the image by color alone. This is often fixed by changing the \"alt\" text to the meaning of the image",
-      "nl": "De \"alt\"-tekst of content voor elke afbeelding mag niet alleen maar een kleur bevatten. Neem in de \"alt\"-tekst de betekenis van de afbeelding op."
+      "nl": "De \"alt\"-tekst of content voor elke afbeelding mag niet alleen maar een kleur bevatten. Neem in de \"alt\"-tekst de betekenis van de afbeelding op.",
+      "pt-br": "O texto \"alt\" ou texto de conteúdo para qualquer imagem não deve se referir à imagem por cor sozinho. Isso é muitas vezes corrigido alterando o texto \"alt\" para o significado da imagem"
     },
     "guidelines": {
       "508": [
@@ -4267,12 +4283,14 @@
     "title": {
       "de": "Server-seitige image maps sollten nicht verwendet werden",
       "en": "Server-side image maps should not be used",
-      "nl": "Server-side image maps moeten niet worden gebruikt"
+      "nl": "Server-side image maps moeten niet worden gebruikt",
+      "pt-br": "Mapas de imagens do lado do servidor não devem ser usados"
     },
     "description": {
       "de": "Server-seitige image maps sollten nicht verwendet werden",
       "en": "Server-side image maps should not be used.",
-      "nl": "Server-side image maps mogen niet worden gebruikt."
+      "nl": "Server-side image maps mogen niet worden gebruikt.",
+      "pt-br": "Os mapas de imagem do lado do servidor não devem ser usados."
     },
     "guidelines": [],
     "tags": [
@@ -4290,12 +4308,14 @@
     "title": {
       "de": "Grafiken sollten kein \"title\"-Attribut haben",
       "en": "Images should not have a \"title\" attribute",
-      "nl": "Afbeeldingen moeten geen \"title\"-attribuut hebben"
+      "nl": "Afbeeldingen moeten geen \"title\"-attribuut hebben",
+      "pt-br": "As imagens não devem ter um atributo \"title\""
     },
     "description": {
       "de": "Grafiken sollten kein \"title\"-Attribut haben",
       "en": "Images should not contain a \"title\" attribute.",
-      "nl": "Afbeeldingen zouden geen \"title\"-attribuut moeten bevatten."
+      "nl": "Afbeeldingen zouden geen \"title\"-attribuut moeten bevatten.",
+      "pt-br": "As imagens não devem conter um atributo \"title\"."
     },
     "guidelines": [],
     "tags": [
@@ -4312,12 +4332,14 @@
     "title": {
       "de": "Leere Alternativtexte sollte nur für dekorative Grafiken verwendet werden",
       "en": "Use empty alternative text only for decorative images",
-      "nl": ""
+      "nl": "",
+      "pt-br": "Utilize texto alternativo vazio apenas para imagens decorativas"
     },
     "description": {
       "de": "Leere Alternativtexte können nur für Grafiken verwendet werden, die rein dekorativ sind. Wenn eine Grafik eine Information übermitteln soll, muss ein korrekter Alternativtext gesetzt werden.",
       "en": "Empty alternative text can only be used if the image serves purely decoration purposes. If the image is supposed to convey any information whatsoever, you need to set a proper alternative text for it.",
-      "nl": ""
+      "nl": "",
+      "pt-br": "Texto alternativo vazio só pode ser usado se a imagem serve apenas para fins decorativos. Se a imagem é suposto para transmitir qualquer informação que seja, você precisa definir um texto alternativo adequado para ele."
     },
     "guidelines": [],
     "tags": [
@@ -4334,12 +4356,14 @@
     "title": {
       "de": "Jede Grafik mit einem \"ismap\"-Attribut muss ein korrektes \"usemap\"-Attribut haben",
       "en": "Any image with an \"ismap\" attribute have a valid \"usemap\" attribute",
-      "nl": "Elke afbeelding met een \"ismap\"-attribuut heeft een geldig \"usemap\"-attribuut"
+      "nl": "Elke afbeelding met een \"ismap\"-attribuut heeft een geldig \"usemap\"-attribuut",
+      "pt-br": "Qualquer imagem com um atributo \"ismap\" tem um atributo \"usemap\" válido"
     },
     "description": {
       "de": "Wenn eine Grafik ein \"ismap\"-Attribut hat, muss es ein korrektes \"usemap\"-Attribut haben",
       "en": "If an image has an \"ismap\" attribute it must have a valid \"usemap\" attribute.",
-      "nl": "Als een afbeelding een \"ismap\"-attribuut heeft, moet het ook een geldig \"usemap\"-attribuut hebben"
+      "nl": "Als een afbeelding een \"ismap\"-attribuut heeft, moet het ook een geldig \"usemap\"-attribuut hebben",
+      "pt-br": "Se uma imagem tem um atributo \"ismap\" ela deve ter um atributo \"usemap\" válido."
     },
     "guidelines": {
       "508": [
@@ -4362,12 +4386,14 @@
     "title": {
       "de": "Grafiken, die mathematische Gleichungen enthalten, sollten ein equivalentes MathML beinhalten",
       "en": "Images which contain math equations should provide equivalent MathML",
-      "nl": "Afbeeldingen met wiskundige vergelijking moeten een equivalent in MathML bieden"
+      "nl": "Afbeeldingen met wiskundige vergelijking moeten een equivalent in MathML bieden",
+      "pt-br": "As imagens que contêm equações matemáticas devem fornecer MathML equivalente"
     },
     "description": {
       "de": "Grafiken die eine mathematische Gleichung enthalten, sollten von einem <a href=\"http://www.w3.org/Math/\">MathML</a>-Markup oder eine Verknüpfung dazu begleitet werden.",
       "en": "Images which contain math equations should be accompanied or link to a document with the equivalent equation marked up with <a href=\"http://www.w3.org/Math/\">MathML</a>.",
-      "nl": "Afbeeldingen die wiskundige vergelijkingen bevatten moeten vergezeld zijn van of linken naar een document met daarin een equivalent van de vergelijking in <a href=\"http://www.w3.org/Math/\">MathML</a>."
+      "nl": "Afbeeldingen die wiskundige vergelijkingen bevatten moeten vergezeld zijn van of linken naar een document met daarin een equivalent van de vergelijking in <a href=\"http://www.w3.org/Math/\">MathML</a>.",
+      "pt-br": "As imagens que contêm equações matemáticas devem ser acompanhadas ou conectadas à um documento com a equação equivalente marcada com <a href=\"http://www.w3.org/Math/\"> MathML </a>."
     },
     "guidelines": [],
     "tags": [
@@ -4382,12 +4408,14 @@
     "title": {
       "de": "Alle \"checkbox\"-Eingabeelemente erfordern ein korrektes \"tabindex\"-Attribut",
       "en": "All \"checkbox\" input elements require a valid \"tabindex\" attribute",
-      "nl": "Alle \"checkbox\"-invoerelementen moeten een geldig \"tabindex\"-attribuut hebben"
+      "nl": "Alle \"checkbox\"-invoerelementen moeten een geldig \"tabindex\"-attribuut hebben",
+      "pt-br": "Todos os elementos de entrada \"checkbox\" requerem um atributo \"tabindex\" válido"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"checkbox\" sollten ein \"tabindex\"-Attribut haben, um das Navigieren per Tastatur zu unterstützen",
       "en": "All <code>input</code> elements of type \"checkbox\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
-      "nl": "Alle invoerelementen van het type \"checkbox\" moeten \"tabindex\"-attribuut hebben dat ervoor zorgt dat je door een formulier kunt navigeren met het toetsenbord."
+      "nl": "Alle invoerelementen van het type \"checkbox\" moeten \"tabindex\"-attribuut hebben dat ervoor zorgt dat je door een formulier kunt navigeren met het toetsenbord.",
+      "pt-br": "Todos os elementos <code>input</code> do tipo \"checkbox\" devem ter um atributo \"tabindex\" para ajudar a navegar no formulário com um teclado."
     },
     "guidelines": [],
     "tags": [
@@ -4409,12 +4437,14 @@
     "title": {
       "de": "Logische Gruppen von Checkboxen sollten durch ein \"fieldset\" gruppiert werden",
       "en": "Logical groups of check boxes should be grouped with a fieldset",
-      "nl": "Logische groepen van keuzevakjes moeten gegroepeerd zijn in een fieldset"
+      "nl": "Logische groepen van keuzevakjes moeten gegroepeerd zijn in een fieldset",
+      "pt-br": "Os grupos lógicos de caixas de seleção devem ser agrupados com um fieldset"
     },
     "description": {
       "de": "Zusammengehörige \"checkbox\"-Eingabefelder sollten mit Hilfe eines <code>fieldset</code> gruppiert werden.",
       "en": "Related \"checkbox\" input fields should be grouped together using a <code>fieldset</code>.",
-      "nl": "Gerelateerde \"keuzevakjes\"-invoervelden moeten bij elkaar staan in een <code>fieldset</code>."
+      "nl": "Gerelateerde \"keuzevakjes\"-invoervelden moeten bij elkaar staan in een <code>fieldset</code>.",
+      "pt-br": "Os campos de entrada \"checkbox\" relacionados devem ser agrupados usando um <code>fieldset</code>."
     },
     "guidelines": {
       "wcag": {
@@ -4437,12 +4467,14 @@
     "title": {
       "de": "Ein \"input\"-Element sollte nicht nur Farbe verwenden",
       "en": "An \"input\" element should not use color alone",
-      "nl": "Een invoerveld mag niet alleen maar kleur gebruiken"
+      "nl": "Een invoerveld mag niet alleen maar kleur gebruiken",
+      "pt-br": "Um elemento \"input\" não deve usar cor sozinho"
     },
     "description": {
       "de": "\"input\"-Elemente sollten sicht nicht nur über Farbe auf Inhalte beziehen",
       "en": "All input elements should not refer to content by color alone.",
-      "nl": "Elk invoerveld moet naar content verwijzen door middel van meer dan alleen kleur."
+      "nl": "Elk invoerveld moet naar content verwijzen door middel van meer dan alleen kleur.",
+      "pt-br": "Todos os elementos de entrada não devem referir-se ao conteúdo apenas por cor."
     },
     "guidelines": {
       "508": [
@@ -4464,12 +4496,14 @@
     "title": {
       "de": "Eingabelemente, die keine Grafiken sind, sollten kein \"alt\"-Attribut haben",
       "en": "Input elements which are not images should not have an \"alt\" attribute",
-      "nl": "Invoervelden die geen afbeelding zijn, moeten geen \"alt\"-attribuut hebben"
+      "nl": "Invoervelden die geen afbeelding zijn, moeten geen \"alt\"-attribuut hebben",
+      "pt-br": "Os elementos de entrada que não são imagens não devem ter um atributo \"alt\"."
     },
     "description": {
       "de": "Eingabeelemente, die keine Grafik sind, sollten kein \"alt\"-Attribut haben, weil dies zu Inkonsistenz bei der Benutzung von Alternativtexten führt.",
       "en": "Input elements which are not images should not have an \"alt\" attribute, because of inconsistencies in how user agents use the \"alt\" attribute.",
-      "nl": "Invoervelden die geen afbeelding zijn, moeten geen \"alt\"-attribuut hebben, omdat user agents het \"alt\"-attribuut niet consistent gebruiken."
+      "nl": "Invoervelden die geen afbeelding zijn, moeten geen \"alt\"-attribuut hebben, omdat user agents het \"alt\"-attribuut niet consistent gebruiken.",
+      "pt-br": "Os elementos de entrada que não são imagens não devem ter um atributo \"alt\", devido a inconsistências na forma como os agentes de utilizador utilizam o atributo \"alt\"."
     },
     "guidelines": [],
     "tags": [
@@ -4486,12 +4520,14 @@
     "title": {
       "de": "Alle \"file\"-Eingabeelemente erfordern ein korrektes \"tabindex\"-Attribut",
       "en": "All \"file\" input elements require a valid \"tabindex\" attribute",
-      "nl": "Alle \"document\"-invoerelementen moeten een geldig \"tabindex\"-attribuut hebben"
+      "nl": "Alle \"document\"-invoerelementen moeten een geldig \"tabindex\"-attribuut hebben",
+      "pt-br": "Todos os elementos de entrada \"file\" requerem um atributo \"tabindex\" válido"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"file\" sollten ein \"tabindex\"-Attribut haben, um das Navigieren per Tastatur zu unterstützen",
       "en": "All <code>input</code> elements of type \"file\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
-      "nl": "Alle <code>invoer</code>-elementen van het type \"file\" moeten een \"tabindex\"-attribuut hebben om navigatie van het formulier met het toetsenbord mogelijk te maken."
+      "nl": "Alle <code>invoer</code>-elementen van het type \"file\" moeten een \"tabindex\"-attribuut hebben om navigatie van het formulier met het toetsenbord mogelijk te maken.",
+      "pt-br": "Todos os elementos <code> input </ code> do tipo \"file\" devem ter um atributo \"tabindex\" para ajudar a navegar o formulário com um teclado sozinho."
     },
     "guidelines": [],
     "tags": [
@@ -4513,12 +4549,14 @@
     "title": {
       "de": "Alle \"input\"-Elemente vom typ \"image\" müssen ein \"alt\"-Attribut haben, dass die Funktion beschreibt",
       "en": "All \"input\" elements with a type of \"image\" must have an \"alt\" attribute that describes the function of the input",
-      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben dat de functie van de invoer beschrijft"
+      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben dat de functie van de invoer beschrijft",
+      "pt-br": "Todos os elementos \"input\" com um tipo de \"imagem\" devem ter um atributo \"alt\" que descreve a função da entrada"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"image\" sollten ein \"alt\"-Attribut haben",
       "en": "All <code>input</code> elements with a type of \"image\" should have an \"alt\" attribute.",
-      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben."
+      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben.",
+      "pt-br": "Todos os elementos <code> input </ code> com um tipo de \"imagem\" devem ter um atributo \"alt\"."
     },
     "guidelines": {
       "wcag": {
@@ -4543,12 +4581,14 @@
     "title": {
       "de": "Alle \"input\"-Elemente vom Typ \"image\" müssen ein \"alt\"-Attribut haben, dass nicht dem Dateinamen entspricht",
       "en": "All \"input\" elements with a type of \"image\" must have an \"alt\" attribute which is not the same as the filename",
-      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben dat anders is dan de bestandsnaam"
+      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben dat anders is dan de bestandsnaam",
+      "pt-br": "Todos os elementos \"input\" com um tipo de \"imagem\" devem ter um atributo \"alt\" que não é o mesmo que o nome do arquivo"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"image\" müssen ein \"alt\"-Attribut haben, dass nicht dem Dateinamen entspricht",
       "en": "All <code>input</code> elements with a type of \"image\" should have an \"alt\" attribute which is not the same as the filename.",
-      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben dat anders is dan de bestandsnaam."
+      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben dat anders is dan de bestandsnaam.",
+      "pt-br": "Todos os elementos <code> input </ code> com um tipo de \"imagem\" devem ter um atributo \"alt\" que não seja o mesmo que o nome do arquivo."
     },
     "guidelines": {
       "508": [
@@ -4575,12 +4615,14 @@
     "title": {
       "de": "Alle \"input\"-Elemente mit einem \"image\" müssen ein \"alt\"-Attribut haben, das kein Platzhalter ist",
       "en": "All \"input\" elements with a type of \"image\" must have an \"alt\" attribute which is not placeholder text.",
-      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben anders dan alleen placeholdertekst."
+      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben anders dan alleen placeholdertekst.",
+      "pt-br": "Todos os elementos \"input\" com um tipo de \"imagem\" devem ter um atributo \"alt\" que não seja texto de espaço reservado."
     },
     "description": {
       "de": "Alle \"input\"-Elemente mit einem \"image\" müssen ein \"alt\"-Attribut haben, das kein Platzhalter ist",
       "en": "All \"input\" elements with a type of \"image\" must have an \"alt\" attribute which is not placeholder text.",
-      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben anders dan alleen placeholdertekst."
+      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben anders dan alleen placeholdertekst.",
+      "pt-br": "Todos os elementos \"input\" com um tipo de \"imagem\" devem ter um atributo \"alt\" que não seja texto de espaço reservado."
     },
     "guidelines": {
       "508": [
@@ -4628,12 +4670,14 @@
     "title": {
       "de": "Alle \"input\"-Elemente mit einem \"image\" müssen ein \"alt\"-Attribut haben, das so kurz wie möglich ist",
       "en": "All \"input\" elements with a type of \"image\" must have an \"alt\" attribute which is as short as possible",
-      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben dat zo kort mogelijk is"
+      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben dat zo kort mogelijk is",
+      "pt-br": "Todos os elementos \"input\" com um tipo de \"imagem\" devem ter um atributo \"alt\" o mais curto possível"
     },
     "description": {
       "de": "Alle \"input\"-Elemente mit einem\"image\" müssen ein \"alt\"-Attribut haben, das so kurz wie möglich ist",
       "en": "All \"input\" elements with a type of \"image\" must have an \"alt\" attribute which is as short as possible.",
-      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben dat zo kort mogelijk is."
+      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben dat zo kort mogelijk is.",
+      "pt-br": "Todos os elementos \"input\" com um tipo de \"imagem\" devem ter um atributo \"alt\" o mais curto possível."
     },
     "guidelines": {
       "508": [
@@ -4660,12 +4704,14 @@
     "title": {
       "de": "Der \"alt\"-Text für grafische Absenden-Schaltflächen in Formularen darf kein Platzhalter sein",
       "en": "The \"alt\" text for input \"image\" submit buttons must not be filler text",
-      "nl": "De \"alt\"-tekst for \"image\"-knoppen moet anders zijn dan alleen placeholdertekst"
+      "nl": "De \"alt\"-tekst for \"image\"-knoppen moet anders zijn dan alleen placeholdertekst",
+      "pt-br": "O texto \"alt\" para entrada \"imagem\" enviar botões não deve ser texto de preenchimento"
     },
     "description": {
       "de": "Jede grafische Schaltfläche in einem Formular sollte nicht nur Platzhalter wie \"Schaltfläche\", \"Absenden\" als \"alt\"-Text haben",
       "en": "Every form image button should not simply use filler text like \"button\" or \"submit\" as the \"alt\" text.",
-      "nl": "Elke formulierknop die een afbeelding is, moet bruikbare tekst als \"alt\"-tekst hebben, anders dan \"knop\" of \"verstuur\"."
+      "nl": "Elke formulierknop die een afbeelding is, moet bruikbare tekst als \"alt\"-tekst hebben, anders dan \"knop\" of \"verstuur\".",
+      "pt-br": "Cada botão de imagem de formulário não deve simplesmente usar texto de preenchimento como \"botão\" ou \"enviar\" como o texto \"alt\"."
     },
     "guidelines": {
       "wcag": {
@@ -4692,12 +4738,14 @@
     "title": {
       "de": "Alle \"input\"-Elemente mit einem \"image\" müssen ein \"alt\"-Attribut haben",
       "en": "All \"input\" elements with a type of \"image\" must have an \"alt\" attribute",
-      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben"
+      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben",
+      "pt-br": "Todos os elementos \"input\" com um tipo de \"imagem\" devem ter um atributo \"alt\""
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente mit einem \"image\" müssen ein \"alt\"-Attribut haben",
       "en": "All <code>input</code> elements with a type of \"image\" should have an \"alt\" attribute.",
-      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben."
+      "nl": "Elk \"invoer\"-element met een type \"afbeelding\" moet een \"alt\"-attribuut hebben.",
+      "pt-br": "Todos os elementos <code>input</code> com um tipo de \"imagem\" devem ter um atributo \"alt\"."
     },
     "guidelines": {
       "508": [
@@ -4775,12 +4823,14 @@
     "title": {
       "de": "Alle \"password\"-Eingabeelemente erfordern ein korrektes \"tabindex\"-Attribut",
       "en": "All \"password\" input elements require a valid \"tabindex\" attribute",
-      "nl": "Alle \"paswoord\"-invoervelden moeten een geldig \"tabindex\"-attribuut hebben"
+      "nl": "Alle \"paswoord\"-invoervelden moeten een geldig \"tabindex\"-attribuut hebben",
+      "pt-br": "Todos os elementos de entrada \"password\" requerem um atributo \"tabindex\" válido"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"password\" sollten ein \"tabindex\"-Attribut haben, um das Navigieren per Tastatur zu unterstützen",
       "en": "All <code>input</code> elements of type \"password\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
-      "nl": "Alle <code>input</code>-elementen van het type \"paswoord\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken."
+      "nl": "Alle <code>input</code>-elementen van het type \"paswoord\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken.",
+      "pt-br": "Todos os elementos <code>input</code> do tipo \"password\" devem ter um atributo \"tabindex\" para ajudar a navegar o formulário com um teclado sozinho."
     },
     "guidelines": [],
     "tags": [
@@ -4802,12 +4852,14 @@
     "title": {
       "de": "Alle \"radio\"-Eingabeelemente erfordern ein korrektes \"tabindex\"-Attribut",
       "en": "All \"radio\" input elements require a valid \"tabindex\" attribute",
-      "nl": "Alle invoerelementen van het type \"radio\" moeten een geldig \"tabindex\"-attribuut hebben"
+      "nl": "Alle invoerelementen van het type \"radio\" moeten een geldig \"tabindex\"-attribuut hebben",
+      "pt-br": "Todos os elementos de entrada \"radio\" requerem um atributo \"tabindex\" válido"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"radio\" sollten ein \"tabindex\"-Attribut haben, um das Navigieren per Tastatur zu unterstützen",
       "en": "All <code>input</code> elements of type \"radio\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
-      "nl": "Alle <code>input</code>-elementen van het type \"radio\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken."
+      "nl": "Alle <code>input</code>-elementen van het type \"radio\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken.",
+      "pt-br": "Todos os elementos <code>input</code> do tipo \"radio\" devem ter um atributo \"tabindex\" para ajudar a navegar o formulário com um teclado sozinho."
     },
     "guidelines": [],
     "tags": [
@@ -4829,12 +4881,14 @@
     "title": {
       "de": "Alle \"submit\"-Eingabeelemente erfordern ein korrektes \"tabindex\"-Attribut",
       "en": "All \"submit\" input elements require a \"tabindex\" attribute",
-      "nl": "Alle invoerelementen van het type \"submit\" moeten een geldig \"tabindex\"-attribuut hebben"
+      "nl": "Alle invoerelementen van het type \"submit\" moeten een geldig \"tabindex\"-attribuut hebben",
+      "pt-br": "Todos os elementos de entrada \"submit\" requerem um atributo \"tabindex\"."
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"submit\" sollten ein \"tabindex\"-Attribut haben, um das Navigieren per Tastatur zu unterstützen",
       "en": "All <code>input</code> elements of type \"submit\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
-      "nl": "Alle <code>input</code>-elementen van het type \"submit\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken."
+      "nl": "Alle <code>input</code>-elementen van het type \"submit\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken.",
+      "pt-br": "Todos os elementos <code>input</code> do tipo \"submit\" devem ter um atributo \"tabindex\" para ajudar a navegar o formulário com um teclado."
     },
     "guidelines": [],
     "tags": [
@@ -4856,13 +4910,15 @@
     "title": {
       "de": "Alle \"input\"-Elemente sollten ein dazugehöriges \"label\" haben",
       "en": "All \"input\" elements should have a corresponding \"label\"",
-      "nl": "Alle invoerelementen moeten een bijbehorend \"label\" hebben"
+      "nl": "Alle invoerelementen moeten een bijbehorend \"label\" hebben",
+      "pt-br": "Todos os elementos \"input\" devem ter um elemento \"label\" correspondente"
     },
     "description": {
 
       "de": "Alle <code>input</code>-Elemente sollten ein dazugehöriges <code>label</code>-Element haben. Bildschirmleseprogramme haben oftmals eine Formular-Modus, in dem nur Labels vorgelesen werden.",
       "en": "All <code>input</code> elements should have a corresponding <code>label</code> element. Screen readers often enter a \"form mode\" where only label text is read aloud to the user",
-      "nl": "Alle <code>input</code>-elementen moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen."
+      "nl": "Alle <code>input</code>-elementen moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen.",
+      "pt-br": "Todos os elementos <code>input</code> devem ter um elemento <code>label</code> correspondente. Os leitores de tela costumam entrar em um \"modo de formulário\" onde somente o texto do rótulo é lido em voz alta para o usuário"
     },
     "guidelines": {
       "wcag": {
@@ -4914,12 +4970,14 @@
     "title": {
       "de": "Alle \"text\"-Eingabeelemente erfordern ein korrektes \"tabindex\"-Attribut",
       "en": "All \"text\" input elements require a valid \"tabindex\" attribute",
-      "nl": "Alle invoerelementen van het type \"text\" moeten een geldig \"tabindex\"-attribuut hebben"
+      "nl": "Alle invoerelementen van het type \"text\" moeten een geldig \"tabindex\"-attribuut hebben",
+      "pt-br": "Todos os elementos de entrada \"text\" requerem um atributo \"tabindex\" válido"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"text\" sollten ein \"tabindex\"-Attribut haben, um das Navigieren per Tastatur zu unterstützen",
       "en": "All <code>input</code> elements of type \"text\" should have a \"tabindex\" attribute to help navigate the form with a keyboard alone.",
-      "nl": "Alle <code>input</code>-elementen van het type \"text\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken."
+      "nl": "Alle <code>input</code>-elementen van het type \"text\" moeten een \"tabindex\"-attribuut hebben om navigatie met alleen het toetsenbord mogelijk te maken.",
+      "pt-br": "Todos os elementos <code> input </ code> do tipo \"text\" devem ter um atributo \"tabindex\" para ajudar a navegar o formulário com um teclado."
     },
     "guidelines": [],
     "tags": [
@@ -4941,12 +4999,14 @@
     "title": {
       "de": "Alle \"input\"-Elemente vom Typ \"text\" müssen einen Standard-Text haben",
       "en": "All \"input\" elements of type \"text\" must have a default text",
-      "nl": "Alle invoerelementen van het type \"text\" moeten een standaardtekst hebben"
+      "nl": "Alle invoerelementen van het type \"text\" moeten een standaardtekst hebben",
+      "pt-br": "Todos os elementos \"input\" do tipo \"text\" devem ter um texto padrão"
     },
     "description": {
       "de": "Alle <code>input</code>-Elements vom Typ \"text\" sollten einen Standard-Text haben.",
       "en": "All <code>input</code> elements of type \"text\" should have a default text.",
-      "nl": "Alle invoerelementen van het type \"text\" moeten een standaardtekst hebben."
+      "nl": "Alle invoerelementen van het type \"text\" moeten een standaardtekst hebben.",
+      "pt-br": "Todos os elementos <code>input</code> do tipo \"text\" devem ter um texto padrão."
     },
     "guidelines": [],
     "tags": [
