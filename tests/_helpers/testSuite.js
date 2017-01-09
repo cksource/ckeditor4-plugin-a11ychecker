@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2014-2016, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2014-2017, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
@@ -37,11 +37,11 @@ define( [ 'mocking', 'EngineMock' ], function( mocking, EngineMock ) {
 					loaded: 0,
 					editorsCount: CKEDITOR.tools.objectKeys( editors ).length,
 					editorLoaded: function( evt ) {
-						
+
 						if ( !loader.isDone() ) {
 							loader.loaded += 1;
 						}
-						
+
 						if ( loader.isDone() && loader.done ) {
 							loader.done();
 						}
@@ -58,7 +58,7 @@ define( [ 'mocking', 'EngineMock' ], function( mocking, EngineMock ) {
 
 			tests[ 'async:init' ] = function() {
 				var that = this;
-				
+
 				// Once every AC instance is loaded and instantiated.
 				loader.done = function() {
 					if ( !originalAsyncInit ) {
@@ -69,11 +69,11 @@ define( [ 'mocking', 'EngineMock' ], function( mocking, EngineMock ) {
 						originalAsyncInit.call( that );
 					}
 				};
-				
+
 				for ( var editorName in this.editors ) {
 					var editor = this.editors[ editorName ],
 						a11ychecker = editor._.a11ychecker;
-					
+
 					if ( a11ychecker.exec ) {
 						// If by any chance it's already real object, run synchronously.
 						// IE tends to laod it synchronously.
@@ -93,7 +93,7 @@ define( [ 'mocking', 'EngineMock' ], function( mocking, EngineMock ) {
 		 *
 		 * **It will be applied to any editor created since it's call**, since it adds a global listener.
 		 *
-		 * @param {Function} type - A type inheriting from {@link CKEDITOR.plugins.a11ychecker.Engine}, e.g. 
+		 * @param {Function} type - A type inheriting from {@link CKEDITOR.plugins.a11ychecker.Engine}, e.g.
 		 * {@link CKEDITOR.plugins.a11ychecker.EngineMock}.
 		 */
 		useEngine: function( type ) {
