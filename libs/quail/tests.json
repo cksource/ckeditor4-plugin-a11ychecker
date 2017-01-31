@@ -5028,12 +5028,14 @@
     "title": {
       "de": "Text-Eingabeelemente erfordert einen nicht-leeren Standardtext",
       "en": "Text input elements require a non-whitespace default text",
-      "nl": "Tekstinvoerelementen mogen geen lege standaardtekst hebben"
+      "nl": "Tekstinvoerelementen mogen geen lege standaardtekst hebben",
+      "pt-br": "Elementos de entrada de texto requerem um texto padrão que não permita somente espaços em branco"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"text\" sollten einen Standardtext haben, der nicht leer ist",
       "en": "All <code>input</code> elements with a type of \"text\" should have a default text which is not empty.",
-      "nl": "Alle invoerelementen van het type \"text\" moeten een standaardtekst hebben die gevuld is."
+      "nl": "Alle invoerelementen van het type \"text\" moeten een standaardtekst hebben die gevuld is.",
+      "pt-br": "Todos os elementos <code> input </code> com um tipo de \"text\" devem ter um texto padrão que não esteja vazio."
     },
     "guidelines": [],
     "tags": [
@@ -5055,12 +5057,14 @@
     "title": {
       "de": "Formular-Steuerelemente ohne \"label\" sollten ein \"title\"-Attribut haben",
       "en": "Form controls without label should have a title attribute",
-      "nl": "Formulierelementen zonder label moeten een titelattribuut hebben"
+      "nl": "Formulierelementen zonder label moeten een titelattribuut hebben",
+      "pt-br": "Os controles de formulário sem rótulo devem ter um atributo de título"
     },
     "description": {
       "de": "Wenn es nicht möglich ist ein \"label\" für ein Formular-Steuerelement zu haben, sollte es ein \"title\"-Attribut haben, welches den Zweck des Steuerelements beschreibt",
       "en": "If it is not possible to have a label for a form control, then a title attribute on the element should be provided that describes the purpose of the control.",
-      "nl": "Als een formulierelement geen label kan krijgen, dan moet een dat element een titelattribuut krijgen dat het doel van het element beschrijft."
+      "nl": "Als een formulierelement geen label kan krijgen, dan moet een dat element een titelattribuut krijgen dat het doel van het element beschrijft.",
+      "pt-br": "Se não for possível ter um rótulo para um controle de formulário, um atributo de título no elemento deve ser fornecido que descreve a finalidade do controle."
     },
     "guidelines": {
       "wcag": {
@@ -5101,12 +5105,14 @@
     "title": {
       "de": "\"label\"-Elemente sollten keine \"input\"-Elemente enthalten",
       "en": "Label elements should not contain an input element",
-      "nl": "Labelelementen moeten geen invoerelementen bevatten"
+      "nl": "Labelelementen moeten geen invoerelementen bevatten",
+      "pt-br": "Os elementos de rótulo não devem conter um elemento de entrada"
     },
     "description": {
       "de": "\"label\"-Elemente sollten kein \"input\"-Element enthalten, da diese sonst von Bildschirmleseprogrammen doppelt vorgelesen werden",
       "en": "Label elements should not wrap around another input element, as this can cause the label to be read twice by screen readers.",
-      "nl": "Labelelementen moeten niet om een ander invoerelement heenstaan, omdat dan het label twee keer kan worden voorgelezen door schermlezers."
+      "nl": "Labelelementen moeten niet om een ander invoerelement heenstaan, omdat dan het label twee keer kan worden voorgelezen door schermlezers.",
+      "pt-br": "Elementos de rótulo não devem envolver outro elemento de entrada, pois isso pode causar o rótulo para ser lido duas vezes por leitores de tela."
     },
     "guidelines": [],
     "tags": [
@@ -5123,12 +5129,14 @@
     "title": {
       "de": "Jedes Formular-Eingabeelement darf nur ein Label haben",
       "en": "Every form input must have only one label",
-      "nl": "Elk formulierinvoerveld heeft maar een label"
+      "nl": "Elk formulierinvoerveld heeft maar een label",
+      "pt-br": "Cada entrada de formulário deve ter apenas um rótulo"
     },
     "description": {
       "de": "Jedes Formular-Eingabeelement sollte nur ein <code>label</code>-Element haben",
       "en": "Each form input should have only one <code>label</code> element.",
-      "nl": "Elk formulierinvoerveld mag maar een <code>label</code> element hebben."
+      "nl": "Elk formulierinvoerveld mag maar een <code>label</code> element hebben.",
+      "pt-br": "Cada entrada de formulário deve ter apenas um elemento <code> label </code>."
     },
     "guidelines": {
       "wcag": {
@@ -5156,12 +5164,14 @@
     "title": {
       "de": "Labels müssen Text beinhalten",
       "en": "Labels must contain text",
-      "nl": "Labels moeten tekst bevatten"
+      "nl": "Labels moeten tekst bevatten",
+      "pt-br": "As etiquetas devem conter texto"
     },
     "description": {
       "de": "Labels in Formularen müssen lesbaren Text enthalten, der den Zweck des Elements beschreibt",
       "en": "Labels in forms must contain readable text that describes the target form element.",
-      "nl": "Labels in formulieren moeten leesbare tekst bevatten die het formulierelement beschrijven."
+      "nl": "Labels in formulieren moeten leesbare tekst bevatten die het formulierelement beschrijven.",
+      "pt-br": "Etiquetas em formulários devem conter texto legível que descreve o elemento de formulário de destino."
     },
     "guidelines": {
       "wcag": {
@@ -5207,12 +5217,14 @@
     "title": {
       "de": "Alle Labels müssen mit einem Eingabeelement verknüpft sein",
       "en": "All labels should be associated with an input",
-      "nl": "Alle labels moeten horen bij een invoerveld"
+      "nl": "Alle labels moeten horen bij een invoerveld",
+      "pt-br": "Todos os rótulos devem ser associados a uma entrada"
     },
     "description": {
       "de": "Alle <code>label</code>-Elemente sollten einem Eingabeelement zugewiesen sein und ein <code>for</code>-Attribut haben, welches mit dem <code>id</code>-Attribut eines Formular-Elements übereinstimmt",
       "en": "All <code>label</code> elements should be assigned to an input item, and should have a <em>for</em> attribute which equals the <em>id</em> attribute of a form element.",
-      "nl": "Alle <code>label</code>-elementen moeten horen bij een invoerveld, en moeten een een <em>for</em>-attribuut hebben dat hetzelfde is als het <em>id</em>-attribuut van een formulierelement."
+      "nl": "Alle <code>label</code>-elementen moeten horen bij een invoerveld, en moeten een een <em>for</em>-attribuut hebben dat hetzelfde is als het <em>id</em>-attribuut van een formulierelement.",
+      "pt-br": "Todos os elementos <code> label </code> devem ser atribuídos a um item de entrada e devem ter um atributo <em> para </em> que seja igual ao atributo <em> id </em> de um elemento de formulário."
     },
     "guidelines": [],
     "tags": [
@@ -5227,12 +5239,14 @@
     "title": {
       "de": "Das \"dir\"-Attribut sollte bei Änderungen der Leserichtung verwendet werden",
       "en": "Use the dir attribute when the language direction changes",
-      "nl": "Gebruik het dir-attribuut als de richting van de taal verandert"
+      "nl": "Gebruik het dir-attribuut als de richting van de taal verandert",
+      "pt-br": "Use o atributo dir quando a direção do idioma mudar"
     },
     "description": {
       "de": "Wehn verschachtelte Änderungen der Leserichtung in einem Text enthalten sind, sollte ein \"inline\"-Element mit <code>dir</code>-Attribut verwendet werden.",
       "en": "When there are nested directional changes in text, use an inline element with a <code>dir</code> attribute to indicate direction.",
-      "nl": "Gebruik een inline element met een <code>dir</code>-attribuut om richting aan te geven wanneer er geneste richtingsveranderingen in de tekst zijn."
+      "nl": "Gebruik een inline element met een <code>dir</code>-attribuut om richting aan te geven wanneer er geneste richtingsveranderingen in de tekst zijn.",
+      "pt-br": "Quando há alterações direcionais aninhadas no texto, use um elemento inline com um atributo <code> dir </code> para indicar direção."
     },
     "guidelines": {
       "wcag": {
@@ -5258,12 +5272,14 @@
     "title": {
       "de": "Das \"language\"-Attribut sollte verwendet werden, um die Leserichtung zu ändern",
       "en": "Use language attributes to indicate changes in language",
-      "nl": "Gebruik het taal-attribuut om aan te geven dat de taal verandert"
+      "nl": "Gebruik het taal-attribuut om aan te geven dat de taal verandert",
+      "pt-br": "Usar atributos de linguagem para indicar mudanças na linguagem"
     },
     "description": {
       "de": "Wenn die Sprache in einem Dokument wechselt, setzen Sie den Text mit der Sprachänderung in eine Element mit <code>lang</code>-Attribut.",
       "en": "When the language of the document changes, make sure to wrap those changes in an element with the <code>lang</code> attribute.",
-      "nl": "Als de taal van het document verandert, zet deze veranderingen dan in een element met het <code>lang</code>-attribuut."
+      "nl": "Als de taal van het document verandert, zet deze veranderingen dan in een element met het <code>lang</code>-attribuut.",
+      "pt-br": "Quando o idioma do documento é alterado, certifique-se de envolver essas alterações em um elemento com o atributo <code> lang </code>."
     },
     "guidelines": {
       "wcag": {
@@ -5289,12 +5305,14 @@
     "title": {
       "de": "Setzen Sie Satzzeichen bei Änderungen der Leserichtung in der korrekten Reihenfolge",
       "en": "Place punctuation around language direction changes in the right order",
-      "nl": "Zet interpunctie bij richtingsveranderingen in taal in de juiste volgorde"
+      "nl": "Zet interpunctie bij richtingsveranderingen in taal in de juiste volgorde",
+      "pt-br": "Coloque a pontuação em torno das mudanças na direção da linguagem na ordem correta"
     },
     "description": {
       "de": "Wenn Satzzeichen bei einer Änderung der Leserichtung verwendet werden, stellen Sie die korrekte Reihenfolge sicher",
       "en": "If punctuation is used around a change in language direction, ensure the punctuation appears in the correct place.",
-      "nl": "Als er interpunctie staat bij een richtingsverandering in de taal, zorg dat deze dan op de goede plek staat."
+      "nl": "Als er interpunctie staat bij een richtingsverandering in de taal, zorg dat deze dan op de goede plek staat.",
+      "pt-br": "Se a pontuação é usada em torno de uma mudança na direção do idioma, verifique se a pontuação aparece no lugar correto."
     },
     "guidelines": {
       "wcag": {
@@ -5320,12 +5338,14 @@
     "title": {
       "de": "Verwenden Sie die Unicode-Sprachausrichtung",
       "en": "Use the unicode language direction",
-      "nl": "Gebruik de unicode taalrichting"
+      "nl": "Gebruik de unicode taalrichting",
+      "pt-br": "Use a direção da linguagem unicode"
     },
     "description": {
       "de": "Wenn verschachtelte Änderungen der Leserichtung auftreten, verwenden Sie die Unicode-Zeichen RTL/LTR",
       "en": "When there are nested directional changes in language, use unicode RTL/LTR characters.",
-      "nl": "Gebruik de unicode RTL/LTR afkortingen als er geneste richtingsveranderingen in de taal zijn."
+      "nl": "Gebruik de unicode RTL/LTR afkortingen als er geneste richtingsveranderingen in de taal zijn.",
+      "pt-br": "Quando houver alterações direcionais aninhadas no idioma, use caracteres RTL / LTR unicode."
     },
     "guidelines": {
       "wcag": {
@@ -5351,12 +5371,14 @@
     "title": {
       "de": "Alle \"legend\"-Elemente müssen die Auswahl-Gruppe beschreiben",
       "en": "All \"legend\" elements must describe the group of choices",
-      "nl": "Alle \"legend\"-elementen moeten een groep keuzes beschrijven"
+      "nl": "Alle \"legend\"-elementen moeten een groep keuzes beschrijven",
+      "pt-br": ""
     },
     "description": {
       "de": "Wenn ein <code>legend</code>-Element in einem Fieldset verwendet wird, muss der Inhalt im <code>legend</code>-Element die Auswahlgruppe beschreiben",
       "en": "If a <code>legend</code> element is used in a fieldset, the <code>legend</code> content must describe the group of choices.",
-      "nl": "Als een <code>legend</code>-element wordt gebruikt in een fieldset, moet de <code>legend</code> content de groep keuzes beschrijven."
+      "nl": "Als een <code>legend</code>-element wordt gebruikt in een fieldset, moet de <code>legend</code> content de groep keuzes beschrijven.",
+      "pt-br": "Se um elemento <code> legend </code> for usado em um fieldset, o conteúdo <code> legend </code> deve descrever o grupo de opções."
     },
     "guidelines": {
       "wcag": {
@@ -5381,12 +5403,14 @@
     "title": {
       "de": "Legenden dürfen keine Leerzeichen enthalten",
       "en": "Legend text must not contain just whitespace",
-      "nl": "Legend-tekst moet ingevuld zijn"
+      "nl": "Legend-tekst moet ingevuld zijn",
+      "pt-br": "O texto da legenda não deve conter apenas espaços em branco"
     },
     "description": {
       "de": "Wenn ein <code>legend</code>-Element in einem Fieldset verwendet wird, sollte das <code>legend</code>-Element nicht leer sein",
       "en": "If a <code>legend</code> element is used in a fieldset, the <code>legend</code> should not contain empty text.",
-      "nl": "Als een <code>legend</code>-element wordt gebruikt in een fieldset, moet de <code>legend</code> ingevuld zijn."
+      "nl": "Als een <code>legend</code>-element wordt gebruikt in een fieldset, moet de <code>legend</code> ingevuld zijn.",
+      "pt-br": "Se um elemento <code> legenda </code> for usado em um fieldset, a <code> legenda </code> não deve conter texto vazio."
     },
     "guidelines": {
       "wcag": {
@@ -5421,12 +5445,14 @@
     "title": {
       "de": "\"Legend\"-Texte drüfen keine Platzhalter enthalten",
       "en": "\"Legend\" text must not contain placeholder text",
-      "nl": "\"Legend\"-tekst moet geen placeholdertekst bevatten"
+      "nl": "\"Legend\"-tekst moet geen placeholdertekst bevatten",
+      "pt-br": "\"Legend\" não deve conter um texto reservado (placeholder)"
     },
     "description": {
       "de": "Wenn ein <code>legend</code>-Element in einem Fieldset verwendet wird, sollte das <code>legend</code>-Element keine Platzhalter enthalten.",
       "en": "If a <code>legend</code> element is used in a fieldset, the <code>legend</code> should not contain useless placeholder text like \"form\" or \"field\".",
-      "nl": "Als een <code>legend</code>-element wordt gebruikt in een fieldset, moet de <code>legend</code> geen placeholdertekst bevatten zoals \"form\" of \"field\"."
+      "nl": "Als een <code>legend</code>-element wordt gebruikt in een fieldset, moet de <code>legend</code> geen placeholdertekst bevatten zoals \"form\" of \"field\".",
+      "pt-br":"Se um elemento <code> legenda </code> for usado em um fieldset, a <code> legenda </code> não deve conter texto reservado inútil como \"form\" ou \"field\"."
     },
     "guidelines": {
       "wcag": {
@@ -5488,12 +5514,14 @@
     "title": {
       "de": "Verknüpfungen sollten einen eindeutigen Zusammenhang haben",
       "en": "Links should have a unique context",
-      "nl": "Links moeten een unieke context hebben"
+      "nl": "Links moeten een unieke context hebben",
+      "pt-br": "Links devem ter um contexto único"
     },
     "description": {
       "de": "",
       "en": "",
-      "nl": ""
+      "nl": "",
+      "pt-br": ""
     },
     "guidelines": [],
     "tags": [
@@ -5508,12 +5536,14 @@
     "title": {
       "de": "Verwende ein \"link\"-Element für alternative Inhalte",
       "en": "Use a \"link\" element for alternate content",
-      "nl": "Gebruik een \"link\"-element for andersoortige content"
+      "nl": "Gebruik een \"link\"-element for andersoortige content",
+      "pt-br": "Usar um elemento \"link\" para conteúdo alternativo"
     },
     "description": {
       "de": "Dokumente die Inhalte, wie bspw. Videos, Audios oder andere Medien enthalten, die nicht barrrierefrei sind, sollten ein <code>link</code>-Element mit einem \"rel\"-Attribut der Alternative im Header des Dokumentes enthalten.",
       "en": "Documents which contain things like videos, sound, or other forms of media that are not accessible, should provide a <code>link</code> element with a \"rel\" attribute of \"alternate\" in the document header.",
-      "nl": "Documenten die content zoals video's, geluid of andere niet-toegankelijke vormen van media bevatten, moeten een <code>link</code>-element met een \"rel\"-attribuut of \"alternate\" in de documentheaderlink aanbieden."
+      "nl": "Documenten die content zoals video's, geluid of andere niet-toegankelijke vormen van media bevatten, moeten een <code>link</code>-element met een \"rel\"-attribuut of \"alternate\" in de documentheaderlink aanbieden.",
+      "pt-br": "Os documentos que contenham coisas como vídeos, som ou outras formas de mídia que não estejam acessíveis devem fornecer um elemento <code> link </code> com um atributo \"rel\" de \"alternate\" no cabeçalho do documento."
     },
     "guidelines": [],
     "tags": [
@@ -5529,12 +5559,14 @@
     "title": {
       "de": "Das Dokument verwendet Verknüpfungen um die Navigation zu beschreiben, wenn es in einer Sammlung ist",
       "en": "The document uses link elements to describe navigation if it is within a collection.",
-      "nl": "Het document gebruikt link-elementen om navigatie te beschrijven wanneer het binnen een collectie staat."
+      "nl": "Het document gebruikt link-elementen om navigatie te beschrijven wanneer het binnen een collectie staat.",
+      "pt-br": "O documento usa elementos de link para descrever a navegação se ela estiver dentro de uma coleção."
     },
     "description": {
       "de": "Das Verknüpfungs-Element kann Metadaten über die Position einer HTML-Seite in einem Set von Webseiten liefern.",
       "en": "The link element can provide metadata about the position of an HTML page within a set of Web units or can assist in locating content with a set of Web units.",
-      "nl": "Het link-element kan metadata bevatten over de positie van een HTML-pagina binnen een swet web units, of kan behulpzaamn zijn bij het lokaliseren van content binnen web units."
+      "nl": "Het link-element kan metadata bevatten over de positie van een HTML-pagina binnen een swet web units, of kan behulpzaamn zijn bij het lokaliseren van content binnen web units.",
+      "pt-br": "O elemento link pode fornecer metadados sobre a posição de uma página HTML dentro de um conjunto de unidades da Web ou pode ajudar a localizar conteúdo com um conjunto de unidades da Web."
     },
     "guidelines": [],
     "tags": [
@@ -5550,12 +5582,14 @@
     "title": {
       "de": "Listen sollten nicht für die Formatierung genutzt werden",
       "en": "Lists should not be used for formatting",
-      "nl": "Lijsten worden niet gebruikt voor opmaak"
+      "nl": "Lijsten worden niet gebruikt voor opmaak",
+      "pt-br": "As listas não devem ser usadas para formatação"
     },
     "description": {
       "de": "Listen, wie bspw. <code>ul</code> und <code>ol</code> dienen der Strukturierung von Listen und sollten nicht zur Formatierung von Text genutzt werden. Diese Test prüft Listen mit nur einem Eintrag, sollte aber manuell überprüft werden. ",
       "en": "Lists like <code>ul</code> and <code>ol</code> are to provide a structured list, and should not be used to format text. This test views any list with just one item as suspicious, but should be manually reviewed.",
-      "nl": "Lijsten zoals <code>ul</code> en <code>ol</code> zijn bedoeld om gestructureerde lijsten te maken. Ze moeten niet gebruikt worden om text op te maken. Controleer of deze lijst echt bedoeld is als lijst of om tekst op te maken."
+      "nl": "Lijsten zoals <code>ul</code> en <code>ol</code> zijn bedoeld om gestructureerde lijsten te maken. Ze moeten niet gebruikt worden om text op te maken. Controleer of deze lijst echt bedoeld is als lijst of om tekst op te maken.",
+      "pt-br": "Listas como <code> ul </code> e <code> ol </code> são para fornecer uma lista estruturada e não devem ser usadas para formatar texto. Este teste exibe qualquer lista com apenas um item como suspeito, mas deve ser revisado manualmente."
     },
     "guidelines": {
       "wcag": {
@@ -5578,12 +5612,14 @@
     "title": {
       "de": "Eine Liste von Verknüpfung sollte in einer geordneten oder ungeordneten Liste sein",
       "en": "A list of links separated by non-readable characters should be in an ul or ol",
-      "nl": "Een lijst van links die worden gescheiden door onleesbare tekens moeten in een bulleted of genummerde lijst staan"
+      "nl": "Een lijst van links die worden gescheiden door onleesbare tekens moeten in een bulleted of genummerde lijst staan",
+      "pt-br": "Uma lista de links separados por caracteres não legíveis deve estar em um ul ou ol"
     },
     "description": {
       "de": "Eine Liste von Verknüpfungen ohne Trennung zwischen den Verknüpfungen sollte in einem <code>ul</code>-Element oder <code>ol</code>-Element enthalten sein",
       "en": "A list of links without separation between them should be placed in an ol or ul element.",
-      "nl": "Een lijst van links die niet duidelijk gescheiden zijn moeten in een bulleted of genummerde lijst staan."
+      "nl": "Een lijst van links die niet duidelijk gescheiden zijn moeten in een bulleted of genummerde lijst staan.",
+      "pt-br": "Uma lista de links sem separação entre eles deve ser colocada em um elemento ol ou ul."
     },
     "guidelines": {
       "wcag": {
@@ -5606,12 +5642,14 @@
     "title": {
       "de": "Der \"marquee\"-Tag sollte nicht verwendet werden",
       "en": "The \"marquee\" tag should not be used",
-      "nl": "De \"marquee\"-tag wordt niet gebruikt"
+      "nl": "De \"marquee\"-tag wordt niet gebruikt",
+      "pt-br": "A tag \"marquee\" não deve ser usada"
     },
     "description": {
       "de": "Das <code>marquee</code>-Element ist für Benutzer schwierig zu lesen und kein HTML-Standardelement. Nutzen Sie ein anderes Element zur Hervorhebung der Bedeutung eines Textes.",
       "en": "The <code>marquee</code> element is difficult for users to read and is not a standard HTML element. Try to find another way to convey the importance of this text.",
-      "nl": "Het <code>marquee</code>-element is moeilijk te lezen voor gebruikers en is geen standaard HTML-element. Gebruik een andere manier om aan te duiden dat het belangrijke content is."
+      "nl": "Het <code>marquee</code>-element is moeilijk te lezen voor gebruikers en is geen standaard HTML-element. Gebruik een andere manier om aan te duiden dat het belangrijke content is.",
+      "pt-br": "O elemento <code> marquee </code> é difícil de ler e não é um elemento HTML padrão. Tente encontrar outra maneira de transmitir a importância deste texto."
     },
     "guidelines": [],
     "tags": [
@@ -5628,12 +5666,14 @@
     "title": {
       "de": "\"menu\"-Elemente sollten nicht für Formatierung genutzt werden",
       "en": "Menu elements should not be used for formatting",
-      "nl": "Menu-elementen worden niet gebruikt voor opmaak"
+      "nl": "Menu-elementen worden niet gebruikt voor opmaak",
+      "pt-br": "Os elementos de menu não devem ser usados para formatação"
     },
     "description": {
       "de": "Der \"menu\"-Tag ist veraltet, aber wird im Doctype HTML Transitional noch immer berücksichtigt. \"menu\"-Tags dienen der Strukturierung von Dokumenten und sollten nicht für Formatierungen genutzt werden. Der \"menu\"-Tag sollte dieser nur in Listen von Verknüpfungen verwendet werden",
       "en": "Menu is a deprecated tag, but is still honored in a transitional DTD. Menu tags are to provide structure for a document and should not be used for formatting. If a menu tag is to be used, it should only contain an ordered or unordered list of links.",
-      "nl": "Menu is een afgekeurd tag, maar wordt nog wel gebruikt om structuur aan een document te geven. Het mag niet worden gebruikt voor opmaak. Als een menu-tag wordt gebruikt, mag het alleen bulleted of genummerde lijsten bevatten."
+      "nl": "Menu is een afgekeurd tag, maar wordt nog wel gebruikt om structuur aan een document te geven. Het mag niet worden gebruikt voor opmaak. Als een menu-tag wordt gebruikt, mag het alleen bulleted of genummerde lijsten bevatten.",
+      "pt-br": "Menu é uma tag obsoleta, mas ainda é homenageada em um DTD transicional. As tags de menu devem fornecer estrutura para um documento e não devem ser usadas para formatação. Se uma tag de menu deve ser usada, ela deve conter apenas uma lista ordenada ou não ordenada de links."
     },
     "guidelines": [],
     "tags": [
@@ -5650,12 +5690,14 @@
     "title": {
       "de": "Eine Verknüpfung sollte nicht in einem neuen Fenster geöffnet werden",
       "en": "A link should not open a new window",
-      "nl": "Een link opent geen nieuw scherm"
+      "nl": "Een link opent geen nieuw scherm",
+      "pt-br": "Um link não deve abrir uma nova janela"
     },
     "description": {
       "de": "Vermeiden Sie Verwirrung durch neu öffnende Fenster, die nicht vom Benutzer angefordert wurden.",
       "en": "Avoid confusion that may be caused by the appearance of new windows that were not requested by the user.",
-      "nl": "Voorkom verwarring die veroorzaakt wordt door het openen van nieuwe schermen die de gebruiker niet verwacht."
+      "nl": "Voorkom verwarring die veroorzaakt wordt door het openen van nieuwe schermen die de gebruiker niet verwacht.",
+      "pt-br": "Evite confusão que pode ser causada pela aparição de novas janelas que não foram solicitadas pelo usuário."
     },
     "guidelines": {
       "wcag": {
@@ -5678,12 +5720,14 @@
     "title": {
       "de": "\"Noembed\"-Elemente müssen denselben Inhalt beschreiben, wie das \"embed\"-Element",
       "en": "Noembed elements must be the same content as their \"embed\" element",
-      "nl": "Noembed-elementen moeten dezelfde content hebben als hun \"embed\"-element"
+      "nl": "Noembed-elementen moeten dezelfde content hebben als hun \"embed\"-element",
+      "pt-br": "Elementos Noembed devem ter o mesmo conteúdo que o elemento \"embed \""
     },
     "description": {
       "de": "Alle <code>noembed</code>-Elemente müssen eine barrierefreie Version des Inhalts des <code>embed</code>-Elements enthalten oder darauf verweisen",
       "en": "All <code>noembed</code> elements must contain or link to an accessible version of their <code>embed</code> counterparts.",
-      "nl": "Alle <code>noembed</code>-elementen moeten een toegankelijke versie van hun <code>embed</code>-tegenhangers bevatten of hier naar linken."
+      "nl": "Alle <code>noembed</code>-elementen moeten een toegankelijke versie van hun <code>embed</code>-tegenhangers bevatten of hier naar linken.",
+      "pt-br": "Todos os elementos <code> noembed </code> devem conter ou vincular a uma versão acessível de suas contrapartes <code> embed </code>."
     },
     "guidelines": [],
     "tags": [
@@ -5700,12 +5744,14 @@
     "title": {
       "de": "Alle \"noframes\"-Elemente sollten den Inhalt aller Frames enthalten",
       "en": "All \"noframes\" elements should contain the text content from all frames",
-      "nl": "Alle \"noframes\"-elementen moeten de content van alle frames bevatten"
+      "nl": "Alle \"noframes\"-elementen moeten de content van alle frames bevatten",
+      "pt-br": "Todos os elementos \"noframes\" devem conter o conteúdo de texto de todos os quadros"
     },
     "description": {
       "de": "Der Inhalte in <code>noframes</code> sollte den sichtbaren Inhalt der Frames wiedergeben oder darauf verweisen",
       "en": "The <code>noframes</code> content should either replicate or link to the content visible within the frames.",
-      "nl": "The <code>noframes</code>-content moet de zichtbare content binnen de frames repliceren of er naar linken."
+      "nl": "The <code>noframes</code>-content moet de zichtbare content binnen de frames repliceren of er naar linken.",
+      "pt-br": "O conteúdo <code> noframes </code> deve replicar ou vincular ao conteúdo visível dentro dos quadros."
     },
     "guidelines": [],
     "tags": [
@@ -5722,12 +5768,14 @@
     "title": {
       "de": "Wenn Objekte deaktiviert sind, sollte der Inhalt dennoch angezeigt werden",
       "en": "When objects are disabled, content should still be available",
-      "nl": "Als objecten zijn uitgeschakeld, moet de content nog wel beschikbaar zijn"
+      "nl": "Als objecten zijn uitgeschakeld, moet de content nog wel beschikbaar zijn",
+      "pt-br": "Quando os objetos estão desativados, o conteúdo ainda deve estar disponível"
     },
     "description": {
       "de": "Der Inhalt in Objekten sollte dennoch angezeigt werden, auch wenn das Objekt deaktiviert ist. Dazu setzen Sie eine Verknüpfung zur \"source\" des Objekts im <code>object</code>-Tag.",
       "en": "The content within objects should still be available, even if the object is disabled. To do this, place a link to the direct object source within the <code>object</code> tag.",
-      "nl": "Content binnen objecten moet beschikbaar blijven, ook als het object is uitgeschakeld. Plaats hiervoor een link naar de bron van het object binnen de <code>object</code>-tag."
+      "nl": "Content binnen objecten moet beschikbaar blijven, ook als het object is uitgeschakeld. Plaats hiervoor een link naar de bron van het object binnen de <code>object</code>-tag.",
+      "pt-br": "O conteúdo dentro de objetos ainda deve estar disponível, mesmo se o objeto estiver desativado. Para fazer isso, coloque um link para a fonte de objeto direto dentro da tag <code> object </code>."
     },
     "guidelines": [],
     "tags": [
@@ -5744,12 +5792,14 @@
     "title": {
       "de": "Objekte dürfen nicht flackern",
       "en": "Objects do not flicker",
-      "nl": "Objecten knipperen of flitsen niet"
+      "nl": "Objecten knipperen of flitsen niet",
+      "pt-br": "Objetos não piscam"
     },
     "description": {
       "de": "Der Inhalt in einem <code>object</code>-Tag darf nicht flackern",
       "en": "The content within an <code>object</code> tag must not flicker.",
-      "nl": "De content binnen een <code>object</code>-tag knippert of flitst niet."
+      "nl": "De content binnen een <code>object</code>-tag knippert of flitst niet.",
+      "pt-br": "O conteúdo dentro de uma tag <code> object </ code> não deve piscar."
     },
     "guidelines": {
       "508": [
@@ -5777,12 +5827,14 @@
     "title": {
       "de": "Objekte sollten nicht nur Farben verwenden, um Inhalte zu kommunizieren",
       "en": "Objects must not use color to communicate alone",
-      "nl": "Objecten gebruiken meer dan alleen kleur om hun boodschap over te brengen"
+      "nl": "Objecten gebruiken meer dan alleen kleur om hun boodschap over te brengen",
+      "pt-br": "Os objetos não devem usar cor para se comunicar sozinhos"
     },
     "description": {
       "de": "Objekte sollten Inhalte so darstellen, das sie ohne Farben verständlich und für farbenblinde Benutzer zugänglich sind.",
       "en": "Objects should contain content that makes sense without color and is accessible to users who are color blind.",
-      "nl": "Objecten moeten content bevatten die duidelijk is zonder het kleurgebruik en toegankelijk is voor gebruikers met kleurenblindheid."
+      "nl": "Objecten moeten content bevatten die duidelijk is zonder het kleurgebruik en toegankelijk is voor gebruikers met kleurenblindheid.",
+      "pt-br": "Objetos devem conter conteúdo que faz sentido sem cor e é acessível para usuários que são daltônicos."
     },
     "guidelines": {
       "508": [
@@ -5803,12 +5855,14 @@
     "title": {
       "de": "Jede Benutzerschnittstelle in einem Objekt muss barrierefrei sein",
       "en": "Interfaces within objects must be accessible",
-      "nl": "Interfaces binnen objecten moeten toegankelijk zijn"
+      "nl": "Interfaces binnen objecten moeten toegankelijk zijn",
+      "pt-br": "Interfaces dentro de objetos devem ser acessíveis"
     },
     "description": {
       "de": "Inhalte in Objekten sollten auf Barrierefreiheit geprüft werden.",
       "en": "Object content should be assessed for accessibility.",
-      "nl": "Content binnen objecten moeten gecontroleerd worden op toegankelijkheid."
+      "nl": "Content binnen objecten moeten gecontroleerd worden op toegankelijkheid.",
+      "pt-br": "O conteúdo do objeto deve ser avaliado quanto à acessibilidade."
     },
     "guidelines": [],
     "tags": [
@@ -5825,12 +5879,14 @@
     "title": {
       "de": "Objekte, die auf eine Multimedia-Datei verweisen, sollten auch eine Verknüpfung zu einem Transkript enthalten",
       "en": "Objects which reference multimedia files should also provide a link to a transcript",
-      "nl": "Objecten die verwijzen naar multimediabestanden moeten ook een link aanbieden naar de transcriptie"
+      "nl": "Objecten die verwijzen naar multimediabestanden moeten ook een link aanbieden naar de transcriptie",
+      "pt-br": "Os objetos que fazem referência a arquivos multimídia também devem fornecer um link para uma transcrição"
     },
     "description": {
       "de": "Auf eine Verknüpfung zu einer Multimedia-Datei in einem Objekt sollte eine Verknüpfung zu einem Transkript folgen.",
       "en": "If an object contains a video, a link to the transcript should be provided near the object.",
-      "nl": "Als een object een video bevat, moet een link naar de transcriptie hiervan worden aangeboden bij het object."
+      "nl": "Als een object een video bevat, moet een link naar de transcriptie hiervan worden aangeboden bij het object.",
+      "pt-br": "Se um objeto contiver um vídeo, um link para o transcrito deve ser fornecido perto do objeto."
     },
     "guidelines": [],
     "tags": [
@@ -5847,12 +5903,14 @@
     "title": {
       "de": "Alle Objekte sollten den Inhalt im Element des Objekts selbst enthalten",
       "en": "Objects must contain their text equivalents",
-      "nl": "Objecten moeten hun tekstuele equivalent bevatten"
+      "nl": "Objecten moeten hun tekstuele equivalent bevatten",
+      "pt-br": "Os objetos devem conter seus equivalentes de texto"
     },
     "description": {
       "de": "Objekte sollten ihre Text-Äquivalente oder eine Beschreibung innerhalb des <code>object</ code>-Tag selbst enthalten.",
       "en": "All <code>object</code> elements should contain a text equivalent if the object cannot be rendered.",
-      "nl": "Alle <code>object</code>-elementen moeten een tekstequivalent bevatten in het geval het object niet getoond kan worden."
+      "nl": "Alle <code>object</code>-elementen moeten een tekstequivalent bevatten in het geval het object niet getoond kan worden.",
+      "pt-br": "Todos os elementos <code> object </code> devem conter um equivalente de texto se o objeto não puder ser renderizado."
     },
     "guidelines": {
       "wcag": {
@@ -5883,12 +5941,14 @@
     "title": {
       "de": "Jedes Objekt sollte ein \"embed\"-Element enthalten",
       "en": "Every object should contain an \"embed\" element",
-      "nl": "Elk object moet een \"embed\"-element bevatten"
+      "nl": "Elk object moet een \"embed\"-element bevatten",
+      "pt-br": "Todo objeto deve conter um elemento \"embed\""
     },
     "description": {
       "de": "Jedes <code>object</code>-Element muss auch ein <code>embed</code>-Element beinhalten",
       "en": "Every <code>object</code> element must also contain an <code>embed</code> element.",
-      "nl": "Elk <code>object</code>-element moet ook een \"embed\"-element bevatten."
+      "nl": "Elk <code>object</code>-element moet ook een \"embed\"-element bevatten.",
+      "pt-br": "Todo elemento <code> object </ code> também deve conter um elemento <code> embed </code>."
     },
     "guidelines": [],
     "tags": [
@@ -5905,12 +5965,14 @@
     "title": {
       "de": "Objekte sollten ein \"title\"-Attribut haben",
       "en": "Objects should have a title attribute",
-      "nl": "Objecten moeten een titelattribuut hebben"
+      "nl": "Objecten moeten een titelattribuut hebben",
+      "pt-br": "Objetos devem ter um atributo de título"
     },
     "description": {
       "de": "Alle <code>object</code>-Elemente sollten ein \"title\"-Attribut haben",
       "en": "All <code>object</code> elements should contain a \"title\" attribute.",
-      "nl": "Alle <code>object</code>-elementen moeten een \"titel\"-attribuut bevatten."
+      "nl": "Alle <code>object</code>-elementen moeten een \"titel\"-attribuut bevatten.",
+      "pt-br": "Todos os elementos <code> object </code> devem conter um atributo \"title \"."
     },
     "guidelines": {
       "wcag": {
@@ -5935,12 +5997,14 @@
     "title": {
       "de": "Objekte sollten kein leeres \"title\"-Attribut haben",
       "en": "Objects must not have an empty title attribute",
-      "nl": "Objecten hebben geen leeg titelattribuut"
+      "nl": "Objecten hebben geen leeg titelattribuut",
+      "pt-br": "Objetos não devem ter um atributo title vazio"
     },
     "description": {
       "de": "Alle <code>object</code>-Elemente sollten ein \"title\"-Attribut haben, das nicht leer ist",
       "en": "All <code>object</code> elements should have a \"title\" attribute which is not empty.",
-      "nl": "All <code>object</code>-elementen hebben een \"titel\"-attribuut dat gevuld is."
+      "nl": "All <code>object</code>-elementen hebben een \"titel\"-attribuut dat gevuld is.",
+      "pt-br": "Todos os elementos <code> object </code> devem ter um atributo \"title\" que não esteja vazio."
     },
     "guidelines": [],
     "tags": [
