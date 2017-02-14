@@ -17,6 +17,7 @@ define( function() {
 			'aMustNotHaveJavascriptHref',
 			'aSuspiciousLinkText',
 			'blockquoteNotUsedForIndentation',
+			'colorFontContrast',
 			'documentVisualListsAreMarkedUp',
 			'headerH1',
 			'headerH2',
