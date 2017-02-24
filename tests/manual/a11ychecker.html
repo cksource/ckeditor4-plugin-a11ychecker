@@ -113,10 +113,14 @@
 </div>
 
 <script>
-	CKEDITOR.replace( 'editor1', {
-		height: 500,
-		width: 900
-	} );
+	// Wrap the scripts in a require statement
+	// because Bender requires require to be called.
+	bender.require( [], function() {
+		CKEDITOR.replace( 'editor1', {
+			height: 500,
+			width: 900
+		} );
 
-	CKEDITOR.inline( 'editor2' );
+		CKEDITOR.inline( 'editor2' );
+	} );
 </script>
