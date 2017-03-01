@@ -7063,12 +7063,14 @@
     "title": {
       "de": "Auswahlelemente in Formularen sollten \"optgroups\" für lange Auswahlen verwenden",
       "en": "Form select elements should use optgroups for long selections",
-      "nl": "Formulier select-elementen moeten optgroups gebruiken voor lange selecties"
+      "nl": "Formulier select-elementen moeten optgroups gebruiken voor lange selecties",
+      "pt-br": "Os elementos de seleção de formulário devem usar optgroup para seleções longas"
     },
     "description": {
       "de": "Wenn ein Auswahlelement viele Optionen hat, sollten \"optgroups\" zur Unterstützung der Navigation verwendet werden",
       "en": "If a select element has many options, use optgroups to help ease navigation.",
-      "nl": "Als een select-element veel opties heeft, gebruik dan optgroups om navigatie makkelijker te maken."
+      "nl": "Als een select-element veel opties heeft, gebruik dan optgroups om navigatie makkelijker te maken.",
+      "pt-br": "Se um elemento select tiver muitas opções, use optgroups para facilitar a navegação."
     },
     "guidelines": {
       "wcag": {
@@ -7093,12 +7095,14 @@
     "title": {
       "de": "Webseiten müssen eine Sitemap haben",
       "en": "Websites must have a site map",
-      "nl": "Websites moeten een sitemap hebben"
+      "nl": "Websites moeten een sitemap hebben",
+      "pt-br": "Websites devem ter um mapa do site"
     },
     "description": {
       "de": "Jede Webseite sollte eine Seite haben, die eine Sitemap oder eine andere Methode zur Navigation zu den wichtigsten Seiten anbietet, um den Benutzern von Assistenztechnologien Zeit zu sparen",
       "en": "Every web site should have a page which provides a site map or another method to navigate most of the site from a single page to save time for users of assistive devices.",
-      "nl": "Elke website moet een pagina hebben waarop een sitemap staat of een andere methode om op de site te navigeren vanaf een pagina. Dit spaart gebruikers die hulpmiddelen gebruiken tijd."
+      "nl": "Elke website moet een pagina hebben waarop een sitemap staat of een andere methode om op de site te navigeren vanaf een pagina. Dit spaart gebruikers die hulpmiddelen gebruiken tijd.",
+      "pt-br": "Cada site deve ter uma página que fornece um mapa do site ou outro método para navegar a maior parte do site a partir de uma única página para economizar tempo para os usuários de dispositivos assistivos."
     },
     "guidelines": {
       "wcag": {
@@ -7128,12 +7132,14 @@
     "title": {
       "de": "Eine \"Weiter zum Inhalt\"-Verknüpfung sollte auf der Seite eine der ersten Verknüpfungen sein",
       "en": "A \"skip to content\" link should exist as one of the first links on the page",
-      "nl": "Er moet een \"skip to content\"-link zijn als een van de eerste links op de pagina"
+      "nl": "Er moet een \"skip to content\"-link zijn als een van de eerste links op de pagina",
+      "pt-br": "Um link \"pular para o conteúdo\" deve existir como um dos primeiros links na página"
     },
     "description": {
       "de": "Eine \"Weiter zum Inhalt\"-Verknüpfung sollte auf der Seite eine der ersten Verknüpfungen sein",
       "en": "A link reading \"skip to content\" should be the first link on a page.",
-      "nl": "Er moet een link zijn om naar de content te navigeren als een van de eerste links op de pagina."
+      "nl": "Er moet een link zijn om naar de content te navigeren als een van de eerste links op de pagina.",
+      "pt-br": "Um link de leitura \"pular para conteúdo\" deve ser o primeiro link em uma página."
     },
     "guidelines": {
       "508": [
@@ -7161,12 +7167,14 @@
     "title": {
       "de": "Inline-SVG sollte \"title\"-Elemente haben",
       "en": "Inline SVG should use Title elements",
-      "nl": "Inline SVG moet titelelementen gebruiken"
+      "nl": "Inline SVG moet titelelementen gebruiken",
+      "pt-br": "O SVG inline deve usar elementos de título"
     },
     "description": {
       "de": "Jede inline SVG-Grafik sollte ein eingebettetes <code>title</code>-Element haben",
       "en": "Any inline SVG image should have an embedded <code>title</code> element.",
-      "nl": "Elke inline SVG-afbeelding moet een ingebed <code>title</code>-element hebben."
+      "nl": "Elke inline SVG-afbeelding moet een ingebed <code>title</code>-element hebben.",
+      "pt-br": "Qualquer imagem SVG in-line deve ter um elemento <code> title </code> incorporado."
     },
     "guidelines": {
       "wcag": {
@@ -7192,12 +7200,14 @@
     "title": {
       "de": "\"axis\"-Attribute sollten dazugehörige IDs haben",
       "en": "Axis attribute should have corresponding IDs",
-      "nl": "Axis-attributen moeten bijbehorende IDs hebben"
+      "nl": "Axis-attributen moeten bijbehorende IDs hebben",
+      "pt-br": "O atributo Axis deve ter IDs correspondentes"
     },
     "description": {
       "de": "Wenn ein \"axis\"-Attribut verwendet wird, um Zellen zu gruppieren, sollte sichergestellt sein, dass das Ziel-Element mit derselben ID vorhanden ist",
       "en": "When using the axis attribute to group cells together, ensure they have a target element with the same ID.",
-      "nl": "Wanneer er axis-attributen gebruikt worden om cellen te groeperen, zorg er dan voor dat hun doelelement hetzelfde ID heeft."
+      "nl": "Wanneer er axis-attributen gebruikt worden om cellen te groeperen, zorg er dan voor dat hun doelelement hetzelfde ID heeft.",
+      "pt-br": "Ao usar o atributo de eixo para agrupar células em conjunto, certifique-se de que eles tenham um elemento de destino com o mesmo ID."
     },
     "guidelines": {
       "wcag": {
@@ -7221,12 +7231,14 @@
     "title": {
       "de": "Die Tabulatorreihenfolge eines Dokumentes ist logisch",
       "en": "The tab order of a document is logical",
-      "nl": "De tabvolgorde van een document is logisch"
+      "nl": "De tabvolgorde van een document is logisch",
+      "pt-br": "A ordem de tabulação de um documento é lógica"
     },
     "description": {
       "de": "Prüfen Sie, ob die Tabulatorreihenfolge der Seite logisch ist",
       "en": "Check that the tab order of a page is logical.",
-      "nl": "Controleer of de tabvolgorde van een pagina logisch is."
+      "nl": "Controleer of de tabvolgorde van een pagina logisch is.",
+      "pt-br": "Verifique se a ordem de tabulação de uma página é lógica."
     },
     "guidelines": {
       "wcag": {
@@ -7248,12 +7260,14 @@
     "title": {
       "de": "Überschriften sollten ihre Tabelle identifizieren",
       "en": "Captions should identify their table",
-      "nl": "Beschrijvingen moeten hun tabellen identificeren"
+      "nl": "Beschrijvingen moeten hun tabellen identificeren",
+      "pt-br": "As legendas devem identificar as suas tabelas"
     },
     "description": {
       "de": "Stellen Sie sicher, dass eine Tabellenüberschrift die Tabelle mit Name, Figurennummer etc. identifiziert",
       "en": "Check to make sure that a table's caption identifies the table with a name, figure number, etc.",
-      "nl": "Controleer of de beschrijving van een tabel de tabel identificeert met een naam, nummer en dergelijke."
+      "nl": "Controleer of de beschrijving van een tabel de tabel identificeert met een naam, nummer en dergelijke.",
+      "pt-br": "Verifique se a legenda de uma tabela identifica a tabela com um nome, número da figura, etc."
     },
     "guidelines": {
       "wcag": {
@@ -7278,12 +7292,14 @@
     "title": {
       "de": "Komplexe Tabellen sollten eine Zusammenfassung haben",
       "en": "Complex tables should have a summary",
-      "nl": "Complexe tabellen moeten een samenvatting hebben"
+      "nl": "Complexe tabellen moeten een samenvatting hebben",
+      "pt-br": "As tabelas complexas devem ter um resumo"
     },
     "description": {
       "de": "Wenn eine Tabelle komplex ist (z.B. Zellen mit \"colspan\"-Attributen hat), sollte die Tabelle eine Zusammenfassung haben",
       "en": "If a table is complex (for example, has some cells with \"colspan\" attributes, the table should have a summary.",
-      "nl": "Als een tabel complex is (bijvoorbeeld, als er cellen zijn met \"colspan\"-attributen, moet de tabel een samenvatting hebben."
+      "nl": "Als een tabel complex is (bijvoorbeeld, als er cellen zijn met \"colspan\"-attributen, moet de tabel een samenvatting hebben.",
+      "pt-br": "Se uma tabela é complexa (por exemplo, tem algumas células com atributos \"colspan\", esta deve ter um resumo."
     },
     "guidelines": {
       "wcag": {
@@ -7308,12 +7324,14 @@
     "title": {
       "de": "Datentabellen sollten eine Überschrift haben",
       "en": "Data tables should contain a header",
-      "nl": "Datatabellen moeten \"th\"-elementen bevatten"
+      "nl": "Datatabellen moeten \"th\"-elementen bevatten",
+      "pt-br": "As tabelas de dados devem conter um cabeçalho"
     },
     "description": {
       "de": "Tabellen die Daten beinhalten (anders als Layout-Tabellen), sollten korrekte \"header\"-Elemente haben, um sie für Bildschirmleseprogramme hervorzuheben und die Struktur des Dokumentes zu verbessern",
       "en": "Tables which contain data (as opposed to layout tables) should contain proper table header elements to mark them for screen readers and enhance the structure of the document.",
-      "nl": "Tabellen die data bevatten (in tegenstelling tot lay-out tabellen) moeten <code>th</code>-elementen bevatten om koppen te markeren voor schermlezers en om de structuur van het document te verbeteren."
+      "nl": "Tabellen die data bevatten (in tegenstelling tot lay-out tabellen) moeten <code>th</code>-elementen bevatten om koppen te markeren voor schermlezers en om de structuur van het document te verbeteren.",
+      "pt-br": "Tabelas que contêm dados (em oposição a tabelas de layout) devem conter elementos de cabeçalho de tabela adequada para marcá-los para leitores de tela e aprimorar a estrutura do documento."
     },
     "guidelines": {
       "508": [
@@ -7341,12 +7359,14 @@
     "title": {
       "de": "Tabellenüberschriften müssen kurz sein",
       "en": "Table header lables must be terse",
-      "nl": "Tabelkoppen moeten bondig zijn"
+      "nl": "Tabelkoppen moeten bondig zijn",
+      "pt-br": "As etiquetas de cabeçalho da tabela devem ser concisas"
     },
     "description": {
       "de": "Das \"abbr\"-Attribut für Tabellenüberschriften muss kurz sein (max. 20 Zeichen)",
       "en": "The \"abbr\" attribute for table headers must be terse (less than 20 characters long).",
-      "nl": "Het \"abbr\"-attribuut voor tabelkoppen moet bondig zijn (minder dan 20 tekens lang)."
+      "nl": "Het \"abbr\"-attribuut voor tabelkoppen moet bondig zijn (minder dan 20 tekens lang).",
+      "pt-br": "O atributo \"abbr\" para cabeçalhos de tabela deve ser conciso (menos de 20 caracteres)."
     },
     "guidelines": [],
     "tags": [
@@ -7361,12 +7381,14 @@
     "title": {
       "de": "Kennzeichnen Sie die Bereiche einer Tabelle mit \"thead\" und \"tbody\"",
       "en": "Mark up the areas of tables using thead and tbody",
-      "nl": "Gebruik thead en tbody voor tabellen"
+      "nl": "Gebruik thead en tbody voor tabellen",
+      "pt-br": "Marcar as áreas das tabelas usando thead e tbody"
     },
     "description": {
       "de": "Kennzeichnen Sie die Bereiche einer Tabelle mit \"thead\" und \"tbody\"",
       "en": "Mark up the areas of tables using thead and tbody.",
-      "nl": "Gebruik thead en tbody voor tabellen."
+      "nl": "Gebruik thead en tbody voor tabellen.",
+      "pt-br": "Marcar as áreas das tabelas usando thead e tbody"
     },
     "guidelines": [],
     "tags": [
@@ -7383,12 +7405,14 @@
     "title": {
       "de": "Layout-Tabellen sollten keine \"th\"-Elemente beinhalten",
       "en": "Layout tables should not contain \"th\" elements",
-      "nl": "Lay-out tabellen bevatten geen \"th\"-elementen"
+      "nl": "Lay-out tabellen bevatten geen \"th\"-elementen",
+      "pt-br": "Tabelas de layout não devem conter \"th\" elementos"
     },
     "description": {
       "de": "Tabellen, die nur für das Layout verwendet werden (im Gegesatz zu Datentabellen), <strong>should not</strong> contain <code>th</code>-Elemente, welche die Tabelle als Datentabelle erscheinen lassen",
       "en": "Tables which are used purely for layout (as opposed to data tables), <strong>should not</strong> contain <code>th</code> elements, which would make the table appear to be a data table.",
-      "nl": "Tabellen die alleen voor lay-out worden gebruikt (in tegenstelling tot datatabellen), moeten geen <code>th</code>-elementen bevatten, omdat deze de indruk wekken dat het een datatabel betreft."
+      "nl": "Tabellen die alleen voor lay-out worden gebruikt (in tegenstelling tot datatabellen), moeten geen <code>th</code>-elementen bevatten, omdat deze de indruk wekken dat het een datatabel betreft.",
+      "pt-br": "As tabelas que são usadas puramente para o layout (em oposição às tabelas de dados), <strong> não devem </strong> conter elementos <code> th </code>, o que tornaria a tabela aparente ser uma tabela de dados."
     },
     "guidelines": {
       "wcag": {
@@ -7412,12 +7436,14 @@
     "title": {
       "de": "Alle Layout-Tabellen haben kein \"caption\"-Element",
       "en": "All tables used for layout have no \"caption\" element",
-      "nl": "Alle tabellen die alleen voor lay-out worden gebruikt hebben geen \"caption\"-element"
+      "nl": "Alle tabellen die alleen voor lay-out worden gebruikt hebben geen \"caption\"-element",
+      "pt-br": "Todas as tabelas usadas para o layout não têm elemento \"caption\""
     },
     "description": {
       "de": "Wenn eine Tabelle keine Daten beinhaltet und nur für das Layout verwendet wird, sollte sie kein <code>caption</code>-Element beinhalten",
       "en": "If a table contains no data, and is used simply for layout, then it should not contain a <code>caption</code> element.",
-      "nl": "Als een tabel geen data bevat en alle voor lay-out wordt gebruikt, moet hij geen <code>caption</code>-element krijgen."
+      "nl": "Als een tabel geen data bevat en alle voor lay-out wordt gebruikt, moet hij geen <code>caption</code>-element krijgen.",
+      "pt-br": "Se uma tabela não contém dados e é usada apenas para layout, ela não deve conter um elemento <code> caption </code>."
     },
     "guidelines": {
       "wcag": {
@@ -7441,12 +7467,14 @@
     "title": {
       "de": "Alle Layout-Tabellen haben keine oder eine leere Zusammenfassung",
       "en": "All tables used for layout have no summary or an empty summary",
-      "nl": "Alle tabellen die alleen voor lay-out worden gebruikt hebben geen samenvatting"
+      "nl": "Alle tabellen die alleen voor lay-out worden gebruikt hebben geen samenvatting",
+      "pt-br": "Todas as tabelas utilizadas para layout não têm resumo ou um resumo vazio"
     },
     "description": {
       "de": "Wenn eine Tabelle keine Daten beinhaltet, sondern nur für das Layout verwendet wird, sollte sie kein \"summary\"-Attribut haben",
       "en": "If a table contains no data, and is used simply for layout, then it should not have a \"summary\" attribute.",
-      "nl": "Als een tabel geen data bevat en alleen voor lay-out wordt gebruikt, moet hij geen \"summary\"-attribuut krijgen."
+      "nl": "Als een tabel geen data bevat en alleen voor lay-out wordt gebruikt, moet hij geen \"summary\"-attribuut krijgen.",
+      "pt-br": "Se uma tabela não contém dados e é usada simplesmente para layout, ela não deve ter um atributo \"summary\"."
     },
     "guidelines": {
       "wcag": {
@@ -7470,12 +7498,14 @@
     "title": {
       "de": "Alle Layout-Tabellen sollten entfernt werden können und die Seite ist dennoch sinnvoll",
       "en": "All tables used for layout should make sense when removed",
-      "nl": "Als tabellen voor lay-out worden gebruikt moet de pagina nog duidelijk blijven als de tabel wordt verwijderd"
+      "nl": "Als tabellen voor lay-out worden gebruikt moet de pagina nog duidelijk blijven als de tabel wordt verwijderd",
+      "pt-br": "Todas as tabelas usadas para layout devem fazer sentido quando removidas"
     },
     "description": {
       "de": "Wenn ein <code>table</code>-Element nur für Layoutzwecke verwendet wird, sollte der Inhalt der Tabelle sinnvoll sein, auch wenn die Tabelle entfernt wird",
       "en": "If a <code>table</code> element is used for layout purposes only, then the content of the table should make sense if the table is linearized.",
-      "nl": "Als een <code>table</code>-element alleen voor lay-out-doeleinden wordt gebruikt, moet de inhoud van de tabel nog steeds duidelijk zijn als de tabel wordt verwijderd."
+      "nl": "Als een <code>table</code>-element alleen voor lay-out-doeleinden wordt gebruikt, moet de inhoud van de tabel nog steeds duidelijk zijn als de tabel wordt verwijderd.",
+      "pt-br": "Se um elemento <code> table </code> for usado somente para fins de layout, o conteúdo da tabela deve fazer sentido se a tabela for linearizada."
     },
     "guidelines": {
       "wcag": {
@@ -7504,12 +7534,14 @@
     "title": {
       "de": "Tabellen sollte nicht für Layouts verwendet werden",
       "en": "Tables should not be used for layout",
-      "nl": "Tabellen moet niet worden gebruikt voor lay-out"
+      "nl": "Tabellen moet niet worden gebruikt voor lay-out",
+      "pt-br": "Tabelas não devem ser usadas para layout"
     },
     "description": {
       "de": "Tabellen dienen der Darstellung von Daten, nicht für die Umsetzung von Layouts. Verwenden Sie stattdessen HTML und CSS.",
       "en": "Tables are for data, not for creating a page layout. Consider using standard HTML and CSS techniques instead.",
-      "nl": "Tabellen zijn voor data, niet om een pagina op te maken. Gebruik hiervoor HTML en CSS."
+      "nl": "Tabellen zijn voor data, niet om een pagina op te maken. Gebruik hiervoor HTML en CSS.",
+      "pt-br": "As tabelas são para dados, não para criar um layout de página. Considere usar técnicas HTML e CSS padrão."
     },
     "guidelines": {
       "wcag": {
@@ -7533,12 +7565,14 @@
     "title": {
       "de": "Tabellenzellen verwenden IDs um Überschriften zu identifizieren",
       "en": "Table cells use IDs to identify headers",
-      "nl": "Tabelcellen gebruiken IDs om koppen te identificeren"
+      "nl": "Tabelcellen gebruiken IDs om koppen te identificeren",
+      "pt-br": "As células da tabela usam IDs para identificar cabeçalhos"
     },
     "description": {
       "de": "Wenn eine Tabelle nicht für das Layout verwendet wird, sollte es IDs und Überschriften-Attribute verwenden, um Tabellenüberschriften zu identifizieren",
       "en": "If a table is not being used for layout, it should use IDs and header attributes to identify table headers.",
-      "nl": "Een tabel moet IDs en header-attributen gebruiken om tabelkoppen te identificeren."
+      "nl": "Een tabel moet IDs en header-attributen gebruiken om tabelkoppen te identificeren.",
+      "pt-br": "Se uma tabela não estiver sendo usada para layout, ela deve usar IDs e atributos de cabeçalho para identificar cabeçalhos de tabela."
     },
     "guidelines": {
       "wcag": {
@@ -7561,12 +7595,14 @@
     "title": {
       "de": "Tabellenzusammenfassungen sollten die Navigation und Struktur der Tabelle beschreiben",
       "en": "Table summaries should describe the navigation and structure of the table",
-      "nl": "Tabelsamenvattingen moeten de navigatie en structuur van de tabel beschrijven"
+      "nl": "Tabelsamenvattingen moeten de navigatie en structuur van de tabel beschrijven",
+      "pt-br": "Os resumos das tabelas devem descrever a navegação ea estrutura da tabela"
     },
     "description": {
       "de": "<code>summary</code>-Elemente von Tabellen sollten die Navgation und Struktur der Tabelle erläutern und einen Überblick über den Inhalt der Tabelle bieten",
       "en": "Table <code>summary</code> elements should describe the navigation tools and structure of the table, as well as provide an overview of what the table describes.",
-      "nl": "Tabel \"summary\"-elementen moeten de navigatie en structuur van de tabel beschrijven, en een overzicht bieden van wat er in de tabel staat."
+      "nl": "Tabel \"summary\"-elementen moeten de navigatie en structuur van de tabel beschrijven, en een overzicht bieden van wat er in de tabel staat.",
+      "pt-br": "Os elementos da tabela <code> summary </code> devem descrever as ferramentas de navegação ea estrutura da tabela, bem como fornecer uma visão geral do que a tabela descreve."
     },
     "guidelines": [],
     "tags": [
@@ -7583,12 +7619,14 @@
     "title": {
       "de": "\"summary\"-Elemente von Tabellen sollten nicht den Inhalt des \"caption\"-Elements wiederholen",
       "en": "Table \"summary\" elements should not duplicate the \"caption\" element",
-      "nl": "Tabel \"summary\"-elementen mogen niet hetzelfde zijn als het \"caption\"-element"
+      "nl": "Tabel \"summary\"-elementen mogen niet hetzelfde zijn als het \"caption\"-element",
+      "pt-br": "Tabela \"resumo\" elementos não devem duplicar o elemento \"legenda\""
     },
     "description": {
       "de": "Die Zusammenfassung und die Überschrift einer Tabelle müssen sich unterscheiden, da beide unterschiedliche Informationen liefern. Ein <code>caption</code>-ELement identifiziert die Tabelle, während ein \"summary\"-Attribut den Tabelleninhalt beschreibt",
       "en": "The summary and the caption must be different, as both provide different information. A <code>caption</code>. /code element identifies the table, while the \"summary\" attribute describes the table contents.",
-      "nl": "De samenvatting en beschrijving van een tabel moeten verschillen, want ze bieden verschillende informatie. Een <code>caption</code>-element identificeert welke tabel het betreft en het \"summary\"-attribuut beschrijft de inhoud van de tabel."
+      "nl": "De samenvatting en beschrijving van een tabel moeten verschillen, want ze bieden verschillende informatie. Een <code>caption</code>-element identificeert welke tabel het betreft en het \"summary\"-attribuut beschrijft de inhoud van de tabel.",
+      "pt-br": "O resumo ea legenda devem ser diferentes, pois ambos fornecem informações diferentes. Uma <code> legenda </ code>. / Code identifica a tabela, enquanto o atributo \"summary\" descreve o conteúdo da tabela."
     },
     "guidelines": [],
     "tags": [
@@ -7603,12 +7641,14 @@
     "title": {
       "de": "Alle Datentabellen sollten eine Zusammenfassung haben",
       "en": "All data tables should have a summary",
-      "nl": "Alle datatabellen moeten een samenvatting hebben"
+      "nl": "Alle datatabellen moeten een samenvatting hebben",
+      "pt-br": "Todas as tabelas de dados devem ter um resumo"
     },
     "description": {
       "de": "Wenn eine Tabelle Daten enthält, sollte sie ein \"summary\"-Attribut haben",
       "en": "If a table contains data, it should have a \"summary\" attribute.",
-      "nl": "Als een tabel data bevat, moet hij een \"summary\"-attribuut hebben."
+      "nl": "Als een tabel data bevat, moet hij een \"summary\"-attribuut hebben.",
+      "pt-br": "Se uma tabela contiver dados, ele deve ter um atributo \"summary\"."
     },
     "guidelines": [],
     "tags": [
@@ -7640,12 +7680,14 @@
     "title": {
       "de": "Alle Datentabellen sollten eine adäquate Zusammenfassung haben",
       "en": "All data tables should have an adequate summary",
-      "nl": "Alle datatabellen moeten een toepasselijke samenvatting hebben"
+      "nl": "Alle datatabellen moeten een toepasselijke samenvatting hebben",
+      "pt-br": "Todas as tabelas de dados devem ter um resumo"
     },
     "description": {
       "de": "Wenn eine Tabelle Daten beinhaltet, sollte es ein \"summary\"-Attribut haben, das den Sinn und Zweck der Tabelle komplett beschreibt",
       "en": "If a table contains data, it should have a \"summary\" attribute that completely communicates the function and use of the table.",
-      "nl": "Als een tabel data bevat, moet er een \"summary\"-attribuut zijn dat de functie en het doel van de tabel duidelijk maakt."
+      "nl": "Als een tabel data bevat, moet er een \"summary\"-attribuut zijn dat de functie en het doel van de tabel duidelijk maakt.",
+      "pt-br": "Se uma tabela contiver dados, ele deve ter um atributo \"summary\" que comunique completamente a função eo uso da tabela."
     },
     "guidelines": [],
     "tags": [
@@ -7662,12 +7704,14 @@
     "title": {
       "de": "Gruppieren Sie Spalten mit \"colgroup\"-Elementen oder \"col\"-Elementen",
       "en": "Group columns using \"colgroup\" or \"col\" elements",
-      "nl": "Groepeer kolommen met \"colgroup\"- of \"col\"-elementen"
+      "nl": "Groepeer kolommen met \"colgroup\"- of \"col\"-elementen",
+      "pt-br": "Colunas de grupo usando elementos \"colgroup\" ou \"col\""
     },
     "description": {
       "de": "Um komplexe Tabellenüberschriften sinnvoll zu gestalten, verwenden Sie <code>colgroup</code> oder <code>col</code> um sie zu gruppieren",
       "en": "To help complex table headers make sense, use <code>colgroup</code> or <code>col</code> to group them together.",
-      "nl": "Maak complexe tabelkoppen duidelijker door \"colgroup\"- of \"col\"-elementen te gebruiken om ze te groeperen."
+      "nl": "Maak complexe tabelkoppen duidelijker door \"colgroup\"- of \"col\"-elementen te gebruiken om ze te groeperen.",
+      "pt-br": "Para ajudar os cabeçalhos de tabela complexos fazer sentido, use <code> colgroup </code> ou <code> col </code> para agrupá-los."
     },
     "guidelines": [],
     "tags": [
@@ -7682,12 +7726,14 @@
     "title": {
       "de": "Tabellenüberschriften über 20 Zeichen sollten ein \"abbr\"-Attribut haben",
       "en": "Table headers over 20 characters should provide an \"abbr\" attribute",
-      "nl": "Tabelkoppen met meer dan 20 tekens moeten een \"abbr\"-attribuut hebben"
+      "nl": "Tabelkoppen met meer dan 20 tekens moeten een \"abbr\"-attribuut hebben",
+      "pt-br": "Cabeçalhos de tabela com mais de 20 caracteres devem fornecer um atributo \"abbr\""
     },
     "description": {
       "de": "Für lange Tabellenüberschriften verwenden Sie ein \"abbr\"-Attribut das kürzer ist (max. 20 Zeichen).",
       "en": "For long table headers, use an \"abbr\" attribute that is less than short (less than 20 characters long).",
-      "nl": "Gebruik een \"abbr\"-attribuut korter dan 20 tekens voor lange tabelkoppen."
+      "nl": "Gebruik een \"abbr\"-attribuut korter dan 20 tekens voor lange tabelkoppen.",
+      "pt-br": "Para cabeçalhos de tabelas longas, use um atributo \"abbr\" que seja menos do que curto (menos de 20 caracteres)."
     },
     "guidelines": [],
     "tags": [
