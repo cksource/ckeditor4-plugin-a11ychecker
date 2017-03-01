@@ -6026,12 +6026,14 @@
     "title": {
       "de": "Alle Objekte sollten einen Weg für Tastatur-Benutzer bieten, um das Objekt zu verlassen.",
       "en": "All objects should provide a way for keyboard users to escape",
-      "nl": "Alle objecten moeten een manier bevatten voor toetsenbordgebruikers een manier om het object te verlaten"
+      "nl": "Alle objecten moeten een manier bevatten voor toetsenbordgebruikers een manier om het object te verlaten",
+      "pt-br": "Todos os objetos devem fornecer uma maneira de escape para os usuários de teclado"
     },
     "description": {
       "de": "Stellen Sie sicher, dass ein Benutzer, der nur eine Tastatur als Eingabegerät  besitzt, ein <code>object</ code>-Element per Tastaturbefehl verlassen kann. Dies muss manuell getestet werden.",
       "en": "Ensure that a user who has only a keyboard as an input device can escape a <code>object</code> element. This requires manual confirmation.",
-      "nl": "Zorg ervoor dat een gebruiker die alleen het toetsenbord als bediening gebruikt een <code>object</code>-element. Hiervoor is handmatige bevestiging nodig."
+      "nl": "Zorg ervoor dat een gebruiker die alleen het toetsenbord als bediening gebruikt een <code>object</code>-element. Hiervoor is handmatige bevestiging nodig.",
+      "pt-br": "Certifique-se de que um usuário que tenha apenas um teclado como dispositivo de entrada pode escapar de um elemento <code> object </code>. Isso requer confirmação manual."
     },
     "guidelines": [],
     "tags": [
@@ -6048,12 +6050,14 @@
     "title": {
       "de": "Ein Objekt erfordert möglicherweise eine Langbeschreibung",
       "en": "An object might require a long description",
-      "nl": "Een object heeft soms een lange beschrijving nodig"
+      "nl": "Een object heeft soms een lange beschrijving nodig",
+      "pt-br": "Um objeto pode exigir uma descrição longa"
     },
     "description": {
       "de": "Objekte erfordern möglicherweise eine Langbeschreibung, besonders wenn deren Inhalt kompliziert ist",
       "en": "Objects might require a long description, especially if their content is complicated.",
-      "nl": "Objecten hebben soms een lange beschrijving nodig, zeker in het geval van ingewikkelde content."
+      "nl": "Objecten hebben soms een lange beschrijving nodig, zeker in het geval van ingewikkelde content.",
+      "pt-br": "Objetos podem exigir uma descrição longa, especialmente se o seu conteúdo é complicado."
     },
     "guidelines": [],
     "tags": [
@@ -6070,12 +6074,14 @@
     "title": {
       "de": "Die Textbeschreibung eines Objekts sollte aktualisiert werden, wenn das Objekt sich ändert",
       "en": "The text equivalents of an object should update if the object changes",
-      "nl": "De tekstuele equivalent van een object moet bijgewerkt worden als het object verandert"
+      "nl": "De tekstuele equivalent van een object moet bijgewerkt worden als het object verandert",
+      "pt-br": "Os equivalentes de texto de um objeto devem ser atualizados se o objeto for modificado"
     },
     "description": {
       "de": "Wenn ein Objekt sich ändert, sollte die Textbeschreibung des Objektes sich ebenfalls ändern",
       "en": "If an object changes, the text equivalent of that object should also change.",
-      "nl": "Als een object verandert, moet zijn tekstuele equivalent ook veranderen."
+      "nl": "Als een object verandert, moet zijn tekstuele equivalent ook veranderen.",
+      "pt-br": "Se um objeto for alterado, o texto equivalente desse objeto também deve ser alterado."
     },
     "guidelines": {
       "508": [
@@ -6096,12 +6102,14 @@
     "title": {
       "de": "Inhalt in einem \"object\"-Element sollte nutzbar sein, wenn das Objekt deaktiviert ist",
       "en": "Content within an \"object\" element should be usable with objects disabled",
-      "nl": "Content binnen een \"object\"-element moet bruikbaar blijven als het object uitgeschakeld is"
+      "nl": "Content binnen een \"object\"-element moet bruikbaar blijven als het object uitgeschakeld is",
+      "pt-br": "O conteúdo dentro de um elemento \"objeto\" deve ser utilizável com objetos desativados"
     },
     "description": {
       "de": "Objekte, deren Inhalte mit Hilfe von Java, ActiveX oder ähnlichen Technologien aktualisiert werden, sollten den Standardtext aktualisieren, wenn ihr Inhalt geändert wird",
       "en": "Objects who's content changes using java, ActiveX, or other similar technologies, should have their default text change when the object's content changes.",
-      "nl": "Van objecten waarvan de content java, ActiveX of vergelijkbare technologie�n gebruiken, moet de standaardtekst veranderen als de content van het object verandert."
+      "nl": "Van objecten waarvan de content java, ActiveX of vergelijkbare technologie�n gebruiken, moet de standaardtekst veranderen als de content van het object verandert.",
+      "pt-br": "Os objetos com alterações de conteúdo usando java, ActiveX ou outras tecnologias similares devem ter seu texto padrão alterado quando o conteúdo do objeto for alterado."
     },
     "guidelines": [],
     "tags": [
@@ -6118,12 +6126,14 @@
     "title": {
       "de": "Objekte mit \"classid\"-Attribut sollten nicht ihren Text ändern, wenn sich der Inhalt des Objektes ändert",
       "en": "Objects with \"classid\" attributes should change their text if the content of the object changes",
-      "nl": "Objecten met \"classid\"-attributen moeten hun tekst veranderen wanneer de content van het object verandert"
+      "nl": "Objecten met \"classid\"-attributen moeten hun tekst veranderen wanneer de content van het object verandert",
+      "pt-br": "Os objetos com \"classid\" atributos devem alterar seu texto se o conteúdo do objeto for alterado"
     },
     "description": {
       "de": "Objekte mit \"classid\"-Attribut sollten nicht ihren Standardtext ändern, wenn sich der Inhalt des Objektes ändert.",
       "en": "Objects with \"classid\" attributes, should have their default text change when the object's content changes.",
-      "nl": "Van objecten met \"classid\"-attributen moet de standaardtekst veranderen als de content van het object verandert."
+      "nl": "Van objecten met \"classid\"-attributen moet de standaardtekst veranderen als de content van het object verandert.",
+      "pt-br": "Os objetos com atributos \"classid\" devem ter seu texto padrão alterado quando o conteúdo do objeto for alterado."
     },
     "guidelines": [],
     "tags": [
@@ -6140,12 +6150,14 @@
     "title": {
       "de": "Paragraphen dürfen nicht für Überschriften verwendet werden",
       "en": "Paragraphs must not be used for headers",
-      "nl": "Alinea's worden niet gebruikt als header"
+      "nl": "Alinea's worden niet gebruikt als header",
+      "pt-br": "Os parágrafos não devem ser usados para cabeçalhos"
     },
     "description": {
       "de": "Überschriften sind für nicht-sehende Benutzer sehr nützlich um in der Seitenstruktur zu navigieren. Einen Paragraphen nur groß oder fett zu formatieren, damit es wie eine Überschrift aussieht, macht daraus keine Überschrift.",
       "en": "Headers are extremely useful for non-sighted users to navigate the structure of the page. Formatting a paragraph to just be big or bold, while it might visually look like a header, does not make it a header.",
-      "nl": "Headers van <code>h1</code> - <code>h6</code> zijn handig voor blinde en slechtziende gebruikers om door een pagina te navigeren. Maak alinea's daarom niet op zodat deze lijkt op een header. Dit werkt verwarrend."
+      "nl": "Headers van <code>h1</code> - <code>h6</code> zijn handig voor blinde en slechtziende gebruikers om door een pagina te navigeren. Maak alinea's daarom niet op zodat deze lijkt op een header. Dit werkt verwarrend.",
+      "pt-br": "Cabeçalhos são extremamente úteis para usuários sem visão para navegar na estrutura da página. Formatando um parágrafo para ser apenas grande ou negrito, enquanto ele pode visualmente se parecer com um cabeçalho, não torná-lo um cabeçalho."
     },
     "guidelines": {
       "wcag": {
@@ -6195,12 +6207,14 @@
     "title": {
       "de": "Alle \"password\"-Eingabeelemente sollten ein dazugehöriges Label haben",
       "en": "All password input elements should have a corresponding label",
-      "nl": "Alle paswoordinvoerelementen hebben een bijbehorend label"
+      "nl": "Alle paswoordinvoerelementen hebben een bijbehorend label",
+      "pt-br": "Todos os elementos de entrada de senha devem ter um rótulo correspondente"
     },
     "description": {
       "de": "Alle <code>input</code>-Elemente vom Typ \"password\" sollten ein dazugehöriges <code>label</code>-Element haben. Bildschirmleseprogramme haben oftmals eine Formular-Modus, in dem nur Labels vorgelesen werden.",
       "en": "All <code>input</code> elements with a type of \"password\"should have a corresponding <code>label</code> element. Screen readers often enter a \"form mode\" where only label text is read aloud to the user",
-      "nl": "Alle <code>input</code>-elementen van het type \"paswoord\" moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen."
+      "nl": "Alle <code>input</code>-elementen van het type \"paswoord\" moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen.",
+      "pt-br": "Todos os elementos <code> input </code> com um tipo de \"senha\" devem ter um elemento <code> label </code> correspondente. Os leitores de tela costumam entrar em um \"modo de formulário\" onde somente o texto da etiqueta é lido em voz alta para o usuário"
     },
     "guidelines": {
       "508": [
@@ -6258,12 +6272,14 @@
     "title": {
       "de": "Alle \"password\"-Eingabeelemente sollten ein dazugehöriges Label haben",
       "en": "All \"password\" input elements have a label that is close",
-      "nl": "Alle paswoordinvoerelementen hebben een label dat dicht bij het element staat"
+      "nl": "Alle paswoordinvoerelementen hebben een label dat dicht bij het element staat",
+      "pt-br": "Todos os elementos de entrada de \"senha\" têm um rótulo que está próximo"
     },
     "description": {
       "de": "Alle Eingabeelemente vom Typ \"password\" müssen ein dazugehöriges Label haben das in der Nähe des Eingabeelements positioniert ist. Nutzer von Bildschirmvergrößerung oder mit reduzierten räumlichen Fähigkeiten werden bei der Verwendung eines Formularelements behindert, wenn das Label für das Element weit entfernt positioniert ist.",
       "en": "All input elements of type \"password\" must have a corresponding label that is close to the form element. Users of screen magnification or with reduced spatial skills are hampered in using a form element if the label for that element is located far away.",
-      "nl": "Alle inputelementen van het type \"paswoord\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat."
+      "nl": "Alle inputelementen van het type \"paswoord\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat.",
+      "pt-br": "Todos os elementos de entrada do tipo \"senha\" devem ter um rótulo correspondente que esteja próximo ao elemento do formulário. Usuários de ampliação de tela ou com habilidades espaciais reduzidas são impedidos de usar um elemento de formulário se o rótulo para esse elemento estiver localizado longe."
     },
     "guidelines": [],
     "tags": [
@@ -6283,12 +6299,14 @@
     "title": {
       "de": "Pre-Elemente sollten nicht für Tabellendaten verwendet werden",
       "en": "Pre elements should not be used for tabular data",
-      "nl": "Pre-elementen worden niet gebruikt om data als tabel te rangschikken"
+      "nl": "Pre-elementen worden niet gebruikt om data als tabel te rangschikken",
+      "pt-br": "Pré-elementos não devem ser usados para dados tabulares"
     },
     "description": {
       "de": "Wenn ein <code>pre</code>-Element für Tabellendaten verwendet wird, ändern Sie die Daten sodass eine wohlgeformte Tabelle verwendet wird.",
       "en": "If a <code>pre</code> element is used for tabular data, change the data to use a well-formed table.",
-      "nl": "Als een <code>pre</code>-element wordt gebruikt om data als tabel te rangschikken, verander de data dan zodat je een echte tabel kunt maken."
+      "nl": "Als een <code>pre</code>-element wordt gebruikt om data als tabel te rangschikken, verander de data dan zodat je een echte tabel kunt maken.",
+      "pt-br": "Se um elemento <code> pre </code> for usado para dados tabulares, altere os dados para usar uma tabela bem formada."
     },
     "guidelines": {
       "wcag": {
@@ -6319,12 +6337,14 @@
     "title": {
       "de": "Alle \"Radio\"-Eingabeelemente müssen ein dazugehöriges Label haben",
       "en": "All \"radio\" input elements have a corresponding label",
-      "nl": "Alle invoerelementen van het type \"radio\" hebben een bijbehorend label"
+      "nl": "Alle invoerelementen van het type \"radio\" hebben een bijbehorend label",
+      "pt-br": "Todos os elementos de entrada \"radio\" têm uma etiqueta correspondente"
     },
     "description": {
       "de": "Alle <code>Input</code>-Elemente vom Typ \"radio\" sollten ein dazugehöriges <code>label<code>-Element haben. Bildschirmleseprogramme verwenden oft einen Formularmodus, wenn nur Label-Text vorgelesen wird.",
       "en": "All <code>input</code> elements of type \"radio\" should have a corresponding <code>label</code> element. Screen readers often enter a \"form mode\" where only label text is read aloud to the user",
-      "nl": "Alle <code>input</code>-elementen van het \"radio\" moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen."
+      "nl": "Alle <code>input</code>-elementen van het \"radio\" moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen.",
+      "pt-br": "Todos os elementos <code> input </ code> do tipo \"radio\" devem ter um elemento <code> label </ code> correspondente. Os leitores de tela costumam entrar em um \"modo de formulário\" onde somente o texto do rótulo é lido em voz alta para o usuário"
     },
     "guidelines": {
       "508": [
@@ -6382,12 +6402,14 @@
     "title": {
       "de": "Alle \"radio\"-Elemente sollten ein dazugehöriges Label haben",
       "en": "All \"radio\" input elements have a label that is close",
-      "nl": "Alle invoerelementen van het type \"radio\" hebben een label dat dicht bij het element staat"
+      "nl": "Alle invoerelementen van het type \"radio\" hebben een label dat dicht bij het element staat",
+      "pt-br": "Todos os elementos de entrada \"radio\" têm um rótulo que está próximo"
     },
     "description": {
       "de": "Alle Eingabeelemente vom Typ \"radio\" müssen ein dazugehöriges Label haben das in der Nähe des Eingabeelements positioniert ist. Nutzer von Bildschirmvergrößerung oder mit reduzierten räumlichen Fähigkeiten werden bei der Verwendung eines Formularelements behindert, wenn das Label für das Element weit entfernt positioniert ist.",
       "en": "All input elements of type \"radio\" must have a corresponding label that is close to the form element. Users of screen magnification or with reduced spatial skills are hampered in using a form element if the label for that element is located far away.",
-      "nl": "Alle inputelementen van het type \"radio\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat."
+      "nl": "Alle inputelementen van het type \"radio\" moeten een bijbehorend label hebben dat dicht bij het formulierelement staat. Gebruikers die het scherm vergroten of met beperkte ruimtelijke vaardigheden kunnen een formulier niet gebruiken als het label van een veld te ver weg staat.",
+      "pt-br": "Todos os elementos de entrada do tipo \"radio\" devem ter um rótulo correspondente que esteja próximo ao elemento do formulário. Usuários de ampliação de tela ou com habilidades espaciais reduzidas são impedidos de usar um elemento de formulário se o rótulo para esse elemento estiver localizado longe."
     },
     "guidelines": [],
     "tags": [
@@ -6406,13 +6428,15 @@
     "testability": 1,
     "title": {
       "de": "Alle Gruppen von Radio-Buttons sind mit Fieldsets und Legend-Elementen gekennzeichnet",
-      "en": "All radio button groups are marked using fieldset and legend elements",
-      "nl": "Alle groepjes van radio buttons zijn gemarkeerd met fieldset- en legend-elementen"
+      "en": "All radio button groups are marked using fieldset and legend elementsTodos os grupos de botões de rádio são marcados usando os elementos fieldset e legenda",
+      "nl": "Alle groepjes van radio buttons zijn gemarkeerd met fieldset- en legend-elementen",
+      "pt-br": "Todos os grupos de botões de radio são marcados usando os elementos fieldset e legenda"
     },
     "description": {
       "de": "Formular-Elemente müssen sowohl ein Fieldset als auch Legend-Elemente beinhalten, wenn Radio-Buttons verwendet werden",
       "en": "Form element content must contain both fieldset and legend elements if there are related radio buttons.",
-      "nl": "Content van formulierelementen moeten zowel fieldset- als legend-elementen bevatten als er gerelateerde radio buttons instaan."
+      "nl": "Content van formulierelementen moeten zowel fieldset- als legend-elementen bevatten als er gerelateerde radio buttons instaan.",
+      "pt-br": "O conteúdo do elemento de formulário deve conter elementos de campo e legenda se houver botões radio relacionados."
     },
     "guidelines": {
       "wcag": {
@@ -6442,12 +6466,14 @@
     "title": {
       "de": "Der Inhalt einer Seite sollte auch bei deaktivierten Scripten verfügbar sein",
       "en": "Content on the page should still be available if scripts are disabled",
-      "nl": "Content op de pagina moet beschikbaar blijven als scripts zijn uitgeschakeld"
+      "nl": "Content op de pagina moet beschikbaar blijven als scripts zijn uitgeschakeld",
+      "pt-br": "O conteúdo da página ainda deve estar disponível se os scripts estiverem desativados"
     },
     "description": {
       "de": "Es sollte geprüft werden, ob der Seiteninhalt immer noch verfügbar ist, wenn Skripte im Browser deaktiviert wurden",
       "en": "All scripts should be assessed to see if, when the user is browsing with scrips turned off, the page content is still available.",
-      "nl": "Alle scripts moeten gecontroleerd worden of, wanneer een gebruiker scripts heeft uitgezet, de content van de pagina nog steeds beschikbaar is."
+      "nl": "Alle scripts moeten gecontroleerd worden of, wanneer een gebruiker scripts heeft uitgezet, de content van de pagina nog steeds beschikbaar is.",
+      "pt-br": "Todos os scripts devem ser avaliados para ver se, quando o usuário está navegando com scripts desligados, o conteúdo da página ainda está disponível."
     },
     "guidelines": [],
     "tags": [
@@ -6463,12 +6489,14 @@
     "title": {
       "de": "Skripte sollten ein dazugehöriges \"noscript\"-Element haben",
       "en": "Scripts should have a corresponding \"noscript\" element",
-      "nl": "Scripts moeten een bijbehorend \"noscript\"-element hebben"
+      "nl": "Scripts moeten een bijbehorend \"noscript\"-element hebben",
+      "pt-br": "Os scripts devem ter um elemento \"noscript\" correspondente"
     },
     "description": {
       "de": "Skripte sollten von einem <code>noscript</code>-Element gefolgt werden, um dem Benutzer einen alternativen Zugang zum Inhalt zu bieten",
       "en": "Scripts should be followed by a <code>noscripts</code> element to guide the user to content in an alternative way.",
-      "nl": "Scripts moeten worden gevolgd door een <code>noscripts</code>-element om de gebruiker de weg te wijzen naar de content op een andere manier."
+      "nl": "Scripts moeten worden gevolgd door een <code>noscripts</code>-element om de gebruiker de weg te wijzen naar de content op een andere manier.",
+      "pt-br": "Os scripts devem ser seguidos por um elemento <code> noscripts </code> para orientar o usuário para o conteúdo de uma maneira alternativa."
     },
     "guidelines": {
       "508": [
@@ -6488,12 +6516,14 @@
     "title": {
       "de": "Wenn ein Element ein \"onclick\"-Attribut hat sollte es auch ein \"onkeypress\"-Attribut haben",
       "en": "If an element has an \"onclick\" attribute it should also have an \"onkeypress\" attribute",
-      "nl": "Als een element een \"onclick\"-attribuut heeft, moet het ook een \"onkeypress\"-attribuut hebben"
+      "nl": "Als een element een \"onclick\"-attribuut heeft, moet het ook een \"onkeypress\"-attribuut hebben",
+      "pt-br": "Se um elemento tem um atributo \"onclick\", ele também deve ter um atributo \"onkeypress\""
     },
     "description": {
       "de": "Wenn ein Element ein \"onclick\"-Attribut hat sollte es auch ein \"onkeypress\"-Attribut haben",
       "en": "If an element has an \"onclick\" attribute it should also have an \"onkeypress\" attribute",
-      "nl": "Als een element een \"onclick\"-attribuut heeft, moet het ook een \"onkeypress\"-attribuut hebben"
+      "nl": "Als een element een \"onclick\"-attribuut heeft, moet het ook een \"onkeypress\"-attribuut hebben",
+      "pt-br": "Se um elemento tem um atributo \"onclick\", ele também deve ter um atributo \"onkeypress\""
     },
     "guidelines": {
       "508": [
@@ -6533,12 +6563,14 @@
     "title": {
       "de": "Jedes Element mit einem \"ondblclick\"-Attribut sollte auch eine Tastatur-Aktion haben",
       "en": "Any element with an \"ondblclick\" attribute should have a keyboard-related action as well",
-      "nl": "Elk element met een \"ondblclick\"-attribuut moet een vergelijkbare actie hebben die kan worden uitgevoerd met een toetsenbord"
+      "nl": "Elk element met een \"ondblclick\"-attribuut moet een vergelijkbare actie hebben die kan worden uitgevoerd met een toetsenbord",
+      "pt-br": "Qualquer elemento com um atributo \"ondblclick\" também deve ter uma ação relacionada ao teclado"
     },
     "description": {
       "de": "Wenn ein Element ein \"ondblclick\"-Attribut hat, sollte es auch eine Tastatur-Aktion haben",
       "en": "If an element has an \"ondblclick\" attribute, it should also have a keyboard-related action.",
-      "nl": "Als een element een \"ondblclick\"-attribuut heeft, moet het ook een actie bevatten die kan worden uitgevoerd met een toetsenbord."
+      "nl": "Als een element een \"ondblclick\"-attribuut heeft, moet het ook een actie bevatten die kan worden uitgevoerd met een toetsenbord.",
+      "pt-br": "Se um elemento tem um atributo \"ondblclick\", ele também deve ter uma ação relacionada ao teclado."
     },
     "guidelines": {
       "508": [
@@ -6578,12 +6610,14 @@
     "title": {
       "de": "Wenn ein Element ein \"mousedown\"-Attribut hat sollte es auch ein \"onkeydown\"-Attribut haben",
       "en": "If an element has a \"mousedown\" attribute it should also have an \"onkeydown\" attribute",
-      "nl": "Als een element een \"mousedown\"-attribuut heeft moet het ook een \"onkeydown\"-attribuut hebben"
+      "nl": "Als een element een \"mousedown\"-attribuut heeft moet het ook een \"onkeydown\"-attribuut hebben",
+      "pt-br": "Se um elemento tem um atributo \"mousedown\" ele também deve ter um atributo \"onkeydown\""
     },
     "description": {
       "de": "Wenn ein Element ein \"mousedown\"-Attribut hat sollte es auch ein \"onkeydown\"-Attribut haben",
       "en": "If an element has a \"mousedown\" attribute it should also have an \"onkeydown\" attribute.",
-      "nl": "Als een element een \"mousedown\"-attribuut heeft moet het ook een \"onkeydown\"-attribuut hebben."
+      "nl": "Als een element een \"mousedown\"-attribuut heeft moet het ook een \"onkeydown\"-attribuut hebben.",
+      "pt-br": "Se um elemento tem um atributo \"mousedown\" ele também deve ter um atributo \"onkeydown\""
     },
     "guidelines": {
       "508": [
@@ -6623,12 +6657,14 @@
     "title": {
       "de": "Jedes Element mit einem \"onmousemove\"-Attribut sollte auch eine Tastatur-Aktion haben",
       "en": "Any element with an \"onmousemove\" attribute should have a keyboard-related action as well",
-      "nl": "Elk element met een \"onmousemove\"-attribuut moet een vergelijkbare actie hebben die kan worden uitgevoerd met een toetsenbord"
+      "nl": "Elk element met een \"onmousemove\"-attribuut moet een vergelijkbare actie hebben die kan worden uitgevoerd met een toetsenbord",
+      "pt-br": "Qualquer elemento com um atributo \"onmousemove\" também deve ter uma ação relacionada ao teclado"
     },
     "description": {
       "de": "Wenn ein Element ein \"onmousemove\"-Attribut hat, sollte es auch eine Tastatur-Aktion haben",
       "en": "If an element has an \"onmousemove\" attribute it should have a keyboard-related action as well.",
-      "nl": "Als een element een \"onmousemove\"-attribuut heeft, moet het een vergelijkbare actie hebben die kan worden uitgevoerd met een toetsenbord."
+      "nl": "Als een element een \"onmousemove\"-attribuut heeft, moet het een vergelijkbare actie hebben die kan worden uitgevoerd met een toetsenbord.",
+      "pt-br": "Se um elemento tiver um atributo \"onmousemove\", ele também deverá ter uma ação relacionada ao teclado."
     },
     "guidelines": {
       "508": [
@@ -6668,12 +6704,14 @@
     "title": {
       "de": "Wenn ein Element ein \"onmouseout\"-Attribut hat sollte es auch ein \"onblur\"-Attribut haben",
       "en": "If an element has a \"onmouseout\" attribute it should also have an \"onblur\" attribute",
-      "nl": "Als een element een \"onmouseout\"-attribuut heeft, moet het ook een \"onblur\" attribuut hebben"
+      "nl": "Als een element een \"onmouseout\"-attribuut heeft, moet het ook een \"onblur\" attribuut hebben",
+      "pt-br": "Se um elemento tem um atributo \"onmouseout\", ele também deve ter um atributo \"onblur\""
     },
     "description": {
       "de": "Wenn ein Element ein \"mousedown\"-Attribut hat sollte es auch ein \"onkeydown\"-Attribut haben",
       "en": "If an element has a \"onmouseout\" attribute it should also have an \"onblur\" attribute.",
-      "nl": "Als een element een \"onmouseout\"-attribuut heeft, moet het ook een \"onblur\"-attribuut hebben."
+      "nl": "Als een element een \"onmouseout\"-attribuut heeft, moet het ook een \"onblur\"-attribuut hebben.",
+      "pt-br": "Se um elemento tem um atributo \"onmouseout\", ele também deve ter um atributo \"onblur\""
     },
     "guidelines": {
       "508": [
@@ -6713,12 +6751,14 @@
     "title": {
       "de": "Wenn ein Element ein \"onmouseover\"-Attribut hat sollte es auch ein \"onfocus\"-Attribut haben",
       "en": "If an element has a \"onmouseover\" attribute it should also have an \"onfocus\" attribute",
-      "nl": "Als een element een \"onmouseover\"-attribuut heeft, moet het ook een \"onfocus\"-attribuut hebben"
+      "nl": "Als een element een \"onmouseover\"-attribuut heeft, moet het ook een \"onfocus\"-attribuut hebben",
+      "pt-br": "Se um elemento tem um atributo \"onmouseover\" ele também deve ter um atributo \"onfocus\""
     },
     "description": {
       "de": "Wenn ein Element ein \"mousedown\"-Attribut hat sollte es auch ein \"onkeydown\"-Attribut haben",
       "en": "If an element has a \"onmouseover\" attribute it should also have an \"onfocus\" attribute.",
-      "nl": "Als een element een \"onmouseover\"-attribuut heeft, moet het ook een \"onfocus\"-attribuut hebben."
+      "nl": "Als een element een \"onmouseover\"-attribuut heeft, moet het ook een \"onfocus\"-attribuut hebben.",
+      "pt-br": "Se um elemento tem um atributo \"onmouseover\" ele também deve ter um atributo \"onfocus\"."
     },
     "guidelines": {
       "508": [
@@ -6758,12 +6798,14 @@
     "title": {
       "de": "Wenn ein Element ein \"onmouseup\"-Attribut hat sollte es auch ein \"onkeyup\"-Attribut haben",
       "en": "If an element has a \"onmouseup\" attribute it should also have an \"onkeyup\" attribute",
-      "nl": "Als een element een \"onmouseup\"-attribuut heeft, moet het ook een \"onkeyup\"-attribuut hebben"
+      "nl": "Als een element een \"onmouseup\"-attribuut heeft, moet het ook een \"onkeyup\"-attribuut hebben",
+      "pt-br": "Se um elemento tem um atributo \"onmouseup\" ele também deve ter um atributo \"onkeyup\"."
     },
     "description": {
       "de": "Wenn ein Element ein \"onmouseup\"-Attribut hat sollte es auch ein \"onkeyup\"-Attribut haben",
       "en": "If an element has a \"onmouseup\" attribute it should also have an \"onkeyup\" attribute.",
-      "nl": "Als een element een \"onmouseup\"-attribuut heeft, moet het ook een \"onkeyup\"-attribuut hebben."
+      "nl": "Als een element een \"onmouseup\"-attribuut heeft, moet het ook een \"onkeyup\"-attribuut hebben.",
+      "pt-br": "Se um elemento tem um atributo \"onmouseup\" ele também deve ter um atributo \"onkeyup\"."
     },
     "guidelines": {
       "508": [
@@ -6803,12 +6845,14 @@
     "title": {
       "de": "Die Benutzerschnittstelle von Skripten sollte barrierefrei sein",
       "en": "The user interface for scripts should be accessible",
-      "nl": "De user interface voor scripts moet toegankelijk zijn"
+      "nl": "De user interface voor scripts moet toegankelijk zijn",
+      "pt-br": "A interface de usuário para scripts deve ser acessível"
     },
     "description": {
       "de": "Alle Skripte sollten dahingehend geprüft werden, ob ihre Benutzerschnittstelle barrierefrei ist",
       "en": "All scripts should be assessed to see if their interface is accessible.",
-      "nl": "Alle scripts moeten gecontroleerd worden op toegankelijkheid van hun interface."
+      "nl": "Alle scripts moeten gecontroleerd worden op toegankelijkheid van hun interface.",
+      "pt-br": "Todos os scripts devem ser avaliados para ver se sua interface é acessível."
     },
     "guidelines": {
       "508": [
@@ -6828,12 +6872,14 @@
     "title": {
       "de": "Skripte sollten kein Flackern des Bildschirms verursachen",
       "en": "Scripts should not cause the screen to flicker",
-      "nl": "Scripts mogen het scherm niet laten knipperen of flitsen"
+      "nl": "Scripts mogen het scherm niet laten knipperen of flitsen",
+      "pt-br": "Scripts não devem causar a cintilação da tela"
     },
     "description": {
       "de": "Alle Skripte sollten dahingehend geprüft werden, dass ihre Benutzerschnittstelle nicht flackert",
       "en": "All scripts should be assessed to see if their interface does not flicker.",
-      "nl": "Alle scripts moeten gecontroleerd worden om te zien of zij de interface niet laten knipperen of flitsen."
+      "nl": "Alle scripts moeten gecontroleerd worden om te zien of zij de interface niet laten knipperen of flitsen.",
+      "pt-br": "Todos os scripts devem ser avaliados para que se sua interface não pisque."
     },
     "guidelines": {
       "508": [
@@ -6860,12 +6906,14 @@
     "title": {
       "de": "Die Benutzerschnittstelle von Skripten sollte nicht nur Farben verwenden, um Inhalte zu kommunizieren",
       "en": "The interface in scripts should not use color alone",
-      "nl": "De interface in scripts gebruikt niet alleen maar kleur"
+      "nl": "De interface in scripts gebruikt niet alleen maar kleur",
+      "pt-br": "A interface em scripts não deve usar cor sozinha"
     },
     "description": {
       "de": "Alle Skripte sollten dahingehend geprüft werden, dass es für ihre Benutzerschnittstelle nicht nötig ist zwischen Farben unterscheiden zu können",
       "en": "All scripts should be assessed to see if their interface does not have an interface which requires distinguishing between colors alone.",
-      "nl": "Alle scripts moeten gecontroleerd worden om te zien of hun interface geen interface heeft die alleen op kleur kan worden onderscheiden."
+      "nl": "Alle scripts moeten gecontroleerd worden om te zien of hun interface geen interface heeft die alleen op kleur kan worden onderscheiden.",
+      "pt-br": "Todos os scripts devem ser avaliados para ver se não possuem uma interface que exige distinção entre cores sozinhas."
     },
     "guidelines": {
       "508": [
@@ -6886,12 +6934,14 @@
     "title": {
       "de": "\"select\"-Elemente dürfen kein \"onchange\"-Attribut haben",
       "en": "\"Select\" elements must not contain an \"onchange\" attribute",
-      "nl": "\"Select\" elements bevatten geen \"onchange\" attribute"
+      "nl": "\"Select\" elements bevatten geen \"onchange\" attribute",
+      "pt-br": "Os elementos \"Select\" não devem conter um atributo \"onchange\""
     },
     "description": {
       "de": "Aktionen wie \"onchange\" entziehen dem Benutzer die Kontrolle beim Versuch auf der Seite zu navigieren. \"onchange\"-Attribute für Dinge wie Auswahl-Listenmenüs sollten durch Drop-Downs und eine Schaltfläche zur Initiierung der Aktion ersetzt werden.",
       "en": "Actions like \"onchange\" can take control away from users who are trying to navigate the page. Using an \"onchange\" attribute for things like select-list menus should instead be replaced with a drop-down and a button which initiates the action.",
-      "nl": "Acties als \"onchange\" kunnen de controle ontnemen van gebruikers die op een pagina proberen te navigeren. Het gebruik van een \"onchange\"-attribuut voor zaken zoals select-list menu's moet vervangen worden door een drop-down en een knop waarmee je de actie start."
+      "nl": "Acties als \"onchange\" kunnen de controle ontnemen van gebruikers die op een pagina proberen te navigeren. Het gebruik van een \"onchange\"-attribuut voor zaken zoals select-list menu's moet vervangen worden door een drop-down en een knop waarmee je de actie start.",
+      "pt-br": "Ações como \"onchange\" podem tirar o controle dos usuários que estão tentando navegar na página. O uso de um atributo \"onchange\" para coisas como menus de lista de seleção deve ser substituído por um drop-down e um botão que inicia a ação."
     },
     "guidelines": [],
     "tags": [
@@ -6913,12 +6963,14 @@
     "title": {
       "de": "Alle \"select\"-Elemente haben explizit assoziierte Labels",
       "en": "All select elements have an explicitly associated label",
-      "nl": "Alle select-elementen hebben een expliciet bijbehorend label"
+      "nl": "Alle select-elementen hebben een expliciet bijbehorend label",
+      "pt-br": "Todos os elementos selecionados têm um rótulo associado explicitamente"
     },
     "description": {
       "de": "Alle <code>select</code>-Elemente sollten ein dazugehöriges <code>label</code>-Element haben. Bildschirmleseprogramme haben oftmals eine Formular-Modus, in dem nur Labels vorgelesen werden.",
       "en": "All <code>select</code> elements should have a corresponding <code>label</code> element. Screen readers often enter a \"form mode\" where only label text is read aloud to the user",
-      "nl": "Alle <code>select</code>-elementen moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen."
+      "nl": "Alle <code>select</code>-elementen moeten een bijbehorend <code>label</code>-element hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen.",
+      "pt-br": "Todos os elementos <code> select </ code> devem ter um elemento <code> label </ code> correspondente. Os leitores de tela costumam entrar em um \"modo de formulário\" onde somente o texto do rótulo é lido em voz alta para o usuário"
     },
     "guidelines": {
       "wcag": {
@@ -6973,12 +7025,14 @@
     "title": {
       "de": "Sprungmenüs sollten die Weiterleitung durch Betätigen einer Schaltfläche ausführen, nicht auf einen Statuswechsel des Menüs",
       "en": "Select jump menus should jump on button press, not on state change",
-      "nl": "Select jump menu's moeten springen wanneer de knop wordt gebruikt, niet bij statusverandering"
+      "nl": "Select jump menu's moeten springen wanneer de knop wordt gebruikt, niet bij statusverandering",
+      "pt-br": "Menus de salto devem realizar o encaminhamento ao pressionar um botão, não uma mudança no status do menu"
     },
     "description": {
       "de": "Wenn Sie ein Sprungmenü verwenden wollen, welches den Benutzer nach Auswahl eines Menüpunktes weiterleitet, sollte die Weiterleitung durch das Betätigen einer Schaltfläche geschehen, nicht durch die Auswahl eines Menüelements",
       "en": "If you wish to use a 'Jump' menu with a select item that then redirects users to another page, the jump should occur on the user pressing a button, rather than on the change event of that select element.",
-      "nl": "Als je een 'Jump'-menu wilt gebruiken met een select item dat gebruikers naar een andere pagina verwijst, moet de verwijzing plaatsvinden als de gebruiker een knop gebruikt en niet op het moment dat het select element verandert."
+      "nl": "Als je een 'Jump'-menu wilt gebruiken met een select item dat gebruikers naar een andere pagina verwijst, moet de verwijzing plaatsvinden als de gebruiker een knop gebruikt en niet op het moment dat het select element verandert.",
+      "pt-br": "Se você deseja usar um menu de salto com um item de seleção que, em seguida, redireciona os usuários para outra página, o salto deve ocorrer no usuário pressionando um botão, em vez de no evento de alteração desse elemento de seleção."
     },
     "guidelines": {
       "wcag": {
