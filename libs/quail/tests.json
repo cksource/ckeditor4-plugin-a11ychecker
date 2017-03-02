@@ -7748,12 +7748,14 @@
     "title": {
       "de": "Datentabellen sollten ein \"caption\"-Element haben, wenn sie nicht anderweitig beschrieben sind",
       "en": "Data tables should contain a \"caption\" element if not described elsewhere",
-      "nl": "Datatabellen moeten een \"caption\"-element hebben als ze nergens anders beschreven worden"
+      "nl": "Datatabellen moeten een \"caption\"-element hebben als ze nergens anders beschreven worden",
+      "pt-br": "As tabelas de dados devem conter um elemento \"caption\" se não for descrito em outro lugar"
     },
     "description": {
       "de": "Wenn Tabellen nicht anderweitig im Dokument beschrieben sind, sollten sie ein <code>caption</code>-Element zu beschreibung beinhalten",
       "en": "Unless otherwise described in the document, tables should contain <code>caption</code> elements to describe the purpose of the table.",
-      "nl": "Tenzij elders in het document beschreven, moeten tabellen een \"caption\"-element hebben om het doel van de tabel te beschrijven."
+      "nl": "Tenzij elders in het document beschreven, moeten tabellen een \"caption\"-element hebben om het doel van de tabel te beschrijven.",
+      "pt-br": "As tabelas devem conter elementos <code> caption </code> para descrever o propósito da tabela."
     },
     "guidelines": {
       "wcag": {
@@ -7778,12 +7780,14 @@
     "title": {
       "de": "Datentabellen sollten Überschrift mit \"scope\"-Attribut verwenden, wenn Zeilenüberschriften benötigt werden",
       "en": "Data tables should use scoped headers for rows with headers",
-      "nl": "Datatabellen moeten het \"scope\"-attribuut gebruiken voor rijen met koppen"
+      "nl": "Datatabellen moeten het \"scope\"-attribuut gebruiken voor rijen met koppen",
+      "pt-br": "As tabelas de dados devem usar cabeçalhos com escopo para linhas com cabeçalhos"
     },
     "description": {
       "de": "Wenn Tabellenüberschriften für Zeilen und Spalten benötigt werden, sollte das \"scope\"-Attribut verwendet werden, um die Überschriften den richtigen Zellen zuzuordnen. Dieser Test prüft die erste und letzte Zelle in jeder Zeile und prüft, ob sie sich im Layout oder der Gewichtung der Schriftart unterscheiden.",
       "en": "Where there are table headers for both rows and columns, use the \"scope\" attribute to help relate those headers with their appropriate cells. This test looks for the first and last cells in each row and sees if they differ in layout or font weight.",
-      "nl": "Als er tabelkoppen zijn voor zowel rijen als kolommen, gebruik dan het \"scope\"-attribuut om het juiste verband te leggen tussen de koppen en bijbehorende cellen."
+      "nl": "Als er tabelkoppen zijn voor zowel rijen als kolommen, gebruik dan het \"scope\"-attribuut om het juiste verband te leggen tussen de koppen en bijbehorende cellen.",
+      "pt-br": "Onde houver cabeçalhos de tabela para linhas e colunas, use o atributo \"scope\" para ajudar a relacionar esses cabeçalhos com suas células apropriadas. Este teste procura a primeira e última células em cada linha e vê se eles diferem no layout ou peso da fonte."
     },
     "guidelines": {
       "wcag": {
@@ -7806,12 +7810,14 @@
     "title": {
       "de": "Datentabellen mit mehreren Überschriften sollten das \"scope\"-Attribut verwenden",
       "en": "Data tables with multiple headers should use the \"scope\" attribute",
-      "nl": "Datatabellen met meerdere headers moeten het \"scope\"-attribuut gebruiken"
+      "nl": "Datatabellen met meerdere headers moeten het \"scope\"-attribuut gebruiken",
+      "pt-br": "As tabelas de dados com vários cabeçalhos devem usar o atributo \"scope\""
     },
     "description": {
       "de": "Wenn Tabellenüberschriften für Zeilen und Spalten verwendet werden, nutzen Sie das \"scope\"-Attribut, um die Überschriften den richtigen Zellen zuzuordnen",
       "en": "Where there are table headers for both rows and columns, use the \"scope\" attribute to help relate those headers with their appropriate cells.",
-      "nl": "Als er tabelkoppen zijn voor zowel rijen als kolommen, gebruik dan het \"scope\"-attribuut om het juiste verband te leggen tussen de koppen en bijbehorende cellen."
+      "nl": "Als er tabelkoppen zijn voor zowel rijen als kolommen, gebruik dan het \"scope\"-attribuut om het juiste verband te leggen tussen de koppen en bijbehorende cellen.",
+      "pt-br": "Onde houver cabeçalhos de tabela para linhas e colunas, use o atributo \"scope\" para ajudar a relacionar esses cabeçalhos com suas células apropriadas."
     },
     "guidelines": {
       "508": [
@@ -7839,12 +7845,14 @@
     "title": {
       "de": "Komplexe Datentabellen sollten \"id\"-Attribute für Überschriften bereitstellen",
       "en": "Complex data tables should provide \"id\" attributes to headers",
-      "nl": "Complexe datatabellen moeten \"id\"-attributen aan headers koppelen"
+      "nl": "Complexe datatabellen moeten \"id\"-attributen aan headers koppelen",
+      "pt-br": "Tabelas de dados complexas devem fornecer \"id\" atributos para cabeçalhos"
     },
     "description": {
       "de": "Komplexe Datentabellen sollten \"id\"-Attribute für Überschriften und \"header\"-Attribute für Datenzellen verwenden.",
       "en": "Complex data tables should provide \"id\" attributes to headers and \"headers\" attributes for data cells.",
-      "nl": "Complexe datatabellen moeten \"id\"-attributen aan headers koppelen en \"headers\"-attributen aan datacellen."
+      "nl": "Complexe datatabellen moeten \"id\"-attributen aan headers koppelen en \"headers\"-attributen aan datacellen.",
+      "pt-br": "Tabelas de dados complexas devem fornecer \"id\" atributos para cabeçalhos e atributos \"headers\" para células de dados."
     },
     "guidelines": [],
     "tags": [
@@ -7859,11 +7867,14 @@
     "title": {
       "de": "Alle Tags sollten korrekt verschachtelt werden",
       "en": "All tags should be nested correctly",
-      "nl": "Alle tags moeten juist genest worden"
+      "nl": "Alle tags moeten juist genest worden",
+      "pt-br": "Todas as tags devem ser aninhadas corretamente"
     },
     "description": {
+      "de": "",
       "en": "",
-      "nl": ""
+      "nl": "",
+      "pt-br": ""
     },
     "guidelines": {
       "wcag": {
@@ -7888,12 +7899,14 @@
     "title": {
       "de": "Alle tabellarischen Informationen sollten in Tabellen dargestellt werden",
       "en": "All tabular information should use a table",
-      "nl": "Alle tabelinformatie moet ook daadwerkelijk in een tabel staan"
+      "nl": "Alle tabelinformatie moet ook daadwerkelijk in een tabel staan",
+      "pt-br": "Todas as informações tabulares devem usar uma tabela"
     },
     "description": {
       "de": "Tabellen sollten verwendet werden, um tabellarische Informationen darzustellen",
       "en": "Tables should be used when displaying tabular information.",
-      "nl": "Gebruik een echte tabel wanneer je tabelinformatie wilt tonen."
+      "nl": "Gebruik een echte tabel wanneer je tabelinformatie wilt tonen.",
+      "pt-br": "As tabelas devem ser usadas ao exibir informações tabulares."
     },
     "guidelines": {
       "wcag": {
@@ -7924,12 +7937,14 @@
     "title": {
       "de": "Die Schriftgröße sollte nicht kleiner als 9px in der Höhe sein",
       "en": "The text size is not less than 9 pixels high",
-      "nl": "De grootte van de tekst is meer dan 8 pixels hoog"
+      "nl": "De grootte van de tekst is meer dan 8 pixels hoog",
+      "pt-br": "O tamanho do texto não é inferior a 9 pixels de altura"
     },
     "description": {
       "de": "Um Benutzern zu helfen, die Schwierigkeiten haben kleinen Text zu lesen, sollte die Schriftgröße nicht kleiner als 9px in der Höhe sein",
       "en": "To help users with difficulty reading small text, ensure text size is no less than 9 pixels high.",
-      "nl": "Help gebruikers die moeite hebben met het lezen van kleine letters, door ervoor te zorgen dat tekst groter is dan 8 pixels hoog."
+      "nl": "Help gebruikers die moeite hebben met het lezen van kleine letters, door ervoor te zorgen dat tekst groter is dan 8 pixels hoog.",
+      "pt-br": "Para ajudar os usuários com dificuldade em ler texto pequeno, certifique-se de que o tamanho do texto não seja inferior a 9 pixels."
     },
     "guidelines": [],
     "tags": [
@@ -7947,12 +7962,14 @@
     "title": {
       "de": "Alle \"textareas\" sollten ein dazugehöriges Label haben",
       "en": "All textareas should have a corresponding label",
-      "nl": "Alle \"textarea\"-elementen moeten een bijbehorend label hebben"
+      "nl": "Alle \"textarea\"-elementen moeten een bijbehorend label hebben",
+      "pt-br": "Todas as textareas devem ter um rótulo correspondente"
     },
     "description": {
       "de": "Alle <code>textarea</code>-Elemente sollten ein dazugehöriges <code>label</code>-Element haben. Bildschirmleseprogramme haben oftmals eine Formular-Modus, in dem nur Labels vorgelesen werden.",
       "en": "All <code>textarea</code> elements should have a corresponding <code>label</code> element. Screen readers often enter a \"form mode\" where only label text is read aloud to the user",
-      "nl": "Alle \"textarea\"-elementen moeten een bijbehorend label hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen."
+      "nl": "Alle \"textarea\"-elementen moeten een bijbehorend label hebben. Schermlezers maken vaak gebruik van een \"formuliereninstelling\" waarbij alleen de tekst van de labels hardop aan de gebruiker wordt voorgelezen.",
+      "pt-br": "Todos os elementos <code> textarea </code> devem ter um elemento <code> label </code> correspondente. Os leitores de tela costumam entrar em um \"modo de formulário\" onde somente o texto do rótulo é lido em voz alta para o usuário"
     },
     "guidelines": {
       "wcag": {
@@ -8007,12 +8024,14 @@
     "title": {
       "de": "Alle \"textarea\"-Elemente sollten ein dazugehöriges Label haben",
       "en": "All textareas should have a label that is close to it",
-      "nl": "Alle \"textarea\"-elementen moeten een label hebben dat dicht bij het element staat"
+      "nl": "Alle \"textarea\"-elementen moeten een label hebben dat dicht bij het element staat",
+      "pt-br": "Todas as textareas devem ter um rótulo que está próximo a ele"
     },
     "description": {
       "de": "Alle <code>textarea</code>-Elemente sollten ein dazugehöriges <code>label</code>-Element haben, das in der Nähe positioniert ist.",
       "en": "All <code>textarea</code> elements should have a corresponding <code>label</code> element that is close in proximity.",
-      "nl": "Alle \"textarea\"-elementen moeten een bijbehorend label hebben dat dicht bij het element staat."
+      "nl": "Alle \"textarea\"-elementen moeten een bijbehorend label hebben dat dicht bij het element staat.",
+      "pt-br": "Todos os elementos <code> textarea </code> devem ter um elemento <code> label </code> correspondente próximo à proximidade."
     },
     "guidelines": [],
     "tags": [
@@ -8032,12 +8051,14 @@
     "title": {
       "de": "Alle Video-Tags sollten Untertitel bereitstellen",
       "en": "All video tags must provide captions",
-      "nl": "Alle video tags moeten bijschriften bieden"
+      "nl": "Alle video tags moeten bijschriften bieden",
+      "pt-br": "Todas as tags de vídeo devem fornecer legendas"
     },
     "description": {
       "de": "Alle HTML5-Video-Tags müssen Untertitel bereitstellen",
       "en": "All HTML5 video tags must provide captions.",
-      "nl": "Alle HTML5 video tags moeten bijschriften bieden."
+      "nl": "Alle HTML5 video tags moeten bijschriften bieden.",
+      "pt-br": "Todas as tags de vídeo HTML5 devem fornecer legendas."
     },
     "guidelines": {
       "508": [
@@ -8071,12 +8092,14 @@
     "title": {
       "de": "Alle verknüpften oder eingebettenen Videos benötigen Untertitel",
       "en": "All linked or embedded videos need captions",
-      "nl": "Alle gekoppelde of ingebedde video's moeten bijschriften hebben"
+      "nl": "Alle gekoppelde of ingebedde video's moeten bijschriften hebben",
+      "pt-br": "Todos os vídeos vinculados ou incorporados precisam de legendas"
     },
     "description": {
       "de": "Jedes gehostete, verknüpfte oder eingebettete Video muss Untertitel haben",
       "en": "Any video hosted or otherwise which is linked or embedded must have a caption.",
-      "nl": "Elke video die is gekoppeld of ingebed in content moet een bijschrift hebben."
+      "nl": "Elke video die is gekoppeld of ingebed in content moet een bijschrift hebben.",
+      "pt-br": "Qualquer vídeo hospedado ou de outra forma que esteja ligado ou incorporado deve ter uma legenda."
     },
     "guidelines": {
       "wcag": {
@@ -8108,12 +8131,14 @@
     "title": {
       "de": "Leerzeichen sollten nicht innerhalb eines Wortes verwendet werden.",
       "en": "Whitespace should not be used between characters in a word",
-      "nl": "Zet geen witruimte tussen letters in een woord"
+      "nl": "Zet geen witruimte tussen letters in een woord",
+      "pt-br": "Espaço em branco não deve ser usado entre caracteres em uma palavra"
     },
     "description": {
       "de": "Die Verwendung von zusätzlichen Leerzeichen in einem Word verursacht für Bildschirmleseprogrammen Probleme bei der Interpretation des Wortes. Verwenden Sie stattdessen die CSS-Eigenschaft \"letter-spacing\".",
       "en": "Using extra whitespace between letters in a word causes screen readers to not interpret the word correctly, use the letter-spacing CSS property instead.",
-      "nl": "Het gebruik van witruimte tussen de letters van een woord, zorgen dat schermlezers het woord niet volledig kunnen lezen. Gebruik in plaats hiervan css om de ruimte tussen letters te bepalen."
+      "nl": "Het gebruik van witruimte tussen de letters van een woord, zorgen dat schermlezers het woord niet volledig kunnen lezen. Gebruik in plaats hiervan css om de ruimte tussen letters te bepalen.",
+      "pt-br": "Usando espaço em branco extra entre as letras em uma palavra faz com que os leitores de tela não interpretem a palavra corretamente, use a propriedade CSS \"letter-spacing\" em vez disso."
     },
     "guidelines": {
       "wcag": {
@@ -8136,12 +8161,14 @@
     "title": {
       "de": "Leerzeichen sollten nicht für die Informationsvermittlung verwendet werden",
       "en": "Whitespace should not be used for conveying information",
-      "nl": "Gebruik geen witruimte om informatie over te brengen"
+      "nl": "Gebruik geen witruimte om informatie over te brengen",
+      "pt-br": "Espaço em branco não deve ser usado para transmitir informações"
     },
     "description": {
       "de": "Leerzeichen oder Tabulatoren werden von Assistenztechnologien nicht vorgelesen und sollten daher nicht zur Vermittlung von Informationen genutzt werden",
       "en": "Spaces or tabs are not read by assistive technology and should not be used to convey meaning.",
-      "nl": "Spaties of tabs worden niet voorgelezen door hulpprogramma's en moeten niet worden gebruikt om betekenis over te dragen."
+      "nl": "Spaties of tabs worden niet voorgelezen door hulpprogramma's en moeten niet worden gebruikt om betekenis over te dragen.",
+      "pt-br": "Espaços ou abas não são lidos por tecnologia assistiva e não devem ser usados para transmitir significado."
     },
     "guidelines": {
       "wcag": {
@@ -8163,12 +8190,14 @@
     "title": {
       "de": "Verwendung von grafischen Symoblen zur Vermittlung von Informationen",
       "en": "Using a graphical symbol alone to convey information",
-      "nl": "Gebruik van alleen een grafisch symbool om informatie over te brengen"
+      "nl": "Gebruik van alleen een grafisch symbool om informatie over te brengen",
+      "pt-br": "Usando apenas um símbolo gráfico para transmitir informações"
     },
     "description": {
       "de": "Das Ziel dieser Technik ist es zu zeigen, wie grafische Symbole die Vermittlung von Informationen erschweren. Ein grafisches Symbol kann eine Grafik oder ein Piktorgram oder eine Glyphe sein, das Informationen nonverbal vermittelt. Beispiele dafür sind Symbole bestehende aus einem durchgestrichenen Kreis, ein Smiley oder ein Häkchen oder Pfeil. Benutzer von Assistenztechnologien haben ggf. Schwierigkeiten die Bedeutung des Symbols zu erkennen. Wenn ein graphisches Symbol verwendet wird, um Informationen zu übermitteln , stellen eine alternative Technologie oder einen anderen Mechanismus bereit, um die Bedeutung darzustellen. Verwenden Sie zum Beispiel ein Bild mit einem Alternativetext anstelle der Glyphe.",
       "en": "The objective of this technique is to show how using a graphical symbol to convey information can make content difficult to comprehend. A graphical symbol may be an image, an image of text or a pictorial or decorative character symbol (glyph) which imparts information nonverbally. Examples of graphical symbols include an image of a red circle with a line through it, a smiley face, or a glyph which represents a check mark, arrow, or other symbol but is not the character with that meaning. Assistive technology users may have difficulty determining the meaning of the graphical symbol. If a graphical symbol is used to convey information, provide an alternative using features of the technology or use a different mechanism that can be marked with an alternative to represent the graphical symbol. For example, an image with a text alternative can be used instead of the glyph.",
-      "nl": "Het doel van deze techniek is te laten zien dat content moeilijker begrepen kan worden wanneer een grafisch symbool wordt gebruikt om informatie over te brengen. Een grafisch symbool kan een afbeelding, een afbeelding van tekst of een pictogram of decoratief teken zijn (glyph) dat non-verbaal informatie overbrengt. Voorbeelden hiervan zijn een rode cirkel met een lijn erdoorheen, een smiley of een vinkje, pijl of ander symbool dat niet noodzakelijkerwijs een duidelijke betekenis heeft. Gebruikers van hulpprogramma's hebben vaak moeite om de bedoeling van een grafisch symbool te duiden. Als een grafisch symbool gebruikt wordt om informatie over te brengen, biedt dan ook een (tekstueel) alternatief."
+      "nl": "Het doel van deze techniek is te laten zien dat content moeilijker begrepen kan worden wanneer een grafisch symbool wordt gebruikt om informatie over te brengen. Een grafisch symbool kan een afbeelding, een afbeelding van tekst of een pictogram of decoratief teken zijn (glyph) dat non-verbaal informatie overbrengt. Voorbeelden hiervan zijn een rode cirkel met een lijn erdoorheen, een smiley of een vinkje, pijl of ander symbool dat niet noodzakelijkerwijs een duidelijke betekenis heeft. Gebruikers van hulpprogramma's hebben vaak moeite om de bedoeling van een grafisch symbool te duiden. Als een grafisch symbool gebruikt wordt om informatie over te brengen, biedt dan ook een (tekstueel) alternatief.",
+      "pt-br": "O objetivo desta técnica é mostrar como usar um símbolo gráfico para transmitir informações. Um símbolo gráfico pode ser uma imagem, uma imagem de texto ou um símbolo de carácter pictórico ou decorativo (glifo) que transmite informação não verbalmente. Exemplos de símbolos gráficos incluem uma imagem de um círculo vermelho com uma linha através dele, um rosto sorridente ou um glifo que representa uma marca de seleção, seta ou outro símbolo, mas não é o personagem com esse significado. Os usuários de tecnologia assistiva podem ter dificuldade em determinar o significado do símbolo gráfico. Se um símbolo gráfico é usado para transmitir informações, fornecer uma alternativa usando recursos da tecnologia ou usar um mecanismo diferente que pode ser marcado com uma alternativa para representar o símbolo gráfico. Por exemplo, uma imagem com uma alternativa de texto pode ser usada em vez do glifo."
     },
     "guidelines": {
       "wcag": {
@@ -8191,12 +8220,14 @@
     "title": {
       "de": "Verknüpfungen dürfen das \"onfocus\"-Attribut nicht verwenden",
       "en": "Link elements must not contain an \"onfocus\" attribute",
-      "nl": "Link-elementen bevatten geen \"onfocus\"-attribuut"
+      "nl": "Link-elementen bevatten geen \"onfocus\"-attribuut",
+      "pt-br": "Os elementos de link não devem conter um atributo \"onfocus\""
     },
     "description": {
       "de": "Aktionen wie \"onfocus\" entziehen dem Benutzer die Kontrolle beim Versuch auf der Seite zu navigieren. \"onfocus\"-Attribute für Dinge wie Auswahl-Listenmenüs sollten durch Drop-Downs und eine Schaltfläche zur Initiierung der Aktion ersetzt werden.",
       "en": "Actions like \"onfocus\" can take control away from users who are trying to navigate the page. Using an \"onfocus\" attribute for things like links should be replaced with css.",
-      "nl": "Acties zoals \"onfocus\" kunnen de controle ontnemen van gebruikers die op een pagina proberen te navigeren. Het gebruik van een \"onfocus\"-attribuut voor zaken als links moet worden vervangen door middel van css."
+      "nl": "Acties zoals \"onfocus\" kunnen de controle ontnemen van gebruikers die op een pagina proberen te navigeren. Het gebruik van een \"onfocus\"-attribuut voor zaken als links moet worden vervangen door middel van css.",
+      "pt-br": "Ações como \"onfocus\" podem tirar o controle dos usuários que estão tentando navegar na página. Usando um atributo \"onfocus\" para coisas como links deve ser substituído por css."
     },
     "guidelines": [],
     "tags": [
@@ -8218,12 +8249,14 @@
     "title": {
       "de": "Schaltflächen dürfen das \"onfocus\"-Attribut nicht verwenden",
       "en": "Buttons must not contain an \"onfocus\" attribute",
-      "nl": "Knoppen bevatten geen \"onfocus\"-attribuut"
+      "nl": "Knoppen bevatten geen \"onfocus\"-attribuut",
+      "pt-br": "Os botões não devem conter um atributo \"onfocus\""
     },
     "description": {
       "de": "Aktionen wie \"onfocus\" entziehen dem Benutzer die Kontrolle beim Versuch auf der Seite zu navigieren. \"onfocus\"-Attribute für Dinge wie Auswahl-Listenmenüs sollten durch Drop-Downs und eine Schaltfläche zur Initiierung der Aktion ersetzt werden.",
       "en": "Actions like \"onfocus\" can take control away from users who are trying to navigate the page. Using an \"onfocus\" attribute for things like buttons should be replaced with css.",
-      "nl": "Acties zoals \"onfocus\" kunnen de controle ontnemen van gebruikers die op een pagina proberen te navigeren. Het gebruik van een \"onfocus\"-attribuut voor zaken als knoppen moet worden vervangen door middel van css."
+      "nl": "Acties zoals \"onfocus\" kunnen de controle ontnemen van gebruikers die op een pagina proberen te navigeren. Het gebruik van een \"onfocus\"-attribuut voor zaken als knoppen moet worden vervangen door middel van css.",
+      "pt-br": "Ações como \"onfocus\" podem tirar o controle dos usuários que estão tentando navegar na página. Usando um atributo \"onfocus\" para coisas como botões deve ser substituído por css."
     },
     "guidelines": [],
     "tags": [
@@ -8244,11 +8277,15 @@
     "testability": 1,
     "title": {
       "de": "Verwenden Sie <code>strong</code> nur in Listen",
-      "en": "Use strong in lists only"
+      "en": "Use strong in lists only",
+      "nl": "",
+      "pt-br": "Use <code>strong</strong> apenas nas listas"
     },
     "description": {
       "de": "<code>strong</code> ist nur in <code>li</code>-Elementen erlaubt",
-      "en": "STRONG only allowed when parent element is LI."
+      "en": "STRONG only allowed when parent element is LI.",
+      "nl": "",
+      "pt-br": "<code> strong </code> é permitida apenas em elementos <code> li </ code>"
     },
     "guidelines": [],
     "tags": [
@@ -8261,11 +8298,15 @@
     "testability": 1,
     "title": {
       "de": "Verwenden Sie lange Datumsformate",
-      "en": "Use a long date format"
+      "en": "Use a long date format",
+      "nl": "",
+      "pt-br": "Use um formato de data longo"
     },
     "description": {
       "de": "Kurze Datumsformate können Benutzer verwirren. Benutzen Sie immer Monatsnamen, bspw. 14 März 2020",
-      "en": "Short date formats might confuse users, Always use the month name: 20 May 2014."
+      "en": "Short date formats might confuse users, Always use the month name: 20 May 2014.",
+      "nl": "",
+      "pt-br": "Os formatos de data curtos podem confundir os usuários, Usar sempre o nome do mês: 20 de maio de 2014."
     },
     "guidelines": [],
     "tags": [
@@ -8278,11 +8319,15 @@
     "testability": 1,
     "title": {
       "de": "Verwenden Sie ein Symbol in einem Prozentsatz",
-      "en": "Use a symbol within a percentage"
+      "en": "Use a symbol within a percentage",
+      "nl": "",
+      "pt-br": "Use um símbolo dentro de uma porcentagem"
     },
     "description": {
       "de": "",
-      "en": ""
+      "en": "",
+      "nl": "",
+      "pt-br": ""
     },
     "guidelines": [],
     "tags": [
@@ -8295,11 +8340,15 @@
     "testability": 1,
     "title": {
       "de": "Verwenden Sie ein Symbol für Währungen",
-      "en": "Use a symbol for a currency"
+      "en": "Use a symbol for a currency",
+      "nl": "",
+      "pt-br": "Use um símbolo para moedas"
     },
     "description": {
       "de": "Verwenden Sie nur Symbol und Währungsnamen anstelle von allgemeinen Namen wie € oder EUR.",
-      "en": "Only use symbol and currency name instead of common name such as € or EUR."
+      "en": "Only use symbol and currency name instead of common name such as € or EUR.",
+      "nl": "",
+      "pt-br": "Use apenas símbolo e nome de moeda em vez de nome comum, como € ou EUR."
     },
     "guidelines": [],
     "tags": [
@@ -8313,12 +8362,14 @@
     "title": {
       "de": "Video oder Object verwendet eine Verknüpfung die auf eine Datei mit einer Video-Dateiendung zeigt",
       "en": "Video or object uses a link that points to a file with a video extension",
-      "nl": "Video of object met een link naar een bestand met een video extensie"
+      "nl": "Video of object met een link naar een bestand met een video extensie",
+      "pt-br": "Vídeo ou objeto usa um link que aponta para um arquivo com uma extensão de vídeo"
     },
     "description": {
       "de": "",
       "en": "",
-      "nl": ""
+      "nl": "",
+      "pt-br": ""
     },
     "guidelines": [],
     "tags": [
@@ -8333,12 +8384,14 @@
     "title": {
       "de": "Audio oder Object verwendet eine Verknüpfung die auf eine Datei mit einer Video-Dateiendung zeigt",
       "en": "Audio or object uses a link that points to a file with a video extension",
-      "nl": "Audio of object met een link naar een bestand met een video extensie"
+      "nl": "Audio of object met een link naar een bestand met een video extensie",
+      "pt-br": "Áudio ou objetos usam um link que aponta para um arquivo com uma extensão de vídeo"
     },
     "description": {
       "de": "",
       "en": "",
-      "nl": ""
+      "nl": "",
+      "pt-br": ""
     },
     "guidelines": [],
     "tags": [
@@ -8353,12 +8406,14 @@
     "title": {
       "de": "Prüfen Sie, ob GIF-Dateien in der Seite verwendet werden. Prüfen Sie, ob die GIF-Dateien mehr als einen Frame enthalten",
       "en": "Test if a .gif is used on the page. Test if the .gif contains more then one frame",
-      "nl": "Test of een .gif afbeelding gebruikt is op de pagina. Test of het .gif bestand uit meer dan één frame bestaat"
+      "nl": "Test of een .gif afbeelding gebruikt is op de pagina. Test of het .gif bestand uit meer dan één frame bestaat",
+      "pt-br": "Teste se um .gif é usado na página. Teste se o .gif contém mais de um quadro"
     },
     "description": {
       "de": "",
       "en": "",
-      "nl": ""
+      "nl": "",
+      "pt-br": ""
     },
     "guidelines": [],
     "tags": [
@@ -8374,7 +8429,7 @@
       "de": "Prüfen Sie, ob eine Benutzereingabe notwendig ist",
       "en": "Test if user input is required",
       "nl": "Test of er invoervelden zijn",
-      "pt-br": "Teste se a entrada do usuário é obrigatória"
+      "pt-br": "Teste se a entrada do usuário é obrigatória",
     },
     "description": {
       "de": "",
