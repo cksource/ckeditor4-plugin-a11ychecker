@@ -92,15 +92,17 @@ define( [
 		var $ = window.jQuery,
 			// Quail config, we'll have to override few options here.
 			config = a11ychecker.editor.config.a11ychecker_quailParams || {},
-			that = this,
+			that = this;
+
+		return Engine.prototype.process.call( this, a11ychecker, contentElement, function( issues ) {
 			// Options to be overridden in config, as they are essential for us.
-			quailConfigOverride = {
+			var quailConfigOverride = {
 				/**
 				 * @todo: Not sure if reset param is still needed in 2.2.8+ version.
 				 */
 				// Causes total.results to be new in each call.
 				reset: true,
-				guideline: this.config.guideline,
+				guideline: that.config.guideline,
 				// Method to be executed after Quail checking is complete.
 				// It will extract the issues.
 				testCollectionComplete: function( evtName, collection ) {
@@ -114,14 +116,15 @@ define( [
 				}
 			};
 
-		CKEDITOR.tools.extend( config, quailConfigOverride, true );
+			CKEDITOR.tools.extend( config, quailConfigOverride, true );
 
-		if ( !config.jsonPath ) {
-			config.jsonPath = this.jsonPath;
-		}
+			if ( !config.jsonPath ) {
+				config.jsonPath = that.jsonPath;
+			}
 
-		// Execute Quail checking.
-		$( contentElement.$ ).quail( config );
+			// Execute Quail checking.
+			$( contentElement.$ ).quail( config );
+		} );
 	};
 
 	/**
