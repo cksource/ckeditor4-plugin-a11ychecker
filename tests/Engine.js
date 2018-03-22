@@ -9,7 +9,7 @@
 	/*jshint -W020 */
 	'use strict';
 
-	bender.require( [ 'Engine', 'mocking' ], function( Engine, mocking ) {
+	bender.require( [ 'Engine', 'IssueList', 'mocking' ], function( Engine, IssueList, mocking ) {
 
 		bender.test( {
 			'test Engine.getFixType': function() {
@@ -162,6 +162,67 @@
 				assert.areSame( 1, engine._filterIssue.callCount, 'Engine._filterIssue call count' );
 				assert.areSame( sketchpad, engine._filterIssue.args[ 0 ][ 1 ],
 					'Sketchpad is given as a second param' );
+			},
+
+			'test Engine.process': function() {
+				var engine = new Engine(),
+					callback = sinon.spy(),
+					processListener = sinon.spy(),
+					processedListener = sinon.spy(),
+					ret;
+
+				engine.on( 'process', processListener );
+				engine.on( 'processed', processedListener );
+
+				ret = engine.process( null, null, callback );
+
+				assert.areSame( 1, callback.callCount, 'Callback calls' );
+				sinon.assert.calledWithExactly( callback, sinon.match.instanceOf( IssueList ) );
+
+				assert.areSame( 1, processListener.callCount, 'Process event count' );
+				sinon.assert.calledWithExactly( processListener, eventDataPropertyMatcher( 'issues', IssueList ) );
+
+				assert.areSame( 1, processedListener.callCount, 'Processed event count' );
+				sinon.assert.calledWithExactly( processedListener, eventDataPropertyMatcher( 'issues', IssueList ) );
+
+				assert.isTrue( ret, 'Return value' );
+
+				function eventDataPropertyMatcher( propertyName, expectedType ) {
+					return sinon.match.has( 'data', sinon.match.has( propertyName, sinon.match.instanceOf( expectedType ) ) );
+				}
+			},
+
+			'test Engine process event can be canceled': function() {
+				var engine = new Engine(),
+					callback = sinon.spy(),
+					processedListener = sinon.spy(),
+					ret;
+
+				engine.on( 'process', function( evt ) {
+					evt.cancel();
+				} );
+				engine.on( 'processed', processedListener );
+
+				ret = engine.process( null, null, callback );
+
+				assert.areSame( 0, processedListener.callCount, 'Processed event count' );
+				assert.areSame( 0, callback.callCount, 'Callback call count' );
+				assert.isFalse( ret, 'Return value' );
+			},
+
+			'test Engine processed event can be canceled': function() {
+				var engine = new Engine(),
+					callback = sinon.spy(),
+					ret;
+
+				engine.on( 'processed', function( evt ) {
+					evt.cancel();
+				} );
+
+				ret = engine.process( null, null, callback );
+
+				assert.areSame( 0, callback.callCount, 'Callback call count' );
+				assert.isFalse( ret, 'Return value' );
 			},
 
 			'test Engine.filterIssues no filter': function() {

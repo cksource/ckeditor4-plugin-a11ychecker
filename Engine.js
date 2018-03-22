@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-define( function() {
+define( [ 'IssueList' ], function( IssueList ) {
 	'use strict';
 
 	/**
@@ -16,6 +16,7 @@ define( function() {
 	 * methods, if the default behavior is not suitable.
 	 *
 	 * @since 4.6.0
+	 * @mixins CKEDITOR.event
 	 * @class CKEDITOR.plugins.a11ychecker.Engine
 	 * @constructor
 	 */
@@ -44,6 +45,8 @@ define( function() {
 		config: {}
 	};
 
+	CKEDITOR.event.implementOn( Engine.prototype );
+
 	Engine.prototype.constructor = Engine;
 
 	/**
@@ -60,8 +63,24 @@ define( function() {
 	 * @param {CKEDITOR.plugins.a11ychecker.Controller} a11ychecker
 	 * @param {CKEDITOR.dom.element} contentElement DOM object of container which contents will be checked.
 	 * @param {Function} callback
+	 * @returns {Boolean} `false` if the processing has been canceled, `true` otherwise.
 	 */
 	Engine.prototype.process = function( a11ychecker, contentElement, callback ) {
+		var issues = new IssueList();
+
+		if ( this.fire( 'process', { issues: issues } ) === false ) {
+			return false;
+		}
+
+		if ( callback ) {
+			if ( this.fire( 'processed', { issues: issues } ) === false ) {
+				return false;
+			}
+
+			callback( issues );
+		}
+
+		return true;
 	};
 
 	/**
