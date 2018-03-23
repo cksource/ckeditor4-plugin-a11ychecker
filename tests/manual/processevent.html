@@ -1,0 +1,66 @@
+<style>
+	/* Style the body this way due to a known issue with Balloon Panel in Bender */
+	body {
+		margin-left: 0px;
+		padding-left: 320px;
+	}
+</style>
+
+<h2>Classic editor</h2>
+
+<textarea id="editor1" cols="10" rows="10">
+	&lt;p&gt;This &lt;strong&gt;is&lt;/strong&gt; a &lt;strong&gt;sample&lt;/strong&gt; &lt;em&gt;text&lt;/em&gt;.&lt;/p&gt;
+</textarea>
+
+<h2>Inline editor</h2>
+
+<div contenteditable="true" id="editor2">
+	<p>This <strong>is</strong> a <strong>sample</strong> <em>text</em>.</p>
+</div>
+
+<script>
+	var commonConfig = {
+		height: 150,
+		on: {
+			instanceReady: function() {
+				var editor = this,
+					a11ychecker = editor._.a11ychecker;
+
+				// Depending on whether it's a dev version or not AC might not yet be available.
+				if ( a11ychecker.exec ) {
+					testCode( editor )
+				} else {
+					a11ychecker.once( 'loaded', function() {
+						testCode( editor );
+					} );
+				}
+
+				function testCode( editor ) {
+					var a11ychecker = editor._.a11ychecker;
+
+					a11ychecker.engine.on( 'process', function( evt ) {
+						var Issue = CKEDITOR.plugins.a11ychecker.Issue,
+							strongs = evt.data.contentElement.find( 'strong' ),
+							issues = evt.data.issues;
+
+						a11ychecker.engine.issueDetails.avoidStrongs = {
+							title: 'Avoid strongs',
+							descr: 'Our users do not like <strong>strongs</strong>, use <em>emphasize</em> instead 😉'
+						}
+
+						CKEDITOR.tools.array.forEach( strongs.toArray(), function( strong ) {
+							issues.addItem( new Issue( {
+								originalElement: strong,
+								testability: Issue.testability.ERROR,
+								id: 'avoidStrongs'
+							}, a11ychecker.engine ) );
+						} );
+					} );
+				};
+			}
+		}
+	}
+
+	CKEDITOR.replace( 'editor1', commonConfig );
+	CKEDITOR.inline( 'editor2', commonConfig );
+</script>
