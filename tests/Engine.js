@@ -169,18 +169,22 @@
 					callback = sinon.spy(),
 					processListener = sinon.spy(),
 					processedListener = sinon.spy(),
+					fakeContentElement = CKEDITOR.document.createElement( 'div' ),
 					ret;
 
 				engine.on( 'process', processListener );
 				engine.on( 'processed', processedListener );
 
-				ret = engine.process( null, null, callback );
+				ret = engine.process( null, fakeContentElement, callback );
 
 				assert.areSame( 1, callback.callCount, 'Callback calls' );
 				sinon.assert.calledWithExactly( callback, sinon.match.instanceOf( IssueList ) );
 
 				assert.areSame( 1, processListener.callCount, 'Process event count' );
 				sinon.assert.calledWithExactly( processListener, eventDataPropertyMatcher( 'issues', IssueList ) );
+				sinon.assert.calledWithExactly( processListener,
+					eventDataPropertyMatcher( 'contentElement', CKEDITOR.dom.element ) );
+				sinon.assert.calledOn( processListener, engine );
 
 				assert.areSame( 1, processedListener.callCount, 'Processed event count' );
 				sinon.assert.calledWithExactly( processedListener, eventDataPropertyMatcher( 'issues', IssueList ) );

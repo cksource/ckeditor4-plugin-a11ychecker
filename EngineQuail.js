@@ -106,7 +106,7 @@ define( [
 				// Method to be executed after Quail checking is complete.
 				// It will extract the issues.
 				testCollectionComplete: function( evtName, collection ) {
-					var issueList = that.getIssuesFromCollection( collection, a11ychecker.editor );
+					var issueList = that.getIssuesFromCollection( collection, a11ychecker.editor, issues );
 
 					that.filterIssues( issueList, contentElement );
 
@@ -135,8 +135,8 @@ define( [
 	 * @param {CKEDITOR.editor} editor
 	 * @returns {CKEDITOR.a11ychecker.plugins.IssuesList}
 	 */
-	EngineQuail.prototype.getIssuesFromCollection = function( collection, editor ) {
-		var ret = new IssueList(),
+	EngineQuail.prototype.getIssuesFromCollection = function( collection, editor, issues ) {
+		var ret = issues || new IssueList(),
 			that = this;
 
 		collection.each( function( index, test ) {

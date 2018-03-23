@@ -68,12 +68,15 @@ define( [ 'IssueList' ], function( IssueList ) {
 	Engine.prototype.process = function( a11ychecker, contentElement, callback ) {
 		var issues = new IssueList();
 
-		if ( this.fire( 'process', { issues: issues } ) === false ) {
+		if ( this.fire( 'process', {
+			issues: issues,
+			contentElement: contentElement
+		} ) === false ) {
 			return false;
 		}
 
 		if ( callback ) {
-			if ( this.fire( 'processed', { issues: issues } ) === false ) {
+			if ( this.fire( 'processed', { issues: issues, contentElement: contentElement } ) === false ) {
 				return false;
 			}
 
@@ -214,6 +217,20 @@ define( [ 'IssueList' ], function( IssueList ) {
 	 * @type {Function/null}
 	 */
 	Engine.prototype._filterIssue = null;
+
+	/**
+	 * Event fired when the engine is about to start processing the rules.
+	 *
+	 * It can be cancelled meaning that no further processing will be performed.
+	 *
+	 * Note that this even happens before issue engine is engaged.
+	 *
+	 * @event process
+	 * @member CKEDITOR.plugins.a11ychecker.Engine
+	 * @param {Object} data
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} data.issues List of issues to be returned.
+	 * @param {CKEDITOR.dom.element} data.contentElement See `contentElement` parameter in the {@link #process process method}.
+	 */
 
 	return Engine;
 } );
