@@ -43,6 +43,9 @@
 
 				// Ensure that wrapper.setText was called.
 				mocking.assert.calledWith( counterSetText, 'foobarbaz' );
+
+				// assert.isTrue( mock.parts.wrapper.hasClass( 'cke_a11yc_testability_warning' ), 'Proper class added' );
+				assert.isFalse( mock.parts.wrapper.hasClass( 'cke_a11yc_testability_foo' ), 'Class names are not localized' );
 			}
 		} );
 	} );

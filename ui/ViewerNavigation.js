@@ -3,8 +3,14 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-define( function() {
+define( [ 'Issue' ], function( Issue ) {
 	'use strict';
+
+	var testabilityDictionary = {};
+
+	testabilityDictionary[ Issue.testability.ERROR ] = 'error';
+	testabilityDictionary[ Issue.testability.WARNING ] = 'warning';
+	testabilityDictionary[ Issue.testability.NOTICE ] = 'notice';
 
 	/**
 	 * The navigation area of {@link CKEDITOR.plugins.a11ychecker.viewer}.
@@ -102,7 +108,8 @@ define( function() {
 		 */
 		update: function( current, total, testability ) {
 			var testabilityLang = this.lang.testability,
-				testabilityLabel = testabilityLang[ testability !== undefined ? testability : 1 ];
+				testabilityLabel = testabilityLang[ testability !== undefined ? testability : 1 ],
+				testabilityClass = testabilityDictionary[ testability !== undefined ? testability : 1 ];
 
 			this.parts.counter.setText( this.templates.counterText.output( {
 				current: current + 1,
@@ -110,11 +117,11 @@ define( function() {
 				testability: testabilityLabel
 			} ) );
 
-			for ( var t in testabilityLang ) {
-				this.parts.wrapper.removeClass( 'cke_a11yc_testability_' + testabilityLang[ t ] );
+			for ( var t in testabilityDictionary ) {
+				this.parts.wrapper.removeClass( 'cke_a11yc_testability_' + testabilityDictionary[ t ] );
 			}
 
-			this.parts.wrapper.addClass( 'cke_a11yc_testability_' + testabilityLabel );
+			this.parts.wrapper.addClass( 'cke_a11yc_testability_' + testabilityClass );
 		},
 
 		/**
