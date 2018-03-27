@@ -32,33 +32,39 @@
 				var editor = this,
 					a11ychecker = editor._.a11ychecker;
 
-				// Depending on whether it's a dev version or not AC might not yet be available.
+				// Depending on whether it's a dev version or not AC might not yet be available (#246).
 				if ( a11ychecker.exec ) {
-					testCode( editor )
+					a11yCheckerReady( editor )
 				} else {
 					a11ychecker.once( 'loaded', function() {
-						testCode( editor );
+						a11yCheckerReady( editor );
 					} );
 				}
 
-				function testCode( editor ) {
+				// This function simply registers meta data of our custom Issues.
+				function registerCustomIssueTypes( a11ychecker ) {
+					a11ychecker.engine.issueDetails.preferHttpsLinks = {
+						title: 'Prefer HTTPS links',
+						descr: 'It\'s year ' + ( new Date() ).getFullYear() + ' already - our website uses HTTPS. ' +
+							'You should use safe protocol whenever possible.'
+					};
+
+					a11ychecker.engine.issueDetails.avoidStrongs = {
+						title: 'Avoid strongs',
+						descr: 'Our users do not like <strong>strongs</strong>, use <em>emphasize</em> instead 😉'
+					};
+				}
+
+				function a11yCheckerReady( editor ) {
 					var a11ychecker = editor._.a11ychecker;
 
+					registerCustomIssueTypes( a11ychecker );
+
 					a11ychecker.engine.on( 'process', function( evt ) {
+						// This is where the actual checking occurs, and this is where you want to report custom issues.
 						var Issue = CKEDITOR.plugins.a11ychecker.Issue,
 							contentElement = evt.data.contentElement,
 							issues = evt.data.issues;
-
-						a11ychecker.engine.issueDetails.preferHttpsLinks = {
-							title: 'Prefer HTTPS links',
-							descr: 'It\'s year ' + ( new Date() ).getFullYear() + ' already - our website uses HTTPS. ' +
-								'You should use safe protocol whenever possible.'
-						};
-
-						a11ychecker.engine.issueDetails.avoidStrongs = {
-							title: 'Avoid strongs',
-							descr: 'Our users do not like <strong>strongs</strong>, use <em>emphasize</em> instead 😉'
-						};
 
 						CKEDITOR.tools.array.forEach( contentElement.find( 'a[href^="http://ckeditor.com"]' ).toArray(), function( link ) {
 							issues.addItem( new Issue( {
