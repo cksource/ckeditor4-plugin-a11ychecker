@@ -10,7 +10,7 @@ This test adds a totally custom checking rule to Accessibilty Checker.
 
 	## Expected
 
-	AC finds two (custom) "Avoid strongs" errors. Each error is pointing at strong element.
+	AC finds "Prefer HTTPS links" and two "Avoid strongs" (custom) errors.
 
 	## Unexpected
 
@@ -23,6 +23,6 @@ This test adds a totally custom checking rule to Accessibilty Checker.
 
 	## Expected
 
-	AC does not report "Avoid strongs" errors.
+	AC does not report custom errors.
 
 Repeat steps for the inline editor.
