@@ -3,7 +3,7 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-define( function() {
+define( [ 'IssueList' ], function( IssueList ) {
 	'use strict';
 
 	/**
@@ -16,6 +16,7 @@ define( function() {
 	 * methods, if the default behavior is not suitable.
 	 *
 	 * @since 4.6.0
+	 * @mixins CKEDITOR.event
 	 * @class CKEDITOR.plugins.a11ychecker.Engine
 	 * @constructor
 	 */
@@ -44,6 +45,8 @@ define( function() {
 		config: {}
 	};
 
+	CKEDITOR.event.implementOn( Engine.prototype );
+
 	Engine.prototype.constructor = Engine;
 
 	/**
@@ -60,8 +63,23 @@ define( function() {
 	 * @param {CKEDITOR.plugins.a11ychecker.Controller} a11ychecker
 	 * @param {CKEDITOR.dom.element} contentElement DOM object of container which contents will be checked.
 	 * @param {Function} callback
+	 * @returns {Boolean} `false` if the processing has been canceled, `true` otherwise.
 	 */
 	Engine.prototype.process = function( a11ychecker, contentElement, callback ) {
+		var issues = new IssueList();
+
+		if ( this.fire( 'process', {
+			issues: issues,
+			contentElement: contentElement
+		} ) === false ) {
+			return false;
+		}
+
+		if ( callback ) {
+			callback( issues );
+		}
+
+		return true;
 	};
 
 	/**
@@ -195,6 +213,21 @@ define( function() {
 	 * @type {Function/null}
 	 */
 	Engine.prototype._filterIssue = null;
+
+	/**
+	 * Event fired when the engine is about to start processing the rules.
+	 *
+	 * It can be cancelled meaning that no further processing will be performed.
+	 *
+	 * Note that this even happens before issue engine is engaged.
+	 *
+	 * @since 1.1.1
+	 * @event process
+	 * @member CKEDITOR.plugins.a11ychecker.Engine
+	 * @param {Object} data
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} data.issues List of issues to be returned.
+	 * @param {CKEDITOR.dom.element} data.contentElement See `contentElement` parameter in the {@link #process process method}.
+	 */
 
 	return Engine;
 } );

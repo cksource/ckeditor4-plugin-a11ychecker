@@ -282,7 +282,8 @@
 					engineMock = {
 						config: {
 							guideline: [ 'foo', 'bar' ]
-						}
+						},
+						fire: sinon.spy()
 					},
 					// Lets replace jQuery for a mock which will return an imitation of quail function.
 					// This function will assert parameters given to the Quail.
