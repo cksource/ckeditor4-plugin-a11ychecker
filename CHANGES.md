@@ -7,7 +7,7 @@ Copyright (c) 2014-2017, CKSource - Frederico Knabben. All rights reserved.
 
 ## Version 1.1.1
 
-
+* [#233](https://github.com/cksource/ckeditor-plugin-a11ychecker/issues/233): Fixed: Balloon classes are localized, causing issues of a different testability look the same.
 
 ## Version 1.1.0
 
