@@ -221,6 +221,7 @@ define( [ 'IssueList' ], function( IssueList ) {
 	 *
 	 * Note that this even happens before issue engine is engaged.
 	 *
+	 * @since 1.1.1
 	 * @event process
 	 * @member CKEDITOR.plugins.a11ychecker.Engine
 	 * @param {Object} data
