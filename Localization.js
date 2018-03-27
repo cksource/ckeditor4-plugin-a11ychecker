@@ -29,7 +29,7 @@ define( function() {
 	 *
 	* @static
 	* @member CKEDITOR.plugins.a11ychecker.Localization
-	* @param {String} preferredLang Language to be preferrred over the browser language.
+	* @param {String} preferredLang Language to be preferred over the browser language.
 	* @param {String} defaultLanguage A fallback language, used when neither `preferredLang`
 	* or browser language are not available.
 	* @param {String[]} languages List of available languages.
@@ -48,7 +48,7 @@ define( function() {
 			indexOf = CKEDITOR.tools.indexOf;
 
 		if ( navigatorLang ) {
-			// If navigatgor language is available insert it at 1 index,
+			// If navigator language is available insert it at 1 index,
 			// after preferredLang.
 			checkLangs.splice( 1, 0, navigatorLang );
 		}

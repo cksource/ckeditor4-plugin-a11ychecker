@@ -60,7 +60,7 @@ define( function() {
 	/**
 	 * Returns element at given index.
 	 *
-	 * @returns {CKEDITOR.dom.element/undefined} Returns requrested element or `undefined` if
+	 * @returns {CKEDITOR.dom.element/undefined} Returns requested element or an `undefined` if
 	 * not found.
 	 */
 	ViewerFocusManager.prototype.getItem = function( index ) {
@@ -132,7 +132,7 @@ define( function() {
 		}
 
 		if ( i == listSize - 1 && !ret.isVisible() ) {
-			// Edge case, last iteration still might return invisible elemnt, check
+			// Edge case, last iteration still might return invisible element, check
 			// that.
 			return undefined;
 		}
@@ -176,7 +176,7 @@ define( function() {
 		}
 
 		if ( i == listSize - 1 && !ret.isVisible() ) {
-			// Edge case, last iteration still might return invisible elemnt, check
+			// Edge case, last iteration still might return invisible element, check
 			// that.
 			return undefined;
 		}

@@ -141,10 +141,10 @@ define( function() {
 	};
 
 	/**
-	 * Returns the focused issue or `null` if no issue is focuesd.
+	 * Returns the focused issue or `null` if no issue is focused.
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.IssueList
-	 * @returns {CKEDITOR.dom.element/null} Focused issue or `null` if no issue is focuesd
+	 * @returns {CKEDITOR.dom.element/null} Focused issue or `null` if no issue is focused
 	 */
 	IssueList.prototype.getFocused = function() {
 		if ( this.currentIndex != -1 ) {
@@ -201,7 +201,7 @@ define( function() {
 				this.moveTo( 0 );
 			}
 		} else {
-			// And the default behaviour.
+			// And the default behavior.
 			this.moveTo( this.currentIndex + 1 );
 		}
 
@@ -274,7 +274,7 @@ define( function() {
 		for ( var i = 0, len = list.length; i < len; i++ ) {
 			curItem = list[ i ];
 			// We allow all elements when skipIgnored is false, otherwise
-			// we need to check if elemtns .isIgnored() is ture.
+			// we need to check if elements .isIgnored() is true.
 			allowed = !skipIgnored || !curItem.isIgnored();
 
 			if ( curItem.element.equals( element ) && allowed ) {

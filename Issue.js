@@ -58,7 +58,7 @@ define( function() {
 		 *
 		 * Possible values are enumerated in {@link CKEDITOR.plugins.a11ychecker.Issue.testability}.
 		 *
-		 * Redundancy note: althought testability might be kept in IssueDetails object, we'll store it
+		 * Redundancy note: although testability might be kept in IssueDetails object, we'll store it
 		 * in each Issue, because it does not require us to fetch whole IssueDetails object to get this
 		 * information.
 		 *

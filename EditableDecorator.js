@@ -108,7 +108,7 @@ define( function() {
 
 		// Detects a single clicks to on elements marked as accessibility errors. Moves
 		// focus to issue associated with given element.
-		// This one might be called synhronously, since addListeners() requires editable be ready.
+		// This one might be called synchronously, since addListeners() requires editable be ready.
 		editable.attachListener( editable, 'click', boundListener );
 
 		editor.on( 'contentDom', function() {

@@ -29,7 +29,7 @@ define( function() {
 		this.title = title;
 		this.descr = descr;
 		/**
-		 * @todo: documment path property. Most likely it will require to create a custom type.
+		 * @todo: document path property. Most likely it will require to create a custom type.
 		 */
 		this.path = path || [];
 		this.data = data;

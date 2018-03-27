@@ -91,7 +91,7 @@ define( function() {
 			var editor = controller.editor,
 				mode = controller.mode;
 			// Make sure that editable decorator markup is not present, otherwise
-			// AC attribnutes would leak to the snapshot.
+			// AC attributes would leak to the snapshot.
 			controller.editableDecorator.removeMarkup();
 			// Select issue element.
 			editor.getSelection().selectElement( focusedIssue.element );
