@@ -17,7 +17,7 @@
 	 *
 	 * ### Adding controls to the QuickFix form
 	 *
-	 * Controls can be added in {@link #display} method using {@link CKEDITOR.plugins.a11ychecker.ViwerForm}
+	 * Controls can be added in {@link #display} method using {@link CKEDITOR.plugins.a11ychecker.ViewerForm}
 	 * methods.
 	 *
 	 * ### Executing the fix
@@ -61,11 +61,11 @@
 	};
 
 	/**
-	 * Method used to valide data placed in form.
+	 * Method used to validate data placed in form.
 	 *
 	 * @param {Object} formAttributes Object containing serialized form inputs. See
 	 * {@link CKEDITOR.plugins.a11ychecker.ViewerForm#serialize}.
-	 * @returns {String[]} Array of error messages. If array is empty, then it means no errors occured.
+	 * @returns {String[]} Array of error messages. If array is empty, then it means no errors ocurred.
 	 */
 	QuickFix.prototype.validate = function( formAttributes ) {
 		return [];

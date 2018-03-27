@@ -12,8 +12,8 @@ define( function() {
 	 * Each class deriving from `Engine` class must implement {@link #process} and
 	 * {@link #getIssueDetails} methods.
 	 *
-	 * Custom classes might also override {@linnk #getFix} and {@link #getFixType}
-	 * methods, if the default behaviour is not suitable.
+	 * Custom classes might also override {@link #getFix} and {@link #getFixType}
+	 * methods, if the default behavior is not suitable.
 	 *
 	 * @since 4.6.0
 	 * @class CKEDITOR.plugins.a11ychecker.Engine
@@ -65,7 +65,7 @@ define( function() {
 	};
 
 	/**
-	 * This method uses {@link #_filterIssue} to filter unwelcome issute.
+	 * This method uses {@link #_filterIssue} to filter unwelcome issue.
 	 *
 	 * Note: Engine implementer is responsible for calling `filterIssues` in {@link #process} method.
 	 *

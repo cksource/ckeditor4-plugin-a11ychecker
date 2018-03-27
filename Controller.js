@@ -161,7 +161,7 @@ define( [
 	Controller.prototype.constructor = Controller;
 
 	/**
-	 * Sets the accessibility checking egnine.
+	 * Sets the accessibility checking engine.
 	 *
 	 * @param {CKEDITOR.plugins.a11ychecker.Engine} engine
 	 */
@@ -243,7 +243,7 @@ define( [
 	 *
 	 * @member CKEDITOR.plugins.a11ychecker.Controller
 	 * @param {Object} [options]
-	 * @param {Boolean} [options.ui] A poperty telling if the UI should be shown.
+	 * @param {Boolean} [options.ui] A property telling if the UI should be shown.
 	 * @param {Function} [options.callback] A function to be called after the checking process is finished.
 	 * It gets two arguments:
 	 *
@@ -283,7 +283,7 @@ define( [
 		// be positioning it as close to the editable, as possible - so it gets its styling (#8).
 		CKEDITOR.document.getBody().append( scratchpad );
 
-		// Specify a callback when engine has doon its job. When it's done lets assign the issue list,
+		// Specify a callback when engine has done its job. When it's done lets assign the issue list,
 		// and refresh the UI.
 		var completeCallback = function( issueList ) {
 			that._engineProcessed.call( that, issueList, options );
@@ -381,7 +381,7 @@ define( [
 					callback.call( this );
 				}
 			},
-			// Issue object instacne, assigned once index is knwon.
+			// Issue object instance, assigned once index is known.
 			issueObject,
 			ret;
 
@@ -537,7 +537,7 @@ define( [
 		} );
 
 		editor.on( 'beforeCommandExec', function( evt ) {
-			// This listener should have fairly low proprity, because one might
+			// This listener should have fairly low priority, because one might
 			// cancel it for whatever reason.
 			var evtName = String( evt.data.name );
 
@@ -570,7 +570,7 @@ define( [
 				mode.unsetStoredSelection();
 			}
 			// We're preferring update, so if only selection changed, the last snapshot
-			// will be overriden.
+			// will be overridden.
 			this.editor.fire( 'updateSnapshot' );
 		} );
 
@@ -584,7 +584,7 @@ define( [
 	 * @private
 	 */
 	Controller.prototype._onQuickFix = function( quickFix ) {
-		// Adter a QuickFix next snapshot is fired, this time we want to save new one.
+		// After a QuickFix next snapshot is fired, this time we want to save new one.
 		this._withUndoManager( function() {
 			this.editor.fire( 'saveSnapshot' );
 		} );
@@ -709,7 +709,7 @@ define( [
 				// In case when we have any issue, we should move to the next one.
 				if ( focusIssueOffset >= issueList.count() ) {
 					// Ensure that focusIssueOffset is not bigger than actual size.
-					// If it is, we'll start from the begining.
+					// If it is, we'll start from the beginning.
 					focusIssueOffset = 0;
 				}
 				that.showIssue( issueList.getItem( focusIssueOffset ) );

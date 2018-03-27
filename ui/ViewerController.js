@@ -13,7 +13,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 	 * @class CKEDITOR.plugins.a11ychecker.viewerController
 	 * @mixins CKEDITOR.event
 	 * @constructor Creates a viewerController instance.
-	 * @param {CKEDITOR.plugins.a11ychecker.Controller} a11ychecker The Accessiblity Checker controller instance
+	 * @param {CKEDITOR.plugins.a11ychecker.Controller} a11ychecker The Accessibility Checker controller instance
 	 * for which the panel is created.
 	 * @param {Object} definition An object containing panel definition.
 	 */
@@ -154,7 +154,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 			// By default form is not visible.
 			form.hide();
 
-			// Set the contnet required by the QuickFix.
+			// Set the content required by the QuickFix.
 			issue.engine.getFixes( issue, function( fixes ) {
 				var fixesCount = fixes.length;
 
@@ -176,7 +176,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 		/**
 		 * Called when quickfix form submit button was pressed.
 		 *
-		 * @param {Object} evt An event comming from {@link CKEDITOR.plugins.a11ychecker.viewerForm#event-submit}
+		 * @param {Object} evt An event coming from {@link CKEDITOR.plugins.a11ychecker.viewerForm#event-submit}
 		 * event.
 		 */
 		quickFixAccepted: function( evt ) {
@@ -189,7 +189,7 @@ define( [ 'ui/Viewer' ], function( Viewer ) {
 				errors;
 
 			if ( !currentFix ) {
-				console.erorr( 'No quickfix available!' ); // %REMOVE_LINE_CORE%
+				console.error( 'No quickfix available!' ); // %REMOVE_LINE_CORE%
 				evt.cancel();
 			} else {
 				errors = currentFix.validate( values );

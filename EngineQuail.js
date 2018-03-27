@@ -93,7 +93,7 @@ define( [
 			// Quail config, we'll have to override few options here.
 			config = a11ychecker.editor.config.a11ychecker_quailParams || {},
 			that = this,
-			// Options to be overriden in config, as they are essential for us.
+			// Options to be overridden in config, as they are essential for us.
 			quailConfigOverride = {
 				/**
 				 * @todo: Not sure if reset param is still needed in 2.2.8+ version.
@@ -140,7 +140,7 @@ define( [
 			var testId = test.get( 'name' );
 
 			if ( test.get( 'status' ) !== 'failed' ) {
-				// We're wroking only with failed tests, all other can be skipped.
+				// We're working only with failed tests, all other can be skipped.
 				return ;
 			}
 
@@ -172,7 +172,7 @@ define( [
 			wcagGuideline = test.get( 'guidelines' ).wcag,
 			successCriteria = wcagGuideline && CKEDITOR.tools.objectKeys( wcagGuideline )[ 0 ];
 		/**
-		 * @todo: Path logic is actually very similiar to the old interface, so it might be extracted
+		 * @todo: Path logic is actually very similar to the old interface, so it might be extracted
 		 * to a common method.
 		 */
 

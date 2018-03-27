@@ -10,7 +10,7 @@ define( function() {
 	 *
 	 * This class is responsible for fetching QuickFix classes.
 	 *
-	 * It supports callbacks queueing in case when multiple requrests for the class
+	 * It supports callbacks queueing in case when multiple requests for the class
 	 * occurs, and QuickFix is still yet not available.
 	 *
 	 * It is possible to implement loading of your custom QuickFixes, see
@@ -177,7 +177,7 @@ define( function() {
 	/**
 	 * Fired when Repository is asked to return a type, which has not been yet cached.
 	 *
-	 * This event might be canceled, so developer can implemnt custom QuickFix loading.
+	 * This event might be canceled, so developer can implement custom QuickFix loading.
 	 * It is important then to call {@link #register} method when the type is loaded,
 	 * otherwise pending callback won't be called.
 	 *

@@ -328,7 +328,7 @@ define( [
 		},
 
 		/**
-		 * Fixes aria markup of balloonpanel by ading both `aria-labelledby` and `aria-describedby`
+		 * Fixes aria markup of balloonpanel by adding both `aria-labelledby` and `aria-describedby`
 		 * attributes to the balloon wrapper.
 		 *
 		 * @private
