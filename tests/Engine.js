@@ -168,12 +168,10 @@
 				var engine = new Engine(),
 					callback = sinon.spy(),
 					processListener = sinon.spy(),
-					processedListener = sinon.spy(),
 					fakeContentElement = CKEDITOR.document.createElement( 'div' ),
 					ret;
 
 				engine.on( 'process', processListener );
-				engine.on( 'processed', processedListener );
 
 				ret = engine.process( null, fakeContentElement, callback );
 
@@ -186,9 +184,6 @@
 					eventDataPropertyMatcher( 'contentElement', CKEDITOR.dom.element ) );
 				sinon.assert.calledOn( processListener, engine );
 
-				assert.areSame( 1, processedListener.callCount, 'Processed event count' );
-				sinon.assert.calledWithExactly( processedListener, eventDataPropertyMatcher( 'issues', IssueList ) );
-
 				assert.isTrue( ret, 'Return value' );
 
 				function eventDataPropertyMatcher( propertyName, expectedType ) {
@@ -199,27 +194,9 @@
 			'test Engine process event can be canceled': function() {
 				var engine = new Engine(),
 					callback = sinon.spy(),
-					processedListener = sinon.spy(),
 					ret;
 
 				engine.on( 'process', function( evt ) {
-					evt.cancel();
-				} );
-				engine.on( 'processed', processedListener );
-
-				ret = engine.process( null, null, callback );
-
-				assert.areSame( 0, processedListener.callCount, 'Processed event count' );
-				assert.areSame( 0, callback.callCount, 'Callback call count' );
-				assert.isFalse( ret, 'Return value' );
-			},
-
-			'test Engine processed event can be canceled': function() {
-				var engine = new Engine(),
-					callback = sinon.spy(),
-					ret;
-
-				engine.on( 'processed', function( evt ) {
 					evt.cancel();
 				} );
 

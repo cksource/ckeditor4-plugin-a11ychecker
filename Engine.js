@@ -76,10 +76,6 @@ define( [ 'IssueList' ], function( IssueList ) {
 		}
 
 		if ( callback ) {
-			if ( this.fire( 'processed', { issues: issues, contentElement: contentElement } ) === false ) {
-				return false;
-			}
-
 			callback( issues );
 		}
 
