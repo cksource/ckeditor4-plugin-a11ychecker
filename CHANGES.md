@@ -9,6 +9,7 @@ Copyright (c) 2014-2018, CKSource - Frederico Knabben. All rights reserved.
 
 * [#233](https://github.com/cksource/ckeditor-plugin-a11ychecker/issues/233): Fixed: Balloon classes are localized, causing issues of a different testability look the same.
 * [#247](https://github.com/cksource/ckeditor-plugin-a11ychecker/issues/247): Introduced `process` event in the `Engine` type, allowing for adding custom issue types.
+* [#240](https://github.com/cksource/ckeditor-plugin-a11ychecker/pull/240): Added Brazilian Portuguese localization. Thanks to [Guilherme Alves](https://github.com/gsag)!
 
 ## Version 1.1.0
 
