@@ -1,0 +1,40 @@
+<style>
+	/* Style the body this way due to a known issue with Balloon Panel in Bender */
+	body {
+		margin-left: 0px;
+		padding-left: 320px;
+	}
+</style>
+
+<h1>Classic editor</h1>
+
+<textarea id="editor1" cols="10" rows="10">
+	&lt;p&gt;&lt;a href=&quot;https://ckeditor.com&quot;&gt;Adjanced&lt;/a&gt;&lt;a href=&quot;https://ckeditor.com&quot;&gt; links&lt;/a&gt; should cause an error.&lt;/p&gt;
+	&lt;p&gt;&lt;b&gt;Fake paragraph should cause a warning&lt;/b&gt;&lt;/p&gt;
+	&lt;h3&gt;Header&lt;/h3&gt;
+	&lt;h5&gt;This header is out of order, shuold cause a notice&lt;/h5&gt;
+</textarea>
+
+<h1>Inline editor</h1>
+
+<div contenteditable="true" id="editor2">
+	<p>
+		<a href="https://ckeditor.com">Adjanced</a>
+		<a href="https://ckeditor.com"> links</a> should cause an error.</p>
+	<p>
+		<b>Fake paragraph should cause a warning</b>
+	</p>
+	<h3>Header</h3>
+	<h5>This header is out of order, shuold cause a notice</h5>
+</div>
+
+<script>
+	var config = {
+		height: 200,
+		language: 'pt-br'
+	};
+
+	CKEDITOR.replace( 'editor1', config );
+	CKEDITOR.inline( 'editor2', config );
+
+</script>
