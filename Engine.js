@@ -217,16 +217,16 @@ define( [ 'IssueList' ], function( IssueList ) {
 	/**
 	 * Event fired when the engine is about to start processing the rules.
 	 *
-	 * It can be cancelled meaning that no further processing will be performed.
+	 * It can be canceled meaning that no further processing will be performed.
 	 *
-	 * Note that this even happens before issue engine is engaged.
+	 * Note that this event happens before the issue engine is engaged.
 	 *
 	 * @since 1.1.1
 	 * @event process
 	 * @member CKEDITOR.plugins.a11ychecker.Engine
 	 * @param {Object} data
-	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} data.issues List of issues to be returned.
-	 * @param {CKEDITOR.dom.element} data.contentElement See `contentElement` parameter in the {@link #process process method}.
+	 * @param {CKEDITOR.plugins.a11ychecker.IssueList} data.issues The list of issues to be returned.
+	 * @param {CKEDITOR.dom.element} data.contentElement See the `contentElement` parameter in the {@link #process process method}.
 	 */
 
 	return Engine;
