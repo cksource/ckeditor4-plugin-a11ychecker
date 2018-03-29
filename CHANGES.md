@@ -1,7 +1,7 @@
 CKEditor Accessibility Checker Changelog
 ========================================
 
-[CKEditor Accessibility Checker](https://cksource.com/accessibility-checker/)
+[CKEditor Accessibility Checker](https://ckeditor.com/ckeditor-4/accessibility-checker/)
 
 Copyright (c) 2014-2018, CKSource - Frederico Knabben. All rights reserved.
 
@@ -25,7 +25,7 @@ Fixed Issues:
 
 ## Version 1.0
 
-A brand new CKEditor plugin that lets you inspect accessibility level of content created in CKEditor and immediately solve any issues that are found. For an overview of its features, see the [Accessibility Checker website](https://cksource.com/accessibility-checker/).
+A brand new CKEditor plugin that lets you inspect accessibility level of content created in CKEditor and immediately solve any issues that are found. For an overview of its features, see the [Accessibility Checker website](https://ckeditor.com/ckeditor-4/accessibility-checker/).
 
 It is built upon three key elements:
 

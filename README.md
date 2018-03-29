@@ -3,7 +3,7 @@ CKEditor Accessibility Checker
 
 # Overview
 
-This repository contains the development version of the Accessibility Checker Plugin for CKEditor.
+This repository contains the development version of the [Accessibility Checker plugin](https://ckeditor.com/ckeditor-4/accessibility-checker/) for CKEditor.
 
 ## Requirements
 
@@ -12,7 +12,7 @@ This repository contains the development version of the Accessibility Checker Pl
 
 ## Browser Support
 
-Accessibility Checker has [the same browser compatibility as CKEditor](http://docs.ckeditor.com/#!/guide/dev_browsers), with the following exceptions:
+Accessibility Checker has [the same browser compatibility as CKEditor](https://docs.ckeditor.com/ckeditor4/latest/guide/dev_browsers.html), with the following exceptions:
 
 * Internet Explorer 8 is not supported.
 * Internet Explorer 9 Quirks Mode is not supported.

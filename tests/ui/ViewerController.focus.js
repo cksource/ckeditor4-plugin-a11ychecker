@@ -1,6 +1,6 @@
 /**
  * @license Copyright (c) 2014-2018, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
+ * For licensing, see LICENSE.md or https://ckeditor.com/license
  */
 /* bender-tags: a11ychecker,unit */
 /* bender-ckeditor-plugins: a11ychecker,toolbar,undo */

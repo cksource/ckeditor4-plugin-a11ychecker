@@ -42,9 +42,9 @@
   "scripts": {
     "test-quickfix-builder": "mocha -R dot dev/testsbuilder"
   },
-  "author": "CKSource (http://cksource.com/)",
+  "author": "CKSource (https://cksource.com/)",
   "license": "(GPL-2.0 OR GPL-3.0)",
-  "homepage": "https://cksource.com/accessibility-checker/",
+  "homepage": "https://ckeditor.com/ckeditor-4/accessibility-checker/",
   "bugs": {
     "url": "https://github.com/cksource/ckeditor-plugin-a11ychecker/issues"
   },

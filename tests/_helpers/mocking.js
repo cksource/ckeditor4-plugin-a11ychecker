@@ -1,6 +1,6 @@
 /**
  * @license Copyright (c) 2014-2018, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or http://ckeditor.com/license
+ * For licensing, see LICENSE.md or https://ckeditor.com/license
  */
 /**
  * @fileoverview A module that will make mocking function / objects easier.
