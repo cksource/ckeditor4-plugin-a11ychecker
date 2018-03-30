@@ -5,6 +5,8 @@ CKEditor Accessibility Checker Changelog
 
 Copyright (c) 2014-2018, CKSource - Frederico Knabben. All rights reserved.
 
+## Version 1.1.2
+
 ## Version 1.1.1
 
 New Features:
