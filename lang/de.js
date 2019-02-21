@@ -1,8 +1,8 @@
 /**
- * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2014-2019, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/license
  */
- 
+
 CKEDITOR.plugins.setLang( 'a11ychecker', 'de', {
 	toolbar: 'Barrierefreiheit prüfen',
 	closeBtn: 'Schließen',
