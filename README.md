@@ -19,6 +19,10 @@ Accessibility Checker has [the same browser compatibility as CKEditor](https://d
 
 ## Installation
 
+### Distribution Version
+
+For more information about the distribution version see the [`DISTRIBUTION.md`](DISTRIBUTION.md) file.
+
 ### Development Version
 
 If you are not interested in developing core Accessibility Checker features, feel free to skip this section.
@@ -51,10 +55,6 @@ grunt build-css
 ##### RequireJS
 
 Note that developer version requires RequireJS, so make sure you have it loaded.
-
-### Distribution Version
-
-For more information about the distribution version see the [`DISTRIBUTION.md`](DISTRIBUTION.md) file.
 
 ### Building a Distribution Version
 
@@ -117,9 +117,13 @@ You can actually use a totally different custom Quail build. To do that, provide
 
 For example:
 
-``bash
+```bash
 grunt build-full --quail=/libs/js/customQuailBuild`
-``
+```
+
+## Common questions
+
+Be sure to check [the Wiki](https://github.com/cksource/ckeditor4-plugin-a11ychecker/wiki) - it contains code samples for commonly asked questions.
 
 ## Where Do I Start?
 
