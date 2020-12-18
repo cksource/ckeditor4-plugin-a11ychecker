@@ -17,36 +17,65 @@
  * actually load it async at runtime, it would keep the file smaller).
  */
 
-var acNamespace = CKEDITOR.plugins.a11ychecker,
-	Engine = acNamespace.Engine,
-	IssueList = acNamespace.IssueList,
-	Issue = acNamespace.Issue,
-	IssueDetails = acNamespace.IssueDetails,
-	Quail,
-	EngineQuailConfig,
-	$ = window.jQuery || window.$;
+/* @exclude */
+define( [
+	'window',
+	'callback',
+	'EngineQuail',
+	'editor'
+], function( window, callback, EngineQuail, editor ) {
+/* @endexclude */
+	function quailInclude() {
+		var acNamespace = CKEDITOR.plugins.a11ychecker,
+			Engine = acNamespace.Engine,
+			IssueList = acNamespace.IssueList,
+			Issue = acNamespace.Issue,
+			IssueDetails = acNamespace.IssueDetails,
+			Quail,
+			EngineQuailConfig,
+			$ = window.jQuery || window.$;
 
-// EngineQuailConfig class can still be loaded with RequireJS as it does not have any deps.
-require( [ 'EngineQuailConfig' ], function( _EngineQuailConfig ) {
-	EngineQuailConfig = _EngineQuailConfig;
+		// EngineQuailConfig class can still be loaded with RequireJS as it does not have any deps.
+		require( [ 'EngineQuailConfig' ], function( _EngineQuailConfig ) {
+			EngineQuailConfig = _EngineQuailConfig;
+		} );
+
+
+		if ( !$ || !$.fn ) {
+			throw new Error( 'Missing jQuery. Accessibility Checker\'s default engine, Quail.js requires jQuery ' +
+				'to work correctly.' );
+		}
+
+		// We'll load custom Quail only if it's not already registered.
+		if ( $.fn.quail ) {
+			includeEngineQuailAndContinue();
+			return;
+		}
+
+		var quailPath = editor.config.a11ychecker_quailPath || 'plugins/a11ychecker/libs/quail/quail.jquery.min.js';
+
+		CKEDITOR.scriptLoader.load( [ quailPath ], function( completed ) {
+
+			if ( completed.length ) {
+				includeEngineQuailAndContinue();
+			} else {
+				throw new Error( 'Could not load Quail' );
+			}
+		} );
+
+		function includeEngineQuailAndContinue() {
+			Quail = $.fn.quail;
+
+			/*@include ../../EngineQuail.js */
+
+			callback( EngineQuail );
+		}
+	}
+
+	quailInclude();
+/* @exclude */
+	return quailInclude;
 } );
+/* @endexclude */
 
-(function() {
-	if ( !$ || !$.fn ) {
-		throw new Error( 'Missing jQuery. Accessibility Checker\'s default engine, Quail.js requires jQuery ' +
-			'to work correctly.' );
-	}
-
-	// We'll load custom Quail only if it's not already registered.
-	if ( $.fn.quail ) {
-		return;
-	}
-/*@include libs/quail/quail.jquery.min.js */
-}());
-
-Quail = $.fn.quail;
-
-/*@include ../../EngineQuail.js */
-
-callback( EngineQuail );
 /* jshint ignore:end */
