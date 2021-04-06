@@ -17,7 +17,7 @@
 		requires: 'balloonpanel',
 		lang: 'en,nl,de,de-ch,pt-br', // %REMOVE_LINE_CORE%
 		// List of preferred languages for quickfixes.
-		quickFixesLang: 'en,nl,de,pt-br',
+		quickFixesLang: 'en,nl,de,de-ch,pt-br',
 		icons: pluginName, // %REMOVE_LINE_CORE%
 		hidpi: true, // %REMOVE_LINE_CORE%
 
