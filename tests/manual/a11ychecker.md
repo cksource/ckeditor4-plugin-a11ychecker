@@ -14,3 +14,4 @@ Some hints:
 corner of the window.
 - Ignore an issue, close the Accessibility Checker dialog and run AC again to find, if the issue is still ignored.
 - Ensure that `esc` key closes the Accessiblity Checker balloon and puts selection on the issue source element.
+- Open Accessiblity Checker, press `Shift+Tab` twice. The close button should be focused. Ensure that in this state pressing the `space` key closes Accessiblity Checker.

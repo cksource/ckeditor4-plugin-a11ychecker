@@ -83,6 +83,28 @@ define( [
 		};
 
 		this.panel.addShowListener( function() {
+			return this.parts.close.on( 'keydown', function( evt ) {
+				var keystroke = evt.data.getKeystroke();
+
+				// Hide the panel on space key press in close button.
+				if ( keystroke == 32 ) {
+					this.blur();
+					this.hide();
+					evt.data.preventDefault();
+				}
+			}, this );
+		} );
+
+		// Hide the panel once the closing X is clicked.
+		this.panel.addShowListener( function() {
+			return this.parts.close.on( 'click', function( evt ) {
+				this.blur();
+				this.hide();
+				evt.data.preventDefault();
+			}, this );
+		} );
+
+		this.panel.addShowListener( function() {
 			return this.parts.panel.on( 'keydown', function( evt ) {
 				var keystroke = evt.data.getKeystroke();
 

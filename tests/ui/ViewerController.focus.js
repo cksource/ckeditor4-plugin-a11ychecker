@@ -12,7 +12,7 @@
 	// Note that we have an extra (unused) requirement for 'EngineMock' and 'Controller' classes.
 	// That way it will force them to be available for the editor, and we have sure that a11ychecker
 	// plugin will be ready synchronously.
-	bender.require( [ 'testSuite', 'EngineMock' ], function( testSuite, EngineMock ) {
+	bender.require( [ 'testSuite', 'EngineMock', 'helpers/keyEvent' ], function( testSuite, EngineMock, keyEvent ) {
 		testSuite.useEngine( EngineMock );
 
 		bender.editors = {
@@ -136,7 +136,7 @@
 				// Will focus the last button.
 				initialFocusElem.focus();
 
-				initialFocusElem.fire( 'keydown', getKeyEvent( 9 ) );
+				initialFocusElem.fire( 'keydown', keyEvent.getKeyEvent( 9 ) );
 
 				assert.areSame( expectedFocusElem, CKEDITOR.document.getActive(), 'Invalid element focused' );
 			},
@@ -156,7 +156,7 @@
 
 				window.setTimeout( function() {
 					resume( function() {
-						initialFocusElem.fire( 'keydown', getKeyEvent( CKEDITOR.SHIFT + 9 ) );
+						initialFocusElem.fire( 'keydown', keyEvent.getKeyEvent( CKEDITOR.SHIFT + 9 ) );
 
 						var activeElement = CKEDITOR.document.getActive();
 						assert.areSame( expectedFocusElem, activeElement, 'Invalid element focused' );
@@ -206,26 +206,6 @@
 		// Returns the last focusable element in viewer.
 		function getLastFocusable( viewer ) {
 			return viewer.form.parts.ignoreButton;
-		}
-
-		// Returns a key event mockup.
-		// @param {Number} keystroke Keystroke with modifiers. eg. CKEDITOR.SHIFT + 9 // shift + tab
-		function getKeyEvent( keystroke ) {
-			// This fancy construction will remove modifier bits.
-			var key = keystroke & ~( CKEDITOR.CTRL | CKEDITOR.ALT | CKEDITOR.SHIFT );
-
-			return {
-				getKey: function() {
-					return key;
-				},
-				getKeystroke: function() {
-					return keystroke;
-				},
-				stopPropagation: function() {
-				},
-				preventDefault: function() {
-				}
-			};
 		}
 
 		testSuite.testEditors( bender.editors, tests );
