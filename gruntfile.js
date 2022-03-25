@@ -82,7 +82,8 @@ module.exports = function( grunt ) {
 				},
 
 				options: {
-					paths: [ 'less' ]
+					paths: [ 'less' ],
+					javascriptEnabled: true
 				}
 			},
 
@@ -98,7 +99,8 @@ module.exports = function( grunt ) {
 
 				options: {
 					paths: [ 'less' ],
-					compress: true
+					compress: true,
+					javascriptEnabled: true
 				}
 			}
 		},
