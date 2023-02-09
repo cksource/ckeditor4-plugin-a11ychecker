@@ -2,7 +2,7 @@ Software License Agreement
 ==========================
 
 CKEditor Accessibility Checker Plugin
-Copyright (c) 2014-2022, CKSource Holding sp. z o.o. All rights reserved.
+Copyright (c) 2014-2023, CKSource Holding sp. z o.o. All rights reserved.
 
 License under the terms of the GNU General Public License Version 2 or later (the "GPL") (Appendix A).
 
@@ -113,7 +113,7 @@ Third-party software included:
 - UglifyJS, Copyright 2012-2013 (c) Mihai Bazon <mihai.bazon@gmail.com> (npm dependency)<br>
   https://github.com/mishoo/UglifyJS<br>
   License under the terms of the BSD license.
-<!-- @endif --> 
+<!-- @endif -->
 
 Parts of code taken from the following libraries are included in CKEditor Accessibility Checker:
 

@@ -139,7 +139,7 @@ Both unit tests and integration tests are placed in the `tests` directory.
 
 ## License
 
-Copyright (c) 2014-2022, CKSource Holding sp. z o.o. All rights reserved.<br>
+Copyright (c) 2014-2023, CKSource Holding sp. z o.o. All rights reserved.<br>
 Licensed under the terms of the [GNU General Public License Version 2 or later (the "GPL")](http://www.gnu.org/licenses/gpl.html).
 
 See LICENSE.md for more information.
