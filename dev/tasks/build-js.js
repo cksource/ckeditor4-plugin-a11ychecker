@@ -1,6 +1,6 @@
 /**
- * @license Copyright (c) 2014-2022, CKSource Holding sp. z o.o. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/license
+ * @license Copyright (c) 2014-2023, CKSource Holding sp. z o.o. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 ( function() {
 	'use strict';
@@ -27,7 +27,7 @@
 				licenseStatement = '/**\n' +
 					'* @license Copyright (c) 2014-' + ( new Date() ).getFullYear() +
 					', CKSource Holding sp. z o.o. All rights reserved.\n' +
-					'* For licensing, see LICENSE.md or https://ckeditor.com/license\n' +
+					'* For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license\n' +
 					'*/\n\n';
 
 			requirejs.optimize( config,
