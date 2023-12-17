@@ -1,0 +1,34 @@
+<style>
+	/* Style the body this way due to a known issue with Balloon Panel in Bender */
+
+	body {
+		margin-left: 0px;
+		padding-left: 320px;
+	}
+
+</style>
+<textarea id="editor1" cols="10" rows="10">
+	&lt;h1&gt;Font contrast&lt;/h1&gt;&#10;&#9;&lt;p&gt;The following text (white text on a white background) should fail:&#10;&#9;&#9;&lt;span style=&quot;color:#ffffff&quot;&gt;&#10;&#9;&#9;&#9;&lt;span style=&quot;background-color:#ffffff&quot;&gt;foobar&lt;/span&gt;&#10;&#9;&#9;&lt;/span&gt;&#10;&#9;&lt;/p&gt;&#10;&#9;&lt;p&gt;The following text should also fail:&#10;&#9;&#9;&lt;span style=&quot;color:#9b59b6&quot;&gt;&#10;&#9;&#9;&#9;&lt;span style=&quot;background-color:#8e44ad&quot;&gt;foobar&lt;/span&gt;&#10;&#9;&#9;&lt;/span&gt;&#10;&#9;&lt;/p&gt;&#10;&#9;&lt;p&gt;&NonBreakingSpace;&lt;/p&gt;
+</textarea>
+<div contenteditable="true" id="editor2">
+	<h1>Font contrast</h1>
+	<p>The following text (white text on a white background) should fail:
+		<span style="color:#ffffff">
+			<span style="background-color:#ffffff">foobar</span>
+		</span>
+	</p>
+	<p>The following text should also fail:
+		<span style="color:#9b59b6">
+			<span style="background-color:#8e44ad">foobar</span>
+		</span>
+	</p>
+</div>
+<script>
+	CKEDITOR.replace( 'editor1', {
+		height: 500,
+		width: 900
+	} );
+
+	CKEDITOR.inline( 'editor2' );
+
+</script>
